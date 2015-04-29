@@ -146,11 +146,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    render_forbidden unless logged_in? && current_user.admin?
-  end
-
-  def require_admin_or_referenced_user
-    head :not_found unless logged_in? && (current_user.admin? || current_user == @user)
+    render_forbidden unless logged_in? && (current_user.admin? || current_user.roles.include?(Role.find_by_name("Admin")))
   end
 
   def require_referenced_user

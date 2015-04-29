@@ -251,7 +251,7 @@ describe UsersController do
         expect {
           put :update, :id => other_user.to_param, :first_name => "updated"
         }.to_not change { other_user.reload.first_name }
-        response.code.should == "404"
+        response.code.should == "403"
       end
 
       it 'does not allow non-admins to make themselves a developer' do

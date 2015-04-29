@@ -38,4 +38,4 @@ chorusadmin = User.find_by_username("chorusadmin")
 # Seed roles groups and permissions
 admin_role = Role.create(:name => "Admin")
 developer_role = Role.create(:name => "Developer")
-User.set_permissions_for [admin_role], [:create, :destroy, :ldap]
+User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
