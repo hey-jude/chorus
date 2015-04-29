@@ -14,7 +14,7 @@ module Authority
   # 'authorize' finds the permissions for each role the user has
   # on the given class. If a role permission matches the class
   # permission, then the user is authorized for that activity
-  def self.authorize!(activity_symbol, object, user, options = {})
+  def self.authorize!(activity_symbol, object, user, options)
 
     # retreive user and object information
     roles = retrieve_roles(user)
@@ -29,13 +29,12 @@ module Authority
     # Is user owner of object?
     #return if is_owner?(user, object) || handle_legacy_action(options[:or], object, user)
     #return if chorus_object.owner == user
+    legacy_action_allowed = handle_legacy_action(options, object, user) if options
 
     # retreive and merge permissions
     class_permissions = common_permissions_between(roles, chorus_class)
     object_permissions = common_permissions_between(roles, chorus_object)
     permissions = [class_permissions, object_permissions].flatten.compact
-
-    raise Allowy::AccessDenied.new("Unauthorized", activity_symbol, object) unless permissions
 
     Chorus.log_debug("Could not find activity_symbol in #{actual_class.name} permissions") if actual_class::PERMISSIONS.index(activity_symbol).nil?
 
@@ -46,24 +45,28 @@ module Authority
       bit_enabled? permission.permissions_mask, activity_mask
     end
 
-    raise Allowy::AccessDenied.new("Unauthorized", activity_symbol, object) unless allowed
+    raise Allowy::AccessDenied.new("Unauthorized", activity_symbol, object) unless allowed || legacy_action_allowed
+
+    allowed || legacy_action_allowed
   end
 
   private
 
   # This handles legacy authentication actions that are not role-based...
-  # Ideally we can get rid of this when Workspace ''roles'' are implemented...
-  # Basically just a big case switch
-  def self.handle_legacy_action(actions, object, user)
-    actions = Array.wrap(actions)
+  # 'current_user' is usually passed as current user, but not always
+  def self.handle_legacy_action(options, object, user)
+    # or_actions are 'OR'd together
+    or_actions = Array.wrap(options[:or])
     allowed = false
 
-    actions.each do |action|
+    or_actions.each do |action|
       allowed ||= case action
                     when :current_user_is_workspace_owner
                       object.is_a?(::Events::NoteOnWorkspace) && (user == object.workspace.owner)
                     when :current_user_is_in_workspace
                       object.is_a?(::Workspace) && object.member?(user)
+                    when :current_user_is_referenced_user
+                      object.is_a?(::User) && object == user
                     else
                       false
                     end

@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   before_filter :load_user, :only => [:show, :update, :destroy]
   before_filter :require_not_current_user, :only => [:destroy]
-  before_filter :require_admin_or_referenced_user, :only => :update
-  before_filter :authorize, :only => [:create, :destroy, :ldap]
+  before_filter :authorize, :only => [:create, :destroy, :ldap, :update]
 
   wrap_parameters :exclude => []
 
@@ -64,7 +63,12 @@ class UsersController < ApplicationController
 
   def authorize
     user_object = @user || User.new
-    Authority.authorize! action_name.to_sym, user_object, current_user
+
+    if action_name.to_sym == :update
+      options = {:or => :current_user_is_referenced_user}
+    end
+
+    Authority.authorize! action_name.to_sym, user_object, current_user, options
   end
 
 end
