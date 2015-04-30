@@ -63,10 +63,16 @@ module Authority
       allowed ||= case action
                     when :current_user_is_workspace_owner
                       object.is_a?(::Events::NoteOnWorkspace) && (user == object.workspace.owner)
+
                     when :current_user_is_in_workspace
                       object.is_a?(::Workspace) && object.member?(user)
+
                     when :current_user_is_referenced_user
                       object.is_a?(::User) && object == user
+
+                    when :current_user_is_event_actor
+                      (object.class < ::Events::Base) && user.id == object.actor.id
+
                     else
                       false
                     end

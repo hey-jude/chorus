@@ -1,7 +1,8 @@
 class AttachmentsController < ApplicationController
   def create
     event = Events::Base.find(params[:note_id])
-    authorize! :create, Attachment, event
+
+    Authority.authorize! :create_attachment_on, event, current_user, { :or => :current_user_is_event_actor }
 
     if params[:contents]
       attachment_content = params[:contents]
