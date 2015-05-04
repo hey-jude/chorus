@@ -10,7 +10,6 @@ class NotesController < ApplicationController
     # Create_note_on is an alias for :show, which will eventually be taken care of by scope
     authorize! :create_note_on, model
     #Authority.authorize! :show, model, current_user
-    #binding.pry
     note_params[:body] = sanitize(note_params[:body])
 
     note = Events::Note.build_for(model, note_params)
@@ -34,8 +33,9 @@ class NotesController < ApplicationController
 
   def destroy
     note = Events::Base.find(params[:id])
-    authorize! :destroy, note
-    #Authority.authorize! :destroy, note, current_user, {:or => :current_user_is_workspace_owner}
+    #authorize! :destroy, note
+    Authority.authorize! :destroy, note, current_user, { :or => [:current_user_is_workspace_owner,
+                                                                 :current_user_is_event_actor] }
     note.destroy
     render :json => {}
   end
