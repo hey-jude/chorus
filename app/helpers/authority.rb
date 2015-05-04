@@ -14,7 +14,7 @@ module Authority
   # 'authorize' finds the permissions for each role the user has
   # on the given class. If a role permission matches the class
   # permission, then the user is authorized for that activity
-  def self.authorize!(activity_symbol, object, user, options)
+  def self.authorize!(activity_symbol, object, user, options={})
 
     # retreive user and object information
     roles = retrieve_roles(user)
