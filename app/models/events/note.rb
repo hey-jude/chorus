@@ -6,7 +6,7 @@ module Events
     include SearchableHtml
     include Permissioner
 
-    PERMISSIONS = [:create_attachment_on]
+    PERMISSIONS = [:create_attachment_on, :update]
 
     validates_presence_of :actor_id
     validate :no_note_on_archived_workspace, :on => :create

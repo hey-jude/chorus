@@ -27,8 +27,7 @@ class NotesController < ApplicationController
   def update
     note = Events::Base.find(params[:id])
 
-    #Authority.authorize! :update, note, current_user
-    authorize! :update, note
+    Authority.authorize! :update, note, current_user, { :or => :current_user_is_event_actor }
     note.update_attributes!(:body => sanitize(params[:note][:body]))
     present note
   end
