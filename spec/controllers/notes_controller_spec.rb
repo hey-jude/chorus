@@ -9,7 +9,7 @@ describe NotesController do
     end
 
     before :each do
-      #stub(Authority).authorize! { nil }
+      stub(Authority).authorize! { nil }
     end
 
     let(:model) { workspaces(:public) }

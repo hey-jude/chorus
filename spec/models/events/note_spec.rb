@@ -22,6 +22,19 @@ describe Events::Note do
     it { should belong_to(:promoted_by).class_name('User') }
   end
 
+  describe "permissions" do
+    # Since the permissions use a bitmask, it's important that the order of permissions
+    # never change after the customer has permissions in the database.
+    # If you need a new permission, append it to the end of the list.
+    # Updating the order of permissions after-the-fact will require
+    # lots of testing.
+
+    it "should have the exact permissions specified" do
+      permissions_list = [:create_attachment_on, :update]
+      Events::Note::PERMISSIONS.should eq(permissions_list)
+    end
+  end
+
   it "requires an actor" do
     note = Events::Note.new
     note.should have_error_on(:actor_id)
