@@ -10,7 +10,7 @@ class ChorusClass < ActiveRecord::Base
   def self.search_permission_tree(klass)
     initial_search = find_by_name(klass.name)
 
-    if initial_search.nil?
+    if initial_search.permissions.empty?
 
       superclasses_of(klass).each do |ancestor|
         ancestor_chorus_class = find_by_name(ancestor.to_s)
