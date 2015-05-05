@@ -81,7 +81,7 @@ describe InsightsController do
 
     context "when the note is demotable by the current user" do
       before do
-        any_instance_of(Events::NoteOnWorkspace) { |note| stub(note).demotable_by(user) { true } }
+        stub(Authority).authorize! { nil }
       end
 
       it "toggles the insight field on the given note" do
@@ -93,10 +93,6 @@ describe InsightsController do
     end
 
     context "when the note is NOT demotable by the current user" do
-      before do
-        any_instance_of(Events::NoteOnWorkspace) { |note| stub(note).demotable_by(user) { false } }
-      end
-
       it "refuses to toggle the insight field on the given note" do
         expect {
           post :destroy, {id: note.id}
