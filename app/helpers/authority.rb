@@ -30,6 +30,7 @@ module Authority
     #return if is_owner?(user, object) || handle_legacy_action(options[:or], object, user)
     #return if chorus_object.owner == user
     legacy_action_allowed = handle_legacy_action(options, object, user) if options
+    return if legacy_action_allowed
 
     # retreive and merge permissions
     class_permissions = common_permissions_between(roles, chorus_class)
@@ -51,6 +52,15 @@ module Authority
   end
 
   private
+
+  # There are a bunch of ways of 'owning' an object so this
+  # function needs to test each one
+  def self.is_owner?(object, user)
+    case object
+    when is_a?(::Events::NoteOnWorkspace)
+
+    end
+  end
 
   # This handles legacy authentication actions that are not role-based...
   # 'current_user' is usually passed as current user, but not always
@@ -78,6 +88,12 @@ module Authority
 
                     when :current_user_promoted_note
                       (object.class < ::Events::Base) && object.promoted_by == user
+
+                    when :current_user_can_view_note_target
+                      # Note show uses old access permissions due to complicated permissions.
+                      # We can change this to an authorize! call when the other objects are in the
+                      # permissions system
+                      ::Events::NoteAccess.new(user).show?(object)
 
                     else
                       false
