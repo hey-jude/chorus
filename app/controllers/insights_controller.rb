@@ -12,12 +12,10 @@ class InsightsController < ApplicationController
 
   def destroy
     note = Events::Note.visible_to(current_user).find params[:id]
-    if note.demotable_by(current_user)
-      note.demote_from_insight
-      present note
-    else
-      head :forbidden
-    end
+    Authority.authorize! :demote_from_insight, note, current_user, {:or => [:current_user_promoted_note,
+                                                                            :current_user_is_notes_workspace_owner]}
+    note.demote_from_insight
+    present note
   end
 
   def publish

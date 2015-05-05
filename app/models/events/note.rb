@@ -6,7 +6,7 @@ module Events
     include SearchableHtml
     include Permissioner
 
-    PERMISSIONS = [:create_attachment_on, :update, :destroy]
+    PERMISSIONS = [:create_attachment_on, :update, :destroy, :demote_from_insight]
 
     validates_presence_of :actor_id
     validate :no_note_on_archived_workspace, :on => :create

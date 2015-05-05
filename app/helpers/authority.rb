@@ -73,6 +73,12 @@ module Authority
                     when :current_user_is_event_actor
                       (object.class < ::Events::Base) && user.id == object.actor.id
 
+                    when :current_user_is_notes_workspace_owner
+                      (object.class < ::Events::Base) && object.workspace && (object.workspace.owner == user)
+
+                    when :current_user_promoted_note
+                      (object.class < ::Events::Base) && object.promoted_by == user
+
                     else
                       false
                     end
