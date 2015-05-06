@@ -29,7 +29,8 @@ class InsightsController < ApplicationController
   def unpublish
     note_id = params[:insight][:note_id] || params[:note][:note_id]
     note = Events::Note.find(note_id)
-    authorize! :update, note
+    #authorize! :update, note
+    Authority.authorize! :update, note, current_user, { :or => :current_user_is_event_actor }
     raise ApiValidationError.new(:base, :generic, {:message => "Note has to be published first"}) unless note.published
     note.set_insight_published false
     present note, :status => :created
