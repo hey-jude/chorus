@@ -1,7 +1,7 @@
-/* ********** */
-/* errors, messages, etc in dialogs          */
-/* also alerts - which are messaging dialogs */
-/* ********** */
+// ********** */
+// errors, messages, etc in dialogs          */
+// also alerts - which are messaging dialogs */
+// ********** */
 
 $margin-right-for-error-marker: 20px;
 
@@ -20,16 +20,16 @@ $margin-right-for-error-marker: 20px;
 	}
 }
 
-/* colored border for fields that have an error */
+// colored border for fields that have an error */
 @mixin error-input-border {
     border: 2px solid $error-input-border-color;
 }
 
-/* exclamation icon marker for fields that have an error */
-/* cant use FA glyph because input fields can only have background images */
+// exclamation icon marker for fields that have an error */
+// cant use FA glyph because input fields can only have background images */
 @mixin error-background-icon {
     background-image: url("/images/messaging/error-exclamation.svg");
-    background-size: 18px 18px;
+    background-size: 17px 17px;
     background-repeat: no-repeat;
     padding-right: $margin-right-for-error-marker;
 }
@@ -42,42 +42,42 @@ $margin-right-for-error-marker: 20px;
     @include after-clearfix;
 
     background-color: $body-background-color;
-    padding-top: 5px;
 
     font-weight: normal;
 
+    // .message_block: used on full-page error type
     .message-block {
-
-        /* ***** */
-        /* if "errorDiv" is not within .girdle, then need to match side margins of .girdle */
-        /* otherwise, only top and bottom */
-        /* ***** */
 
         margin: 10px $dialog-padding-leftRight 10px $dialog-padding-leftRight;
         border: 1px solid $error-icon-color;
         @include border-radius ($alert-border-radius);
-        background-color: $error-background-color;   
+        background-color: $error-background-color;        
     }
     
     ul {
-        /* position: relative; */
+        // position: relative; */
         text-align: left;
 
 
-/* reference numbers to be made into mixin */
-/* dialog */
-/* text */
-/* > margin-left: 35 */
-/* icon */
-/* > margin-left: -25 ( -1 * (textmargin - 10)) */
-/* > size: medium */
-/*  */
-/* in-page */
-/* text */
-/* > margin-left: 40 */
-/* icon */
-/* > margin-left: -30 ( -1 * (textmargin - 10)) */
-/* > size: large */
+// ***** */
+// if "errorDiv" is not within .girdle, then need to match side margins of .girdle */
+// otherwise, only top and bottom */
+// ***** */
+        
+// TODO: reference numbers to be made into mixin */
+// dialog */
+// text */
+// > margin-left: 35 */
+// icon */
+// > margin-left: -25 ( -1 * (textmargin - 10)) */
+// > size: medium */
+//  */
+// in-page */
+// text */
+// > margin-left: 40 */
+// icon */
+// > margin-left: -30 ( -1 * (textmargin - 10)) */
+// > size: large */
 
 
         li {
@@ -96,19 +96,12 @@ $margin-right-for-error-marker: 20px;
 
 
             &:first-child {
-                // margin-top: 5px;
-                // border-top-left-radius: $alert-border-radius;
-                // border-top-right-radius: $alert-border-radius;
+                margin-top: 5px;
             }
             &:last-child {
-//                 margin-bottom: 5px;
                 margin-bottom: 0px;
-                // border-bottom-left-radius: $alert-border-radius;
-                // border-bottom-right-radius: $alert-border-radius;
             }
-            ~li {
-               //  margin-top: -4px;
-            }
+            // ~li {}
 
             &::before {
                 display: inline-block;
@@ -123,20 +116,34 @@ $margin-right-for-error-marker: 20px;
                 @include alert-error-icon;
             }
         }
-        
     }
 }
 
-/*     .action { */
-/*         font-weight: normal; */
-/*         display: inline-block; */
-/*         float: right; */
-/*         margin: 0 10px; */
-/*         font-size: $medium-font; */
-/*         color: white; */
-/*         padding-top: 10px; */
-/*     } */
+//     .action { */
+//         font-weight: normal; */
+//         display: inline-block; */
+//         float: right; */
+//         margin: 0 10px; */
+//         font-size: $medium-font; */
+//         color: white; */
+//         padding-top: 10px; */
+//     } */
 
+
+// OVERRIDES for when errors are within a dialog
+.dialog {
+    .errors,
+    .sql_errors,
+    .dataset_errors,
+    .warning {
+        ul {
+            li {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    }
+}
 
 .error_block {}
 
@@ -144,10 +151,10 @@ $margin-right-for-error-marker: 20px;
     background-color: $needs-attention;
 }
 
-/* user input: named error BUT in meaning is as alert */
+// user input: named error BUT in meaning is as alert */
 
-/* input elements wont take ::after  */
-/* so background image is necessary */
+// input elements wont take ::after  */
+// so background image is necessary */
 
 input.has_error,
 textarea.has_error,
