@@ -35,7 +35,7 @@ shared_examples "a permissioned model" do
 
   describe "permission_symbols_for" do
     let (:role) { roles(:a_role) }
-    let (:user) { users(:admin) }
+    let (:user) { User.new }
     let (:permission) { model.class::PERMISSIONS.first }
     it "should_return the correct permission_symbol" do
       user.roles << role
