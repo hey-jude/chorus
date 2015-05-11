@@ -57,6 +57,12 @@ chorus.handlebarsHelpers.template = {
         return new Handlebars.SafeString($("<span></span>").text(text).attr(attributes || {}).outerHtml());
     },
 
+    timeZonesSelect: function () {
+        return Handlebars.helpers.renderTemplate('time_zone_selector', {
+            zones: chorus.models.Config.instance().get("timeZones")
+        });
+    },
+    
     uploadWidgetFor: function(propertyName) {
         return Handlebars.helpers.renderTemplate("components/upload_widget", { propertyName: propertyName });
     },
@@ -74,16 +80,15 @@ chorus.handlebarsHelpers.template = {
         });
     },
 
-    timeZonesSelect: function () {
-        return Handlebars.helpers.renderTemplate('time_zone_selector', {
-            zones: chorus.models.Config.instance().get("timeZones")
-        });
-    },
-    
     generalDataSourceFields: function (values) {
         return Handlebars.helpers.renderTemplate("data_sources/general_data_source_fields", values || {});
     },
-    
+
+    generaldBAccountFields: function (values) {
+        return Handlebars.helpers.renderTemplate("data_sources/general_dB_account_fields", values || {});
+    },
+
+   
     dbDataSourceFields: function(context) {
         return Handlebars.helpers.renderTemplate("data_sources/db_data_source_fields", context || {});
     },

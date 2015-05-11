@@ -1,16 +1,15 @@
+// GENERAL RULES FOR FORMS IN THE APPLICATION */
+
+
 @import "_common";
 @import "compass/css3/border-radius";
 @import "_button_common";
 
 
-// GENERAL RULES FOR FORMS IN THE APPLICATION */
-
-
-// widget "* = required" */
+// widget displaying "* = required" */
 .legend_for_required {
     position: relative;
     top: 10px;
-    margin-top: 5px;
     font-size: $small-font;
     color: #707070;
 }
@@ -23,7 +22,7 @@
     color: $required-marker-color;
 }
 
-// grouping of options in form */
+// grouping of multiple fields in form */
 fieldset {
     margin: 0 0 0 0;
     padding: 5px 10px 5px 10px;
@@ -47,18 +46,25 @@ fieldset {
     }
 }
 
+
 .girdle {
     label {
-        margin-top: 8px;
+        margin-top: $padding-y;
         margin-bottom: 1px;
     }
 }
 
+// grouping of single label & field */
 .form_pair {
 
-    // default for all form labels = label on line above form element */
+    // default for all form labels = label over form element (over/under) */
     label {
         display: block;
+
+        // add class .adjacent for when lable & field should be on the same line
+        &.adjacent {
+            display: inline-block;
+        }
     }
 }
 

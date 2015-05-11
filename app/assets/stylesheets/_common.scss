@@ -1,4 +1,4 @@
-// Do not put any css rules into this file. This file is only for declaration of variables and mixins
+// DO NOT PUT ANY CSS RULES INTO THIS FILE. THIS FILE IS ONLY FOR DECLARATION OF VARIABLES AND MIXINS
 @import "_browser_support";
 
 // Grand Old Colors
@@ -53,7 +53,7 @@ $brand-dark:    darken($brand, 14%);
 $accent: $alice-blue;
 //$accent-light: unused;
 $accent-tint: rgb(250, 252, 253);
-/* $accent-shade: rgb(231, 243, 253);*/
+//$accent-shade: rgb(231, 243, 253);*/
 $accent-shade: rgb(227, 241, 252);  /* #E3F1FC */
 //$accent-dark: unused;
 
@@ -184,7 +184,8 @@ $alert-text-color:          $core-white;
 //$warning-color: $needs-attention;  //used?
 $warning-background-color:  $needs-attention;
 $warning-icon-color:        #F7771B;
-/* $warning-text-color:     $core-white; */
+// $warning-icon-color:     #B24E11;
+// $warning-text-color:     $core-white; */
 
 //$informational-color: $pacific-blue;  // used?
 $informational-background-color:    #DAEDFE;
@@ -200,6 +201,8 @@ $success-icon-color:        #448025;
 $success-text-color:        #448044;
 
 $normal-tooltip-text-color: $core-white;
+$informational-tooltip-text-color: #DAEDFE;
+
 
 // hard errors
 // 404-like
@@ -266,11 +269,12 @@ $dialog-padding-bottom: 15px;
 
 $separator-space: 4px;
 
-$caret-margin: 5px;		// space between the text and the caret glyph
+$caret-margin: 5px; // space between the text and the caret glyph
 
 
 // General application sizes
 
+$selectlist-width-minimum: 60px;
 $selectlist-width-small:  100px;
 $selectlist-width-medium: 210px;
 $selectlist-width-large:  300px;
@@ -378,7 +382,7 @@ $baseFontSize: 15px !default; // must be px
 //  * em-ratio converts between em and px
 //  * to em    divide by this ratio
 //  * to px    mulitply by this ratio
-//  */
+
 $emRatio: $baseFontSize/$baseLineHeight;
 
 
@@ -506,9 +510,9 @@ $lozenge-color-selected-dark: $brand-dark;
     color: $color-text2;
 }
 
-/* primary link */
-/* used for the name of items in list */
-/* workspaces, files, etc. */
+// primary link */
+// used for the name of items in list */
+// workspaces, files, etc. */
 
 @mixin font-primary {
     font-size: 18px;
@@ -696,7 +700,7 @@ $lozenge-color-selected-dark: $brand-dark;
 		position: relative;
 		left: $caret-margin;
 		font-family: FontAwesome;
-		content: "\f0d7"; /* fa-caret-down */
+		content: "\f0d7"; // fa-caret-down */
 	}
 }
 
@@ -902,7 +906,7 @@ $lozenge-color-selected-dark: $brand-dark;
     content: "\f058";  // fa-check-circle */
 }
 @mixin alert-confirm-icon {
-    content: "\f059";  // fa-question-circle */
+    content: "\f059";  // fa-question-circle */\
 }
 @mixin alert-informational-icon {
     content: "\f06a";  // fa-exclamation-circle */

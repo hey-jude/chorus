@@ -1,6 +1,6 @@
 chorus.alerts.Error = chorus.alerts.Base.extend({
     constructorName: "Error",
-    
+
     // default class for the alert:confirm dialog style
     additionalClass: "error",
 

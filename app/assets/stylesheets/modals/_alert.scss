@@ -2,10 +2,12 @@
 
 $alert-marker-width: 60px;
 
-/* GENERAL ALERT-DIALOG STYLES */
-/* AND OTHER ALERT MARKERS IN THE APP */
+
+// GENERAL ALERT-DIALOG STYLES */
+// AND OTHER ALERT MARKERS IN THE APP */
 
 .alert_dialog {
+    // .alert {
 
     width: $default-dialog-width;
     margin-left: auto;
@@ -13,14 +15,49 @@ $alert-marker-width: 60px;
 
     .errors {
         display: none;
-//         width: 483px;
-       //  max-width: 483px;
+        // width: 483px;
+        //  max-width: 483px;
+    }
+    
+    
+    .errors {
+        padding-bottom: $dialog-padding;
+    }
+    
+    // elaborate hacky trapping for when .errors is outside of girdle
+    > .errors {
+        padding-top: 10px;  //$dialog-girdle-padding-top: 10px;
+        padding-bottom: 0;
+        padding-left: $dialog-padding-leftRight;
+        padding-right: $dialog-padding-leftRight;
+ 
+//         ul {
+//             li {
+//                 &:first-child {
+//                     margin-top: 0px;
+//                 }
+//             }
+//         }
     }
 
-    .guts {
-//      width: 500px;
-//      max-width: 500px;
+// OVERRIDES for when errors are within alert dialog
 
+    .errors,
+    .sql_errors,
+    .dataset_errors,
+    .warning {
+        ul {
+            li {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    }
+
+
+
+    .guts {
+        width: $default-dialog-width;
         background-color: $body-background-color;
         // @include border-radius ($default-border-radius);
     }
@@ -79,7 +116,8 @@ $alert-marker-width: 60px;
 //         }
 
         .body {
-            margin-top: 10px;
+            margin-top: 60px;
+            // margin-top: 10px;  ?
             padding: 10px;
             overflow-y: auto;
             overflow-x: hidden;
@@ -87,6 +125,7 @@ $alert-marker-width: 60px;
             border: 1px solid $border-color;
             font-size: $small-font;
             font-weight: normal;
+
             // color: black;
         }
 //     }

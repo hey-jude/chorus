@@ -6,12 +6,14 @@ $dialog-girdle-padding-top: 10px;
 
 // .girdle wraps the content of the dialog popup */
 // and sets the overall margins for the content area */
+
 .dialog_popup .girdle {
     padding: $dialog-girdle-padding-top $dialog-padding-leftRight $dialog-padding-bottom $dialog-padding-leftRight;
     border: none;
 
     @include box-sizing(border-box);
     overflow-y: auto;
+
 
     //     development: to delete */
     border: 1px dotted #DCC;
@@ -57,9 +59,8 @@ $dialog-girdle-padding-top: 10px;
 
 
 .dialog {
-//     background-color: $body-background-color;
-//     border-radius: $default-border-radius;    
-
+    // interim fix for background of dialogs
+    background-color: $body-background-color;
 
     h1 {
         font-size: $medium-font;
@@ -140,12 +141,6 @@ $dialog-girdle-padding-top: 10px;
             border-bottom: $border-canon;
         }
 
-// retiring this class */ /* to be removed when final */
-//         .sub_content { */
-//             padding: 10px $dialog-padding; */
-//         } */
-
-
         .loading_section {
             padding: 20px;
         }
@@ -208,7 +203,9 @@ $dialog-girdle-padding-top: 10px;
 // DIALOG WIDTHS */
 div.dialog {
     width: $default-dialog-width;
-
+    // interim fix for background of dialogs
+    background-color: $body-background-color;
+    
     &.dialog_wide {
         width: $default-dialog-width-wide;
     }
@@ -217,11 +214,10 @@ div.dialog {
     margin-right: auto;
 }
 
-// custom widths */
+// Custom Dialog widths */
 
 .dialog {
     &.data_source_permissions {
-    //   width: 570px; */
         width: $default-dialog-width-medium;
     }
 
@@ -233,7 +229,10 @@ div.dialog {
 
 
 // to do: work out what should be in show_image.scss and what should be here */
+// .XXXdialog.show_image {
+// TODO: work out what should be in show_image.scss and what should be here */
 .XXXdialog.show_image {
+
     width: 100%;
     min-width: 600px;
 

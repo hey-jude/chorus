@@ -126,6 +126,12 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
             completeJson: true
         });
 
+
+        this.models.newModelwithError = this.models.dataset.clone();
+        this.models.newModelwithError.serverErrors = {fields: {connection: {INVALID: {message: "Couldn't find host/port to connect to" } } } };
+
+
+
         this.models.datasetImportability = new chorus.models.DatasetImportability({
             "importable": "false",
             "invalidColumns": []
@@ -860,6 +866,22 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
                 model: this.models.gpdbDataSource
             }),
 
+            "Edit Data Source (GPDB)": new chorus.dialogs.DataSourceEdit({
+                model: this.models.gpdbDataSource
+            }),
+
+            "Edit Data Source (ORACLE)": new chorus.dialogs.DataSourceEdit({
+                model: this.models.oracleDataSource
+            }),
+
+            "Edit Data Source (HDFS)": new chorus.dialogs.DataSourceEdit({
+                model: this.models.hdfsDataSource
+            }),
+
+            "Edit Data Source (GNIP)": new chorus.dialogs.DataSourceEdit({
+                model: this.models.gnipDataSource
+            }),
+
             "Dataset Download": new chorus.dialogs.DatasetDownload({ pageModel: this.models.dataset}),
 
 // !DATASET filter set
@@ -932,9 +954,14 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
                     svgData: "<svg/>"
                 }
             }),
+            
+            "Analyze this?" :  new chorus.alerts.Analyze({
+                model: this.models.dataset
+            }),
 
-            "Analyze Dataset?": new chorus.alerts.Analyze({
-                model: this.models.dataset,
+            
+            "Analyze this + error" :  new chorus.alerts.Analyze({
+                model: this.models.newModelwithError
             }),
 
 // **************
