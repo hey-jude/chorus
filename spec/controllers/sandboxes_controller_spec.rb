@@ -14,7 +14,7 @@ describe SandboxesController do
 
   describe '#create' do
     it 'uses authentication' do
-      mock(subject).authorize!(:update, workspace)
+      mock(Authority).authorize!.with_any_args
       post :create, :workspace_id => workspace.id, :schema_id => sandbox.id
     end
 
