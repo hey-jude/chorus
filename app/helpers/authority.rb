@@ -16,6 +16,9 @@ module Authority
   # permission, then the user is authorized for that activity
   def self.authorize!(activity_symbol, object, user, options={})
 
+    legacy_action_allowed = handle_legacy_action(options, object, user) if options
+    return if legacy_action_allowed
+
     # retreive user and object information
     roles = retrieve_roles(user)
     chorus_class = ChorusClass.search_permission_tree(object.class)
@@ -29,8 +32,6 @@ module Authority
     # Is user owner of object?
     #return if is_owner?(user, object) || handle_legacy_action(options[:or], object, user)
     #return if chorus_object.owner == user
-    legacy_action_allowed = handle_legacy_action(options, object, user) if options
-    return if legacy_action_allowed
 
     # retreive and merge permissions
     class_permissions = common_permissions_between(roles, chorus_class)
@@ -89,6 +90,11 @@ module Authority
                     when :current_user_promoted_note
                       (object.class < ::Events::Base) && object.promoted_by == user
 
+                    when :current_user_can_update_workspace
+                      WorkspaceAccess.new(user).update?(object)
+
+                    # Intermediate legacy permissions are below this comment. These are dependent on permissiosns
+                    # that haven't been implemented yet
                     when :current_user_can_view_note_target
                       # Note show uses old access permissions due to complicated permissions.
                       # We can change this to an authorize! call when the other objects are in the
