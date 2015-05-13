@@ -48,6 +48,27 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
         this.listenTo(this.statistics, "loaded", this.render);
         this.listenTo(this.collection, "add remove", this.updateColumnCount);
+
+        // This hack sets up an iFrame to give the appearance of visualizations working in Chorus.
+        var urls = {
+          // The 1 key.
+          49: "http://bl.ocks.org/curran/raw/b23acf239cc4e4db7f36/",
+          // The 2 key.
+          50: "http://bl.ocks.org/curran/raw/70ae30ab3b3eea62f84e/",
+          // The 3 key.
+          51: "http://bl.ocks.org/curran/raw/5a9767b5c23982c89632/",
+          // The 4 key.
+          52: "http://bl.ocks.org/curran/raw/752b97cef3f880a813ab/",
+          // The 5 key.
+          53: "http://bl.ocks.org/curran/raw/4df29e2f8c6e20ed2baf/",
+          // The 6 key.
+          54: "http://bl.ocks.org/curran/raw/9b193942e2fc4ac88c6e/",
+          // The 7 key.
+          55: "http://bl.ocks.org/curran/raw/cf4b98fff0517ca04667/"
+        };
+        $(document).keypress(function (e){
+          $("#chiasm-iframe-hack").attr("src", urls[e.keyCode]);
+        });
     },
 
     dataPreview: function(e) {
@@ -251,7 +272,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     updateChiasmVisualization: function(){
         var options = this.chartConfig.chartOptions();
-        $("#chiasm").html(this.chartConfig.chartType + ": " + JSON.stringify(options));
+        //$("#chiasm").html(this.chartConfig.chartType + ": " + JSON.stringify(options));
     },
 
     showSelectedTitle: function(e) {
