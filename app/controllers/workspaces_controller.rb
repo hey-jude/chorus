@@ -66,8 +66,8 @@ class WorkspacesController < ApplicationController
 
   def show
     workspace = Workspace.find(params[:id])
-    #Authority.authorize! :show, workspace, current_user
-    authorize! :show, workspace
+    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
+                                                                    :workspace_is_public ] }
     # use the cached version of "workspaces:workspaces" namespace.
     present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true',:cached => false, :namespace => 'workspaces:workspaces' }
   end
@@ -79,8 +79,7 @@ class WorkspacesController < ApplicationController
     attributes[:archiver] = current_user if (attributes[:archived] && !workspace.archived?)
     workspace.attributes = attributes
 
-    #authorize! :update, workspace
-    Authority.authorize! :update, workspace, current_user
+    Authority.authorize! :update, workspace, current_user, { :or => :current_user_can_update_workspace }
     create_workspace_events(workspace) if workspace.valid?
 
     workspace.save!
@@ -89,8 +88,7 @@ class WorkspacesController < ApplicationController
 
   def destroy
     workspace = Workspace.find(params[:id])
-    #authorize!(:destroy, workspace)
-    Authority.authorize! :destroy, workspace, current_user
+    Authority.authorize! :destroy, workspace, current_user, { :or => :current_user_is_workspace_owner }
     Events::WorkspaceDeleted.by(current_user).add(:workspace => workspace)
     workspace.destroy
 
