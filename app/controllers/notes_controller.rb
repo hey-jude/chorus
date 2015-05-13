@@ -34,7 +34,7 @@ class NotesController < ApplicationController
   def destroy
     note = Events::Base.find(params[:id])
     #authorize! :destroy, note
-    Authority.authorize! :destroy, note, current_user, { :or => [:current_user_is_workspace_owner,
+    Authority.authorize! :destroy, note, current_user, { :or => [:current_user_is_notes_workspace_owner,
                                                                  :current_user_is_event_actor] }
     note.destroy
     render :json => {}
