@@ -73,10 +73,13 @@ module Authority
     or_actions.each do |action|
       allowed ||= case action
                     when :current_user_is_workspace_owner
-                      object.is_a?(::Events::NoteOnWorkspace) && (user == object.workspace.owner)
+                      object.is_a?(::Workspace) && object.owner == user
 
                     when :current_user_is_in_workspace
                       object.is_a?(::Workspace) && object.member?(user)
+
+                    when :workspace_is_public
+                      object.is_a?(::Workspace) && object.public?
 
                     when :current_user_is_referenced_user
                       object.is_a?(::User) && object == user
