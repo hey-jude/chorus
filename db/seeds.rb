@@ -40,3 +40,4 @@ admin_role = Role.create(:name => "Admin")
 developer_role = Role.create(:name => "Developer")
 User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
 Events::Note.set_permissions_for [admin_role], [:destroy, :demote_from_insight, :update]
+Workspace.set_permissions_for [admin_role], [:show, :update, :destroy]
