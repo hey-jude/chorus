@@ -78,8 +78,15 @@ module Authority
                     when :current_user_is_in_workspace
                       object.is_a?(::Workspace) && object.member?(user)
 
+                    when :can_edit_sub_objects
+                      handle_legacy_action({ :or => :current_user_is_in_workspace }, object, user) &&
+                      handle_legacy_action({ :or => :workspace_is_not_archived }, object, user)
+
                     when :workspace_is_public
                       object.is_a?(::Workspace) && object.public?
+
+                    when :workspace_is_not_archived
+                      object.is_a?(::Workspace) && !object.archived?
 
                     when :current_user_is_referenced_user
                       object.is_a?(::User) && object == user
