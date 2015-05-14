@@ -268,6 +268,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         // The "configChanged" event is triggered whenever any part of the
         // visualization configuration changes.
         this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
+
+        console.log(myJavaScript);
     },
 
     updateChiasmVisualization: function(){
