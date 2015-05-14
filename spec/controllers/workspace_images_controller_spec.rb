@@ -45,11 +45,12 @@ describe WorkspaceImagesController do
       mock(controller).send_file(workspace.image.path('original'), :type => workspace.image_content_type) {
         controller.head :ok
       }
+      log_in workspace.owner
       get :show, :workspace_id => workspace.id
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :show, workspace
+      mock(Authority).authorize!.with_any_args
       get :show, :workspace_id => workspace.id
     end
   end
