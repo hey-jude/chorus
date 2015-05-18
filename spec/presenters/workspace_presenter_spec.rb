@@ -11,7 +11,7 @@ describe WorkspacePresenter, :type => :view do
     set_current_user(user)
   end
 
-  let(:options) { {} }
+  let(:options) { {:permissions => [:admin]} }
 
   describe "#to_hash" do
     let(:hash) { presenter.to_hash }

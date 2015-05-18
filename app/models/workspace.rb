@@ -11,7 +11,7 @@ class Workspace < ActiveRecord::Base
 
   # DO NOT CHANGE the order of these permissions, you'll accidently change everyone's permissons across the site.
   # Order: show, update, destroy
-  PERMISSIONS = [:show, :update, :destroy]
+  PERMISSIONS = [:show, :update, :destroy, :admin, :create_workflow]
   #OBJECT_LEVEL_ROLES = [:workspace_owner, :project_manager, :project_developer, :contributor, :workspace_visitor]
 
   attr_accessible :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,
@@ -275,8 +275,7 @@ class Workspace < ActiveRecord::Base
     end
     perm << :create_workflow if user.developer? && has_membership
 
-    return [:admin]  # uncomment this line to expose front-end settings that are normally disabled for some roles
-    #perm
+    perm
   end
 
   def has_dataset?(dataset)

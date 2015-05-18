@@ -66,10 +66,15 @@ class WorkspacesController < ApplicationController
 
   def show
     workspace = Workspace.find(params[:id])
-    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
-                                                                    :workspace_is_public ] }
+    Authority.authorize! :show,
+                         workspace,
+                         current_user,
+                         { :or => [ :current_user_is_in_workspace,
+                                    :workspace_is_public ] }
+
+    permissions = Workspace.permission_symbols_for current_user
     # use the cached version of "workspaces:workspaces" namespace.
-    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true',:cached => false, :namespace => 'workspaces:workspaces' }
+    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true', :cached => false, :namespace => 'workspaces:workspaces', :permissions => permissions }
   end
 
   def update
