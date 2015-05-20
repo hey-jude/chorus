@@ -21,6 +21,7 @@
         }
     };
 
+    _.noConflict();
     _.mixin(_.str.exports());
 
     // make _.include use the method from underscore_string if its argument is a string
