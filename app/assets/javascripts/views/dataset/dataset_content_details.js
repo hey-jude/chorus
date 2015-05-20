@@ -251,7 +251,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     updateChiasmVisualization: function(){
         var options = this.chartConfig.chartOptions();
-        var plugin = options.type;
+        var chartType = options.type;
         var state = {
             xColumn: "bins",
             xAxisLabel: "Bins",
@@ -259,6 +259,20 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
             yAxisLabel: options.yAxis
         };
         $("#chiasm").html(this.chartConfig.chartType + ": " + JSON.stringify(options));
+
+        var func = 'make' + _.capitalize(chartType) + 'Task';
+        var task = this.chartConfig.model[func](options);
+        task.set({filters: options.filters && options.filters.sqlStrings()});
+
+        task.bindOnce("saved", function (model, data){
+            console.log(data);
+        });
+        task.bindOnce("saveFailed", function (){
+            console.log("save failed");
+        });
+
+        var x = task.save();
+        console.log(x);
     },
 
     showSelectedTitle: function(e) {
