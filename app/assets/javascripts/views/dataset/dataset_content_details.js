@@ -102,7 +102,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         this.resultsConsole.clickClose();
 
         // Show the Chiasm visualization container.
-        $('#chiasm').removeClass("hidden");
+        $('#chiasm-container').removeClass("hidden");
 
         this.$('.chart_icon:eq(0)').click();
         this.$('.column_count').addClass('hidden');
@@ -131,7 +131,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         e.preventDefault();
 
         // Hide the Chiasm visualization container.
-        $('#chiasm').addClass("hidden");
+        $('#chiasm-container').addClass("hidden");
 
         this.$('.definition').removeClass("hidden");
         this.$('.create_chart').addClass("hidden");
@@ -249,30 +249,80 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
     },
 
-    updateChiasmVisualization: function(){
-        var options = this.chartConfig.chartOptions();
-        var chartType = options.type;
-        var state = {
-            xColumn: "bins",
-            xAxisLabel: "Bins",
-            yColumn: options.yAxis,
-            yAxisLabel: options.yAxis
-        };
-        $("#chiasm").html(this.chartConfig.chartType + ": " + JSON.stringify(options));
+    // Starts the Chiasm runtime if it has not been started already.
+    // This is asynchronous (requiring a callback) because AMD require() is used for
+    // loading the Chiasm module.
+    chiasmInit: (function (callback){
+        var chiasm;
+        return function (callback) {
+            if (!chiasm) {
+                require(["chiasm"], function (Chiasm) {
+                    chiasm = Chiasm($("#chiasm-container")[0]);
+                    callback(chiasm);
+                });
+            } else {
+                callback(chiasm);
+            }
+        }
+    }()),
 
+    // Queries the server for data, depending on the current chart type and configuration.
+    chiasmFetchData: function (chartOptions, callback){
+        var chartType = chartOptions.type;
+
+        // This code fetches the data via a "task" abstraction.
+        // Copied from chart_configuration_view.js
         var func = 'make' + _.capitalize(chartType) + 'Task';
-        var task = this.chartConfig.model[func](options);
-        task.set({filters: options.filters && options.filters.sqlStrings()});
+        var task = this.chartConfig.model[func](chartOptions);
+        task.set({filters: chartOptions.filters && chartOptions.filters.sqlStrings()});
 
+        // This callback gets invoked once the data is loaded.
         task.bindOnce("saved", function (model, data){
-            console.log(data);
+
+            // Extract the tabular data format that Chiasm visualizations expect (array of objects)
+            callback(data.response.rows);
         });
         task.bindOnce("saveFailed", function (){
+            // TODO bubble errors to the UI
             console.log("save failed");
         });
 
         var x = task.save();
-        console.log(x);
+    },
+    updateChiasmVisualization: function(){
+
+        var chartOptions = this.chartConfig.chartOptions();
+
+        this.chiasmInit(_.bind(function (chiasm){
+            this.chiasmFetchData(chartOptions, function (data){
+
+                var config = {
+                    "layout": {
+                        "plugin": "chiasm/src/plugins/layout",
+                        "state": {
+                            "layout": "A"
+                        }
+                    },
+                    "A": {
+                        "plugin": "chiasm/src/plugins/dummyVis",
+                        "state": {
+                            "text": "Chiasm is working!",
+                            "color": "#a8ffd0"
+                        }
+                    }
+                };
+
+                var state = {
+                    xColumn: "bucket",
+                    xAxisLabel: "Category",
+                    yColumn: "count",
+                    yAxisLabel: chartOptions.yAxis
+                };
+                console.log(chiasm);
+                chiasm.setConfig(config);
+
+            });
+        }, this));
     },
 
     showSelectedTitle: function(e) {
