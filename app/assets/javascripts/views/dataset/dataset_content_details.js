@@ -306,19 +306,19 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                     "A": {
                         "plugin": "chiasm/src/plugins/dummyVis",
                         "state": {
-                            "text": "Chiasm is working!",
+                            "text": chartOptions.yAxis,
                             "color": "#a8ffd0"
                         }
                     }
                 };
 
-                var state = {
-                    xColumn: "bucket",
-                    xAxisLabel: "Category",
-                    yColumn: "count",
-                    yAxisLabel: chartOptions.yAxis
-                };
-                console.log(chiasm);
+                //var state = {
+                //    xColumn: "bucket",
+                //    xAxisLabel: "Category",
+                //    yColumn: "count",
+                //    yAxisLabel: chartOptions.yAxis
+                //};
+
                 chiasm.setConfig(config);
 
             });
