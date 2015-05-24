@@ -1,0 +1,369 @@
+<% content_for(:breadcrumbs) do %>
+    <div class="breadcrumbs" id="breadcrumbs" data-template="breadcrumbs">
+      <ol class="list_breadcrumb">
+
+      </ol>
+    </div>
+<% end %>
+
+
+<% content_for(:left) do %>
+
+    <div id="left">
+      <div class="main_content main_content_list" id="main_content" data-template="main_content">
+        <div class="content_header">
+          <div class="default_content_header" data-template="default_content_header">
+            <div class="item_metadata">
+
+            </div>
+            <div class="menus">
+              <div class="link_menu type" data-template="link_menu"><span class="title">Show</span>
+                <a class="popup" href="#">
+                  <span class="chosen">Active Workspaces</span>
+                </a>
+
+                <div class="menu hidden popup_filter">
+                  <div class="pointer"></div>
+                  <ul data-event="filter" class="list">
+
+                    <li data-type="active">
+                      <span class="check "></span>
+
+                      <a href="#">Active Workspaces</a>
+
+                    </li>
+
+                    <li data-type="all">
+                      <span class="check hidden"></span>
+
+                      <a href="#">All Workspaces</a>
+
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <h1 title="Worklets">Worklets</h1>
+
+          </div>
+        </div>
+        <div class="list_content_details content_details action_bar_primary" data-template="list_content_details">
+          <div class="multiselect">
+            <input type="checkbox" name="select_all" class="select_all" autocomplete="off">
+          </div>
+
+
+          <div class="list_content_details_buttons button_holder" data-template="list_content_details_buttons">
+          </div>
+
+
+          <div class="pagination hidden">
+
+            <div class="page">
+              Page <span class="current">1</span> of <span class="total">1</span>
+            </div>
+
+
+            <div class="links">
+              <a class="previous hidden"><span>Previous</span></a>
+              <span class="previous">Previous</span>
+
+              <a class="next hidden"><span>Next</span></a>
+              <span class="next">Next</span>
+            </div>
+          </div>
+
+
+          <div class="count">32 Workspaces</div>
+
+
+        </div>
+        <div class="content">
+          <ul class="no_template selectable list" data-template="no_template">
+            <li class="item_wrapper" data-template="item_wrapper">
+              <input type="checkbox" autocomplete="off">
+
+              <div class="workspace_item item_content" data-template="workspace_item" data-id="8">
+                <a class="image" href="#/workspaces/8">
+                  <img src="/images/workspaces/workspace_private_large.png" class="workspaceIconLarge" alt="">
+                </a>
+
+                <!-- generic row of information about an item -->
+                <!-- used for -->
+                <!-- - people list -->
+                <!-- - workspace list -->
+                <!-- - data source list -->
+                <!-- and too many more -->
+
+                <div class="item_information">
+                  <div class="item_name">
+
+                    <a title="Architect" class="name" href="#/worklet/8">Worklet_1</a>
+
+
+                  </div>
+
+                  <div class="item_metadata">
+
+
+                    <div class="truncated_text summary" data-template="truncated_text">
+                      <div class="styled_text">
+                        <div class="original"></div>
+                      </div>
+
+
+                      <div class="links">
+                        <a class="more" href="#">Read more</a>
+                        <a class="less" href="#">Read less</a>
+                      </div>
+
+                    </div>
+                    <div class="details">
+                        <span class="owner">
+                                Owned by<a href="#/users/3">Alfredo Gomez</a>
+                        </span>
+                        <span class="private">
+                            <span class="fa fa-lock"></span> Private
+                        </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="content_footer">
+          <div class="list_content_details action_bar_primary hidden" data-template="list_content_details">
+
+            <div class="list_content_details_buttons button_holder" data-template="list_content_details_buttons">
+            </div>
+
+
+            <div class="pagination hidden">
+
+
+              <div class="links">
+                <a class="previous hidden"><span>Previous</span></a>
+                <span class="previous">Previous</span>
+
+                <a class="next hidden"><span>Next</span></a>
+                <span class="next">Next</span>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+
+
+
+<% content_for(:right) do %>
+
+    <div id="sidebar_wrapper" data-sidebar-template="workspace_list_sidebar">
+      <div id="sidebar" style="overflow: hidden; padding: 0px; width: 283px;" class="custom_scroll">
+
+
+        <div class="jspContainer" style="width: 283px; height: 538px;">
+          <div class="jspPane" style="padding: 10px 0px 0px 16px; top: 0px; width: 267px;">
+            <div id="help hidden"></div>
+            <div class="primary_action_panel" data-template="primary_action_panel">
+              <div class="panel">
+                <ul>
+
+                  <li class="action">
+                    <a href="#" class="create_workspace">Create New Workspace</a>
+                  </li>
+
+                </ul>
+              </div>
+
+            </div>
+            <div class="multiple_selection_sidebar_menu multiple_selection " data-template="multiple_selection_sidebar_menu">
+              <label>0 Items Selected</label>
+
+              <div class="actions">
+                <ul class="multiselect_actions">
+
+                  <li class="action">
+                    <a href="#" class="edit_tags">Add/Edit Tags</a>
+                  </li>
+
+                </ul>
+              </div>
+
+            </div>
+            <div class="workspace_list_sidebar sidebar_content primary" data-template="workspace_list_sidebar">
+
+
+              <div class="actions">
+                <label>1 Item Selected</label>
+                <ul>
+                  <li><a class="new_note" href="#">Add a Note</a></li>
+                  <li><a class="new_insight" href="#">Add an Insight</a></li>
+                  <li><a class="edit_tags" href="#">Add/Edit Tags</a></li>
+                </ul>
+              </div>
+
+
+              <div class="workspace_member_list" data-template="workspace_member_list">
+                <div class="members">
+                  <ul>
+
+                    <li>
+                      <a href="#/users/34" title="Trevor Crean"><img class="profile icon" src="/images/general/default-user.png?iebuster=1432252941873"></a>
+                    </li>
+
+                    <li>
+                      <a href="#/users/6" title="Doug Watson"><img class="profile icon" src="/users/6/image?1395169008&amp;style=icon&amp;iebuster=1432252941873"></a>
+                    </li>
+
+                  </ul>
+
+                </div>
+
+              </div>
+              <div class="tab_control" data-template="tab_control">
+                <ul class="tabs">
+
+                  <li class="tab selected" data-name="activity">
+                    <div class="lozenge">Activity</div>
+                  </li>
+
+                </ul>
+
+                <div class="tabbed_content_area">
+                  <div class="activity_list sidebar" data-template="activity_list">
+                    <ul class="activities">
+                      <li class="activity" data-template="activity" data-activity-id="1263">
+                        <div class="media activity_item">
+
+
+                          <div class="icon">
+                            <a href="#/users/34"><img src="/images/general/default-user.png?iebuster=1432252941873" class="profile"></a>
+                          </div>
+
+                          <div class="activity_content bd">
+                            <div class="activity_header">
+                              <a href="#/users/34">Trevor Crean</a> added a sandbox to workspace
+                              <a href="#/workspaces/32">Chebanca</a>
+                            </div>
+
+
+                            <ul class="attachments">
+
+                            </ul>
+                            <div class="actions">
+
+                              <span class="timestamp">9 months ago</span>
+
+
+                            </div>
+
+                            <div class="links">
+                              <a class="comment dialog" href="#">Comment</a>
+
+
+                            </div>
+
+                          </div>
+                        </div>
+
+
+                        <div class="comment_list" data-template="comment_list">
+                        </div>
+
+                      </li>
+                      <li class="activity" data-template="activity" data-activity-id="1260">
+                        <div class="media activity_item">
+
+
+                          <div class="icon">
+                            <a href="#/users/6"><img src="/users/6/image?1395169008&amp;style=icon&amp;iebuster=1432252941873" class="profile"></a>
+                          </div>
+
+                          <div class="activity_content bd">
+                            <div class="activity_header">
+                              <a href="#/users/6">Doug Watson</a> added <a href="#/users/6">Doug Watson</a> to workspace
+                              <a href="#/workspaces/32">Chebanca</a>
+                            </div>
+                            <ul class="attachments">
+
+                            </ul>
+                            <div class="actions">
+                              <span class="timestamp">9 months ago</span>
+                            </div>
+
+                            <div class="links">
+                              <a class="comment dialog" href="#">Comment</a>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="comment_list" data-template="comment_list">
+                        </div>
+                      </li>
+                      <li class="activity" data-template="activity" data-activity-id="1259">
+                        <div class="media activity_item">
+
+                          <div class="icon">
+                            <a href="#/users/34"><img src="/images/general/default-user.png?iebuster=1432252941873" class="profile"></a>
+                          </div>
+
+                          <div class="activity_content bd">
+                            <div class="activity_header">
+                              <a href="#/users/34">Trevor Crean</a> created workspace
+                              <a href="#/workspaces/32">Chebanca</a>
+                            </div>
+
+                            <ul class="attachments">
+
+                            </ul>
+                            <div class="actions">
+
+                              <span class="timestamp">9 months ago</span>
+
+                            </div>
+
+                            <div class="links">
+                              <a class="comment dialog" href="#">Comment</a>
+
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="comment_list" data-template="comment_list">
+                        </div>
+
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sidebar_content secondary hidden"></div>
+          </div>
+        </div>
+      </div>
+      <div class="jump_to_top">
+        <div class="triangle_up"></div>
+      </div>
+    </div>
+
+
+<% end %>
+
+
+<%= yield :breadcrumbs %>
+<%= yield :left %>
+<%= yield :right %>
+
+

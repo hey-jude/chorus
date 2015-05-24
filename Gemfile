@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.18'
-
+# Enable Ajax page loading in Rails 3.2
+gem 'turbolinks'
 gem 'will_paginate'
 gem 'net-ldap', '0.11',    :require => false
 gem 'paperclip', '3.0.4'
@@ -26,6 +27,9 @@ gem 'jbuilder'
 # Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
 gem 'render_anywhere'
 
+path 'components' do
+  gem 'worklet'
+end
 
 platform :jruby do
   gem 'jruby-openssl', :require => false
@@ -83,6 +87,7 @@ group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :c
   gem 'pry' # Drop in to an extended Rails console by creating a 'binding.pry' breakpoint
   gem 'pry-nav' # Adds debugger functionality to Pry
   gem 'ladle'
+  gem 'metric_fu'
 end
 
 group :development do

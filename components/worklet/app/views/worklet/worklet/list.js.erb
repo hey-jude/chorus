@@ -1,0 +1,11 @@
+$('#<%= @content_id %>').html('<%= escape_javascript( render '/worklet/worklet/list' ) %>');
+var stateObj = { href: "/worklet/list?content_id=guts&menu_id=side_menu_6" };
+history.pushState(stateObj, "page 2", "#/worklets");
+$(".menu.popup_drawer").addClass('hidden');
+if ($(".token.drawer").hasClass('active') == true) {
+    $(".token.drawer").removeClass('active');
+}
+else {
+    $(".token.drawer").addClass('active');
+}
+

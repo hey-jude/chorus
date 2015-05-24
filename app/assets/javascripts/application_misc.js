@@ -39,4 +39,30 @@
             return _.trim(this);
         };
     }
+
+
+    window.onpopstate = function(event) {
+        if (event.state != null && event.state['href'] != null)
+        {
+            var href = event.state['href'];
+            console.log(href);
+            $.ajax({
+                //context: this,
+                url:  href,
+                async: true,
+                dataType: "html"
+            })
+            .done(function( data ) {
+                    console.log(data);
+                    if ( console && console.log ) {
+                        //console.log(data);
+                    }
+            });
+        }
+
+
+    };
+
 })();
+
+

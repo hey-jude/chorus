@@ -1,4 +1,7 @@
 Chorus::Application.routes.draw do
+
+  mount Worklet::Engine, at: '/'
+
   resource :sessions, :only => [:create, :destroy, :show]
   resource :config, :only => [:show], :controller => 'configurations'
   resource :license, :only => [:show]
