@@ -300,14 +300,22 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                     "layout": {
                         "plugin": "chiasm/src/plugins/layout",
                         "state": {
-                            "layout": "A"
+                            "layout": "barChart"
                         }
                     },
-                    "A": {
-                        "plugin": "chiasm/src/plugins/dummyVis",
+                    "barChart": {
+                        "plugin": "chiasm/src/plugins/barChart",
                         "state": {
-                            "text": chartOptions.yAxis,
-                            "color": "#a8ffd0"
+                            "xColumn": "bucket",
+                            "xAxisLabel": chartOptions.yAxis,
+                            "yColumn": "count",
+                            "yAxisLabel": "Count",
+                            "xAxisLabelOffset": 1.9,
+                            "yAxisLabelOffset": 1.4,
+                            "colorDefault": "#059e00",
+                            "title": "Bar Chart",
+                            "titleOffset": -0.269568,
+                            "yDomainMin": 0
                         }
                     }
                 };
@@ -320,6 +328,21 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                 //};
 
                 chiasm.setConfig(config);
+
+                console.log(data);
+
+
+
+                chiasm.getComponent("barChart").then(function(barChart){
+
+                    barChart.data = data;
+                    barChart.when("color", console.log, console);
+
+                    barChart.when(["barsG", "data", "x", "y", "xScale", "height", "color", "xAccessor"],
+                        function (barsG, data, x, y, xScale, height, color, xAccessor){
+                            console.log("all defined");
+                        });
+                });
 
             });
         }, this));
