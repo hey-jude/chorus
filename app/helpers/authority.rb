@@ -16,8 +16,7 @@ module Authority
   # permission, then the user is authorized for that activity
   def self.authorize!(activity_symbol, object, user, options={})
 
-    legacy_action_allowed = handle_legacy_action(options, object, user) if options
-    return if legacy_action_allowed
+    #return if legacy_action_allowed
 
     # retreive user and object information
     roles = retrieve_roles(user)
@@ -34,12 +33,14 @@ module Authority
     #return if chorus_object.owner == user
 
     # retreive and merge permissions
+    # rename to permission_union, maybe
     class_permissions = common_permissions_between(roles, chorus_class)
     object_permissions = common_permissions_between(roles, chorus_object)
     permissions = [class_permissions, object_permissions].flatten.compact
 
     Chorus.log_debug("Could not find activity_symbol in #{actual_class.name} permissions") if actual_class::PERMISSIONS.index(activity_symbol).nil?
 
+    # TODO: change bitmask to hash
     activity_mask = actual_class.bitmask_for(activity_symbol)
 
     # check to see if this user is allowed to do this action at the object or class level
@@ -47,7 +48,9 @@ module Authority
       bit_enabled? permission.permissions_mask, activity_mask
     end
 
-    raise Allowy::AccessDenied.new("Unauthorized", activity_symbol, object) unless allowed || legacy_action_allowed
+    legacy_action_allowed = handle_legacy_action(options, object, user) if options
+
+    raise_access_denied if !allowed && !legacy_action_allowed
 
     allowed || legacy_action_allowed
   end
@@ -148,6 +151,10 @@ module Authority
 
   def self.bit_enabled?(bits, mask)
     (bits & mask) == mask
+  end
+
+  def self.raise_access_denied
+    raise Allowy::AccessDenied.new("Unauthorized", nil, nil)
   end
 
 end
