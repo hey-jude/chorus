@@ -158,6 +158,11 @@ describe WorkspacesController do
         mock.proxy(controller).present(workspace, :presenter_options => {:show_latest_comments => false})
         get :show, :id => workspace.to_param
       end
+
+      it "has the update permission if the user is a member" do
+        get :show, :id => workspace.to_param
+        response.decoded_body["response"]["permission"].should include("update")
+      end
     end
 
     context "with an invalid workspace id" do
@@ -193,6 +198,30 @@ describe WorkspacesController do
 
     before do
       stub(Sunspot).index.with_any_args
+    end
+
+
+    context "when the current user is a member" do
+      before do
+        log_in users(:the_collaborator)
+      end
+      it "can update the name of the workspace " do
+        workspace_params[:name] = "new name"
+        put :update, params
+        response.should be_success
+      end
+
+      it "can update the summary of the workspace" do
+        workspace_params[:summary] = "new summary"
+        put :update, params
+        response.should be_success
+      end
+
+      it "cannot change any attributes other than name and summary" do
+        workspace_params[:public] = !workspace.public
+        put :update, params
+        response.should be_forbidden
+      end
     end
 
     context "when the current user has update authorization" do
