@@ -8,8 +8,11 @@ class WorkfilesController < ApplicationController
   before_filter :authorize_edit_workfile, :only => [:update, :destroy,  :run, :stop]
 
   def index
-    authorize! :show, workspace
-
+    Authority.authorize! :show,
+                       workspace,
+                       current_user,
+                       { :or => [ :current_user_is_in_workspace,
+                                  :workspace_is_public ] }
     workfiles = workspace.filtered_workfiles(params)
 
     #present paginate(workfiles), :presenter_options => {:workfile_as_latest_version => true, :list_view => true}
@@ -18,8 +21,11 @@ class WorkfilesController < ApplicationController
   end
 
   def show
-    authorize! :show, workfile.workspace
-
+    Authority.authorize! :show,
+                         workfile.workspace,
+                         current_user,
+                         { :or => [ :current_user_is_in_workspace,
+                                    :workspace_is_public ] }
     if params[:connect].present?
       authorize_data_sources_access workfile
       workfile.attempt_data_source_connection
@@ -31,7 +37,8 @@ class WorkfilesController < ApplicationController
   end
 
   def create
-    authorize! :can_edit_sub_objects, workspace
+    #authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     merged_params = ActiveSupport::HashWithIndifferentAccess['file_name', params[:workfile][:file_name]]
                       .merge(params[:workfile])
@@ -63,7 +70,8 @@ class WorkfilesController < ApplicationController
   end
 
   def destroy_multiple
-    authorize! :can_edit_sub_objects, workspace
+    #authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
     OpenWorkfileEvent.where(:workfile_id => params[:workfile_ids], :user_id => current_user).destroy_all
     workfiles = workspace.workfiles.where(:id => params[:workfile_ids])
     workfiles.destroy_all
@@ -95,7 +103,7 @@ class WorkfilesController < ApplicationController
   end
 
   def authorize_edit_workfile
-    authorize! :can_edit_sub_objects, workfile.workspace
+    Authority.authorize! :update, workfile.workspace, current_user, { :or => :can_edit_sub_objects }
   end
 
   def convert_form_encoded_arrays
