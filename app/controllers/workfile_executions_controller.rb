@@ -41,6 +41,6 @@ class WorkfileExecutionsController < ApplicationController
   end
 
   def check_authorization
-    authorize! :can_edit_sub_objects, @workfile.workspace
+    Authority.authorize! :update, @workfile.workspace, current_user, { :or => :can_edit_sub_objects }
   end
 end
