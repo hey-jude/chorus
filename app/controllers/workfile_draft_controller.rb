@@ -1,6 +1,7 @@
 class WorkfileDraftController < ApplicationController
   before_filter :find_workfile
   before_filter :authorize_sub_objects, :only => [:create, :update, :destroy]
+
   def create
     draft = WorkfileDraft.new(params[:workfile_draft])
     draft.workfile_id = params[:workfile_id]
@@ -31,6 +32,7 @@ class WorkfileDraftController < ApplicationController
     render :json => {}
   end
 
+  private
 
   def find_workfile
     @workfile = Workfile.find(params[:workfile_id])
