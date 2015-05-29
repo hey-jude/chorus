@@ -42,6 +42,7 @@ FixtureBuilder.configure do |fbuilder|
     User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
     Events::Note.set_permissions_for [admin_role], [:destroy, :demote_from_insight, :update]
     Workspace.set_permissions_for [admin_role], [:show, :update, :destroy]
+    DataSource.set_permissions_for [admin_role], [:edit]
 
     extend CurrentUserHelpers
     extend RR::Adapters::RRMethods
