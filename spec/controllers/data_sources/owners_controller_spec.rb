@@ -17,7 +17,7 @@ describe DataSources::OwnersController do
     end
 
     it "uses authorization" do
-      mock(controller).authorize!(:edit, data_source)
+      mock(Authority).authorize!(:edit, data_source, user, { :or => :current_user_is_object_owner })
       request_ownership_update
     end
 

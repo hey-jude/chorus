@@ -127,7 +127,7 @@ describe DataSourcesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!(:edit, gpdb_data_source, user)
+      mock(Authority).authorize!(:edit, gpdb_data_source, user, { :or => :current_user_is_object_owner })
       put :update, params
     end
 
@@ -373,7 +373,7 @@ describe DataSourcesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :edit, data_source, user
+      mock(Authority).authorize! :edit, data_source, user, { :or => :current_user_is_object_owner }
       delete :destroy, :id => data_source.id
     end
   end
