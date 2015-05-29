@@ -9,7 +9,7 @@ class MembersController < ApplicationController
 
   def create
     workspace = Workspace.find(params[:workspace_id])
-    Authority.authorize! :show, workspace, current_user, { :or => :current_user_is_workspace_owner }
+    Authority.authorize! :show, workspace, current_user, { :or => :current_user_is_object_owner }
 
     WorkspaceMembersManager.new(
         workspace,
