@@ -75,8 +75,8 @@ module Authority
 
     or_actions.each do |action|
       allowed ||= case action
-                    when :current_user_is_workspace_owner
-                      object.is_a?(::Workspace) && object.owner == user
+                    when :current_user_is_object_owner
+                      object.owner == user
 
                     when :current_user_is_in_workspace
                       object.is_a?(::Workspace) && object.member?(user)
