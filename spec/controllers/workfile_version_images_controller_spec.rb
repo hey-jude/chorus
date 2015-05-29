@@ -21,7 +21,11 @@ describe WorkfileVersionImagesController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :show, workfile.workspace
+      mock(Authority).authorize! :show,
+                                  version.workfile.workspace,
+                                  user,
+                                  { :or => [ :current_user_is_in_workspace,
+                                             :workspace_is_public ] }
       get :show, :workfile_version_id => version.id
     end
 
