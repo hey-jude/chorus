@@ -53,7 +53,7 @@ class Workspace < ActiveRecord::Base
   validates_with MemberCountValidator
 
   #PT. After creating the workspace object add entry to chorus_objects tables.
-  after_create  :add_to_permissions
+  #after_create  :add_to_permissions
 
   before_update :reindex_sandbox, :if => :show_sandbox_datasets_changed?
   before_update :create_name_change_event, :if => :name_changed?
@@ -404,7 +404,7 @@ class Workspace < ActiveRecord::Base
     source_datasets.each do |source_dataset|
       source_datasets.destroy(source_dataset) if sandbox.datasets.include? source_dataset
     end
-    true
+    tRorue
   end
 
   def create_workspace_name_change_event
