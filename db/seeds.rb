@@ -35,14 +35,4 @@ unless User.where(:username => "chorusadmin").present?
 end
 chorusadmin = User.find_by_username("chorusadmin")
 
-# Seed roles groups and permissions
-admin_role = Role.create(:name => "Admin")
-developer_role = Role.create(:name => "Developer")
-admin_role.users << chorusadmin
-
-User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
-Events::Note.set_permissions_for [admin_role], [:destroy, :demote_from_insight, :update]
-Workspace.set_permissions_for [admin_role], [:show, :update, :destroy, :admin]
-Workspace.set_permissions_for [developer_role], [:show, :update, :create_workflow]
-DataSource.set_permissions_for [admin_role], [:edit]
 
