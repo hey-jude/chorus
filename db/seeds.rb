@@ -33,7 +33,7 @@ unless User.where(:username => "chorusadmin").present?
   user.admin = true
   user.save!
 end
-chorusadmin = User.find_by_username("chorusadmin")
+
 
 # Seed roles groups and permissions
 admin_role = Role.create(:name => "Admin")

@@ -7,6 +7,9 @@ namespace :db do
     load Rails.root.join('db', 'development_seeds.rb')
   end
 
+  task :clear_permissions => :environment do
+    load Rails.root.join('db', 'clear_permissions.rb')
+  end
   # Load permissions seed data
   task :seed_permissions => :environment do
     load Rails.root.join('db', 'permissions_seeds.rb')
