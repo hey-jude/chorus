@@ -40,115 +40,116 @@ DataSource.set_permissions_for [admin_role], [:edit]
 puts '---- Adding Chorus object classes  ----'
 ChorusClass.create(
     [
-        {:name => 'activity'},
-        {:name => 'alpine_workfile'},
-        {:name => 'associated_dataset'},
-        {:name => 'chorus_view'},
-        {:name => 'chorus_workfile'},
-        {:name => 'comment'},
-        {:name => 'csv_file'},
-        {:name => 'csv_import'},
-        {:name => 'dashboard'},
-        {:name => 'dashboard_config'},
-        {:name => 'dashboard_item'},
-        {:name => 'data_source'},
-        {:name => 'data_source_account'},
-        {:name => 'database'},
-        {:name => 'dataset'},
-        {:name => 'database_column'},
-        {:name => 'datasets_note'},
-        {:name => 'external_table'},
-        {:name => 'gnip_data_source'},
-        {:name => 'gnip_import'},
-        {:name => 'gpdb_column_statistics'},
-        {:name => 'gpdb_data_source'},
-        {:name => 'gpdb_database'},
-        {:name => 'gpdb_dataset_column'},
-        {:name => 'gpdb_schena'},
-        {:name => 'gpdb_table'},
-        {:name => 'gpdb_view'},
-        {:name => 'greenplum_sql_result'},
-        {:name => 'hdfs_data_source'},
-        {:name => 'hdfs_dataset'},
-        {:name => 'hdfs_dataset_statistics'},
-        {:name => 'hdfs_entry'},
-        {:name => 'hdfs_entry_statistics'},
-        {:name => 'hdfs_file'},
-        {:name => 'hdfs_import'},
-        {:name => 'insight'},
-        {:name => 'import'},
-        {:name => 'import_source_data_task'},
-        {:name => 'import_source_task_result'},
-        {:name => 'imoort_template'},
-        {:name => 'jdbc_data_source'},
-        {:name => 'jdbc_dataset'},
-        {:name => 'jdbc_dataset_column'},
-        {:name => 'jdbc_hive_data_source'},
-        {:name => 'jdbc_schema'},
-        {:name => 'jdbc_sql_result'},
-        {:name => 'jdbc_table'},
-        {:name => 'jdbc_view'},
-        {:name => 'job'},
-        {:name => 'job_result'},
-        {:name => 'job_task'},
-        {:name => 'job_task_result'},
-        {:name => 'ldap_config'},
-        {:name => 'license'},
-        {:name => 'linked_tableau_workfile'},
-        {:name => 'membership'},
-        {:name => 'milestone'},
-        {:name => 'my_workspace_search'},
-        {:name => 'note'},
-        {:name => 'notes_workflow_result'},
-        {:name => 'notes_workfile'},
-        {:name => 'notification'},
-        {:name => 'open_worlfile_event'},
-        {:name => 'operation'},
-        {:name => 'oracle_data_source'},
-        {:name => 'oracle_dataset'},
-        {:name => 'oracle_dataset_column'},
-        {:name => 'oracle_schema'},
-        {:name => 'oracle_sql_result'},
-        {:name => 'oracle_table'},
-        {:name => 'oracle_view'},
-        {:name => 'permission'},
-        {:name => 'pg_data_source'},
-        {:name => 'pg_database'},
-        {:name => 'pg_dataset'},
-        {:name => 'pg_dataset_column'},
-        {:name => 'pg_schema'},
-        {:name => 'pg_table'},
-        {:name => 'pg_view'},
-        {:name => 'relational_dataset'},
-        {:name => 'role'},
-        {:name => 'run_sql_workfile_task'},
-        {:name => 'run_workflow_task'},
-        {:name => 'run_workflow_task_result'},
-        {:name => 'sandbox'},
-        {:name => 'schema'},
-        {:name => 'schema_function'},
-        {:name => 'schema_import'},
-        {:name => 'scope'},
-        {:name => 'search'},
-        {:name => 'session'},
-        {:name => 'sql_result'},
-        {:name => 'sql_value_parser'},
-        {:name => 'system_status'},
-        {:name => 'tableau_publisher'},
-        {:name => 'tableau_workbook_publication'},
-        {:name => 'tag'},
-        {:name => 'tagging'},
-        {:name => 'type_ahead_search'},
-        {:name => 'upload'},
-        {:name => 'user'},
-        {:name => 'visualization'},
-        {:name => 'workfile'},
-        {:name => 'workfile_draft'},
-        {:name => 'workfile_execution_location'},
-        {:name => 'workfile_version'},
-        {:name => 'workspace'},
-        {:name => 'workspace_import'},
-        {:name => 'workspace_search'},
+        {:name => 'activity'.camelize},
+        {:name => 'alpine_workfile'.camelize},
+        {:name => 'associated_dataset'.camelize},
+        {:name => 'chorus_view'.camelize},
+        {:name => 'chorus_workfile'.camelize},
+        {:name => 'comment'.camelize},
+        {:name => 'csv_file'.camelize},
+        {:name => 'csv_import'.camelize},
+        {:name => 'dashboard'.camelize},
+        {:name => 'dashboard_config'.camelize},
+        {:name => 'dashboard_item'.camelize},
+        {:name => 'data_source'.camelize},
+        {:name => 'data_source_account'.camelize},
+        {:name => 'database'.camelize},
+        {:name => 'dataset'.camelize},
+        {:name => 'database_column'.camelize},
+        {:name => 'datasets_note'.camelize},
+        {:name => 'external_table'.camelize},
+        {:name => 'gnip_data_source'.camelize},
+        {:name => 'gnip_import'.camelize},
+        {:name => 'gpdb_column_statistics'.camelize},
+        {:name => 'gpdb_data_source'.camelize},
+        {:name => 'gpdb_database'.camelize},
+        {:name => 'gpdb_dataset_column'.camelize},
+        {:name => 'gpdb_schena'.camelize},
+        {:name => 'gpdb_table'.camelize},
+        {:name => 'gpdb_view'.camelize},
+        {:name => 'greenplum_sql_result'.camelize},
+        {:name => 'group'.camelize},
+        {:name => 'hdfs_data_source'.camelize},
+        {:name => 'hdfs_dataset'.camelize},
+        {:name => 'hdfs_dataset_statistics'.camelize},
+        {:name => 'hdfs_entry'.camelize},
+        {:name => 'hdfs_entry_statistics'.camelize},
+        {:name => 'hdfs_file'.camelize},
+        {:name => 'hdfs_import'.camelize},
+        {:name => 'insight'.camelize},
+        {:name => 'import'.camelize},
+        {:name => 'import_source_data_task'.camelize},
+        {:name => 'import_source_task_result'.camelize},
+        {:name => 'imoort_template'.camelize},
+        {:name => 'jdbc_data_source'.camelize},
+        {:name => 'jdbc_dataset'.camelize},
+        {:name => 'jdbc_dataset_column'.camelize},
+        {:name => 'jdbc_hive_data_source'.camelize},
+        {:name => 'jdbc_schema'.camelize},
+        {:name => 'jdbc_sql_result'.camelize},
+        {:name => 'jdbc_table'.camelize},
+        {:name => 'jdbc_view'.camelize},
+        {:name => 'job'.camelize},
+        {:name => 'job_result'.camelize},
+        {:name => 'job_task'.camelize},
+        {:name => 'job_task_result'.camelize},
+        {:name => 'ldap_config'.camelize},
+        {:name => 'license'.camelize},
+        {:name => 'linked_tableau_workfile'.camelize},
+        {:name => 'membership'.camelize},
+        {:name => 'milestone'.camelize},
+        {:name => 'my_workspace_search'.camelize},
+        {:name => 'note'.camelize},
+        {:name => 'notes_workflow_result'.camelize},
+        {:name => 'notes_workfile'.camelize},
+        {:name => 'notification'.camelize},
+        {:name => 'open_worlfile_event'.camelize},
+        {:name => 'operation'.camelize},
+        {:name => 'oracle_data_source'.camelize},
+        {:name => 'oracle_dataset'.camelize},
+        {:name => 'oracle_dataset_column'.camelize},
+        {:name => 'oracle_schema'.camelize},
+        {:name => 'oracle_sql_result'.camelize},
+        {:name => 'oracle_table'.camelize},
+        {:name => 'oracle_view'.camelize},
+        {:name => 'permission'.camelize},
+        {:name => 'pg_data_source'.camelize},
+        {:name => 'pg_database'.camelize},
+        {:name => 'pg_dataset'.camelize},
+        {:name => 'pg_dataset_column'.camelize},
+        {:name => 'pg_schema'.camelize},
+        {:name => 'pg_table'.camelize},
+        {:name => 'pg_view'.camelize},
+        {:name => 'relational_dataset'.camelize},
+        {:name => 'role'.camelize},
+        {:name => 'run_sql_workfile_task'.camelize},
+        {:name => 'run_workflow_task'.camelize},
+        {:name => 'run_workflow_task_result'.camelize},
+        {:name => 'sandbox'.camelize},
+        {:name => 'schema'.camelize},
+        {:name => 'schema_function'.camelize},
+        {:name => 'schema_import'.camelize},
+        {:name => 'scope'.camelize},
+        {:name => 'search'.camelize},
+        {:name => 'session'.camelize},
+        {:name => 'sql_result'.camelize},
+        {:name => 'sql_value_parser'.camelize},
+        {:name => 'system_status'.camelize},
+        {:name => 'tableau_publisher'.camelize},
+        {:name => 'tableau_workbook_publication'.camelize},
+        {:name => 'tag'.camelize},
+        {:name => 'tagging'.camelize},
+        {:name => 'type_ahead_search'.camelize},
+        {:name => 'upload'.camelize},
+        {:name => 'user'.camelize},
+        {:name => 'visualization'.camelize},
+        {:name => 'workfile'.camelize},
+        {:name => 'workfile_draft'.camelize},
+        {:name => 'workfile_execution_location'.camelize},
+        {:name => 'workfile_version'.camelize},
+        {:name => 'workspace'.camelize},
+        {:name => 'workspace_import'.camelize},
+        {:name => 'workspace_search'.camelize},
     ]
 )
 
@@ -157,9 +158,9 @@ ChorusClass.create(
 
 ChorusClass.create(
     [
-        {:name => 'recent_workfiles'},
-        {:name => 'site_snapshot'},
-        {:name => 'workspace_activity'}
+        {:name => 'recent_workfiles'.camelize},
+        {:name => 'site_snapshot'.camelize},
+        {:name => 'workspace_activity'.camelize}
 
     ]
 )
@@ -168,16 +169,16 @@ ChorusClass.create(
 
 ChorusClass.create(
     [
-        {:name => 'base'},
-        {:name => 'chorus_view_changed'},
-        {:name => 'chorus_view_created'},
-        {:name => 'credentials_invalid'},
-        {:name => 'data_source_changed_name'},
-        {:name => 'data_source_changed_owner'},
-        {:name => 'data_source_created'},
-        {:name => 'data_source_deleted'},
-        {:name => 'file_import_created'},
-        {:name => 'file_import_failed'},
+        {:name => 'base'.camelize},
+        {:name => 'chorus_view_changed'.camelize},
+        {:name => 'chorus_view_created'.camelize},
+        {:name => 'credentials_invalid'.camelize},
+        {:name => 'data_source_changed_name'.camelize},
+        {:name => 'data_source_changed_owner'.camelize},
+        {:name => 'data_source_created'.camelize},
+        {:name => 'data_source_deleted'.camelize},
+        {:name => 'file_import_created'.camelize},
+        {:name => 'file_import_failed'.camelize},
 
     # TBD. Can these event types be handle in better way?
 
@@ -188,48 +189,48 @@ ChorusClass.create(
 
 ChorusClass.create(
     [
-        {:name => 'boxplot'},
-        {:name => 'frequency'},
-        {:name => 'heatmap'},
-        {:name => 'histograp'},
-        {:name => 'timeseries'}
+        {:name => 'boxplot'.camelize},
+        {:name => 'frequency'.camelize},
+        {:name => 'heatmap'.camelize},
+        {:name => 'histograp'.camelize},
+        {:name => 'timeseries'.camelize}
 
     ]
 )
 
-workspace_class = ChorusClass.where(:name => 'workspace').first
-data_source_class = ChorusClass.where(:name => 'data_source').first
-database_class = ChorusClass.where(:name => 'database').first
-job_class  = ChorusClass.where(:name => 'job').first
-milestone_class = ChorusClass.where(:name => 'milestone').first
-membership_class = ChorusClass.where(:name => 'membership').first
-workfile_class = ChorusClass.where(:name => 'workfile').first
-activity_class = ChorusClass.where(:name => 'activity').first
-event_class = ChorusClass.where(:name => 'base').first
-note_class = ChorusClass.where(:name => 'note').first
-comment_class = ChorusClass.where(:name => 'comment').first
-chorus_view_class = ChorusClass.where(:name => 'chorus_view').first
-sandbox_class = ChorusClass.where(:name => 'sandbox').first
-csv_file_class = ChorusClass.where(:name => 'csv_file').first
-dataset_class = ChorusClass.where(:name => 'dataset').first
-associated_dataset_class = ChorusClass.where(:name => 'associated_dataset').first
-import_class = ChorusClass.where(:name => 'import').first
-tag_class = ChorusClass.where(:name => 'tag').first
+workspace_class = ChorusClass.where(:name => 'workspace'.camelize).first
+data_source_class = ChorusClass.where(:name => 'data_source'.camelize).first
+database_class = ChorusClass.where(:name => 'database'.camelize).first
+job_class  = ChorusClass.where(:name => 'job'.camelize).first
+milestone_class = ChorusClass.where(:name => 'milestone'.camelize).first
+membership_class = ChorusClass.where(:name => 'membership'.camelize).first
+workfile_class = ChorusClass.where(:name => 'workfile'.camelize).first
+activity_class = ChorusClass.where(:name => 'activity'.camelize).first
+event_class = ChorusClass.where(:name => 'base'.camelize).first
+note_class = ChorusClass.where(:name => 'note'.camelize).first
+comment_class = ChorusClass.where(:name => 'comment'.camelize).first
+chorus_view_class = ChorusClass.where(:name => 'chorus_view'.camelize).first
+sandbox_class = ChorusClass.where(:name => 'sandbox'.camelize).first
+csv_file_class = ChorusClass.where(:name => 'csv_file'.camelize).first
+dataset_class = ChorusClass.where(:name => 'dataset'.camelize).first
+associated_dataset_class = ChorusClass.where(:name => 'associated_dataset'.camelize).first
+import_class = ChorusClass.where(:name => 'import'.camelize).first
+tag_class = ChorusClass.where(:name => 'tag'.camelize).first
 
-job_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-milestone_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-membership_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-workfile_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-activity_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-event_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-note_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-comment_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-chorus_view_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-sandbox_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-csv_file_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-dataset_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-associated_dataset_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
-import_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
+job_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+milestone_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+membership_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+workfile_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+activity_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+event_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+note_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+comment_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+chorus_view_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+sandbox_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+csv_file_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+dataset_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+associated_dataset_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+import_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 
 
 puts '---- Adding Chorus objects  ----'
@@ -238,37 +239,37 @@ Workspace.all.each do |workspace|
     ChorusObject.create(:chorus_class_id => workspace_class.id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
     workspace.associated_datasets.each do |dataset|
         #puts "workspace_id = #{workspace.id}"
-        ChorusObject.create(:chorus_class_id => dataset_class.id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        ChorusObject.create(:chorus_class_id => dataset_class.id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
     end
     workspace.workfiles.each do |workfile|
         #puts "workspace_id = #{workspace.id}, workfile_id = #{workfile.id}"
-        ChorusObject.create(:chorus_class_id => workfile_class.id, :instance_id => workfile.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        ChorusObject.create(:chorus_class_id => workfile_class.id, :instance_id => workfile.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
         workfile.activities.each do |activity|
-            c = ChorusObject.create(:chorus_class_id => activity_class.id, :instance_id  => activity.id, :owner_id => workspace.owner.id, :parent_id => workfile.id)
-            puts "c.owner_id = #{c.owner_id}  c.parent_id = #{c.parent_id}"
+            c = ChorusObject.create(:chorus_class_id => activity_class.id, :instance_id  => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+            #puts "c.owner_id = #{c.owner_id}  c.parent_id = #{c.parent_id}"
         end
         workfile.comments.each do |comment|
-            ChorusObject.create(:chorus_class_id => comment_class.id, :instance_id => comment.id, :owner_id => workfile.owner.id, :parent_id => workfile.id)
+            ChorusObject.create(:chorus_class_id => comment_class.id, :instance_id => comment.id, :owner_id => workfile.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
         end
     end
     workspace.activities.each do |activity|
-        c = ChorusObject.create(:chorus_class_id => activity_class.id, :instance_id => activity.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
-        puts "c.owner_id = #{c.owner_id}  c.parent_id = #{c.parent_id}"
+        c = ChorusObject.create(:chorus_class_id => activity_class.id, :instance_id => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        #puts "c.owner_id = #{c.owner_id}  c.parent_id = #{c.parent_id}"
     end
     workspace.jobs.each do |job|
-        ChorusObject.create(:chorus_class_id => job_class.id, :instance_id => job.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        ChorusObject.create(:chorus_class_id => job_class.id, :instance_id => job.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
     end
     workspace.milestones.each do |milestone|
-        ChorusObject.create(:chorus_class_id => milestone_class.id, :instance_id => milestone.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        ChorusObject.create(:chorus_class_id => milestone_class.id, :instance_id => milestone.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
     end
     workspace.tags.each do |tag|
-        ChorusObject.create(:chorus_class_id => tag_class.id, :instance_id => tag.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        ChorusObject.create(:chorus_class_id => tag_class.id, :instance_id => tag.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
     end
     workspace.members.each do |member|
-        ChorusObject.create(:chorus_class_id => membership_class.id, :instance_id => member.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        ChorusObject.create(:chorus_class_id => membership_class.id, :instance_id => member.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
     end
     workspace.comments.each do |comment|
-        ChorusObject.create(:chorus_class_id => comment_class.id, :instance_id => comment.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        ChorusObject.create(:chorus_class_id => comment_class.id, :instance_id => comment.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
     end
 end
 
@@ -277,27 +278,40 @@ DataSource.all.each do |data_source|
     ChorusObject.create(:chorus_class_id => data_source_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
 end
 
+puts "============== FOLLOWING IS FOR TESTING PURPOSR ONLY ================="
+puts ''
+puts '--- Adding scopes ----'
 #for testing only
 scope_A = Scope.create(:name => 'scope_A')
 scope_B = Scope.create(:name => 'scope_B')
 
+puts ''
+puts '---- Adding groups ----'
 #for testing only
 group_A = Group.create(:name => 'group_A')
 group_B = Group.create(:name => 'group_B')
 
+puts ''
+puts '---- Assiging scopes to groups ----'
 group_A.scope = scope_A
 group_A.save!
 group_B.scope = scope_B
 group_B.save!
 
+puts ''
+puts '---- Randomlu assigning workspace and data sources  to scopes ----'
 i = 0
 
 Workspace.all.each do |workspace|
     instance = ChorusObject.find_by_instance_id(workspace.id)
     if i.odd?
         instance.scope = scope_A
+        puts "adding #{instance.id} to scope A"
+        instance.save!
     else
       instance.scope = scope_B
+      puts "adding #{instance.id} to scope B"
+      instance.save!
     end
     i = i + 1
 end
@@ -308,8 +322,10 @@ DataSource.all.each do |data_source|
     instance = ChorusObject.find_by_instance_id(data_source.id)
     if i.odd?
         instance.scope = scope_A
+        instance.save!
     else
         instance.scope = scope_B
+        instance.save!
     end
     i = i + 1
 end
