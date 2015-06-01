@@ -7,6 +7,11 @@ namespace :db do
     load Rails.root.join('db', 'development_seeds.rb')
   end
 
+  # Load permissions seed data
+  task :seed_permissions => :environment do
+    load Rails.root.join('db', 'permissions_seeds.rb')
+  end
+
   def create_database_tasks(database_name)
     namespace database_name.to_sym do
       desc "Recreate the #{database_name} from an existent structure.sql file"
@@ -22,6 +27,8 @@ namespace :db do
       task :prepare => "db:#{database_name}:load_structure"
     end
   end
+
+
 
   def load_database_structure(database_name)
     current_config(:config => ActiveRecord::Base.configurations[database_name])
