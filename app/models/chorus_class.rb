@@ -7,14 +7,14 @@ class ChorusClass < ActiveRecord::Base
 
   # Finds the first ancestor with permissions
   # Open to new names, this one isn't great
-  def self.search_permission_tree(klass)
+  def self.search_permission_tree(klass, activity_symbol)
     initial_search = find_by_name(klass.name)
 
     if initial_search.permissions.empty?
 
       superclasses_of(klass).each do |ancestor|
         ancestor_chorus_class = find_by_name(ancestor.to_s)
-        return ancestor_chorus_class if ancestor_chorus_class && ancestor_chorus_class.permissions.present?
+        return ancestor_chorus_class if ancestor_chorus_class && ancestor::PERMISSIONS.include?(activity_symbol)
       end
 
     else
