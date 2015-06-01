@@ -73,6 +73,15 @@ module Authority
 
     or_actions.each do |action|
       allowed ||= case action
+                    when :current_user_can_create_comment_on_event
+                        ::Events::Base.for_dashboard_of(user).find_by_id(object.id) || object.workspace.public?
+
+                    when :current_user_is_author
+                      object.author == user
+
+                    when :current_user_can_see_comment
+                      ::Events::Base.for_dashboard_of(user).find_by_id(object.event_id)
+
                     when :current_user_is_object_owner
                       object.owner == user
 

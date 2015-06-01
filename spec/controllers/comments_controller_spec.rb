@@ -21,7 +21,7 @@ describe CommentsController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :create_comment_on, Comment, event
+      mock(Authority).authorize!.with_any_args
       post :create, params
     end
 
@@ -127,7 +127,7 @@ describe CommentsController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :show, comment
+      mock(Authority).authorize! :show, comment, event_author, { :or => :current_user_can_see_comment }
       get :show, :id => comment.id
     end
 
@@ -148,7 +148,7 @@ describe CommentsController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :destroy, @comment
+      mock(Authority).authorize! :destroy, @comment, commenter, { :or => :current_user_is_author }
       delete :destroy, :id => @comment.id
     end
 
