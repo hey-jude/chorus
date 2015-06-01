@@ -16,13 +16,11 @@ module Authority
   # permission, then the user is authorized for that activity
   def self.authorize!(activity_symbol, object, user, options={})
 
-    #return if legacy_action_allowed
-
     # retreive user and object information
     roles = retrieve_roles(user)
-    chorus_class = ChorusClass.search_permission_tree(object.class)
+    chorus_class = ChorusClass.search_permission_tree(object.class, activity_symbol)
     chorus_object = ChorusObject.find_by_chorus_class_id_and_instance_id(chorus_class.id, object.id)
-    actual_class = object.class.name.constantize
+    actual_class = chorus_class.name.constantize
 
     # check to see if object and user share scope. Ideally an object and user in different scopes shouldn't even
     # get to this check, because they cannot interact with an object they can't see
