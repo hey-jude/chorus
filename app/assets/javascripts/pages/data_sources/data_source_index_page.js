@@ -42,7 +42,7 @@ chorus.pages.DataSourceIndexPage = chorus.pages.Base.extend({
 
     preRender: function () {
         var actions = [];
-
+        //TODO: RPG
         var notRestricted = !chorus.models.Config.instance().restrictDataSourceCreation();
         if (notRestricted || chorus.session.user().get("admin")) {
             actions.push({name: 'add_data_source', target: chorus.dialogs.DataSourcesNew});
