@@ -1,5 +1,6 @@
 # Seed roles groups and permissions
 # roles
+puts '---- Adding Roles ----'
 admin_role = Role.create(:name => 'admin')
 developer_role = Role.create(:name => 'developer')
 collaborator_role = Role.create(:name => 'collaborator')
@@ -12,17 +13,21 @@ project_developer_role = Role.create(:name => 'project_developer')
 contributor_role = Role.create(:name => 'contributor')
 data_scientist_role = Role.create(:name => 'data_scientist')
 
+
+chorusadmin = User.find_by_username("chorusadmin")
+
 admin_role.users << chorusadmin
 
 
 # Groups
+puts '---- Adding Default Group  ----'
 default_group = Group.create(:name => 'default_group')
-
 Role.all.each do |role|
     role.groups << default_group
 end
 
 # Scope
+puts '---- Adding Default Scope ----'
 default_scope = Scope.create(:name => 'default_scope')
 
 # permissions
@@ -32,7 +37,7 @@ Workspace.set_permissions_for [admin_role], [:show, :update, :destroy, :admin]
 Workspace.set_permissions_for [developer_role], [:show, :update, :create_workflow]
 DataSource.set_permissions_for [admin_role], [:edit]
 
-
+puts '---- Adding Chorus object classes  ----'
 ChorusClass.create(
     [
         {:name => 'activity'},
@@ -209,7 +214,7 @@ csv_file_class = ChorusClass.where(:name => 'csv_file').first
 dataset_class = ChorusClass.where(:name => 'dataset').first
 associated_dataset_class = ChorusClass.where(:name => 'associated_dataset').first
 import_class = ChorusClass.where(:name => 'import').first
-
+tag_class = ChorusClass.where(:name => 'tag').first
 
 job_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
 milestone_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
@@ -227,6 +232,50 @@ associated_dataset_class.update_attributes({:parent_class_name => 'workspace'}, 
 import_class.update_attributes({:parent_class_name => 'workspace'}, {:parent_class_id => workspace_class.id} )
 
 
+puts '---- Adding Chorus objects  ----'
+
+Workspace.all.each do |workspace|
+    ChorusObject.create(:chorus_class_id => workspace_class.id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
+    workspace.associated_datasets.each do |dataset|
+        #puts "workspace_id = #{workspace.id}"
+        ChorusObject.create(:chorus_class_id => dataset_class.id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+    end
+    workspace.workfiles.each do |workfile|
+        #puts "workspace_id = #{workspace.id}, workfile_id = #{workfile.id}"
+        ChorusObject.create(:chorus_class_id => workfile_class.id, :instance_id => workfile.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        workfile.activities.each do |activity|
+            c = ChorusObject.create(:chorus_class_id => activity_class.id, :instance_id  => activity.id, :owner_id => workspace.owner.id, :parent_id => workfile.id)
+            puts "c.owner_id = #{c.owner_id}  c.parent_id = #{c.parent_id}"
+        end
+        workfile.comments.each do |comment|
+            ChorusObject.create(:chorus_class_id => comment_class.id, :instance_id => comment.id, :owner_id => workfile.owner.id, :parent_id => workfile.id)
+        end
+    end
+    workspace.activities.each do |activity|
+        c = ChorusObject.create(:chorus_class_id => activity_class.id, :instance_id => activity.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+        puts "c.owner_id = #{c.owner_id}  c.parent_id = #{c.parent_id}"
+    end
+    workspace.jobs.each do |job|
+        ChorusObject.create(:chorus_class_id => job_class.id, :instance_id => job.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+    end
+    workspace.milestones.each do |milestone|
+        ChorusObject.create(:chorus_class_id => milestone_class.id, :instance_id => milestone.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+    end
+    workspace.tags.each do |tag|
+        ChorusObject.create(:chorus_class_id => tag_class.id, :instance_id => tag.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+    end
+    workspace.members.each do |member|
+        ChorusObject.create(:chorus_class_id => membership_class.id, :instance_id => member.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+    end
+    workspace.comments.each do |comment|
+        ChorusObject.create(:chorus_class_id => comment_class.id, :instance_id => comment.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+    end
+end
+
+
+DataSource.all.each do |data_source|
+    ChorusObject.create(:chorus_class_id => data_source_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
+end
 
 #for testing only
 scope_A = Scope.create(:name => 'scope_A')
@@ -236,23 +285,31 @@ scope_B = Scope.create(:name => 'scope_B')
 group_A = Group.create(:name => 'group_A')
 group_B = Group.create(:name => 'group_B')
 
-group_A.scopes << default_scope
-group_A.scopes << scope_A
-group_B.scopes << default_scope
-group_B.scopes << scope_B
+group_A.scope = scope_A
+group_A.save!
+group_B.scope = scope_B
+group_B.save!
+
+i = 0
 
 Workspace.all.each do |workspace|
-    ChorusObject.new(:class_id => workspace_class.id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
-    workspace.associated_datasets.each do |dataset|
-        ChorusObject.new(:class_id => dataset_class.id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
+    instance = ChorusObject.find_by_instance_id(workspace.id)
+    if i.odd?
+        instance.scope = scope_A
+    else
+      instance.scope = scope_B
     end
-    workspace.activities.each do |activity|
-        ChorusObject.new(:class_id => activity_class.id, :instance_id => activity.id, :owner_id => workspace.owner.id, :parent_id => workspace.id)
-    end
-
+    i = i + 1
 end
+
+i = 0
 
 DataSource.all.each do |data_source|
-    ChorusObject.new(:class_id => data_source_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
+    instance = ChorusObject.find_by_instance_id(data_source.id)
+    if i.odd?
+        instance.scope = scope_A
+    else
+        instance.scope = scope_B
+    end
+    i = i + 1
 end
-
