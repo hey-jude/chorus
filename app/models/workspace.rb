@@ -404,7 +404,7 @@ class Workspace < ActiveRecord::Base
     source_datasets.each do |source_dataset|
       source_datasets.destroy(source_dataset) if sandbox.datasets.include? source_dataset
     end
-    tRorue
+    true
   end
 
   def create_workspace_name_change_event
