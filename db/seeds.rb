@@ -45,4 +45,6 @@ Events::Note.set_permissions_for [admin_role], [:destroy, :demote_from_insight, 
 Workspace.set_permissions_for [admin_role], [:show, :update, :destroy, :admin]
 Workspace.set_permissions_for [developer_role], [:show, :update, :create_workflow]
 DataSource.set_permissions_for [admin_role], [:edit]
+Comment.set_permissions_for [admin_role], [:create, :show, :destroy]
+Events::Base.set_permissions_for [admin_role], [:create_comment_on]
 
