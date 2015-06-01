@@ -24,10 +24,11 @@ module DataSources
       data_source = DataSource.find(params[:data_source_id])
 
       account = data_source.account_for_user(current_user) || data_source.accounts.build(:owner => current_user)
-      authorize! :update, account
+
+      Authority.authorize! :update, account, current_user, { :or => :current_user_is_object_owner }
       account.attributes = params[:account]
 
-      authorize! :update, account
+      Authority.authorize! :update, account, current_user, { :or => :current_user_is_object_owner }
 
       account.save!
       account
