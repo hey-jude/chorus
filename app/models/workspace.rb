@@ -52,6 +52,9 @@ class Workspace < ActiveRecord::Base
   validates_attachment_size :image, :less_than => ChorusConfig.instance['file_sizes_mb']['workspace_icon'].megabytes, :message => :file_size_exceeded
   validates_with MemberCountValidator
 
+  #PT. After creating the workspace object add entry to chorus_objects tables.
+  after_create  :add_to_permissions
+
   before_update :reindex_sandbox, :if => :show_sandbox_datasets_changed?
   before_update :create_name_change_event, :if => :name_changed?
   before_update :disassociate_source_datasets_in_sandbox, :if => 'sandbox_id_changed? || show_sandbox_datasets_changed?'
