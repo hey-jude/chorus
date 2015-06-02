@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe SandboxesController do
-  ignore_authorization!
 
   let(:owner) { users(:owner) }
   let(:sandbox) { schemas(:default) }
@@ -10,6 +9,8 @@ describe SandboxesController do
   let(:workspace) { workspaces(:no_sandbox) }
   before do
     log_in owner
+    #ignore_authorization!
+    stub(Authority).authorize!.with_any_args { nil }
   end
 
   describe '#create' do

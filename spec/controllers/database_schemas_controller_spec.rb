@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe DatabaseSchemasController do
-  ignore_authorization!
 
   let(:user) { users(:owner) }
 
   before do
     log_in user
+    #ignore_authorization!
+    stub(Authority).authorize!.with_any_args { nil }
   end
 
   describe "#index" do
@@ -20,7 +21,7 @@ describe DatabaseSchemasController do
     end
 
     it 'uses authorization' do
-      mock(subject).authorize!(:show_contents, gpdb_data_source)
+      mock(Authority).authorize!(:show_contents, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
       get :index, :database_id => database.to_param
     end
 
