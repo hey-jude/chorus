@@ -13,6 +13,8 @@ project_developer_role = Role.create(:name => 'project_developer')
 contributor_role = Role.create(:name => 'contributor')
 data_scientist_role = Role.create(:name => 'data_scientist')
 
+puts '---- Adding permissions ----'
+
 
 chorusadmin = User.find_by_username("chorusadmin")
 
@@ -41,6 +43,7 @@ puts '---- Adding Chorus object classes  ----'
 ChorusClass.create(
     [
         {:name => 'activity'.camelize},
+        {:name => 'account'.camelize},
         {:name => 'alpine_workfile'.camelize},
         {:name => 'associated_dataset'.camelize},
         {:name => 'chorus_view'.camelize},
@@ -139,6 +142,7 @@ ChorusClass.create(
         {:name => 'tableau_workbook_publication'.camelize},
         {:name => 'tag'.camelize},
         {:name => 'tagging'.camelize},
+        {:name => 'task'.camelize},
         {:name => 'type_ahead_search'.camelize},
         {:name => 'upload'.camelize},
         {:name => 'user'.camelize},
@@ -152,6 +156,83 @@ ChorusClass.create(
         {:name => 'workspace_search'.camelize},
     ]
 )
+
+puts '---- Adding Operations ----'
+
+user_class = ChorusClass.find_by_name('User')
+%w(create read view update delete change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials).each do |operation|
+    user_class.operations << Operation.new(:name => operation)
+end
+
+account_class = ChorusClass.find_by_name('Account')
+%w(create read view update delete change_password lock unlock).each do |operation|
+    account_class.operations << Operation.new(:name => operation)
+end
+
+group_class = ChorusClass.find_by_name('Group')
+%w(create read view update delete).each do |operation|
+    group_class.operations << Operation.new(:name => operation)
+end
+
+workspace_class = ChorusClass.find_by_name('Workspace')
+%w(create read view update delete edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data).each do |operation|
+    workspace_class.operations << Operation.new(:name => operation)
+end
+
+datasource_class = ChorusClass.find_by_name('DataSource')
+%w(create read view update delete add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data).each do |operation|
+    datasource_class.operations << Operation.new(:name => operation)
+end
+
+note_class = ChorusClass.find_by_name('Note')
+%w(create read view update delete).each do |operation|
+    note_class.operations << Operation.new(:name => operation)
+end
+
+schema_class = ChorusClass.find_by_name('Schema')
+%w(create read view update delete).each do |operation|
+    schema_class.operations << Operation.new(:name => operation)
+end
+
+sandbox_class = ChorusClass.find_by_name('Sandbox')
+%w(create read view update delete add_to_workspace delete_from_workspace).each do |operation|
+    sandbox_class.operations << Operation.new(:name => operation)
+end
+comment_class = ChorusClass.find_by_name('Comment')
+%w(create read view update delete promote_to_insight).each do |operation|
+    comment_class.operations << Operation.new(:name => operation)
+end
+
+insight_class = ChorusClass.find_by_name('Insight')
+%w(create read view update delete  promote demote publish unpublish).each do |operation|
+    insight_class.operations << Operation.new(:name => operation)
+end
+
+workfile_class = ChorusClass.find_by_name('Workfile')
+%w(create read view update delete run_workflow ).each do |operation|
+    workfile_class.operations << Operation.new(:name => operation)
+end
+
+job_class  = ChorusClass.find_by_name('Job')
+%w(create read view update delete run stop).each do |operation|
+    job_class.operations << Operation.new(:name => operation)
+end
+
+task_class  = ChorusClass.find_by_name('Task')
+%w(create read view update delete run stop).each do |operation|
+    task_class.operations << Operation.new(:name => operation)
+end
+
+milestone_class  = ChorusClass.find_by_name('Milestone')
+%w(create read view update delete complete restart).each do |operation|
+    milestone_class.operations << Operation.new(:name => operation)
+end
+
+tag_class  = ChorusClass.find_by_name('Tag')
+%w(create read view update delete apply remove).each do |operation|
+    tag_class.operations << Operation.new(:name => operation)
+end
+
 
 
 #models/dashboard
@@ -233,6 +314,8 @@ associated_dataset_class.update_attributes({:parent_class_name => 'workspace'.ca
 import_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 
 
+
+
 puts '---- Adding Chorus objects  ----'
 
 Workspace.all.each do |workspace|
@@ -299,7 +382,7 @@ group_B.scope = scope_B
 group_B.save!
 
 puts ''
-puts '---- Randomlu assigning workspace and data sources  to scopes ----'
+puts '---- Randomly assigning workspace and data sources  to scopes ----'
 i = 0
 
 Workspace.all.each do |workspace|
