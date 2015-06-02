@@ -55,6 +55,7 @@ FixtureBuilder.configure do |fbuilder|
     DataSourceAccount.set_permissions_for [admin_role], [:update]
     Upload.set_permissions_for [admin_role], [:create]
     CsvFile.set_permissions_for [admin_role], [:create]
+    Import.set_permissions_for [admin_role], [:update]
 
     extend CurrentUserHelpers
     extend RR::Adapters::RRMethods
