@@ -1,5 +1,8 @@
 class CsvFile < ActiveRecord::Base
   include StaleUpload
+  include Permissioner
+
+  PERMISSIONS = [:create]
 
   attr_accessible :contents, :column_names, :types, :delimiter, :to_table, :has_header, :new_table, :truncate
 

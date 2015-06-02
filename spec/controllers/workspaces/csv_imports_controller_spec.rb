@@ -38,7 +38,7 @@ describe Workspaces::CsvImportsController do
   end
 
   it "uses authentication" do
-    mock(subject).authorize! :create, csv_file
+    mock(Authority).authorize! :create, csv_file, user, { :or => :current_user_is_objects_user }
     post :create, params
   end
 
