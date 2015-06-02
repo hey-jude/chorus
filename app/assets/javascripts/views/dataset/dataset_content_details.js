@@ -256,8 +256,24 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         var chiasm;
         return function (callback) {
             if (!chiasm) {
-                require(["chiasm"], function (Chiasm) {
+                require(["chiasm", "model"], function (Chiasm, Model) {
                     chiasm = Chiasm($("#chiasm-container")[0]);
+
+                    console.log(Model);
+
+                    chiasm.plugins.chorusSQL = function (){
+                        var model = Model();
+                        model.set({
+                            publicProperties: ["type"],
+                            type: Model.None
+                        });
+                        model.when(["type", "name"], function (type, name){
+                            console.log(type);
+                            console.log(name);
+                        });
+                        return model;
+                    };
+
                     callback(chiasm);
                 });
             } else {
@@ -269,6 +285,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     // Queries the server for data, depending on the current chart type and configuration.
     chiasmFetchData: function (chartOptions, callback){
         var chartType = chartOptions.type;
+
+        console.log(chartOptions);
 
         // This code fetches the data via a "task" abstraction.
         // Copied from chart_configuration_view.js
@@ -297,13 +315,13 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
             this.chiasmFetchData(chartOptions, function (data){
 
                 var config = {
-                    "layout": {
+                    layout: {
                         "plugin": "chiasm/src/plugins/layout",
                         "state": {
-                            "layout": "barChart"
+                            "layout": "visualization"
                         }
                     },
-                    "barChart": {
+                    visualization: {
                         "plugin": "chiasm/src/plugins/barChart",
                         "state": {
                             "xColumn": "bucket",
@@ -313,9 +331,13 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                             "xAxisLabelOffset": 1.9,
                             "yAxisLabelOffset": 1.4,
                             "colorDefault": "#059e00",
-                            "title": "Bar Chart",
-                            "titleOffset": -0.269568,
                             "yDomainMin": 0
+                        }
+                    },
+                    chorusSQL: {
+                        plugin: "chorusSQL",
+                        state:{
+                            type: chartOptions.type
                         }
                     }
                 };
@@ -329,19 +351,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
                 chiasm.setConfig(config);
 
-                console.log(data);
-
-
-
-                chiasm.getComponent("barChart").then(function(barChart){
-
-                    barChart.data = data;
-                    barChart.when("color", console.log, console);
-
-                    barChart.when(["barsG", "data", "x", "y", "xScale", "height", "color", "xAccessor"],
-                        function (barsG, data, x, y, xScale, height, color, xAccessor){
-                            console.log("all defined");
-                        });
+                chiasm.getComponent("visualization").then(function(visualization){
+                    visualization.data = data;
                 });
 
             });
