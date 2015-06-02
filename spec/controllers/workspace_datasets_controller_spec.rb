@@ -17,6 +17,8 @@ describe WorkspaceDatasetsController do
     before do
       log_in user
 
+      stub(Authority).authorize!.with_any_args { nil }
+
       mock(Workspace).
           workspaces_for(user).mock!.
           find(workspace.to_param) { workspace }

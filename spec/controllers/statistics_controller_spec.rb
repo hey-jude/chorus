@@ -111,6 +111,7 @@ describe StatisticsController do
       let(:data_source_account) { nil }
 
       it "should retrieve the db object for a schema" do
+        stub(Authority).authorize!.with_any_args { nil }
         get :show, :dataset_id => dataset.to_param
 
         response.code.should == "200"

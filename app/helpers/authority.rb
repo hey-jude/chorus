@@ -73,6 +73,12 @@ module Authority
 
     or_actions.each do |action|
       allowed ||= case action
+                    when :data_source_is_shared
+                      if object.respond_to? :shared then object.shared? else false end
+
+                    when :data_source_account_exists
+                      user.data_source_accounts.exists?(:data_source_id => object.id)
+
                     when :current_user_can_create_comment_on_event
                         ::Events::Base.for_dashboard_of(user).find_by_id(object.id) || object.workspace.public?
 
