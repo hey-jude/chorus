@@ -256,16 +256,15 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         var chiasm;
         return function (callback) {
             if (!chiasm) {
-                require(["chiasm", "model"], function (Chiasm, Model) {
-                    chiasm = Chiasm($("#chiasm-container")[0]);
-
-                    console.log(Model);
+                require(["chiasmBundle", "model"], function (ChiasmBundle, Model) {
+                    chiasm = ChiasmBundle($("#chiasm-container")[0]);
 
                     chiasm.plugins.chorusSQL = function (){
                         var model = Model();
                         model.set({
-                            publicProperties: ["type"],
-                            type: Model.None
+                            publicProperties: ["type", "name"],
+                            type: Model.None,
+                            name: Model.None
                         });
                         model.when(["type", "name"], function (type, name){
                             console.log(type);
@@ -316,13 +315,13 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
                 var config = {
                     layout: {
-                        "plugin": "chiasm/src/plugins/layout",
+                        "plugin": "layout",
                         "state": {
                             "layout": "visualization"
                         }
                     },
                     visualization: {
-                        "plugin": "chiasm/src/plugins/barChart",
+                        "plugin": "barChart",
                         "state": {
                             "xColumn": "bucket",
                             "xAxisLabel": chartOptions.yAxis,
@@ -337,7 +336,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                     chorusSQL: {
                         plugin: "chorusSQL",
                         state:{
-                            type: chartOptions.type
+                            type: chartOptions.type,
+                            name: chartOptions.name
                         }
                     }
                 };
