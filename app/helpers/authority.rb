@@ -73,6 +73,9 @@ module Authority
 
     or_actions.each do |action|
       allowed ||= case action
+                    when :current_user_is_objects_user
+                      object.user == user
+
                     when :data_source_is_shared
                       if object.respond_to? :shared then object.shared? else false end
 
