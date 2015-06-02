@@ -54,6 +54,7 @@ FixtureBuilder.configure do |fbuilder|
     Events::Base.set_permissions_for [admin_role], [:create_comment_on]
     DataSourceAccount.set_permissions_for [admin_role], [:update]
     Upload.set_permissions_for [admin_role], [:create]
+    CsvFile.set_permissions_for [admin_role], [:create]
 
     extend CurrentUserHelpers
     extend RR::Adapters::RRMethods
