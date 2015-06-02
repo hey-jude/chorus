@@ -1,5 +1,3 @@
-require 'allowy'
-require 'hdfs_data_source_access'
 
 class HdfsDataSourcesController < ApplicationController
 
