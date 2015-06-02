@@ -50,7 +50,7 @@ describe WorkspaceCsvController do
     end
 
     it "uses authentication" do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       post :create, csv_file_params
     end
 
