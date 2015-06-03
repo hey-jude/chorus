@@ -5,4 +5,13 @@ class Scope < ActiveRecord::Base
 
   has_many :chorus_objects
   belongs_to :group
+
+  def workspaces
+
+  end
+
+  def data_sources
+
+  end
+
 end
