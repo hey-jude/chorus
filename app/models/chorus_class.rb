@@ -30,6 +30,41 @@ class ChorusClass < ActiveRecord::Base
     return
   end
 
+  def permissions
+    parray = []
+    operations.each do |operation|
+      parray << operation.name
+    end
+    parray
+  end
+
+  def permissions_for(role_name)
+    chorus_role = Role.find_by_name(role_name.camelize)
+    ret = Set.new
+    if chorus_role == nil
+      #raise exception
+      return nil
+    else
+      perm_obj = chorus_role.permissions.where(:chorus_class_id => id).first
+      if perm_obj == nil
+        #raise exception
+        return nil
+      else
+        operations = permissions
+        bits = perm_obj.permissions_mask
+        bit_length = bits.size * 8
+        bit_length.times do |i|
+          ret.add(operations[i].to_sym) if bits[i] == 1
+        end
+
+      end
+
+    end
+
+    ret.to_a
+
+  end
+
   private
 
   # This nifty method returns an array of classes that are direct superclasses of the given class
