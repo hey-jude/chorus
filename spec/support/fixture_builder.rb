@@ -56,6 +56,7 @@ FixtureBuilder.configure do |fbuilder|
     Upload.set_permissions_for [admin_role], [:create]
     CsvFile.set_permissions_for [admin_role], [:create]
     Import.set_permissions_for [admin_role], [:update]
+    Notification.set_permissions_for [admin_role], [:destroy]
 
     extend CurrentUserHelpers
     extend RR::Adapters::RRMethods

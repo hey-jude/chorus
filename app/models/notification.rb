@@ -1,5 +1,9 @@
 class Notification < ActiveRecord::Base
   include SoftDelete
+  include Permissioner
+
+  PERMISSIONS = [:destroy]
+
   attr_accessible :event_id, :recipient_id, :comment_id, :event, :recipient
 
   belongs_to :recipient, :class_name => 'User', :foreign_key => 'recipient_id', :touch => true

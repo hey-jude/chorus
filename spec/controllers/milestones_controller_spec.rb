@@ -68,7 +68,7 @@ describe MilestonesController do
     end
 
     it "uses authorization" do
-      mock(controller).authorize!(:can_edit_sub_objects, workspace)
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       delete :destroy, params
     end
   end
@@ -95,7 +95,7 @@ describe MilestonesController do
     end
 
     it 'uses authorization' do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       put :update, params
     end
   end
