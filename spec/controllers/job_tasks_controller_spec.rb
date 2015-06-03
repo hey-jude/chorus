@@ -22,7 +22,7 @@ describe JobTasksController do
     let(:planned_job_task) { {} }
 
     it 'uses authorization' do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       post :create, params
     end
 
@@ -143,7 +143,7 @@ describe JobTasksController do
       end
 
       it "uses authorization" do
-        mock(subject).authorize! :can_edit_sub_objects, workspace
+        mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
         put :update, params
       end
     end
@@ -245,7 +245,7 @@ describe JobTasksController do
     end
 
     it "uses authorization" do
-      mock(controller).authorize!(:can_edit_sub_objects, workspace)
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       delete :destroy, params
     end
   end
