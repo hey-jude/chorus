@@ -1,7 +1,9 @@
 # Seed roles groups and permissions
 # roles
+puts ''
 puts '---- Adding Roles ----'
 admin_role = Role.create(:name => 'admin'.camelize)
+owner_role = Role.create(:name => 'owner'.camelize)
 developer_role = Role.create(:name => 'developer'.camelize)
 collaborator_role = Role.create(:name => 'collaborator'.camelize)
 site_admin_role = Role.create(:name => 'site_administrator'.camelize)
@@ -13,6 +15,7 @@ project_developer_role = Role.create(:name => 'project_developer'.camelize)
 contributor_role = Role.create(:name => 'contributor'.camelize)
 data_scientist_role = Role.create(:name => 'data_scientist'.camelize)
 
+puts ''
 puts '---- Adding permissions ----'
 
 
@@ -29,16 +32,18 @@ Role.all.each do |role|
 end
 
 # Scope
+puts ''
 puts '---- Adding Default Scope ----'
 default_scope = Scope.create(:name => 'default_scope')
 
 # permissions
-User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
-Events::Note.set_permissions_for [admin_role], [:destroy, :demote_from_insight, :update]
-Workspace.set_permissions_for [admin_role], [:show, :update, :destroy, :admin]
-Workspace.set_permissions_for [developer_role], [:show, :update, :create_workflow]
-DataSource.set_permissions_for [admin_role], [:edit]
+# User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
+# Events::Note.set_permissions_for [admin_role], [:destroy, :demote_from_insight, :update]
+# Workspace.set_permissions_for [admin_role], [:show, :update, :destroy, :admin]
+# Workspace.set_permissions_for [developer_role], [:show, :update, :create_workflow]
+# DataSource.set_permissions_for [admin_role], [:edit]
 
+puts ''
 puts '---- Adding Chorus object classes  ----'
 ChorusClass.create(
     [
@@ -203,7 +208,10 @@ ChorusClass.create(
 )
 
 workspace_class = ChorusClass.where(:name => 'workspace'.camelize).first
-data_source_class = ChorusClass.where(:name => 'data_source'.camelize).first
+user_class = ChorusClass.where(:name => 'user'.camelize).first
+account_class = ChorusClass.where(:name => 'account'.camelize).first
+datasource_class = ChorusClass.where(:name => 'data_source'.camelize).first
+group_class = ChorusClass.where(:name => 'group'.camelize).first
 database_class = ChorusClass.where(:name => 'database'.camelize).first
 job_class  = ChorusClass.where(:name => 'job'.camelize).first
 milestone_class = ChorusClass.where(:name => 'milestone'.camelize).first
@@ -220,6 +228,9 @@ dataset_class = ChorusClass.where(:name => 'dataset'.camelize).first
 associated_dataset_class = ChorusClass.where(:name => 'associated_dataset'.camelize).first
 import_class = ChorusClass.where(:name => 'import'.camelize).first
 tag_class = ChorusClass.where(:name => 'tag'.camelize).first
+schema_class = ChorusClass.where(:name => 'schema'.camelize).first
+task_class = ChorusClass.where(:name => 'task'.camelize).first
+insight_class = ChorusClass.where(:name => 'insight'.camelize).first
 
 job_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 milestone_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
@@ -236,83 +247,102 @@ dataset_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:
 associated_dataset_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 import_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 
+puts ''
 puts '---- Adding Operations ----'
 
-user_class = ChorusClass.find_by_name('User')
+order = 1
 %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials).each do |operation|
-    user_class.operations << Operation.new(:name => operation)
+    user_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-account_class = ChorusClass.find_by_name('Account')
+order = 1
 %w(create read view update delete change_password lock unlock).each do |operation|
-    account_class.operations << Operation.new(:name => operation)
+    account_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-group_class = ChorusClass.find_by_name('Group')
+order = 1
 %w(show update destroy create).each do |operation|
-    group_class.operations << Operation.new(:name => operation)
+    group_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-workspace_class = ChorusClass.find_by_name('Workspace')
+order = 1
 %w(show update destroy admin create_workflow create edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data).each do |operation|
-    workspace_class.operations << Operation.new(:name => operation)
+    workspace_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-datasource_class = ChorusClass.find_by_name('DataSource')
+order = 1
 %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data).each do |operation|
-    datasource_class.operations << Operation.new(:name => operation)
+    datasource_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
+
 end
 
-note_class = ChorusClass.find_by_name('Note')
+order = 1
 %w(show update destroy create).each do |operation|
-    note_class.operations << Operation.new(:name => operation)
+    note_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-schema_class = ChorusClass.find_by_name('Schema')
+order = 1
 %w(show update destroy create).each do |operation|
-    schema_class.operations << Operation.new(:name => operation)
+    schema_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-sandbox_class = ChorusClass.find_by_name('Sandbox')
+order = 1
 %w(show update destroy create add_to_workspace delete_from_workspace).each do |operation|
-    sandbox_class.operations << Operation.new(:name => operation)
+    sandbox_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
-comment_class = ChorusClass.find_by_name('Comment')
+
+order = 1
 %w(show update destroy  create  promote_to_insight).each do |operation|
-    comment_class.operations << Operation.new(:name => operation)
+    comment_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-insight_class = ChorusClass.find_by_name('Insight')
+order = 1
 %w(show update destroy create  promote demote publish unpublish).each do |operation|
-    insight_class.operations << Operation.new(:name => operation)
+    insight_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-workfile_class = ChorusClass.find_by_name('Workfile')
+order = 1
 %w(show update destroy create  run_workflow ).each do |operation|
-    workfile_class.operations << Operation.new(:name => operation)
+    workfile_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-job_class  = ChorusClass.find_by_name('Job')
+order = 1
 %w(show update destroy  create run stop).each do |operation|
-    job_class.operations << Operation.new(:name => operation)
+    job_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-task_class  = ChorusClass.find_by_name('Task')
+order = 1
 %w(show update destroy create run stop).each do |operation|
-    task_class.operations << Operation.new(:name => operation)
+    task_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-milestone_class  = ChorusClass.find_by_name('Milestone')
+order = 1
 %w(show update destroy create complete restart).each do |operation|
-    milestone_class.operations << Operation.new(:name => operation)
+    milestone_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-tag_class  = ChorusClass.find_by_name('Tag')
+order = 1
 %w(show update destroy create apply remove).each do |operation|
-    tag_class.operations << Operation.new(:name => operation)
+    tag_class.operations << Operation.create(:name => operation, :sequence => order)
+    order = order + 1
 end
 
-puts '---- Adding permissions to Roles ----'
+puts ''
+puts '=================== Adding permissions to Roles ======================'
 
 # Given an array of permission symbols, this function
 # returns an integer with the proper permission bits set
@@ -321,22 +351,442 @@ def create_permission_mask_for(permissions, operations)
     return bits if permissions.nil?
 
     permissions.each do |permission|
-        index = operations.index(permission)
-        puts "#{permission} operation not found for #{class_name}" if index.nil?
+        index = operations.index(permission.to_sym)
+        puts "#{permission} operation not found" if index.nil?
         bits |= ( 1 << index )
     end
 
     return bits
 end
 
-#workspace_permissions = %w(show update destroy admin create_workflow create edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data)
-admin_workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
-puts "admin role id = #{admin_role.id}"
-puts "workspace class id = #{workspace_class.id}"
+puts  ''
+puts '---- Adding permissions for admin role ----'
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
 
-admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(admin_workspace_permissions, workspace_class.permissions))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+admin_role.permissions << Permission.create(:role_id => admin_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+puts ''
+puts '---- Adding permissions for owner role ----'
+user_permissions = %w(show change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+owner_role.permissions << Permission.create(:role_id => owner_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
 
 
+puts ''
+puts '---- Adding permissions for developer role ----'
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+developer_role.permissions << Permission.create(:role_id => developer_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+
+
+puts ''
+puts '---- Adding permissions for collborator role ----'
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+collaborator_role.permissions << Permission.create(:role_id => collaborator_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+
+puts ''
+puts '---- Adding permissions for site administrator role ----'
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+site_admin_role.permissions << Permission.create(:role_id => site_admin_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+
+
+puts ''
+puts '---- Adding permissions for application administrator role ----'
+
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+app_admin_role.permissions << Permission.create(:role_id => app_admin_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+
+puts ''
+puts '---- Adding permissions for application manager role ----'
+
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+app_manager_role.permissions << Permission.create(:role_id => app_manager_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+
+puts ''
+puts '---- Adding permissions for workflow developer role ----'
+
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+workflow_developer_role.permissions << Permission.create(:role_id => workflow_developer_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+puts ''
+puts '---- Adding permissions for project manager role ----'
+
+
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+project_manager_role.permissions << Permission.create(:role_id => project_manager_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+
+puts ''
+puts '---- Adding permissions for contributor role  ----'
+
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+contributor_role.permissions << Permission.create(:role_id => contributor_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+
+puts ''
+puts '---- Adding permissions for data scientist role ----'
+
+
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+data_scientist_role.permissions << Permission.create(:role_id => data_scientist_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+puts ''
+puts '---- Adding permissions for project developer role ----'
+
+user_permissions = %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials)
+account_permissions = %w(create read view update delete change_password lock unlock)
+group_permissions = %w(show update destroy create)
+workspace_permissions = %w(show update destroy admin  create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data)
+datasource_permissions = %w(show update destroy create  add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data)
+note_permissions = %w(show update destroy create)
+schema_permissions = %w(show update destroy create)
+sandbox_permissions = %w(show update destroy create add_to_workspace delete_from_workspace)
+comment_permissions = %w(show update destroy  create  promote_to_insight)
+insight_permissions = %w(show update destroy create  promote demote publish unpublish)
+workfile_permissions = %w(show update destroy create  run_workflow )
+job_permissions = %w(show update destroy  create run stop)
+task_permissions = %w(show update destroy create run stop)
+milestome_permissions = %w(show update destroy create complete restart)
+tag_permissions = %w(show update destroy create apply remove)
+
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => user_class.id, :permissions_mask => create_permission_mask_for(user_permissions, user_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => account_class.id, :permissions_mask => create_permission_mask_for(account_permissions, account_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => group_class.id, :permissions_mask => create_permission_mask_for(group_permissions, group_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => workspace_class.id, :permissions_mask => create_permission_mask_for(workspace_permissions, workspace_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => datasource_class.id, :permissions_mask => create_permission_mask_for(datasource_permissions, datasource_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => note_class.id, :permissions_mask => create_permission_mask_for(note_permissions, note_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => schema_class.id, :permissions_mask => create_permission_mask_for(schema_permissions, schema_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => sandbox_class.id, :permissions_mask => create_permission_mask_for(sandbox_permissions, sandbox_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => comment_class.id, :permissions_mask => create_permission_mask_for(comment_permissions, comment_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => insight_class.id, :permissions_mask => create_permission_mask_for(insight_permissions, insight_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => workfile_class.id, :permissions_mask => create_permission_mask_for(workfile_permissions, workfile_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => job_class.id, :permissions_mask => create_permission_mask_for(job_permissions, job_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => task_class.id, :permissions_mask => create_permission_mask_for(task_permissions, task_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => milestone_class.id, :permissions_mask => create_permission_mask_for(milestome_permissions, milestone_class.class_operations))
+project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
+
+puts ''
 puts '---- Adding Chorus objects  ----'
 
 Workspace.all.each do |workspace|
@@ -379,7 +829,7 @@ end
 
 
 DataSource.all.each do |data_source|
-    ChorusObject.create(:chorus_class_id => data_source_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
+    ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
 end
 
 puts "============== FOLLOWING IS FOR TESTING PURPOSR ONLY ================="
@@ -403,21 +853,34 @@ group_B.scope = scope_B
 group_B.save!
 
 puts ''
-puts '---- Randomly assigning workspace and data sources  to scopes ----'
+puts '---- Randomly assigning workspace and data sources to scopes ----'
 i = 0
+
+User.all.each do |user|
+
+    if i.even?
+        puts "Adding #{user.username} to group A"
+        group_A.users << user
+    else
+        puts "Adding #{user.username} to group B"
+        group_B.users << user
+    end
+    i = i + 1
+
+end
+
 
 Workspace.all.each do |workspace|
     instance = ChorusObject.find_by_instance_id(workspace.id)
-    if i.odd?
+    if group_A.users.where(:username => workspace.owner.username).count > 0
         instance.scope = scope_A
         puts "adding #{instance.id} to scope A"
         instance.save!
-    else
-      instance.scope = scope_B
-      puts "adding #{instance.id} to scope B"
-      instance.save!
+    elsif group_B.users.where(:username => workspace.owner.username).count > 0
+        instance.scope = scope_B
+        puts "adding #{instance.id} to scope B"
+        instance.save!
     end
-    i = i + 1
 end
 
 i = 0
@@ -433,5 +896,10 @@ DataSource.all.each do |data_source|
     end
     i = i + 1
 end
+
+puts ''
+puts '---- Randomly assigning users  to scopes ----'
+
+
 
 
