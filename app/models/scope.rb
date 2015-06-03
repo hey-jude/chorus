@@ -5,6 +5,7 @@ class Scope < ActiveRecord::Base
 
   has_many :chorus_objects
   belongs_to :group
+  has_many :users
 
   def workspaces
 
