@@ -20,7 +20,7 @@ class Role < ActiveRecord::Base
         #raise exception
         return nil
       else
-        operations = chorus_class.permissions
+        operations = chorus_class.class_operations
         bits = perm_obj.permissions_mask
         bit_length = bits.size * 8
         bit_length.times do |i|
