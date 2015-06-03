@@ -8,6 +8,7 @@ describe HdfsDataSourcesController do
   before do
     @user = users(:no_collaborators)
     log_in @user
+    stub(Authority).authorize! { nil }
   end
 
   describe "#create" do
@@ -79,7 +80,7 @@ describe HdfsDataSourcesController do
 
     it "checks authorization and presents the updated hadoop data source" do
       mock(Hdfs::DataSourceRegistrar).update!(hdfs_data_source.id, attributes, @user) { fake_data_source }
-      it_uses_authorization(:edit, hdfs_data_source)
+      mock(Authority).authorize!.with_any_args
       mock_present { |data_source| data_source.should == fake_data_source }
       put :update, params
     end
@@ -139,7 +140,7 @@ describe HdfsDataSourcesController do
     end
 
     it "uses authentication" do
-      mock(subject).authorize! :edit, hdfs_data_source
+      mock(Authority).authorize!.with_any_args
       delete :destroy, :id => hdfs_data_source.id
     end
   end

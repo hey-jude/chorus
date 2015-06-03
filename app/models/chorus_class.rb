@@ -10,6 +10,10 @@ class ChorusClass < ActiveRecord::Base
   def self.search_permission_tree(klass, activity_symbol)
     initial_search = find_by_name(klass.name)
 
+    if initial_search.nil?
+      Chorus.log_error "Could not find ChorusClass with name #{klass.name}. Make sure you include Permissioner in the model and set the desired permissions"
+    end
+
     if initial_search.permissions.empty?
 
       superclasses_of(klass).each do |ancestor|
@@ -21,7 +25,7 @@ class ChorusClass < ActiveRecord::Base
       return initial_search
     end
 
-    Chorus.log_debug "Couldn't find an ancestor with permissions for the class #{klass}"
+    Chorus.log_error "Couldn't find an ancestor with permissions for the class #{klass}"
     raise Allowy::AccessDenied.new("No permissions found", nil, nil)
     return
   end

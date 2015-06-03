@@ -34,9 +34,10 @@ FixtureBuilder.configure do |fbuilder|
   # now declare objects
   fbuilder.factory do
 
-    ActiveRecord::Base.connection.tables.each do |t|
-      ActiveRecord::Base.connection.reset_pk_sequence!(t)
-    end
+    # Sometimes
+    #ActiveRecord::Base.connection.tables.each do |t|
+    #  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    #end
 
     # These permissions need to be duplicated in developement and production seeding.
     # If you can keep these DRY somehow let me know! I tried for an hour
@@ -48,9 +49,13 @@ FixtureBuilder.configure do |fbuilder|
     Workspace.set_permissions_for [admin_role], [:show, :update, :destroy]
     DataSource.set_permissions_for [admin_role], [:edit, :show_contents]
     HdfsDataSource.set_permissions_for [admin_role], [:edit, :show_contents]
+    GnipDataSource.set_permissions_for [admin_role], [:edit, :show_contents, :update]
     Comment.set_permissions_for [admin_role], [:create, :show, :destroy]
     Events::Base.set_permissions_for [admin_role], [:create_comment_on]
     DataSourceAccount.set_permissions_for [admin_role], [:update]
+    Upload.set_permissions_for [admin_role], [:create]
+    CsvFile.set_permissions_for [admin_role], [:create]
+    Import.set_permissions_for [admin_role], [:update]
 
     extend CurrentUserHelpers
     extend RR::Adapters::RRMethods
