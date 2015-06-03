@@ -4,6 +4,7 @@ Role.delete_all
 Group.delete_all
 Permission.delete_all
 Scope.delete_all
+Operation.delete_all
 ChorusClass.delete_all
 ChorusObject.delete_all
 ChorusObjectRole.delete_all
