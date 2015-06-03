@@ -14,7 +14,7 @@ class NotificationsController < ApplicationController
 
   def destroy
     notification = Notification.find(params[:id])
-    authorize! :destroy, notification
+    Authority.authorize! :destroy, notification, current_user, { :or => :current_user_is_object_recipient }
     notification.destroy
     render :json => {}
   end
