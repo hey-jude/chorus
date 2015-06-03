@@ -2,6 +2,7 @@ class JobsController < ApplicationController
   before_filter :require_jobs
   before_filter :demo_mode_filter, :only => [:create, :update, :destroy]
   before_filter :apply_timezone, only: [:create, :update]
+  before_filter :authorize_workspace, :only => [:create, :update, :destroy]
 
   def index
     Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
@@ -24,8 +25,6 @@ class JobsController < ApplicationController
   end
 
   def create
-    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
-
     job = workspace.jobs.build(params[:job])
 
     Job.transaction do
@@ -38,9 +37,8 @@ class JobsController < ApplicationController
     present job, :status => :created
   end
 
-  def update
-    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
+  def update
     job = workspace.jobs.find(params[:id])
 
     if params[:job]['task_id_order']
@@ -57,8 +55,6 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
-
     Job.find(params[:id]).destroy
 
     head :ok
@@ -66,7 +62,6 @@ class JobsController < ApplicationController
 
   def run
     job = Job.find(params[:id])
-
     Authority.authorize! :update, job.workspace, current_user, { :or => :can_edit_sub_objects }
 
     raise ApiValidationError.new(:base, :not_runnable) unless job.status == Job::IDLE
@@ -106,4 +101,9 @@ class JobsController < ApplicationController
   def require_jobs
     render_not_licensed if License.instance.limit_jobs?
   end
+
+  def authorize_workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
+  end
+
 end
