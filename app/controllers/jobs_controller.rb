@@ -4,7 +4,8 @@ class JobsController < ApplicationController
   before_filter :apply_timezone, only: [:create, :update]
 
   def index
-    authorize! :show, workspace
+    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
+                                                                    :workspace_is_public ] }
 
     jobs = workspace.jobs.order_by(params[:order]).includes(Job.eager_load_associations)
 
@@ -14,7 +15,8 @@ class JobsController < ApplicationController
   end
 
   def show
-    authorize! :show, workspace
+    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
+                                                                    :workspace_is_public ] }
 
     job = workspace.jobs.find(params[:id])
 
@@ -22,7 +24,7 @@ class JobsController < ApplicationController
   end
 
   def create
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     job = workspace.jobs.build(params[:job])
 
@@ -37,7 +39,7 @@ class JobsController < ApplicationController
   end
 
   def update
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     job = workspace.jobs.find(params[:id])
 
@@ -55,7 +57,7 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     Job.find(params[:id]).destroy
 
@@ -64,7 +66,8 @@ class JobsController < ApplicationController
 
   def run
     job = Job.find(params[:id])
-    authorize! :can_edit_sub_objects, job.workspace
+
+    Authority.authorize! :update, job.workspace, current_user, { :or => :can_edit_sub_objects }
 
     raise ApiValidationError.new(:base, :not_runnable) unless job.status == Job::IDLE
     job.enqueue
@@ -74,7 +77,7 @@ class JobsController < ApplicationController
 
   def stop
     job = Job.find(params[:id])
-    authorize! :can_edit_sub_objects, job.workspace
+    Authority.authorize! :update, job.workspace, current_user, { :or => :can_edit_sub_objects }
 
     job.kill
 
