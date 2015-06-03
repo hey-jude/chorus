@@ -30,10 +30,10 @@ class ChorusClass < ActiveRecord::Base
     return
   end
 
-  def permissions
+  def class_operations
     parray = []
-    operations.each do |operation|
-      parray << operation.name
+    operations.order(:sequence).each do |operation|
+      parray << operation.name.to_sym
     end
     parray
   end
@@ -50,7 +50,7 @@ class ChorusClass < ActiveRecord::Base
         #raise exception
         return nil
       else
-        operations = permissions
+        operations = class_operations
         bits = perm_obj.permissions_mask
         bit_length = bits.size * 8
         bit_length.times do |i|
