@@ -73,6 +73,9 @@ module Authority
 
     or_actions.each do |action|
       allowed ||= case action
+                    when :current_user_is_object_recipient
+                      object.recipient == user
+
                     when :current_user_is_objects_user
                       object.user == user
 
