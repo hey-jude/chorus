@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   PERMISSIONS = [:create, :destroy, :ldap, :update]
   has_and_belongs_to_many :groups
   has_and_belongs_to_many :roles
-  belongs_to :scope
+  #belongs_to :chorus_scope
 
   # object_roles allow a User to have different roles for different objects (currently just Workspace)
   has_many :chorus_object_roles

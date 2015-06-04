@@ -34,7 +34,7 @@ end
 # Scope
 puts ''
 puts '---- Adding Default Scope ----'
-default_scope = Scope.create(:name => 'default_scope')
+default_scope = ChorusScope.create(:name => 'default_scope')
 
 # permissions
 # User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
@@ -787,57 +787,218 @@ project_developer_role.permissions << Permission.create(:role_id => project_deve
 project_developer_role.permissions << Permission.create(:role_id => project_developer_role.id, :chorus_class_id => tag_class.id, :permissions_mask => create_permission_mask_for(tag_permissions, tag_class.class_operations))
 
 puts ''
-puts '---- Adding Chorus objects  ----'
+puts "============== Adding Chorus Object ================="
 
-Workspace.all.each do |workspace|
-    ChorusObject.create(:chorus_class_id => workspace_class.id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
-    workspace.associated_datasets.each do |dataset|
-        #puts "workspace_id = #{workspace.id}"
-        ChorusObject.create(:chorus_class_id => dataset_class.id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+puts ''
+puts '--- Adding Users and it children objects ----'
+User.all.each do |user|
+    if ChorusClass.find_by_name(user.class.name) == nil
+        ChorusClass.create(:name => user.class.name)
     end
-    workspace.workfiles.each do |workfile|
-        #puts "workspace_id = #{workspace.id}, workfile_id = #{workfile.id}"
-        ChorusObject.create(:chorus_class_id => workfile_class.id, :instance_id => workfile.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
-        workfile.activities.each do |activity|
-            c = ChorusObject.create(:chorus_class_id => activity_class.id, :instance_id  => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
-            #puts "c.owner_id = #{c.owner_id}  c.parent_id = #{c.parent_id}"
+    ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(user.class.name).id, :instance_id => user.id)
+    user.gpdb_data_sources.each do |data_source|
+        if ChorusClass.find_by_name(data_source.class.name) == nil
+            ChorusClass.create(:name => data_source.class.name)
         end
-        workfile.comments.each do |comment|
-            ChorusObject.create(:chorus_class_id => comment_class.id, :instance_id => comment.id, :owner_id => workfile.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+    end
+    user.oracle_data_sources.each do |data_source|
+        if ChorusClass.find_by_name(data_source.class.name) == nil
+            ChorusClass.create(:name => data_source.class.name)
         end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
     end
-    workspace.activities.each do |activity|
-        c = ChorusObject.create(:chorus_class_id => activity_class.id, :instance_id => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
-        #puts "c.owner_id = #{c.owner_id}  c.parent_id = #{c.parent_id}"
+    user.jdbc_data_sources.each do |data_source|
+        if ChorusClass.find_by_name(data_source.class.name) == nil
+            ChorusClass.create(:name => data_source.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
     end
-    workspace.jobs.each do |job|
-        ChorusObject.create(:chorus_class_id => job_class.id, :instance_id => job.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    user.pg_data_sources.each do |data_source|
+        if ChorusClass.find_by_name(data_source.class.name) == nil
+            ChorusClass.create(:name => data_source.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
     end
-    workspace.milestones.each do |milestone|
-        ChorusObject.create(:chorus_class_id => milestone_class.id, :instance_id => milestone.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    user.hdfs_data_sources.each do |data_source|
+        if ChorusClass.find_by_name(data_source.class.name) == nil
+            ChorusClass.create(:name => data_source.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
     end
-    workspace.tags.each do |tag|
-        ChorusObject.create(:chorus_class_id => tag_class.id, :instance_id => tag.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    user.gnip_data_sources.each do |data_source|
+        if ChorusClass.find_by_name(data_source.class.name) == nil
+            ChorusClass.create(:name => data_source.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
     end
-    workspace.members.each do |member|
-        ChorusObject.create(:chorus_class_id => membership_class.id, :instance_id => member.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    user.data_source_accounts.each do |account|
+        if ChorusClass.find_by_name(account.class.name) == nil
+            ChorusClass.create(:name => account.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(account.class.name).id, :instance_id => account.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
     end
-    workspace.comments.each do |comment|
-        ChorusObject.create(:chorus_class_id => comment_class.id, :instance_id => comment.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    user.memberships.each do |member|
+        if ChorusClass.find_by_name(member.class.name) == nil
+            ChorusClass.create(:name => member.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(member.class.name).id, :instance_id => member.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+    end
+    user.owned_jobs.each do |job|
+        if ChorusClass.find_by_name(job.class.name) == nil
+            ChorusClass.create(:name => job.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(job.class.name).id, :instance_id => job.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+    end
+    user.activities.each do |activity|
+        if ChorusClass.find_by_name(activity.class.name) == nil
+            ChorusClass.create(:name => activity.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id => activity.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+    end
+    user.events.each do |event|
+        if ChorusClass.find_by_name(event.class.name) == nil
+            ChorusClass.create(:name => event.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+    end
+    user.notifications.each do |notification|
+        if ChorusClass.find_by_name(notification.class.name) == nil
+            ChorusClass.create(:name => notification.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(notification.class.name).id, :instance_id => notification.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
     end
 end
 
+
+puts ''
+puts '--- Adding Workspace and it children objects ----'
+
+Workspace.all.each do |workspace|
+    if ChorusClass.find_by_name(workspace.class.name) == nil
+        ChorusClass.create(:name => workspace.class.name)
+    end
+    ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
+    workspace.jobs.each do |job|
+        if ChorusClass.find_by_name(job.class.name) == nil
+            ChorusClass.create(:name => job.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(job.class.name).id, :instance_id => job.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.milestones.each do |milestone|
+        if ChorusClass.find_by_name(milestone.class.name) == nil
+            ChorusClass.create(:name => milestone.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(milestone.class.name).id, :instance_id => milestone.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.memberships.each do |membership|
+        if ChorusClass.find_by_name(membership.class.name) == nil
+            ChorusClass.create(:name => membership.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(membership.class.name).id, :instance_id => membership.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.workfiles.each do |workfile|
+        if ChorusClass.find_by_name(workfile.class.name) == nil
+            ChorusClass.create(:name => workfile.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workfile.class.name).id, :instance_id => workfile.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        workfile.activities.each do |activity|
+            if ChorusClass.find_by_name(activity.class.name) == nil
+                ChorusClass.create(:name => activity.class.name)
+            end
+            ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id  => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+        end
+        workfile.comments.each do |comment|
+            if ChorusClass.find_by_name(comment.class.name) == nil
+                ChorusClass.create(:name => comment.class.name)
+            end
+            ChorusObject.create(:chorus_class_id =>  ChorusClass.find_by_name(comment.class.name).id, :instance_id => comment.id, :owner_id => workfile.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+        end
+    end
+    workspace.activities.each do |activity|
+        if ChorusClass.find_by_name(activity.class.name) == nil
+            ChorusClass.create(:name => activity.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    #TODO: RPG. Don't know how to deal with events of differnt types in permissions framework. For now adding them as sub classes of (Events::Base)
+    workspace.events.each do |event|
+        if ChorusClass.find_by_name(event.class.name) == nil
+            ChorusClass.create(:name => event.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.owned_notes.each do |note|
+        if ChorusClass.find_by_name(note.class.name) == nil
+            ChorusClass.create(:name => note.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(note.class.name).id, :instance_id => note.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.comments.each do |comment|
+        if ChorusClass.find_by_name(comment.class.name) == nil
+            ChorusClass.create(:name => comment.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(comment.class.name).id, :instance_id => comment.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.chorus_views.each do |view|
+        if ChorusClass.find_by_name(view.class.name) == nil
+            ChorusClass.create(:name => view.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(view.class.name).id, :instance_id => view.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.csv_files.each do |file|
+        if ChorusClass.find_by_name(file.class.name) == nil
+            ChorusClass.create(:name => file.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(file.class.name).id, :instance_id => file.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.associated_datasets.each do |dataset|
+        if ChorusClass.find_by_name(dataset.class.name) == nil
+            ChorusClass.create(:name => dataset.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(dataset.class.name).id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.source_datasets.each do |dataset|
+        if ChorusClass.find_by_name(dataset.class.name) == nil
+            ChorusClass.create(:name => dataset.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(dataset.class.name).id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.all_imports.each do |import|
+        if ChorusClass.find_by_name(import.class.name) == nil
+            ChorusClass.create(:name => import.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(import.class.name).id, :instance_id => import.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.imports.each do |import|
+        if ChorusClass.find_by_name(import.class.name) == nil
+            ChorusClass.create(:name => import.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(import.class.name).id, :instance_id => import.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+    workspace.tags.each do |tag|
+        if ChorusClass.find_by_name(tag.class.name) == nil
+            ChorusClass.create(:name => tag.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(tag.class.name).id, :instance_id => tag.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+    end
+
+end
+
+puts ''
+puts '--- Adding Data Sources and it children objects ----'
 
 DataSource.all.each do |data_source|
     ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
 end
 
+
 puts "============== FOLLOWING IS FOR TESTING PURPOSR ONLY ================="
 puts ''
 puts '--- Adding scopes ----'
 #for testing only
-scope_A = Scope.create(:name => 'scope_A')
-scope_B = Scope.create(:name => 'scope_B')
+scope_A = ChorusScope.create(:name => 'scope_A')
+scope_B = ChorusScope.create(:name => 'scope_B')
 
 puts ''
 puts '---- Adding groups ----'
@@ -847,9 +1008,9 @@ group_B = Group.create(:name => 'group_B')
 
 puts ''
 puts '---- Assiging scopes to groups ----'
-group_A.scope = scope_A
+group_A.chorus_scope = scope_A
 group_A.save!
-group_B.scope = scope_B
+group_B.chorus_scope = scope_B
 group_B.save!
 
 puts ''
@@ -869,36 +1030,53 @@ User.all.each do |user|
 
 end
 
+sa_count = 0
+sb_count = 0
 
-Workspace.all.each do |workspace|
-    instance = ChorusObject.find_by_instance_id(workspace.id)
-    if group_A.users.where(:username => workspace.owner.username).count > 0
-        instance.scope = scope_A
-        puts "adding #{instance.id} to scope A"
+Workspace.all.each do |wspace|
+    instance = ChorusObject.where(:instance_id => wspace.id, :chorus_class_id => workspace_class.id).first
+    if group_A.users.where(:username => wspace.owner.username).count > 0
+        instance.chorus_scope = scope_A
         instance.save!
-    elsif group_B.users.where(:username => workspace.owner.username).count > 0
-        instance.scope = scope_B
-        puts "adding #{instance.id} to scope B"
+        puts "adding workspace id = #{wspace.id} to scope A"
+        sa_count = sa_count + 1
+    elsif group_B.users.where(:username => wspace.owner.username).count > 0
+        instance.chorus_scope = scope_B
         instance.save!
+        puts "adding workspace id = #{wspace.id} to scope B"
+        sb_count = sb_count + 1
+    else
+        puts "Can't find group for user = #{wspace.owner.username}"
     end
 end
+
+
+puts '------------------------------------------'
+puts "Added #{sa_count} workspaces to scope_A"
+puts "Added #{sb_count} workspaces to scope_B"
+puts '------------------------------------------'
+
 
 i = 0
 
 DataSource.all.each do |data_source|
-    instance = ChorusObject.find_by_instance_id(data_source.id)
-    if i.odd?
-        instance.scope = scope_A
+    instance =  ChorusObject.where(:instance_id => data_source.id, :chorus_class_id => datasource_class.id).first
+    if group_A.users.where(:username => data_source.owner.username).count > 0
+        instance.chorus_scope = scope_A
         instance.save!
+        puts "adding data_source id = #{data_source.id} to scope A"
+        sa_count = sa_count + 1
+    elsif group_B.users.where(:username => data_source.owner.username).count > 0
+        instance.chorus_scope = scope_B
+        instance.save!
+        puts "adding data_source id = #{data_source.id} to scope B"
+        sb_count = sb_count + 1
     else
-        instance.scope = scope_B
-        instance.save!
+        puts "Can't find group for user = #{data_source.owner.username}"
     end
-    i = i + 1
 end
 
-puts ''
-puts '---- Randomly assigning users  to scopes ----'
+
 
 
 
