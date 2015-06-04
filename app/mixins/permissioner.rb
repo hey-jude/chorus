@@ -17,6 +17,33 @@ module Permissioner
     object_roles << default_roles
   end
 
+  # Returns True if the object is within the scope of current user. False otherwise
+  def in_scope?(user)
+    groups = user.groups
+    groups.each do |group|
+      if group.chorus_scope == self.chorus_scope
+        return true
+      end
+    end
+    return false
+  end
+
+  # returns Scope object if the object belongs a scope. Returns nil otherwise.
+  def chorus_scope
+     chorus_class = ChorusClass.find_by_name(self.class.name)
+     if chorus_class == nil
+       #raise exception
+       return nil
+     end
+     chorus_object = ChorusObject.where(:instance_id => self.id, :chorus_class_id => chorus_class.id).first
+     if chorus_object == nil
+       #raise exception T
+       return nil
+     else
+       chorus_object.chorus_scope
+     end
+   end
+
   def create_chorus_object
     chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
     chorus_object = ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
@@ -41,6 +68,23 @@ module Permissioner
 
   # Class-level methods invlove setting class-level permissions/roles (vs object-level)
   module ClassMethods
+
+    # returns total # of objects of current class type in scope for current_user
+    def count_in_scope(user)
+      total = 0
+      groups = user.groups
+      groups.each do |group|
+        chorus_scope = group.chorus_scope
+        if chorus_scope == nil
+          total = total + count
+        else
+          chorus_scope = group.chorus_scope
+          total = total + chorus_scope.scoped_objects(name).count
+        end
+
+      end
+      return total
+    end
 
     def permission_symbols_for(user)
       chorus_class = ChorusClass.find_by_name(self.name)

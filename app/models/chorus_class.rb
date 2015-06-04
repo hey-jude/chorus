@@ -3,6 +3,7 @@ class ChorusClass < ActiveRecord::Base
 
   has_many :chorus_objects
   has_many :operations
+  #TODO: Prakash. Need to discuss with Andrew. Why is this needed here. The permissions are on the role object Not on chorus_object
   has_many :permissions
 
   # Finds the first ancestor with permissions
