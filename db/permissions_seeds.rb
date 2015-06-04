@@ -827,78 +827,12 @@ Workspace.all.each do |workspace|
     end
 end
 
-
 DataSource.all.each do |data_source|
     ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
 end
 
-puts "============== FOLLOWING IS FOR TESTING PURPOSR ONLY ================="
-puts ''
-puts '--- Adding scopes ----'
-#for testing only
-scope_A = Scope.create(:name => 'scope_A')
-scope_B = Scope.create(:name => 'scope_B')
-
-puts ''
-puts '---- Adding groups ----'
-#for testing only
-group_A = Group.create(:name => 'group_A')
-group_B = Group.create(:name => 'group_B')
-
-puts ''
-puts '---- Assiging scopes to groups ----'
-group_A.scope = scope_A
-group_A.save!
-group_B.scope = scope_B
-group_B.save!
-
-puts ''
-puts '---- Randomly assigning workspace and data sources to scopes ----'
-i = 0
-
-User.all.each do |user|
-
-    if i.even?
-        puts "Adding #{user.username} to group A"
-        group_A.users << user
-    else
-        puts "Adding #{user.username} to group B"
-        group_B.users << user
-    end
-    i = i + 1
-
-end
 
 
-Workspace.all.each do |workspace|
-    instance = ChorusObject.find_by_instance_id(workspace.id)
-    if group_A.users.where(:username => workspace.owner.username).count > 0
-        instance.scope = scope_A
-        puts "adding #{instance.id} to scope A"
-        instance.save!
-    elsif group_B.users.where(:username => workspace.owner.username).count > 0
-        instance.scope = scope_B
-        puts "adding #{instance.id} to scope B"
-        instance.save!
-    end
-end
-
-i = 0
-
-DataSource.all.each do |data_source|
-    instance = ChorusObject.find_by_instance_id(data_source.id)
-    if i.odd?
-        instance.scope = scope_A
-        instance.save!
-    else
-        instance.scope = scope_B
-        instance.save!
-    end
-    i = i + 1
-end
-
-puts ''
-puts '---- Randomly assigning users  to scopes ----'
 
 
 
