@@ -79,9 +79,14 @@ module Permissioner
           total = total + count
         else
           chorus_scope = group.chorus_scope
-          total = total + chorus_scope.scoped_objects(name).count
+          #TODO: RPG Need to figure out how to handle special cases of sub classes.
+          case name
+            when 'Workfile'
+              total = total + chorus_scope.scoped_objects('ChorusWorkfile').count + chorus_scope.scoped_objects('AlpineWorkfile').count
+            else
+              total = total + chorus_scope.scoped_objects(name).count
+          end
         end
-
       end
       return total
     end

@@ -791,6 +791,7 @@ puts "============== Adding Chorus Object ================="
 
 puts ''
 puts '--- Adding Users and it children objects ----'
+
 User.all.each do |user|
     if ChorusClass.find_by_name(user.class.name) == nil
         ChorusClass.create(:name => user.class.name)
@@ -879,6 +880,9 @@ Workspace.all.each do |workspace|
         ChorusClass.create(:name => workspace.class.name)
     end
     ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
+
+    #children = %w(jobs milestones memberships workfiles activities events owned_notes comments chorus_views csv_files associated_datasets source_datasets all_imports imports tags)
+
     workspace.jobs.each do |job|
         if ChorusClass.find_by_name(job.class.name) == nil
             ChorusClass.create(:name => job.class.name)
@@ -1034,16 +1038,34 @@ sa_count = 0
 sb_count = 0
 
 Workspace.all.each do |wspace|
-    instance = ChorusObject.where(:instance_id => wspace.id, :chorus_class_id => workspace_class.id).first
+    instance = ChorusObject.where(:instance_id => wspace.id, :chorus_class_id => ChorusClass.find_by_name(wspace.class.name).id).first
     if group_A.users.where(:username => wspace.owner.username).count > 0
         instance.chorus_scope = scope_A
         instance.save!
         puts "adding workspace id = #{wspace.id} to scope A"
+        children = %w(jobs milestones memberships workfiles activities events owned_notes comments chorus_views csv_files associated_datasets source_datasets all_imports imports tags)
+        children.each do |child|
+            puts "   adding #{child} to scope A"
+            wspace.send(child).each do |objectz|
+                instance = ChorusObject.where(:instance_id => objectz.id, :chorus_class_id => ChorusClass.find_by_name(objectz.class.name).id).first
+                instance.chorus_scope = scope_A
+                instance.save!
+            end
+        end
         sa_count = sa_count + 1
     elsif group_B.users.where(:username => wspace.owner.username).count > 0
         instance.chorus_scope = scope_B
         instance.save!
         puts "adding workspace id = #{wspace.id} to scope B"
+        children = %w(jobs milestones memberships workfiles activities events owned_notes comments chorus_views csv_files associated_datasets source_datasets all_imports imports tags)
+        children.each do |child|
+            puts "   adding #{child} to scope B"
+            wspace.send(child).each do |objectz|
+                instance = ChorusObject.where(:instance_id => objectz.id, :chorus_class_id => ChorusClass.find_by_name(objectz.class.name).id).first
+                instance.chorus_scope = scope_B
+                instance.save!
+            end
+        end
         sb_count = sb_count + 1
     else
         puts "Can't find group for user = #{wspace.owner.username}"
@@ -1055,6 +1077,43 @@ puts '------------------------------------------'
 puts "Added #{sa_count} workspaces to scope_A"
 puts "Added #{sb_count} workspaces to scope_B"
 puts '------------------------------------------'
+
+
+
+User.all.each do |user|
+    instance = ChorusObject.where(:instance_id => user.id, :chorus_class_id => ChorusClass.find_by_name(user.class.name).id).first
+    if group_A.users.where(:username => user.username).count > 0
+        instance.chorus_scope = scope_A
+        instance.save!
+        puts "adding user id = #{user.id} to scope A"
+        children = %w(gpdb_data_sources oracle_data_sources jdbc_data_sources pg_data_sources hdfs_data_sources events gnip_data_sources data_source_accounts memberships owned_jobs activities events notifications)
+        children.each do |child|
+            puts "   adding #{child} to scope A"
+            user.send(child).each do |objectz|
+                instance = ChorusObject.where(:instance_id => objectz.id, :chorus_class_id => ChorusClass.find_by_name(objectz.class.name).id).first
+                instance.chorus_scope = scope_A
+                instance.save!
+            end
+        end
+        sa_count = sa_count + 1
+    elsif group_B.users.where(:username => user.username).count > 0
+        instance.chorus_scope = scope_B
+        instance.save!
+        puts "adding user id = #{user.id} to scope B"
+        children = %w(gpdb_data_sources oracle_data_sources jdbc_data_sources pg_data_sources hdfs_data_sources events gnip_data_sources data_source_accounts memberships owned_jobs activities events notifications)
+        children.each do |child|
+            puts "   adding #{child} to scope B"
+            user.send(child).each do |objectz|
+                instance = ChorusObject.where(:instance_id => objectz.id, :chorus_class_id => ChorusClass.find_by_name(objectz.class.name).id).first
+                instance.chorus_scope = scope_B
+                instance.save!
+            end
+        end
+        sb_count = sb_count + 1
+    else
+        puts "Can't find group for user = #{user.username}"
+    end
+end
 
 
 i = 0
