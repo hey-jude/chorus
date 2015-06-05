@@ -1,5 +1,9 @@
 module Dashboard
   class WorkspaceActivity < DataModule
+
+    attr_accessor :user
+
+
     def assign_params(params)
       a_params = params[:additional]
 
