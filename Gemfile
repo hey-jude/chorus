@@ -3,7 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.18'
 
 # See https://github.com/curran/visEngine
-gem 'vis_engine', path: "../visEngine"
+# gem 'vis_engine', path: "../visEngine"
+gem 'vis_engine', path: "components/visEngine"
+
 
 gem 'will_paginate'
 gem 'net-ldap', '0.11',    :require => false

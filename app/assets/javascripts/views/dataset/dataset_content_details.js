@@ -309,6 +309,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     updateChiasmVisualization: function(){
 
         var chartOptions = this.chartConfig.chartOptions();
+        var alpineBlue = "#00a0e5";
 
         this.chiasmInit(_.bind(function (chiasm){
             this.chiasmFetchData(chartOptions, function (data){
@@ -329,7 +330,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                             "yAxisLabel": "Count",
                             "xAxisLabelOffset": 1.9,
                             "yAxisLabelOffset": 1.4,
-                            "colorDefault": "#059e00",
+                            "colorDefault": alpineBlue,
                             "yDomainMin": 0
                         }
                     },
