@@ -19,7 +19,9 @@ module Authority
     # retreive user and object information
     roles = retrieve_roles(user)
     chorus_class = ChorusClass.search_permission_tree(object.class, activity_symbol)
-    chorus_object = ChorusObject.find_by_chorus_class_id_and_instance_id(chorus_class.id, object.id)
+#    chorus_object = ChorusObject.find_by_chorus_class_id_and_instance_id(chorus_class.id, object.id)
+    chorus_object = ChorusObject.where(:instance_id => object.id, :chorus_class_id => chorus_class.id).first
+
     actual_class = chorus_class.name.constantize
 
     # check to see if object and user share scope. Ideally an object and user in different scopes shouldn't even
@@ -154,7 +156,9 @@ module Authority
   def self.retrieve_roles(user)
     roles = user.roles.clone
     user.groups.each do |group|
-      roles << g.roles
+      roles << group.roles
+      # remove empty arrays left over for empty roles
+      roles.reject!{|r| r.class.name == 'Array'}
     end
     roles
   end
