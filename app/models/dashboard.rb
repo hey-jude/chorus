@@ -10,10 +10,11 @@ module Dashboard
 
   class DataModule
 
-    attr_accessor :entity_type, :result
+    attr_accessor :entity_type, :result, :user
 
     def initialize(params)
       @entity_type = params[:entity_type]
+      @user = params[:user]
       assign_params(params)
     end
 
@@ -25,7 +26,7 @@ module Dashboard
 
     private
 
-    def fetch_results; end
+    def fetch_results(user); end
 
     def assign_params(params) end
   end
