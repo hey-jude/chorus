@@ -17,16 +17,32 @@ module Permissioner
     object_roles << default_roles
   end
 
-  # Returns True if the object is within the scope of current user. False otherwise
-  def in_scope?(user)
-    groups = user.groups
-    groups.each do |group|
-      if group.chorus_scope == self.chorus_scope
-        return true
+  # Returns true if current user has assigned scope. False otherwise
+  def self.user_in_scope?(user)
+    if user == nil
+      # log error and raise exception TBD
+      return false
+    else
+      groups = user.groups
+      groups.each do |group|
+        if group.chorus_scope != nil
+          return true
+        end
       end
     end
     return false
   end
+
+  # Returns True if the object is within the scope of current user. False otherwise
+   def in_scope?(user)
+     groups = user.groups
+     groups.each do |group|
+       if group.chorus_scope == self.chorus_scope
+         return true
+       end
+     end
+     return false
+   end
 
   # returns Scope object if the object belongs a scope. Returns nil otherwise.
   def chorus_scope
@@ -68,6 +84,28 @@ module Permissioner
 
   # Class-level methods invlove setting class-level permissions/roles (vs object-level)
   module ClassMethods
+
+
+    # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
+    def filter_by_scope(user, objects)
+      ret = []
+      groups = user.groups
+      groups.each do |group|
+        chorus_scope = group.chorus_scope
+        if chorus_scope == nil
+          continue
+        end
+        objects.each do |objectz|
+          if objectz.chorus_scope == chorus_scope
+            puts "Adding object id = objectz.id to filtered list"
+            ret << objectz
+          end
+        end
+      end
+
+      ret
+
+    end
 
     # returns total # of objects of current class type in scope for current_user
     def count_in_scope(user)

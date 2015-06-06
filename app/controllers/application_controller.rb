@@ -133,6 +133,11 @@ class ApplicationController < ActionController::Base
     Thread.current[:user]
   end
 
+  #PT Method to check if current user is in scope
+  def current_user_in_scope?
+    Permissioner.user_in_scope?(current_user)
+  end
+
   def extend_expiration
     current_session && current_session.update_expiration!
   end

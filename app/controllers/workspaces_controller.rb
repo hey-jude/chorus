@@ -10,8 +10,8 @@ class WorkspacesController < ApplicationController
     else
       workspaces = Workspace.workspaces_for(current_user)
     end
-
     workspaces = workspaces.active if params[:active]
+
     succinct = params[:succinct] == 'true'
     # Prakash 1/22. Needed to separate namespaces for home page and workspaces page. The JSON data
     # generated for two pages is different. This needs to be fixed in future.
@@ -47,6 +47,9 @@ class WorkspacesController < ApplicationController
 
       @workspaces = workspaces.includes(succinct ? [:owner] : Workspace.eager_load_associations)
                           .order("lower(name) ASC, id")
+
+      #PT Filter workspaces by scope for current_user
+      @workspaces = Workspace.filter_by_scope(current_user, workspaces) if current_user_in_scope?
 
       present paginate(@workspaces),
              :presenter_options => {
