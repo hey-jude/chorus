@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
   has_many :data_source_accounts, :foreign_key => :owner_id, :dependent => :destroy
   has_many :dashboard_items, :dependent => :destroy
 
+  #PT. There is belongs_to relationship on open_workflow_events model.
+  has_many :open_workfile_events
+
   has_many :owned_workspaces, :foreign_key => :owner_id, :class_name => 'Workspace'
   has_many :memberships, :dependent => :destroy
   has_many :workspaces, :through => :memberships
