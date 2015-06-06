@@ -6,7 +6,9 @@ class UsersController < ApplicationController
   wrap_parameters :exclude => []
 
   def index
-    present paginate(User.order(params[:order]).includes(:tags))
+    users = User.order(params[:order]).includes(:tags)
+    users = User.filter_by_scope(current_user, users) if current_user.in_scope?(current_user)
+    present paginate(users)
   end
 
   def show

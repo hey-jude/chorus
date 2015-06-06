@@ -18,7 +18,6 @@ data_scientist_role = Role.create(:name => 'data_scientist'.camelize)
 puts ''
 puts '---- Adding permissions ----'
 
-
 chorusadmin = User.find_by_username("chorusadmin")
 
 admin_role.users << chorusadmin
@@ -868,6 +867,13 @@ User.all.each do |user|
             ChorusClass.create(:name => notification.class.name)
         end
         ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(notification.class.name).id, :instance_id => notification.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+    end
+
+    user.open_workfile_events.each do |event|
+        if ChorusClass.find_by_name(event.class.name) == nil
+            ChorusClass.create(:name => event.class.name)
+        end
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
     end
 end
 

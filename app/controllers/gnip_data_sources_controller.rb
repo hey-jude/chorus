@@ -11,7 +11,11 @@ class GnipDataSourcesController < ApplicationController
   def index
     succinct = params[:succinct] == 'true'
     includes = succinct ? [] : [{:owner => :tags}, :tags]
-    present paginate(GnipDataSource.scoped.includes(includes)), :presenter_options => {:succinct => succinct}
+    gnip_data_sources = GnipDataSource.scoped.includes(includes)
+    #PT. Apply scope filter for current_user
+    gnip_data_sources = HdfsDataSource.filter_by_scope(current_user, gnip_data_sources) if current_user_in_scope?
+
+    present paginate(gnip_data_sources), :presenter_options => {:succinct => succinct}
   end
 
   def show

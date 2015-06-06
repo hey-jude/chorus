@@ -4,6 +4,10 @@ class NotificationsController < ApplicationController
       includes(:event => Events::Base.activity_stream_eager_load_associations).
       includes(:recipient, :comment)
     notifications = notifications.unread if params['type'] == 'unread'
+    # PT:SCOPE Filter results by scope for current user
+
+    notifications = Notification.filter_by_scope(current_user, notifications) if current_user_in_scope?
+
     present paginate(notifications), :presenter_options => {:activity_stream => true, :succinct => true}
   end
 
