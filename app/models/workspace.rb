@@ -249,12 +249,16 @@ class Workspace < ActiveRecord::Base
 
   def self.accessible_to(user)
     with_membership = user.memberships.pluck(:workspace_id)
-    where('workspaces.public OR
+
+    workspaces = where('workspaces.public OR
           workspaces.id IN (:with_membership) OR
           workspaces.owner_id = :user_id',
           :with_membership => with_membership,
           :user_id => user.id
          )
+    # Filter by scope
+    filter_by_scope(user, workspaces) if Permissioner.user_in_scope?(user)
+
   end
 
   def members_accessible_to(user)
