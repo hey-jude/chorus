@@ -135,7 +135,15 @@ class ApplicationController < ActionController::Base
 
   #PT Method to check if current user is in scope
   def current_user_in_scope?
-    Permissioner.user_in_scope?(current_user)
+    if Permissioner.is_admin?(current_user)
+      return false
+    else
+      Permissioner.user_in_scope?(current_user)
+    end
+  end
+
+  def current_user_is_admin?
+    Permissioner.is_admin?(current_user)
   end
 
   def extend_expiration

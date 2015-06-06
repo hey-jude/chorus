@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def index
     users = User.order(params[:order]).includes(:tags)
-    users = User.filter_by_scope(current_user, users) if current_user.in_scope?(current_user)
+    users = User.filter_by_scope(current_user, users) if current_user_in_scope?
     present paginate(users)
   end
 
