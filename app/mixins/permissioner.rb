@@ -19,15 +19,30 @@ module Permissioner
 
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
+    if self.is_admin?(user)
+      return false
+    end
     if user == nil
       # log error and raise exception TBD
-      return false
+      return nil
     else
       groups = user.groups
       groups.each do |group|
         if group.chorus_scope != nil
           return true
         end
+      end
+    end
+    return false
+  end
+
+  # Returns true if user has site wide admin role.
+  def self.is_admin?(user)
+    admin_roles = %w(Admin SiteAdministrator)
+    roles = user.roles
+    roles.each do |role|
+      if admin_roles.include?(role.name)
+        return true
       end
     end
     return false
