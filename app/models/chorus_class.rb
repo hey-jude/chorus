@@ -19,6 +19,7 @@ class ChorusClass < ActiveRecord::Base
 
       superclasses_of(klass).each do |ancestor|
         ancestor_chorus_class = find_by_name(ancestor.to_s)
+        #TODO: Andrew Change PERMISSIONS to use the permissions from database.
         return ancestor_chorus_class if ancestor_chorus_class && ancestor::PERMISSIONS.include?(activity_symbol)
       end
 
