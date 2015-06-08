@@ -38,7 +38,11 @@ class InsightsController < ApplicationController
 
   def index
     params[:entity_type] ||= 'dashboard'
-    present paginate(get_insights), :presenter_options => {:activity_stream => true, :cached => true, :namespace => "workspace:insights"}
+    insights = get_insights
+    # TODO: Scope. Filter results for curret_user's scope
+    insights = Events::Base.filter_by_scope(current_user, insights)
+
+    present paginate(insights), :presenter_options => {:activity_stream => true, :cached => true, :namespace => "workspace:insights"}
   end
 
   private
