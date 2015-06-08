@@ -10,6 +10,7 @@ module Authority
   # Attempts to match the given activity with the activities
   # allowed by the user's roles. Raises an Allowy::AccessDenied
   # exception for backwards compatibility
+  # exception for backwards compatibility
   #
   # 'authorize' finds the permissions for each role the user has
   # on the given class. If a role permission matches the class
@@ -156,9 +157,7 @@ module Authority
   def self.retrieve_roles(user)
     roles = user.roles.clone
     user.groups.each do |group|
-      roles << group.roles
-      # remove empty arrays left over for empty roles
-      roles.reject!{|r| r.class.name == 'Array'}
+      roles << group.roles if group.roles.empty? == false
     end
     roles
   end
