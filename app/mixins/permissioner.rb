@@ -8,6 +8,7 @@ module Permissioner
   included do
     after_create :initialize_default_roles, :if => Proc.new { |obj| obj.class.const_defined? 'OBJECT_LEVEL_ROLES' }
     after_create :create_chorus_object
+    after_destroy :destroy_chorus_object
   end
 
   def initialize_default_roles
@@ -75,9 +76,17 @@ module Permissioner
      end
    end
 
+  # Called after model object is created. Created corresponding entry in chorus_objects table
   def create_chorus_object
     chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
-    chorus_object = ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
+    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
+  end
+
+  # Called after a model object is destroyed. Removes corresponding entry from chorus_objects table
+  def destroy_chorus_object
+    chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
+    chorus_object = ChorusObject.where(:instance_id => self.id, :chorus_class_id => chorus_class.id).first
+    chorus_object.destroy if chorus_object.nil? == false
   end
 
   # Ex: Workspace.first.create_permisisons_for(roles, [:edit, :destroy])
