@@ -13,7 +13,11 @@ class WorkfilesController < ApplicationController
                        current_user,
                        { :or => [ :current_user_is_in_workspace,
                                   :workspace_is_public ] }
+
     workfiles = workspace.filtered_workfiles(params)
+
+    #TODO: SCOPE. Filter results by current user's scope
+    workfiles = Workfile.filter_by_scope(current_user, workfiles) if current_user_in_scope?
 
     #present paginate(workfiles), :presenter_options => {:workfile_as_latest_version => true, :list_view => true}
     present paginate(workfiles), :presenter_options => {:workfile_as_latest_version => true, :list_view => true, :cached => true, :namespace => "workspace:workfiles"}
