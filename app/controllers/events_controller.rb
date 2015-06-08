@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     events = events.includes(Events::Base.activity_stream_eager_load_associations).order('events.id DESC')
     #@options =  { :workspace => workspace , :user => current_user, :rendering_activities => true, :show_latest_comments => false}
     #TODO Scope Filter results for current user's scope
-    events = Events::Base.filter_by_scope(current_user, events)
+    events = Events::Base.filter_by_scope(current_user, events) if current_user_in_scope?
     present paginate(events), :presenter_options => {:activity_stream => true, :succinct => true,
                                                       :workfile_as_latest_version => true, :cached => true, :namespace => 'activities'}
 
