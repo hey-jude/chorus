@@ -40,7 +40,7 @@ class InsightsController < ApplicationController
     params[:entity_type] ||= 'dashboard'
     insights = get_insights
     # TODO: Scope. Filter results for curret_user's scope
-    insights = Events::Base.filter_by_scope(current_user, insights)
+    insights = Events::Base.filter_by_scope(current_user, insights) if current_user_in_scope?
 
     present paginate(insights), :presenter_options => {:activity_stream => true, :cached => true, :namespace => "workspace:insights"}
   end
