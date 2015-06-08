@@ -10,15 +10,21 @@ class ChorusObject < ActiveRecord::Base
 
   def referenced_object
     actual_class = chorus_class.name.camelize.constantize
-    actual_object = actual_class.find(instance_id)
+    actual_class.find(instance_id)
   end
 
+  # returns true of current object has a parent. False otherwise
   def has_parent?
     parent_id != nil
   end
 
+  #returns the instance of the parent object if parent exists. Returns nil otherwise.
   def parent_object
-    actual_class = parent_class_name.camelize.constantize
-    actual_class.find(parent_id)
+    if has_parent?
+      actual_class = parent_class_name.camelize.constantize
+      actual_class.find(parent_id)
+    else
+      nil
+    end
   end
 end
