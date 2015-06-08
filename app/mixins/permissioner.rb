@@ -106,6 +106,15 @@ module Permissioner
     chorus_object = ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
   end
 
+  # returns a parent object if exists. Nil otherwise
+  def parent_object
+    chorus_object = ChorusObject.where(:instance_id => self.id, :chorus_class_id => ChorusClass.find_by_name(self.class.name)).first
+    return chorus_object.parent_object if chorus_object != nil
+
+    return nil
+
+  end
+
   # Class-level methods invlove setting class-level permissions/roles (vs object-level)
   module ClassMethods
 
