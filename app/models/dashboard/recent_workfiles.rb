@@ -23,10 +23,12 @@ module Dashboard
           includes(:workfile).
           limit(limitValue)
 
-      # PTELI:SCOPE Filter results by scope for current user
-      OpenWorkfileEvent.filter_by_scope(@user, workfiles)
-
+      if Permissioner.user_in_scope? @user
+        # PTELI:SCOPE Filter results by scope for current user
+        OpenWorkfileEvent.filter_by_scope(@user, workfiles)
+      else
+        workfiles
+      end
     end
-  
   end
 end
