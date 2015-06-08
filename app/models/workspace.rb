@@ -256,9 +256,13 @@ class Workspace < ActiveRecord::Base
           :with_membership => with_membership,
           :user_id => user.id
          )
+    
     # Filter by scope
-    filter_by_scope(user, workspaces) if Permissioner.user_in_scope?(user)
-
+     if Permissioner.user_in_scope?(user)
+       filter_by_scope(user, workspaces)
+     else
+       workspaces
+     end
   end
 
   def members_accessible_to(user)
