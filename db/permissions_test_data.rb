@@ -120,7 +120,7 @@ end
 i = 0
 
 DataSource.all.each do |data_source|
-  instance =  ChorusObject.where(:instance_id => data_source.id, :chorus_class_id => datasource_class.id).first
+  instance =  ChorusObject.where(:instance_id => data_source.id, :chorus_class_id => data_source.id).first
   if group_A.users.where(:username => data_source.owner.username).count > 0
     instance.chorus_scope = scope_A
     instance.save!
