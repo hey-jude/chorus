@@ -13,10 +13,11 @@ class EventsController < ApplicationController
                model.events
              end
 
-    events = events.includes(Events::Base.activity_stream_eager_load_associations)
+    events = events.includes(Events::Base.activity_stream_eager_load_associations).order('events.id DESC')
     #@options =  { :workspace => workspace , :user => current_user, :rendering_activities => true, :show_latest_comments => false}
-
-    present paginate(events.order('events.id DESC')), :presenter_options => {:activity_stream => true, :succinct => true,
+    #TODO Scope Filter results for current user's scope
+    events = Events::Base.filter_by_scope(current_user, events)
+    present paginate(events), :presenter_options => {:activity_stream => true, :succinct => true,
                                                       :workfile_as_latest_version => true, :cached => true, :namespace => 'activities'}
 
     # response = render_to_string :index, :formats => [:json]
