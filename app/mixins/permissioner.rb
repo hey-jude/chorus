@@ -72,8 +72,15 @@ module Permissioner
        #raise exception T
        return nil
      else
-       chorus_object.chorus_scope
+       if chorus_object.chorus_scope == nil
+          if chorus_object.parent_object != nil
+            return chorus_object.parent_object.chorus_scope
+          end
+       else
+         return chorus_object.chorus_scope
+       end
      end
+    return nil
    end
 
   # Called after model object is created. Created corresponding entry in chorus_objects table
@@ -128,9 +135,10 @@ module Permissioner
         if chorus_scope == nil
           continue
         end
+        #TODO Prakash : Can user belong to more than one scope?
         objects.each do |objectz|
           if objectz.chorus_scope == chorus_scope
-            puts "Adding object id = objectz.id to filtered list"
+            puts "Adding object id = #{objectz.id} to filtered list"
             ret << objectz
           end
         end
