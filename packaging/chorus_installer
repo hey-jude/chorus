@@ -13,12 +13,13 @@ from setup import installer_io
 from setup import func_executor
 from setup import chorus_executor
 from setup import options
-from setup import log, log_path
+from setup import log
 from setup.health_check import system_checking
 from setup.text import text
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "setup"))
 options, arg, health_args = options.get_options(sys.argv)
 logger = log.logger
+log_path = log.log_path
 bold = color.bold
 error = color.error
 processify = func_executor.processify
