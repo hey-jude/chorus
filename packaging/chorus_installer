@@ -13,7 +13,7 @@ from setup import installer_io
 from setup import func_executor
 from setup import chorus_executor
 from setup import options
-from setup import log
+from setup import log, log_path
 from setup.health_check import system_checking
 from setup.text import text
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "setup"))
@@ -28,7 +28,7 @@ run = exe.run
 run_as_user = exe.run_as_user
 fresh_install = True
 
-dot_chorus = os.path.join("/root", ".chorus")
+#dot_chorus = os.path.join("/root", ".chorus")
 def exit_gracefully(signum, frame):
     print
     print text.get("error_msg", "program_abort") % "Install"
@@ -82,6 +82,8 @@ def compare_version(cur, pre):
         return 1
 
 def grant_permission(user, chorus_path, data_path, release_path):
+    if user == None:
+        return
     global fresh_install
     logger.debug("change %s's owner to %s:" % (chorus_path, user))
     run("chown %s:%s /tmp/install.log" % (user, user))
@@ -121,8 +123,6 @@ def clean_up_old_releases(chorus_path, pre_release, cur_release, vendor=""):
             run("rm -rf %s" % path)
 
 def install():
-    if not os.getuid() == 0:
-        raise Exception("Please run installer as root")
     global fresh_install
     if not prompt_for_eula():
         print text.get("error_msg", "program_abort") % "Install"
@@ -131,19 +131,24 @@ def install():
     version = ""
     with open(os.path.join(installation_path, "version_build"), "r") as f:
         version = f.read().strip()
-    user = options.chorus_user
     chorus_path = options.chorus_path
     data_path = options.data_path
     passphrase = options.passphrase
     install_alpine = not options.chorus_only
-    user = io.prompt(text.get("interview_question", "specify_user"), default=user)
-    ret, stdout, stderr = run("useradd %s" % user)
-    if ret not in [0,9]:
-        if ret == 126:
-            stderr += "Please run as the user with root permission\n"
-        raise Exception(stderr)
+    if os.getuid() == 0:
+        user = options.chorus_user
+        user = io.prompt(text.get("interview_question", "specify_user"), default=user)
+        ret, stdout, stderr = run("useradd %s" % user)
+        if ret not in [0,9]:
+            if ret == 126:
+                stderr += "Please run as the user with root permission\n"
+            raise Exception(stderr)
 
-    ret, stdout, stderr = run("su - %s -c \'echo $CHORUS_HOME\'" % user)
+        ret, stdout, stderr = run("su - %s -c \'echo $CHORUS_HOME\'" % user)
+    else:
+        user = None
+        ret, stdout, stderr = run("echo $CHORUS_HOME")
+
     if ret == 0 and stdout.strip("\n") is not "":
         chorus_path = stdout.strip("\n")
         if os.path.lexists(os.path.join(chorus_path, "shared/db")):
@@ -230,8 +235,12 @@ def install():
     if not install_alpine:
         _chorus_only = "--chorus_only"
 
-    ret = run_as_user("%s setup %s %s --chorus_path=%s --data_path=%s --disable_spec %s %s" % \
-                      (os.path.join(release_path, "packaging/setup/chorus_server"), _s, _f, chorus_path, data_path, _passphrase, _chorus_only), user)
+    if user != None:
+        ret = run_as_user("%s setup %s %s --chorus_path=%s --data_path=%s --disable_spec %s %s" % \
+                          (os.path.join(release_path, "packaging/setup/chorus_server"), _s, _f, chorus_path, data_path, _passphrase, _chorus_only), user)
+    else:
+        ret, stdout, stderr = run("%s setup %s %s --chorus_path=%s --data_path=%s --disable_spec %s %s" % \
+                                  (os.path.join(release_path, "packaging/setup/chorus_server"), _s, _f, chorus_path, data_path, _passphrase, _chorus_only))
     if ret == 0:
         clean_up_old_releases(chorus_path, pre_release_path, release_path)
         if os.path.lexists(os.path.join(chorus_path, "alpine-current")):
@@ -245,5 +254,5 @@ try:
 except Exception as e:
     #if fresh_install and os.path.exists(dot_chorus):
     #    os.remove(dot_chorus)
-    print "[ERROR]:" + error(str(e) + "\n" + text.get("error_msg", "exception"))
+    print "[ERROR]:" + error(str(e) + "\n" + text.get("error_msg", "exception") % log_path)
     logger.debug(traceback.format_exc())
