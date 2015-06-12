@@ -26,6 +26,7 @@ processify = func_executor.processify
 io = installer_io.InstallerIO(options.silent)
 exe = chorus_executor.ChorusExecutor()
 run = exe.run
+call = exe.call
 run_as_user = exe.run_as_user
 fresh_install = True
 
@@ -240,8 +241,9 @@ def install():
         ret = run_as_user("%s setup %s %s --chorus_path=%s --data_path=%s --disable_spec %s %s" % \
                           (os.path.join(release_path, "packaging/setup/chorus_server"), _s, _f, chorus_path, data_path, _passphrase, _chorus_only), user)
     else:
-        ret, stdout, stderr = run("%s setup %s %s --chorus_path=%s --data_path=%s --disable_spec %s %s" % \
+        ret = call("%s setup %s %s --chorus_path=%s --data_path=%s --disable_spec %s %s" % \
                                   (os.path.join(release_path, "packaging/setup/chorus_server"), _s, _f, chorus_path, data_path, _passphrase, _chorus_only))
+
     if ret == 0:
         clean_up_old_releases(chorus_path, pre_release_path, release_path)
         if os.path.lexists(os.path.join(chorus_path, "alpine-current")):
