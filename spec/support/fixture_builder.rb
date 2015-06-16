@@ -39,25 +39,6 @@ FixtureBuilder.configure do |fbuilder|
     #  ActiveRecord::Base.connection.reset_pk_sequence!(t)
     #end
 
-    # These permissions need to be duplicated in developement and production seeding.
-    # If you can keep these DRY somehow let me know! I tried for an hour
-    # to find the right place. Hopefully this comment is gone later
-    admin_role = Role.create(:name => "Admin")
-    developer_role = Role.create(:name => "Developer")
-    User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
-    Events::Note.set_permissions_for [admin_role], [:destroy, :demote_from_insight, :update]
-    Workspace.set_permissions_for [admin_role], [:show, :update, :destroy]
-    DataSource.set_permissions_for [admin_role], [:edit, :show_contents]
-    HdfsDataSource.set_permissions_for [admin_role], [:edit, :show_contents]
-    GnipDataSource.set_permissions_for [admin_role], [:edit, :show_contents, :update]
-    Comment.set_permissions_for [admin_role], [:create, :show, :destroy]
-    Events::Base.set_permissions_for [admin_role], [:create_comment_on]
-    DataSourceAccount.set_permissions_for [admin_role], [:update]
-    Upload.set_permissions_for [admin_role], [:create]
-    CsvFile.set_permissions_for [admin_role], [:create]
-    Import.set_permissions_for [admin_role], [:update]
-    Notification.set_permissions_for [admin_role], [:destroy]
-
     extend CurrentUserHelpers
     extend RR::Adapters::RRMethods
     Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)
@@ -78,6 +59,8 @@ FixtureBuilder.configure do |fbuilder|
     (ActiveRecord::Base.direct_descendants).each do |klass|
       ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{klass.table_name}_id_seq RESTART WITH 1000000;")
     end
+
+    load "#{Rails.root}/db/permissions_seeds.rb"
 
     #Roles, Groups, and Permissions
     @a_role = FactoryGirl.create(:role)
