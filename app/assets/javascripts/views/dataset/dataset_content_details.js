@@ -267,8 +267,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                             name: Model.None
                         });
                         model.when(["type", "name"], function (type, name){
-                            console.log(type);
-                            console.log(name);
+                            //console.log(type);
+                            //console.log(name);
                         });
                         return model;
                     };
@@ -284,8 +284,9 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     // Queries the server for data, depending on the current chart type and configuration.
     chiasmFetchData: function (chartOptions, callback){
         var chartType = chartOptions.type;
-
-        console.log(chartOptions);
+        var datasetId = this.chartConfig.model.id;
+        var checkId =  Math.floor((Math.random()*1e8)+1).toString();
+        var url = "datasets/" + datasetId + "/visualizations";
 
         // This code fetches the data via a "task" abstraction.
         // Copied from chart_configuration_view.js
