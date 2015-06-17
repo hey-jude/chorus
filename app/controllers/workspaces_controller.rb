@@ -49,7 +49,7 @@ class WorkspacesController < ApplicationController
                           .order("lower(name) ASC, id")
 
       #PT Filter workspaces by scope for current_user
-      @workspaces = Workspace.filter_by_scope(current_user, workspaces) if current_user_in_scope?
+      @workspaces = Workspace.filter_by_scope(current_user, @workspaces) if current_user_in_scope?
 
       present paginate(@workspaces),
              :presenter_options => {
