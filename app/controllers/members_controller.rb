@@ -4,7 +4,10 @@ class MembersController < ApplicationController
     Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
                                                                     :workspace_is_public ] }
 
-    present paginate WorkspaceAccess.members_for(current_user, workspace)
+    members = WorkspaceAccess.members_for(current_user, workspace)
+    members = Workspace.filter_by_scope(current_user, members) if current_user_in_scope?
+
+    present paginate members
   end
 
   def create
