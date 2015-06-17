@@ -87,7 +87,7 @@ User.all.each do |user|
     instance.chorus_scope = scope_A
     instance.save!
     puts "adding user id = #{user.id} to scope A"
-    children = %w(gpdb_data_sources oracle_data_sources jdbc_data_sources pg_data_sources hdfs_data_sources events gnip_data_sources data_source_accounts memberships owned_jobs activities events notifications)
+    children = %w(gpdb_data_sources oracle_data_sources jdbc_data_sources pg_data_sources hdfs_data_sources events gnip_data_sources data_source_accounts memberships owned_jobs activities events open_workfile_events notifications)
     children.each do |child|
       puts "   adding #{child} to scope A"
       user.send(child).each do |objectz|
@@ -101,7 +101,7 @@ User.all.each do |user|
     instance.chorus_scope = scope_B
     instance.save!
     puts "adding user id = #{user.id} to scope B"
-    children = %w(gpdb_data_sources oracle_data_sources jdbc_data_sources pg_data_sources hdfs_data_sources events gnip_data_sources data_source_accounts memberships owned_jobs activities events notifications)
+    children = %w(gpdb_data_sources oracle_data_sources jdbc_data_sources pg_data_sources hdfs_data_sources events gnip_data_sources data_source_accounts memberships owned_jobs activities events open_workfile_events notifications)
     children.each do |child|
       puts "   adding #{child} to scope B"
       user.send(child).each do |objectz|
