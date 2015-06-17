@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Chorus/chorus-hadoop-conf.git
-  revision: a810baf1b50a774a1928ed93229069e8b54399a1
+  revision: dd800cbdda68fa6f6d2b1abd02e9559009bda3ea
   specs:
     hadoopconf_gem (0.0.1)
       httparty
