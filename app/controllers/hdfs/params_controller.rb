@@ -18,11 +18,15 @@ class Hdfs::ParamsController < ApplicationController
 
     # Fetch and parse properties from hadoop host
     t.fetch
-    props = t.properties([{
-      'property' => 'source',
-      'rule'     => '!=',
-      'value'    => 'DNE' # Matches every parameter. See rules.default.yml in hadoopconf_gem.
-    }])
+    # Matches parameters as exist in rules.default.yml in hadoopconf_gem.
+    props = t.properties
+
+    # Matches any parameter
+    #props = t.properties([{
+    #  'property' => 'source',
+    #  'rule'     => '!=',
+    #  'value'    => 'DNE'
+    #}])
 
     # HadoopConfig.errors is an ActiveModel::Errors object
     if t.errors.empty?

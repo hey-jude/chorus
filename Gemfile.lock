@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/Chorus/chorus-hadoop-conf.git
+  revision: a810baf1b50a774a1928ed93229069e8b54399a1
+  specs:
+    hadoopconf_gem (0.0.1)
+      httparty
+
+GIT
   remote: git://github.com/Chorus/gnip.git
   revision: a6bcb4e7981022c6e0c9f70e311200b82451ef2e
   specs:
@@ -61,12 +68,6 @@ GIT
   ref: 78717a33894271d012682dbe8902458badb0ca63
   specs:
     sunspot_solr (2.0.0.pre.120720)
-
-PATH
-  remote: ~/alpine/chorus-hadoop-conf
-  specs:
-    hadoopconf_gem (0.0.1)
-      httparty
 
 GEM
   remote: https://rubygems.org/
