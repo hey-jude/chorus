@@ -39,7 +39,7 @@ class WorkspacesController < ApplicationController
         present paginate(@workspaces),
            :presenter_options => {
                :show_latest_comments => (params[:show_latest_comments] == 'true'),
-              :succinct => succinct, :cached => true, :namespace => @namespace
+              :succinct => succinct, :cached => true, :cache_expiry => 7.days, :namespace => @namespace
         }
 
       end
@@ -51,7 +51,7 @@ class WorkspacesController < ApplicationController
       present paginate(@workspaces),
              :presenter_options => {
                  :show_latest_comments => (params[:show_latest_comments] == 'true'),
-                 :succinct => succinct, :cached => true, :namespace => @namespace
+                 :succinct => succinct, :cached => true, :cache_expiry => 7.days, :namespace => @namespace
              }
 
     end
@@ -68,7 +68,7 @@ class WorkspacesController < ApplicationController
     workspace = Workspace.find(params[:id])
     authorize! :show, workspace
     # use the cached version of "workspaces:workspaces" namespace.
-    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true',:cached => true, :namespace => 'workspaces:workspaces' }
+    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true', :cached => true, :cache_expiry => 7.days, :namespace => 'workspaces:workspaces' }
   end
 
   def update
