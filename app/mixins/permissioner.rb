@@ -188,13 +188,15 @@ module Permissioner
 
     # Given an activity, this method returns an integer with that
     # bit set
-    # TODO: consider deleting
     def bitmask_for(activity_symbol)
-      with_permissions_defined do
-        index = self::PERMISSIONS.index(activity_symbol)
-        raise Allowy::AccessDenied.new("Activity not found", nil, nil) if index.nil?
-        return 1 << index
-      end
+      chorus_class = ChorusClass.find_by_name(self.name)
+      operation_name_array = chorus_class.operations.map(&:name)
+      activity_index = operation_name_array.index(activity_symbol.to_s)
+
+      #index = self::PERMISSIONS.index(activity_symbol)
+
+      raise Allowy::AccessDenied.new("Activity not found", nil, nil) if activity_index.nil?
+      return 1 << activity_index
     end
 
     # Given an array of permission symbols, this function

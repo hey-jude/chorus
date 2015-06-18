@@ -19,7 +19,7 @@ describe SchemasController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!(:show_contents, schema.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+      mock(Authority).authorize!(:explore_data, schema.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
       get :show, :id => schema.to_param
     end
 
@@ -56,7 +56,7 @@ describe SchemasController do
     context "when the user does not have an account for the Data Source" do
       it "returns a 403" do
         mock(Authority).authorize!.with_any_args {
-          raise Allowy::AccessDenied.new("Not authorized", :show_contents, schema.data_source)
+          raise Allowy::AccessDenied.new("Not authorized", :explore_data, schema.data_source)
         }
 
         get :show, :id => schema.to_param

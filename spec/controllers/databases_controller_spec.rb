@@ -22,7 +22,7 @@ describe DatabasesController do
 
       it "checks authorization" do
         stub(Database).refresh { [database] }
-        mock(Authority).authorize!(:show_contents, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+        mock(Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
 
         get :index, :data_source_id => gpdb_data_source.id
       end
@@ -83,7 +83,7 @@ describe DatabasesController do
     let(:database) { databases(:default) }
 
     it "uses authorization" do
-      mock(Authority).authorize!(:show_contents, database.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+      mock(Authority).authorize!(:explore_data, database.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
 
       get :show, :id => database.to_param
     end

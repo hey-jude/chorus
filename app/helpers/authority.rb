@@ -76,6 +76,9 @@ module Authority
 
     or_actions.each do |action|
       allowed ||= case action
+                    when :current_user_is_account_owner
+                      account_owner(object, user) == user
+
                     when :current_user_is_object_recipient
                       object.recipient == user
 
@@ -152,6 +155,12 @@ module Authority
     else
       return false
     end
+  end
+
+  # will be removed when ownership role is solidified
+  def self.account_owner(data_source, current_user)
+    account = data_source.account_for_user(current_user) || data_source.accounts.build(:owner => current_user)
+    account.owner
   end
   
   def self.retrieve_roles(user)

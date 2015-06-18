@@ -207,6 +207,7 @@ workspace_class = ChorusClass.where(:name => 'workspace'.camelize).first
 user_class = ChorusClass.where(:name => 'user'.camelize).first
 account_class = ChorusClass.where(:name => 'account'.camelize).first
 datasource_class = ChorusClass.where(:name => 'data_source'.camelize).first
+datasource_class = ChorusClass.where(:name => 'data_source'.camelize).first
 group_class = ChorusClass.where(:name => 'group'.camelize).first
 database_class = ChorusClass.where(:name => 'database'.camelize).first
 job_class  = ChorusClass.where(:name => 'job'.camelize).first
@@ -227,6 +228,7 @@ tag_class = ChorusClass.where(:name => 'tag'.camelize).first
 schema_class = ChorusClass.where(:name => 'schema'.camelize).first
 task_class = ChorusClass.where(:name => 'task'.camelize).first
 insight_class = ChorusClass.where(:name => 'insight'.camelize).first
+upload_class = ChorusClass.where(:name => 'upload'.camelize).first
 
 job_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 milestone_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
@@ -247,7 +249,7 @@ puts ''
 puts '---- Adding Operations ----'
 
 class_operations = {
-    'Events::Base' => %w(create show update destroy create_comment_on),
+    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
     'ChorusScope' =>  %w(create show update destroy manage_scopes),
     'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
@@ -263,7 +265,11 @@ class_operations = {
     'Job' =>          %w(create show update destroy run stop),
     'Task' =>         %w(create show update destroy run stop),
     'Milestone' =>    %w(create show update destroy complete restart),
-    'Tag' =>          %w(create show update destroy apply remove)
+    'Tag' =>          %w(create show update destroy apply remove),
+    'Upload' =>       %w(create show update destroy),
+    'Import' =>       %w(create show update destroy),
+    'Notification' => %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
 }
 
 class_operations.each do |class_name, operations|
@@ -280,7 +286,7 @@ puts '=================== Adding permissions to Roles ======================'
 
 role_permissions = {
   'Admin' => {
-    'Events::Base' => %w(create show update destroy create_comment_on),
+    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(create show update destroy manage_scopes),
     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
     'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
@@ -296,11 +302,16 @@ role_permissions = {
     'Job' =>          %w(create show update destroy run stop),
     'Task' =>         %w(create show update destroy run stop),
     'Milestone' =>    %w(create show update destroy complete restart),
-    'Tag' =>          %w(create show update destroy apply remove)
-  },
+    'Tag' =>          %w(create show update destroy apply remove),
+    'Upload' =>       %w(create show update destroy),
+    'Import' =>       %w(create show update destroy),
+    'Notification' => %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
+
+},
 
   'Owner' => {
-    'Events::Base' => %w(create show update destroy create_comment_on),
+    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(create show update destroy manage_scopes),
     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
     'User' =>         %w(show change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
@@ -316,11 +327,15 @@ role_permissions = {
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(show update destroy create complete restart),
-    'Tag' =>          %w(show update destroy create apply remove)
+    'Tag' =>          %w(show update destroy create apply remove),
+    'Upload' =>       %w(create show update destroy),
+    'Import' =>       %w(create show update destroy),
+    'Notification' => %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
   },
 
   'Developer' => {
-    'Events::Base' => %w(create show update destroy create_comment_on),
+    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(create show update destroy manage_scopes),
     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
     'User' =>         %w(show change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
@@ -336,18 +351,23 @@ role_permissions = {
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(show update destroy create complete restart),
-    'Tag' =>          %w(show update destroy create apply remove)
+    'Tag' =>          %w(show update destroy create apply remove),
+    'Upload' =>       %w(create show update destroy),
+    'Import' =>       %w(create show update destroy),
+    'Notification' => %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
+
   },
 
   'Collaborator' => {
-    'Events::Base' => %w(create_comment_on),
+    'Events::Base' => %w(create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(),
     'Role' =>         %w(),
     'User' =>         %w(),
     'Account' =>      %w(),
     'Group' =>        %w(),
     'Workspace' =>    %w(),
-    'DataSource' =>   %w(show explore_data),
+    'DataSource' =>   %w(show),
     'Note' =>         %w(show create),
     'Schema' =>       %w(),
     'Sandbox' =>      %w(),
@@ -356,12 +376,17 @@ role_permissions = {
     'Job' =>          %w(),
     'Task' =>         %w(),
     'Milestone' =>    %w(),
-    'Tag' =>          %w(show update destroy create apply remove)
+    'Tag' =>          %w(show update destroy create apply remove),
+    'Upload' =>       %w(),
+    'Import' =>       %w(),
+    'Notification' => %w(),
+    'CsvFile' =>      %w()
+
   },
   
 
   'SiteAdministrator' => {
-    'Events::Base' =>  %w(create show update destroy create_comment_on),
+    'Events::Base' =>  %w(create show update destroy create_comment_on create_attachment_on),
     'ChorusScope' =>   %w(create show update destroy manage_scopes),
     'Role' =>          %w(create create update destroy manage_application_roles manage_workspace_roles),
     'User' =>          %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
@@ -377,12 +402,16 @@ role_permissions = {
     'Job' =>           %w(show update destroy  create run stop),
     'Task' =>          %w(show update destroy create run stop),
     'Milestone' =>     %w(show update destroy create complete restart),
-    'Tag' =>           %w(show update destroy create apply remove)
+    'Tag' =>           %w(show update destroy create apply remove),
+    'Upload' =>        %w(create show update destroy),
+    'Import' =>        %w(create show update destroy),
+    'Notification' =>  %w(create show update destroy),
+    'CsvFile' =>       %w(create show update destroy)
   },
   
 
   'ApplicationAdministrator' => {
-    'Events::Base' => %w(create show update destroy create_comment_on),
+    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(create show update destroy manage_scopes),
     'Role' =>         %w(create create update destroy manage_application_roles manage_workspace_roles),
     'User' =>         %w(show update destroy create  change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
@@ -398,12 +427,16 @@ role_permissions = {
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(show update destroy create complete restart),
-    'Tag' =>          %w(show update destroy create apply remove)
+    'Tag' =>          %w(show update destroy create apply remove),
+    'Upload' =>       %w(create show update destroy),
+    'Import' =>       %w(create show update destroy),
+    'Notification' => %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
   },
   
 
   'ApplicationManager' => {
-    'Events::Base' => %w(create_comment_on),
+    'Events::Base' => %w(create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(),
     'Role' =>         %w(manage_workspace_roles),
     'User' =>         %w(),
@@ -419,7 +452,11 @@ role_permissions = {
     'Job' =>          %w(),
     'Task' =>         %w(),
     'Milestone' =>    %w(),
-    'Tag' =>          %w(show update destroy create apply remove)
+    'Tag' =>          %w(show update destroy create apply remove),
+    'Upload' =>       %w(create show update destroy),
+    'Import' =>       %w(),
+    'Notification' => %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
   },
   
   'WorkflowDeveloper' => {
@@ -439,11 +476,15 @@ role_permissions = {
     'Job' =>           %w(),
     'Task' =>          %w(),
     'Milestone' =>     %w(),
-    'Tag' =>           %w()
+    'Tag' =>           %w(),
+    'Upload' =>        %w(),
+    'Import' =>        %w(),
+    'Notification' =>  %w(),
+    'CsvFile' =>      %w(create show update destroy)
   },
-  
+
   'ProjectManager' => {
-    'Events::Base' => %w(show create create_comment_on),
+    'Events::Base' => %w(show create create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(),
     'Role' =>         %w(),
     'User' =>         %w(),
@@ -459,11 +500,15 @@ role_permissions = {
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(show update destroy create complete restart),
-    'Tag' =>          %w(show update destroy create apply remove)
+    'Tag' =>          %w(show update destroy create apply remove),
+    'Upload' =>       %w(create show update destroy),
+    'Import' =>       %w(create show update destroy),
+    'Notification' => %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
   },
   
   'Contributor' => {
-    'Events::Base' =>  %w(show create create_comment_on),
+    'Events::Base' =>  %w(show create create_comment_on create_attachment_on),
     'ChorusScope' =>   %w(),
     'Role' =>          %w(),
     'User' =>          %w(),
@@ -479,11 +524,15 @@ role_permissions = {
     'Job' =>           %w(show update destroy create run stop),
     'Task' =>          %w(show update destroy create run stop),
     'Milestone' =>     %w(),
-    'Tag' =>           %w(show update destroy create apply remove)
+    'Tag' =>           %w(show update destroy create apply remove),
+    'Upload' =>        %w(create show update destroy),
+    'Import' =>        %w(create show update destroy),
+    'Notification' =>  %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
   },
   
   'ProjectDeveloper' => {
-    'Events::Base' => %w(show create create_comment_on),
+    'Events::Base' => %w(show create create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(),
     'Role' =>         %w(),
     'User' =>         %w(),
@@ -499,7 +548,11 @@ role_permissions = {
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(),
-    'Tag' =>          %w(show update destroy create apply remove)
+    'Tag' =>          %w(show update destroy create apply remove),
+    'Upload' =>       %w(create show update destroy),
+    'Import' =>       %w(create show update destroy),
+    'Notification' => %w(create show update destroy),
+    'CsvFile' =>      %w(create show update destroy)
   }
 }
 

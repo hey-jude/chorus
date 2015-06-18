@@ -36,7 +36,7 @@ describe PreviewsController do
       end
 
       it "uses authentication" do
-        mock(Authority).authorize! :show_contents, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
+        mock(Authority).authorize! :explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
 
         post :create, params
       end

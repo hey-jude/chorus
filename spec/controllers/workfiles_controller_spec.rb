@@ -173,7 +173,7 @@ describe WorkfilesController do
                                        non_member,
                                        { :or => [ :current_user_is_in_workspace,
                                                   :workspace_is_public ] })
-            mock(Authority).authorize! :show_contents, alpine_workfile.data_sources.first, non_member, { :or => [:data_source_is_shared, :data_source_account_exists] }
+            mock(Authority).authorize! :explore_data, alpine_workfile.data_sources.first, non_member, { :or => [:data_source_is_shared, :data_source_account_exists] }
             any_instance_of(AlpineWorkfile) do |workfile|
               mock(workfile).attempt_data_source_connection
             end

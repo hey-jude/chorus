@@ -9,7 +9,7 @@ module DataSources
 
     def create
       data_source = DataSource.unshared.find(params[:data_source_id])
-      Authority.authorize! :edit, data_source, current_user, { :or => :current_user_is_object_owner }
+      Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
 
       account = data_source.accounts.find_or_initialize_by_owner_id(params[:account][:owner_id])
       account.attributes = params[:account]
@@ -21,7 +21,7 @@ module DataSources
 
     def update
       gpdb_data_source = DataSource.find(params[:data_source_id])
-      Authority.authorize! :edit, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
+      Authority.authorize! :update, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
 
       account = gpdb_data_source.accounts.find(params[:id])
       account.attributes = params[:account]
@@ -32,7 +32,7 @@ module DataSources
 
     def destroy
       gpdb_data_source = DataSource.find(params[:data_source_id])
-      Authority.authorize! :edit, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
+      Authority.authorize! :update, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
       account = gpdb_data_source.accounts.find(params[:id])
 
       account.destroy

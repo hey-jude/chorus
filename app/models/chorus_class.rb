@@ -13,21 +13,22 @@ class ChorusClass < ActiveRecord::Base
 
     if initial_search.nil?
       Chorus.log_error "Could not find ChorusClass with name #{klass.name}. Make sure you include Permissioner in the model and set the desired permissions"
+      puts "Could not find ChorusClass with name #{klass.name}. Make sure you include Permissioner in the model and set the desired permissions"
     end
 
     if initial_search.permissions.empty?
 
       superclasses_of(klass).each do |ancestor|
         ancestor_chorus_class = find_by_name(ancestor.to_s)
-        #TODO: Andrew Change PERMISSIONS to use the permissions from database.
-        return ancestor_chorus_class if ancestor_chorus_class && ancestor::PERMISSIONS.include?(activity_symbol)
+        return ancestor_chorus_class if ancestor_chorus_class && ancestor_chorus_class.operations.map(&:name).include?(activity_symbol.to_s)
       end
 
     else
       return initial_search
     end
 
-    Chorus.log_error "Couldn't find an ancestor with permissions for the class #{klass}"
+    Chorus.log_error "Couldn't find an ancestor with permissions for the class #{klass} and operation #{activity_symbol}"
+    puts "Couldn't find an ancestor with permissions for the class #{klass} and operation #{activity_symbol}"
     raise Allowy::AccessDenied.new("No permissions found", nil, nil)
     return
   end
@@ -70,7 +71,15 @@ class ChorusClass < ActiveRecord::Base
   private
 
   # This nifty method returns an array of classes that are direct superclasses of the given class
+  # Note: GnipDataSource doesn't inherit from DataSource but we want the permissions to
+  # inherit from data_source.
   def self.superclasses_of(klass)
-    klass.ancestors[1..-1].select{|mod| mod.is_a? Class}
+    superclasses = klass.ancestors[1..-1].select{|mod| mod.is_a? Class}
+
+    if klass == GnipDataSource || klass == HdfsDataSource
+      superclasses.insert(1, DataSource)
+    end
+
+    superclasses
   end
 end

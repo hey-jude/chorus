@@ -20,6 +20,7 @@ FixtureBuilder.configure do |fbuilder|
     spec/support/database_integration/*
     tmp/*_HOST_STALE
     spec/support/test_data_sources_config.yml
+    db/permissions_seeds.rb
   }]
 
   fbuilder.name_model_with(ChorusWorkfile) do |record|
