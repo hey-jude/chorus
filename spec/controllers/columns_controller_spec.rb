@@ -25,7 +25,7 @@ describe ColumnsController do
       end
 
       it 'checks for permissions' do
-        mock(Authority).authorize! :show_contents, table.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
+        mock(Authority).authorize! :explore_data, table.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
         get :index, :dataset_id => table.to_param
       end
 

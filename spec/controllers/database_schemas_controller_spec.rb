@@ -21,7 +21,7 @@ describe DatabaseSchemasController do
     end
 
     it 'uses authorization' do
-      mock(Authority).authorize!(:show_contents, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+      mock(Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
       get :index, :database_id => database.to_param
     end
 

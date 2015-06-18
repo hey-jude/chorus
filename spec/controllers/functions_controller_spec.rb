@@ -36,7 +36,7 @@ describe FunctionsController do
       end
 
       it "should check for permissions" do
-        mock(Authority).authorize! :show_contents, schema.data_source, user,  { :or => [:data_source_is_shared, :data_source_account_exists] }
+        mock(Authority).authorize! :explore_data, schema.data_source, user,  { :or => [:data_source_is_shared, :data_source_account_exists] }
         get :index, :schema_id => schema.to_param
       end
 
