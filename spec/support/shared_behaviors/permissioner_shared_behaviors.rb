@@ -60,30 +60,30 @@ shared_examples "a permissioned model" do
     expect(object_roles_symbols).to eq(symbols)
   end
 
-  describe "when adding permissions" do
-    let (:role) { roles(:a_role) }
-    let (:permission) { model.class::PERMISSIONS.first }
+  #describe "when adding permissions" do
+  #  let (:role) { roles(:a_role) }
+  #  let (:permission) { model.class::PERMISSIONS.first }
+  #
+  #  it "should create .permissions on the chorus class" do
+  #    old_count = ChorusClass.find_by_name(model.class.name).permissions.count
+  #    model.class.set_permissions_for(role, permission)
+  #    new_count = ChorusClass.find_by_name(model.class.name).permissions.count
+  #
+  #    expect(new_count).to eq(old_count + 1)
+  #  end
+  #
+  #
+  #end
 
-    it "should create .permissions on the chorus class" do
-      old_count = ChorusClass.find_by_name(model.class.name).permissions.count
-      model.class.set_permissions_for(role, permission)
-      new_count = ChorusClass.find_by_name(model.class.name).permissions.count
-
-      expect(new_count).to eq(old_count + 1)
-    end
-
-
-  end
-
-  describe "permission_symbols_for" do
-    let (:role) { roles(:a_role) }
-    let (:user) { User.new }
-    let (:permission) { model.class::PERMISSIONS.first }
-    it "should_return the correct permission_symbol" do
-      user.roles << role
-      model.class.set_permissions_for(role, permission)
-      expect(model.class.permission_symbols_for(user)).to eq(Array.wrap(permission))
-    end
-  end
+  #describe "permission_symbols_for" do
+  #  let (:role) { roles(:a_role) }
+  #  let (:user) { User.new }
+  #  let (:permission) { model.class::PERMISSIONS.first }
+  #  it "should_return the correct permission_symbol" do
+  #    user.roles << role
+  #    model.class.set_permissions_for(role, permission)
+  #    expect(model.class.permission_symbols_for(user)).to eq(Array.wrap(permission))
+  #  end
+  #end
 
 end

@@ -40,7 +40,6 @@ class User < ActiveRecord::Base
   has_many :comments
 
   # roles, groups, and permissions
-  PERMISSIONS = [:create, :destroy, :ldap, :update]
   has_and_belongs_to_many :groups
   has_and_belongs_to_many :roles
   #belongs_to :chorus_scope
