@@ -11,7 +11,6 @@ class Workspace < ActiveRecord::Base
 
   # DO NOT CHANGE the order of these permissions, you'll accidently change everyone's permissons across the site.
   # Order: show, update, destroy
-  PERMISSIONS = [:show, :update, :destroy, :admin, :create_workflow]
   #OBJECT_LEVEL_ROLES = [:workspace_owner, :project_manager, :project_developer, :contributor, :workspace_visitor]
 
   attr_accessible :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,

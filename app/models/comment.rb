@@ -5,7 +5,6 @@ class Comment < ActiveRecord::Base
   include SharedSearch
   include Permissioner
 
-  PERMISSIONS = [:create, :show, :destroy]
 
   attr_accessible :author_id, :body, :event_id
 

@@ -39,7 +39,7 @@ module Authority
     object_permissions = common_permissions_between(roles, chorus_object)
     permissions = [class_permissions, object_permissions].flatten.compact
 
-    Chorus.log_debug("Could not find activity_symbol in #{actual_class.name} permissions") if actual_class::PERMISSIONS.index(activity_symbol).nil?
+    #Chorus.log_debug("Could not find activity_symbol in #{actual_class.name} permissions") if actual_class::PERMISSIONS.index(activity_symbol).nil?
 
     # TODO: change bitmask to hash
     activity_mask = actual_class.bitmask_for(activity_symbol)

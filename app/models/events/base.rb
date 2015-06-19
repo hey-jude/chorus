@@ -6,7 +6,6 @@ module Events
     include Recent
     include Permissioner
 
-    PERMISSIONS = [:create_comment_on]
 
     def self.activity_stream_eager_load_associations
       [
