@@ -13,6 +13,7 @@ class DatasetImportsController < ApplicationController
       imports = Import.where('(source_id = ? AND source_type = ?) OR (to_table = ? AND workspace_id = ?)',
                              table.id, 'Dataset', table.name, workspace.id).order('created_at DESC')
     end
+    imports = Import.filter_by_scope(current_user, imports) if current_user_in_scope?
     present paginate imports.includes(:destination_dataset)
   end
 

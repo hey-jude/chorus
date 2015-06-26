@@ -20,6 +20,16 @@ describe DatabasesController do
       let(:database) { databases(:shared_database) }
       let(:database2) { databases(:shared_database) }
 
+      it_behaves_like "a scoped endpoint" do
+        before do
+          stub(Database).refresh { [database] }
+        end
+        let!(:klass) { Database }
+        let!(:user)  { users(:owner) }
+        let!(:action){ :index }
+        let!(:params){ { :data_source_id => gpdb_data_source.id } }
+      end
+
       it "checks authorization" do
         stub(Database).refresh { [database] }
         mock(Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })

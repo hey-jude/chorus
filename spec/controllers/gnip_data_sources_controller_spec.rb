@@ -67,6 +67,12 @@ describe GnipDataSourcesController do
 
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { GnipDataSource }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
   end
 
   describe '#show' do

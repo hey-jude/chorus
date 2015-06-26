@@ -109,6 +109,12 @@ describe HdfsDataSourcesController do
 
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { HdfsDataSource }
+      let!(:user)  { users(:no_collaborators) }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
 
     context "when job_tracker is true" do
       it "returns only the hdfs data sources with job tracker info" do

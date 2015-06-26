@@ -22,6 +22,14 @@ describe DatasetsController do
     let(:per_page) { 50 }
 
     shared_examples :works do
+
+      it_behaves_like "a scoped endpoint" do
+        let!(:klass) { Dataset }
+        let!(:user)  { schema.data_source.owner }
+        let!(:action){ :index }
+        let!(:params){ { :schema_id => schema.to_param } }
+      end
+
       context "without any filter" do
         it 'returns all the datasets in that schema' do
           get :index, :schema_id => schema.to_param

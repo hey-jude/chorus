@@ -19,6 +19,13 @@ describe DataSourcesController do
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { DataSource }
+      let!(:user)  { users(:owner)}
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
+
     it "returns data sources that the user can access" do
       get :index
       response.code.should == "200"
