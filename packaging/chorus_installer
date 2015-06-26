@@ -116,7 +116,7 @@ def copy_to_dest(installation_path, chorus_path, data_path, release_path, user):
 
 def clean_up_old_releases(chorus_path, pre_release, cur_release, vendor=""):
     releases_path = os.path.join(chorus_path, vendor+"releases")
-    releases = [f for f in glob.glob(os.path.join(releases_path, "*")) if os.path.isdir(f) and not f == cur_release and not f == pre_release]
+    releases = [f for f in glob.glob(os.path.join(releases_path, "*")) if os.path.isdir(f) and not cur_release.rstrip("/").split("/")[-1] in f and not pre_release.rstrip("/").split("/")[-1] in f]
     if len(releases) > 0:
         releases.sort(key=lambda x: os.path.getmtime(x), reverse=True)
         if cur_release == pre_release:
@@ -142,7 +142,7 @@ def install():
     if os.getuid() == 0:
         user = options.chorus_user
         user = io.prompt(text.get("interview_question", "specify_user"), default=user)
-        ret, stdout, stderr = run("useradd %s" % user)
+        ret, stdout, stderr = run("groupadd %s && useradd -m %s -G %s" % (user, user, user))
         if ret not in [0,9]:
             if ret == 126:
                 stderr += "Please run as the user with root permission\n"
@@ -170,9 +170,21 @@ def install():
        #     else:
        #         install_alpine = False
     if fresh_install: #or io.require_confirmation(text.get("interview_question", "reconfigure") % (user, chorus_path, data_path, passphrase, str(install_alpine)), "no"):
-        chorus_path = io.prompt(text.get("interview_question", "specify_chorus_path"), default=chorus_path)
-
-        data_path = io.prompt(text.get("interview_question", "specify_data_path"), default=data_path)
+        # refactor the belowing later
+        while True:
+            tmp_path = io.prompt(text.get("interview_question", "specify_chorus_path"), default=chorus_path)
+            if not tmp_path.startswith("/"):
+                print text.get("error_msg", "absolute_path")
+            else:
+                chorus_path = tmp_path
+                break
+        while True:
+            tmp_path = io.prompt(text.get("interview_question", "specify_data_path"), default=data_path)
+            if not tmp_path.startswith("/"):
+                print text.get("error_msg", "absolute_path")
+            else:
+                data_path = tmp_path
+                break
 
         passphrase = io.prompt(text.get("interview_question", "specify_passphrase"), default=passphrase)
     pre_alpine_release_path = None

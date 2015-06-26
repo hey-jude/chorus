@@ -15,6 +15,7 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
 
     setup: function () {
         this.pairs = this.model.get('connectionParameters') || [{key: '', value: ''}];
+        this.host_info = { host: '', port: 8088 };
     },
 
     save: function (e) {
@@ -22,7 +23,32 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
 
         this.preservePairs();
         this.model.set('connectionParameters', this.pairs);
-        this.closeModal();
+
+        if (this.validatePairs() === true) {
+            delete this.model['errors'];
+            this.clearErrors();
+            this.closeModal();
+        }
+    },
+
+    validatePairs: function() {
+        // Perform manual validation
+        var validation_errors = {};
+        for (var k in this.pairs) {
+            // Don't allow any key to be blank.
+            if (this.pairs[k].key.trim() === '') {
+                validation_errors['key_' + k] = t('validation.required', {fieldName: "Key"});
+            }
+        }
+
+        if (!_.isEmpty(validation_errors)) {
+            this.model['errors'] = validation_errors;
+            this.showErrors(this.model);
+
+            return false;
+        }
+
+        return true;
     },
 
     addPair: function (e) {
@@ -56,11 +82,31 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
     fetchExternalConfig: function(event) {
         event && event.preventDefault();
 
-        this.fetchedParams = new chorus.collections.HadoopConfigurationParamSet({
-            host: this.$("#configuration_host").val(), //'10.0.0.146',
-            port: this.$("#configuration_port").val() //8088
-        });
+        this.host_info = {
+            host: this.$("#configuration_host").val().trim(),
+            port: this.$("#configuration_port").val().trim()
+        };
+        this.fetchedParams = new chorus.collections.HadoopConfigurationParamSet(this.host_info);
 
+        // Perform manual validation
+        var validation_errors = {};
+
+        if (!this.host_info.host || this.host_info.host.length === 0) {
+            validation_errors['configuration_host'] = t('validation.required', {fieldName: "Host"});
+        }
+
+        if (!this.host_info.port || this.host_info.port.length === 0) {
+            validation_errors['configuration_port'] = t('validation.required', {fieldName: "Port"});
+        }
+
+        if (!_.isEmpty(validation_errors)) {
+            this.fetchedParams.models[0]['errors'] = validation_errors;
+            this.showErrors(this.fetchedParams.models[0]);
+
+            return;
+        }
+
+        // If validates, fetch params
         this.listenTo(this.fetchedParams, "reset", this.populateFetchedParams);
         this.listenTo(this.fetchedParams, "fetchFailed", this.configFetchFailed);
 
@@ -78,14 +124,20 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
     },
 
     populateFetchedParams: function() {
-        event && event.preventDefault();
+        // Make an hash lookup for existing keys
+        this.preservePairs();
+        var existing_params = {};
+        _.each(this.pairs, function(pair, index) { this[pair.key] = index; }, existing_params);
 
+        // For each fetched param, either overwrite if it already is defined
+        // or append it to the list.
         var param_set = this.fetchedParams.models[0].attributes.params;
-
-        // Clears all existing config entries for now.
-        this.pairs = [];
         for (var i = 0; i < param_set.length; i++) {
-            this.pairs.push({key: param_set[i].name, value: param_set[i].value});
+            if (existing_params.hasOwnProperty(param_set[i].name)) {
+                this.pairs[existing_params[param_set[i].name]].value = param_set[i].value;
+            } else {
+                this.pairs.push({key: param_set[i].name, value: param_set[i].value});
+            }
         }
 
         this.render();
@@ -98,7 +150,9 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
 
     additionalContext: function () {
         return {
-            connectionParameters: this.pairs
+            connectionParameters: this.pairs,
+            configuration_host: this.host_info.host,
+            configuration_port: this.host_info.port
         };
     }
 });
