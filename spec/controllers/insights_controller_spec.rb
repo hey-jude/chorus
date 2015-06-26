@@ -299,6 +299,13 @@ describe InsightsController do
         :promotion_time => Time.current(),
         :promoted_by => user) }
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Events::Base }
+      let!(:user)  { users(:no_collaborators) }
+      let!(:action){ :index }
+      let!(:params){ { :entity_type => 'dashboard' } }
+    end
+
     it "presents the insights with caching" do
       mock_present do |models, ignored, options|
         models.should include(insight)

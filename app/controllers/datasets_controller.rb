@@ -13,6 +13,7 @@ class DatasetsController < ApplicationController
     datasets = schema.refresh_datasets(account, refresh_options).includes(Dataset.eager_load_associations)
     params.merge!(:total_entries => schema.dataset_count(account, options))
 
+    datasets = Dataset.filter_by_scope(current_user, datasets) if current_user_in_scope?
     present paginate(datasets)
   end
 

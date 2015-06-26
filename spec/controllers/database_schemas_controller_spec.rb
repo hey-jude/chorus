@@ -16,6 +16,13 @@ describe DatabaseSchemasController do
     let(:schema1) { database.schemas[0] }
     let(:schema2) { database.schemas[1] }
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Schema }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ { :database_id => database.to_param } }
+    end
+
     before do
       stub(Schema).refresh(gpdb_data_source.account_for_user!(user), database) { [schema1, schema2] }
     end

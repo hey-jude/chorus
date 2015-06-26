@@ -4,6 +4,8 @@ module DataSources
 
     def index
       accounts = DataSource.find(params[:data_source_id]).accounts
+      accounts = DataSourceAccount.filter_by_scope(current_user, accounts) if current_user_in_scope?
+
       present paginate(accounts.includes(:owner).order(:id))
     end
 
