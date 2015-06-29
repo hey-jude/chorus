@@ -35,6 +35,7 @@ class WorkspacesController < ApplicationController
         @workspaces = workspaces.where('id IN (' + top_workspace_ids.join(',') + ')')
                             .includes(succinct ? [:owner] : Workspace.eager_load_associations)
                             .order("lower(name) ASC, id")
+        @workspaces = Workspace.filter_by_scope(current_user, @workspaces) if current_user_in_scope?
 
         present paginate(@workspaces),
            :presenter_options => {
