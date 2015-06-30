@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.18'
 
+gem 'vis_engine', path: 'components/visEngine'
+
 gem 'will_paginate'
 gem 'net-ldap', '0.11',    :require => false
 gem 'paperclip', '3.0.4'
