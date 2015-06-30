@@ -70,6 +70,12 @@ GIT
   specs:
     sunspot_solr (2.0.0.pre.120720)
 
+PATH
+  remote: components/visEngine
+  specs:
+    vis_engine (0.0.1)
+      rails (~> 3.2.18)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -472,5 +478,6 @@ DEPENDENCIES
   turbo-sprockets-rails3
   uglifier
   vcr (~> 2.3.0)
+  vis_engine!
   will_paginate
   yui-compressor (= 0.12.0)
