@@ -1,5 +1,5 @@
 #
-# This class is the prototype utility class that enforces access control.
+# This class is the utility class that enforces access control.
 # It consults the Roles, Groups, and Permissions tables to determine
 # a user's abilities to view/modify objects in Chorus. It currently
 # provides static methods and does not need to be instantiated.
@@ -7,13 +7,12 @@
 
 module Authority
 
+  # Triggers a 403 in the ApplicationController
   class AccessDenied < StandardError
   end
 
   # Attempts to match the given activity with the activities
-  # allowed by the user's roles. Raises an Allowy::AccessDenied
-  # exception for backwards compatibility
-  # exception for backwards compatibility
+  # allowed by the user's roles.
   #
   # 'authorize' finds the permissions for each role the user has
   # on the given class. If a role permission matches the class
@@ -52,17 +51,8 @@ module Authority
 
   private
 
-  # There are a bunch of ways of 'owning' an object so this
-  # function needs to test each one
-  def self.is_owner?(object, user)
-    case object
-    when is_a?(::Events::NoteOnWorkspace)
-
-    end
-  end
-
   # This handles legacy authentication actions that are not role-based...
-  # 'current_user' is usually passed as current user, but not always
+  # 'user' variable is usually passed current_user, but not always
   def self.handle_legacy_action(options, object, user)
     # or_actions are 'OR'd together
     or_actions = Array.wrap(options[:or])
@@ -167,17 +157,6 @@ module Authority
 
     effective_owner_id = workspace.owner_id_changed? ? workspace.owner_id_was : workspace.owner_id
     effective_owner_id == current_user.id || (workspace.changed - ['name', 'summary']).empty?
-  end
-
-  # Most things use the owner association, but some (Notes, Events) use actor
-  def self.is_owner?(user, object)
-    if object.respond_to? :owner
-      object.owner == user
-    elsif object.respond_to? :actor
-      object.actor == user
-    else
-      return false
-    end
   end
 
   # will be removed when ownership role is solidified
