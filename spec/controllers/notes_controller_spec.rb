@@ -32,8 +32,7 @@ describe NotesController do
     end
 
     it "uses authorization" do
-      #mock(Authority).authorize!(:show, model, user)
-      mock(subject).authorize! :create_note_on, model
+      mock(Authority).authorize! :show, model, user, { :or => :handle_legacy_show }
       post :create, attributes
     end
 
@@ -66,7 +65,7 @@ describe NotesController do
         let(:workspace) { workspaces(:private) }
 
         it "returns a forbidden status" do
-          #mock(Authority).authorize! :show, workspace, user
+          mock.proxy(Authority).authorize!.with_any_args
           post :create, attributes
           response.code.should == "403"
         end

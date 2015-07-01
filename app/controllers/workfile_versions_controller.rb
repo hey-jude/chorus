@@ -61,11 +61,11 @@ class WorkfileVersionsController < ApplicationController
   end
 
   def authorize_sub_objects
-    authorize! :can_edit_sub_objects, @workfile.workspace
+    Authority.authorize! :update, @workfile.workspace, current_user, { :or => :can_edit_sub_objects }
   end
 
   def authorize_show_workfile
-    authorize! :show, @workfile.workspace
+    Authority.authorize! :show, @workfile.workspace, current_user, { :or => :handle_legacy_show }
   end
 
 end

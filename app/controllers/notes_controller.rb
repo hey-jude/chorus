@@ -6,10 +6,8 @@ class NotesController < ApplicationController
     entity_type = note_params[:entity_type]
     entity_id = note_params[:entity_id]
     model = ModelMap.model_from_params(entity_type, entity_id)
+    Authority.authorize! :show, model, current_user, { :or => :handle_legacy_show }
 
-    # Create_note_on is an alias for :show, which will eventually be taken care of by scope
-    authorize! :create_note_on, model
-    #Authority.authorize! :show, model, current_user
     note_params[:body] = sanitize(note_params[:body])
 
     note = Events::Note.build_for(model, note_params)

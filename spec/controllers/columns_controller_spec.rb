@@ -4,7 +4,7 @@ describe ColumnsController do
 
   before do
     log_in user
-    #ignore_authorization!
+    #
     stub(Authority).authorize!.with_any_args { nil }
   end
 
