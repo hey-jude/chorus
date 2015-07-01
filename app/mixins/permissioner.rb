@@ -198,7 +198,7 @@ module Permissioner
 
       #index = self::PERMISSIONS.index(activity_symbol)
 
-      raise Allowy::AccessDenied.new("Activity not found", nil, nil) if activity_index.nil?
+      raise Authority::AccessDenied if activity_index.nil?
       return 1 << activity_index
     end
 
@@ -256,7 +256,7 @@ module Permissioner
       Chorus.log_debug("PERMISSIONS are not defined on #{self.name} model")
       puts "PERMISSIONS are not defined on #{self.name} model"
       # raise different error, this one doesn't really make sense
-      raise Allowy::AccessDenied.new("PERMISSIONS are not defined on #{self.name} model", nil, nil)
+      raise Authority::AccessDenied
     end
 
   end # ClassMethods

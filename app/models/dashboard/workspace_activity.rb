@@ -82,7 +82,7 @@ module Dashboard
           name: w.name,
           summary: w.summary,
           event_count: w.event_count,
-          is_accessible: (access_checker.can? :show, Workspace.find(w.workspace_id))
+          is_accessible: Workspace.find(w.workspace_id).visible_to?(Thread.current[:user])
         }
         top_workspace_ids << w.workspace_id
       end
