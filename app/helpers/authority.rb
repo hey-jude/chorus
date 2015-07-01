@@ -7,6 +7,9 @@
 
 module Authority
 
+  class AccessDenied < StandardError
+  end
+
   # Attempts to match the given activity with the activities
   # allowed by the user's roles. Raises an Allowy::AccessDenied
   # exception for backwards compatibility
@@ -18,38 +21,29 @@ module Authority
   def self.authorize!(activity_symbol, object, user, options={})
 
     # retreive user and object information
-    roles = retrieve_roles(user)
-    chorus_class = ChorusClass.search_permission_tree(object.class, activity_symbol)
-#    chorus_object = ChorusObject.find_by_chorus_class_id_and_instance_id(chorus_class.id, object.id)
-    chorus_object = ChorusObject.where(:instance_id => object.id, :chorus_class_id => chorus_class.id).first
-
-    actual_class = chorus_class.name.constantize
-
-    # check to see if object and user share scope. Ideally an object and user in different scopes shouldn't even
-    # get to this check, because they cannot interact with an object they can't see
-
-
-    # Is user owner of object?
-    #return if is_owner?(user, object) || handle_legacy_action(options[:or], object, user)
-    #return if chorus_object.owner == user
-
-    # retreive and merge permissions
-    # rename to permission_union, maybe
-    class_permissions = common_permissions_between(roles, chorus_class)
-    object_permissions = common_permissions_between(roles, chorus_object)
-    permissions = [class_permissions, object_permissions].flatten.compact
-
-    #Chorus.log_debug("Could not find activity_symbol in #{actual_class.name} permissions") if actual_class::PERMISSIONS.index(activity_symbol).nil?
-
-    # TODO: change bitmask to hash
-    activity_mask = actual_class.bitmask_for(activity_symbol)
-
-    # check to see if this user is allowed to do this action at the object or class level
-    allowed = permissions.any? do |permission|
-      bit_enabled? permission.permissions_mask, activity_mask
-    end
-
     legacy_action_allowed = handle_legacy_action(options, object, user) if options
+    chorus_class = ChorusClass.search_permission_tree(object.class, activity_symbol)
+
+    # If we don't have new-style permissions chorus_classs for the object,
+    # and the old permissions didn't pass either, then raise access denied
+    raise_access_denied if !legacy_action_allowed && chorus_class.nil?
+
+    if !legacy_action_allowed
+      roles = retrieve_roles(user)
+      chorus_object = ChorusObject.where(:instance_id => object.id, :chorus_class_id => chorus_class.id).first
+
+      actual_class = chorus_class.name.constantize
+
+      class_permissions = common_permissions_between(roles, chorus_class)
+      object_permissions = common_permissions_between(roles, chorus_object)
+      permissions = [class_permissions, object_permissions].flatten.compact
+
+      activity_mask = actual_class.bitmask_for(activity_symbol)
+
+      allowed = permissions.any? do |permission|
+        bit_enabled? permission.permissions_mask, activity_mask
+      end
+    end
 
     raise_access_denied if !allowed && !legacy_action_allowed
 
@@ -129,21 +123,50 @@ module Authority
                       (object.class < ::Events::Base) && object.promoted_by == user
 
                     when :current_user_can_update_workspace
-                      WorkspaceAccess.new(user).update?(object)
+                      handle_legacy_workspace_update(user, object)
 
-                    # Intermediate legacy permissions are below this comment. These are dependent on permissiosns
-                    # that haven't been implemented yet
-                    when :current_user_can_view_note_target
-                      # Note show uses old access permissions due to complicated permissions.
-                      # We can change this to an authorize! call when the other objects are in the
-                      # permissions system
-                      ::Events::NoteAccess.new(user).show?(object)
+                    when :handle_legacy_show
+                      handle_legacy_show(user, object)
 
                     else
                       false
                     end
     end
     allowed
+  end
+
+  # This method mimics the behavior of the
+  # Allowy :show meta-programming that was a part of the old
+  # permissions system when viewing events or notes. The old
+  def self.handle_legacy_show(user, object)
+    if object.is_a?(AlpineWorkfile)        ||
+       object.is_a?(Workfile)              ||
+       object.is_a?(ChorusWorkfile)        ||
+       object.is_a?(ChorusView)            ||
+       object.is_a?(Job)                   ||
+       object.is_a?(LinkedTableauWorkfile)
+
+      object.workspace.visible_to? user
+
+    elsif object.is_a?(Comment)
+      Events::Base.for_dashboard_of(current_user).exists?(comment.event_id)
+
+    elsif object.is_a?(Workspace)
+      object.visible_to? user
+
+    else
+      true
+    end
+  end
+
+  def self.handle_legacy_workspace_update(current_user, workspace)
+    return false unless workspace.member?(current_user)
+    if workspace.sandbox_id_changed? && workspace.sandbox_id
+      return false unless workspace.owner == current_user
+    end
+
+    effective_owner_id = workspace.owner_id_changed? ? workspace.owner_id_was : workspace.owner_id
+    effective_owner_id == current_user.id || (workspace.changed - ['name', 'summary']).empty?
   end
 
   # Most things use the owner association, but some (Notes, Events) use actor
@@ -185,7 +208,7 @@ module Authority
   end
 
   def self.raise_access_denied
-    raise Allowy::AccessDenied.new("Unauthorized", nil, nil)
+    raise AccessDenied.new
   end
 
 end
