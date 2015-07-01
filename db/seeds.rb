@@ -34,21 +34,3 @@ unless User.where(:username => "chorusadmin").present?
   user.save!
 end
 
-
-# Seed roles groups and permissions
-admin_role = Role.create(:name => "Admin")
-developer_role = Role.create(:name => "Developer")
-admin_role.users << chorusadmin
-
-User.set_permissions_for [admin_role], [:create, :destroy, :ldap, :update]
-Events::Note.set_permissions_for [admin_role], [:destroy, :demote_from_insight, :update]
-Workspace.set_permissions_for [admin_role], [:show, :update, :destroy]
-DataSource.set_permissions_for [admin_role], [:edit, :show_contents]
-HdfsDataSource.set_permissions_for [admin_role], [:edit, :show_contents]
-GnipDataSource.set_permissions_for [admin_role], [:edit, :show_contents, :update]
-Comment.set_permissions_for [admin_role], [:create, :show, :destroy]
-Events::Base.set_permissions_for [admin_role], [:create_comment_on]
-DataSourceAccount.set_permissions_for [admin_role], [:update]
-Upload.set_permissions_for [admin_role], [:create]
-CsvFile.set_permissions_for [admin_role], [:create]
-Import.set_permissions_for [admin_role], [:update]
