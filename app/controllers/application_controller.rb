@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   rescue_from 'DataSourceConnection::QueryError', :with => :render_query_error
   rescue_from 'HdfsDataset::HdfsContentsError', :with => :render_hdfs_query_error
   rescue_from 'PostgresLikeConnection::SqlPermissionDenied', :with => :render_resource_forbidden
-  rescue_from 'Allowy::AccessDenied', :with => :render_forbidden
+  rescue_from 'Authority::AccessDenied', :with => :render_forbidden
   rescue_from 'ModelNotCreated', :with => :render_unprocessable_entity
   rescue_from 'Hdfs::DirectoryNotFoundError', :with => :render_not_found
   rescue_from 'SunspotError', :with => :render_unprocessable_entity
@@ -122,7 +122,8 @@ class ApplicationController < ActionController::Base
 
   def render_forbidden(e = nil)
     error_type = e.respond_to?(:error_type) && e.try(:error_type)
-    present_forbidden(e.try(:subject), error_type)
+    subject = e.respond_to?(:subject) && e.try(:subject)
+    present_forbidden(subject, error_type)
   end
 
   def logged_in?

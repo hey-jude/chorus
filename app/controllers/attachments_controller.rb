@@ -17,7 +17,7 @@ class AttachmentsController < ApplicationController
 
   def show
     attachment = Attachment.find(params[:id])
-    Authority.authorize! :show, attachment.note, current_user, { :or => :current_user_can_view_note_target }
+    Authority.authorize! :show, attachment.note.note_target, current_user, { :or => :handle_legacy_show }
     send_file(attachment.contents.path(params[:style]), :type => attachment.contents_content_type, :disposition => 'inline')
     ActiveRecord::Base.connection.close
   end

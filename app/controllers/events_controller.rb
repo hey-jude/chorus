@@ -9,7 +9,7 @@ class EventsController < ApplicationController
                    accessible_events(current_user)
              else
                model = ModelMap.model_from_params(params[:entity_type], params[:entity_id])
-               authorize! :show, model
+               Authority.authorize! :show, model, current_user, { :or => :handle_legacy_show }
                model.events
              end
 

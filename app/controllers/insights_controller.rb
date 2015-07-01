@@ -1,5 +1,3 @@
-require Rails.root + 'app/permissions/insight_access'
-
 class InsightsController < ApplicationController
   wrap_parameters :insight, :exclude => []
   

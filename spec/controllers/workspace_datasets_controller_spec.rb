@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe WorkspaceDatasetsController do
-  ignore_authorization!
+
 
   context "with stubbed greenplum" do
     let(:user) { users(:the_collaborator) }

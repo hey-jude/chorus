@@ -5,7 +5,7 @@ describe DataSources::OwnersController do
   let(:user) { data_source.owner }
   let(:new_owner) { users(:no_collaborators) }
 
-  ignore_authorization!
+
 
   before do
     log_in user

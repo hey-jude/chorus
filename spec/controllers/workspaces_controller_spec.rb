@@ -3,7 +3,7 @@ require 'timecop'
 
 describe WorkspacesController do
   render_views
-  ignore_authorization!
+
 
   let(:owner) { users(:no_collaborators) }
   let(:other_user) { users(:the_collaborator) }
@@ -12,10 +12,6 @@ describe WorkspacesController do
     stub(Alpine::API).delete_work_flow.with_any_args
   end
 
-  # This is similar to the ignore_authorization! call above
-  before :each do
-    #stub(Authority).authorize! { nil }
-  end
 
   describe "#index" do
     let(:private_workspace) { workspaces(:private_with_no_collaborators) }

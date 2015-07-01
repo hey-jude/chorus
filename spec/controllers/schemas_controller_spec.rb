@@ -6,7 +6,7 @@ describe SchemasController do
 
   before do
     log_in user
-    #ignore_authorization!
+    #
     stub(Authority).authorize!.with_any_args { nil }
   end
 
@@ -56,7 +56,7 @@ describe SchemasController do
     context "when the user does not have an account for the Data Source" do
       it "returns a 403" do
         mock(Authority).authorize!.with_any_args {
-          raise Allowy::AccessDenied.new("Not authorized", :explore_data, schema.data_source)
+          raise Authority::AccessDenied.new
         }
 
         get :show, :id => schema.to_param

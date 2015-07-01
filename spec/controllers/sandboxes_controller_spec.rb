@@ -9,7 +9,7 @@ describe SandboxesController do
   let(:workspace) { workspaces(:no_sandbox) }
   before do
     log_in owner
-    #ignore_authorization!
+    #
     stub(Authority).authorize!.with_any_args { nil }
   end
 

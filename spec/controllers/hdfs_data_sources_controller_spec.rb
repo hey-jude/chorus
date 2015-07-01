@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe HdfsDataSourcesController do
-  ignore_authorization!
+
 
   let(:hdfs_data_source) { hdfs_data_sources(:hadoop) }
 

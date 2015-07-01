@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe WorkspaceCsvController do
-  ignore_authorization!
+
 
   let(:user) { users(:owner) }
   let(:non_auth_user) { users(:no_collaborators) }

@@ -5,7 +5,6 @@ class ChorusViewsController < ApplicationController
 
   def create
     chorus_view = ChorusView.new(params[:chorus_view])
-    #authorize! :can_edit_sub_objects, chorus_view.workspace
 
     Authority.authorize! :update, chorus_view.workspace, current_user, { :or => :can_edit_sub_objects }
 
