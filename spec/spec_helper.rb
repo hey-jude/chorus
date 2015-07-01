@@ -8,7 +8,6 @@ require 'rspec/autorun'
 require 'paperclip/matchers'
 require 'rspec_api_documentation'
 require 'rspec_api_documentation/dsl'
-require 'allowy/rspec'
 require 'shoulda-matchers'
 require 'factory_girl'
 
@@ -86,7 +85,6 @@ RSpec.configure do |config|
   config.include JsonHelper, :type => :request
   config.include Paperclip::Shoulda::Matchers
   config.include GpdbTestHelpers
-  config.include AllowyRSpecHelpers
   config.include GreenplumIntegration, :greenplum_integration => true
   config.include SunspotMatchers
   config.include SolrHelpers

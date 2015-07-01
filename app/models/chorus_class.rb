@@ -28,8 +28,6 @@ class ChorusClass < ActiveRecord::Base
     end
 
     Chorus.log_error "Couldn't find an ancestor with permissions for the class #{klass} and operation #{activity_symbol}"
-    puts "Couldn't find an ancestor with permissions for the class #{klass} and operation #{activity_symbol}"
-    raise Allowy::AccessDenied.new("No permissions found", nil, nil)
     return
   end
 
