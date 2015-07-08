@@ -113,10 +113,28 @@ class User < ActiveRecord::Base
     admin.size
   end
 
+  def admin?
+    is_admin = false
+    admin_role = Role.find_by_name("Admin")
+
+    if !admin_role.nil?
+      self.admin || admin_role.users.include?(self)
+    end
+  end
+
   scope :admin, where(:admin => true)
 
   def admin=(value)
-    write_attribute(:admin, value) unless admin? && self.class.admin_count == 1 # don't unset last admin
+    unless admin? && self.class.admin_count == 1 # don't unset last admin
+      write_attribute(:admin, value)
+
+      admin_role = Role.find_by_name("Admin")
+      if admin_role && value == true
+        admin_role.users << self
+      else
+        admin_role.users.delete(self)
+      end
+    end
   end
 
   scope :developer, where(:developer => true)

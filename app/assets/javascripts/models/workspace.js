@@ -168,11 +168,11 @@ chorus.models.Workspace = chorus.models.Base.extend({
     },
 
     canRead:function () {
-        return this._hasPermission(['admin', 'show']);
+        return this._hasPermission(['admin', 'read']);
     },
 
     canComment:function () {
-        return this._hasPermission(['admin', 'update']);
+        return this._hasPermission(['admin', 'commenting']);
     },
 
     canUpdate:function () {
@@ -184,7 +184,7 @@ chorus.models.Workspace = chorus.models.Base.extend({
     },
 
     currentUserCanDuplicateChorusViews: function() {
-        return this._hasPermission(['admin', 'update']);
+        return this._hasPermission(['admin', 'duplicate_chorus_view']);
     },
 
     workspaceAdmin:function () {

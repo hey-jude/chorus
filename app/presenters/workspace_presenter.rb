@@ -11,7 +11,7 @@ class WorkspacePresenter < Presenter
       :entity_type => model.entity_type_name,
       :summary => sanitize(model.summary),
       :archived_at => model.archived_at,
-      :permission => @options[:permissions],
+      :permission => model.permissions_for(current_user),
       :public => model.public,
       :datasets_count => model.dataset_count(current_user),
       :members_count => model.members.count,
