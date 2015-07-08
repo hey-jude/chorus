@@ -4,6 +4,7 @@ puts ''
 puts '---- Adding Roles ----'
 admin_role = Role.create(:name => 'admin'.camelize)
 owner_role = Role.create(:name => 'owner'.camelize)
+user_role = Role.create(:name => 'user'.camelize)
 developer_role = Role.create(:name => 'developer'.camelize)
 collaborator_role = Role.create(:name => 'collaborator'.camelize)
 site_admin_role = Role.create(:name => 'site_administrator'.camelize)
@@ -26,14 +27,18 @@ admin_role.users << chorusadmin if chorusadmin
 # Groups
 puts '---- Adding Default Group  ----'
 default_group = Group.create(:name => 'default_group')
+# Scope
+puts ''
+puts '---- Adding application_realm as Default Scope ----'
+application_realm = ChorusScope.create(:name => 'application_realm')
+# add application_realm to default group
+default_group.chorus_scope = application_realm
+
 Role.all.each do |role|
     role.groups << default_group
 end
 
-# Scope
-puts ''
-puts '---- Adding Default Scope ----'
-default_scope = ChorusScope.create(:name => 'default_scope')
+
 
 # permissions
 
@@ -150,6 +155,7 @@ ChorusClass.create(
         {:name => 'workfile_draft'.camelize},
         {:name => 'workfile_execution_location'.camelize},
         {:name => 'workfile_version'.camelize},
+        {:name => 'workflow'.camelize},
         {:name => 'workspace'.camelize},
         {:name => 'workspace_import'.camelize},
         {:name => 'workspace_search'.camelize},
@@ -214,6 +220,7 @@ job_class  = ChorusClass.where(:name => 'job'.camelize).first
 milestone_class = ChorusClass.where(:name => 'milestone'.camelize).first
 membership_class = ChorusClass.where(:name => 'membership'.camelize).first
 workfile_class = ChorusClass.where(:name => 'workfile'.camelize).first
+workflow_class = ChorusClass.where(:name => 'workflow'.camelize).first
 activity_class = ChorusClass.where(:name => 'activity'.camelize).first
 event_class = ChorusClass.where(:name => 'events::Base'.camelize).first
 note_class = ChorusClass.where(:name => 'note'.camelize).first
@@ -234,6 +241,7 @@ job_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:pare
 milestone_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 membership_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 workfile_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
+workflow_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 activity_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 event_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
 note_class.update_attributes({:parent_class_name => 'workspace'.camelize}, {:parent_class_id => workspace_class.id} )
@@ -262,6 +270,7 @@ class_operations = {
     'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
     'Comment' =>      %w(create show update destroy promote_to_insight),
     'Workfile' =>     %w(create show update destroy create_workflow run_workflow),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'Job' =>          %w(create show update destroy run stop),
     'Task' =>         %w(create show update destroy run stop),
     'Milestone' =>    %w(create show update destroy complete restart),
@@ -299,6 +308,7 @@ role_permissions = {
     'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
     'Comment' =>      %w(create show update destroy promote_to_insight),
     'Workfile' =>     %w(create show update destroy create_workflow run_workflow),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'Job' =>          %w(create show update destroy run stop),
     'Task' =>         %w(create show update destroy run stop),
     'Milestone' =>    %w(create show update destroy complete restart),
@@ -324,6 +334,7 @@ role_permissions = {
     'Sandbox' =>      %w(show update destroy create add_to_workspace delete_from_workspace),
     'Comment' =>      %w(show update destroy create promote_to_insight),
     'Workfile' =>     %w(show update destroy create create_workflow run_workflow ),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(show update destroy create complete restart),
@@ -342,12 +353,14 @@ role_permissions = {
     'Account' =>      %w(create show update destroy change_password lock unlock),
     'Group' =>        %w(show update destroy create),
     'Workspace' =>    %w(show update destroy admin create edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'DataSource' =>   %w(show update destroy create add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
     'Note' =>         %w(show update destroy create),
     'Schema' =>       %w(show update destroy create),
     'Sandbox' =>      %w(show update destroy create add_to_workspace delete_from_workspace),
     'Comment' =>      %w(show update destroy create promote_to_insight),
     'Workfile' =>     %w(show update destroy create create_workflow run_workflow ),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(show update destroy create complete restart),
@@ -373,6 +386,7 @@ role_permissions = {
     'Sandbox' =>      %w(),
     'Comment' =>      %w(show create promote_to_insight),
     'Workfile' =>     %w(),
+    'Workflow' =>     %w(),
     'Job' =>          %w(),
     'Task' =>         %w(),
     'Milestone' =>    %w(),
@@ -399,6 +413,7 @@ role_permissions = {
     'Sandbox' =>       %w(show update destroy create add_to_workspace delete_from_workspace),
     'Comment' =>       %w(show update destroy create promote_to_insight),
     'Workfile' =>      %w(show update destroy create create_workflow run_workflow),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'Job' =>           %w(show update destroy  create run stop),
     'Task' =>          %w(show update destroy create run stop),
     'Milestone' =>     %w(show update destroy create complete restart),
@@ -424,6 +439,7 @@ role_permissions = {
     'Sandbox' =>      %w(show update destroy create add_to_workspace delete_from_workspace),
     'Comment' =>      %w(show update destroy create promote_to_insight),
     'Workfile' =>     %w(show update destroy create run_workflow ),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(show update destroy create complete restart),
@@ -449,6 +465,7 @@ role_permissions = {
     'Sandbox' =>      %w(show),
     'Comment' =>      %w(show update destroy create promote_to_insight),
     'Workfile' =>     %w(),
+    'Workflow' =>     %w(),
     'Job' =>          %w(),
     'Task' =>         %w(),
     'Milestone' =>    %w(),
@@ -473,6 +490,7 @@ role_permissions = {
     'Sandbox' =>       %w(),
     'Comment' =>       %w(),
     'Workfile' =>      %w(create create_workflow run_workflow),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'Job' =>           %w(),
     'Task' =>          %w(),
     'Milestone' =>     %w(),
@@ -497,6 +515,7 @@ role_permissions = {
     'Sandbox' =>      %w(),
     'Comment' =>      %w(show update destroy create promote_to_insight),
     'Workfile' =>     %w(show update destroy create run_workflow),
+    'Workflow' =>     %w(create show update destroy run stop open),
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(show update destroy create complete restart),
@@ -521,6 +540,7 @@ role_permissions = {
     'Sandbox' =>       %w(),
     'Comment' =>       %w(show create promote_to_insight),
     'Workfile' =>      %w(show create),
+    'Workflow' =>      %w(),
     'Job' =>           %w(show update destroy create run stop),
     'Task' =>          %w(show update destroy create run stop),
     'Milestone' =>     %w(),
@@ -545,6 +565,7 @@ role_permissions = {
     'Sandbox' =>      %w(),
     'Comment' =>      %w(show create promote_to_insight),
     'Workfile' =>     %w(show create),
+    'Workflow' =>     %w(create show update),
     'Job' =>          %w(show update destroy create run stop),
     'Task' =>         %w(show update destroy create run stop),
     'Milestone' =>    %w(),
@@ -574,10 +595,11 @@ end
 
 role_permissions.each do |role_name, permissions_hash|
     role = Role.find_by_name(role_name)
-    puts "---- Adding permissions #{role_name} role ----"
+    #puts "---- Adding permissions for #{role_name} role ----"
 
     permissions_hash.each do |class_name, permission_names|
         chorus_class = ChorusClass.find_by_name(class_name)
+        puts "---- Adding permissions for #{role_name} role and #{class_name} ----"
         role.permissions << Permission.create(:role_id => role.id,
                                               :chorus_class_id => chorus_class.id, 
                                               :permissions_mask => create_permission_mask_for(permission_names, chorus_class.class_operations))
@@ -585,9 +607,21 @@ role_permissions.each do |role_name, permissions_hash|
 end
 
 
+puts ''
+puts "===================== Migrating users to new roles =========================="
+puts ''
 
+User.all.each do |user|
 
+  if user.admin
+    user.roles << admin_role unless user.roles.include? admin_role
+  end
+  if user.developer
+    user.roles << developer_role unless user.roles.include? developer_role
+  end
+  user.roles << collaborator_role unless user.roles.include? collaborator_role
 
+end
 
 
 puts ''
@@ -600,7 +634,14 @@ User.all.each do |user|
     if ChorusClass.find_by_name(user.class.name) == nil
         ChorusClass.create(:name => user.class.name)
     end
-    ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(user.class.name).id, :instance_id => user.id)
+    user_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(user.class.name).id, :instance_id => user.id)
+    user_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
+
+    #user_object_role = ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
+    # add all users to default scope (application realm) by adding user to the default group
+    #user.chorus_scopes << application_realm
+    user.groups << default_group
+
     user.gpdb_data_sources.each do |data_source|
         if ChorusClass.find_by_name(data_source.class.name) == nil
             ChorusClass.create(:name => data_source.class.name)
@@ -690,7 +731,13 @@ Workspace.all.each do |workspace|
     if ChorusClass.find_by_name(workspace.class.name) == nil
         ChorusClass.create(:name => workspace.class.name)
     end
-    ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
+
+    # Add owner as workspace role
+    workspace_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
+    workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
+
+    #workspace_object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
+    #workspace.owner.object_roles << workspace_object_role
 
     #children = %w(jobs milestones memberships workfiles activities events owned_notes comments chorus_views csv_files associated_datasets source_datasets all_imports imports tags)
 
@@ -807,7 +854,13 @@ DataSource.all.each do |data_source|
     ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
 end
 
+puts ''
+puts '--- Assign application_realm scope to all objects ---'
 
+ChorusObject.all.each do |chorus_object|
+  chorus_object.chorus_scope = application_realm
+  chorus_object.save!
+end
 
 
 
