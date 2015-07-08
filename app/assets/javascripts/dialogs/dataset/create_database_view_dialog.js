@@ -5,7 +5,7 @@ chorus.dialogs.CreateDatabaseView = chorus.dialogs.Base.extend({
     title: t("create_database_view.title"),
 
     events: {
-        "submit form" : "performValidation",
+        "submit form": "performValidation",
         "click button.submit": "performValidation"
     },
 
@@ -37,9 +37,10 @@ chorus.dialogs.CreateDatabaseView = chorus.dialogs.Base.extend({
     },
 
     saved: function() {
-        chorus.toast("create_database_view.toast_success", {
+        chorus.toast("create_database_view.success.toast", {
             canonicalName: this.canonicalName(),
-            viewName: this.model.get("objectName")
+            viewName: this.model.get("objectName"),
+            toastOpts: {type: "success"}
         });
 
         var databaseView = this.model.databaseView();

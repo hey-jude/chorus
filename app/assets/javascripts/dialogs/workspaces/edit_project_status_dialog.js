@@ -1,7 +1,9 @@
 chorus.dialogs.EditProjectStatus = chorus.dialogs.Base.include(chorus.Mixins.DialogFormHelpers).extend({
     constructorName: "ProjectStatus",
-    templateName: "edit_project_status",
-    title: "Edit Project Status",
+    templateName: "dialogs/edit_project_status",
+    title:  t("workspace.update_status.dialog.title"),
+
+    statuses: ['on_track', 'needs_attention', 'at_risk'],
 
     events: {
         "submit form": "updateStatus",
@@ -44,9 +46,9 @@ chorus.dialogs.EditProjectStatus = chorus.dialogs.Base.include(chorus.Mixins.Dia
 
     statusSaved: function () {
         this.closeModal();
+        var niceStatusKey = "workspace.project.status." + this.model.get("projectStatus");
+        chorus.toast("workspace.update_status.success.toast", {status: t(niceStatusKey), toastOpts: {type: "success"}});
     },
-
-    statuses: ['on_track', 'needs_attention', 'at_risk'],
 
     additionalContext: function () {
         return {

@@ -41,6 +41,10 @@ chorus.pages.WorkfileIndexPage = chorus.pages.Base.include(
             }
         });
 
+        this.subscribePageEvent("workfiles:fetch", function() {
+           this.collection.fetch();
+        });
+
         this.subscribePageEvent("workfile:search", function() {
             chorus.PageEvents.trigger('selectNone');
         });

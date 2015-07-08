@@ -99,6 +99,8 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
 
         if(this.model.get('hive')) {
             attrs.hiveKerberos = this.model.get('hiveKerberos');
+            attrs.hiveHadoopVersion = attrs.hdfsVersion;
+            delete attrs.hdfsVersion;
         }
 
         attrs.highAvailability = !!this.$("input[name=high_availability]").prop("checked");
@@ -111,7 +113,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
 
     saveSuccess: function() {
         this.sourceModel.set(this.model.attributes);
-        chorus.toast("data_sources.edit_dialog.saved_message");
+        chorus.toast("data_sources.edit_dialog.saved.toast", {dataSourceName: this.model.name(), toastOpts: {type:"success"}});
         this.closeModal();
     }
 });

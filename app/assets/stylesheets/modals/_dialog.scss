@@ -1,14 +1,11 @@
 @import "compass/css3/box-sizing";
 
-
 $dialog-girdle-padding-top: 10px;
 
+// GENERAL DIALOG STYLES */
 
-
-/* general dialog styles */
-
-/* .girdle wraps the content of the dialog popup */
-/* and sets the overall margins for the content area */
+// .girdle wraps the content of the dialog popup */
+// and sets the overall margins for the content area */
 .popup .girdle {
     padding: $dialog-girdle-padding-top $dialog-padding $dialog-padding $dialog-padding;
     border: none;
@@ -16,40 +13,39 @@ $dialog-girdle-padding-top: 10px;
     @include box-sizing(border-box);
     overflow-y: auto;
 
-    /* development: to delete */
-    border: 1px dotted #A44;
-    /* END development: to delete */
+//     development: to remove */
+//  		border: 1px dotted #A44;
+//     END development: to remove */
     
-    
-    .action_bar {
-        // counteract the dialog padding
-        margin-top: -$dialog-girdle-padding-top;
-        margin-left: -$dialog-padding;
-        margin-right: -$dialog-padding;
+    background-color: $body-background-color;
 
+    .action_bar {
+        // counteract the dialog padding when it is inside .girdle
+        margin-top: -$dialog-girdle-padding-top;
+        margin-left: -$dialog-padding-leftRight;
+        margin-right: -$dialog-padding-leftRight;
     }
-    
-    
-    
 }
 
 #dialog_header {
     height: 40px;
     background-color: $dialog-header-background;
-    border-bottom: 1px solid $border-color;
+    border-bottom: $border-canon;
 
     line-height: 40px;
-    padding: 0 $dialog-padding;
+    padding: 0 $dialog-padding-leftRight;
     word-break: break-all;
 }
 
 #dialog_content {
+    
     .girdle {}
 }
 
 
 .dialog {
-    .dialog_header {}
+    // interim fix for background of dialogs
+    background-color: $body-background-color;
 
     h1 {
         font-size: $medium-font;
@@ -66,8 +62,12 @@ $dialog-girdle-padding-top: 10px;
         font-size: $medium-font;
     }
 
+    .message_callout {
+        font-weight: bold;
+    }
+    
     .dialog_content {
-        background-color: $body-background-color;
+        // background-color: $body-background-color;
 
         line-height: 16px;
 
@@ -102,7 +102,7 @@ $dialog-girdle-padding-top: 10px;
 
     fieldset.in_a_box {
         border: none;
-        padding: 0 0 $dialog-padding 0;
+        padding: 0 0 $dialog-padding-bottom 0;
 
         legend label {
             font-size: $default-font-size;
@@ -125,17 +125,11 @@ $dialog-girdle-padding-top: 10px;
             border-bottom: $border-canon;
         }
 
-/* retiring this class */ /* to be removed when final */
-/*         .sub_content { */
-/*             padding: 10px $dialog-padding; */
-/*         } */
-
-
         .loading_section {
             padding: 20px;
         }
 
-        /* .form_controls { margin: 0; } */
+        // .form_controls { margin: 0; } */
     }
 
     .sub_header {
@@ -174,7 +168,7 @@ $dialog-girdle-padding-top: 10px;
     }
 }
 
-/* replace and delete this one with the one following it for more simplicity*/
+// replace and delete this one with the one following it for more simplicity*/
 .icon-add,
 .icon-remove {
     &.fa {
@@ -189,35 +183,33 @@ $dialog-girdle-padding-top: 10px;
     }
 }
 
-/* *** */
-
-/* dialog widths */
+// ************* */
+// dialog widths */
 div.dialog {
     width: $default-dialog-width;
-
+    // interim fix for background of dialogs
+    background-color: $body-background-color;
+    
     &.dialog_wide {
         width: $default-dialog-width-wide;
     }
 }
 
 
-/*Custom Dialog widths */
+// Custom Dialog widths */
 
 .dialog {
-
     &.data_source_permissions {
-    /*   width: 570px; */
         width: $default-dialog-width-medium;
     }
 
     &.workspace_edit_dialog {
-    /*      width: 580px; */
         width: $default-dialog-width-medium;
     }
 }
 
 
-/* to do: work out what should be in show_image.scss and what should be here */
+// TODO: work out what should be in show_image.scss and what should be here */
 .dialog.show_image {
     width: 100%;
     min-width: 600px;

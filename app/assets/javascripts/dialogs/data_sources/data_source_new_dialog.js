@@ -1,4 +1,4 @@
-chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend({
+chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
     constructorName: "DataSourcesNew",
     templateName: "data_source_new",
     title: t("data_sources.new_dialog.title"),
@@ -34,15 +34,15 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend({
     additionalContext: function() {
         var config = chorus.models.Config.instance();
         return {
-            gnipConfigured:  config.get('gnipConfigured'),
-            oracleConfigured:  config.get('oracleConfigured'),
+            gnipConfigured: config.get('gnipConfigured'),
+            oracleConfigured: config.get('oracleConfigured'),
             defaultGpdbFields: {dbName: "postgres"},
             parameterCount: {count: this.model.numberOfConnectionParameters()}
         };
     },
 
     showFieldset: function (e) {
-        this.$(".data_sources_form").addClass("collapsed");
+        this.$(".data_source_fields").addClass("collapsed");
         var className = this.$("select.data_sources option:selected").attr("name");
 
         if(className.length) {
@@ -97,14 +97,16 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend({
     createDataSource: function (e) {
         e && e.preventDefault();
 
-        var values = this.fieldValues();
-        this.resource = this.model = new (this.dataSourceClass())();
+        var merged_attributes = _.extend({}, this.model.attributes, this.fieldValues());
+        delete merged_attributes['entityType'] // Entity type is chosen by dataSourceClass so we don't want to keep it
+
+        this.resource = this.model = new (this.dataSourceClass())(merged_attributes);
         this.listenTo(this.model, "saved", this.saveSuccess);
         this.listenTo(this.model, "saveFailed", this.saveFailed);
         this.listenTo(this.model, "validationFailed", this.saveFailed);
 
         this.$("button.submit").startLoading("data_sources.new_dialog.saving");
-        this.model.save(values);
+        this.model.save();
     },
 
     dataSourceClass: function() {
@@ -161,7 +163,7 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend({
 
     saveSuccess: function () {
         chorus.PageEvents.trigger("data_source:added", this.model);
-        chorus.toast('data_sources.add.toast', {dataSourceName: this.model.name()});
+        chorus.toast('data_sources.add.toast', {dataSourceName: this.model.name(), toastOpts: {type: "success"}});
         this.closeModal();
     }
 });

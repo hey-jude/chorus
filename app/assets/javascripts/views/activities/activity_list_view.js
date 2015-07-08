@@ -1,7 +1,7 @@
 chorus.views.ActivityList = chorus.views.Base.extend({
     constructorName: "ActivityListView",
-    templateName:"activity_list",
-    useLoadingSection:true,
+    templateName: "activity_list",
+    useLoadingSection: true,
 
     events:{
         "click .morelinks a.more, .morelinks a.less": "toggleCommentList",
@@ -80,7 +80,7 @@ chorus.views.ActivityList = chorus.views.Base.extend({
                 if (chorus.isDevMode()) {
                     var action, id;
                     try {action = model.get("action");  id = model.id;} catch(err2) {}
-                    chorus.toast("bad_activity", {type: action, id: id, toastOpts: {type: "error"}});
+                    chorus.toast("bad_activity.toast", {type: action, id: id, toastOpts: {type: "error"}});
                 }
             }
         }, this);

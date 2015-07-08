@@ -1,3 +1,5 @@
+require_relative '../../app/models/chorus_config'
+
 Chorus::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 

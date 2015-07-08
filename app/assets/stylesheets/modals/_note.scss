@@ -18,18 +18,6 @@ $label-width: 82px;
         font-weight: $semibold;
     }
 
-    .toolbar {
-        color: $link-color;
-        text-align: right;
-        font-size: $small-font;
-        margin-bottom: 5px;
-
-        a {
-            font-size: $small-font;
-            padding: 0px 2px;
-        }
-    }
-
     .options_area {
         .file-wrapper {
             margin-bottom: 2px;

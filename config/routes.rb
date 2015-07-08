@@ -27,6 +27,8 @@ Chorus::Application.routes.draw do
     end
   end
 
+  resources :hdfs_params, :only => [:index], :controller => 'hdfs/params'
+
   resources :hdfs_datasets, :only => [:create, :update, :destroy]
 
   resources :data_sources, :only => [:index, :show, :create, :update, :destroy] do
@@ -50,7 +52,6 @@ Chorus::Application.routes.draw do
   end
 
   resources :jdbc_hive_data_sources, :except => [:new, :edit] do
-    resources :imports, :only => [:create], :controller => 'jdbc_hive_data_source_imports'
   end
 
   resources :databases, :only => [:show] do
