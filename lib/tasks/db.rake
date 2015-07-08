@@ -3,7 +3,7 @@ namespace :db do
     task :prepare => 'db:integration:load_structure'
 
     task :prepare_permissions => :environment do
-      load Rails.root.join('db', 'spec/data/permissions_test_data.rb')
+      load Rails.root.join('db', 'permissions_test_data.rb')
     end
   end
 
