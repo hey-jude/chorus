@@ -34,9 +34,11 @@ application_realm = ChorusScope.create(:name => 'application_realm')
 # add application_realm to default group
 default_group.chorus_scope = application_realm
 
-Role.all.each do |role|
-    role.groups << default_group
-end
+admin_role.groups << default_group
+
+#Role.all.each do |role|
+#    role.groups << default_group
+#end
 
 
 
