@@ -25,7 +25,7 @@ class Workfile < ActiveRecord::Base
   has_many :comments, :through => :events
   has_many :most_recent_comments, :through => :events, :source => :comments, :class_name => "Comment", :order => "id DESC", :limit => 1
   has_many :versions, :class_name => 'WorkfileVersion', :dependent => :destroy
-
+  has_many :open_workfile_events
   belongs_to :latest_workfile_version, :class_name => 'WorkfileVersion'
 
   validates :workspace, presence: true
