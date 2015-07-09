@@ -6,17 +6,17 @@ module Permissioner
   extend ActiveSupport::Concern
 
   included do
-    after_create :initialize_default_roles, :if => Proc.new { |obj| obj.class.const_defined? 'OBJECT_LEVEL_ROLES' }
+    # after_create :initialize_default_roles, :if => Proc.new { |obj| obj.class.const_defined? 'OBJECT_LEVEL_ROLES' }
     after_create :create_chorus_object
     after_destroy :destroy_chorus_object
   end
 
-  def initialize_default_roles
-    default_roles = self.class::OBJECT_LEVEL_ROLES.map do |role_symbol|
-      Role.create(:name => role_symbol.to_s)
-    end
-    object_roles << default_roles
-  end
+  # def initialize_default_roles
+  #   default_roles = self.class::OBJECT_LEVEL_ROLES.map do |role_symbol|
+  #     Role.create(:name => role_symbol.to_s)
+  #   end
+  #   object_roles << default_roles
+  # end
 
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
@@ -39,7 +39,7 @@ module Permissioner
 
   # Returns true if user has site wide admin role.
   def self.is_admin?(user)
-    admin_roles = %w(Admin SiteAdministrator)
+    admin_roles = %w(SiteAdministrator, ApplicationAdministrator)
     roles = user.roles
     roles.each do |role|
       if admin_roles.include?(role.name)
@@ -102,6 +102,7 @@ module Permissioner
     permissions.each(&:save!)
   end
 
+  # returns an array of workspace level roles
   def object_roles(name=nil)
     self.save! if new_record?
 
@@ -110,7 +111,7 @@ module Permissioner
 
   def chorus_object
     chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
-    chorus_object = ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
+    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
   end
 
   # returns a parent object if exists. Nil otherwise
@@ -173,27 +174,27 @@ module Permissioner
       return total
     end
 
-      # Returns an array of permissions for a give user for the current class type
-      def permission_symbols_for(user)
-        chorus_class = ChorusClass.find_by_name(self.name)
-        operation_name_array = chorus_class.operations.map(&:name)
-        #permissions = user.roles.map(&:permissions).flatten.select{|permission| permission.chorus_class == chorus_class}
-        permissions = []
-        user.roles.each do |role|
-          #permissions << Permission.where(:role_id => role.id, :chorus_class => chorus_class).first
-          permissions << role.permissions.where(:chorus_class_id => chorus_class.id).first
-        end
-        activity_symbols = Set.new
-        permissions.reject! { |p| p.nil? }
-        permissions.each do |permission|
-          bits = permission.permissions_mask
-          bit_length = bits.size * 8
-          bit_length.times do |i|
-            activity_symbols.add(operation_name_array[i]) if bits[i] == 1
-          end
-        end
-        activity_symbols.to_a
+    # Returns an array of permissions for a give user for the current class type
+    def permission_symbols_for(user)
+      chorus_class = ChorusClass.find_by_name(self.name)
+      operation_name_array = chorus_class.operations.map(&:name)
+      #permissions = user.roles.map(&:permissions).flatten.select{|permission| permission.chorus_class == chorus_class}
+      permissions = []
+      user.roles.each do |role|
+        #permissions << Permission.where(:role_id => role.id, :chorus_class => chorus_class).first
+        permissions << role.permissions.where(:chorus_class_id => chorus_class.id).first
       end
+      activity_symbols = Set.new
+      permissions.reject! { |p| p.nil? }
+      permissions.each do |permission|
+        bits = permission.permissions_mask
+        bit_length = bits.size * 8
+        bit_length.times do |i|
+          activity_symbols.add(operation_name_array[i]) if bits[i] == 1
+        end
+      end
+      activity_symbols.to_a
+    end
 
     # Given an activity, this method returns an integer with that
     # bit set
@@ -247,21 +248,6 @@ module Permissioner
       chorus_class.permissions << generate_permissions_for(roles, activity_symbol_array)
     end
 
-    # Figure out how to make these private
-    def with_permissions_defined
-      if const_defined? 'PERMISSIONS'
-        yield
-      else
-        permissions_not_defined
-      end
-    end
-
-    def permissions_not_defined
-      Chorus.log_debug("PERMISSIONS are not defined on #{self.name} model")
-      puts "PERMISSIONS are not defined on #{self.name} model"
-      # raise different error, this one doesn't really make sense
-      raise Authority::AccessDenied
-    end
 
   end # ClassMethods
 end
