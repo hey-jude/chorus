@@ -173,21 +173,27 @@ module Permissioner
       return total
     end
 
-    def permission_symbols_for(user)
-      chorus_class = ChorusClass.find_by_name(self.name)
-      permissions = user.roles.map(&:permissions).flatten.select{|permission| permission.chorus_class == chorus_class}
-
-      activity_symbols = Set.new
-      permissions.each do |permission|
-        bits = permission.permissions_mask
-        bit_length = bits.size * 8
-        bit_length.times do |i|
-          activity_symbols.add(self::PERMISSIONS[i]) if bits[i] == 1
+      # Returns an array of permissions for a give user for the current class type
+      def permission_symbols_for(user)
+        chorus_class = ChorusClass.find_by_name(self.name)
+        operation_name_array = chorus_class.operations.map(&:name)
+        #permissions = user.roles.map(&:permissions).flatten.select{|permission| permission.chorus_class == chorus_class}
+        permissions = []
+        user.roles.each do |role|
+          #permissions << Permission.where(:role_id => role.id, :chorus_class => chorus_class).first
+          permissions << role.permissions.where(:chorus_class_id => chorus_class.id).first
         end
+        activity_symbols = Set.new
+        permissions.reject! { |p| p.nil? }
+        permissions.each do |permission|
+          bits = permission.permissions_mask
+          bit_length = bits.size * 8
+          bit_length.times do |i|
+            activity_symbols.add(operation_name_array[i]) if bits[i] == 1
+          end
+        end
+        activity_symbols.to_a
       end
-
-      activity_symbols.to_a
-    end
 
     # Given an activity, this method returns an integer with that
     # bit set
@@ -196,8 +202,6 @@ module Permissioner
       operation_name_array = chorus_class.operations.map(&:name)
       activity_index = operation_name_array.index(activity_symbol.to_s)
 
-      #index = self::PERMISSIONS.index(activity_symbol)
-
       raise Authority::AccessDenied if activity_index.nil?
       return 1 << activity_index
     end
@@ -205,18 +209,18 @@ module Permissioner
     # Given an array of permission symbols, this function
     # returns an integer with the proper permission bits set
     def create_permission_bits_for(activity_symbol_array)
-      with_permissions_defined do
-        bits = 0
-        return bits if activity_symbol_array.nil?
+      chorus_class = ChorusClass.find_by_name(self.name)
+      operation_name_array = chorus_class.operations.map(&:name)
+      bits = 0
+      return bits if activity_symbol_array.nil?
+      activity_symbol_array.each do |activity_symbol|
+        index = operation_name_array.index(activity_symbol)
+        raise Authority::AccessDenied if index.nil?
 
-        activity_symbol_array.each do |activity_symbol|
-          index = self::PERMISSIONS.index(activity_symbol)
-          puts "activity symbol not found" if index.nil?
-          bits |= ( 1 << index )
-        end
-
-        return bits
+        bits |= ( 1 << index )
       end
+
+      return bits
     end
 
     # DataSource.create_permissions_for dev_role, [:edit]
