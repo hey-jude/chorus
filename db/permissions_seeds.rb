@@ -113,7 +113,7 @@ ChorusClass.create(
         {:name => 'notes_workflow_result'.camelize},
         {:name => 'notes_workfile'.camelize},
         {:name => 'notification'.camelize},
-        {:name => 'open_worlfile_event'.camelize},
+        {:name => 'open_workfile_event'.camelize},
         {:name => 'operation'.camelize},
         {:name => 'oracle_data_source'.camelize},
         {:name => 'oracle_dataset'.camelize},
@@ -619,7 +619,8 @@ User.all.each do |user|
     user.roles << admin_role unless user.roles.include? admin_role
   end
   if user.developer
-    user.roles << developer_role unless user.roles.include? developer_role
+    user.roles << project_developer_role unless user.roles.include? project_developer_role
+    user.roles << workflow_developer_role unless user.roles.include? workflow_developer_role
   end
   user.roles << collaborator_role unless user.roles.include? collaborator_role
 
@@ -772,6 +773,19 @@ Workspace.all.each do |workspace|
             end
             ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id  => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
         end
+        workfile.events.each do |event|
+          if ChorusClass.find_by_name(event.class.name) == nil
+            ChorusClass.create(:name => event.class.name)
+          end
+          ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id  => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+        end
+        workfile.open_workfile_events.each do |event|
+          if ChorusClass.find_by_name(event.class.name) == nil
+            ChorusClass.create(:name => event.class.name)
+          end
+          ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id  => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+        end
+
         workfile.comments.each do |comment|
             if ChorusClass.find_by_name(comment.class.name) == nil
                 ChorusClass.create(:name => comment.class.name)
