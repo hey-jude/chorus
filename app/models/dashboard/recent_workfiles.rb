@@ -16,9 +16,10 @@ module Dashboard
       end
       workfiles = nil
       active_rel =  OpenWorkfileEvent.
-          select('max(created_at) as created_at, workfile_id').
+          select('max(created_at) as created_at, workfile_id, id').
           where(:user_id => user.id).
           group(:workfile_id).
+          group(:id).
           order('created_at DESC').
           includes(:workfile).
           limit(limitValue)
