@@ -11,9 +11,8 @@ class Workspace < ActiveRecord::Base
 
   # DO NOT CHANGE the order of these permissions, you'll accidently change everyone's permissons across the site.
   # Order: show, update, destroy
-  #OBJECT_LEVEL_ROLES = [:workspace_owner, :project_manager, :project_developer, :contributor, :workspace_visitor]
 
-  attr_accessible :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,
+  attr_accessible :id, :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,
                   :has_changed_settings, :show_sandbox_datasets, :is_project, :project_status, :project_status_reason,
                   :project_target_date
 
@@ -262,13 +261,14 @@ class Workspace < ActiveRecord::Base
           :with_membership => with_membership,
           :user_id => user.id
          )
-    
+
+    # PT. 7/9. filter_by_scope returns an array of workspaces instead of ActiveRelation which causes a problem in the caller class (WorkspaceController)
     # Filter by scope
-     if Permissioner.user_in_scope?(user)
-       filter_by_scope(user, workspaces)
-     else
-       workspaces
-     end
+    #  if Permissioner.user_in_scope?(user)
+    #    filter_by_scope(user, workspaces)
+    #  else
+    #    workspaces
+    #  end
   end
 
   def members_accessible_to(user)
