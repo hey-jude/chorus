@@ -2,7 +2,7 @@
 # roles
 puts ''
 puts '---- Adding Roles ----'
-admin_role = Role.create(:name => 'admin'.camelize)
+#admin_role = Role.create(:name => 'admin'.camelize)
 owner_role = Role.create(:name => 'owner'.camelize)
 user_role = Role.create(:name => 'user'.camelize)
 developer_role = Role.create(:name => 'developer'.camelize)
