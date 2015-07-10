@@ -22,6 +22,7 @@ puts '---- Adding permissions ----'
 chorusadmin = User.find_by_username("chorusadmin")
 
 site_admin_role.users << chorusadmin if chorusadmin
+admin_role.users << chorusadmin if chorusadmin
 
 
 # Groups
@@ -35,6 +36,7 @@ application_realm = ChorusScope.create(:name => 'application_realm')
 default_group.chorus_scope = application_realm
 
 site_admin_role.groups << default_group
+admin_role.groups << default_group
 
 #Role.all.each do |role|
 #    role.groups << default_group
@@ -313,31 +315,31 @@ puts '=================== Adding permissions to Roles ======================'
 
 role_permissions = {
 
-#   'Admin' => {
-#     'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
-#     'ChorusScope' =>  %w(create show update destroy manage_scopes),
-#     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
-#     'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
-#     'Account' =>      %w(create show update destroy change_password lock unlock),
-#     'Group' =>        %w(create show update destroy),
-#     'Workspace' =>    %w(create show update destroy admin create_workflow edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data),
-#     'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
-#     'Note' =>         %w(create show update destroy create_attachment_on demote_from_insight),
-#     'Schema' =>       %w(create show update destroy),
-#     'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
-#     'Comment' =>      %w(create show update destroy promote_to_insight),
-#     'Workfile' =>     %w(create show update destroy create_workflow run_workflow),
-#     'Workflow' =>     %w(create show update destroy run stop open),
-#     'Job' =>          %w(create show update destroy run stop),
-#     'Task' =>         %w(create show update destroy run stop),
-#     'Milestone' =>    %w(create show update destroy complete restart),
-#     'Tag' =>          %w(create show update destroy apply remove),
-#     'Upload' =>       %w(create show update destroy),
-#     'Import' =>       %w(create show update destroy),
-#     'Notification' => %w(create show update destroy),
-#     'CsvFile' =>      %w(create show update destroy)
-#
-# },
+   'Admin' => {
+     'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
+     'ChorusScope' =>  %w(create show update destroy manage_scopes),
+     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
+     'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
+     'Account' =>      %w(create show update destroy change_password lock unlock),
+     'Group' =>        %w(create show update destroy),
+     'Workspace' =>    %w(create show update destroy admin create_workflow edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data),
+     'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+     'Note' =>         %w(create show update destroy create_attachment_on demote_from_insight),
+     'Schema' =>       %w(create show update destroy),
+     'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
+     'Comment' =>      %w(create show update destroy promote_to_insight),
+     'Workfile' =>     %w(create show update destroy create_workflow run_workflow),
+     'Workflow' =>     %w(create show update destroy run stop open),
+     'Job' =>          %w(create show update destroy run stop),
+     'Task' =>         %w(create show update destroy run stop),
+     'Milestone' =>    %w(create show update destroy complete restart),
+     'Tag' =>          %w(create show update destroy apply remove),
+     'Upload' =>       %w(create show update destroy),
+     'Import' =>       %w(create show update destroy),
+     'Notification' => %w(create show update destroy),
+     'CsvFile' =>      %w(create show update destroy)
+
+ },
 
   'Owner' => {
     'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
