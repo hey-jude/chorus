@@ -21,7 +21,7 @@ puts '---- Adding permissions ----'
 
 chorusadmin = User.find_by_username("chorusadmin")
 
-admin_role.users << chorusadmin if chorusadmin
+site_admin_role.users << chorusadmin if chorusadmin
 
 
 # Groups
@@ -34,7 +34,7 @@ application_realm = ChorusScope.create(:name => 'application_realm')
 # add application_realm to default group
 default_group.chorus_scope = application_realm
 
-admin_role.groups << default_group
+site_admin_role.groups << default_group
 
 #Role.all.each do |role|
 #    role.groups << default_group
@@ -72,9 +72,10 @@ ChorusClass.create(
         {:name => 'gnip_import'.camelize},
         {:name => 'gpdb_column_statistics'.camelize},
         {:name => 'gpdb_data_source'.camelize},
+        {:name => 'gpdb_dataset'.camelize},
         {:name => 'gpdb_database'.camelize},
         {:name => 'gpdb_dataset_column'.camelize},
-        {:name => 'gpdb_schena'.camelize},
+        {:name => 'gpdb_schema'.camelize},
         {:name => 'gpdb_table'.camelize},
         {:name => 'gpdb_view'.camelize},
         {:name => 'greenplum_sql_result'.camelize},
@@ -219,6 +220,14 @@ datasource_class = ChorusClass.where(:name => 'data_source'.camelize).first
 group_class = ChorusClass.where(:name => 'group'.camelize).first
 database_class = ChorusClass.where(:name => 'database'.camelize).first
 job_class  = ChorusClass.where(:name => 'job'.camelize).first
+gpdb_view_class = ChorusClass.where(:name => 'gpdb_view'.camelize).first
+gpdb_table_class = ChorusClass.where(:name => 'gpdb_table'.camelize).first
+gpdb_dataset_class = ChorusClass.where(:name => 'gpdb_dataset'.camelize).first
+gpdb_schema_class = ChorusClass.where(:name => 'gpdb_schema'.camelize).first
+
+hdfs_entry_class = ChorusClass.where(:name => 'hdfs_entry'.camelize).first
+hdfs_data_source_class = ChorusClass.where(:name => 'hdfs_data_source'.camelize).first
+
 milestone_class = ChorusClass.where(:name => 'milestone'.camelize).first
 membership_class = ChorusClass.where(:name => 'membership'.camelize).first
 workfile_class = ChorusClass.where(:name => 'workfile'.camelize).first
@@ -233,6 +242,13 @@ csv_file_class = ChorusClass.where(:name => 'csv_file'.camelize).first
 dataset_class = ChorusClass.where(:name => 'dataset'.camelize).first
 associated_dataset_class = ChorusClass.where(:name => 'associated_dataset'.camelize).first
 import_class = ChorusClass.where(:name => 'import'.camelize).first
+pg_table_class = ChorusClass.where(:name => 'pg_table'.camelize).first
+pg_view_class = ChorusClass.where(:name => 'pg_view'.camelize).first
+pg_schema_class = ChorusClass.where(:name => 'pg_schema'.camelize).first
+hdfs_dataset_class = ChorusClass.where(:name => 'hdfs_dataset'.camelize).first
+jdbc_dataset_class = ChorusClass.where(:name => 'jdbc_dataset'.camelize).first
+
+
 tag_class = ChorusClass.where(:name => 'tag'.camelize).first
 schema_class = ChorusClass.where(:name => 'schema'.camelize).first
 task_class = ChorusClass.where(:name => 'task'.camelize).first
@@ -296,31 +312,32 @@ puts '=================== Adding permissions to Roles ======================'
 
 
 role_permissions = {
-  'Admin' => {
-    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
-    'ChorusScope' =>  %w(create show update destroy manage_scopes),
-    'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
-    'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
-    'Account' =>      %w(create show update destroy change_password lock unlock),
-    'Group' =>        %w(create show update destroy),
-    'Workspace' =>    %w(create show update destroy admin create_workflow edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data),
-    'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
-    'Note' =>         %w(create show update destroy create_attachment_on demote_from_insight),
-    'Schema' =>       %w(create show update destroy),
-    'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
-    'Comment' =>      %w(create show update destroy promote_to_insight),
-    'Workfile' =>     %w(create show update destroy create_workflow run_workflow),
-    'Workflow' =>     %w(create show update destroy run stop open),
-    'Job' =>          %w(create show update destroy run stop),
-    'Task' =>         %w(create show update destroy run stop),
-    'Milestone' =>    %w(create show update destroy complete restart),
-    'Tag' =>          %w(create show update destroy apply remove),
-    'Upload' =>       %w(create show update destroy),
-    'Import' =>       %w(create show update destroy),
-    'Notification' => %w(create show update destroy),
-    'CsvFile' =>      %w(create show update destroy)
 
-},
+#   'Admin' => {
+#     'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
+#     'ChorusScope' =>  %w(create show update destroy manage_scopes),
+#     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
+#     'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
+#     'Account' =>      %w(create show update destroy change_password lock unlock),
+#     'Group' =>        %w(create show update destroy),
+#     'Workspace' =>    %w(create show update destroy admin create_workflow edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data),
+#     'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+#     'Note' =>         %w(create show update destroy create_attachment_on demote_from_insight),
+#     'Schema' =>       %w(create show update destroy),
+#     'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
+#     'Comment' =>      %w(create show update destroy promote_to_insight),
+#     'Workfile' =>     %w(create show update destroy create_workflow run_workflow),
+#     'Workflow' =>     %w(create show update destroy run stop open),
+#     'Job' =>          %w(create show update destroy run stop),
+#     'Task' =>         %w(create show update destroy run stop),
+#     'Milestone' =>    %w(create show update destroy complete restart),
+#     'Tag' =>          %w(create show update destroy apply remove),
+#     'Upload' =>       %w(create show update destroy),
+#     'Import' =>       %w(create show update destroy),
+#     'Notification' => %w(create show update destroy),
+#     'CsvFile' =>      %w(create show update destroy)
+#
+# },
 
   'Owner' => {
     'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
@@ -616,7 +633,7 @@ puts ''
 User.all.each do |user|
 
   if user.admin
-    user.roles << admin_role unless user.roles.include? admin_role
+    user.roles << site_admin_role unless user.roles.include? site_admin_role
   end
   if user.developer
     user.roles << project_developer_role unless user.roles.include? project_developer_role
@@ -868,6 +885,83 @@ puts '--- Adding Data Sources and it children objects ----'
 
 DataSource.all.each do |data_source|
     ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
+end
+
+puts ''
+puts '--- Adding Data Sets and it children objects ----'
+ChorusView.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => chorus_view_class.id, :instance_id => dataset.id)
+  if dataset.workspace != nil
+    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+  end
+
+end
+GpdbView.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => gpdb_view_class.id, :instance_id => dataset.id)
+  if dataset.workspace != nil
+    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+  end
+end
+GpdbTable.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => gpdb_table_class.id, :instance_id => dataset.id)
+  if dataset.workspace != nil
+    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+  end
+end
+PgTable.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => pg_table_class.id, :instance_id => dataset.id)
+  if dataset.workspace != nil
+    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+  end
+end
+
+PgView.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => pg_view_class.id, :instance_id => dataset.id)
+  if dataset.workspace != nil
+    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+  end
+end
+
+HdfsDataset.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => hdfs_dataset_class.id, :instance_id => dataset.id)
+  if dataset.workspace != nil
+    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+  end
+end
+
+GpdbDataset.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => gpdb_dataset_class.id, :instance_id => dataset.id)
+  if dataset.workspace != nil
+    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+  end
+end
+
+JdbcDataset.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => jdbc_dataset_class.id, :instance_id => dataset.id)
+  if dataset.workspace != nil
+    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+  end
+end
+
+HdfsEntry.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id)
+  if dataset.hdfs_data_source != nil
+    co.update_attributes(:owner_id => dataset.hdfs_data_source.owner.id, :parent_class_name => hdfs_data_source_class.name, :parent_class_id => hdfs_data_source_class.id, :parent_id => dataset.hdfs_data_source.id)
+  end
+end
+
+GpdbSchema.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => gpdb_schema_class.id, :instance_id => dataset.id)
+  if dataset.parent != nil
+    co.update_attributes(:owner_id => dataset.parent.id, :parent_class_name => dataset.parent.class.name, :parent_id => dataset.parent.id)
+  end
+end
+
+PgSchema.all.each do |dataset|
+  co = ChorusObject.create(:chorus_class_id => pg_schema_class.id, :instance_id => dataset.id)
+  if dataset.parent != nil
+    co.update_attributes(:owner_id => dataset.parent.id, :parent_class_name => dataset.parent.class.name, :parent_id => dataset.parent.id)
+  end
 end
 
 puts ''
