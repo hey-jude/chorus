@@ -1,7 +1,6 @@
 class UserDashboardsController < ApplicationController
   wrap_parameters :dashboard_config
   before_filter :load_user
-  before_filter :require_referenced_user
 
   def show
     present DashboardConfig.new(@user)
