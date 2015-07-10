@@ -170,15 +170,19 @@ module Authority
     user.groups.each do |group|
       roles << group.roles if group.roles.empty? == false
     end
+    # PT: Andrew, why do we need this?
+    roles.reject!{|r| r.class.name == 'Array'}
     roles
   end
 
   # returns the intersection of all permissions from roles and all permissions for the class
   def self.common_permissions_between(roles, chorus_class_or_object)
+    binding.pry
     all_roles_permissions = roles.inject([]){ |permissions, role| permissions.concat(role.permissions) }
     if chorus_class_or_object.nil? || chorus_class_or_object.permissions.empty? || all_roles_permissions.empty?
       return nil
     end
+    binding.pry
     common_permissions = all_roles_permissions & chorus_class_or_object.permissions
   end
 
