@@ -156,6 +156,7 @@ describe WorkspacesController do
       end
 
       it "has the update permission if the user is a member" do
+        log_in other_user
         get :show, :id => workspace.to_param
         response.decoded_body["response"]["permission"].should include("update")
       end

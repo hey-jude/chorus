@@ -1,6 +1,6 @@
 class ChorusViewsController < ApplicationController
   wrap_parameters :chorus_view, :exclude => [:id]
-  before_filter :find_chorus_view, :only => [:update, :destroy, :convert]
+  before_filter :find_chorus_view, :only => [:update, :destroy, :convert, :duplicate]
   before_filter :authorize, :only => [:update, :destroy, :convert]
 
   def create

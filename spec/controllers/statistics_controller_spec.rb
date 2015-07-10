@@ -119,6 +119,8 @@ describe StatisticsController do
       end
 
       generate_fixture "hdfsDatasetStatistics.json" do
+        stub(Authority).authorize!.with_any_args { nil }
+
         get :show, :dataset_id => dataset.to_param
       end
     end

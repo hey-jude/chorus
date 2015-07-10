@@ -39,7 +39,7 @@ module Permissioner
 
   # Returns true if user has site wide admin role.
   def self.is_admin?(user)
-    admin_roles = %w(SiteAdministrator, ApplicationAdministrator)
+    admin_roles = %w(SiteAdministrator ApplicationAdministrator Admin)
     roles = user.roles
     roles.each do |role|
       if admin_roles.include?(role.name)
