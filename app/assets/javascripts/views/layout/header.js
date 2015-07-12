@@ -6,6 +6,7 @@ chorus.views.Header = chorus.views.Base.extend({
         "click a.notifications": "togglePopupNotifications",
         "click .drawer a": "togglePopupDrawer",
         "click .type_ahead_result a": "clearSearch",
+        "click .help_and_support a": "helpAndSupport",
         "submit .search form": "startSearch",
         "keydown .search input": "searchKeyPressed"
     },
@@ -214,5 +215,10 @@ chorus.views.Header = chorus.views.Base.extend({
                 org_id: license.get("organizationUuid")
             })
         });
+    },
+
+    helpAndSupport: function(e){
+        this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
+        this.dialog.launchModal();
     }
 });
