@@ -6,6 +6,6 @@ chorus.dialogs.HelpAndSupport = chorus.dialogs.Base.extend({
     },
 
     downloadLogs: function() {
-        chorus.fileDownload("/download_logs", { httpMethod: "POST" });
+        chorus.fileDownload("/download_logs", { httpMethod: "POST"});
     }
 });

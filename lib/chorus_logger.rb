@@ -11,13 +11,13 @@ module ChorusLogger
   end
 
   def generate_logs
-    FileUtils::mkdir_p 'public/logs/'
+    FileUtils::mkdir_p 'public/system/logs/'
     Dir.chdir("log")
     log_files = Array.new
     no_of_lines = ChorusConfig.instance['logging.no_of_lines']
 
     Dir.glob('*.log').each do  |log_file|
-      system("tail -#{no_of_lines} #{log_file} > ../public/logs/#{log_file}")
+      system("tail -#{no_of_lines} #{log_file} > ../public/system/logs/#{log_file}")
       log_files << log_file
     end
     Dir.chdir('..')
@@ -25,7 +25,7 @@ module ChorusLogger
   end
 
   def compress_logs(log_files)
-    Dir.chdir('public/logs')
+    Dir.chdir('public/system/logs')
 
     zipfile_name =  (Time.now.to_s + ".zip").gsub(/\s+/, "_").gsub(/:/,"_")
     Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
@@ -33,7 +33,7 @@ module ChorusLogger
         zipfile.add(log_file, log_file )
       end
     end
-    zipfile_name = '/logs/' + zipfile_name
+    zipfile_name = 'system/logs/' + zipfile_name
     zipfile_name
   end
 
