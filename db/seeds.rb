@@ -30,7 +30,6 @@ unless User.where(:username => "chorusadmin").present?
     :password => "secret",
     :password_confirmation => "secret"
   )
-  user.admin = true
   user.save!
 end
 
