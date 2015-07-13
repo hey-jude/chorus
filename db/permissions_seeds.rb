@@ -620,7 +620,7 @@ role_permissions.each do |role_name, permissions_hash|
 
     permissions_hash.each do |class_name, permission_names|
         chorus_class = ChorusClass.find_by_name(class_name)
-        puts "---- Adding permissions for #{role_name} role and #{class_name} ----"
+        #puts "---- Adding permissions for #{role_name} role and #{class_name} ----"
         role.permissions << Permission.create(:role_id => role.id,
                                               :chorus_class_id => chorus_class.id, 
                                               :permissions_mask => create_permission_mask_for(permission_names, chorus_class.class_operations))
@@ -652,11 +652,13 @@ puts "===================== Adding Chorus Object =========================="
 puts ''
 puts '--- Adding Users and children objects ----'
 
+start = Time.now
 User.all.each do |user|
     if ChorusClass.find_by_name(user.class.name) == nil
         ChorusClass.create(:name => user.class.name)
     end
-    user_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(user.class.name).id, :instance_id => user.id)
+    print '.'
+    user_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(user.class.name).id, :instance_id => user.id, :chorus_scope_id => application_realm.id)
     user_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
 
     #user_object_role = ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
@@ -668,94 +670,111 @@ User.all.each do |user|
         if ChorusClass.find_by_name(data_source.class.name) == nil
             ChorusClass.create(:name => data_source.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.oracle_data_sources.each do |data_source|
         if ChorusClass.find_by_name(data_source.class.name) == nil
             ChorusClass.create(:name => data_source.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.jdbc_data_sources.each do |data_source|
         if ChorusClass.find_by_name(data_source.class.name) == nil
             ChorusClass.create(:name => data_source.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.pg_data_sources.each do |data_source|
         if ChorusClass.find_by_name(data_source.class.name) == nil
             ChorusClass.create(:name => data_source.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.hdfs_data_sources.each do |data_source|
         if ChorusClass.find_by_name(data_source.class.name) == nil
             ChorusClass.create(:name => data_source.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.gnip_data_sources.each do |data_source|
         if ChorusClass.find_by_name(data_source.class.name) == nil
             ChorusClass.create(:name => data_source.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.data_source_accounts.each do |account|
         if ChorusClass.find_by_name(account.class.name) == nil
             ChorusClass.create(:name => account.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(account.class.name).id, :instance_id => account.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(account.class.name).id, :instance_id => account.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.memberships.each do |member|
         if ChorusClass.find_by_name(member.class.name) == nil
             ChorusClass.create(:name => member.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(member.class.name).id, :instance_id => member.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(member.class.name).id, :instance_id => member.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.owned_jobs.each do |job|
         if ChorusClass.find_by_name(job.class.name) == nil
             ChorusClass.create(:name => job.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(job.class.name).id, :instance_id => job.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(job.class.name).id, :instance_id => job.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.activities.each do |activity|
         if ChorusClass.find_by_name(activity.class.name) == nil
             ChorusClass.create(:name => activity.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id => activity.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id => activity.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id, :chorus_scope_id => application_realm.id)
     end
     user.events.each do |event|
         if ChorusClass.find_by_name(event.class.name) == nil
             ChorusClass.create(:name => event.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
     user.notifications.each do |notification|
         if ChorusClass.find_by_name(notification.class.name) == nil
             ChorusClass.create(:name => notification.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(notification.class.name).id, :instance_id => notification.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(notification.class.name).id, :instance_id => notification.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
 
     user.open_workfile_events.each do |event|
         if ChorusClass.find_by_name(event.class.name) == nil
             ChorusClass.create(:name => event.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
 end
 
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
 puts ''
 puts '--- Adding Workspace and  children objects ----'
 
+start = Time.now
 Workspace.all.each do |workspace|
     if ChorusClass.find_by_name(workspace.class.name) == nil
-        ChorusClass.create(:name => workspace.class.name)
+      ChorusClass.create(:name => workspace.class.name)
     end
 
     # Add owner as workspace role
-    workspace_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id)
+    print '.'
+    workspace_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id, :chorus_scope_id => application_realm.id)
     workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
 
     #workspace_object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
@@ -765,214 +784,253 @@ Workspace.all.each do |workspace|
 
     workspace.jobs.each do |job|
         if ChorusClass.find_by_name(job.class.name) == nil
-            ChorusClass.create(:name => job.class.name)
+          ChorusClass.create(:name => job.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(job.class.name).id, :instance_id => job.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(job.class.name).id, :instance_id => job.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.milestones.each do |milestone|
         if ChorusClass.find_by_name(milestone.class.name) == nil
-            ChorusClass.create(:name => milestone.class.name)
+          ChorusClass.create(:name => milestone.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(milestone.class.name).id, :instance_id => milestone.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(milestone.class.name).id, :instance_id => milestone.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.memberships.each do |membership|
         if ChorusClass.find_by_name(membership.class.name) == nil
-            ChorusClass.create(:name => membership.class.name)
+          print '.'
+          ChorusClass.create(:name => membership.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(membership.class.name).id, :instance_id => membership.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(membership.class.name).id, :instance_id => membership.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.workfiles.each do |workfile|
         if ChorusClass.find_by_name(workfile.class.name) == nil
-            ChorusClass.create(:name => workfile.class.name)
+          print '.'
+          ChorusClass.create(:name => workfile.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workfile.class.name).id, :instance_id => workfile.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workfile.class.name).id, :instance_id => workfile.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
         workfile.activities.each do |activity|
             if ChorusClass.find_by_name(activity.class.name) == nil
-                ChorusClass.create(:name => activity.class.name)
+              print '.'
+              ChorusClass.create(:name => activity.class.name)
             end
-            ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id  => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+            print '.'
+            ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id  => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id, :chorus_scope_id => application_realm.id)
         end
         workfile.events.each do |event|
           if ChorusClass.find_by_name(event.class.name) == nil
+            print '.'
             ChorusClass.create(:name => event.class.name)
           end
-          ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id  => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+          print '.'
+          ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id  => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id, :chorus_scope_id => application_realm.id)
         end
         workfile.open_workfile_events.each do |event|
           if ChorusClass.find_by_name(event.class.name) == nil
             ChorusClass.create(:name => event.class.name)
           end
-          ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id  => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+          print '.'
+          ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id  => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id, :chorus_scope_id => application_realm.id)
         end
 
         workfile.comments.each do |comment|
             if ChorusClass.find_by_name(comment.class.name) == nil
                 ChorusClass.create(:name => comment.class.name)
             end
-            ChorusObject.create(:chorus_class_id =>  ChorusClass.find_by_name(comment.class.name).id, :instance_id => comment.id, :owner_id => workfile.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id)
+            print '.'
+            ChorusObject.create(:chorus_class_id =>  ChorusClass.find_by_name(comment.class.name).id, :instance_id => comment.id, :owner_id => workfile.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id, :chorus_scope_id => application_realm.id)
         end
     end
     workspace.activities.each do |activity|
         if ChorusClass.find_by_name(activity.class.name) == nil
             ChorusClass.create(:name => activity.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     #TODO: RPG. Don't know how to deal with events of differnt types in permissions framework. For now adding them as sub classes of (Events::Base)
     workspace.events.each do |event|
         if ChorusClass.find_by_name(event.class.name) == nil
             ChorusClass.create(:name => event.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.owned_notes.each do |note|
         if ChorusClass.find_by_name(note.class.name) == nil
             ChorusClass.create(:name => note.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(note.class.name).id, :instance_id => note.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(note.class.name).id, :instance_id => note.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.comments.each do |comment|
         if ChorusClass.find_by_name(comment.class.name) == nil
             ChorusClass.create(:name => comment.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(comment.class.name).id, :instance_id => comment.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(comment.class.name).id, :instance_id => comment.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.chorus_views.each do |view|
         if ChorusClass.find_by_name(view.class.name) == nil
             ChorusClass.create(:name => view.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(view.class.name).id, :instance_id => view.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(view.class.name).id, :instance_id => view.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.csv_files.each do |file|
         if ChorusClass.find_by_name(file.class.name) == nil
             ChorusClass.create(:name => file.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(file.class.name).id, :instance_id => file.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(file.class.name).id, :instance_id => file.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.associated_datasets.each do |dataset|
         if ChorusClass.find_by_name(dataset.class.name) == nil
             ChorusClass.create(:name => dataset.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(dataset.class.name).id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(dataset.class.name).id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.source_datasets.each do |dataset|
         if ChorusClass.find_by_name(dataset.class.name) == nil
             ChorusClass.create(:name => dataset.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(dataset.class.name).id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(dataset.class.name).id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.all_imports.each do |import|
         if ChorusClass.find_by_name(import.class.name) == nil
             ChorusClass.create(:name => import.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(import.class.name).id, :instance_id => import.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(import.class.name).id, :instance_id => import.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.imports.each do |import|
         if ChorusClass.find_by_name(import.class.name) == nil
             ChorusClass.create(:name => import.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(import.class.name).id, :instance_id => import.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(import.class.name).id, :instance_id => import.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     workspace.tags.each do |tag|
         if ChorusClass.find_by_name(tag.class.name) == nil
             ChorusClass.create(:name => tag.class.name)
         end
-        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(tag.class.name).id, :instance_id => tag.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id)
+        print '.'
+        ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(tag.class.name).id, :instance_id => tag.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
 
 end
 
+stop = Time.now
+puts " (#{stop - start} seconds)"
+
 puts ''
 puts '--- Adding Data Sources and it children objects ----'
-
+start = Time.now
 DataSource.all.each do |data_source|
-    ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id)
+  print '.'
+    ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id, :chorus_scope_id => application_realm.id)
 end
 
-puts ''
-puts '--- Adding Data Sets and it children objects ----'
 ChorusView.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => chorus_view_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => chorus_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.workspace != nil
     co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
   end
 
 end
 GpdbView.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => gpdb_view_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => gpdb_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.workspace != nil
     co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
   end
 end
 GpdbTable.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => gpdb_table_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => gpdb_table_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.workspace != nil
     co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
   end
 end
 PgTable.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => pg_table_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => pg_table_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.workspace != nil
     co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
   end
 end
 
 PgView.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => pg_view_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => pg_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.workspace != nil
     co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
   end
 end
 
 HdfsDataset.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => hdfs_dataset_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => hdfs_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.workspace != nil
     co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
   end
 end
 
 GpdbDataset.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => gpdb_dataset_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => gpdb_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.workspace != nil
     co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
   end
 end
 
 JdbcDataset.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => jdbc_dataset_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => jdbc_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.workspace != nil
     co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
   end
 end
 
 HdfsEntry.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id,:chorus_scope_id => application_realm.id)
   if dataset.hdfs_data_source != nil
     co.update_attributes(:owner_id => dataset.hdfs_data_source.owner.id, :parent_class_name => hdfs_data_source_class.name, :parent_class_id => hdfs_data_source_class.id, :parent_id => dataset.hdfs_data_source.id)
   end
 end
 
 GpdbSchema.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => gpdb_schema_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => gpdb_schema_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.parent != nil
     co.update_attributes(:owner_id => dataset.parent.id, :parent_class_name => dataset.parent.class.name, :parent_id => dataset.parent.id)
   end
 end
 
 PgSchema.all.each do |dataset|
-  co = ChorusObject.create(:chorus_class_id => pg_schema_class.id, :instance_id => dataset.id)
+  print '.'
+  co = ChorusObject.create(:chorus_class_id => pg_schema_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
   if dataset.parent != nil
     co.update_attributes(:owner_id => dataset.parent.id, :parent_class_name => dataset.parent.class.name, :parent_id => dataset.parent.id)
   end
 end
 
-puts ''
-puts '--- Assign application_realm scope to all objects ---'
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
-ChorusObject.all.each do |chorus_object|
-  chorus_object.chorus_scope = application_realm
-  chorus_object.save!
-end
+# puts ''
+# puts '--- Assign application_realm scope to all objects ---'
+#
+# ChorusObject.all.each do |chorus_object|
+#   chorus_object.chorus_scope = application_realm
+#   chorus_object.save!
+# end
 
 
 

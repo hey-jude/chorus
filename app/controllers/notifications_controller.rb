@@ -6,7 +6,9 @@ class NotificationsController < ApplicationController
     notifications = notifications.unread if params['type'] == 'unread'
     # PT:SCOPE Filter results by scope for current user
 
-    notifications = Notification.filter_by_scope(current_user, notifications) if current_user_in_scope?
+    if notifications.count != 0
+      notifications = Notification.filter_by_scope(current_user, notifications) if current_user_in_scope?
+    end
 
     present paginate(notifications), :presenter_options => {:activity_stream => true, :succinct => true}
   end
