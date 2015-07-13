@@ -27,6 +27,7 @@ gem 'jbuilder'
 # Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
 gem 'render_anywhere'
 
+gem 'rubyzip', '< 1.0.0'
 
 platform :jruby do
   gem 'jruby-openssl', :require => false
