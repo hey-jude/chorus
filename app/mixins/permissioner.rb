@@ -145,11 +145,7 @@ module Permissioner
         end
       end
 
-      if ret.empty?
-        raise ActiveRecord::RecordNotFound
-      else
-        ret
-      end
+      ret
     end
 
     # returns total # of objects of current class type in scope for current_user
