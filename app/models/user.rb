@@ -41,8 +41,57 @@ class User < ActiveRecord::Base
 
   # roles, groups, and permissions
   has_and_belongs_to_many :groups
-  has_and_belongs_to_many :roles
+  has_and_belongs_to_many :roles, after_add: :check_admin_role, after_remove: :uncheck_admin_role
   #belongs_to :chorus_scope
+
+  def uncheck_admin_role(role)
+    Chorus.log_debug("-----------  #{role.name} is removed for #{self.username} --------")
+    site_admin = Role.find_by_name('SiteAdministrator')
+    admin = Role.find_by_name('Admin')
+    if role.name == 'ApplicationAdministrator'
+      if self.roles.include?(admin)
+        self.admin = true
+      else
+        Chorus.log_debug("---- Removing admin role to #{self.username} ---")
+        self.admin = false
+      end
+      self.save!
+    end
+    if role.name = 'Admin'
+      if self.roles.include?(site_admin)
+        self.admin = true
+      else
+        Chorus.log_debug("---- Removing admin role to #{self.username} ---")
+        self.admin = false
+      end
+      self.save!
+    end
+    if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
+      self.admin = false
+      self.save!
+    end
+  end
+
+  def check_admin_role(role)
+    Chorus.log_debug("-----------  #{role.name} is added for #{self.username} --------")
+    admin = Role.find_by_name('Admin')
+    site_admin = Role.find_by_name('SiteAdministrator')
+    if self.admin == false && self.roles.include?(site_admin)
+      Chorus.log_debug("---- Assigning admin role to #{self.username} ---")
+      self.admin = true
+      self.save!
+    end
+    if self.admin == false && self.roles.include?(admin)
+      Chorus.log_debug("---- Assigning admin role to #{self.username} ---")
+      self.admin = true
+      self.save!
+    end
+
+    if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
+      self.admin = false
+      self.save!
+    end
+  end
 
   # object_roles allow a User to have different roles for different objects (currently just Workspace)
   has_many :chorus_object_roles
