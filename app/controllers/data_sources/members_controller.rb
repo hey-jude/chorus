@@ -3,10 +3,10 @@ module DataSources
     wrap_parameters :account, :include => [:db_username, :db_password, :owner_id]
 
     def index
-      accounts = DataSource.find(params[:data_source_id]).accounts
+      accounts = DataSource.find(params[:data_source_id]).accounts.includes(:owner).order(:id)
       accounts = DataSourceAccount.filter_by_scope(current_user, accounts) if current_user_in_scope?
 
-      present paginate(accounts.includes(:owner).order(:id))
+      present paginate(accounts)
     end
 
     def create
