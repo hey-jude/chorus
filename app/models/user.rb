@@ -114,12 +114,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    is_admin = false
-    admin_role = Role.find_by_name("Admin")
-
-    if !admin_role.nil?
-      self.admin || admin_role.users.include?(self)
-    end
+      self.admin || Permissioner.is_admin?(self)
   end
 
   scope :admin, where(:admin => true)
