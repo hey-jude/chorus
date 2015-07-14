@@ -8,7 +8,9 @@ namespace :db do
   end
 
   task :seed_development => :environment do
-    load Rails.root.join('db', 'development_seeds.rb')
+    ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
+      load Rails.root.join('db', 'development_seeds.rb')
+    end
   end
 
   task :clear_permissions => :environment do
@@ -16,7 +18,9 @@ namespace :db do
   end
   # Load permissions seed data
   task :seed_permissions => :environment do
-    load Rails.root.join('db', 'permissions_seeds.rb')
+    ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
+      load Rails.root.join('db', 'permissions_seeds.rb')
+    end
   end
 
 
