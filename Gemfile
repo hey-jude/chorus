@@ -25,6 +25,8 @@ gem 'honor_codes', '~> 0.1.0'
 gem 'jbuilder'
 # Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
 gem 'render_anywhere'
+# Bulk updating of active_record
+gem 'activerecord-import','0.10.0'
 
 
 platform :jruby do
