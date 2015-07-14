@@ -3,7 +3,6 @@ module Dashboards
     wrap_parameters :recent_workfiles
 
     def create
-      authorize! :update, current_user
       if (params[:recent_workfiles][:action] == 'updateOption')
         option_value = params[:recent_workfiles][:option_value]
         config = DashboardConfig.new(current_user)

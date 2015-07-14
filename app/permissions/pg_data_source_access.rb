@@ -1,1 +1,0 @@
-class PgDataSourceAccess < DataSourceAccess; end

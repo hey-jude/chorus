@@ -50,7 +50,7 @@ describe TableauWorkbooksController do
     end
 
     it 'is authenticated' do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       post :create, params
       response.code.should == '201'
     end

@@ -67,6 +67,12 @@ describe GnipDataSourcesController do
 
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { GnipDataSource }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
   end
 
   describe '#show' do
@@ -161,7 +167,7 @@ describe GnipDataSourcesController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :owner, data_source
+      mock(Authority).authorize! :update, data_source, user, { :or => :current_user_is_object_owner }
       delete :destroy, :id => data_source.id
     end
   end

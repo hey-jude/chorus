@@ -2,7 +2,11 @@ class WorkfileDownloadController < ApplicationController
   include FileDownloadHelper
 
   def show
-    authorize! :show, workfile.workspace
+    Authority.authorize! :show,
+                         workfile.workspace,
+                         current_user,
+                         { :or => [ :current_user_is_in_workspace,
+                                    :workspace_is_public ] }
 
     if workfile.has_draft(current_user)
       send_draft

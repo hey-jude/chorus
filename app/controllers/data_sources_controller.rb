@@ -12,7 +12,8 @@ class DataSourcesController < ApplicationController
     includes = succinct ? [] : [{:owner => :tags}, :tags]
     data_sources = DataSource.by_type(params[:entity_type]).includes(includes)
     data_sources = data_sources.accessible_to(current_user) unless params[:all]
-
+    #PT. Apply scope filter for current_user
+    data_sources = DataSource.filter_by_scope(current_user, data_sources) if current_user_in_scope?
     present paginate(data_sources), :presenter_options => {:succinct => succinct}
   end
 
@@ -27,13 +28,13 @@ class DataSourcesController < ApplicationController
   end
 
   def update
-    authorize! :edit, @data_source
+    Authority.authorize! :edit, @data_source, current_user, { :or => :current_user_is_object_owner }
     @data_source.update_attributes!(params[:data_source])
     present @data_source
   end
 
   def destroy
-    authorize! :edit, @data_source
+    Authority.authorize! :edit, @data_source, current_user, { :or => :current_user_is_object_owner }
     @data_source.destroy
     head :ok
   end

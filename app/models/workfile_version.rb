@@ -1,4 +1,6 @@
 class WorkfileVersion < ActiveRecord::Base
+  include Permissioner
+
   attr_accessible :commit_message, :owner, :modifier, :contents, :version_num, :as => [:default, :create]
   has_attached_file :contents,
                     :styles => {:icon => "50x50>"},

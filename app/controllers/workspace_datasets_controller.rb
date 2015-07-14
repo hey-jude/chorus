@@ -2,7 +2,8 @@ class WorkspaceDatasetsController < ApplicationController
   include DataSourceAuth
 
   def index
-    authorize! :show, workspace
+    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
+                                                                    :workspace_is_public ] }
 
     params[:limit] = params[:page].to_i * params[:per_page].to_i
     params[:name_filter] = params[:name_pattern]
@@ -18,7 +19,8 @@ class WorkspaceDatasetsController < ApplicationController
   end
 
   def create
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
+
     datasets = Dataset.where(:id => params[:dataset_ids])
 
     status = workspace.associate_datasets(current_user, datasets) ? :created : :unprocessable_entity
@@ -27,7 +29,8 @@ class WorkspaceDatasetsController < ApplicationController
   end
 
   def show
-    authorize! :show, workspace
+    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
+                                                                    :workspace_is_public ] }
 
     dataset = params[:name] ? Dataset.find_by_name(params[:name]) : Dataset.find(params[:id])
     dataset.in_workspace?(workspace) or raise ActiveRecord::RecordNotFound
@@ -54,14 +57,14 @@ class WorkspaceDatasetsController < ApplicationController
   end
 
   def destroy_multiple
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
     associations = AssociatedDataset.where(:workspace_id => params[:workspace_id], :dataset_id => params[:dataset_ids])
     associations.destroy_all
     render :json => {}
   end
 
   def destroy
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
     associations = AssociatedDataset.where(:workspace_id => params[:workspace_id], :dataset_id => [params[:id]])
     associations.destroy_all
     render :json => {}

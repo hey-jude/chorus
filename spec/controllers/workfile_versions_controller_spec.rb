@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe WorkfileVersionsController do
-  ignore_authorization!
+
   let(:workfile) { workfiles(:public) }
   let(:workspace) { workfile.workspace }
   let(:user) { workspace.owner }
@@ -146,7 +146,8 @@ describe WorkfileVersionsController do
       end
 
       it "uses authorization" do
-        mock(subject).authorize! :can_edit_sub_objects, workspace
+        mock(Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
+
         delete :destroy, :workfile_id => workfile.id, :id => workfile.versions[2].id
       end
 

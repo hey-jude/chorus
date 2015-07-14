@@ -1,16 +1,30 @@
 module Dashboard
   class SiteSnapshot < DataModule
+
+    attr_reader :user
+
     INCREMENT_TIME = 7.days.ago
 
     private
 
     def fetch_results
-      [Workspace, AssociatedDataset, Workfile, User].map do |model|
-        {
-            :model => model.to_s.underscore,
-            :total => model.count,
-            :increment => changed_count(model)
-        }
+
+      if @user == nil
+        [Workspace, AssociatedDataset, Workfile, User].map do |model|
+          {
+              :model => model.to_s.underscore,
+              :total => model.count,
+              :increment => changed_count(model)
+          }
+        end
+      else
+        [Workspace, AssociatedDataset, Workfile, User].map do |model|
+          {
+              :model => model.to_s.underscore,
+              :total => model.count_in_scope(@user),
+              :increment => changed_count(model)
+          }
+        end
       end
     end
 

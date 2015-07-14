@@ -1,9 +1,12 @@
 class ChorusViewsController < ApplicationController
   wrap_parameters :chorus_view, :exclude => [:id]
+  before_filter :find_chorus_view, :only => [:update, :destroy, :convert, :duplicate]
+  before_filter :authorize, :only => [:update, :destroy, :convert]
 
   def create
     chorus_view = ChorusView.new(params[:chorus_view])
-    authorize! :can_edit_sub_objects, chorus_view.workspace
+
+    Authority.authorize! :update, chorus_view.workspace, current_user, { :or => :can_edit_sub_objects }
 
     if (params[:chorus_view][:source_object_type] == 'workfile')
       source_object = Workfile.find(params[:chorus_view][:source_object_id])
@@ -24,10 +27,10 @@ class ChorusViewsController < ApplicationController
   end
 
   def duplicate
-    old_chorus_view = ChorusView.find(params[:id])
+    old_chorus_view = @chorus_view
     chorus_view = old_chorus_view.create_duplicate_chorus_view(params[:chorus_view][:object_name])
 
-    authorize! :can_edit_sub_objects, chorus_view.workspace
+    Authority.authorize! :update, chorus_view.workspace, current_user, { :or => :can_edit_sub_objects }
 
     ChorusView.transaction do
       chorus_view.save!
@@ -42,37 +45,42 @@ class ChorusViewsController < ApplicationController
   end
 
   def update
-    chorus_view = ChorusView.find(params[:id])
-    authorize! :can_edit_sub_objects, chorus_view.workspace
     ChorusView.transaction do
-      chorus_view.update_attributes!(params[:chorus_view])
+      @chorus_view.update_attributes!(params[:chorus_view])
 
       Events::ChorusViewChanged.by(current_user).add(
-          :workspace => chorus_view.workspace,
-          :dataset => chorus_view
+          :workspace => @chorus_view.workspace,
+          :dataset => @chorus_view
       )
     end
-    present chorus_view
+    present @chorus_view
   end
 
   def destroy
-    chorus_view = ChorusView.find(params[:id])
-    authorize! :can_edit_sub_objects, chorus_view.workspace
-    chorus_view.destroy
+    @chorus_view.destroy
 
     render :json => {}
   end
 
   def convert
-    chorus_view = ChorusView.find(params[:id])
-    authorize! :can_edit_sub_objects, chorus_view.workspace
 
-    database_view = chorus_view.convert_to_database_view(params[:object_name], current_user)
+    database_view = @chorus_view.convert_to_database_view(params[:object_name], current_user)
     Events::ViewCreated.by(current_user).add(
-        :workspace => chorus_view.workspace,
+        :workspace => @chorus_view.workspace,
         :dataset => database_view,
-        :source_dataset => chorus_view
+        :source_dataset => @chorus_view
     )
     render :json => {}, :status => :created
   end
+
+  private
+
+  def find_chorus_view
+    @chorus_view = ChorusView.find(params[:id])
+  end
+
+  def authorize
+    Authority.authorize! :update, @chorus_view.workspace, current_user, { :or => :can_edit_sub_objects }
+  end
+
 end

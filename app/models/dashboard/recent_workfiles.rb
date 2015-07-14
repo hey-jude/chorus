@@ -13,16 +13,25 @@ module Dashboard
       limitValue = user.dashboard_items.where(:name => 'RecentWorkfiles').select('options').map(&:options).first
       if limitValue == ''
         limitValue = 5
-    end
-
-        OpenWorkfileEvent.
-          select('max(created_at) as created_at, workfile_id').
+      end
+      workfiles = nil
+      active_rel =  OpenWorkfileEvent.
+          select('max(created_at) as created_at, workfile_id, id').
           where(:user_id => user.id).
           group(:workfile_id).
+          group(:id).
           order('created_at DESC').
           includes(:workfile).
           limit(limitValue)
-        end
-  
+      if active_rel != nil
+        workfiles = active_rel.all
+      end
+      if Permissioner.user_in_scope? @user
+        # PTELI:SCOPE Filter results by scope for current user
+        workfiles = OpenWorkfileEvent.filter_by_scope(@user, workfiles)
+      else
+        workfiles
+      end
+    end
   end
 end
