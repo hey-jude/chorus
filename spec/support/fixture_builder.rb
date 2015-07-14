@@ -424,6 +424,9 @@ FixtureBuilder.configure do |fbuilder|
     FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 25)
     FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 12)
 
+    Events::MilestoneCreated.by(owner).add(:milestone => default_milestone, :workspace => default_milestone.workspace)
+    Events::MilestoneUpdated.by(owner).add(:milestone => default_milestone, :workspace => default_milestone.workspace)
+
     ##Jobs
     default_job = FactoryGirl.create(:job, :workspace => public_workspace)
     fbuilder.name :default, default_job

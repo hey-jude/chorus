@@ -87,5 +87,17 @@ FactoryGirl.define do
     factory :workfile_result, :class => Events::WorkfileResult do
       association :workfile, :factory => :workfile
     end
+
+    factory :milestone_created_event, :class => Events::MilestoneCreated do
+      milestone { FactoryGirl.create(:milestones) }
+      workspace
+    end
+
+    factory :milestone_updated_event, :class => Events::MilestoneUpdated do
+      milestone { FactoryGirl.create(:milestones) }
+      state 'achieved'
+      workspace
+    end
+
   end
 end
