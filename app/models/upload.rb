@@ -1,5 +1,7 @@
 class Upload < ActiveRecord::Base
   include StaleUpload
+  include Permissioner
+
 
   attr_accessible :contents
 

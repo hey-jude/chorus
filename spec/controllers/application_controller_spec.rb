@@ -157,7 +157,7 @@ describe ApplicationController do
 
     describe "when an access denied error is raised" do
       let(:object_to_present) { data_sources(:default) }
-      let(:exception) { Allowy::AccessDenied.new('', 'action', object_to_present) }
+      let(:exception) { Authority::AccessDenied }
 
       before do
         log_in users(:owner)
@@ -169,10 +169,6 @@ describe ApplicationController do
         response.should be_forbidden
       end
 
-      it "presents the forbidden variant of the model" do
-        mock(Presenter).present(anything, anything, hash_including(:forbidden => true))
-        get :index
-      end
     end
   end
 

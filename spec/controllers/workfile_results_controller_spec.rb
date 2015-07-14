@@ -25,11 +25,6 @@ describe WorkfileResultsController do
       response.status.should == 201
     end
 
-    it "uses authorization" do
-      mock(controller).authorize!(:create_note_on, workfile)
-      post :create, params
-    end
-
     context "when there is a result_id" do
       let(:params) do
         {

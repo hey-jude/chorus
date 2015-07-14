@@ -8,7 +8,6 @@ gem 'paperclip', '3.0.4'
 gem 'cocaine', '0.2.1' # cocaine is a paperclip dependency but new versions of cocaine cause trouble. remove this line after upgrading paperclip.
 gem 'queue_classic', :github => 'Chorus/queue_classic'
 gem 'clockwork',     :require => false
-gem 'allowy'
 gem 'sunspot_rails', '~> 2.0.0'
 gem 'jetpack', :github => 'Chorus/jetpack', :branch => '6c9253195b+chorus', :require => false
 gem 'nokogiri'
@@ -83,6 +82,7 @@ group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :c
   gem 'rspec_api_documentation', :github => 'Chorus/rspec_api_documentation', :require => false
   gem 'pry' # Drop in to an extended Rails console by creating a 'binding.pry' breakpoint
   gem 'pry-nav' # Adds debugger functionality to Pry
+  gem 'pry-rails'
   gem 'ladle'
 end
 

@@ -5,7 +5,7 @@ describe DataSources::OwnersController do
   let(:user) { data_source.owner }
   let(:new_owner) { users(:no_collaborators) }
 
-  ignore_authorization!
+
 
   before do
     log_in user
@@ -17,7 +17,7 @@ describe DataSources::OwnersController do
     end
 
     it "uses authorization" do
-      mock(controller).authorize!(:edit, data_source)
+      mock(Authority).authorize!(:update, data_source, user, { :or => :current_user_is_object_owner })
       request_ownership_update
     end
 

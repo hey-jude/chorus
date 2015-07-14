@@ -2,7 +2,7 @@ class JobTasksController < ApplicationController
   wrap_parameters :job_task, :exclude => [:job_id, :workspace_id]
 
   def create
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     job = Job.find(params[:job_id])
     task = JobTask.assemble!(params[:job_task], job)
@@ -11,7 +11,8 @@ class JobTasksController < ApplicationController
   end
 
   def destroy
-    authorize! :can_edit_sub_objects, workspace
+
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     JobTask.find(params[:id]).destroy
 
@@ -21,7 +22,7 @@ class JobTasksController < ApplicationController
   def update
     job_task = JobTask.find(params[:id])
     workspace = job_task.job.workspace
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     if params[:job_task][:index] && (job_task.index != params[:job_task][:index])
       job = job_task.job

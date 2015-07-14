@@ -3,6 +3,8 @@ class HdfsDataSource < ActiveRecord::Base
   include Notable
   include SoftDelete
   include CommonDataSourceBehavior
+  include Permissioner
+
 
   attr_accessible :name, :host, :port, :description, :username, :group_list, :job_tracker_host, :job_tracker_port, :hdfs_version, :high_availability, :connection_parameters
   belongs_to :owner, :class_name => 'User'

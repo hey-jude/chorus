@@ -5,10 +5,14 @@ class Workspace < ActiveRecord::Base
   include TaggableBehavior
   include Notable
   include RenderAnywhere
+  include Permissioner
 
   PROJECT_STATUSES = [:on_track, :needs_attention, :at_risk]
 
-  attr_accessible :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,
+  # DO NOT CHANGE the order of these permissions, you'll accidently change everyone's permissons across the site.
+  # Order: show, update, destroy
+
+  attr_accessible :id, :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,
                   :has_changed_settings, :show_sandbox_datasets, :is_project, :project_status, :project_status_reason,
                   :project_target_date
 
@@ -45,6 +49,9 @@ class Workspace < ActiveRecord::Base
   validate :archiver_is_set_when_archiving
   validates_attachment_size :image, :less_than => ChorusConfig.instance['file_sizes_mb']['workspace_icon'].megabytes, :message => :file_size_exceeded
   validates_with MemberCountValidator
+
+  #PT. After creating the workspace object add entry to chorus_objects tables.
+  #after_create  :add_to_permissions
 
   before_update :reindex_sandbox, :if => :show_sandbox_datasets_changed?
   before_update :create_name_change_event, :if => :name_changed?
@@ -247,12 +254,21 @@ class Workspace < ActiveRecord::Base
 
   def self.accessible_to(user)
     with_membership = user.memberships.pluck(:workspace_id)
-    where('workspaces.public OR
+
+    workspaces = where('workspaces.public OR
           workspaces.id IN (:with_membership) OR
           workspaces.owner_id = :user_id',
           :with_membership => with_membership,
           :user_id => user.id
          )
+
+    # PT. 7/9. filter_by_scope returns an array of workspaces instead of ActiveRelation which causes a problem in the caller class (WorkspaceController)
+    # Filter by scope
+    #  if Permissioner.user_in_scope?(user)
+    #    filter_by_scope(user, workspaces)
+    #  else
+    #    workspaces
+    #  end
   end
 
   def members_accessible_to(user)
@@ -275,6 +291,7 @@ class Workspace < ActiveRecord::Base
       []
     end
     perm << :create_workflow if user.developer? && has_membership
+
     perm
   end
 

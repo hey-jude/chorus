@@ -81,7 +81,7 @@ describe MembersController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize!(:owner, workspace)
+      mock(Authority).authorize!.with_any_args
       post :create, parameters
     end
 
