@@ -33,6 +33,7 @@ gem 'activerecord-import','0.10.0'
 gem 'geo_pattern', '1.3.2'  # geopattern is used to generate the default worklet avatar images
 
 gem 'rubyzip', '0.9.9'
+gem 'admin', :path => 'components/admin'
 
 platform :jruby do
   gem 'jruby-openssl', :require => false
@@ -41,6 +42,7 @@ end
 
 group :assets do
   gem 'sass-rails'
+  gem 'less-rails'
   gem 'compass-rails'
   gem 'handlebars_assets'
   gem 'therubyrhino'

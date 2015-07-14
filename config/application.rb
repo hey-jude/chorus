@@ -45,7 +45,7 @@ module Chorus
     # config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -65,6 +65,29 @@ module Chorus
     config.assets.enabled = true
     config.assets.initialize_on_precompile = false
     config.assets.precompile += %w{visualizations.css import_console/import_console.css}
+
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'images')
+    config.assets.precompile += %w(admin/application.js admin/application.css)
+    config.assets.precompile += %w(*.gif *.png *.jpg *.jpeg *.gif *.ttf *.eot *.svg *.woff)
+    #config.assets.version = '1.0'
+
+    config.assets.precompile << Proc.new do |path|
+      if path =~ /\.(css|js)\z/
+        full_path = Rails.application.assets.resolve(path).to_path
+        app_assets_path = Rails.root.join('app', 'assets').to_path
+        if full_path.starts_with? app_assets_path
+          puts 'including asset: ' + full_path
+          true
+        else
+          puts 'excluding asset: ' + full_path
+          false
+        end
+      else
+        false
+      end
+    end
+
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
