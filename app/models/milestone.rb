@@ -14,8 +14,8 @@ class Milestone < ActiveRecord::Base
   validates_inclusion_of :state, :in => STATES
 
   after_save :project_hooks
-  after_update :create_milestone_updated_event
-  after_create :create_milestone_created_event
+  after_update :create_milestone_updated_event, :if => :current_user
+  after_create :create_milestone_created_event, :if => :current_user
   after_destroy :project_hooks
 
   before_validation :set_state_planned, :on => :create
