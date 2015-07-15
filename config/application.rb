@@ -132,5 +132,6 @@ module Chorus
     ]
 
     I18n.config.enforce_available_locales = false
+    config.i18n.load_path += Dir[Rails.root.join( 'components','admin','config', 'locales', '*.{rb,yml}')]
   end
 end
