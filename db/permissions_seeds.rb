@@ -1228,7 +1228,7 @@ puts " (#{stop - start} seconds)"
 
 puts ''
 puts '--- Adding GpdbSchema  ----'
-columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id]
 start = Time.now
 
 GpdbSchema.find_in_batches({:batch_size => 2500}) do |views|
@@ -1237,13 +1237,6 @@ GpdbSchema.find_in_batches({:batch_size => 2500}) do |views|
     print '.'
     co = []
     co << [gpdb_schema_class.id, dataset.id, application_realm.id]
-    #co = ChorusObject.create(:chorus_class_id => gpdb_schema_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-    if dataset.workspace != nil
-      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
-      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-    else
-      co << [nil, nil, nil, nil]
-    end
     chorus_objects << co.flatten!
   end
   ChorusObject.import columns, chorus_objects, :validate => false
@@ -1254,7 +1247,7 @@ puts " (#{stop - start} seconds)"
 
 puts ''
 puts '--- Adding PgSchema  ----'
-columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id]
 start = Time.now
 
 PgSchema.find_in_batches({:batch_size => 2500}) do |views|
@@ -1264,12 +1257,6 @@ PgSchema.find_in_batches({:batch_size => 2500}) do |views|
     co = []
     co << [pg_schema_class.id, dataset.id, application_realm.id]
     #co = ChorusObject.create(:chorus_class_id => pg_schema_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-    if dataset.workspace != nil
-      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
-      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-    else
-      co << [nil, nil, nil, nil]
-    end
     chorus_objects << co.flatten!
   end
   ChorusObject.import columns, chorus_objects, :validate => false
