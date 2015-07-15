@@ -2180,7 +2180,7 @@ describe("chorus.presenters.Activity", function() {
             it("has the right header html", function() {
                 this.presenter.options.displayStyle = ["without_workspace"];
                 expect(this.presenter.headerHtml().toString()).toMatchTranslation(
-                    "activity.header.JobCreated.without_workspace", this.translation_params
+                    "activity.header.JobDeleted.without_workspace", this.translation_params
                 );
             });
         });
@@ -2189,7 +2189,7 @@ describe("chorus.presenters.Activity", function() {
             it("has the right header html", function() {
                 this.presenter.options.displayStyle = ["default"];
                 expect(this.presenter.headerHtml().toString()).toMatchTranslation(
-                    "activity.header.JobCreated.default", this.translation_params
+                    "activity.header.JobDeleted.default", this.translation_params
                 );
             });
         });
