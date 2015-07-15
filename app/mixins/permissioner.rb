@@ -86,7 +86,8 @@ module Permissioner
   # Called after model object is created. Created corresponding entry in chorus_objects table
   def create_chorus_object
     chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
-    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
+    scope_id = ChorusScope.find_by_name('application_realm').id
+    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id_and_chorus_scope_id(chorus_class.id, self.id, scope_id)
   end
 
   # Called after a model object is destroyed. Removes corresponding entry from chorus_objects table
