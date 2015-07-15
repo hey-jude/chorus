@@ -6,7 +6,7 @@ chorus.dialogs.ConfigureJob = chorus.dialogs.Base.include(chorus.Mixins.DialogFo
         return this.model.isNew() ? t('job.dialog.title') : t('job.dialog.edit.title');
     },
     toastMessage: function () {
-        return this.isCreating ? 'job.dialog.create.toast' : 'job.dialog.edit.toast';
+        return this.isCreating ? 'job_create.toast' : 'job_edit.toast';
     },
     submitTranslation: function () {
         return this.model.isNew() ? "job.dialog.submit" : "job.dialog.edit.submit";
