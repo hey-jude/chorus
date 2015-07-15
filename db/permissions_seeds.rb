@@ -220,7 +220,6 @@ workspace_class = ChorusClass.where(:name => 'workspace'.camelize).first
 user_class = ChorusClass.where(:name => 'user'.camelize).first
 account_class = ChorusClass.where(:name => 'account'.camelize).first
 datasource_class = ChorusClass.where(:name => 'data_source'.camelize).first
-datasource_class = ChorusClass.where(:name => 'data_source'.camelize).first
 group_class = ChorusClass.where(:name => 'group'.camelize).first
 database_class = ChorusClass.where(:name => 'database'.camelize).first
 job_class  = ChorusClass.where(:name => 'job'.camelize).first
@@ -658,7 +657,7 @@ puts '--- Adding Users and children objects ----'
 start = Time.now
 columns = [:chorus_class_id, :instance_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id, :chorus_scope_id]
 values = []
-
+count = User.count
 User.find_in_batches({:batch_size => 5}) do |users|
   values = []
   users.each do |user|
@@ -673,7 +672,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
     # add all users to default scope (application realm) by adding user to the default group
     #user.chorus_scopes << application_realm
     user.groups << default_group
-
+    count = count + user.gpdb_data_sources.count
     user.gpdb_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
         ChorusClass.create(:name => data_source.class.name)
@@ -682,6 +681,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(data_source.class.name).id, data_source.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.oracle_data_sources.count
     user.oracle_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
         ChorusClass.create(:name => data_source.class.name)
@@ -690,6 +690,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(data_source.class.name).id, data_source.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.jdbc_data_sources.count
     user.jdbc_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
         ChorusClass.create(:name => data_source.class.name)
@@ -698,6 +699,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(data_source.class.name).id, data_source.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.pg_data_sources.count
     user.pg_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
         ChorusClass.create(:name => data_source.class.name)
@@ -706,6 +708,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(data_source.class.name).id, data_source.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.hdfs_data_sources.count
     user.hdfs_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
         ChorusClass.create(:name => data_source.class.name)
@@ -714,6 +717,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(data_source.class.name).id, data_source.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.gnip_data_sources.count
     user.gnip_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
         ChorusClass.create(:name => data_source.class.name)
@@ -722,6 +726,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(data_source.class.name).id, data_source.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(data_source.class.name).id, :instance_id => data_source.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.data_source_accounts.count
     user.data_source_accounts.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
         ChorusClass.create(:name => data_source.class.name)
@@ -730,6 +735,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(data_source.class.name).id, data_source.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(account.class.name).id, :instance_id => account.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.memberships.count
     user.memberships.each do |member|
       if ChorusClass.find_by_name(member.class.name) == nil
         ChorusClass.create(:name => member.class.name)
@@ -738,6 +744,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(member.class.name).id, member.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(member.class.name).id, :instance_id => member.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.owned_jobs.count
     user.owned_jobs.each do |job|
       if ChorusClass.find_by_name(job.class.name) == nil
         ChorusClass.create(:name => job.class.name)
@@ -746,6 +753,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(job.class.name).id, job.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(job.class.name).id, :instance_id => job.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.activities.count
     user.activities.each do |activity|
       if ChorusClass.find_by_name(activity.class.name) == nil
         ChorusClass.create(:name => activity.class.name)
@@ -754,6 +762,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(activity.class.name).id, activity.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id => activity.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.events.count
     user.events.each do |event|
       if ChorusClass.find_by_name(event.class.name) == nil
         ChorusClass.create(:name => event.class.name)
@@ -762,6 +771,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(event.class.name).id, event.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + user.notifications.count
     user.notifications.each do |notification|
       if ChorusClass.find_by_name(notification.class.name) == nil
         ChorusClass.create(:name => notification.class.name)
@@ -770,7 +780,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       values << [ChorusClass.find_by_name(notification.class.name).id, notification.id,  user.id, user.class.name, ChorusClass.find_by_name(user.class.name).id, user.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(notification.class.name).id, :instance_id => notification.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
-
+    count = count + user.open_workfile_events.count
     user.open_workfile_events.each do |event|
       if ChorusClass.find_by_name(event.class.name) == nil
         ChorusClass.create(:name => event.class.name)
@@ -786,13 +796,14 @@ end
 
 
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{count} rows, #{stop - start} seconds)"
 
 puts ''
 puts '--- Adding Workspace and  children objects ----'
 
 start = Time.now
 columns = [:chorus_class_id, :instance_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id, :chorus_scope_id]
+count = Workspace.count
 Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
   chorus_objects = []
   workspaces.each do |workspace|
@@ -809,7 +820,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
     #workspace.owner.object_roles << workspace_object_role
 
     #children = %w(jobs milestones memberships workfiles activities events owned_notes comments chorus_views csv_files associated_datasets source_datasets all_imports imports tags)
-
+    count = count + workspace.jobs.count
     workspace.jobs.each do |job|
       if ChorusClass.find_by_name(job.class.name) == nil
         ChorusClass.create(:name => job.class.name)
@@ -818,6 +829,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(job.class.name).id,  job.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(job.class.name).id, :instance_id => job.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.milestones.count
     workspace.milestones.each do |milestone|
       if ChorusClass.find_by_name(milestone.class.name) == nil
         ChorusClass.create(:name => milestone.class.name)
@@ -826,6 +838,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(milestone.class.name).id,  milestone.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(milestone.class.name).id, :instance_id => milestone.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.memberships.count
     workspace.memberships.each do |membership|
       if ChorusClass.find_by_name(membership.class.name) == nil
         print '.'
@@ -835,6 +848,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(membership.class.name).id,  membership.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(membership.class.name).id, :instance_id => membership.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.workfiles.count
     workspace.workfiles.each do |workfile|
       if ChorusClass.find_by_name(workfile.class.name) == nil
         print '.'
@@ -843,6 +857,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       print '.'
       chorus_objects << [ChorusClass.find_by_name(workfile.class.name).id,  workfile.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(workfile.class.name).id, :instance_id => workfile.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
+      count = count + workfile.activities.count
       workfile.activities.each do |activity|
         if ChorusClass.find_by_name(activity.class.name) == nil
           print '.'
@@ -852,6 +867,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
         chorus_objects << [ChorusClass.find_by_name(activity.class.name).id,  activity.id, workspace.owner.id, workfile.class.name, ChorusClass.find_by_name(workfile.class.name).id,  workfile.id, application_realm.id]
         #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id  => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id, :chorus_scope_id => application_realm.id)
       end
+      count = count + workfile.events.count
       workfile.events.each do |event|
         if ChorusClass.find_by_name(event.class.name) == nil
           print '.'
@@ -861,6 +877,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
         chorus_objects << [ChorusClass.find_by_name(event.class.name).id,  event.id, workspace.owner.id, workfile.class.name, ChorusClass.find_by_name(workfile.class.name).id,  workfile.id, application_realm.id]
         #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id  => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id, :chorus_scope_id => application_realm.id)
       end
+      count = count + workfile.open_workfile_events.count
       workfile.open_workfile_events.each do |event|
         if ChorusClass.find_by_name(event.class.name) == nil
           ChorusClass.create(:name => event.class.name)
@@ -869,7 +886,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
         chorus_objects << [ChorusClass.find_by_name(event.class.name).id,  event.id, workspace.owner.id, workfile.class.name, ChorusClass.find_by_name(workfile.class.name).id,  workfile.id, application_realm.id]
         #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id  => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id, :chorus_scope_id => application_realm.id)
       end
-
+      count = count + workfile.comments.count
       workfile.comments.each do |comment|
         if ChorusClass.find_by_name(comment.class.name) == nil
           ChorusClass.create(:name => comment.class.name)
@@ -879,6 +896,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
         #chorus_objects << ChorusObject.new(:chorus_class_id =>  ChorusClass.find_by_name(comment.class.name).id, :instance_id => comment.id, :owner_id => workfile.owner.id,  :parent_class_name => workfile.class.name, :parent_class_id => ChorusClass.find_by_name(workfile.class.name).id, :parent_id => workfile.id, :chorus_scope_id => application_realm.id)
       end
     end
+    count = count + workspace.activities.count
     workspace.activities.each do |activity|
       if ChorusClass.find_by_name(activity.class.name) == nil
         ChorusClass.create(:name => activity.class.name)
@@ -888,6 +906,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(activity.class.name).id, :instance_id => activity.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
     #TODO: RPG. Don't know how to deal with events of differnt types in permissions framework. For now adding them as sub classes of (Events::Base)
+    count = count + workspace.events.count
     workspace.events.each do |event|
       if ChorusClass.find_by_name(event.class.name) == nil
         ChorusClass.create(:name => event.class.name)
@@ -896,6 +915,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(event.class.name).id,  event.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.owned_notes.count
     workspace.owned_notes.each do |note|
       if ChorusClass.find_by_name(note.class.name) == nil
         ChorusClass.create(:name => note.class.name)
@@ -904,6 +924,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(note.class.name).id,  note.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(note.class.name).id, :instance_id => note.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.comments.count
     workspace.comments.each do |comment|
       if ChorusClass.find_by_name(comment.class.name) == nil
         ChorusClass.create(:name => comment.class.name)
@@ -912,6 +933,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(comment.class.name).id,  comment.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(comment.class.name).id, :instance_id => comment.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.chorus_views.count
     workspace.chorus_views.each do |view|
       if ChorusClass.find_by_name(view.class.name) == nil
         ChorusClass.create(:name => view.class.name)
@@ -920,6 +942,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(view.class.name).id,  view.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(view.class.name).id, :instance_id => view.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.csv_files.count
     workspace.csv_files.each do |file|
       if ChorusClass.find_by_name(file.class.name) == nil
         ChorusClass.create(:name => file.class.name)
@@ -928,6 +951,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(file.class.name).id,  file.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(file.class.name).id, :instance_id => file.id, :owner_id => workspace.owner.id,  :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.associated_datasets.count
     workspace.associated_datasets.each do |dataset|
       if ChorusClass.find_by_name(dataset.class.name) == nil
         ChorusClass.create(:name => dataset.class.name)
@@ -936,6 +960,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(dataset.class.name).id,  dataset.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(dataset.class.name).id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.source_datasets.count
     workspace.source_datasets.each do |dataset|
       if ChorusClass.find_by_name(dataset.class.name) == nil
         ChorusClass.create(:name => dataset.class.name)
@@ -944,6 +969,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(dataset.class.name).id,  dataset.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(dataset.class.name).id, :instance_id => dataset.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.all_imports.count
     workspace.all_imports.each do |import|
       if ChorusClass.find_by_name(import.class.name) == nil
         ChorusClass.create(:name => import.class.name)
@@ -952,6 +978,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(import.class.name).id,  import.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(import.class.name).id, :instance_id => import.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.imports.count
     workspace.imports.each do |import|
       if ChorusClass.find_by_name(import.class.name) == nil
         ChorusClass.create(:name => import.class.name)
@@ -960,6 +987,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
       chorus_objects << [ChorusClass.find_by_name(import.class.name).id,  import.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]
       #chorus_objects << ChorusObject.new(:chorus_class_id => ChorusClass.find_by_name(import.class.name).id, :instance_id => import.id, :owner_id => workspace.owner.id, :parent_class_name => workspace.class.name, :parent_class_id => ChorusClass.find_by_name(workspace.class.name).id, :parent_id => workspace.id, :chorus_scope_id => application_realm.id)
     end
+    count = count + workspace.tags.count
     workspace.tags.each do |tag|
       if ChorusClass.find_by_name(tag.class.name) == nil
         ChorusClass.create(:name => tag.class.name)
@@ -976,7 +1004,7 @@ end
 
 
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{count} rows, #{stop - start} seconds)"
 
 
 puts ''
@@ -993,7 +1021,69 @@ DataSource.find_in_batches({:batch_size => 1000}) do |datasources|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{DataSource.count} rows, #{stop - start} seconds)"
+
+puts ''
+puts '--- Adding Databases  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+Database.find_in_batches({:batch_size => 1000}) do |databases|
+  chorus_objects = []
+  databases.each do |database|
+    print '.'
+    co = []
+    co << [database_class.id, database.id, application_realm.id]
+    if database.data_source != nil
+      co << [database.data_source.owner.id,  datasource_class.name, datasource_class.id, database.data_source.id]
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
+end
+stop = Time.now
+puts " (#{Database.count} rows, #{stop - start} seconds)"
+
+puts ''
+puts '--- Adding Hdfs Data Sources  ----'
+columns = [:chorus_class_id, :instance_id, :owner_id, :chorus_scope_id]
+start = Time.now
+HdfsDataSource.find_in_batches({:batch_size => 1000}) do |datasources|
+  chorus_objects = []
+  datasources.each do |data_source|
+    print '.'
+    chorus_objects << [hdfs_data_source_class.id, data_source.id, data_source.owner.id, application_realm.id]
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
+end
+stop = Time.now
+puts " (#{HdfsDataSource.count} rows, #{stop - start} seconds)"
+
+puts ''
+puts '--- Adding HdfsEntry  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+HdfsEntry.find_in_batches({:batch_size => 2500}) do |entries|
+  chorus_objects = []
+  entries.each do |entry|
+    print '.'
+    co = []
+    co << [hdfs_entry_class.id, entry.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id,:chorus_scope_id => application_realm.id)
+    if entry.hdfs_data_source != nil
+      co << [entry.hdfs_data_source.owner.id,  hdfs_data_source_class.name, hdfs_data_source_class.id, entry.hdfs_data_source.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
+end
+stop = Time.now
+puts "(#{HdfsEntry.count} rows, #{stop - start} seconds)"
+
 
 puts ''
 puts '--- Adding ChorusView  ----'
@@ -1017,7 +1107,7 @@ ChorusView.find_in_batches({:batch_size => 2500}) do |views|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{ChorusView.count} rows, #{stop - start} seconds)"
 
 
 puts ''
@@ -1043,7 +1133,7 @@ GpdbView.find_in_batches({:batch_size => 2500}) do |views|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts "(#{GpdbView.count} rows, #{stop - start} seconds)"
 
 
 puts ''
@@ -1070,7 +1160,7 @@ GpdbTable.find_in_batches({:batch_size => 2500}) do |views|
 end
 
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{GpdbTable.count} rows, #{stop - start} seconds)"
 
 
 puts ''
@@ -1097,7 +1187,7 @@ PgTable.find_in_batches({:batch_size => 2500}) do |views|
 end
 
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{PgTable.count} rows, #{stop - start} seconds)"
 
 puts ''
 puts '--- Adding PgView  ----'
@@ -1122,7 +1212,7 @@ PgView.find_in_batches({:batch_size => 2500}) do |views|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{PgView.count} rows, #{stop - start} seconds)"
 
 puts ''
 puts '--- Adding HdfsDataset  ----'
@@ -1147,7 +1237,7 @@ HdfsDataset.find_in_batches({:batch_size => 2500}) do |views|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{HdfsDataset.count} rows, #{stop - start} seconds)"
 
 puts ''
 puts '--- Adding GpdbDataset  ----'
@@ -1172,7 +1262,7 @@ GpdbDataset.find_in_batches({:batch_size => 2500}) do |views|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{GpdbDataset.count} rows, #{stop - start} seconds)"
 
 
 puts ''
@@ -1198,33 +1288,7 @@ JdbcDataset.find_in_batches({:batch_size => 2500}) do |views|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
-
-
-puts ''
-puts '--- Adding HdfsEntry  ----'
-columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
-start = Time.now
-
-HdfsEntry.find_in_batches({:batch_size => 2500}) do |views|
-  chorus_objects = []
-  views.each do |dataset|
-    print '.'
-    co = []
-    co << [hdfs_entry_class.id, dataset.id, application_realm.id]
-    #co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id,:chorus_scope_id => application_realm.id)
-    if dataset.parent != nil
-      co << [nil,  hdfs_entry_class.name, hdfs_entry_class.id, dataset.parent.id]
-      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-    else
-      co << [nil, nil, nil, nil]
-    end
-    chorus_objects << co.flatten!
-  end
-  ChorusObject.import columns, chorus_objects, :validate => false
-end
-stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{JdbcDataset.count} rows, #{stop - start} seconds)"
 
 puts ''
 puts '--- Adding GpdbSchema  ----'
@@ -1242,7 +1306,7 @@ GpdbSchema.find_in_batches({:batch_size => 2500}) do |views|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{GpdbSchema.count} rows, #{stop - start} seconds)"
 
 
 puts ''
@@ -1262,7 +1326,7 @@ PgSchema.find_in_batches({:batch_size => 2500}) do |views|
   ChorusObject.import columns, chorus_objects, :validate => false
 end
 stop = Time.now
-puts " (#{stop - start} seconds)"
+puts " (#{PgSchema.count} rows, #{stop - start} seconds)"
 
 # puts ''
 # puts '--- Assign application_realm scope to all objects ---'

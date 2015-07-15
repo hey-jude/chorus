@@ -21,6 +21,7 @@ class DataSource < ActiveRecord::Base
 
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
+  has_many :databases
 
   before_validation :build_data_source_account_for_owner, :on => :create
 
