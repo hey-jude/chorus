@@ -17,7 +17,7 @@ describe Events::MilestoneCreated do
    end
 
   its(:action) { should == "MilestoneCreated" }
-  its(:targets) { should == {:milestone => milestone} }
+  its(:targets) { should == {:milestone => milestone, :workspace => workspace} }
 
   it_creates_activities_for { [actor, milestone, workspace] }
 

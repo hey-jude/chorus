@@ -18,7 +18,7 @@ describe Events::MilestoneUpdated do
   end
 
   its(:action) { should == "MilestoneUpdated" }
-  its(:targets) { should == {:milestone => milestone} }
+  its(:targets) { should == {:milestone => milestone, :workspace => workspace} }
 
   it_creates_activities_for { [actor, milestone, workspace] }
 

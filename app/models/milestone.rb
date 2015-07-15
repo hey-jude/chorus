@@ -42,14 +42,6 @@ class Milestone < ActiveRecord::Base
     self.state = 'planned'
   end
 
-  def self.type_name
-    'Milestone'
-  end
-
-  def entity_type_name
-    'milstone'
-  end
-
   def create_milestone_updated_event
     Events::MilestoneUpdated.add(
         :actor => current_user,

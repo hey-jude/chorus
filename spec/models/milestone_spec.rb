@@ -17,17 +17,12 @@ describe Milestone do
     it "creates activity after user creates a milestone" do
       expect do
         Events::MilestoneCreated.add(
-            :actor => actor,
-            :milestone => milestone,
-            :workspace => workspace,
+          :actor => actor,
+          :milestone => milestone,
+          :workspace => workspace,
         )
       end
     end
-      end
-    end
-
-  end
-
   end
 
   describe "destroy" do

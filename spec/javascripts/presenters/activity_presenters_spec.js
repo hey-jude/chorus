@@ -2315,7 +2315,7 @@ describe("chorus.presenters.Activity", function() {
             it("has the right header html", function() {
                 this.presenter.options.displayStyle = ["without_workspace"];
                 expect(this.presenter.headerHtml().toString()).toMatchTranslation(
-                    "activity.header.MilestoneCreated.without_workspace", this.translation_paramsms
+                    "activity.header.MilestoneCreated.without_workspace", this.translation_params
                 );
             });
         });
@@ -2338,9 +2338,7 @@ describe("chorus.presenters.Activity", function() {
             this.actor = this.model.actor();
             this.workspace = this.model.workspace();
             this.milestone = this.model.milestone();
-            milestoneState =  "milestone.state." + this.milestone.get("state").toString;
-            console.log(this.milestone.attributes.state);
-            console.log(milestoneState);
+            milestoneState =  t("milestone.state." + this.milestone.get("state").toString());
 
             this.translation_params = {
                 actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
@@ -2354,7 +2352,7 @@ describe("chorus.presenters.Activity", function() {
             it("has the right header html", function() {
                 this.presenter.options.displayStyle = ["without_workspace"];
                 expect(this.presenter.headerHtml().toString()).toMatchTranslation(
-                    "activity.header.MilestoneUpdated.without_workspace", this.translation_paramsms
+                    "activity.header.MilestoneUpdated.without_workspace", this.translation_params
                 );
             });
         });
