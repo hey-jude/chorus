@@ -978,100 +978,289 @@ end
 stop = Time.now
 puts " (#{stop - start} seconds)"
 
+
 puts ''
-puts '--- Adding Data Sources and it children objects ----'
+puts '--- Adding Data Sources  ----'
+columns = [:chorus_class_id, :instance_id, :owner_id, :chorus_scope_id]
 start = Time.now
-DataSource.all.each do |data_source|
-  print '.'
-    ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id, :chorus_scope_id => application_realm.id)
+DataSource.find_in_batches({:batch_size => 1000}) do |datasources|
+  chorus_objects = []
+  datasources.each do |data_source|
+    print '.'
+    chorus_objects << [datasource_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    #ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id, :chorus_scope_id => application_realm.id)
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
+end
+stop = Time.now
+puts " (#{stop - start} seconds)"
+
+puts ''
+puts '--- Adding ChorusView  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+ChorusView.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects =  []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [chorus_view_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => chorus_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    if dataset.workspace != nil
+      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
+end
+stop = Time.now
+puts " (#{stop - start} seconds)"
+
+
+puts ''
+puts '--- Adding GpdbView  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+
+GpdbView.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [gpdb_view_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => gpdb_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    if dataset.workspace != nil
+      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
+end
+stop = Time.now
+puts " (#{stop - start} seconds)"
+
+
+puts ''
+puts '--- Adding GpdbTable  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+
+GpdbTable.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [gpdb_table_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => gpdb_table_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    if dataset.workspace != nil
+      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
 end
 
-ChorusView.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => chorus_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.workspace != nil
-    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-  end
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
-end
-GpdbView.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => gpdb_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.workspace != nil
-    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+
+puts ''
+puts '--- Adding PgTable  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+
+PgTable.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [pg_table_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => pg_table_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    if dataset.workspace != nil
+      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
   end
-end
-GpdbTable.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => gpdb_table_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.workspace != nil
-    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-  end
-end
-PgTable.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => pg_table_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.workspace != nil
-    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-  end
+  ChorusObject.import columns, chorus_objects, :validate => false
 end
 
-PgView.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => pg_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.workspace != nil
-    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-  end
-end
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
-HdfsDataset.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => hdfs_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.workspace != nil
-    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-  end
-end
+puts ''
+puts '--- Adding PgView  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
 
-GpdbDataset.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => gpdb_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.workspace != nil
-    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+PgView.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [pg_view_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => pg_view_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    if dataset.workspace != nil
+      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
   end
+  ChorusObject.import columns, chorus_objects, :validate => false
 end
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
-JdbcDataset.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => jdbc_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.workspace != nil
-    co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+puts ''
+puts '--- Adding HdfsDataset  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+
+HdfsDataset.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [hdfs_dataset_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => hdfs_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    if dataset.workspace != nil
+      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
   end
+  ChorusObject.import columns, chorus_objects, :validate => false
 end
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
-HdfsEntry.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id,:chorus_scope_id => application_realm.id)
-  if dataset.hdfs_data_source != nil
-    co.update_attributes(:owner_id => dataset.hdfs_data_source.owner.id, :parent_class_name => hdfs_data_source_class.name, :parent_class_id => hdfs_data_source_class.id, :parent_id => dataset.hdfs_data_source.id)
+puts ''
+puts '--- Adding GpdbDataset  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+
+GpdbDataset.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [gpdb_dataset_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => gpdb_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    if dataset.workspace != nil
+      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
   end
+  ChorusObject.import columns, chorus_objects, :validate => false
 end
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
-GpdbSchema.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => gpdb_schema_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.parent != nil
-    co.update_attributes(:owner_id => dataset.parent.id, :parent_class_name => dataset.parent.class.name, :parent_id => dataset.parent.id)
+
+puts ''
+puts '--- Adding JdbcDataset  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+
+JdbcDataset.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [jdbc_dataset_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => jdbc_dataset_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    if dataset.workspace != nil
+      co << [dataset.workspace.owner.id,  workspace_class.name, workspace_class.id, dataset.workspace.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
   end
+  ChorusObject.import columns, chorus_objects, :validate => false
 end
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
-PgSchema.all.each do |dataset|
-  print '.'
-  co = ChorusObject.create(:chorus_class_id => pg_schema_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
-  if dataset.parent != nil
-    co.update_attributes(:owner_id => dataset.parent.id, :parent_class_name => dataset.parent.class.name, :parent_id => dataset.parent.id)
+
+puts ''
+puts '--- Adding HdfsEntry  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+start = Time.now
+
+HdfsEntry.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [hdfs_entry_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id,:chorus_scope_id => application_realm.id)
+    if dataset.parent != nil
+      co << [nil,  hdfs_entry_class.name, hdfs_entry_class.id, dataset.parent.id]
+      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+    else
+      co << [nil, nil, nil, nil]
+    end
+    chorus_objects << co.flatten!
   end
+  ChorusObject.import columns, chorus_objects, :validate => false
 end
+stop = Time.now
+puts " (#{stop - start} seconds)"
 
+puts ''
+puts '--- Adding GpdbSchema  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id]
+start = Time.now
+
+GpdbSchema.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [gpdb_schema_class.id, dataset.id, application_realm.id]
+    chorus_objects << co.flatten!
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
+end
+stop = Time.now
+puts " (#{stop - start} seconds)"
+
+
+puts ''
+puts '--- Adding PgSchema  ----'
+columns = [:chorus_class_id, :instance_id, :chorus_scope_id]
+start = Time.now
+
+PgSchema.find_in_batches({:batch_size => 2500}) do |views|
+  chorus_objects = []
+  views.each do |dataset|
+    print '.'
+    co = []
+    co << [pg_schema_class.id, dataset.id, application_realm.id]
+    #co = ChorusObject.create(:chorus_class_id => pg_schema_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
+    chorus_objects << co.flatten!
+  end
+  ChorusObject.import columns, chorus_objects, :validate => false
+end
 stop = Time.now
 puts " (#{stop - start} seconds)"
 
