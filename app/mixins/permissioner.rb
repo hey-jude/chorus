@@ -129,12 +129,13 @@ module Permissioner
 
     # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
-      groups = user.groups
-      scope_ids = ChorusScope.where(:group_id => groups.map(&:id)).pluck(:id)
-      chorus_class_id = ChorusClass.find_by_name(self.name).id
-      object_ids = ChorusObject.where(:chorus_class_id => chorus_class_id, :chorus_scope_id => scope_ids).pluck(:instance_id)
-
-      return self.where(:id => object_ids)
+      return objects
+      #groups = user.groups
+      #scope_ids = ChorusScope.where(:group_id => groups.map(&:id)).pluck(:id)
+      #chorus_class_id = ChorusClass.find_by_name(self.name).id
+      #object_ids = ChorusObject.where(:chorus_class_id => chorus_class_id, :chorus_scope_id => scope_ids).pluck(:instance_id)
+      #
+      #return self.where(:id => object_ids)
     end
 
     # returns total # of objects of current class type in scope for current_user
