@@ -10,8 +10,8 @@ class WorkspacesController < ApplicationController
     else
       workspaces = Workspace.workspaces_for(current_user)
     end
-    workspaces = workspaces.active if params[:active]
 
+    workspaces = workspaces.active if params[:active]
     succinct = params[:succinct] == 'true'
     # Prakash 1/22. Needed to separate namespaces for home page and workspaces page. The JSON data
     # generated for two pages is different. This needs to be fixed in future.
@@ -40,7 +40,7 @@ class WorkspacesController < ApplicationController
         present paginate(@workspaces),
            :presenter_options => {
                :show_latest_comments => (params[:show_latest_comments] == 'true'),
-              :succinct => succinct, :cached => true, :namespace => @namespace
+              :succinct => succinct, :cached => true, :cache_expiry => 7.days, :namespace => @namespace
         }
 
       end
@@ -55,7 +55,7 @@ class WorkspacesController < ApplicationController
       present paginate(@workspaces),
              :presenter_options => {
                  :show_latest_comments => (params[:show_latest_comments] == 'true'),
-                 :succinct => succinct, :cached => true, :namespace => @namespace
+                 :succinct => succinct, :cached => true, :cache_expiry => 7.days, :namespace => @namespace
              }
 
     end
@@ -79,7 +79,7 @@ class WorkspacesController < ApplicationController
     permissions = Workspace.permission_symbols_for current_user
     permissions.push(:update).uniq! if workspace.member? current_user
     # use the cached version of "workspaces:workspaces" namespace.
-    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true', :cached => false, :namespace => 'workspaces:workspaces', :permissions => permissions }
+    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true', :cached => true, :cache_expiry => 7.days, :namespace => 'workspaces:workspaces' }
   end
 
   def update

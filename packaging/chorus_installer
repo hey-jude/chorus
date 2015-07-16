@@ -74,11 +74,16 @@ def detect_pre_version(chorus_path):
     return None, None
 
 def compare_version(cur, pre):
-    cur = int(cur.replace(".", ""))
-    pre = int(pre.replace(".", ""))
-    if cur == pre:
-        return 0
-    elif cur < pre:
+    cur = map(int, cur.replace(".", "", 3).split("."))
+    pre = map(int, pre.replace(".", "", 3).split("."))
+    if cur[0] == pre[0]:
+        if cur[1] == pre[1]:
+            return 0
+        elif cur[1] < pre[1]:
+            return -1
+        else:
+            return 1
+    elif cur[0] < pre[0]:
         return -1
     else:
         return 1
@@ -142,7 +147,8 @@ def install():
     if os.getuid() == 0:
         user = options.chorus_user
         user = io.prompt(text.get("interview_question", "specify_user"), default=user)
-        ret, stdout, stderr = run("groupadd %s && useradd -m %s -G %s" % (user, user, user))
+        ret, stdout, stderr = run("groupadd %s" % user)
+        ret, stdout, stderr = run("useradd -m %s -g %s" % (user, user))
         if ret not in [0,9]:
             if ret == 126:
                 stderr += "Please run as the user with root permission\n"

@@ -86,7 +86,8 @@ module Permissioner
   # Called after model object is created. Created corresponding entry in chorus_objects table
   def create_chorus_object
     chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
-    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
+    scope_id = ChorusScope.find_by_name('application_realm').id
+    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id_and_chorus_scope_id(chorus_class.id, self.id, scope_id)
   end
 
   # Called after a model object is destroyed. Removes corresponding entry from chorus_objects table
@@ -129,13 +130,23 @@ module Permissioner
 
     # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
-      return objects
-      #groups = user.groups
-      #scope_ids = ChorusScope.where(:group_id => groups.map(&:id)).pluck(:id)
-      #chorus_class_id = ChorusClass.find_by_name(self.name).id
-      #object_ids = ChorusObject.where(:chorus_class_id => chorus_class_id, :chorus_scope_id => scope_ids).pluck(:instance_id)
-      #
-      #return self.where(:id => object_ids)
+      ret = []
+      groups = user.groups
+      groups.each do |group|
+        chorus_scope = group.chorus_scope
+        if chorus_scope == nil
+          continue
+        end
+        #TODO Prakash : Can user belong to more than one scope?
+        objects.each do |objectz|
+          if objectz.chorus_scope == chorus_scope
+            puts "Adding object id = #{objectz.id} to filtered list"
+            ret << objectz
+          end
+        end
+      end
+
+      ret
     end
 
     # returns total # of objects of current class type in scope for current_user

@@ -32,9 +32,15 @@ class Presenter
         hash = Rails.cache.fetch(cache_key)
         return hash
       else
-        Chorus.log_debug "-- Storing data to cache for #{model.class.name} with ID = #{model.id} --"
+        cache_expiry = options[:cache_expiry]
         hash = presenter_class.new(model, view_context, options).presentation_hash
-        Rails.cache.write cache_key, hash
+        if cache_expiry != nil
+          Chorus.log_debug "-- Storing data to cache for #{model.class.name} with ID = #{model.id} expires_in = #{cache_expiry} --"
+          Rails.cache.write cache_key, hash, expires_in: cache_expiry
+        else
+          Chorus.log_debug "-- Storing data to cache for #{model.class.name} with ID = #{model.id}  --"
+          Rails.cache.write cache_key, hash
+        end
         return hash
       end
     else
