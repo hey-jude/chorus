@@ -17,9 +17,6 @@ chorus.models.Milestone = chorus.models.Base.extend({
         } else {
             this.save( {state: 'planned'}, {wait: true} );
         }
-    },
-
-    milestoneState: function () {
-      this.state();
     }
+
 });
