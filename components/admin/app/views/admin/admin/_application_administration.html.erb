@@ -1,0 +1,15 @@
+<div class="box box-solid">
+  <div class="box-header with-border">
+    <h3 class="box-title"> <%= t("application_administration")%> </h3>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <dl>
+      <dt> <%= link_to t("licence_information") , admin.users_path , :remote => true %> </dt>
+      <dt> <%= link_to t("email_configuration") , admin.users_path , :remote => true %> </dt>
+      <dt> <%= link_to t("authentication_configuration") , admin.users_path , :remote => true %> </dt>
+
+    </dl>
+  </div><!-- /.box-body -->
+</div>
+
+

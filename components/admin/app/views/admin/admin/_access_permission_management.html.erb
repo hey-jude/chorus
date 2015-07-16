@@ -1,0 +1,14 @@
+<div class="box box-solid">
+  <div class="box-header with-border">
+    <h3 class="box-title"> <%= t("access_permission_management")%> </h3>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <dl>
+      <dt> <%= link_to t("scope_groups") , admin.users_path , :remote => true %> </dt>
+      <dt> <%= link_to t("data") , admin.users_path , :remote => true %> </dt>
+      <dt> <%= link_to t("roles_and_permission") , admin.users_path , :remote => true %> </dt>
+    </dl>
+  </div><!-- /.box-body -->
+</div>
+
+

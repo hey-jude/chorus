@@ -1,0 +1,14 @@
+<div class="box box-solid">
+  <div class="box-header with-border">
+    <h3 class="box-title"> <%= t("user_management")%> </h3>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <dl>
+      <dt> <%= link_to "People" , admin.users_path , :remote => true %> </dt>
+      <dt> <%= link_to "Teams" , admin.users_path , :remote => true %> </dt>
+
+    </dl>
+  </div><!-- /.box-body -->
+</div>
+
+

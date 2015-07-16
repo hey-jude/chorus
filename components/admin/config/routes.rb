@@ -6,15 +6,8 @@ Admin::Engine.routes.draw do
     get 'index', on: :collection
     get 'dashboard', on: :collection
 
-    #get 'workspace_grid', on: :collection
-    #get 'workspace_list', on: :collection
-
   end
 
-  # resources :workspace do
-  #   get 'index', on: :collection
-  #   get 'list', on: :collection
-  #   get 'comments', on: :collection
-  # end
+  resources :users
 
 end

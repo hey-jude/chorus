@@ -1,0 +1,13 @@
+<div class="box box-solid">
+  <div class="box-header with-border">
+    <h3 class="box-title"> <%= t("application_settings")%> </h3>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <dl>
+      <dt> <%= link_to t("general_settings") , admin.users_path , :remote => true %> </dt>
+      <dt> <%= link_to t("application_preferences") , admin.users_path , :remote => true %> </dt>
+    </dl>
+  </div><!-- /.box-body -->
+</div>
+
+

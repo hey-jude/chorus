@@ -7,6 +7,11 @@ module Admin
     #respond_to :html, :js, :json
 
     def index
+      @users_count = User.count
+      @teams_count = Group.count
+      @datasources_count = DataSource.count
+      @scopegroups_count = nil
+      @jobs_count = Job.count
 
     end
 
