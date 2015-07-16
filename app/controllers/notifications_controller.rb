@@ -10,7 +10,7 @@ class NotificationsController < ApplicationController
       notifications = Notification.filter_by_scope(current_user, notifications) if current_user_in_scope?
     end
 
-    present paginate(notifications), :presenter_options => {:activity_stream => true, :succinct => true}
+    present paginate(notifications), :presenter_options => {:activity_stream => true, :succinct => true, :cached => true}
   end
 
   def read
