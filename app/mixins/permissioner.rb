@@ -130,12 +130,23 @@ module Permissioner
 
     # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
+      ret = []
       groups = user.groups
-      scope_ids = ChorusScope.where(:group_id => groups.map(&:id)).pluck(:id)
-      chorus_class_id = ChorusClass.find_by_name(self.name).id
-      object_ids = ChorusObject.where(:chorus_class_id => chorus_class_id, :chorus_scope_id => scope_ids).pluck(:instance_id)
+      groups.each do |group|
+        chorus_scope = group.chorus_scope
+        if chorus_scope == nil
+          continue
+        end
+        #TODO Prakash : Can user belong to more than one scope?
+        objects.each do |objectz|
+          if objectz.chorus_scope == chorus_scope
+            puts "Adding object id = #{objectz.id} to filtered list"
+            ret << objectz
+          end
+        end
+      end
 
-      return self.where(:id => object_ids)
+      ret
     end
 
     # returns total # of objects of current class type in scope for current_user
