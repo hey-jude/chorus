@@ -28,13 +28,13 @@ class DataSourcesController < ApplicationController
   end
 
   def update
-    Authority.authorize! :edit, @data_source, current_user, { :or => :current_user_is_object_owner }
+    Authority.authorize! :update, @data_source, current_user, { :or => :current_user_is_object_owner }
     @data_source.update_attributes!(params[:data_source])
     present @data_source
   end
 
   def destroy
-    Authority.authorize! :edit, @data_source, current_user, { :or => :current_user_is_object_owner }
+    Authority.authorize! :destroy, @data_source, current_user, { :or => :current_user_is_object_owner }
     @data_source.destroy
     head :ok
   end
