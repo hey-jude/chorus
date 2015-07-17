@@ -45,7 +45,6 @@ class User < ActiveRecord::Base
   #belongs_to :chorus_scope
 
   def uncheck_admin_role(role)
-    Chorus.log_debug("-----------  #{role.name} is removed for #{self.username} --------")
     site_admin = Role.find_by_name('SiteAdministrator')
     admin = Role.find_by_name('Admin')
     if role.name == 'ApplicationAdministrator'
@@ -73,7 +72,6 @@ class User < ActiveRecord::Base
   end
 
   def check_admin_role(role)
-    Chorus.log_debug("-----------  #{role.name} is added for #{self.username} --------")
     admin = Role.find_by_name('Admin')
     site_admin = Role.find_by_name('SiteAdministrator')
     if self.admin == false && self.roles.include?(site_admin)
