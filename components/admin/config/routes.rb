@@ -9,5 +9,7 @@ Admin::Engine.routes.draw do
   end
 
   resources :users
+  resources :teams
+  resources :data_sources
 
 end

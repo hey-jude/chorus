@@ -1,0 +1,22 @@
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title"><%= t('users')%></h3>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+      <%= render partial: "table_search" %>
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <%= render partial: "table_header" %>
+            <tbody>
+                 <%= render partial: "table_row" , collection: @data_sources , as: :data_source %>
+            </tbody>
+              <%= render partial: "table_footer"  %>
+          </table>
+       </div>
+     </div>
+         <%= render partial: "table_pagination" %>
+    </div>
+  </div><!-- /.box-body -->
+</div>

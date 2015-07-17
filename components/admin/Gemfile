@@ -5,12 +5,12 @@ source 'https://rubygems.org'
 # development dependencies will be added by default to the :development group.
 gemspec
 
-# jquery-rails is used by the dummy application
-# gem 'jquery-rails'
 
-gem 'turbolinks'
+gem 'jquery-rails'
+gem 'will_paginate', '~> 3.0.6'
 
 # Following line is needed only for Rails 3.2.x. In Rails 4 turbolinks in part of core rails.
+gem 'turbolinks'
 group :development, :test do
   gem 'adminlte2-rails'
 #  gem 'less-rails'

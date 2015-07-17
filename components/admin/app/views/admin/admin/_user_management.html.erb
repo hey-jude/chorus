@@ -4,8 +4,8 @@
   </div><!-- /.box-header -->
   <div class="box-body">
     <dl>
-      <dt> <%= link_to t('people') , admin.users_path  %> </dt>
-      <dt> <%= link_to t('teams') , admin.users_path  %> </dt>
+      <dt> <%= link_to t('people') , admin.users_path ,:remote => true %> </dt>
+      <dt> <%= link_to t('teams') , admin.teams_path ,:remote => true %> </dt>
 
     </dl>
   </div><!-- /.box-body -->

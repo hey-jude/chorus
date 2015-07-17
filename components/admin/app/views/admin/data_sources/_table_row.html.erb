@@ -1,0 +1,8 @@
+<tr role="row" class="<%= get_row_class(data_source.id)%>">
+  <td><%= check_box_tag 'user_id',  data_source.id %></td>
+  <td class="sorting_1"><%= link_to "#{data_source.name}", admin.data_source_path(data_source) ,:remote => true %> </td>
+  <td><%= data_source.description %></td>
+  <td><%= data_source.type %></td>
+
+</tr>
+

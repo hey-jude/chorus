@@ -99,6 +99,7 @@ GEM
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (0.3.39)
+    will_paginate (3.0.7)
 
 PLATFORMS
   java
@@ -106,4 +107,9 @@ PLATFORMS
 DEPENDENCIES
   admin!
   adminlte2-rails
+  jquery-rails
   turbolinks
+  will_paginate (~> 3.0.6)
+
+BUNDLED WITH
+   1.10.3
