@@ -10,7 +10,7 @@ module Admin
       @users_count = User.count
       @teams_count = Group.count
       @datasources_count = DataSource.count
-      @scopegroups_count = nil
+      @scopegroups_count = ChorusScope.count
       @jobs_count = Job.count
 
     end
