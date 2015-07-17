@@ -4,11 +4,39 @@
 
 module Permissioner
   extend ActiveSupport::Concern
+  attr_accessor :chorus_scope_id
 
   included do
     # after_create :initialize_default_roles, :if => Proc.new { |obj| obj.class.const_defined? 'OBJECT_LEVEL_ROLES' }
+    after_initialize :add_scope_id
     after_create :create_chorus_object
     after_destroy :destroy_chorus_object
+  end
+
+  # Add scope ID to model object upon initialization
+  def attributes
+    super.merge('chorus_scope_id' => self.chorus_scope_id)
+  end
+
+  def add_scope_id
+    begin
+      if self.class.name != 'Events::Base' && self.chorus_scope == nil
+        Chorus.log_error("No chorus scope found for #{self.class.name}")
+      elsif self.class.name != 'Events::Base'
+        @attributes['chorus_scope_id'] = self.chorus_scope.id
+      else
+        Chorus.log_error("---- chorus scope does not exists for #{self.class.name} ----")
+        @attributes['chorus_scope_id'] = ChorusScope.default_chorus_scope.id
+      end
+    rescue Exception => e
+      puts e.message
+      puts e.backtrace.inspect
+    end
+
+  end
+
+  def chorus_scope_id
+    @attributes['chorus_scope_id']
   end
 
   # def initialize_default_roles
@@ -68,9 +96,10 @@ module Permissioner
        return nil
      end
      chorus_object = ChorusObject.where(:instance_id => self.id, :chorus_class_id => chorus_class.id).first
-     if chorus_object == nil
-       #raise exception T
-       return nil
+     # if no chorus object is found add new one with default scope
+     if chorus_object == nil && self.id != nil
+       ChorusObject.create(:chorus_class_id => chorus_class.id, :instance_id => self.id, :chorus_scope_id => ChorusScope.default_chorus_scope.id)
+       return ChorusScope.default_chorus_scope
      else
        if chorus_object.chorus_scope == nil
           if chorus_object.parent_object != nil
@@ -88,6 +117,8 @@ module Permissioner
     chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
     scope_id = ChorusScope.find_by_name('application_realm').id
     ChorusObject.find_or_create_by_chorus_class_id_and_instance_id_and_chorus_scope_id(chorus_class.id, self.id, scope_id)
+    # Add scope_id to current object
+    @attributes['chorus_scope_id'] = scope_id
   end
 
   # Called after a model object is destroyed. Removes corresponding entry from chorus_objects table
@@ -127,10 +158,19 @@ module Permissioner
   # Class-level methods invlove setting class-level permissions/roles (vs object-level)
   module ClassMethods
 
-
     # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
-      return objects
+
+      ret = []
+      # This will filter the array of active records without generating an SQL queries.
+      user.groups.each do |group|
+        if group.chorus_scope != nil
+          #binding.pry
+          ret << objects.select {|objectz| objectz.chorus_scope_id == group.chorus_scope.id}
+        end
+      end
+      return ret.flatten!
+
       #ret = []
       #groups = user.groups
       #groups.each do |group|
