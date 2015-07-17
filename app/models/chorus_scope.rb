@@ -1,5 +1,6 @@
 class ChorusScope < ActiveRecord::Base
   attr_accessible :name, :description
+  @@default_scope = find_by_name('application_realm')
 
   validates :name, :presence => true
 
@@ -10,7 +11,6 @@ class ChorusScope < ActiveRecord::Base
   def has_object?(chorus_object)
     chorus_objects.where(:instance_id => chorus_object.id).count > 0
   end
-
 
   def has_user?(user)
     group.users.where(:username => user.username).count > 0
@@ -34,6 +34,10 @@ class ChorusScope < ActiveRecord::Base
 
   def data_sources
 
+  end
+
+  def self.default_chorus_scope
+     @@default_scope
   end
 
 end
