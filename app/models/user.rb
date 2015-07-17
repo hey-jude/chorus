@@ -159,7 +159,7 @@ class User < ActiveRecord::Base
   end
 
   def self.admin_count
-    admin.size
+    Role.find_by_name("Admin").users.size
   end
 
   def admin?
@@ -182,6 +182,17 @@ class User < ActiveRecord::Base
   end
 
   scope :developer, where(:developer => true)
+
+  def developer=(value)
+    write_attribute(:developer, value)
+
+    dev_role = Role.find_by_name("Developer")
+    if value
+      dev_role.users << self
+    else
+      dev_role.users.delete(self)
+    end
+  end
 
   def self.developer_count
     developer.size
