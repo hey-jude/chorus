@@ -4,7 +4,8 @@
 
 module Permissioner
   extend ActiveSupport::Concern
-  attr_accessor :chorus_scope_id
+  #attr_accessor :chorus_scope_id
+  #@chorus_scope_id = nil
 
   included do
     # after_create :initialize_default_roles, :if => Proc.new { |obj| obj.class.const_defined? 'OBJECT_LEVEL_ROLES' }
@@ -14,19 +15,17 @@ module Permissioner
   end
 
   # Add scope ID to model object upon initialization
-  def attributes
-    super.merge('chorus_scope_id' => self.chorus_scope_id)
-  end
-
   def add_scope_id
     begin
-      if self.class.name != 'Events::Base' && self.chorus_scope == nil
-        Chorus.log_error("No chorus scope found for #{self.class.name}")
-      elsif self.class.name != 'Events::Base'
-        @attributes['chorus_scope_id'] = self.chorus_scope.id
+      if self.class.name == 'Events::Base'
+        Chorus.log_debug("No chorus scope found for #{self.class.name}")
+        return nil
+      elsif self.chorus_scope != nil
+          self.instance_variable_set('@chorus_scope_id', self.chorus_scope.id)
+          #@attributes['chorus_scope_id'] = self.chorus_scope.id
       else
-        Chorus.log_error("---- chorus scope does not exists for #{self.class.name} ----")
-        @attributes['chorus_scope_id'] = ChorusScope.default_chorus_scope.id
+        self.instance_variable_set('@chorus_scope_id',  ChorusScope.default_chorus_scope.id)
+        #@attributes['chorus_scope_id'] = ChorusScope.default_chorus_scope.id
       end
     rescue Exception => e
       puts e.message
@@ -36,7 +35,7 @@ module Permissioner
   end
 
   def chorus_scope_id
-    @attributes['chorus_scope_id']
+    return self.instance_variable_get '@chorus_scope_id'
   end
 
   # def initialize_default_roles
@@ -90,27 +89,49 @@ module Permissioner
 
   # returns Scope object if the object belongs a scope. Returns nil otherwise.
   def chorus_scope
-     chorus_class = ChorusClass.find_by_name(self.class.name)
-     if chorus_class == nil
-       #raise exception
-       return nil
-     end
-     chorus_object = ChorusObject.where(:instance_id => self.id, :chorus_class_id => chorus_class.id).first
-     # if no chorus object is found add new one with default scope
-     if chorus_object == nil && self.id != nil
-       ChorusObject.create(:chorus_class_id => chorus_class.id, :instance_id => self.id, :chorus_scope_id => ChorusScope.default_chorus_scope.id)
-       return ChorusScope.default_chorus_scope
+     chorus_scope_id = self.instance_variable_get '@chorus_scope_id'
+     if chorus_scope_id != nil
+       return ChorusScope.find(chorus_scope_id)
      else
-       if chorus_object.chorus_scope == nil
-          if chorus_object.parent_object != nil
-            return chorus_object.parent_object.chorus_scope
-          end
-       else
-         return chorus_object.chorus_scope
-       end
+       add_chorus_scope
      end
-    return nil
-   end
+  end
+
+  # Add chorus scope to current object if not already assigned
+  def add_chorus_scope
+    chorus_class = ChorusClass.find_by_name(self.class.name)
+    if chorus_class == nil
+      Chorus.log_error("Can not find chorus class for #{self.class.name}")
+      return nil
+    end
+
+    chorus_object = ChorusObject.where(:instance_id => self.id, :chorus_class_id => chorus_class.id).first
+
+    # Add  chorus object if it does nto exists
+    if chorus_object == nil
+      if self.id != nil
+        ChorusObject.create(:chorus_class_id => chorus_class.id, :instance_id => self.id, :chorus_scope_id => ChorusScope.default_chorus_scope.id)
+        return ChorusScope.default_chorus_scope
+      else
+        Chorus.log_error("Can not create chours object for #{self.class.name}. Id attribute is nil")
+        return nil
+      end
+      if chorus_object.chorus_scope == nil
+        if chorus_object.parent_object != nil
+          return chorus_object.parent_object.chorus_scope
+        end
+      else
+        return chorus_object.chorus_scope
+      end
+    else
+      return chorus_object.chorus_scope
+    end
+
+  end
+
+
+
+
 
   # Called after model object is created. Created corresponding entry in chorus_objects table
   def create_chorus_object
