@@ -87,5 +87,13 @@ FactoryGirl.define do
     factory :workfile_result, :class => Events::WorkfileResult do
       association :workfile, :factory => :workfile
     end
+
+    factory :job_created_event, :class => Events::JobCreated do
+      job { FactoryGirl.create(:job) }
+    end
+
+    factory :job_deleted_event, :class => Events::JobDeleted do
+      job { FactoryGirl.create(:job) }
+    end
   end
 end

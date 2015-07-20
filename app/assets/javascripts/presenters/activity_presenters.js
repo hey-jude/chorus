@@ -454,7 +454,16 @@
 
         WorkfileResult: {
             links: ["workfile"]
+        },
+
+        JobCreated: {
+            links: ["actor", "job", "workspace"]
+        },
+
+        JobDeleted: {
+            links: ["actor", "job", "workspace"]
         }
+
     };
 
     presenterHelpers = {

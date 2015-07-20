@@ -400,6 +400,8 @@ describe EventsController do
         'jobFailed' => Events::JobFailed,
         'workfileResult' => Events::WorkfileResult,
         'jobDisabled' => Events::JobDisabled,
+        'jobCreated' => Events::JobCreated,
+        'jobDeleted' => Events::JobDeleted,
         'hdfsImportSuccess' => Events::HdfsImportSuccess,
         'hdfsImportFailed' => Events::HdfsImportFailed
     }
