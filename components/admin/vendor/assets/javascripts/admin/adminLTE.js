@@ -75,6 +75,17 @@ $.AdminLTE.options = {
     //Enable slide over content
     slide: true
   },
+  //Control Sidebar Options
+  enableMainSidebar: true,
+  mainSidebarOptions: {
+    //Which button should trigger the open/close event
+    toggleBtnSelector: "[data-toggle='main-sidebar']",
+    //The sidebar selector
+    selector: ".main-sidebar",
+    //Enable slide over content
+    slide: true
+  },
+
   //Box Widget Plugin. Enable this plugin
   //to allow boxes to be collapsed and/or removed
   enableBoxWidget: true,
@@ -163,6 +174,10 @@ $(function () {
   if (o.enableControlSidebar) {
     $.AdminLTE.controlSidebar.activate();
   }
+  //Enable main sidebar
+  if (o.enableMainSidebar) {
+    $.AdminLTE.mainSidebar.activate();
+  }
 
   //Add slimscroll to navbar dropdown
   if (o.navbarMenuSlimscroll && typeof $.fn.slimscroll != 'undefined') {
@@ -174,9 +189,11 @@ $(function () {
   }
 
   //Activate sidebar push menu
+  /*
   if (o.sidebarPushMenu) {
     $.AdminLTE.pushMenu.activate(o.sidebarToggleSelector);
   }
+  */
 
   //Activate Bootstrap tooltip
   if (o.enableBSToppltip) {
@@ -216,6 +233,12 @@ $(function () {
     });
 
   });
+});
+
+$('.content').click( function () {
+
+ $(".main-sidebar").removeClass("main-sidebar-open");
+
 });
 
 /* ----------------------------------
@@ -305,6 +328,8 @@ function _init() {
    * @type Function
    * @usage: $.AdminLTE.pushMenu("[data-toggle='offcanvas']")
    */
+
+  /*
   $.AdminLTE.pushMenu = {
     activate: function (toggleBtn) {
       //Get the screen sizes
@@ -371,6 +396,7 @@ function _init() {
       }
     }
   };
+   */
 
   /* Tree()
    * ======
@@ -380,6 +406,7 @@ function _init() {
    * @type Function
    * @Usage: $.AdminLTE.tree('.sidebar')
    */
+
   $.AdminLTE.tree = function (menu) {
     var _this = this;
     var animationSpeed = $.AdminLTE.options.animationSpeed;
@@ -425,6 +452,103 @@ function _init() {
       }
     });
   };
+
+  /* MainSidebar
+   * ==============
+   * Adds functionality to the right sidebar
+   *
+   * @type Object
+   * @usage $.AdminLTE.mainSidebar.activate(options)
+   */
+  $.AdminLTE.mainSidebar = {
+    //instantiate the object
+    activate: function () {
+      console.log('main-sidebar activated');
+      //Get the object
+      var _this = this;
+      //Update options
+      var o = $.AdminLTE.options.mainSidebarOptions;
+      //Get the sidebar
+      var sidebar = $(o.selector);
+      //The toggle button
+      var btn = $(o.toggleBtnSelector);
+
+      //Listen to the click event
+      btn.on('click', function (e) {
+        e.preventDefault();
+        //If the sidebar is not open
+        if (!sidebar.hasClass('main-sidebar-open')
+            && !$('body').hasClass('main-sidebar-open')) {
+          //Open the sidebar
+          _this.open(sidebar, o.slide);
+        } else {
+          _this.close(sidebar, o.slide);
+        }
+      });
+
+      //If the body has a boxed layout, fix the sidebar bg position
+      var bg = $(".main-sidebar-bg");
+      _this._fix(bg);
+
+      //If the body has a fixed layout, make the control sidebar fixed
+      if ($('body').hasClass('fixed')) {
+        _this._fixForFixed(sidebar);
+      } else {
+        //If the content height is less than the sidebar's height, force max height
+        if ($('.content-wrapper, .right-side').height() < sidebar.height()) {
+          _this._fixForContent(sidebar);
+        }
+      }
+    },
+    //Open the control sidebar
+    open: function (sidebar, slide) {
+      var _this = this;
+      //Slide over content
+      if (slide) {
+        sidebar.addClass('main-sidebar-open');
+      } else {
+        //Push the content by adding the open class to the body instead
+        //of the sidebar itself
+        $('body').addClass('main-sidebar-open');
+      }
+    },
+    //Close the control sidebar
+    close: function (sidebar, slide) {
+      if (slide) {
+        sidebar.removeClass('main-sidebar-open');
+      } else {
+        $('body').removeClass('main-sidebar-open');
+      }
+    },
+    _fix: function (sidebar) {
+      var _this = this;
+      if ($("body").hasClass('layout-boxed')) {
+        sidebar.css('position', 'absolute');
+        sidebar.height($(".wrapper").height());
+        $(window).resize(function () {
+          _this._fix(sidebar);
+        });
+      } else {
+        sidebar.css({
+          'position': 'fixed',
+          'height': 'auto'
+        });
+      }
+    },
+    _fixForFixed: function (sidebar) {
+      sidebar.css({
+        'position': 'fixed',
+        'max-height': '100%',
+        'overflow': 'auto',
+        'padding-bottom': '50px'
+      });
+    },
+    _fixForContent: function (sidebar) {
+      $(".content-wrapper, .left-side").css('min-height', sidebar.height());
+    }
+  };
+
+
 
   /* ControlSidebar
    * ==============

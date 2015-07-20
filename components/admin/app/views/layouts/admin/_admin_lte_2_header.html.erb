@@ -2,13 +2,16 @@
 <header class="main-header">
 
   <!-- Logo -->
+  <a href="#" data-toggle="main-sidebar"><i class="fa fa-lg fa-bars" style="color:white;"></i></a>
+  <!--
   <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
     <i class='fa fa-lg fa-bars' style="color:white;"></i>
   </a>
+  -->
 
-  <a href="/app/assets/javascripts" class="logo">
-    <span class="logo-lg"><b>A</b>LT</span>
-  </a>
+  <div class="logo">
+    <span class=""><%= image_tag('branding/light-alpine-logo.png', :height => 25, :alt => '[alpine logo]') %></span>
+  </div>
 
   <!-- Header Navbar -->
   <nav class="navbar navbar-static-top" role="navigation">
@@ -84,8 +87,11 @@
         <li class="dropdown tasks-menu">
           <!-- Menu Toggle Button -->
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <div class="lozenge empty">0</div>
+            <!--
             <i class="fa fa-flag-o"></i>
             <span class="label label-danger">9</span>
+            -->
           </a>
           <ul class="dropdown-menu">
             <li class="header">You have 9 tasks</li>
@@ -120,14 +126,14 @@
           <!-- Menu Toggle Button -->
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <!-- The user image in the navbar-->
-            <%= image_tag('user2-160x160.jpg', :height => 20, :alt => '[User]') %>
+            <% image_tag('user2-160x160.jpg', :height => 20, :alt => '[User]') %>
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-            <span class="hidden-xs">Alexander Pierce</span>
+            <span class="hidden-xs">Alexander Pierce</span>&nbsp;&nbsp;<span class="fa fa-lg fa-caret-down" id="primary-data"></span>
           </a>
           <ul class="dropdown-menu">
             <!-- The user image in the menu -->
             <li class="user-header">
-              <%= image_tag('user2-160x160.jpg', :height => 32, :alt => '[User]') %>
+              <% image_tag('user2-160x160.jpg', :height => 32, :alt => '[User]') %>
               <p>
                 Alexander Pierce - Web Developer
                 <small>Member since Nov. 2012</small>

@@ -2,7 +2,6 @@
 <aside class="main-sidebar">
 
   <!-- sidebar: style can be found in sidebar.less -->
-  <section class="sidebar">
 
     <!-- Sidebar user panel (optional) -->
     <!--
@@ -33,17 +32,44 @@
     <!-- /.search form -->
 
     <!-- Sidebar Menu -->
-    <ul class="sidebar-menu">
-      <li><a href="/#/"><i class='fa fa-lg fa-home' style="color:white;"></i> <span><%= t 'sub_menu_home' %></span></a></li>
-      <li><a href="/#/workspaces"><i class='fa fa-lg fa-briefcase' style="color:white;"></i> <span><%= t 'sub_menu_workspace' %></span></a></li>
-      <li><a href="/#/data_sources"><i class='fa fa-lg fa-database' style="color:white;"></i> <span><%= t 'sub_menu_data' %></span></a></li>
-      <li><a href="/#/users"><i class='fa fa-lg fa-users' style="color:white;"></i> <span style="color:white;"><%= t 'sub_menu_people' %></span></a></li>
-      <li><a href="/#/tags"><i class='fa fa-lg fa-tags' style="color:white;"></i> <span><%= t 'sub_menu_tags' %></span></a></li>
-      <li class="active"><a href="/admin"><i class='fa fa-lg fa-cogs' style="color:white;"></i> <span><%= t 'sub_menu_admin' %></span></a></li>
+    <div id="main-menu">
+    <ul>
+      <li>
+        <a href="#/">
+          <div class="knob">
+            <span class="fa fa-lg fa-home" id="primary-home"></span>
+          </div>
+          <div>Home</div>
+        </a>
+      </li>
+      <li>
+        <a href="#/workspaces">
+          <div class="knob"><span class="fa fa-lg fa-briefcase" id="primary-workspaces"></span></div>
+          <div>Workspaces</div>
+        </a>
+      </li>
+      <li>
+        <a href="#/data_sources">
+          <div class="knob"><span class="fa fa-lg fa-database" id="primary-data"></span></div>
+          <div>Data</div>
+        </a>
+      </li>
+      <li>
+        <a href="#/users">
+          <div class="knob"><span class="fa fa-lg fa-users" id="primary-users"></span></div>
+          <div>People</div>
+        </a>
+      </li>
+      <li>
+        <a href="#/tags">
+          <div class="knob"><span class="fa fa-lg fa-tags" id="primary-tags"></span></div>
+          <div>Tags</div>
+        </a>
+      </li>
 
-    </ul> <!--/.sidebar-menu -->
 
-
-  </section>
+      <div class="knob remainder"></div>
+    </ul>
+    </div>
   <!-- /.sidebar -->
 </aside>

@@ -2,73 +2,72 @@
 <div id="admin_dashboard">
 <!-- Info boxes -->
 <div class="row">
-  <div class="col-md-2 col-sm-4 col-xs-12">
-    <div class="info-box">
-      <div class="info-box-content">
-        <span class="info-box-number"><%= @users_count %></span>
-        <span class="info-box-text"> <%= t('users') %> </span>
-      </div><!-- /.info-box-content -->
-    </div><!-- /.info-box -->
-  </div><!-- /.col -->
-  <div class="col-md-2 col-sm-4 col-xs-12">
-    <div class="info-box">
-      <div class="info-box-content">
-        <span class="info-box-number"> <%= @teams_count %> </span>
-        <span class="info-box-text"> <%= t('teams')%> </span>
-      </div><!-- /.info-box-content -->
-    </div><!-- /.info-box -->
-  </div><!-- /.col -->
-
-  <!-- fix for small devices only -->
-  <div class="clearfix visible-sm-block"></div>
-
-  <div class="col-md-2 col-sm-4 col-xs-12">
-    <div class="info-box">
-      <div class="info-box-content">
-        <span class="info-box-number"> <%= @scopegroups_count %></span>
-        <span class="info-box-text"> <%= t('scope_groups')%> </span>
-      </div><!-- /.info-box-content -->
-    </div><!-- /.info-box -->
-  </div><!-- /.col -->
-  <div class="col-md-2 col-sm-4 col-xs-12">
-    <div class="info-box">
-      <div class="info-box-content">
-        <span class="info-box-number"> <%= @datasources_count %> </span>
-        <span class="info-box-text"> <%= t('data_sources')%> </span>
-      </div><!-- /.info-box-content -->
-    </div><!-- /.info-box -->
-  </div><!-- /.col -->
-  <div class="col-md-2 col-sm-4 col-xs-12">
-    <div class="info-box">
-      <div class="info-box-content">
-        <span class="info-box-number"> <%= @jobs_count  %> </span>
-        <span class="info-box-text"> <%= t('jobs')%> </span>
-      </div><!-- /.info-box-content -->
-    </div><!-- /.info-box -->
-  </div><!-- /.col -->
-
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-2 col-sm-4 col-xs-12">
+        <div class="info-box">
+          <div class="info-box-content">
+            <span class="info-box-number"><%= @users_count %></span>
+            <span class="info-box-text"> <%= t('users') %> </span>
+          </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+      </div><!-- /.col -->
+      <div class="col-md-2 col-sm-4 col-xs-12">
+        <div class="info-box">
+          <div class="info-box-content">
+            <span class="info-box-number"> <%= @teams_count %> </span>
+            <span class="info-box-text"> <%= t('teams')%> </span>
+          </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+      </div><!-- /.col -->
+      <div class="col-md-2 col-sm-4 col-xs-12">
+        <div class="info-box">
+          <div class="info-box-content">
+            <span class="info-box-number"> <%= @scopegroups_count %></span>
+            <span class="info-box-text"> <%= t('scope_groups')%> </span>
+          </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+      </div><!-- /.col -->
+      <div class="col-md-2 col-sm-4 col-xs-12">
+        <div class="info-box">
+          <div class="info-box-content">
+            <span class="info-box-number"> <%= @datasources_count %> </span>
+            <span class="info-box-text"> <%= t('data_sources')%> </span>
+          </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+      </div><!-- /.col -->
+      <div class="col-md-2 col-sm-4 col-xs-12">
+        <div class="info-box">
+          <div class="info-box-content">
+            <span class="info-box-number"> <%= @jobs_count  %> </span>
+            <span class="info-box-text"> <%= t('jobs')%> </span>
+          </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+      </div><!-- /.col -->
+    </div>
+  </div>
+  <div class="col-md-2"></div>
 </div><!-- /.row -->
 
 
 <!-- Info boxes -->
-<div class="row">
-  <div class="col-md-12">
-    <div class="row">
-      <div class="col-sm-5">
-        <%= render partial: "user_management" %>
-        <%= render partial: "access_permission_management" %>
-        <%= render partial: "defaults" %>
-        <%= render partial: "content_management" %>
-      </div>
-      <div class="col-sm-5">
-        <%= render partial: "application_administration" %>
-        <%= render partial: "application_settings" %>
-        <%= render partial: "workflow_settings" %>
-      </div>
-
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+          <%= render partial: "user_management" %>
+          <%= render partial: "access_permission_management" %>
+          <%= render partial: "defaults" %>
+          <%= render partial: "content_management" %>
     </div>
+    <div class="col-md-4">
+          <%= render partial: "application_administration" %>
+          <%= render partial: "application_settings" %>
+          <%= render partial: "workflow_settings" %>
+    </div>
+    <div class="col-md-2"></div>
   </div>
-</div>
 
 </div>
+
 
