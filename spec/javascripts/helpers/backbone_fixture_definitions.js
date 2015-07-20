@@ -74,7 +74,9 @@ window.BackboneFixtureDefinitions = {
             jobFailed: {},
             jobDisabled: {},
             jobCreated: {},
-            jobDeleted: {}
+            jobDeleted: {},
+            milestoneCreated: {},
+            milestoneUpdated: {}
         }
     },
 

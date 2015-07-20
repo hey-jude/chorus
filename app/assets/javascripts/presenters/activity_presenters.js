@@ -462,6 +462,15 @@
 
         JobDeleted: {
             links: ["actor", "job", "workspace"]
+        },
+
+        MilestoneUpdated: {
+            links: ["actor", "milestone", "workspace"],
+            computed: ["milestoneState"]
+        },
+
+        MilestoneCreated: {
+            links: ["actor", "milestone", "workspace"]
         }
 
     };
@@ -592,6 +601,12 @@
 
         importSourceLink: function(self) {
             return self.model.get("fileName");
+        },
+
+        milestoneState: function(self) {
+            object = self.model.get("milestone");
+            state = "milestone.state." + object.state.toString();
+            return t(state);
         },
 
         importSourceDatasetLink: function(self) {
