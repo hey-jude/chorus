@@ -68,7 +68,7 @@ class ChorusExecutor:
                (self.release_path, self.alpine_env(), self.release_path, command)
        (ret, stdout, stderr) = self.run(command)
        if ret != 0:
-           raise Exception("chorus_constrol.sh command failed")
+           raise Exception("chorus_control.sh command failed")
        return (ret, stdout, stderr)
 
     def previous_chorus_control(self, command):
@@ -77,7 +77,7 @@ class ChorusExecutor:
                 os.path.join(self.chorus_path, "chorus_control.sh"), command)
         (ret, stdout, stderr) = self.run(command)
         if ret != 0:
-           raise Exception("chorus_constrol.sh command failed")
+           raise Exception("chorus_control.sh command failed")
         return (ret, stdout, stderr)
 
     def alpine_env(self):
