@@ -3,7 +3,8 @@
  * ----------
  */
 .skin-blue .main-header .navbar {
-  background-color: #3c8dbc;
+  /* background-color: #3c8dbc; */
+  background-color: #00a0e5;
 }
 .skin-blue .main-header .navbar .nav > li > a {
   color: #ffffff;
@@ -42,7 +43,8 @@
   }
 }
 .skin-blue .main-header .logo {
-  background-color: #367fa9;
+  /* background-color: #367fa9; */
+  background-color: #00a0e5;
   color: #ffffff;
   border-bottom: 0px solid transparent;
 }
@@ -58,7 +60,9 @@
 .skin-blue .wrapper,
 .skin-blue .main-sidebar,
 .skin-blue .left-side {
-  background-color: #222d32;
+  #background-color: #222d32;
+  background-color: #006e9e;
+
 }
 .skin-blue .user-panel > .info,
 .skin-blue .user-panel > .info > a {
@@ -74,8 +78,13 @@
 .skin-blue .sidebar-menu > li:hover > a,
 .skin-blue .sidebar-menu > li.active > a {
   color: #ffffff;
+  background: #9DDEFF;
+  border-left-color: #9DDEFF;
+/*
+  color: #ffffff;
   background: #1e282c;
   border-left-color: #3c8dbc;
+*/
 }
 .skin-blue .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
