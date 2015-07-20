@@ -637,6 +637,7 @@ User.find_in_batches({:batch_size => 100}) do |users|
   users.each do |user|
     if user.admin
       user.roles << site_admin_role unless user.roles.include? site_admin_role
+      user.roles << admin_role unless user.roles.include? admin_role
     end
     if user.developer
       user.roles << project_developer_role unless user.roles.include? project_developer_role
