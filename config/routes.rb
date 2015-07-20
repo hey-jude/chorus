@@ -203,6 +203,8 @@ Chorus::Application.routes.draw do
 
   post 'download_data', :controller => 'data_downloads'
 
+  post 'download_logs' , :controller => 'data_downloads'
+
   match '/' => 'root#index'
   match 'VERSION' => 'configurations#version'
 
