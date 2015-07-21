@@ -37,6 +37,7 @@ GEM
       multi_json (~> 1.0)
     adminlte2-rails (0.0.5)
     arel (3.0.3)
+    breadcrumbs_on_rails (2.3.0)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -107,6 +108,7 @@ PLATFORMS
 DEPENDENCIES
   admin!
   adminlte2-rails
+  breadcrumbs_on_rails
   jquery-rails
   turbolinks
   will_paginate (~> 3.0.6)
