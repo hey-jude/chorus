@@ -1,4 +1,16 @@
 Chorus::Application.configure do
+  # Custom config options up top:
+
+  # See: https://github.com/Chorus/chorus/commit/0044cca46e8d17ccff6cbcfde3204967a535ddaf
+  ActionMailer::Base.default from: 'Test Mailer <testmailer@example.com>', reply_to: 'Test Replyto <test_replyto@example.com>'
+
+  # See: http://guides.rubyonrails.org/caching_with_rails.html#activesupport-cache-nullstore
+  # KT: If we remove this, 2 tests fail because of model level caching in Dataset.
+  config.cache_store = :null_store
+
+
+  # DEFAULT RAILS CONFIG OPTIONS below
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # The test environment is used exclusively to run your application's
@@ -7,30 +19,33 @@ Chorus::Application.configure do
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
 
-  # Do not cache in the test environment
-  config.cache_store = :null_store
+  # Do not eager load code on boot. This avoids loading your whole application
+  # just for the purpose of running a single test. If you are using a tool that
+  # preloads Rails for running tests, you may have to set it to true.
+  config.eager_load = false
 
-  # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
+  # Configure static asset server for tests with Cache-Control for performance.
+  config.serve_static_assets  = true
   config.static_cache_control = "public, max-age=3600"
 
-  # Log error messages when you accidentally call methods on nil
-  config.whiny_nils = true
-
-  # Show full error reports and disable caching
-  config.consider_all_requests_local       = false
+  # Show full error reports and disable caching.
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Raise exceptions instead of rendering exception templates
-  config.action_dispatch.show_exceptions = true
+  # Raise exceptions instead of rendering exception templates.
+  config.action_dispatch.show_exceptions = false
 
-  # Disable request forgery protection in test environment
-  config.action_controller.allow_forgery_protection    = false
+  # Disable request forgery protection in test environment.
+  config.action_controller.allow_forgery_protection = false
 
-  # Print deprecation notices to the stderr
+  # Tell Action Mailer not to deliver emails to the real world.
+  # The :test delivery method accumulates sent emails in the
+  # ActionMailer::Base.deliveries array.
+  config.action_mailer.delivery_method = :test
+
+  # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  # Mailer config
-  config.action_mailer.delivery_method = :test
-  ActionMailer::Base.default from: 'Test Mailer <testmailer@example.com>', reply_to: 'Test Replyto <test_replyto@example.com>'
+  # Raises error for missing translations
+  # config.action_view.raise_on_missing_translations = true
 end
