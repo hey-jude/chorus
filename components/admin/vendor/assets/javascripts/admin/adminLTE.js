@@ -538,9 +538,9 @@ function _init() {
     _fixForFixed: function (sidebar) {
       sidebar.css({
         'position': 'fixed',
-        'max-height': '100%',
+        /*'max-height': '100%', */
         'overflow': 'auto',
-        'padding-bottom': '50px'
+        /* 'padding-bottom': '50px' */
       });
     },
     _fixForContent: function (sidebar) {

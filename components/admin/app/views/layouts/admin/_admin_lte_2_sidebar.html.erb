@@ -35,39 +35,43 @@
     <div id="main-menu">
     <ul>
       <li>
-        <a href="#/">
+        <a href="/#/">
           <div class="knob">
             <span class="fa fa-lg fa-home" id="primary-home"></span>
           </div>
-          <div>Home</div>
+          <div><%=t 'sub_menu_home' %></div>
         </a>
       </li>
       <li>
-        <a href="#/workspaces">
+        <a href="/#/workspaces">
           <div class="knob"><span class="fa fa-lg fa-briefcase" id="primary-workspaces"></span></div>
-          <div>Workspaces</div>
+          <div><%=t 'sub_menu_workspace' %></div>
         </a>
       </li>
       <li>
-        <a href="#/data_sources">
+        <a href="/#/data_sources">
           <div class="knob"><span class="fa fa-lg fa-database" id="primary-data"></span></div>
-          <div>Data</div>
+          <div><%=t 'sub_menu_data' %></div>
         </a>
       </li>
       <li>
-        <a href="#/users">
+        <a href="/#/users">
           <div class="knob"><span class="fa fa-lg fa-users" id="primary-users"></span></div>
-          <div>People</div>
+          <div><%=t 'sub_menu_people' %></div>
         </a>
       </li>
       <li>
-        <a href="#/tags">
+        <a href="/#/tags">
           <div class="knob"><span class="fa fa-lg fa-tags" id="primary-tags"></span></div>
-          <div>Tags</div>
+          <div><%=t 'sub_menu_tags' %></div>
         </a>
       </li>
-
-
+      <li>
+        <a href="/admin">
+          <div class="knob"><span class="fa fa-lg fa-cogs" id="primary-tags"></span></div>
+          <div><%=t 'sub_menu_admin' %></div>
+        </a>
+      </li>
       <div class="knob remainder"></div>
     </ul>
     </div>

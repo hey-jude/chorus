@@ -1,5 +1,6 @@
 
 <div id="admin_dashboard">
+
 <!-- Info boxes -->
 <div class="row">
   <div class="col-md-2"></div>
@@ -50,24 +51,40 @@
   <div class="col-md-2"></div>
 </div><!-- /.row -->
 
-
+<panel>
 <!-- Info boxes -->
   <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-4">
+    <div class="col-sm-6">
           <%= render partial: "user_management" %>
-          <%= render partial: "access_permission_management" %>
-          <%= render partial: "defaults" %>
-          <%= render partial: "content_management" %>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-6">
           <%= render partial: "application_administration" %>
-          <%= render partial: "application_settings" %>
-          <%= render partial: "workflow_settings" %>
     </div>
-    <div class="col-md-2"></div>
   </div>
-
+  <div class="row">
+    <div class="col-sm-6">
+      <%= render partial: "access_permission_management" %>
+    </div>
+    <div class="col-sm-6">
+      <%= render partial: "application_settings" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <%= render partial: "defaults" %>
+    </div>
+    <div class="col-sm-6">
+      <%= render partial: "workflow_settings" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <%= render partial: "content_management" %>
+    </div>
+    <div class="col-sm-6">
+    </div>
+  </div>
+</panel>
 </div>
 
 

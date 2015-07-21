@@ -13,6 +13,71 @@
  *= require_tree .
  */
 
+.main-header .search {
+    overflow: hidden;
+    margin: 8px 0 0 0;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 10px;
+    height: 30px;
+}
+
+.main-header .search .chorus_search_container {
+    display: inline-block;
+    position: relative;
+    line-height: 25px;
+    padding: 0;
+    margin: 0;
+}
+
+.main-header .search span {
+    color: #2dc0ff;
+    z-index: 1;
+}
+
+.main-header .search  .chorus_search_container {
+    display: inline-block;
+    position: relative;
+    line-height: 25px;
+    padding: 0;
+    margin: 0;
+}
+
+.main-header .search .search_magnifying_glass:before {
+    z-index: 1;
+    color: #2dc0ff;
+    font-size: 15px;
+    top: 2px;
+}
+
+.main-header .search .search_magnifying_glass::before {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    font-family: FontAwesome;
+    color: #2dc0ff;
+    font-size: 15px;
+    content: "\f002";
+}
+
+.main-header .search input {
+    height: 30px;
+    background-color: #0087c1;
+    border: 0;
+    color: #2dc0ff;
+    font-weight: normal;
+    transition-duration: .7s;
+    transition-timing-function: cubic-bezier(0,0,0,1);
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 178px;
+}
+
+.main-header > .navbar {
+    display: inline-block;
+    float: right;
+}
+
 .dropdown.tasks-menu .lozenge.empty {
     background: #006e9e;
 }
@@ -47,6 +112,7 @@
     padding-top: 40px;
     top: 38px;
     z-index: 1010;
+    padding-bottom: 0px !important;
 }
 .fixed .main-header, .fixed .left-side {
     position: fixed;
@@ -204,18 +270,23 @@ ul.sidebar-menu-item li a
     left: 0;
 }
 
+
 .main-sidebar.main-sidebar-open,
 .main-sidebar.main-sidebar-open + .main-sidebar-bg {
     left: 0px !important;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0,0,0,1);
+    display: block !important;
 }
-.main-sidebar-open .main-sidebar-bg,
-.main-sidebar-open .main-sidebar {
-    left: 0px !important;
-}
+
+
 @media (min-width: 768px) {
     .main-sidebar-open .content-wrapper,
     .main-sidebar-open .right-side,
     .main-sidebar-open .main-footer {
         margin-left: 230px;
+        transition-duration: .5s;
+        transition-timing-function: cubic-bezier(0,0,0,1);
+
     }
 }
