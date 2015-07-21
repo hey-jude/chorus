@@ -4,8 +4,6 @@
 
 module Permissioner
   extend ActiveSupport::Concern
-  #attr_accessor :chorus_scope_id
-  #@chorus_scope_id = nil
 
   included do
     # after_create :initialize_default_roles, :if => Proc.new { |obj| obj.class.const_defined? 'OBJECT_LEVEL_ROLES' }
@@ -129,17 +127,14 @@ module Permissioner
 
   end
 
-
-
-
-
   # Called after model object is created. Created corresponding entry in chorus_objects table
   def create_chorus_object
     chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
     scope_id = ChorusScope.find_by_name('application_realm').id
     ChorusObject.find_or_create_by_chorus_class_id_and_instance_id_and_chorus_scope_id(chorus_class.id, self.id, scope_id)
     # Add scope_id to current object
-    @attributes['chorus_scope_id'] = scope_id
+    #@attributes['chorus_scope_id'] = scope_id
+    self.instance_variable_set('@chorus_scope_id', scope_id)
   end
 
   # Called after a model object is destroyed. Removes corresponding entry from chorus_objects table
@@ -178,6 +173,7 @@ module Permissioner
 
   # Class-level methods invlove setting class-level permissions/roles (vs object-level)
   module ClassMethods
+
 
     # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
