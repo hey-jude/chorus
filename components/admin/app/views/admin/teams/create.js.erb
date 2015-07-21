@@ -1,0 +1,3 @@
+$('#newTeam').modal('hide');
+$('#new_row').before('<%= escape_javascript(render "table_row", :team => @team) %>');
+

@@ -1,0 +1,17 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title"> Workspaces </h3>
+  </div><!-- /.box-header -->
+
+  <div class="box-body">
+
+    <% @user.owned_workspaces.each do |workspace| %>
+
+        <dl class="dl-horizontal">
+          <dt><%= link_to workspace.name,"#" ,:remote => true  %></dt>
+        </dl>
+
+    <% end %>
+
+  </div>
+</div>

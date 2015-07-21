@@ -1,0 +1,17 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title"> Teams </h3>
+  </div><!-- /.box-header -->
+
+  <div class="box-body">
+
+    <% @user.groups.each do |team| %>
+
+        <dl class="dl-horizontal">
+          <dt><%= link_to team.name,"#" ,:remote => true  %></dt>
+        </dl>
+
+    <% end %>
+
+  </div>
+</div>

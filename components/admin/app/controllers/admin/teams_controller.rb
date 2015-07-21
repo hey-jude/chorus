@@ -12,5 +12,18 @@ module Admin
       @team = Group.find_by_id(params[:id])
     end
 
+    def new
+      @group = Group.new
+    end
+
+    def create
+      @team = Group.new(params[:group])
+      if @team.save
+        @error = nil
+      else
+        @error = true
+      end
+    end
+
   end
 end

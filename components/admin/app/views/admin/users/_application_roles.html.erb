@@ -1,0 +1,17 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">Application Roles </h3>
+  </div><!-- /.box-header -->
+
+  <div class="box-body">
+
+    <% @user.roles.each do |role| %>
+
+     <dl class="dl-horizontal">
+        <dt><%= link_to role.name,"#" ,:remote => true  %></dt>
+     </dl>
+
+    <% end %>
+
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title"><%= t('users')%></h3>
+    <h3 class="box-title"><%= t('teams')%></h3>
   </div><!-- /.box-header -->
   <div class="box-body">
     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -11,6 +11,7 @@
             <%= render partial: "table_header" %>
             <tbody>
                  <%= render partial: "table_row" , collection: @teams , as: :team %>
+                 <tr id="new_row" style="hidden:true"></tr>
             </tbody>
               <%= render partial: "table_footer"  %>
           </table>
