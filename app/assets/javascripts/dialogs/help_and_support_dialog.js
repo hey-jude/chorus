@@ -5,7 +5,9 @@ chorus.dialogs.HelpAndSupport = chorus.dialogs.Base.extend({
         "submit form": "downloadLogs"
     },
 
-    downloadLogs: function() {
-        chorus.fileDownload("/download_logs", { httpMethod: "POST"});
+    downloadLogs: function(event) {
+        event.preventDefault();
+        chorus.fileDownload("/log_archiver", { httpMethod: "GET"});
+
     }
 });
