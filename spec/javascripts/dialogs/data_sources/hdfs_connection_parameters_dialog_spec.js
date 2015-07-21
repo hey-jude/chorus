@@ -59,55 +59,28 @@ describe("chorus.dialogs.HdfsConnectionParameters", function () {
                 expect(this.dialog.$('.pair').length).toBe(this.currentPairs - 1);
             });
         });
-
-        // TODO: Test the "hadoop_configuration_param_set" fetching dialog.
     });
 
     describe("submitting", function () {
-        context("connection parameters valid", function() {
-            beforeEach(function () {
-                this.originalPairs = [{key: '1', value: 'v1'}, {key: '2', value: 'v2'}];
-                this.hadoop = new chorus.models.HdfsDataSource({connectionParameters: this.originalPairs});
-                this.dialog = new chorus.dialogs.HdfsConnectionParameters({model: this.hadoop});
-                this.dialog.render();
-            });
-
-            it("sets connection parameters on the model based on the field values", function () {
-                expect(this.hadoop.get('connectionParameters')).toEqual(this.originalPairs);
-
-                this.dialog.$('.pair .key').eq(0).val('foo');
-                this.dialog.$('.pair .value').eq(0).val('bar');
-                this.dialog.$('.remove_pair').eq(1).click();
-
-                this.dialog.$('button.submit').click();
-
-                expect(typeof(this.hadoop.errors)).toEqual("undefined");
-                expect(this.hadoop.get('connectionParameters')).toEqual([{key: 'foo', value: 'bar'}]);
-            });
+        beforeEach(function () {
+            this.originalPairs = [{key: '1', value: 'v1'}, {key: '2', value: 'v2'}];
+            this.hadoop = new chorus.models.HdfsDataSource({connectionParameters: this.originalPairs});
+            this.dialog = new chorus.dialogs.HdfsConnectionParameters({model: this.hadoop});
+            this.dialog.render();
         });
 
-        context("connection parameters invalid", function() {
-            beforeEach(function () {
-                this.invalidPairs = [{key: '', value: 'v1'}, {key: '2', value: 'v2'}];
-                this.hadoop = new chorus.models.HdfsDataSource({connectionParameters: this.invalidPairs});
-                this.dialog = new chorus.dialogs.HdfsConnectionParameters({model: this.hadoop});
 
-                spyOn(this.dialog, "showErrors");
-                spyOn(this.dialog, "closeModal");
+        it("sets connection parameters on the model based on the field values", function () {
+            expect(this.hadoop.get('connectionParameters')).toEqual(this.originalPairs);
 
-                this.dialog.render();
-            });
+            this.dialog.$('.pair .key').eq(0).val('foo');
+            this.dialog.$('.pair .value').eq(0).val('bar');
+            this.dialog.$('.remove_pair').eq(1).click();
 
-            it("does not validate", function () {
-                expect(this.hadoop.get('connectionParameters')).toEqual(this.invalidPairs);
+            this.dialog.$('button.submit').click();
 
-                this.dialog.$('button.submit').click();
-
-                expect(this.dialog.closeModal).not.toHaveBeenCalled();
-
-                expect(this.hadoop.errors).toEqual({'key_0': t('validation.required', {fieldName: "Key"})});
-                expect(this.dialog.showErrors).toHaveBeenCalled();
-            });
+            expect(this.hadoop.get('connectionParameters')).toEqual([{key: 'foo', value: 'bar'}]);
         });
+
     });
 });

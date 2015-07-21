@@ -32,12 +32,10 @@ case $RAILS_ENV in
     production )
         RUBY=$CHORUS_HOME/bin/ruby
         RAKE=$CHORUS_HOME/bin/rake
-        PYTHON=$CHORUS_HOME/bin/python
         ;;
     * )
         RUBY=jruby
         RAKE=rake
-		PYTHON=python
         ;;
 esac
 
@@ -56,14 +54,12 @@ NGINX_PID_FILE=$CHORUS_HOME/tmp/pids/nginx.pid
 JETTY_PID_FILE=$CHORUS_HOME/tmp/pids/jetty.pid
 SCHEDULER_PID_FILE=$CHORUS_HOME/tmp/pids/scheduler.$RAILS_ENV.pid
 WORKER_PID_FILE=$CHORUS_HOME/tmp/pids/worker.$RAILS_ENV.pid
-INDEXER_PID_FILE=$CHORUS_HOME/tmp/pids/indexer.$RAILS_ENV.pid
 MIZUNO_PID_FILE=$CHORUS_HOME/tmp/pids/mizuno.pid
 
 POSTGRES_DATA_DIR=$CHORUS_HOME/postgres-db
 POSTGRES_PID_FILE=$POSTGRES_DATA_DIR/postmaster.pid
 
-eval $($PYTHON $CHORUS_HOME/packaging/get_chorus_env_params)
-
+eval $($RUBY $CHORUS_HOME/packaging/get_chorus_env_params.rb)
 
 ##### Determine which nginx binary to use for this platform #####
 
@@ -163,9 +159,9 @@ function exit_control () {
     test -t 0 && stty $SHELL_CONFIG
     exit $1
 }
+
 function checkSensitiveFiles() {
      $RUBY -e "require '$CHORUS_HOME/app/services/sensitive_file_checker.rb'" -e "unless SensitiveFileChecker.check; puts(SensitiveFileChecker.errors); exit(1); end"
-
      SENSITIVE_FILE_EXIT_STATUS=$?
 
      if [ $SENSITIVE_FILE_EXIT_STATUS -eq 1 ]; then
@@ -173,6 +169,6 @@ function checkSensitiveFiles() {
      fi
 }
 
-#if [ "$RAILS_ENV" = "production" ]; then
-    #checkSensitiveFiles
-#fi
+if [ "$RAILS_ENV" = "production" ]; then
+    checkSensitiveFiles
+fi

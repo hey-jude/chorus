@@ -52,9 +52,6 @@
         }
         font-size: 16px;
         font-weight: normal;
-        &:disabled {
-            color: $disabled-text;
-        }
     }
 
     .no_columns {

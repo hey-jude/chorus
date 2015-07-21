@@ -26,8 +26,6 @@ module SearchExtensions
     def searchable_model options = {}, &block
       model_context = self
 
-      return if ChorusConfig.instance['indexer'] && ChorusConfig.instance['indexer']['enabled'] == false
-
       if include? SoftDelete
         options[:if] = Array.wrap(options[:if]) << lambda { |model| !model.deleted? }
       end
@@ -195,7 +193,7 @@ module Sunspot
         add_documents(documents)
       end
     rescue Errno::ECONNREFUSED => e
-      raise SearchExtensions::SolrUnreachable unless ChorusConfig.instance['indexer'] && ChorusConfig.instance['indexer']['enabled'] == false
+      raise SearchExtensions::SolrUnreachable
     end
   end
 

@@ -58,7 +58,6 @@ chorus.dialogs.CopyWorkfile = chorus.dialogs.PickWorkspace.extend({
                     workspaceTarget = workspaceTargetName;
                 }
 
-                chorus.PageEvents.trigger("workfiles:fetch");
                 chorus.toast("workfile.copy_success.toast", {workfileLink: copiedFileLink, workspaceTarget: workspaceTarget, toastOpts: {type: "success"}});
             },
 

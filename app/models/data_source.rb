@@ -156,11 +156,11 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh_databases_later
-    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed?
+    QC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed?
   end
 
   def solr_reindex_later
-    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id)
+    QC.enqueue_if_not_queued('DataSource.reindex_data_source', id)
   end
 
   def update_state_and_version
@@ -188,7 +188,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def enqueue_refresh
-    SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true)
+    QC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true)
   end
 
   def account_owned_by(user)

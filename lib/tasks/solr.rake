@@ -29,10 +29,10 @@ end
 
 namespace :enqueue do
   task :reindex => :environment do
-    SolrIndexer.SolrQC.enqueue_if_not_queued('SolrIndexer.reindex', ['all'])
+    QC.enqueue_if_not_queued('SolrIndexer.reindex', ['all'])
   end
 
   task :refresh_and_reindex => :environment do
-    SolrIndexer.SolrQC.enqueue_if_not_queued('SolrIndexer.refresh_and_reindex', ['all'])
+    QC.enqueue_if_not_queued('SolrIndexer.refresh_and_reindex', ['all'])
   end
 end
