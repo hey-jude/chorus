@@ -27,7 +27,7 @@ class HdfsDataSourcesController < ApplicationController
 
   def update
     hdfs_data_source = HdfsDataSource.find(params[:id])
-    Authority.authorize! :edit, hdfs_data_source, current_user, { :or => :current_user_is_object_owner }
+    Authority.authorize! :update, hdfs_data_source, current_user, { :or => :current_user_is_object_owner }
 
     hdfs_data_source = Hdfs::DataSourceRegistrar.update!(hdfs_data_source.id, params[:hdfs_data_source], current_user)
     present hdfs_data_source
@@ -35,7 +35,7 @@ class HdfsDataSourcesController < ApplicationController
 
   def destroy
     hdfs_data_source = HdfsDataSource.find(params[:id])
-    Authority.authorize! :edit, hdfs_data_source, current_user, { :or => :current_user_is_object_owner }
+    Authority.authorize! :update, hdfs_data_source, current_user, { :or => :current_user_is_object_owner }
     hdfs_data_source.destroy
     head :ok
   end
