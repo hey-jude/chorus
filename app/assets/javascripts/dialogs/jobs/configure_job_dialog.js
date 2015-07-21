@@ -53,8 +53,7 @@ chorus.dialogs.ConfigureJob = chorus.dialogs.Base.include(chorus.Mixins.DialogFo
     },
 
     modelSaved: function () {
-        name = this.model.name();
-        chorus.toast(this.toastMessage(), {jobName: name , toastOpts: {type: "success" }} );
+        chorus.toast(this.toastMessage(), {toastOpts: {type: "success"}} );
         this.model.trigger('invalidated');
         this.closeModal();
 
