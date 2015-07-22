@@ -100,6 +100,10 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     startVisualizationWizard: function() {
         this.resultsConsole.clickClose();
+
+        // Show the Chiasm visualization container.
+        $('#chiasm-container').removeClass("hidden");
+
         this.$('.chart_icon:eq(0)').click();
         this.$('.column_count').addClass('hidden');
         this.$('.info_bar').removeClass('hidden');
@@ -112,7 +116,10 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     },
 
     selectVisualization: function(e) {
+
+        // Extract the selected chart type.
         var type = $(e.target).data('chart_type');
+
         this.$(".create_chart .cancel").data("type", type);
         this.$('.chart_icon').removeClass('selected');
         $(e.target).addClass('selected');
@@ -122,6 +129,10 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     cancelVisualization: function(e) {
         e.preventDefault();
+
+        // Hide the Chiasm visualization container.
+        $('#chiasm-container').addClass("hidden");
+
         this.$('.definition').removeClass("hidden");
         this.$('.create_chart').addClass("hidden");
         this.$(".filters").addClass("hidden");
@@ -218,14 +229,121 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     },
 
     showVisualizationConfig: function(chartType) {
+
         if(this.chartConfig) { this.chartConfig.teardown(true);}
 
         var options = { model: this.dataset, collection: this.collection, errorContainer: this };
         this.chartConfig = chorus.views.ChartConfiguration.buildForType(chartType, options);
         this.chartConfig.filters = this.filterWizardView.collection;
+        this.chartConfig.chartType = chartType;
 
         this.$(".chart_config").removeClass("hidden");
         this.renderSubview("chartConfig");
+
+        // Update the Chiasm visualization to initialize.
+        this.updateChiasmVisualization();
+
+        // Update the Chiasm visualization when configuration changes.
+        // The "configChanged" event is triggered whenever any part of the
+        // visualization configuration changes.
+        this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
+    },
+
+    // Instantiates the Chiasm instance if it has not been started already.
+    chiasmInit: function (){
+        if (!this.chiasm) {
+            this.chiasm = Chiasm($("#chiasm-container")[0]);
+
+            // TODO create this random sample loader plugin
+            // once the random sample API has been established.
+            //chiasm.plugins.randomSampleLoader = function (){
+            //    var model = Model();
+            //    model.set({
+            //        publicProperties: ["numCells", "name"],
+            //        type: Model.None,
+            //        name: Model.None
+            //    });
+            //    model.when(["type", "name"], function (type, name){
+            //        //console.log(type);
+            //        //console.log(name);
+            //    });
+            //    return model;
+            //};
+        }
+        return this.chiasm;
+    },
+
+    // Queries the server for data, depending on the current chart type and configuration.
+    chiasmFetchData: function (chartOptions, callback){
+        var chartType = chartOptions.type;
+        var datasetId = this.chartConfig.model.id;
+        var checkId =  Math.floor((Math.random()*1e8)+1).toString();
+        var url = "datasets/" + datasetId + "/visualizations";
+
+        // This code fetches the data via a "task" abstraction.
+        // Copied from chart_configuration_view.js
+        var func = 'make' + _.capitalize(chartType) + 'Task';
+        var task = this.chartConfig.model[func](chartOptions);
+        task.set({filters: chartOptions.filters && chartOptions.filters.sqlStrings()});
+
+        // This callback gets invoked once the data is loaded.
+        task.bindOnce("saved", function (model, data){
+
+            // Extract the tabular data format that Chiasm visualizations expect (array of objects)
+            callback(data.response.rows);
+        });
+        task.bindOnce("saveFailed", function (){
+            // TODO bubble errors to the UI
+            console.log("save failed");
+        });
+
+        var x = task.save();
+    },
+    updateChiasmVisualization: function(){
+
+        var chartOptions = this.chartConfig.chartOptions();
+        var alpineBlue = "#00a0e5";
+
+        var chiasm = this.chiasmInit();
+
+        this.chiasmFetchData(chartOptions, function (data){
+
+            var config = {
+                layout: {
+                    "plugin": "layout",
+                    "state": {
+                        "layout": "visualization"
+                    }
+                },
+                visualization: {
+                    "plugin": "barChart",
+                    "state": {
+                        "xColumn": "bucket",
+                        "xAxisLabel": chartOptions.yAxis,
+                        "yColumn": "count",
+                        "yAxisLabel": "Count",
+                        "xAxisLabelOffset": 1.9,
+                        "yAxisLabelOffset": 1.4,
+                        "colorDefault": alpineBlue,
+                        "yDomainMin": 0
+                    }
+                },
+                chorusSQL: {
+                    plugin: "chorusSQL",
+                    state:{
+                        type: chartOptions.type,
+                        name: chartOptions.name
+                    }
+                }
+            };
+
+            chiasm.setConfig(config);
+
+            chiasm.getComponent("visualization").then(function(visualization){
+                visualization.data = data;
+            });
+
+        });
     },
 
     showSelectedTitle: function(e) {
