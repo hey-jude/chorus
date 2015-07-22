@@ -66,10 +66,10 @@ class User < ActiveRecord::Base
       end
       self.save!
     end
-    if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
-      self.admin = false
-      self.save!
-    end
+    #if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
+    #  self.admin = false
+    #  self.save!
+    #end
   end
 
   def check_admin_role(role)
@@ -87,10 +87,10 @@ class User < ActiveRecord::Base
       self.save!
     end
 
-    if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
-      self.admin = false
-      self.save!
-    end
+    #if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
+    #  self.admin = false
+    #  self.save!
+    #end
   end
 
   # object_roles allow a User to have different roles for different objects (currently just Workspace)
@@ -159,7 +159,12 @@ class User < ActiveRecord::Base
   end
 
   def self.admin_count
-    Role.find_by_name("Admin").users.size
+    admin_role = Role.find_by_name('Admin')
+    if admin_role != nil
+      Role.find_by_name("Admin").users.size
+    else
+      return 0
+    end
   end
 
   def admin?
@@ -173,10 +178,15 @@ class User < ActiveRecord::Base
       write_attribute(:admin, value)
 
       admin_role = Role.find_by_name("Admin")
+      site_admin_role = Role.find_by_name("SiteAdministrator")
       if admin_role && value == true
         admin_role.users << self
-      else
+        site_admin_role.users << self
+      elsif admin_role
         admin_role.users.delete(self)
+        site_admin_role.users.delete(self)
+      else
+          #
       end
     end
   end

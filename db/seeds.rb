@@ -33,3 +33,9 @@ unless User.where(:username => "chorusadmin").present?
   user.save!
 end
 
+chorusadmin = User.find_by_username("chorusadmin")
+site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
+admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
+
+site_admin_role.users << chorusadmin if chorusadmin
+admin_role.users << chorusadmin if chorusadmin

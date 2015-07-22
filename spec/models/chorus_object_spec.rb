@@ -14,7 +14,7 @@ describe ChorusObject do
     let (:some_object) { workspaces(:public) }
 
     it "should return the referenced object" do
-      chorus_class = ChorusClass.create(:name => some_object.class.name)
+      chorus_class = ChorusClass.find_by_name(some_object.class.name)
       chorus_object = ChorusObject.create(:chorus_class_id => chorus_class.id, :instance_id => some_object.id)
 
       expect(chorus_object.referenced_object).to eq(some_object)

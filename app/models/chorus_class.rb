@@ -1,6 +1,8 @@
 class ChorusClass < ActiveRecord::Base
   attr_accessible :name, :description, :parent_class_id, :parent_class_name
 
+  validates :name, :presence => true, :uniqueness => true
+
   has_many :chorus_objects
   has_many :operations
   #TODO: Prakash. Need to discuss with Andrew. Why is this needed here. The permissions are on the role object Not on chorus_object

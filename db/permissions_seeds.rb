@@ -1,44 +1,49 @@
-#require 'activerecord-import'
 #
 # Seed roles groups and permissions
 # roles
 puts ''
 puts '---- Adding Roles ----'
-admin_role = Role.create(:name => 'admin'.camelize)
-owner_role = Role.create(:name => 'owner'.camelize)
-user_role = Role.create(:name => 'user'.camelize)
-developer_role = Role.create(:name => 'developer'.camelize)
-collaborator_role = Role.create(:name => 'collaborator'.camelize)
-site_admin_role = Role.create(:name => 'site_administrator'.camelize)
-app_admin_role = Role.create(:name => 'application_administrator'.camelize)
-app_manager_role = Role.create(:name => 'application_manager'.camelize)
-workflow_developer_role = Role.create(:name => 'workflow_developer'.camelize)
-project_manager_role = Role.create(:name => 'project_manager'.camelize)
-project_developer_role = Role.create(:name => 'project_developer'.camelize)
-contributor_role = Role.create(:name => 'contributor'.camelize)
-data_scientist_role = Role.create(:name => 'data_scientist'.camelize)
+admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
+owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
+user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
+developer_role = Role.find_or_create_by_name(:name => 'developer'.camelize)
+collaborator_role = Role.find_or_create_by_name(:name => 'collaborator'.camelize)
+site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
+app_admin_role = Role.find_or_create_by_name(:name => 'application_administrator'.camelize)
+app_manager_role = Role.find_or_create_by_name(:name => 'application_manager'.camelize)
+workflow_developer_role = Role.find_or_create_by_name(:name => 'workflow_developer'.camelize)
+project_manager_role = Role.find_or_create_by_name(:name => 'project_manager'.camelize)
+project_developer_role = Role.find_or_create_by_name(:name => 'project_developer'.camelize)
+contributor_role = Role.find_or_create_by_name(:name => 'contributor'.camelize)
+data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.camelize)
 
-puts ''
-puts '---- Adding permissions ----'
+admins = User.where(:admin => true).all
 
-chorusadmin = User.find_by_username("chorusadmin")
+admins.each do |admin|
+  admin.roles << admin_role
+  admin.roles << site_admin_role
+end
+#puts ''
+#puts '---- Adding permissions ----'
 
-site_admin_role.users << chorusadmin if chorusadmin
-admin_role.users << chorusadmin if chorusadmin
+#chorusadmin = User.find_by_username("chorusadmin")
 
+#site_admin_role.users << chorusadmin if chorusadmin
+#admin_role.users << chorusadmin if chorusadmin
 
 # Groups
 puts '---- Adding Default Group  ----'
-default_group = Group.create(:name => 'default_group')
+default_group = Group.find_or_create_by_name(:name => 'default_group')
 # Scope
 puts ''
 puts '---- Adding application_realm as Default Scope ----'
-application_realm = ChorusScope.create(:name => 'application_realm')
+application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
 # add application_realm to default group
 default_group.chorus_scope = application_realm
 
-site_admin_role.groups << default_group
-admin_role.groups << default_group
+site_admin_role.groups << default_group unless site_admin_role.groups.include? default_group
+
+admin_role.groups << default_group unless admin_role.groups.include? default_group
 
 #Role.all.each do |role|
 #    role.groups << default_group
@@ -50,8 +55,9 @@ admin_role.groups << default_group
 
 puts ''
 puts '---- Adding Chorus object classes  ----'
-ChorusClass.create(
-    [
+
+chorus_classes =  [
+        {:name => 'Events::Base'},
         {:name => 'activity'.camelize},
         {:name => 'account'.camelize},
         {:name => 'alpine_workfile'.camelize},
@@ -166,25 +172,9 @@ ChorusClass.create(
         {:name => 'workspace'.camelize},
         {:name => 'workspace_import'.camelize},
         {:name => 'workspace_search'.camelize},
-    ]
-)
-
-
-#models/dashboard
-
-ChorusClass.create(
-    [
         {:name => 'recent_workfiles'.camelize},
         {:name => 'site_snapshot'.camelize},
-        {:name => 'workspace_activity'.camelize}
-
-    ]
-)
-
-#models/events
-
-ChorusClass.create(
-    [
+        {:name => 'workspace_activity'.camelize},
         {:name => 'events::Base'.camelize},
         {:name => 'chorus_view_changed'.camelize},
         {:name => 'chorus_view_created'.camelize},
@@ -195,24 +185,17 @@ ChorusClass.create(
         {:name => 'data_source_deleted'.camelize},
         {:name => 'file_import_created'.camelize},
         {:name => 'file_import_failed'.camelize},
-
-    # TBD. Can these event types be handle in better way?
-
-    ]
-)
-
-#model/visualization
-
-ChorusClass.create(
-    [
         {:name => 'boxplot'.camelize},
         {:name => 'frequency'.camelize},
         {:name => 'heatmap'.camelize},
         {:name => 'histograp'.camelize},
         {:name => 'timeseries'.camelize}
-
     ]
-)
+
+chorus_classes.each do |chorus_class|
+    ChorusClass.find_or_create_by_name(chorus_class)
+end
+
 
 role_class = ChorusClass.where(:name => 'role'.camelize).first
 chorus_scope_class = ChorusClass.where(:name => 'chorus_scope'.camelize).first
@@ -302,6 +285,7 @@ class_operations = {
     'CsvFile' =>      %w(create show update destroy)
 }
 
+Operation.destroy_all
 class_operations.each do |class_name, operations|
   chorus_class = ChorusClass.find_by_name(class_name)
     operations.each_with_index do |operation, index|
@@ -614,10 +598,11 @@ def create_permission_mask_for(permissions, operations)
   return bits
 end
 
-
+# delete all previously stored permissions
+Permission.destroy_all
 role_permissions.each do |role_name, permissions_hash|
     role = Role.find_by_name(role_name)
-    #puts "---- Adding permissions for #{role_name} role ----"
+    puts "---- Adding permissions for #{role_name} role ----"
 
     permissions_hash.each do |class_name, permission_names|
         chorus_class = ChorusClass.find_by_name(class_name)
@@ -651,6 +636,8 @@ end
 puts ''
 puts "===================== Adding Chorus Object =========================="
 
+# delete all previous entries
+
 puts ''
 puts '--- Adding Users and children objects ----'
 
@@ -658,6 +645,7 @@ start = Time.now
 columns = [:chorus_class_id, :instance_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id, :chorus_scope_id]
 values = []
 count = User.count
+
 User.find_in_batches({:batch_size => 5}) do |users|
   values = []
   users.each do |user|
@@ -790,7 +778,10 @@ User.find_in_batches({:batch_size => 5}) do |users|
       #ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(event.class.name).id, :instance_id => event.id, :owner_id => user.id, :parent_class_name => user.class.name, :parent_class_id => ChorusClass.find_by_name(user.class.name).id, :parent_id => user.id, :chorus_scope_id => application_realm.id)
     end
   end
-  ChorusObject.import columns, values, :validate => false
+  #SQL_STMT = "INSERT INTO chorus_objects (chorus_class_id, instance_id, :owner_id, parent_class_name, parent_class_id, parent_id, chorus_scope_id) VALUES #{values.join(",")}"
+  #CONN.execute(SQL_STMT)
+
+  ChorusObject.import columns, values, :validate => true
 end
 
 
@@ -998,7 +989,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
     end
 
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 
 
@@ -1018,7 +1009,7 @@ DataSource.find_in_batches({:batch_size => 1000}) do |datasources|
     chorus_objects << [datasource_class.id, data_source.id, data_source.owner.id, application_realm.id]
     #ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id, :chorus_scope_id => application_realm.id)
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{DataSource.count} rows, #{stop - start} seconds)"
@@ -1040,7 +1031,7 @@ Database.find_in_batches({:batch_size => 1000}) do |databases|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{Database.count} rows, #{stop - start} seconds)"
@@ -1055,34 +1046,35 @@ HdfsDataSource.find_in_batches({:batch_size => 1000}) do |datasources|
     print '.'
     chorus_objects << [hdfs_data_source_class.id, data_source.id, data_source.owner.id, application_realm.id]
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{HdfsDataSource.count} rows, #{stop - start} seconds)"
 
-puts ''
-puts '--- Adding HdfsEntry  ----'
-columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
-start = Time.now
-HdfsEntry.find_in_batches({:batch_size => 2500}) do |entries|
-  chorus_objects = []
-  entries.each do |entry|
-    print '.'
-    co = []
-    co << [hdfs_entry_class.id, entry.id, application_realm.id]
-    #co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id,:chorus_scope_id => application_realm.id)
-    if entry.hdfs_data_source != nil
-      co << [entry.hdfs_data_source.owner.id,  hdfs_data_source_class.name, hdfs_data_source_class.id, entry.hdfs_data_source.id]
-      #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
-    else
-      co << [nil, nil, nil, nil]
-    end
-    chorus_objects << co.flatten!
-  end
-  ChorusObject.import columns, chorus_objects, :validate => false
-end
-stop = Time.now
-puts "(#{HdfsEntry.count} rows, #{stop - start} seconds)"
+# Removing adding HdfsEntry. It will be controlled by the parent hdfs_data_source object
+# puts ''
+# puts '--- Adding HdfsEntry  ----'
+# columns = [:chorus_class_id, :instance_id, :chorus_scope_id, :owner_id, :parent_class_name, :parent_class_id, :parent_id]
+# start = Time.now
+# HdfsEntry.find_in_batches({:batch_size => 2500}) do |entries|
+#   chorus_objects = []
+#   entries.each do |entry|
+#     print '.'
+#     co = []
+#     co << [hdfs_entry_class.id, entry.id, application_realm.id]
+#     #co = ChorusObject.create(:chorus_class_id => hdfs_entry_class.id, :instance_id => dataset.id,:chorus_scope_id => application_realm.id)
+#     if entry.hdfs_data_source != nil
+#       co << [entry.hdfs_data_source.owner.id,  hdfs_data_source_class.name, hdfs_data_source_class.id, entry.hdfs_data_source.id]
+#       #co.update_attributes(:owner_id => dataset.workspace.owner.id, :parent_class_name => workspace_class.name, :parent_class_id => workspace_class.id, :parent_id => dataset.workspace.id)
+#     else
+#       co << [nil, nil, nil, nil]
+#     end
+#     chorus_objects << co.flatten!
+#   end
+#   ChorusObject.import columns, chorus_objects, :validate => false
+# end
+# stop = Time.now
+# puts "(#{HdfsEntry.count} rows, #{stop - start} seconds)"
 
 
 puts ''
@@ -1104,7 +1096,7 @@ ChorusView.find_in_batches({:batch_size => 2500}) do |views|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{ChorusView.count} rows, #{stop - start} seconds)"
@@ -1130,7 +1122,7 @@ GpdbView.find_in_batches({:batch_size => 2500}) do |views|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts "(#{GpdbView.count} rows, #{stop - start} seconds)"
@@ -1156,7 +1148,7 @@ GpdbTable.find_in_batches({:batch_size => 2500}) do |views|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 
 stop = Time.now
@@ -1183,7 +1175,7 @@ PgTable.find_in_batches({:batch_size => 2500}) do |views|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 
 stop = Time.now
@@ -1209,7 +1201,7 @@ PgView.find_in_batches({:batch_size => 2500}) do |views|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{PgView.count} rows, #{stop - start} seconds)"
@@ -1234,7 +1226,7 @@ HdfsDataset.find_in_batches({:batch_size => 2500}) do |views|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{HdfsDataset.count} rows, #{stop - start} seconds)"
@@ -1259,7 +1251,7 @@ GpdbDataset.find_in_batches({:batch_size => 2500}) do |views|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{GpdbDataset.count} rows, #{stop - start} seconds)"
@@ -1285,7 +1277,7 @@ JdbcDataset.find_in_batches({:batch_size => 2500}) do |views|
     end
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{JdbcDataset.count} rows, #{stop - start} seconds)"
@@ -1303,7 +1295,7 @@ GpdbSchema.find_in_batches({:batch_size => 2500}) do |views|
     co << [gpdb_schema_class.id, dataset.id, application_realm.id]
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{GpdbSchema.count} rows, #{stop - start} seconds)"
@@ -1323,7 +1315,7 @@ PgSchema.find_in_batches({:batch_size => 2500}) do |views|
     #co = ChorusObject.create(:chorus_class_id => pg_schema_class.id, :instance_id => dataset.id, :chorus_scope_id => application_realm.id)
     chorus_objects << co.flatten!
   end
-  ChorusObject.import columns, chorus_objects, :validate => false
+  ChorusObject.import columns, chorus_objects, :validate => true
 end
 stop = Time.now
 puts " (#{PgSchema.count} rows, #{stop - start} seconds)"
