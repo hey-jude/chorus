@@ -1,1 +1,2 @@
 $('#admin_dashboard').html('<%= escape_javascript(render "index", :users => @users) %>');
+$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb") %>');

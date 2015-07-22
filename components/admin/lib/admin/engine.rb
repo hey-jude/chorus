@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'gretel'
+
 module Admin
   class Engine < ::Rails::Engine
     isolate_namespace Admin

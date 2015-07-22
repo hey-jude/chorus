@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  attr_accessible :name, :description
+  attr_accessible :name, :description , :avatar
 
   validates :name, :presence => true, uniqueness: true
 
@@ -11,4 +11,9 @@ class Group < ActiveRecord::Base
   before_destroy {roles.clear}
 
   has_one :chorus_scope
+
+
+  has_attached_file :avatar, :path => ":rails_root/system/:class/:id/:style/:basename.:extension",
+                    :url => "/:class/:id/image?style=:style",
+                    :default_url => '/images/general/default-user.png', :styles => {:icon => "50x50>"}
 end
