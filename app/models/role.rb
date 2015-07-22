@@ -2,9 +2,11 @@ class Role < ActiveRecord::Base
 
   attr_accessible :name, :description
 
+  validates :name, :presence => true, :uniqueness => true
+
   has_and_belongs_to_many :users, :uniq => true
-  has_and_belongs_to_many :groups
-  has_many :permissions
+  has_and_belongs_to_many :groups, :uniq => true
+  has_many :permissions, :dependent => :destroy
   has_many :chorus_object_roles
   has_many :chorus_objects, :through => :chorus_object_roles
 

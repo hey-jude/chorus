@@ -159,7 +159,12 @@ class User < ActiveRecord::Base
   end
 
   def self.admin_count
-    Role.find_by_name("Admin").users.size
+    admin_role = Role.find_by_name('Admin')
+    if admin_role != nil
+      Role.find_by_name("Admin").users.size
+    else
+      return 0
+    end
   end
 
   def admin?
@@ -175,8 +180,10 @@ class User < ActiveRecord::Base
       admin_role = Role.find_by_name("Admin")
       if admin_role && value == true
         admin_role.users << self
-      else
+      elsif admin_role
         admin_role.users.delete(self)
+      else
+          #
       end
     end
   end

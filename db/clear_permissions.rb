@@ -1,13 +1,13 @@
 # Clear all tables related to roles, groups and permissions.
 puts 'Clearing data entries for roles, groups and permissions'
-Role.delete_all
-Group.delete_all
-Permission.delete_all
-ChorusScope.delete_all
-Operation.delete_all
-ChorusClass.delete_all
+Role.destroy_all
+Group.destroy_all
+Permission.destroy_all
+ChorusScope.destroy_all
+ChorusClass.destroy_all
+Operation.destroy_all
 ChorusObject.delete_all
-ChorusObjectRole.delete_all
+ChorusObjectRole.destroy_all
 puts '--- DONE ----'
 
 
