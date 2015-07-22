@@ -3,7 +3,6 @@
 # roles
 puts ''
 puts '---- Adding Roles ----'
-Role.destroy_all
 admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
 owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
 user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
@@ -18,6 +17,12 @@ project_developer_role = Role.find_or_create_by_name(:name => 'project_developer
 contributor_role = Role.find_or_create_by_name(:name => 'contributor'.camelize)
 data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.camelize)
 
+admins = User.where(:admin => true).all
+
+admins.each do |admin|
+  admin.roles << admin_role
+  admin.roles << site_admin_role
+end
 #puts ''
 #puts '---- Adding permissions ----'
 
@@ -26,7 +31,6 @@ data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.came
 #site_admin_role.users << chorusadmin if chorusadmin
 #admin_role.users << chorusadmin if chorusadmin
 
-Group.destroy_all
 # Groups
 puts '---- Adding Default Group  ----'
 default_group = Group.find_or_create_by_name(:name => 'default_group')
@@ -188,7 +192,6 @@ chorus_classes =  [
         {:name => 'timeseries'.camelize}
     ]
 
-#ChorusClass.destroy_all
 chorus_classes.each do |chorus_class|
     ChorusClass.find_or_create_by_name(chorus_class)
 end
@@ -634,7 +637,6 @@ puts ''
 puts "===================== Adding Chorus Object =========================="
 
 # delete all previous entries
-ChorusObject.delete_all
 
 puts ''
 puts '--- Adding Users and children objects ----'
