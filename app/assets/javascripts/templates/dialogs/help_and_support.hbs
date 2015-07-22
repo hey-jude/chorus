@@ -1,9 +1,57 @@
 <form>
-  <div class="girdle">
-    {{t "help.help_and_support.download_message"}}
-  </div>
-  <!-- END girdle -->
+    <div class="girdle">
 
-  {{formControls "help.help_and_support.button.download_logs" }}
+        <div class="title"> <h4> {{t "help.help_and_support.sub_title_1"}} </h4> </div>
+
+        <div class="context-item-desc">{{t "help.help_and_support.tech_support.message"}}</div>
+
+        <div style="padding:10px;"></div>
+
+        <div class="content ">
+            <div class="context-item-desc green_background">
+                <span style="padding:10px;  line-height: 25px;">{{t "help.help_and_support.tech_support.web"}}: </span>
+                <span style="padding:10px;"><a href="https://alpinedatalabs.zendesk.com/home">https://alpinedatalabs.zendesk.com/home</a></span>
+            </div>
+
+            <div style="padding:5px;"></div>
+            <div class="context-item-desc green_background">
+                <span style="padding:10px; line-height: 25px;"> {{t "help.help_and_support.tech_support.email"}}:</span>
+                <span style="padding:10px;"><a href="mailto:support@alpinenow.com">support@alpinenow.com</a></span>
+                <span style="padding-left:52px;">{{t "help.help_and_support.tech_support.email_availability"}}</span>
+
+            </div>
+            <div style="padding:5px;"></div>
+
+            <div class="context-item-desc green_background">
+                <span style="padding:10px; line-height: 25px;"> {{t "help.help_and_support.tech_support.phone"}}:</span>
+                <span style="padding:10px;"> (1) 650-918-6212 </span>
+                <span style="padding-left:100px;"> {{t "help.help_and_support.tech_support.phone_availability"}} </span>
+            </div>
+            <div style="padding:5px;"></div>
+
+            <div class="context-item-desc">
+               <b>
+                   <a href="https://alpine.atlassian.net/wiki/display/V5/Technical+Support">
+                   {{t "help.help_and_support.tech_support.learn_more"}}
+                  </a>
+               </b>
+            </div>
+            <div style="padding:5px;"></div>
+
+            <div class="title grey_background" style="padding-top:10px;padding-left: 5px;">
+                <h4>{{t "help.help_and_support.sub_title_2"}}</h4>
+            </div>
+
+            <div class="context-item-desc grey_background" style="padding:20px;">
+
+                {{t "help.help_and_support.logs_download_message"}}
+
+
+            </div>
+
+        </div>
+    </div>
+
+    {{formControls "help.help_and_support.button.download_logs" }}
 
 </form>
