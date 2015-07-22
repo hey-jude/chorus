@@ -1,73 +1,105 @@
 require 'fileutils'
-#require 'zip/zip'
 require 'zip_file_generator'
-
 
 module LogArchiver
 
-  ARCHIVE_DIRECTORY = "#{Rails.root}/tmp/log_archiver/archives"
-  STAGING_DIRECTORY = "#{Rails.root}/tmp/log_archiver/staging"
+  ARCHIVE_DIR = "#{Rails.root}/tmp/log_archiver"
+  ASSEMBLE_ZIP_DIR = "#{ARCHIVE_DIR}/tmp"
 
-  CHORUS_LOGS = {log_name: "Chorus",
-                 staging_dir: "#{Rails.root}/tmp/log_archiver/staging/chorus_logs",
-                 log_path: "#{Rails.root}/log"}
+  # KT: from Nate ... see: https://alpine.atlassian.net/browse/DEV-11637
+  # Alpine.log > chorus user's home directory
+  # AlpineAgent_x.log > chorus user's home directory
+  # install.log > /tmp/install.log
+  # pgadmin.log (called server.log) > $CHORUS_HOME/shared/db
+  # tomcat logs > $CHORUS_HOME/alpine-current/apache-tomcat-7.0.41/logs
 
-  ALPINE_LOGS = {log_name: "Alpine",
-                 staging_dir: "#{Rails.root}/tmp/log_archiver/staging/alpine_logs",
-                 log_path: "#{Dir.home}"}
+  ALPINE_LOGS = {path: "#{Dir.home}",
+                 archive_path: "#{ASSEMBLE_ZIP_DIR}/alpine_logs"}
 
-  ALPINE_INSTALL_LOGS = {log_name: "Alpine Install",
-                         staging_dir: "#{Rails.root}/tmp/log_archiver/staging/alpine_install_logs",
-                         log_path: "/tmp/"}
+  ALPINE_INSTALL_LOGS = {path: "/tmp/install.log",
+                         archive_path: "#{ASSEMBLE_ZIP_DIR}/alpine_install_logs"}
 
-  POSTGRES_LOGS = {log_name: "Postgres",
-                   staging_dir: "#{Rails.root}/tmp/log_archiver/staging/postgres_logs",
-                   log_path: "#{(`echo $CHORUS_HOME`).to_s.strip}/shared/db"}
+  POSTGRES_LOGS = {path: "#{(`echo $CHORUS_HOME`).to_s.strip}/shared/db/server.log",
+                   archive_path: "#{ASSEMBLE_ZIP_DIR}/postgres_logs"}
 
-  TOMCAT_LOGS = {log_name: "Tomcat",
-                 staging_dir: "#{Rails.root}/tmp/log_archiver/staging/tomcat_logs",
-                 log_path: "#{(`echo $CHORUS_HOME`).to_s.strip}/alpine-current/apache-tomcat-7.0.41/logs"}
+  TOMCAT_LOGS = {path: "#{(`echo $CHORUS_HOME`).to_s.strip}/alpine-current/apache-tomcat-7.0.41/logs",
+                 archive_path: "#{ASSEMBLE_ZIP_DIR}/tomcat_logs"}
 
-  LOGS = Array.new
-  LOGS << CHORUS_LOGS
-  LOGS << ALPINE_LOGS
-  LOGS << ALPINE_INSTALL_LOGS
-  LOGS << POSTGRES_LOGS
-  LOGS << TOMCAT_LOGS
+  CHORUS_LOGS = {path: "#{Rails.root}/log",
+                 archive_path: "#{ASSEMBLE_ZIP_DIR}/chorus_logs"}
 
+  LOGS = [CHORUS_LOGS, ALPINE_LOGS, ALPINE_INSTALL_LOGS, POSTGRES_LOGS, TOMCAT_LOGS]
 
   def create_archive
-    Dir.chdir(Rails.root)
+    `mkdir -p #{ASSEMBLE_ZIP_DIR}`
 
-     truncate_logs
-    zipfile_path = generate_zipfile
-    cleanup
+    start_time = Time.now
+    log "Log archiver started at #{start_time.to_formatted_s(:long)}"
 
-    zipfile_path
-  end
-
-  def truncate_logs
-    LOGS.each do |log|
-       Dir.chdir(log[:log_path])
-       num_lines = ChorusConfig.instance['logging.archiver_truncate_number_of_lines']
-       FileUtils::mkdir_p log[:staging_dir]
-       Dir.glob('*.log').each do |log_file|
-         system("tail -n #{num_lines} \"#{log_file}\" > \"#{log[:staging_dir]}/#{log_file}\"")
-       end
-    end
-     Dir.chdir(Rails.root)
-  end
-
-  def generate_zipfile()
     # alpine_logs_20150720150924.zip
-    zipfile_name =  "#{ARCHIVE_DIRECTORY}/alpine_logs_#{Time.now.to_formatted_s(:number)}.zip"
-    zip_file = ZipFileGenerator.new(STAGING_DIRECTORY, zipfile_name)
+    zip_path = "#{ARCHIVE_DIR}/alpine_logs_#{Time.now.to_formatted_s(:number)}.zip"
+    log "... generating: #{zip_path}"
+
+    truncate_logs_into_assemble_zip_dir
+
+    log "Zipping, after: #{Time.now - start_time}."
+    @log_archiver_logfile.close()
+
+    zip(zip_path)
+
+    `rm -rf #{ASSEMBLE_ZIP_DIR}`
+
+    zip_path
+  end
+
+  def truncate_logs_into_assemble_zip_dir
+
+    LOGS.each do |log|
+      if File.exists?(log[:path])
+
+        log_cmd "mkdir -p #{log[:archive_path]}"
+
+        if File.directory?(log[:path])
+          Dir.glob("#{log[:path]}/*.log").each do |file|
+            truncate_file(file, "#{log[:archive_path]}/#{File.basename(file)}")
+          end
+        else # not a directory
+          truncate_file(log[:path], "#{log[:archive_path]}/#{File.basename(log[:path])}")
+        end
+      else
+        log "WARN: Not found! #{log[:path]}"
+      end
+    end
+  end
+
+  def zip(path)
+
+    # See: https://github.com/rubyzip/rubyzip/issues/214
+    Dir.chdir(ASSEMBLE_ZIP_DIR)
+
+    zip_file = ZipFileGenerator.new(ASSEMBLE_ZIP_DIR, path)
     zip_file.write()
 
-    zipfile_name
+    Dir.chdir(Rails.root)
   end
 
-  def cleanup
-    `rm -rf #{STAGING_DIRECTORY}/*`
+  def truncate_file(path, truncated_path)
+    num_lines = ChorusConfig.instance['logging.archiver_truncate_number_of_lines']
+    log_cmd("tail -n #{num_lines} \"#{path}\" > \"#{truncated_path}\"")
   end
+
+  def log_cmd(cmd)
+    log cmd
+    log `#{cmd}`
+  end
+
+  def log(msg)
+    @log_archiver_logfile ||= File.new("#{ASSEMBLE_ZIP_DIR}/log_archiver.log", "w+")
+    unless msg.blank?
+      logger.debug msg
+      @log_archiver_logfile.write("#{msg}\n")
+      @log_archiver_logfile.flush
+    end
+  end
+
 end

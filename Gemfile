@@ -26,7 +26,7 @@ gem 'jbuilder'
 # Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
 gem 'render_anywhere'
 
-gem 'rubyzip', '< 1.0.0'
+gem 'rubyzip', '1.1.7'
 
 platform :jruby do
   gem 'jruby-openssl', :require => false
@@ -45,7 +45,7 @@ group :assets do
 end
 
 group :integration do
-  gem 'capybara', "~> 2.0.0", :require => false
+  gem 'capybara', :require => false
   gem 'headless'
   gem 'capybara-screenshot'
 end

@@ -1,4 +1,7 @@
-require 'zip/zip'
+# KT: See https://github.com/rubyzip/rubyzip#zipping-a-directory-recursively
+
+require 'rubygems'
+require 'zip'
 
 # This is a simple example which uses rubyzip to
 # recursively generate a zip file from the contents of
@@ -6,43 +9,54 @@ require 'zip/zip'
 # included in the archive, rather just its contents.
 #
 # Usage:
-#   directoryToZip = "/tmp/input"
-#   outputFile = "/tmp/out.zip"   
-#   zf = ZipFileGenerator.new(directoryToZip, outputFile)
-#   zf.write()
-class ZipFileGenerator
+# require /path/to/the/ZipFileGenerator/Class
+# directoryToZip = "/tmp/input"
+# outputFile = "/tmp/out.zip"
+# zf = ZipFileGenerator.new(directoryToZip, outputFile)
+# zf.write()
 
+class ZipFileGenerator
   # Initialize with the directory to zip and the location of the output archive.
-  def initialize(inputDir, outputFile)
-    @inputDir = inputDir
-    @outputFile = outputFile
+  def initialize(input_dir, output_file)
+    @input_dir = input_dir
+    @output_file = output_file
   end
 
   # Zip the input directory.
-  def write()
-    entries = Dir.entries(@inputDir); entries.delete("."); entries.delete("..")
-    io = Zip::ZipFile.open(@outputFile, Zip::ZipFile::CREATE);
+  def write
+    entries = Dir.entries(@input_dir) - %w(. ..)
 
-    writeEntries(entries, "", io)
-    io.close();
+    ::Zip::File.open(@output_file, ::Zip::File::CREATE) do |io|
+      write_entries entries, '', io
+    end
   end
+
+  private
 
   # A helper method to make the recursion work.
-  private
-  def writeEntries(entries, path, io)
+  def write_entries(entries, path, io)
+    entries.each do |e|
+      zip_file_path = path == '' ? e : File.join(path, e)
+      disk_file_path = File.join(@input_dir, zip_file_path)
+      puts "Deflating #{disk_file_path}"
 
-    entries.each { |e|
-      zipFilePath = path == "" ? e : File.join(path, e)
-      diskFilePath = File.join(@inputDir, zipFilePath)
-      puts "Deflating " + diskFilePath
-      if  File.directory?(diskFilePath)
-        io.mkdir(zipFilePath)
-        subdir =Dir.entries(diskFilePath); subdir.delete("."); subdir.delete("..")
-        writeEntries(subdir, zipFilePath, io)
+      if File.directory? disk_file_path
+        recursively_deflate_directory(disk_file_path, io, zip_file_path)
       else
-        io.get_output_stream(zipFilePath) { |f| f.puts(File.open(diskFilePath, "rb").read())}
+        put_into_archive(disk_file_path, io, zip_file_path)
       end
-    }
+    end
   end
 
+  def recursively_deflate_directory(disk_file_path, io, zip_file_path)
+    io.mkdir zip_file_path
+    subdir = Dir.entries(disk_file_path) - %w(. ..)
+    write_entries subdir, zip_file_path, io
+  end
+
+  def put_into_archive(disk_file_path, io, zip_file_path)
+    io.get_output_stream(zip_file_path) do |f|
+      f.puts(File.open(disk_file_path, 'rb').read)
+    end
+  end
 end
