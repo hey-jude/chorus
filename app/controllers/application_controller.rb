@@ -50,6 +50,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user
+    Thread.current[:user]
+  end
+
   private
 
   def verified_request?
@@ -131,10 +135,6 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_user
-  end
-
-  def current_user
-    Thread.current[:user]
   end
 
   def extend_expiration
