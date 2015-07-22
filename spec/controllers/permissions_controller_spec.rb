@@ -96,7 +96,7 @@ describe PermissionsController do
   end
 
   describe '#destroy' do
-    let (:new_permission) { FactoryGirl.create(:permission, :chorus_class_id => "666") }
+    let (:new_permission) { Permission.create(:role_id => roles(:a_role).id, :chorus_class_id =>  ChorusClass.first.id) }
 
     it "destroys the role given the proepr id" do
       old_count = Permission.count
