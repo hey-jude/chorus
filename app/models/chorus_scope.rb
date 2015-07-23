@@ -5,7 +5,7 @@ class ChorusScope < ActiveRecord::Base
 
 
   has_many :chorus_objects
-  belongs_to :group
+  has_and_belongs_to_many :groups
   #has_many :users
 
   def has_object?(chorus_object)
