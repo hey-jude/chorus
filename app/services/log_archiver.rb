@@ -23,7 +23,23 @@ module LogArchiver
   POSTGRES_LOGS = {path: "#{(`echo $CHORUS_HOME`).to_s.strip}/shared/db/server.log",
                    archive_path: "#{ASSEMBLE_ZIP_DIR}/postgres_logs"}
 
-  TOMCAT_LOGS = {path: "#{(`echo $CHORUS_HOME`).to_s.strip}/alpine-current/apache-tomcat-7.0.41/logs",
+  highest_versioned_tomcat_path = -> {
+    dirs = Dir.glob("#{(`echo $CHORUS_HOME`).to_s.strip}/alpine-current/apache-tomcat-*/logs")
+    sorted_dirs = dirs.sort { |dir|
+
+      # extract the numbers from the tomcat directory name, ie, apache-tomcat-7.0.41 -> 7041
+      dir = dir[/apache-tomcat-[\d\.]+/]
+      dir = dir.gsub(/[^0-9]/, '')
+
+      # take care of the case of different lengths of version strings
+      dir = dir.ljust(10, padstr='0').to_f
+
+      dir
+    }
+    sorted_dirs.last
+  }.call
+
+  TOMCAT_LOGS = {path: highest_versioned_tomcat_path,
                  archive_path: "#{ASSEMBLE_ZIP_DIR}/tomcat_logs"}
 
   CHORUS_LOGS = {path: "#{Rails.root}/log",
@@ -34,6 +50,7 @@ module LogArchiver
   def create_archive
     `mkdir -p #{ASSEMBLE_ZIP_DIR}`
 
+    @log_archiver_logfile = File.new("#{ASSEMBLE_ZIP_DIR}/log_archiver.log", "w+")
     start_time = Time.now
     log "Log archiver started at #{start_time.to_formatted_s(:long)}"
 
@@ -108,7 +125,6 @@ module LogArchiver
   end
 
   def log(msg)
-    @log_archiver_logfile ||= File.new("#{ASSEMBLE_ZIP_DIR}/log_archiver.log", "w+")
     unless msg.blank?
       logger.debug msg
       @log_archiver_logfile.write("#{msg}\n")
