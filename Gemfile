@@ -28,6 +28,7 @@ gem 'render_anywhere'
 # Bulk updating of active_record
 gem 'activerecord-import','0.10.0'
 
+gem 'rubyzip', '1.1.7'
 
 platform :jruby do
   gem 'jruby-openssl', :require => false
@@ -46,7 +47,7 @@ group :assets do
 end
 
 group :integration do
-  gem 'capybara', "~> 2.0.0", :require => false
+  gem 'capybara', :require => false
   gem 'headless'
   gem 'capybara-screenshot'
 end
