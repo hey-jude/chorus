@@ -91,7 +91,7 @@ describe("chorus.dialogs.ConfigureJob", function () {
                     });
 
                     it("should create a toast", function () {
-                        expect(chorus.toast).toHaveBeenCalledWith(this.dialog.toastMessage(), {toastOpts: {type: "success"}, jobName: this.jobPlan.name});
+                        expect(chorus.toast).toHaveBeenCalledWith(this.dialog.toastMessage(), {toastOpts: {type: "success"}, jobName: this.dialog.model.name()});
                     });
 
                     it("should navigate to the job's show page", function () {
@@ -443,8 +443,7 @@ describe("chorus.dialogs.ConfigureJob", function () {
                         });
 
                         it("should create a toast", function () {
-                            // Atul: this test is still broken for me.  Can you look into it?
-                            expect(chorus.toast).toHaveBeenCalledWith(this.dialog.toastMessage(), {toastOpts: {type: "success"}, jobName: this.jobPlan.name});
+                            expect(chorus.toast).toHaveBeenCalledWith(this.dialog.toastMessage(), {toastOpts: {type: "success"}, jobName: this.dialog.model.name()});
                         });
                     });
                 });
