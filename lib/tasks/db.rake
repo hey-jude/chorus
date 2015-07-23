@@ -23,6 +23,12 @@ namespace :db do
     end
   end
 
+  task :migrate_permissions => :environment do
+    ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
+      load Rails.root.join('db', 'migrate_permissions.rb')
+    end
+  end
+
 
   def create_database_tasks(database_name)
     namespace database_name.to_sym do
