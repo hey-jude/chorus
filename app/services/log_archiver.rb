@@ -13,6 +13,7 @@ module LogArchiver
   # pgadmin.log (called server.log) > $CHORUS_HOME/shared/db
   # tomcat logs > $CHORUS_HOME/alpine-current/apache-tomcat-7.0.41/logs
 
+  # KT: I see these files in this location: AlpineHadoopRestClient.log, Alpine.log
   ALPINE_LOGS = {path: "#{Dir.home}",
                  archive_path: "#{ASSEMBLE_ZIP_DIR}/alpine_logs"}
 
@@ -61,7 +62,20 @@ module LogArchiver
 
         if File.directory?(log[:path])
           Dir.glob("#{log[:path]}/*.log").each do |file|
-            truncate_file(file, "#{log[:archive_path]}/#{File.basename(file)}")
+
+            basename = File.basename(file)
+
+            # KT: Don't vacuum up tons of log-rotated files. Everett helped me find the long-running server 10.0.0.233
+            # which has good examples.
+            exclusion_regexes = [
+              /.*\d{4}_\d{2}_\d{2}.*/ # jetty_stderr_2015_06_24.log, jetty_request_2015_07_20.log
+            ]
+
+            if exclusion_regexes.any? {|regex| regex.match(basename) }
+              log "Skipping #{file} because it matches an exclusion_regex."
+            else
+              truncate_file(file, "#{log[:archive_path]}/#{File.basename(file)}")
+            end
           end
         else # not a directory
           truncate_file(log[:path], "#{log[:archive_path]}/#{File.basename(log[:path])}")
