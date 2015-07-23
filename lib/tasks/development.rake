@@ -31,9 +31,11 @@ namespace :development do
   task :init_database => [:generate_database_yml] do
     root = Pathname.new(__FILE__).dirname.join("../..")
     postgres_port = `ruby #{File.join(root, 'packaging', 'get_postgres_port.rb')}`.chomp
-    next if root.join("postgres-db").exist?
 
-    `DYLD_LIBRARY_PATH=#{root}/postgres/lib LD_LIBRARY_PATH=#{root}/postgres/lib #{root}/postgres/bin/initdb -D #{root}/postgres-db -E utf8`
+    unless root.join("postgres-db").exist?
+      `DYLD_LIBRARY_PATH=#{root}/postgres/lib LD_LIBRARY_PATH=#{root}/postgres/lib #{root}/postgres/bin/initdb -D #{root}/postgres-db -E utf8`
+    end
+
     `CHORUS_HOME=#{root} #{root}/packaging/chorus_control.sh start postgres`
     `DYLD_LIBRARY_PATH=#{root}/postgres/lib LD_LIBRARY_PATH=#{root}/postgres/lib #{root}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
 
