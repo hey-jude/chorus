@@ -91,7 +91,7 @@ describe("chorus.dialogs.ConfigureJob", function () {
                     });
 
                     it("should create a toast", function () {
-                        expect(chorus.toast).toHaveBeenCalledWith(this.dialog.toastMessage(), {toastOpts: {type: "success"}, jobName: this.dialog.model.name()});
+                        expect(chorus.toast).toHaveBeenCalledWith(this.dialog.toastMessage(), {toastOpts: {type: "success"}, jobName: this.jobPlan.name});
                     });
 
                     it("should navigate to the job's show page", function () {
