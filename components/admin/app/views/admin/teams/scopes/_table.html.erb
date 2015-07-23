@@ -1,0 +1,24 @@
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title"><%= pluralize(@team_scopes.count, "Scopes") %></h3>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <tbody>
+            <%= render partial: "admin/teams/users/table_row" , collection: @team_scopes , as: :scope %>
+            <tr id="new_row" style="hidden:true"></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="dataTables_paginate paging_simple_numbers" style="float:right">
+        <%= page_entries_info @team_scopes %>
+        <%= will_paginate @team_scopes, :class => 'digg_pagination',param_name: 'scopes_page' %>
+      </div>
+    </div>
+  </div><!-- /.box-body -->
+</div>

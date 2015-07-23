@@ -1,0 +1,9 @@
+<tr role="row" class="<%= get_row_class(role.id)%>">
+  <td class="sorting_1">
+    <%= link_to "#{role.name}", admin.role_path(role) ,:remote => true %>
+  </td>
+  <td>
+    <%= role.description %>
+  </td>
+</tr>
+

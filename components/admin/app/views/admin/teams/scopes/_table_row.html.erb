@@ -1,0 +1,9 @@
+<tr role="row" class="<%= get_row_class(scope.id)%>">
+  <td class="sorting_1">
+    <%= link_to "#{scope.name}", admin.chorus_scope_path(scope) ,:remote => true %>
+  </td>
+  <td>
+    <%= scope.description %>
+  </td>
+</tr>
+

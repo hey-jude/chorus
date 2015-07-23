@@ -1,5 +1,5 @@
 $('#users_table').html('<%= escape_javascript(render "show", user: @user) %>');
-$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: "user", object: "@user" ) %>');
+$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :user, object: @user ) %>');
 $('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb" ) %>');
-$('.breadcrumbs a').data("remote", "true");
+$('#breadcrumb a').attr("data-remote", "true");
 

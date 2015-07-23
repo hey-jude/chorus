@@ -4,18 +4,23 @@
  end
 
  crumb :users do
-   link "People", admin.users_path , remote: true
+   link "People", admin.users_path
    parent :admin
  end
 
  crumb :user do |user|
-   link user.first_name, admin.user_path, remote: true
+   link user.first_name, admin.user_path
    parent :users
  end
 
  crumb :teams do
    link "Teams", admin.teams_path
    parent :admin
+ end
+
+ crumb :team do |team|
+   link team.name, admin.team_path
+   parent :teams
  end
 
 # crumb :project do |project|

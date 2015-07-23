@@ -1,1 +1,8 @@
-$('#teams_table').html('<%= escape_javascript(render "show", :team => @team) %>');
+$('#teams_table').html('<%= escape_javascript(render "show", team: @team) %>');
+
+$('#teams_right_side_bar').html('<%= escape_javascript(render "right_side_bar") %>');
+
+$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :team, object: @team ) %>');
+$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb" ) %>');
+
+$('#breadcrumb a').attr("data-remote", "true");

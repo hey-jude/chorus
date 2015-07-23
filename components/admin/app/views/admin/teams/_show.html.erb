@@ -1,12 +1,35 @@
 <div class="box box-info">
   <div class="box-header with-border">
-    <h3 class="box-title"><%= team.name%></h3>
     <%= image_tag @team.avatar.url(:icon) %>
+    <h3 class="box-title"><%= team.name%></h3>
+    <h4> <%= team.description%> </h4>
   </div><!-- /.box-header -->
-
-    <div class="box-body">
-      <dl class="dl-horizontal">
-        <dt>Description</dt> <dd> <%= team.description%> </dd>
-      </dl>
-   </div>
  </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-sm-6">
+        <div id="team_users_table">
+            <%= render partial: "admin/teams/users/table" %>
+         </div>
+        </div>
+        <div class="col-sm-6">
+            <%= render partial: "admin/teams/roles/table" %>
+         </div>
+        </div>
+      </div>
+     </div>
+      <div class="row">
+        <div class="col-sm-6">
+           <div id="users_right_side_bar">
+             <%= render partial: "admin/teams/workspaces/table" %>
+           </div>
+        </div>
+        <div class="col-sm-6">
+            <%= render partial: "admin/teams/scopes/table" %>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

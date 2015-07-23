@@ -1,0 +1,10 @@
+<tr role="row" class="<%= get_row_class(user.id)%>">
+  <td class="sorting_1">
+    <%= link_to "#{user.first_name} #{user.last_name}", admin.user_path(user) ,:remote => true %>
+  </td>
+  <td>
+    <%= user.username %>
+    <%= user.email %>
+  </td>
+</tr>
+
