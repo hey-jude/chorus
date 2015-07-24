@@ -8,7 +8,6 @@ gem 'paperclip', '3.0.4'
 gem 'cocaine', '0.2.1' # cocaine is a paperclip dependency but new versions of cocaine cause trouble. remove this line after upgrading paperclip.
 gem 'queue_classic', :github => 'Chorus/queue_classic'
 gem 'clockwork',     :require => false
-gem 'allowy'
 gem 'sunspot_rails', '~> 2.0.0'
 gem 'jetpack', :github => 'Chorus/jetpack', :branch => '6c9253195b+chorus', :require => false
 gem 'nokogiri'
@@ -22,14 +21,19 @@ gem 'premailer-rails'
 gem 'messengerjs-rails'
 gem 'codemirror-rails', '3.23'
 gem 'honor_codes', '~> 0.1.0'
-# Gem to generate JSON data output using Rails View
+                       # Gem to generate JSON data output using Rails View
 gem 'jbuilder'
-# Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
+                       # Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
 gem 'render_anywhere'
-gem 'minitest'
+                       # Bulk updating of active_record
+gem 'activerecord-import','0.10.0'
 
+gem 'geo_pattern', '1.3.2'
+
+gem 'rubyzip', '1.1.7'
 
 platform :jruby do
+  gem 'jruby-openssl', :require => false
   gem 'activerecord-jdbcpostgresql-adapter', '1.3.7'
 end
 
@@ -45,7 +49,7 @@ group :assets do
 end
 
 group :integration do
-  gem 'capybara', "~> 2.0.0", :require => false
+  gem 'capybara', :require => false
   gem 'headless'
   gem 'capybara-screenshot'
 end
@@ -68,7 +72,7 @@ end
 
 group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :ci_next do
   gem 'foreman', '>= 0.62',      :require => false
-  gem 'rake', '10.3.2',                  :require => false
+  gem 'rake',                    :require => false
   gem 'rspec', '2.14.1',                :require => 'rspec/core/rake_task'
   gem 'jasmine', :github => 'pivotal/jasmine-gem'
   gem 'jasmine-core', :github => 'pivotal/jasmine'
@@ -83,6 +87,7 @@ group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :c
   gem 'rspec_api_documentation', :github => 'Chorus/rspec_api_documentation', :require => false
   gem 'pry' # Drop in to an extended Rails console by creating a 'binding.pry' breakpoint
   gem 'pry-nav' # Adds debugger functionality to Pry
+  gem 'pry-rails'
   gem 'ladle'
 end
 

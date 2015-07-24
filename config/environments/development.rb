@@ -30,7 +30,7 @@ Chorus::Application.configure do
   #config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Do not compress assets
-#  config.assets.compress = false
+  #  config.assets.compress = false
   config.assets.compress = false
 
   # Expands the lines which load the assets
@@ -42,11 +42,10 @@ Chorus::Application.configure do
   # Only turn it on if you really need concurrent requests
   config.allow_concurrency = true
   config.threadsafe!
-  config.eager_load_paths += config.autoload_paths
 
   if ChorusConfig.instance['mail.enabled']
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { :address => 'smtp.gmail.com', :port => 587, :user_name => 'alpinenotif@alpinenow.com', :password => 'AlpineNow!23', :authentication => 'login', :enable_starttls_auto => true }
+    config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
     ActionMailer::Base.default ChorusConfig.instance.mail_configuration
   else
     config.action_mailer.perform_deliveries = false
