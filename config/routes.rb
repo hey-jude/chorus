@@ -87,7 +87,7 @@ Chorus::Application.routes.draw do
     end
   end
 
-  resources :imports, :only => :update, :controller => 'dataset_imports'
+  resource :imports, :only => :update, :controller => 'dataset_imports'
 
   resources :worklets, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
     member do
