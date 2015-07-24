@@ -28,7 +28,7 @@ gem 'render_anywhere'
                        # Bulk updating of active_record
 gem 'activerecord-import','0.10.0'
 
-gem 'geo_pattern', '1.3.2'
+gem 'geo_pattern', '1.3.2'  # geopattern is used to generate the default worklet avatar images
 
 gem 'rubyzip', '1.1.7'
 
