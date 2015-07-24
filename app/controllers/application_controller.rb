@@ -50,6 +50,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user
+    Thread.current[:user]
+  end
+
   private
 
   def verified_request?
@@ -134,10 +138,6 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-  def current_user
-    Thread.current[:user]
-  end
-
   #PT Method to check if current user is in scope
   def current_user_in_scope?
     if Permissioner.is_admin?(current_user)
@@ -178,7 +178,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_collection_defaults
+    # PT: Need to fully qualify request.params in Rails 4.0
+    #TODO:Prakash Not sure why I have to add this twice. params and request.params have different storage.
+    #Some Rspec test cases are failing since request.parameteres do not get the :page and :per_page parameters.
     params.reverse_merge!(Chorus::Application.config.collection_defaults)
+    request.params.reverse_merge!(Chorus::Application.config.collection_defaults)
   end
 
   def present(model_or_collection, options={})

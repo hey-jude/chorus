@@ -13,7 +13,8 @@ module DataSources
       gpdb_data_source = DataSource.unshared.find(params[:data_source_id])
       Authority.authorize! :update, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
 
-      account = gpdb_data_source.accounts.find_or_initialize_by_owner_id(params[:account][:owner_id])
+      owner = User.find(params[:account][:owner_id])
+      account = gpdb_data_source.accounts.find_or_initialize_by(owner: owner)
 
       account.attributes = params[:account]
 

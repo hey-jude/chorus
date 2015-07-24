@@ -11,7 +11,8 @@ class GnipDataSourcesController < ApplicationController
   def index
     succinct = params[:succinct] == 'true'
     includes = succinct ? [] : [{:owner => :tags}, :tags]
-    gnip_data_sources = GnipDataSource.scoped.includes(includes)
+
+    gnip_data_sources = GnipDataSource.all.includes(includes)
     #PT. Apply scope filter for current_user
     gnip_data_sources =GnipDataSource.filter_by_scope(current_user, gnip_data_sources) if current_user_in_scope?
 
