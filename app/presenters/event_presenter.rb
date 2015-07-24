@@ -127,7 +127,7 @@ class EventPresenter < Presenter
         model_hash = {
             :entity_type => (model.respond_to?(:workfile) && (model.workfile.is_a?(Worklet) || model.workfile.is_a?(PublishedWorklet))) ? 'worklet_result' : 'work_flow_result',
             :id => workflow_result.result_id,
-            :model => model
+            :model => model.attributes
         }
 
         model_hash.merge!(:workfile_id => model.workfile.id) if model.respond_to?(:workfile)
