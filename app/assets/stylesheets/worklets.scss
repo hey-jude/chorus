@@ -1,0 +1,252 @@
+@import "_common";
+
+/* page layout        */
+div[data-page="PublishedWorkletShow"],div[data-page="WorkletShow"] {
+
+    #sidebar_wrapper {
+        display: none;
+    }
+
+    #left {
+        margin: 0;
+    }
+
+}
+/* END page layout */
+
+$worklet-left-column-width : 210px;
+$worklet-right-column-width : 300px;
+$worklet-column-padding-x : $padding-x;
+$worklet-column-padding-y : $padding-x;
+
+.worklet_header {
+  max-height: 45px;
+  width: 100%;
+
+  // background-color: $shaded-background-color;
+
+  .icon {
+    max-height: 40px;
+    float: left;
+  }
+
+  h1 {
+    padding: 6px 0 5px;
+  }
+
+  .item_information {
+    margin-left: 55px;
+  }
+
+}
+
+.worklet_inputs_configuration,.worklet_details_configuration {
+  margin-top: 5px;
+}
+
+.worklet_new_dialog,.worklet_inputs_configuration,.worklet_details_configuration {
+  .worklet_param {
+    border: 1px solid $border-color-darkest;
+    margin: 5px;
+
+    .input_section {
+      margin: 10px;
+    }
+    .workflow_variable {
+
+    }
+  }
+
+  select.workflow_variable, .ui-selectmenu-button .ui-button {
+    display: block;
+    min-width: 215px;
+  }
+
+  .image_instructions {
+    margin-left: 10px;
+    font-size: 12px;
+    color: $color-text4;
+  }
+
+  .description_instructions {
+    font-size: 12px;
+    color: $color-text4;
+  }
+
+  .worklet_image {
+    background-size: cover;
+    float: left;
+    width: 150px;
+    height: 150px;
+    margin-right: 5px;
+  }
+
+  .main_header {
+    font-size: $page_header-fontsize;
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  .section_header {
+    height: 25px;
+    background-color: $dialog-header-background;
+    border-bottom: $border-canon;
+
+    line-height: 25px;
+    padding: 0 $default-padding-horizontal;
+    word-break: break-all;
+
+    font-size: $medium-font;
+    font-weight: $semibold;
+    color: $color-text3;
+  }
+
+  .worklet_details {
+
+  }
+
+  .workflow_details {
+    margin: 5px;
+  }
+
+  .workfile_image {
+
+  }
+
+  #workfile_image_container {
+    border: 1px solid $border-color-darkest;
+    max-width: 100%;
+    max-height: 400px;
+    margin: 10px;
+    overflow: scroll;
+    position: relative;
+
+    .image_operator {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+    }
+
+    .bordered {
+      border: 5px solid #399ccd;
+      -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+      -moz-box-shadow:    7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+      box-shadow:         7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    }
+  }
+
+  .spinner_div {
+    display: none;
+    color: $color-text4;
+    font-size: 12px;
+    position:absolute;
+    right: 15px;
+
+    .loading_spinner {
+      left: 8px;
+      top: 8px;
+    }
+  }
+}
+
+.published_worklet_content {
+    padding-left: $worklet-left-column-width;   /* LC width */
+    padding-right: $worklet-right-column-width;  /* RC width */
+    overflow: hidden;
+
+    .worklet_output {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        .iframe_wrapper {
+            padding: 0 38px;
+        }
+    }
+
+    .worklet_history {
+        width: $worklet-left-column-width; /* LC width */
+        height: 100%;
+        right: $worklet-left-column-width;          /* LC width */
+        margin-left: -100%;
+        .title {
+            width: $worklet-left-column-width - (2 * $worklet-column-padding-x);
+            padding: 10px 0 10px 20px;
+            background: $accent-shade;
+            border-top: $dark-border-canon;
+            border-bottom: $dark-border-canon;
+        }
+        .history {
+            padding:  $worklet-column-padding-x;
+            background-color: lightgray;
+            .history_item {
+                background-color: white;
+                border: 2px black;
+                margin-bottom: 8px;
+                padding: 7px;
+                cursor: pointer;
+            }
+        }
+        .history_item_selected {
+            .history_item {
+                background-color: $accent-shade;
+            }
+        }
+    }
+
+    .worklet_submit {
+        width: $worklet-right-column-width;          /* RC width */
+        height: 100%;
+        margin-right: -$worklet-right-column-width;  /* RC width */
+        .title {
+            width: $worklet-right-column-width - (2 * $worklet-column-padding-x);
+            padding: 10px 0 10px 20px;
+            background: $accent-shade;
+            border-top: $dark-border-canon;
+            border-bottom: $dark-border-canon;
+        }
+        .variable {
+            padding: 8px;
+            .label {
+
+            }
+            .description {
+                font-size: 12px;
+                font-style: italic;
+                padding: 2px 5px 5px 5px;
+            }
+            input.textInput {
+                width: 250px;
+            }
+            select {
+                min-width: 200px;
+            }
+            .checkboxes {
+                padding: 5px;
+                background-color: white;
+            }
+        }
+        background-color: $pattens-blue;
+
+        .spinner_div {
+            display: none;
+            color: $color-text4;
+            font-size: 12px;
+            position:absolute;
+            right: 15px;
+
+            .loading_spinner {
+                left: 8px;
+                top: 8px;
+            }
+        }
+    }
+
+    >div {
+        position: relative;
+        float: left;
+        padding-bottom: 20000px + $worklet-column-padding-y;  /* X + padding-bottom */
+        margin-bottom: -20000px;  /* X */
+    }
+}

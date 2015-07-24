@@ -16,12 +16,6 @@ describe UserDashboardsController do
       decoded_response.modules.should == DashboardItem::DEFAULT_MODULES.reverse
     end
 
-    it 'uses authorization' do
-      log_in users(:no_collaborators)
-      get :show, :user_id => user.id
-      response.should be_forbidden
-    end
-
     context 'when the user has no dashboard config' do
       before do
         user.dashboard_items.destroy_all
@@ -89,10 +83,5 @@ describe UserDashboardsController do
       end
     end
 
-    it 'uses authorization' do
-      log_in users(:no_collaborators)
-      post :create, :user_id => user.id
-      response.should be_forbidden
-    end
   end
 end

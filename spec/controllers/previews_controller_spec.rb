@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe PreviewsController do
-  ignore_authorization!
-
   let(:gpdb_table) { datasets(:default_table) }
   let(:gpdb_data_source) { gpdb_table.data_source }
   let(:user) { users(:the_collaborator) }
@@ -16,6 +14,7 @@ describe PreviewsController do
     any_instance_of(Dataset) do |dataset|
       stub(dataset).connect_as(user) { connection }
     end
+    stub(Authority).authorize!.with_any_args { nil }
   end
 
   describe "#create" do
@@ -37,7 +36,8 @@ describe PreviewsController do
       end
 
       it "uses authentication" do
-        mock(subject).authorize! :show_contents, gpdb_data_source
+        mock(Authority).authorize! :explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
+
         post :create, params
       end
 

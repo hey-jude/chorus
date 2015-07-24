@@ -41,6 +41,13 @@ describe EventsController do
      get :index, :entity_type => "dashboard"
    end
 
+   it_behaves_like "a scoped endpoint" do
+     let!(:klass)  { Events::Base }
+     let!(:user)   { current_user }
+     let!(:action) { :index }
+     let!(:params) { { :entity_type => "dashboard" } }
+   end
+
    it "passes the succinct option to the Presenter" do
      mock_present { |models, view, options| options[:succinct].should be_true }
      get :index, :entity_type => "dashboard"
@@ -393,8 +400,12 @@ describe EventsController do
         'jobFailed' => Events::JobFailed,
         'workfileResult' => Events::WorkfileResult,
         'jobDisabled' => Events::JobDisabled,
+        'jobCreated' => Events::JobCreated,
+        'jobDeleted' => Events::JobDeleted,
         'hdfsImportSuccess' => Events::HdfsImportSuccess,
-        'hdfsImportFailed' => Events::HdfsImportFailed
+        'hdfsImportFailed' => Events::HdfsImportFailed,
+        'milestoneCreated' => Events::MilestoneCreated,
+        'milestoneUpdated' => Events::MilestoneUpdated
     }
 
     FIXTURE_FILES.each do |file_name, event_class|

@@ -3,6 +3,10 @@ class DataSource < ActiveRecord::Base
   include TaggableBehavior
   include Notable
   include CommonDataSourceBehavior
+  include Permissioner
+
+  # DO NOT CHANGE the order of these permissions, you'll accidently change everyone's permissons across the site.
+  # Order: edit, show_contents
 
   attr_accessor :db_username, :db_password
   attr_accessible :name, :description, :host, :port, :ssl, :db_name, :db_username, :db_password, :is_hawq, :as => [:default, :create]
@@ -17,6 +21,7 @@ class DataSource < ActiveRecord::Base
 
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
+  has_many :databases
 
   before_validation :build_data_source_account_for_owner, :on => :create
 
@@ -156,11 +161,11 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh_databases_later
-    QC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed?
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed?
   end
 
   def solr_reindex_later
-    QC.enqueue_if_not_queued('DataSource.reindex_data_source', id)
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id)
   end
 
   def update_state_and_version
@@ -188,7 +193,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def enqueue_refresh
-    QC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true)
+    SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true)
   end
 
   def account_owned_by(user)

@@ -5,7 +5,13 @@
         {{/if}}
     </div>
     <div class="actions">
-        <label>{{t "sidebar.selected.one"}}</label>
+        <label>
+            {{#if inWorkfile}}
+                {{t "sidebar.workfile_actions"}}
+            {{else}}
+                {{t "sidebar.selected.one"}}
+            {{/if}}
+        </label>
         <ul>
             {{#if showRunWorkflow}}
                 {{#unless isRunning}}
@@ -16,6 +22,9 @@
                     <li><a class="stop" href="#">{{t 'work_flows.actions.stop'}}</a></li>
                 {{/unless}}
 
+            {{/if}}
+            {{#if showCreateWorklet}}
+                <li><a href="#" class="create_worklet">Create Worklet</a></li>
             {{/if}}
             {{#if showAddNoteLink}}
                 <li><a class="new_note dialog-launch" href="#">{{t "actions.add_note"}}</a></li>
@@ -30,6 +39,12 @@
             {{/if}}
             {{#if showEditLinks}}
                 <li><a href="#" class="delete alert-launch">{{t "workfile.delete.button"}}</a></li>
+            {{/if}}
+            {{#if showPublishWorklet}}
+                <li><a href="#" class="publish">Publish Worklet</a></li>
+            {{/if}}
+            {{#if showUnpublishWorklet}}
+                <li><a href="#" class="unpublish">Unpublish Worklet</a></li>
             {{/if}}
         </ul>
     </div>

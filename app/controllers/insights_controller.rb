@@ -1,5 +1,3 @@
-require Rails.root + 'app/permissions/insight_access'
-
 class InsightsController < ApplicationController
   wrap_parameters :insight, :exclude => []
   
@@ -12,12 +10,10 @@ class InsightsController < ApplicationController
 
   def destroy
     note = Events::Note.visible_to(current_user).find params[:id]
-    if note.demotable_by(current_user)
-      note.demote_from_insight
-      present note
-    else
-      head :forbidden
-    end
+    Authority.authorize! :update, note, current_user, {:or => [:current_user_promoted_note,
+                                                                            :current_user_is_notes_workspace_owner]}
+    note.demote_from_insight
+    present note
   end
 
   def publish
@@ -31,7 +27,8 @@ class InsightsController < ApplicationController
   def unpublish
     note_id = params[:insight][:note_id] || params[:note][:note_id]
     note = Events::Note.find(note_id)
-    authorize! :update, note
+    #authorize! :update, note
+    Authority.authorize! :update, note, current_user, { :or => :current_user_is_event_actor }
     raise ApiValidationError.new(:base, :generic, {:message => "Note has to be published first"}) unless note.published
     note.set_insight_published false
     present note, :status => :created
@@ -39,7 +36,11 @@ class InsightsController < ApplicationController
 
   def index
     params[:entity_type] ||= 'dashboard'
-    present paginate(get_insights), :presenter_options => {:activity_stream => true, :cached => true, :namespace => "workspace:insights"}
+    insights = get_insights
+    # TODO: Scope. Filter results for curret_user's scope
+    insights = Events::Base.filter_by_scope(current_user, insights) if current_user_in_scope?
+
+    present paginate(insights), :presenter_options => {:activity_stream => true, :cached => true, :namespace => "workspace:insights"}
   end
 
   private

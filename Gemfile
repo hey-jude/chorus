@@ -8,24 +8,29 @@ gem 'paperclip', '3.0.4'
 gem 'cocaine', '0.2.1' # cocaine is a paperclip dependency but new versions of cocaine cause trouble. remove this line after upgrading paperclip.
 gem 'queue_classic', :github => 'Chorus/queue_classic'
 gem 'clockwork',     :require => false
-gem 'allowy'
 gem 'sunspot_rails', '~> 2.0.0'
 gem 'jetpack', :github => 'Chorus/jetpack', :branch => '6c9253195b+chorus', :require => false
 gem 'nokogiri'
 gem 'sequel', '~> 4.0', :require => 'sequel/no_core_ext'
 gem 'attr_encrypted' #if you load attr_encrypted before sequel, it blows up saying 'sequel::model' is undefined
 gem 'chorusgnip', :github => 'Chorus/gnip'
+gem 'hadoopconf_gem', :github => 'Chorus/chorus-hadoop-conf', :ref => 'ce0d34dde0f5f4dd372af6406fafd9c5b2baac5f'
 gem 'logger-syslog'
 gem 'newrelic_rpm'
 gem 'premailer-rails'
 gem 'messengerjs-rails'
 gem 'codemirror-rails', '3.23'
 gem 'honor_codes', '~> 0.1.0'
-# Gem to generate JSON data output using Rails View
+                       # Gem to generate JSON data output using Rails View
 gem 'jbuilder'
-# Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
+                       # Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
 gem 'render_anywhere'
+                       # Bulk updating of active_record
+gem 'activerecord-import','0.10.0'
 
+gem 'geo_pattern', '1.3.2'
+
+gem 'rubyzip', '1.1.7'
 
 platform :jruby do
   gem 'jruby-openssl', :require => false
@@ -44,7 +49,7 @@ group :assets do
 end
 
 group :integration do
-  gem 'capybara', "~> 2.0.0", :require => false
+  gem 'capybara', :require => false
   gem 'headless'
   gem 'capybara-screenshot'
 end
@@ -82,11 +87,13 @@ group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :c
   gem 'rspec_api_documentation', :github => 'Chorus/rspec_api_documentation', :require => false
   gem 'pry' # Drop in to an extended Rails console by creating a 'binding.pry' breakpoint
   gem 'pry-nav' # Adds debugger functionality to Pry
+  gem 'pry-rails'
   gem 'ladle'
 end
 
 group :development do
   # gem 'tabcmd_gem', :path => "~/alpine/chorus-tableau" # otherwise is set in Gemfile-packaging
+  # gem 'hadoopconf_gem', :path => "~/alpine/chorus-hadoop-conf"
   gem 'license_finder', '~> 0.8.1', :require => false
   gem 'mizuno'
   gem 'bullet'

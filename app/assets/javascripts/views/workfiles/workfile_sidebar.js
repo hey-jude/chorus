@@ -20,6 +20,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         "click a.delete": 'launchWorkfileDeleteDialog',
         "click a.copy": 'launchCopyWorkfileDialog',
         "click a.new_note": 'launchNotesNewDialog',
+        "click a.create_worklet": 'launchNewWorkletDialog',
         "click a.run_now": 'runWorkflow',
         "click a.stop" : 'stopWorkflow'
     },
@@ -98,7 +99,9 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
             showUpdatedTime: this.options.showUpdatedTime,
             showVersions: this.options.showVersions,
             showRunWorkflow: workspaceActive && this.model.isAlpine() && canUpdate,
-            isRunning: this.model.get('status') === 'running'
+            isRunning: this.model.get('status') === 'running',
+            inWorkfile: this.options.inWorkfile,
+            showCreateWorklet: this.model.isAlpine() && !this.model.isWorklet()
         };
 
         if (this.model) {
@@ -188,6 +191,17 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         dialog.launchModal();
     },
 
+    launchNewWorkletDialog: function(e) {
+        e && e.preventDefault();
+
+        var dialog = new chorus.dialogs.WorkletNew({
+            workflow: this.model,
+            pageModel: this.model.workspace()
+        });
+
+        dialog.launchModal();
+    },
+
     runWorkflow: function (e) {
         e && e.preventDefault();
         this.model.isAlpine() && this.model.run();
@@ -200,7 +214,8 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
 },
 {
     typeMap: {
-        alpine: 'AlpineWorkfileSidebar'
+        alpine: 'AlpineWorkfileSidebar',
+        worklet: 'WorkletSidebar'
     },
 
     buildFor: function(options) {
@@ -209,7 +224,6 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         if (!chorus.views[this.typeMap[workfileType]]) {
             return new chorus.views.WorkfileSidebar(options);
         }
-
         return new chorus.views[this.typeMap[workfileType]](options);
     }
 });

@@ -22,6 +22,10 @@ module Alpine
       new(user: user).run_work_flow(work_flow)
     end
 
+    def self.run_worklet(work_flow, user, variables)
+      new(user: user).run_work_flow(work_flow, {worklet: true, post_variable_data: variables})
+    end
+
     def self.stop_work_flow(killer, user=killer.job.owner)
       new(user: user).stop_work_flow(killer.killable_id)
     end
@@ -97,7 +101,9 @@ module Alpine
     end
 
     def request_run(work_flow, options)
-      response = request_base.post(run_path(work_flow, options), '')
+      #response = request_base.post(run_path(work_flow, options), '{"@xxx":"80", "@user_name":"chorusadmin", "@flow_name":"easy_3_186", "@default_schema":"public", "@default_prefix":"ch1", "@default_tempdir":"/tmp", "@default_delimiter":",", "@pig_number_of_reducers":"-1"}', {'Content-Type' => 'application/json'})
+      response = request_base.post(run_path(work_flow, options), options[:post_variable_data] ? options[:post_variable_data] : '', {'Content-Type' => 'application/json'})
+
       unless response.code == '200' && (process_id = JSON.parse(response.body)['process_id']).present?
         raise RunError.new(response.body)
       end
@@ -137,10 +143,13 @@ module Alpine
 
     def run_path(work_flow, options)
       params = {
-        method: 'runWorkFlow',
+        method: options[:worklet] ? 'runWorklet' : 'runWorkFlow',
         session_id: session_id,
         workfile_id: work_flow.id
       }
+      if options[:worklet]
+        params.merge!({original_workfile_id: work_flow.workflow_id})
+      end
       params[:job_task_id] = options[:task].id if options[:task]
 
       path_with(params)

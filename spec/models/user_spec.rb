@@ -5,6 +5,35 @@ describe User do
     stub(LdapClient).enabled? { false }
   end
 
+  describe "defaults" do
+    it "has the default role" do
+      User.new.roles.should include(Role.find_by_name("Collaborator"))
+    end
+
+    it "doesn't duplicate roles when pulling record from database" do
+      u = User.new(:username => "single_role")
+      old_roles = u.roles
+      u.save(:validate => false)
+
+      u = User.find_by_username("single_role")
+      new_roles = u.roles
+      old_roles.should eq(new_roles)
+    end
+  end
+
+  describe "permissions" do
+    # Since the permissions use a bitmask, it's important that the order of permissions
+    # never change after the customer has permissions in the database.
+    # If you need a new permission, append it to the end of the list.
+    # Updating the order of permissions after-the-fact will require
+    # lots of testing.
+
+    #it "should have the exact permissions specified" do
+    #  permissions_list = [:create, :destroy, :ldap, :update]
+    #  User::PERMISSIONS.should eq(permissions_list)
+    #end
+  end
+
   describe ".authenticate" do
     let(:user) { users(:default) }
 
@@ -263,6 +292,10 @@ describe User do
     it { should have_many(:activities) }
     it { should have_many(:events) }
     it { should have_many(:dashboard_items).dependent(:destroy) }
+    it { should have_and_belong_to_many(:groups) }
+    it { should have_and_belong_to_many(:roles) }
+    it { should have_many(:chorus_object_roles) }
+    it { should have_many(:object_roles).through(:chorus_object_roles) }
   end
 
   describe ".admin_count" do

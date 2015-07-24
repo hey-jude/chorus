@@ -20,6 +20,7 @@ FixtureBuilder.configure do |fbuilder|
     spec/support/database_integration/*
     tmp/*_HOST_STALE
     spec/support/test_data_sources_config.yml
+    db/permissions_seeds.rb
   }]
 
   fbuilder.name_model_with(ChorusWorkfile) do |record|
@@ -33,6 +34,12 @@ FixtureBuilder.configure do |fbuilder|
 
   # now declare objects
   fbuilder.factory do
+
+    # Sometimes
+    #ActiveRecord::Base.connection.tables.each do |t|
+    #  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    #end
+
     extend CurrentUserHelpers
     extend RR::Adapters::RRMethods
     Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)
@@ -54,9 +61,17 @@ FixtureBuilder.configure do |fbuilder|
       ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{klass.table_name}_id_seq RESTART WITH 1000000;")
     end
 
+    load "#{Rails.root}/db/permissions_seeds.rb"
+
+    #Roles, Groups, and Permissions
+    @a_role = FactoryGirl.create(:role)
+    @a_permission = FactoryGirl.create(:permission)
+    @a_group = FactoryGirl.create(:group)
+
     #Users
     admin = FactoryGirl.create(:admin, {:last_name => 'AlphaSearch', :username => 'admin'})
     evil_admin = FactoryGirl.create(:admin, {:last_name => 'AlphaSearch', :username => 'evil_admin'})
+    Role.find_by_name("Admin").users << [admin, evil_admin]
     Events::UserAdded.by(admin).add(:new_user => evil_admin)
 
     FactoryGirl.create(:user, :username => 'default')
@@ -83,6 +98,9 @@ FixtureBuilder.configure do |fbuilder|
 
     user_with_restricted_access = FactoryGirl.create(:user, :username => 'restricted_user')
     Events::UserAdded.by(user_with_restricted_access).add(:new_user => user_with_restricted_access)
+
+
+
 
     #Data Sources
     gpdb_data_source = FactoryGirl.create(:gpdb_data_source, :name => "searchquery", :description => "Just for searchquery and greenplumsearch", :host => "non.legit.example.com", :port => "5432", :db_name => "postgres", :owner => admin)
@@ -424,6 +442,9 @@ FixtureBuilder.configure do |fbuilder|
     FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 25)
     FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 12)
 
+    Events::MilestoneCreated.by(owner).add(:milestone => default_milestone, :workspace => default_milestone.workspace)
+    Events::MilestoneUpdated.by(owner).add(:milestone => default_milestone, :workspace => default_milestone.workspace)
+
     ##Jobs
     default_job = FactoryGirl.create(:job, :workspace => public_workspace)
     fbuilder.name :default, default_job
@@ -472,6 +493,8 @@ FixtureBuilder.configure do |fbuilder|
     Events::JobSucceeded.by(owner).add(:job => default_job, :workspace => default_job.workspace, :job_result => b_result)
     Events::JobFailed.by(owner).add(:job => default_job, :workspace => default_job.workspace, :job_result => FactoryGirl.create(:job_result, :job => default_job, :succeeded => false))
     Events::JobDisabled.by(owner).add(:job => default_job, :workspace => default_job.workspace)
+    Events::JobCreated.by(owner).add(:job => default_job, :workspace => default_job.workspace)
+    Events::JobDeleted.by(owner).add(:job => default_job, :workspace => default_job.workspace)
 
     #CSV File
     csv_file = CsvFile.new({:user => the_collaborator, :workspace => public_workspace, :column_names => [:id], :types => [:integer], :delimiter => ',', :has_header => true, :to_table => 'table', :new_table => true, :contents_file_name => 'import.csv'}, :without_protection => true)

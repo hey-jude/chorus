@@ -5,6 +5,11 @@ describe DataSourcesController do
 
   before { log_in user }
 
+  # ignore authorization unless we're specifically testing for it
+  before :each do
+    stub(Authority).authorize! { nil }
+  end
+
   describe "index" do
     let(:permitted_data_source) { data_sources(:owners) }
     let(:prohibited_data_source) { data_sources(:admins) }
@@ -13,6 +18,13 @@ describe DataSourcesController do
 
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
+
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { DataSource }
+      let!(:user)  { users(:owner)}
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
 
     it "returns data sources that the user can access" do
       get :index
@@ -122,7 +134,7 @@ describe DataSourcesController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize!(:edit, gpdb_data_source)
+      mock(Authority).authorize!(:update, gpdb_data_source, user, { :or => :current_user_is_object_owner })
       put :update, params
     end
 
@@ -182,8 +194,8 @@ describe DataSourcesController do
       end
 
       it 'schedules a job to refresh the data source' do
-        stub(QC.default_queue).enqueue_if_not_queued(anything, anything)
-        mock(QC.default_queue).enqueue_if_not_queued('DataSource.refresh', numeric, {'new' => true})
+        stub(SolrIndexer.SolrQC).enqueue_if_not_queued(anything, anything)
+        mock(SolrIndexer.SolrQC).enqueue_if_not_queued('DataSource.refresh', numeric, {'new' => true})
         post :create, :data_source => valid_attributes
       end
 
@@ -218,8 +230,8 @@ describe DataSourcesController do
       end
 
       it 'schedules a job to refresh the data source' do
-        stub(QC.default_queue).enqueue_if_not_queued(anything, anything)
-        mock(QC.default_queue).enqueue_if_not_queued('DataSource.refresh', numeric, {'new' => true})
+        stub(SolrIndexer.SolrQC).enqueue_if_not_queued(anything, anything)
+        mock(SolrIndexer.SolrQC).enqueue_if_not_queued('DataSource.refresh', numeric, {'new' => true})
         post :create, :data_source => valid_attributes
       end
 
@@ -368,7 +380,7 @@ describe DataSourcesController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :edit, data_source
+      mock(Authority).authorize! :destroy, data_source, user, { :or => :current_user_is_object_owner }
       delete :destroy, :id => data_source.id
     end
   end

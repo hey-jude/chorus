@@ -4,6 +4,8 @@ module Events
   class Base < ActiveRecord::Base
     include SoftDelete
     include Recent
+    include Permissioner
+
 
     def self.activity_stream_eager_load_associations
       [

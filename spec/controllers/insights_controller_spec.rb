@@ -81,7 +81,7 @@ describe InsightsController do
 
     context "when the note is demotable by the current user" do
       before do
-        any_instance_of(Events::NoteOnWorkspace) { |note| stub(note).demotable_by(user) { true } }
+        stub(Authority).authorize! { nil }
       end
 
       it "toggles the insight field on the given note" do
@@ -93,10 +93,6 @@ describe InsightsController do
     end
 
     context "when the note is NOT demotable by the current user" do
-      before do
-        any_instance_of(Events::NoteOnWorkspace) { |note| stub(note).demotable_by(user) { false } }
-      end
-
       it "refuses to toggle the insight field on the given note" do
         expect {
           post :destroy, {id: note.id}
@@ -302,6 +298,13 @@ describe InsightsController do
         :insight => true,
         :promotion_time => Time.current(),
         :promoted_by => user) }
+
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Events::Base }
+      let!(:user)  { users(:no_collaborators) }
+      let!(:action){ :index }
+      let!(:params){ { :entity_type => 'dashboard' } }
+    end
 
     it "presents the insights with caching" do
       mock_present do |models, ignored, options|

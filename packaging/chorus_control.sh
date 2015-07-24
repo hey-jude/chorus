@@ -28,7 +28,28 @@ function should_handle () {
   # If no services are provided, or $1 is a service to start
   [ ${#services[@]} -eq 0 ] || contains ${services[@]} $1
 }
+function setup () {
+  EXIT_STATUS=0
+  pushd $CHORUS_HOME > /dev/null
+  $PYTHON ./packaging/setup/chorus_server setup "$@"
+  EXIT_STATUS=`expr $EXIT_STATUS + $?`
+  popd > /dev/null
+}
+function health_check () {
+  EXIT_STATUS=0
+  pushd $CHORUS_HOME > /dev/null
+  $PYTHON ./packaging/setup/chorus_server health_check "$@"
+  EXIT_STATUS=`expr $EXIT_STATUS + $?`
+  popd > /dev/null
 
+}
+function configure () {
+  EXIT_STATUS=0
+  pushd $CHORUS_HOME > /dev/null
+  $PYTHON ./packaging/setup/chorus_server configure "$@"
+  EXIT_STATUS=`expr $EXIT_STATUS + $?`
+  popd > /dev/null
+}
 function start () {
   EXIT_STATUS=0
   pushd $CHORUS_HOME > /dev/null
@@ -37,8 +58,21 @@ function start () {
     EXIT_STATUS=`expr $EXIT_STATUS + $?`;
   fi
   if should_handle solr;      then
-    $bin/start-solr.sh;
-    EXIT_STATUS=`expr $EXIT_STATUS + $?`;
+    if ! contains ${services[@]} solr && [[ $INDEXER_DISABLED == 1 ]]; then
+        log "Skipping solr (See indexer.enabled in chorus.properties)...";
+    else
+        $bin/start-solr.sh;
+        EXIT_STATUS=`expr $EXIT_STATUS + $?`;
+    fi
+  fi
+  if should_handle indexer;   then
+    # If indexing is disabled in chorus properties then don't auto start it, unless explicitly requested to.
+    if ! contains ${services[@]} indexer && [[ $INDEXER_DISABLED -eq 1 ]]; then
+        log "Skipping indexer (See indexer.enabled in chorus.properties)...";
+    else
+        $bin/start-indexer.sh;
+        EXIT_STATUS=`expr $EXIT_STATUS + $?`;
+    fi
   fi
   if should_handle workers;   then
     $bin/start-workers.sh;
@@ -88,6 +122,10 @@ function stop () {
   if should_handle workers;    then
     $bin/stop-workers.sh $MAX_WAIT_TIME
 
+    EXIT_STATUS=`expr $EXIT_STATUS + $?`;
+  fi
+  if should_handle indexer;    then
+    $bin/stop-indexer.sh $MAX_WAIT_TIME
     EXIT_STATUS=`expr $EXIT_STATUS + $?`;
   fi
   if should_handle solr;       then
@@ -234,11 +272,14 @@ function usage () {
   echo "  $script monitor [services]                       monitor and restart services as needed"
   echo "  $script backup  [-d dir] [-r days]               backup Chorus data"
   echo "  $script restore [file]                           restore Chorus data"
+  echo "  $script setup                                    setup chorus and alpine"
+  echo "  $script health_check                             health check chorus service"
+  echo "  $script configure                                configure chorus and alpine"
   echo
   if [ "$ALPINE_HOME" != "" ]; then
-    echo "The following services are available: postgres, workers, scheduler, solr, webserver, alpine."
+    echo "The following services are available: postgres, workers, indexer, scheduler, solr, webserver, alpine."
   else
-    echo "The following services are available: postgres, workers, scheduler, solr, webserver."
+    echo "The following services are available: postgres, workers, indexer, scheduler, solr, webserver."
   fi
   echo "If no services are specified on the command line, $script manages all services."
   echo
@@ -284,6 +325,15 @@ case $command in
     restore )
        restore ${@}
        ;;
+	setup )
+	   setup ${@}
+	   ;;
+	health_check )
+	   health_check ${@}
+	   ;;
+	configure )
+	   configure ${@}
+	   ;;
     * )
        usage
        ;;

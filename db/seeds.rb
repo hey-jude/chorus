@@ -5,7 +5,6 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
-require 'user'
 
 ActiveRecord::Base.connection.schema_cache.clear!
 
@@ -19,6 +18,8 @@ end
 
 Sunspot.session = BlackholeSession.new
 
+# --- USERS ---
+
 unless User.where(:username => "chorusadmin").present?
   puts "Creating chorusadmin user..."
   user = User.new(
@@ -29,6 +30,12 @@ unless User.where(:username => "chorusadmin").present?
     :password => "secret",
     :password_confirmation => "secret"
   )
-  user.admin = true
   user.save!
 end
+
+chorusadmin = User.find_by_username("chorusadmin")
+site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
+admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
+
+site_admin_role.users << chorusadmin if chorusadmin
+admin_role.users << chorusadmin if chorusadmin

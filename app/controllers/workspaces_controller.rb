@@ -35,11 +35,12 @@ class WorkspacesController < ApplicationController
         @workspaces = workspaces.where('id IN (' + top_workspace_ids.join(',') + ')')
                             .includes(succinct ? [:owner] : Workspace.eager_load_associations)
                             .order("lower(name) ASC, id")
+        @workspaces = Workspace.filter_by_scope(current_user, @workspaces) if current_user_in_scope?
 
         present paginate(@workspaces),
            :presenter_options => {
                :show_latest_comments => (params[:show_latest_comments] == 'true'),
-              :succinct => succinct, :cached => true, :namespace => @namespace
+              :succinct => succinct, :cached => true, :cache_expiry => 7.days, :namespace => @namespace
         }
 
       end
@@ -48,10 +49,13 @@ class WorkspacesController < ApplicationController
       @workspaces = workspaces.includes(succinct ? [:owner] : Workspace.eager_load_associations)
                           .order("lower(name) ASC, id")
 
+      #PT Filter workspaces by scope for current_user
+      @workspaces = Workspace.filter_by_scope(current_user, @workspaces) if current_user_in_scope?
+
       present paginate(@workspaces),
              :presenter_options => {
                  :show_latest_comments => (params[:show_latest_comments] == 'true'),
-                 :succinct => succinct, :cached => true, :namespace => @namespace
+                 :succinct => succinct, :cached => true, :cache_expiry => 7.days, :namespace => @namespace
              }
 
     end
@@ -66,9 +70,16 @@ class WorkspacesController < ApplicationController
 
   def show
     workspace = Workspace.find(params[:id])
-    authorize! :show, workspace
+    Authority.authorize! :show,
+                         workspace,
+                         current_user,
+                         { :or => [ :current_user_is_in_workspace,
+                                    :workspace_is_public ] }
+
+    permissions = Workspace.permission_symbols_for current_user
+    permissions.push(:update).uniq! if workspace.member? current_user
     # use the cached version of "workspaces:workspaces" namespace.
-    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true',:cached => true, :namespace => 'workspaces:workspaces' }
+    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true', :cached => true, :cache_expiry => 7.days, :namespace => 'workspaces:workspaces' }
   end
 
   def update
@@ -78,8 +89,7 @@ class WorkspacesController < ApplicationController
     attributes[:archiver] = current_user if (attributes[:archived] && !workspace.archived?)
     workspace.attributes = attributes
 
-    authorize! :update, workspace
-
+    Authority.authorize! :update, workspace, current_user, { :or => :current_user_can_update_workspace }
     create_workspace_events(workspace) if workspace.valid?
 
     workspace.save!
@@ -88,7 +98,7 @@ class WorkspacesController < ApplicationController
 
   def destroy
     workspace = Workspace.find(params[:id])
-    authorize!(:destroy, workspace)
+    Authority.authorize! :destroy, workspace, current_user, { :or => :current_user_is_object_owner }
     Events::WorkspaceDeleted.by(current_user).add(:workspace => workspace)
     workspace.destroy
 

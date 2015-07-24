@@ -9,5 +9,4 @@ class MilestonePresenter < Presenter
       :state => model.state
     }
   end
-
 end

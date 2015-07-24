@@ -13,7 +13,7 @@ bin=`cd "$bin"; pwd`
 # in production, start jetty in background
 
 STARTING="web server"
-depends_on postgres solr
+depends_on postgres
 
 # If NGINX is already running
 if ( test -f $NGINX_PID_FILE ) && ( kill -0 `cat $NGINX_PID_FILE` > /dev/null 2>&1 ); then
@@ -58,6 +58,7 @@ case $RAILS_ENV in
             JETTY_PID=$JETTY_PID_FILE CHORUS_JAVA_OPTIONS=$CHORUS_JAVA_OPTIONS RAILS_ENV=$RAILS_ENV SOLR_PORT=$SOLR_PORT ./jetty-init start 2>> $CHORUS_HOME/log/jetty.log >> $CHORUS_HOME/log/jetty.log &
             cd $CHORUS_HOME
             wait_for_start $JETTY_PID_FILE
+			log "jetty started as pid `cat $JETTY_PID_FILE`"
         fi
         ;;
 esac

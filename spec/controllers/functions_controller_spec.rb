@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe FunctionsController do
-  ignore_authorization!
 
   let(:user) { users(:owner) }
 
   before do
     log_in user
+    stub(Authority).authorize!.with_any_args { nil }
   end
 
   describe "#index" do
@@ -36,7 +36,7 @@ describe FunctionsController do
       end
 
       it "should check for permissions" do
-        mock(subject).authorize! :show_contents, schema.data_source
+        mock(Authority).authorize! :explore_data, schema.data_source, user,  { :or => [:data_source_is_shared, :data_source_account_exists] }
         get :index, :schema_id => schema.to_param
       end
 

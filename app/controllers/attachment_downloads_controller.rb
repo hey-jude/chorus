@@ -2,7 +2,7 @@ class AttachmentDownloadsController < ApplicationController
 
   def show
     attachment = Attachment.find(params[:attachment_id])
-    authorize! :show, attachment.note
+    Authority.authorize! :show, attachment.note.note_target, current_user, { :or => :handle_legacy_show }
 
     download_file(attachment)
   end

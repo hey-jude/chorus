@@ -8,6 +8,10 @@ describe NotesController do
       log_in user
     end
 
+    before :each do
+      stub(Authority).authorize! { nil }
+    end
+
     let(:model) { workspaces(:public) }
     let(:entity_type) { model.class.name }
     let(:entity_id) { model.id.to_s }
@@ -28,7 +32,7 @@ describe NotesController do
     end
 
     it "uses authorization" do
-      mock(controller).authorize!(:create_note_on, model)
+      mock(Authority).authorize! :show, model, user, { :or => :handle_legacy_show }
       post :create, attributes
     end
 
@@ -61,6 +65,7 @@ describe NotesController do
         let(:workspace) { workspaces(:private) }
 
         it "returns a forbidden status" do
+          mock.proxy(Authority).authorize!.with_any_args
           post :create, attributes
           response.code.should == "403"
         end
@@ -70,6 +75,7 @@ describe NotesController do
         let(:workspace) { workspaces(:archived) }
 
         it "responds with an error code" do
+          stub(Authority).authorize! { nil }
           post :create, attributes
           response.code.should == "422"
         end
@@ -172,9 +178,23 @@ describe NotesController do
       response.body.should == "{}"
     end
 
-    it "uses the note access to check permissions" do
-      mock(controller).authorize!(:destroy, note)
-      delete :destroy, :id => note.id
+    context "not the note owner" do
+      let(:not_note_owner){ users(:the_collaborator) }
+      let(:admin){ users(:admin) }
+      it "should be forbidden" do
+        log_in not_note_owner
+
+        delete :destroy, :id => note.id
+        response.should be_forbidden
+      end
+
+      it "should authorize if current user is admin" do
+        log_in admin
+
+        delete :destroy, :id => note.id
+        response.should_not be_forbidden
+      end
     end
+
   end
 end

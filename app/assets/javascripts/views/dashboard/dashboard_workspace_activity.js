@@ -137,7 +137,7 @@ chorus.views.DashboardWorkspaceActivity = chorus.views.Base.extend({
         // Sort the workspaces such that the most active appears on the top
         var processed_data = event_counts_by_workspace_id.entries(data)
             .sort(function(a,b) {
-                return (a.values[0].rank > b.values[0].rank)? 1 : (a.rank === b.rank)? 0 : -1;
+                return (a.values[0].rank > b.values[0].rank)? 1 : (a.values[0].rank === b.values[0].rank)? 0 : -1;
             });
 
         // Entities in the visualization:
@@ -232,8 +232,12 @@ chorus.views.DashboardWorkspaceActivity = chorus.views.Base.extend({
                 var workspace_name = !workspaces[wid].isAccessible? '<div class="inactive">' + workspaces[wid].name + '</div>': '<a href="#workspaces/' + workspaces[wid].workspaceId + '" title="'+ workspaces[wid].name + '">' + workspaces[wid].name + '</a>';
                 var hovercard_name_html = '<div class="name_row">' + workspace_name + '</div>';
 
-				// workspace description, if there is one 
-                var hovercard_summary_html = workspaces[wid].summary ? '<div class="summary_row" id="colorFillFcn(wid)"><p>' + workspaces[wid].summary + '</p></div>' : "";
+				// workspace description, if there is one
+                var summary = $(workspaces[wid].summary).text();
+                if (summary && summary.length > 512) {
+                    summary = summary.substring(0, 512) + "\n...";
+                }
+                var hovercard_summary_html = summary ? '<div class="summary_row" id="colorFillFcn(wid)"><p>' + summary + '</p></div>' : "";
 
                 // metric value
                 var hovercard_activityMetric = workspaces[wid].eventCount;
@@ -287,7 +291,7 @@ chorus.views.DashboardWorkspaceActivity = chorus.views.Base.extend({
             .selectAll("text")
             .call(this.wrap, chart.properties.width / (tickLabels.length + 4));
     },
-    wrap: function (text, width) {
+    wrap: function (text, width, height) {
         text.each(function() {
             var text = d3.select(this),
                 words = text.text().split(/\s+/).reverse(),

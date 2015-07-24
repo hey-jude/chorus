@@ -16,6 +16,13 @@ describe DataSources::MembersController do
 
       it_behaves_like "an action that requires authentication", :get, :index, :data_source_id => '-1'
 
+      it_behaves_like "a scoped endpoint" do
+        let!(:klass) { DataSourceAccount }
+        let!(:user)  { data_source_owner }
+        let!(:action){ :index }
+        let!(:params){ { :data_source_id => data_source.to_param } }
+      end
+
       it "succeeds" do
         get :index, :data_source_id => data_source.to_param
         response.code.should == "200"

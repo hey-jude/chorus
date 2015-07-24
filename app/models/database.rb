@@ -1,8 +1,9 @@
 class Database < ActiveRecord::Base
   include Stale
   include SoftDelete
+  include Permissioner
 
-  attr_accessible :name
+  attr_accessible :name, :id
 
   validates :name,
             :format => /^[^\/?&]*$/,

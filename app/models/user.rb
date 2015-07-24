@@ -4,6 +4,7 @@ require 'soft_delete'
 class User < ActiveRecord::Base
   include SoftDelete
   include TaggableBehavior
+  include Permissioner
 
   VALID_SORT_ORDERS = HashWithIndifferentAccess.new(
     :first_name => "LOWER(users.first_name)",
@@ -24,6 +25,9 @@ class User < ActiveRecord::Base
   has_many :data_source_accounts, :foreign_key => :owner_id, :dependent => :destroy
   has_many :dashboard_items, :dependent => :destroy
 
+  #PT. There is belongs_to relationship on open_workflow_events model.
+  has_many :open_workfile_events
+
   has_many :owned_workspaces, :foreign_key => :owner_id, :class_name => 'Workspace'
   has_many :memberships, :dependent => :destroy
   has_many :workspaces, :through => :memberships
@@ -34,6 +38,65 @@ class User < ActiveRecord::Base
   has_many :notifications, :foreign_key => 'recipient_id'
 
   has_many :comments
+
+  # roles, groups, and permissions
+  has_and_belongs_to_many :groups
+  has_and_belongs_to_many :roles, after_add: :check_admin_role, after_remove: :uncheck_admin_role
+  #belongs_to :chorus_scope
+
+  def uncheck_admin_role(role)
+    Chorus.log_debug("-----------  #{role.name} is removed for #{self.username} --------")
+    site_admin = Role.find_by_name('SiteAdministrator')
+    admin = Role.find_by_name('Admin')
+    if role.name == 'ApplicationAdministrator'
+      if self.roles.include?(admin)
+        self.admin = true
+      else
+        Chorus.log_debug("---- Removing admin role to #{self.username} ---")
+        self.admin = false
+      end
+      self.save!
+    end
+    if role.name = 'Admin'
+      if self.roles.include?(site_admin)
+        self.admin = true
+      else
+        Chorus.log_debug("---- Removing admin role to #{self.username} ---")
+        self.admin = false
+      end
+      self.save!
+    end
+    #if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
+    #  self.admin = false
+    #  self.save!
+    #end
+  end
+
+  def check_admin_role(role)
+    Chorus.log_debug("-----------  #{role.name} is added for #{self.username} --------")
+    admin = Role.find_by_name('Admin')
+    site_admin = Role.find_by_name('SiteAdministrator')
+    if self.admin == false && self.roles.include?(site_admin)
+      Chorus.log_debug("---- Assigning admin role to #{self.username} ---")
+      self.admin = true
+      self.save!
+    end
+    if self.admin == false && self.roles.include?(admin)
+      Chorus.log_debug("---- Assigning admin role to #{self.username} ---")
+      self.admin = true
+      self.save!
+    end
+
+    #if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
+    #  self.admin = false
+    #  self.save!
+    #end
+  end
+
+  # object_roles allow a User to have different roles for different objects (currently just Workspace)
+  has_many :chorus_object_roles
+  has_many :object_roles, :through => :chorus_object_roles, :source => :role
+
 
   has_attached_file :image, :path => ":rails_root/system/:class/:id/:style/:basename.:extension",
                     :url => "/:class/:id/image?style=:style",
@@ -65,6 +128,12 @@ class User < ActiveRecord::Base
   end
 
   before_save :update_password_digest, :unless => lambda { password.blank? }
+  after_initialize :defaults
+
+  def defaults
+    collaborator_role = Role.find_or_create_by_name("Collaborator")
+    self.roles << collaborator_role unless self.roles.include? collaborator_role
+  end
 
   def accessible_events(current_user)
     events.where("workspace_id IS NULL
@@ -90,16 +159,50 @@ class User < ActiveRecord::Base
   end
 
   def self.admin_count
-    admin.size
+    admin_role = Role.find_by_name('Admin')
+    if admin_role != nil
+      Role.find_by_name("Admin").users.size
+    else
+      return 0
+    end
+  end
+
+  def admin?
+      self.admin || Permissioner.is_admin?(self)
   end
 
   scope :admin, where(:admin => true)
 
   def admin=(value)
-    write_attribute(:admin, value) unless admin? && self.class.admin_count == 1 # don't unset last admin
+    unless admin? && self.class.admin_count == 1 # don't unset last admin
+      write_attribute(:admin, value)
+
+      admin_role = Role.find_by_name("Admin")
+      site_admin_role = Role.find_by_name("SiteAdministrator")
+      if admin_role && value == true
+        admin_role.users << self
+        site_admin_role.users << self
+      elsif admin_role
+        admin_role.users.delete(self)
+        site_admin_role.users.delete(self)
+      else
+          #
+      end
+    end
   end
 
   scope :developer, where(:developer => true)
+
+  def developer=(value)
+    write_attribute(:developer, value)
+
+    dev_role = Role.find_by_name("Developer")
+    if value
+      dev_role.users << self
+    else
+      dev_role.users.delete(self)
+    end
+  end
 
   def self.developer_count
     developer.size

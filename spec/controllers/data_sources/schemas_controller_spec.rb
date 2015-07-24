@@ -13,6 +13,13 @@ describe DataSources::SchemasController do
     let(:schema_1) { FactoryGirl.create(:oracle_schema) }
     let(:schema_2) { FactoryGirl.create(:oracle_schema) }
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Schema }
+      let!(:user)  { data_source.owner }
+      let!(:action){ :index }
+      let!(:params){ { :data_source_id => data_source.to_param } }
+    end
+
     it 'returns a 200 status code' do
       get :index, :data_source_id => data_source.to_param
       response.status.should == 200
