@@ -1,2 +1,0 @@
-class WorkletAccess < AlpineWorkfileAccess
-end

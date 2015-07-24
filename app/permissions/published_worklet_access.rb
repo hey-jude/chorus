@@ -1,2 +1,0 @@
-class PublishedWorkletAccess < WorkletAccess
-end
