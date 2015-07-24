@@ -306,43 +306,40 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
         var chiasm = this.chiasmInit();
 
-        this.chiasmFetchData(chartOptions, function (data){
-
-            var config = {
-                layout: {
-                    "plugin": "layout",
-                    "state": {
-                        "layout": "visualization"
-                    }
-                },
-                visualization: {
-                    "plugin": "barChart",
-                    "state": {
-                        "xColumn": "bucket",
-                        "xAxisLabel": chartOptions.yAxis,
-                        "yColumn": "count",
-                        "yAxisLabel": "Count",
-                        "xAxisLabelOffset": 1.9,
-                        "yAxisLabelOffset": 1.4,
-                        "colorDefault": alpineBlue,
-                        "yDomainMin": 0
-                    }
-                },
-                chorusSQL: {
-                    plugin: "chorusSQL",
-                    state:{
-                        type: chartOptions.type,
-                        name: chartOptions.name
+        var config = {
+            layout: {
+                "plugin": "layout",
+                "state": {
+                    "layout": "visualization"
+                }
+            },
+            visualization: {
+                "plugin": "barChart",
+                "state": {
+                    "xColumn": "bucket",
+                    "xAxisLabel": chartOptions.yAxis,
+                    "yColumn": "count",
+                    "yAxisLabel": "Count",
+                    "xAxisLabelOffset": 1.9,
+                    "yAxisLabelOffset": 1.4,
+                    "colorDefault": alpineBlue,
+                    "yDomainMin": 0,
+                    "margin": {
+                        "top": 15,
+                        "right": 0,
+                        "bottom": 60,
+                        "left": 50
                     }
                 }
-            };
+            }
+        };
 
-            chiasm.setConfig(config);
+        chiasm.setConfig(config);
 
+        this.chiasmFetchData(chartOptions, function (data){
             chiasm.getComponent("visualization").then(function(visualization){
                 visualization.data = data;
             });
-
         });
     },
 
