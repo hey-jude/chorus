@@ -1,0 +1,2 @@
+class PublishedWorkletAccess < WorkletAccess
+end

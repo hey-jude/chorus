@@ -149,7 +149,8 @@ describe("chorus.pages.WorkfileIndexPage", function() {
             itBehavesLike.aPageWithPrimaryActions([
                 {name: 'import_workfile', target: chorus.dialogs.WorkfilesImport},
                 {name: 'create_sql_workfile', target: chorus.dialogs.WorkfilesSqlNew},
-                {name: 'create_workflow', target: chorus.dialogs.WorkFlowNew}
+                {name: 'create_workflow', target: chorus.dialogs.WorkFlowNew},
+                {name: 'create_worklet', target: chorus.dialogs.WorkletNew}
             ]);
         });
 

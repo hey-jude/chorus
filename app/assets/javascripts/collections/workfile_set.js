@@ -11,7 +11,8 @@ chorus.collections.WorkfileSet = chorus.collections.LastFetchWins.include(
     urlParams: function() {
         return {
             namePattern: this.attributes.namePattern,
-            fileType: this.attributes.fileType
+            fileType: this.attributes.fileType,
+            noPublishedWorklets: true
         };
     },
 

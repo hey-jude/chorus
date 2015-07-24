@@ -212,6 +212,9 @@
                     case 'work_flow_result':
                         klass = chorus.models.WorkFlowResult;
                         break;
+                    case 'worklet_result':
+                        klass = chorus.models.WorkletResult;
+                        break;
                     default:
                         klass = chorus.models.Attachment;
                         break;

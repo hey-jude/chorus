@@ -128,6 +128,10 @@ resource 'Imports' do
     end
   end
 
+  put "/imports/:id" do
+
+  end
+
   get "/datasets/:dataset_id/importability" do
     parameter :dataset_id, "ID of dataset"
     required_parameters :dataset_id

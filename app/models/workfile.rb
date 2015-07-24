@@ -5,7 +5,9 @@ class Workfile < ActiveRecord::Base
   include Permissioner
 
   @@entity_subtypes = Hash.new('ChorusWorkfile').merge!({
-     'alpine' => 'AlpineWorkfile'
+     'alpine' => 'AlpineWorkfile',
+     'worklet' => 'Worklet',
+     'published_worklet' => 'PublishedWorklet'
   })
 
   attr_accessible :description, :file_name, :as => [:default, :create]
@@ -31,7 +33,8 @@ class Workfile < ActiveRecord::Base
   validates :workspace, presence: true
   validates :owner, presence: true
   validates_presence_of :file_name
-  validates_uniqueness_of :file_name, :scope => [:workspace_id, :deleted_at]
+  validates_with WorkfileUniqueNameValidator
+  #validates_uniqueness_of :file_name, :scope => [:workspace_id, :deleted_at]
   validates_format_of :file_name, :with => /^[a-zA-Z0-9_ \.\(\)\-]+$/
 
   before_validation :init_file_name, :on => :create

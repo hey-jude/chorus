@@ -23,6 +23,9 @@
                 {{/unless}}
 
             {{/if}}
+            {{#if showCreateWorklet}}
+                <li><a href="#" class="create_worklet">Create Worklet</a></li>
+            {{/if}}
             {{#if showAddNoteLink}}
                 <li><a class="new_note dialog-launch" href="#">{{t "actions.add_note"}}</a></li>
             {{/if}}
@@ -36,6 +39,12 @@
             {{/if}}
             {{#if showEditLinks}}
                 <li><a href="#" class="delete alert-launch">{{t "workfile.delete.button"}}</a></li>
+            {{/if}}
+            {{#if showPublishWorklet}}
+                <li><a href="#" class="publish">Publish Worklet</a></li>
+            {{/if}}
+            {{#if showUnpublishWorklet}}
+                <li><a href="#" class="unpublish">Unpublish Worklet</a></li>
             {{/if}}
         </ul>
     </div>

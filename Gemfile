@@ -28,6 +28,8 @@ gem 'render_anywhere'
 # Bulk updating of active_record
 gem 'activerecord-import','0.10.0'
 
+gem 'geo_pattern', '1.3.2'
+
 gem 'rubyzip', '1.1.7'
 
 platform :jruby do
