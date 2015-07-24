@@ -40,8 +40,8 @@ Chorus::Application.configure do
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
   # Only turn it on if you really need concurrent requests
-  config.allow_concurrency = true
-  config.threadsafe!
+  #config.allow_concurrency = true
+  #config.threadsafe!
 
   if ChorusConfig.instance['mail.enabled']
     config.action_mailer.delivery_method = :smtp
