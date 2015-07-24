@@ -5,7 +5,7 @@ class WorkletsController < ApplicationController
   include DataSourceAuth
 
   def show
-    authorize! :show, worklet.workspace
+    #authorize! :show, worklet.workspace
 
     if params[:connect].present?
       authorize_data_sources_access worklet
