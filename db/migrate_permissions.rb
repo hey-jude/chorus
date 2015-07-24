@@ -278,7 +278,7 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
     workspace.workfiles.each do |workfile|
       if ChorusClass.find_by_name(workfile.class.name) == nil
         print '.'
-        ChorusClass.new(:name => workfile.class.name)
+        ChorusClass.create(:name => workfile.class.name)
       end
       print '.'
       chorus_objects << [ChorusClass.find_by_name(workfile.class.name).id,  workfile.id, workspace.owner.id, workspace.class.name, ChorusClass.find_by_name(workspace.class.name).id,  workspace.id, application_realm.id]

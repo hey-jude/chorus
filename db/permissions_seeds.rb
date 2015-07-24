@@ -169,6 +169,7 @@ chorus_classes =  [
         {:name => 'workfile_execution_location'.camelize},
         {:name => 'workfile_version'.camelize},
         {:name => 'workflow'.camelize},
+        {:name => 'worklet'.camelize},
         {:name => 'workspace'.camelize},
         {:name => 'workspace_import'.camelize},
         {:name => 'workspace_search'.camelize},
