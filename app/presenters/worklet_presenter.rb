@@ -27,6 +27,10 @@ class WorkletPresenter < AlpineWorkfilePresenter
         :variables => variables_array
     })
 
+    workfile.merge!({
+        :running => RunningWorkfile.where(:workfile_id => model.id, :owner_id => current_user.id).any?
+    })
+
     workfile
   end
 

@@ -150,17 +150,17 @@ Chorus::Application.routes.draw do
 
   resources :job_tasks, :only => [:update]
 
-  resources :workfiles, :only => [:show, :destroy, :update] do
-    resource :draft, :only => [:show, :update, :create, :destroy], :controller => :workfile_draft
-    resources :versions, :only => [:update, :create, :show, :index, :destroy], :controller => 'workfile_versions'
-    resource :copy, :only => [:create], :controller => 'workfile_copy'
-    resource :download, :only => [:show], :controller => 'workfile_download'
-    resources :executions, :only => [:create, :destroy], :controller => 'workfile_executions'
-    resources :results, :only => [:create], :controller => 'workfile_results'
-    member do
-      post 'run'
-      post 'stop'
-    end
+    resources :workfiles, :only => [:show, :destroy, :update] do
+      resource :draft, :only => [:show, :update, :create, :destroy], :controller => :workfile_draft
+      resources :versions, :only => [:update, :create, :show, :index, :destroy], :controller => 'workfile_versions'
+      resource :copy, :only => [:create], :controller => 'workfile_copy'
+      resource :download, :only => [:show], :controller => 'workfile_download'
+      resources :executions, :only => [:create, :destroy], :controller => 'workfile_executions'
+      resources :results, :only => [:create], :controller => 'workfile_results'
+      member do
+        post 'run'
+        post 'stop'
+      end
   end
 
   resources :workfile_versions, :only => [] do

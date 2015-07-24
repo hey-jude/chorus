@@ -42,10 +42,11 @@ Chorus::Application.configure do
   # Only turn it on if you really need concurrent requests
   config.allow_concurrency = true
   config.threadsafe!
+  config.eager_load_paths += config.autoload_paths
 
   if ChorusConfig.instance['mail.enabled']
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+    config.action_mailer.smtp_settings = { :address => 'smtp.gmail.com', :port => 587, :user_name => 'alpinenotif@alpinenow.com', :password => 'AlpineNow!23', :authentication => 'login', :enable_starttls_auto => true }
     ActionMailer::Base.default ChorusConfig.instance.mail_configuration
   else
     config.action_mailer.perform_deliveries = false

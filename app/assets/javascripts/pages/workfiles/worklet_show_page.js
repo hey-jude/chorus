@@ -42,6 +42,7 @@ chorus.pages.WorkletShowPage = chorus.pages.Base.extend({
             this.mainContent.content.workletHistory.teardown(true);
         }
         this.mainContent.content.workletHistory = newView;
+        this.mainContent.content.workletSubmit.historyView = newView;
         this.mainContent.content.renderSubview('workletHistory');
         this.trigger('resized');
 
@@ -100,7 +101,8 @@ chorus.pages.WorkletShowPage = chorus.pages.Base.extend({
         });
 
         this.contentView = new chorus.views.PublishedWorkletContent({
-            model: this.worklet
+            model: this.worklet,
+            collection: this.history
         });
 
         this.mainContent = new chorus.views.MainContentView({
