@@ -129,7 +129,6 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
 
     additionalContext: function () {
         var run_persona = this.model.get('runPersona');
-
         return {
             description: this.model.get('description'),
 
@@ -141,7 +140,7 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
                 {
                     run_persona: "creator",
                     persona_run_statement: "Run as worklet creator",
-                    selected: typeof(run_persona) === 'undefined' || run_persona === "creator"
+                    selected: !run_persona || run_persona === "creator"
                 },
                 {
                     run_persona: "person_running",
