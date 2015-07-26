@@ -1,14 +1,141 @@
-<div class="box box-solid">
-  <div class="box-header with-border">
-    <h3 class="box-title"> <%= t("default_settings")%> </h3>
-  </div><!-- /.box-header -->
+<!--
+<div class="panel">
+  <div class="box-header without-border">
+    <h3 class="box-title"> <#%= t("default_settings")%> </h3>
+  </div>
   <div class="box-body">
     <dl>
-      <dt> <%= link_to t("user.new_user") , admin.new_user_path , :remote => true %> </dt>
-      <dt> <%= link_to t("user.edit_profile") , admin.users_path , :remote => true %> </dt>
-      <dt> <%= link_to t("defaults_new_data") , admin.users_path , :remote => true %> </dt>
+      <dt> <#% link_to t("user.new_user") , admin.new_user_path , :remote => true %> </dt>
+      <dt> <#% link_to t("user.edit_profile") , admin.users_path , :remote => true %> </dt>
+      <dt> <#% link_to t("defaults_new_data") , admin.users_path , :remote => true %> </dt>
     </dl>
-  </div><!-- /.box-body -->
+  </div>
 </div>
+-->
+
+<div class="multiple_selection hidden"></div>
+<div class="workspace_show_sidebar sidebar_content primary panel" data-template="workspace_show_sidebar">
 
 
+  <div class="actions">
+    <label>
+      User Actions
+    </label>
+    <ul>
+      <li><%= link_to t("user.new_user") , admin.new_user_path , :remote => true %></li>
+      <li> <%= link_to t("user.edit_profile") , admin.users_path , :remote => true %> </li>
+      <li><%= link_to t("defaults_new_data") , admin.users_path , :remote => true %> </li>
+    </ul>
+  </div>
+
+  <div class="after_image">
+    <div class="workspace_member_list" data-template="workspace_member_list">
+      <div class="members">
+        <ul>
+
+          <li>
+            <a href="#/users/20" title="Doc Person"><img class="profile icon" src="/images/general/default-user.png"></a>
+          </li>
+
+          <li>
+            <a href="#/users/14" title="Sara Asher"><img class="profile icon" src="/images/general/default-user.png"></a>
+          </li>
+
+          <li>
+            <a href="#/users/8" title="Bill Middlebrook"><img class="profile icon" src="/images/general/default-user.png"></a>
+          </li>
+
+          <li>
+            <a href="#/users/10" title="Bill Middlebrook"><img class="profile icon" src="/images/general/default-user.png?iebuster=1437783226049"></a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="#/users/23" title="Chester Chen"><img class="profile icon" src="/images/general/default-user.png"></a>
+          </li>
+
+          <li>
+            <a href="#/users/1" title="Chorus Admin"><img class="profile icon" src="/images/general/default-user.png"></a>
+          </li>
+
+          <li>
+            <a href="#/users/19" title="Corey1 Garvey"><img class="profile icon" src="/images/general/default-user.png"></a>
+          </li>
+
+          <li>
+            <a href="#/users/29" title="DB Tsai"><img class="profile icon" src="/images/general/default-user.png?iebuster=1437783226049"></a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="#/users/30" title="Gabriela Queiroz"><img class="profile icon" src="/users/30/image?1397074443&amp;style=icon&amp;iebuster=1437783226049"></a>
+          </li>
+
+          <li>
+            <a href="#/users/25" title="ggao1 ggao1"><img class="profile icon" src="/users/25/image?1395872445&amp;style=icon&amp;iebuster=1437783226049"></a>
+          </li>
+
+          <li>
+            <a href="#/users/7" title="Guohui Gao"><img class="profile icon" src="/images/general/default-user.png?iebuster=1437783226049"></a>
+          </li>
+
+          <li>
+            <a href="#/users/32" title="Jason Lee"><img class="profile icon" src="/images/general/default-user.png?iebuster=1437783226049"></a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="#/users/13" title="Jenny Thompson"><img class="profile icon" src="/users/13/image?1398474083&amp;style=icon&amp;iebuster=1437783226049"></a>
+          </li>
+
+          <li>
+            <a href="#/users/15" title="john zhao"><img class="profile icon" src="/images/general/default-user.png?iebuster=1437783226049"></a>
+          </li>
+
+          <li>
+            <a href="#/users/17" title="John Conway"><img class="profile icon" src="/users/17/image?1432079429&amp;style=icon&amp;iebuster=1437783226049"></a>
+          </li>
+
+          <li>
+            <a href="#/users/21" title="Michael Thyen"><img class="profile icon" src="/users/21/image?1399354372&amp;style=icon&amp;iebuster=1437783226049"></a>
+          </li>
+        </ul>
+        <a class="more_members dialog-launch" href="#">8 more workspace members</a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tab_control" data-template="tab_control"><ul class="tabs">
+    <li class="tab selected" data-name="activity">
+      <div class="lozenge">Activity</div>
+    </li>
+  </ul>
+    <div class="tabbed_content_area"><div class="activity_list sidebar" data-template="activity_list">
+      <ul class="activities"><li class="activity" data-template="activity" data-activity-id="3741"><div class="media activity_item">
+        <div class="icon">
+          <a href="#/users/17"><img src="/users/17/image?1432079429&amp;style=icon&amp;iebuster=1437843560796" class="profile"></a>
+        </div>
+        <div class="activity_content bd">
+          <div class="activity_header">
+            <a href="#/users/17">John Conway</a> added file <a href="#/workspaces/27/workfiles/1048">04_Market_Basket_By_Categ</a>
+          </div>
+          <ul class="attachments">
+          </ul>
+          <div class="actions">
+            <span class="timestamp">1 year ago</span>
+          </div>
+          <div class="links">
+            <a class="comment dialog" href="#">Comment</a>
+          </div>
+        </div>
+      </div>
+        <div class="comment_list" data-template="comment_list">
+        </div>
+      </li></ul>
+    </div></div>
+  </div>
+
+
+</div>
