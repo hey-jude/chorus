@@ -1,21 +1,19 @@
-<div id="breadcrumb">
-  <% breadcrumb :teams %>
-</div>
-
-<div class="row">
+<div class='row'>
   <div class="col-md-12">
-    <div class="row">
-      <div class="col-sm-8">
-        <div id="teams_table">
-          <div id="modal_box"></div>
-          <%= render partial: "table" %>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div id="teams_right_side_bar">
-          <%= render partial: "right_side_bar" %>
-        </div>
-      </div>
+    <div id="breadcrumb">
+      <%= render partial: 'admin/shared/breadcrumb' %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-9" style="padding-right:0px !important;">
+    <div id="users_table">
+      <%= render partial: 'table' %>
+    </div>
+  </div>
+  <div class="col-md-3" id="side-bar">
+    <div id="users_right_side_bar" class="primary_action_panel">
+      <%= render partial: 'right_side_bar' %>
     </div>
   </div>
 </div>

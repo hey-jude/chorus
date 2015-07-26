@@ -1,5 +1,16 @@
 
 <div id="admin_dashboard">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="breadcrumb">
+        <ol class="list_breadcrumb">
+          <li>
+            <span>Admin</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
 <!-- Info boxes -->
 <div class="row">
   <div class="col-md-2"></div>
@@ -53,35 +64,43 @@
 <panel>
 <!-- Info boxes -->
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
           <%= render partial: "user_management" %>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
           <%= render partial: "application_administration" %>
     </div>
+    <div class="col-sm-1"></div>
   </div>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
       <%= render partial: "access_permission_management" %>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
       <%= render partial: "application_settings" %>
     </div>
+    <div class="col-sm-1"></div>
   </div>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
       <%= render partial: "defaults" %>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
       <%= render partial: "workflow_settings" %>
     </div>
+    <div class="col-sm-1"></div>
   </div>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
       <%= render partial: "content_management" %>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
     </div>
+    <div class="col-sm-1"></div>
   </div>
 </panel>
 </div>

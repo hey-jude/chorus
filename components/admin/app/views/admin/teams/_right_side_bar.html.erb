@@ -1,36 +1,39 @@
-<div class="box box-solid">
-  <div class="box-header with-border">
-    <h3 class="box-title">  </h3>
-  </div><!-- /.box-header -->
-  <div class="box-body">
-    <dl>
+<div class="multiple_selection hidden"></div>
+<div class="workspace_show_sidebar sidebar_content primary panel" data-template="workspace_show_sidebar">
+
+
+  <div class="actions">
+    <label>
+      Team Actions
+    </label>
+    <ul>
       <% if @teams %>
-          <dt>
-            <%= link_to "Create Team" , admin.new_team_path , :remote => true %>
-          </dt>
-      <%end%>
-
+        <li><%= link_to "Create Team" , admin.new_team_path , :remote => true %></li>
+      <% end %>
       <% if @team %>
-          <dt>
+          <li>
             <%= link_to "Edit Team Information" , admin.edit_team_path(@team) , :remote => true %>
-          </dt>
-          <dt>
+          </li>
+          <li>
             <%= link_to "Manage Membership" , admin.manage_memberships_team_path(@team) , :remote => true %>
-          </dt>
-          <dt>
+          </li>
+          <li>
             <%= link_to "Manage Roles" , admin.manage_roles_team_path(@team) , :remote => true %>
-          </dt>
-          <dt>
+          </li>
+          <li>
             <%= link_to "Manage Scope Groups" , admin.manage_scopes_team_path(@team) , :remote => true %>
-          </dt>
-          <dt>
+          </li>
+          <li>
             <%= link_to "Manage Workspaces" , admin.manage_workspaces_team_path(@team) , :remote => true %>
-          </dt>
+          </li>
+          <li>
+            <%= link_to "Delete Team" , admin.team_path(@team), method: :destroy , :remote => true %>
+          </li>
+      <% end %>
+    </ul>
+  </div>
 
-          <dt> <%= link_to "Delete Team" , admin.team_path(@team), method: :destroy , :remote => true %> </dt>
-      <%end%>
-    </dl>
-  </div><!-- /.box-body -->
 </div>
+
 
 

@@ -318,6 +318,10 @@ ul.sidebar-menu-item li a
     }
 }
 
+#side-bar {
+    position: fixed;
+    right: 0px;
+}
 #side-bar .primary_action_panel .panel {
     margin-top: 10px;
 /*    width: 250px; */
@@ -531,4 +535,30 @@ img.profile {
     margin-left: 10px;
     font-size: 16px;
     color: #7d7d7d;
+}
+
+.chorus-box {
+    min-height: 150px;
+    padding: 10px 10px 15px 10px;
+    margin-top: 20px;
+    border-radius: 3px;
+    border: 1px solid #eaebec;
+    border-top-color: #dddee0;
+    position: relative;
+    background: #ffffff;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.chorus-box ol {
+    padding-left: 0px;
+}
+
+.chorus-box ol > li {
+
+}
+
+.chorus-box ol > li a {
+    font-size: 16px;
+    font-weight:   600;
 }

@@ -1,13 +1,13 @@
-<div class="box box-primary">
+<div class="chorus-box">
   <div class="box-header with-border">
     <h3 class="box-title"> <%= t("access_permission_management")%> </h3>
   </div><!-- /.box-header -->
   <div class="box-body">
-    <dl>
-      <dt> <%= link_to t("scope_groups") , admin.users_path , :remote => true %> </dt>
-      <dt> <%= link_to t("data") , admin.data_sources_path , :remote => true %> </dt>
-      <dt> <%= link_to t("roles_and_permission") , admin.users_path , :remote => true %> </dt>
-    </dl>
+    <ol>
+      <li> <%= link_to t("scope_groups") , admin.users_path , :remote => true %> </li>
+      <li> <%= link_to t("data") , admin.data_sources_path , :remote => true %> </li>
+      <li> <%= link_to t("roles_and_permission") , admin.users_path , :remote => true %> </li>
+    </ol>
   </div><!-- /.box-body -->
 </div>
 

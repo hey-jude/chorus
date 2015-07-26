@@ -1,13 +1,13 @@
-<div class="box box-primary">
+<div class="chorus-box">
   <div class="box-header with-border">
     <h3 class="box-title"> <%= t("default_settings")%> </h3>
   </div><!-- /.box-header -->
   <div class="box-body">
-    <dl>
-      <dt> <%= link_to t("defaults_new_people") , admin.users_path , :remote => true %> </dt>
-      <dt> <%= link_to t("defaults_new_workspaces") , admin.users_path , :remote => true %> </dt>
-      <dt> <%= link_to t("defaults_new_data") , admin.users_path , :remote => true %> </dt>
-    </dl>
+    <ol>
+      <li> <%= link_to t("defaults_new_people") , admin.users_path , :remote => true %> </li>
+      <li> <%= link_to t("defaults_new_workspaces") , admin.users_path , :remote => true %> </li>
+      <li> <%= link_to t("defaults_new_data") , admin.users_path , :remote => true %> </li>
+    </ol>
   </div><!-- /.box-body -->
 </div>
 
