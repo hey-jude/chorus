@@ -4,6 +4,10 @@ chorus.views.WorkspaceQuickstart = chorus.views.Base.extend({
     additionalClass: "workspace_show quickstart",
     useLoadingSection: true,
 
+    subviews: {
+        ".workspace_show": "workspaceShow"
+    },
+
     events: {
         "click a.dismiss": "visitShowPage",
         "click .import_workfiles": 'launchImportWorkfilesDialog',
@@ -24,6 +28,7 @@ chorus.views.WorkspaceQuickstart = chorus.views.Base.extend({
 
     setup: function() {
         this.subscribePageEvent("modal:closed", this.refreshQuickStart);
+        this.workspaceShow = new chorus.views.WorkspaceShow({model: this.model});
     },
 
     modalClasses: function () {
