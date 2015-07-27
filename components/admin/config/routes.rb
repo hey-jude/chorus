@@ -18,7 +18,7 @@ Admin::Engine.routes.draw do
 
   resources :data_sources
   resources :roles
-  resources :chorus_scopes
+  resources :scopes
   resources :workspaces
 
 end

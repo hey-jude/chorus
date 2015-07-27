@@ -135,35 +135,33 @@
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
             <span class="hidden-xs">Alexander Pierce</span>&nbsp;&nbsp;<span class="fa fa-lg fa-caret-down" id="primary-data"></span>
           </a>
-          <ul class="dropdown-menu">
-            <!-- The user image in the menu -->
-            <li class="user-header">
-              <% image_tag('user2-160x160.jpg', :height => 32, :alt => '[User]') %>
-              <p>
-                Alexander Pierce - Web Developer
-                <small>Member since Nov. 2012</small>
-              </p>
+            <ul class="dropdown-menu">
+            <li class="underline">
+              <a href="#/users/1" id="header_userProfileLink">
+                Your Profile
+              </a>
             </li>
-            <!-- Menu Body -->
-            <li class="user-body">
-              <div class="col-xs-4 text-center">
-                <a href="#">Followers</a>
-              </div>
-              <div class="col-xs-4 text-center">
-                <a href="#">Sales</a>
-              </div>
-              <div class="col-xs-4 text-center">
-                <a href="#">Friends</a>
-              </div>
+            <li>
+              <a href="http://alpine.atlassian.net/wiki/display/CD5/Chorus+Documentation+Home" target="_blank" class="helpLink" id="header_helpLink">
+                Documentation
+              </a>
             </li>
-            <!-- Menu Footer-->
-            <li class="user-footer">
-              <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
-              </div>
-              <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Sign out</a>
-              </div>
+
+            <li class="help_and_support">
+              <a href="#" id="header_aboutLink">
+                Help and Support
+              </a>
+            </li>
+
+            <li class="underline">
+              <a href="#/about" id="header_aboutLink">
+                About
+              </a>
+            </li>
+            <li>
+              <a href="#/logout" id="header_logoutLink">
+                Sign Out
+              </a>
             </li>
           </ul>
         </li>

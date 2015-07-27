@@ -28,3 +28,7 @@ en:
   general_settings: "General Settings"
   appliccation_preferences: "Applciation Preferences"
   workflow_editor_preferences: "Workflow Editor Preferences"
+  scopes: "Scope Groups"
+  scopes.new_scope: "New Scope"
+  scopes.edit_scope: "Edit Scope"
+

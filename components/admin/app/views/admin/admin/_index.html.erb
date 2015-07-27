@@ -1,88 +1,102 @@
-<div id="admin_dashboard">
-  <!-- Info boxes -->
-  <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <div class="row">
-        <div class="col-md-2 col-sm-4 col-xs-12">
-          <div class="info-box">
-            <div class="info-box-content">
-              <span class="info-box-number"><%= @users_count %></span>
-              <span class="info-box-text"> <%= t('users') %> </span>
-            </div><!-- /.info-box-content -->
-          </div><!-- /.info-box -->
-        </div><!-- /.col -->
-        <div class="col-md-2 col-sm-4 col-xs-12">
-          <div class="info-box">
-            <div class="info-box-content">
-              <span class="info-box-number"> <%= @teams_count %> </span>
-              <span class="info-box-text"> <%= t('teams')%> </span>
-            </div><!-- /.info-box-content -->
-          </div><!-- /.info-box -->
-        </div><!-- /.col -->
-        <div class="col-md-2 col-sm-4 col-xs-12">
-          <div class="info-box">
-            <div class="info-box-content">
-              <span class="info-box-number"> <%= @scopegroups_count %></span>
-              <span class="info-box-text"> <%= t('scope_groups')%> </span>
-            </div><!-- /.info-box-content -->
-          </div><!-- /.info-box -->
-        </div><!-- /.col -->
-        <div class="col-md-2 col-sm-4 col-xs-12">
-          <div class="info-box">
-            <div class="info-box-content">
-              <span class="info-box-number"> <%= @datasources_count %> </span>
-              <span class="info-box-text"> <%= t('data_sources')%> </span>
-            </div><!-- /.info-box-content -->
-          </div><!-- /.info-box -->
-        </div><!-- /.col -->
-        <div class="col-md-2 col-sm-4 col-xs-12">
-          <div class="info-box">
-            <div class="info-box-content">
-              <span class="info-box-number"> <%= @jobs_count  %> </span>
-              <span class="info-box-text"> <%= t('jobs')%> </span>
-            </div><!-- /.info-box-content -->
-          </div><!-- /.info-box -->
-        </div><!-- /.col -->
-      </div>
+<div class="row">
+  <div class="col-md-12">
+    <div id="breadcrumb">
+      <ol class="list_breadcrumb">
+        <li>
+          <span>Admin</span>
+        </li>
+      </ol>
     </div>
-    <div class="col-md-2"></div>
-  </div><!-- /.row -->
+  </div>
+</div>
+<!-- Info boxes -->
 
-  <panel>
-    <!-- Info boxes -->
-    <div class="row">
-      <div class="col-sm-6">
-        <%= render partial: "user_management" %>
-      </div>
-      <div class="col-sm-6">
-        <%= render partial: "application_administration" %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <%= render partial: "access_permission_management" %>
-      </div>
-      <div class="col-sm-6">
-        <%= render partial: "application_settings" %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <%= render partial: "defaults" %>
-      </div>
-      <div class="col-sm-6">
-        <%= render partial: "workflow_settings" %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <%= render partial: "content_management" %>
-      </div>
-      <div class="col-sm-6">
-      </div>
-    </div>
-  </panel>
+<div class="row admin-snapshot">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <ul>
+      <li>
+        <div class="squareish users">
+          <div class="total"><%=@users_count %></div>
+          <div class="model">Users</div>
+          <div class="increment">+3 in last 7 days</div>
+        </div>
+      </li>
+      <li>
+        <div class="squareish teams">
+          <div class="total"><%=@teams_count %> </div>
+          <div class="model">Teams</div>
+          <div class="increment">+3 in last 7 days</div>
+        </div>
+      </li>
+      <li>
+        <div class="squareish scopes">
+          <div class="total"><%=@scopegroups_count %></div>
+          <div class="model">Scope Groups</div>
+          <div class="increment">+51 in last 7 days</div>
+        </div>
+      </li>
+      <li>
+        <div class="squareish data_sources">
+          <div class="total"><%=@datasources_count %> </div>
+          <div class="model">Data Sources</div>
+          <div class="increment">+1 in last 7 days</div>
+        </div>
+      </li>
+      <li>
+        <div class="squareish jobs">
+          <div class="total"><%=@jobs_count  %></div>
+          <div class="model">Jobs</div>
+          <div class="increment">+1 in last 7 days</div>
+        </div>
+      </li>
+    </ul>
+
+
+  </div>
+  <div class="col-sm-1"></div>
+
 </div>
 
-
+<panel>
+  <!-- Info boxes -->
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+      <%= render partial: "user_management" %>
+    </div>
+    <div class="col-sm-5">
+      <%= render partial: "application_administration" %>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+      <%= render partial: "access_permission_management" %>
+    </div>
+    <div class="col-sm-5">
+      <%= render partial: "application_settings" %>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+      <%= render partial: "defaults" %>
+    </div>
+    <div class="col-sm-5">
+      <%= render partial: "workflow_settings" %>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+      <%= render partial: "content_management" %>
+    </div>
+    <div class="col-sm-5">
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</panel>

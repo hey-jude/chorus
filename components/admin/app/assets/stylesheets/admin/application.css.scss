@@ -105,6 +105,10 @@
     float: right;
 }
 
+.main-header .navbar-custom-menu, .main-header .navbar-right {
+    margin-right: 20px;
+}
+
 .dropdown.tasks-menu .lozenge.empty {
     background: #006e9e;
 }
@@ -333,7 +337,7 @@ ul.sidebar-menu-item li a
 
 #side-bar .primary_action_panel .panel a {
     color: #00a0e5;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -375,12 +379,20 @@ ul.sidebar-menu-item li a
     padding-left: 10px;
 }
 
+#side-bar .sidebar_content > .actions li:hover {
+    background: #f0f7fe !important;
+}
+
 #side-bar .workspace_list_sidebar .workspace_member_list .members,
 #side-bar .workspace_show_sidebar .workspace_member_list .members {
     margin-top: 10px;
 /*    width: 250px; */
     border: 1px solid #eaebec;
     border-radius: 3px;
+}
+
+#side-bar .sidebar_content > .actions li a:hover {
+    text-decoration: underline;
 }
 
 #side-bar .workspace_list_sidebar .workspace_member_list .members ul,
@@ -538,7 +550,7 @@ img.profile {
 }
 
 .chorus-box {
-    min-height: 150px;
+    min-height: 180px;
     padding: 10px 10px 15px 10px;
     margin-top: 20px;
     border-radius: 3px;
@@ -561,4 +573,124 @@ img.profile {
 .chorus-box ol > li a {
     font-size: 16px;
     font-weight:   600;
+}
+
+#admin_dashboard .admin-snapshot {
+
+}
+
+#admin_dashboard .admin-snapshot ul {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+}
+
+#admin_dashboard .admin-snapshot ul > li {
+    display: inline-block;
+    margin-right: 10px;
+
+}
+
+#admin_dashboard .admin-snapshot ul > li .squareish {
+    width: 220px;
+    height: 140px;
+    display: block;
+}
+
+#admin_dashboard .admin-snapshot ul > li .squareish .total {
+    padding-top: 10px;
+    font-size: 56px;
+    line-height: 56px;
+}
+
+#admin_dashboard .admin-snapshot ul > li .squareish.users .total {
+    color: #f2ab0d;
+}
+
+#admin_dashboard .admin-snapshot ul > li .squareish.teams .total {
+    color: #56ae00;
+}
+
+#admin_dashboard .admin-snapshot ul > li .squareish.scopes .total {
+    color: #0090f0;
+}
+
+#admin_dashboard .admin-snapshot ul > li .squareish.data_sources .total {
+    color: #9e1b74;
+}
+
+#admin_dashboard .admin-snapshot ul > li .squareish.jobs .total {
+    color: teal;
+}
+
+
+
+
+#admin_dashboard .admin-snapshot ul > li .squareish .model {
+    font-size: 16px;
+    padding-bottom: 10px;
+    font-weight: 600;
+    color: #2d2d2d;
+}
+
+#admin_dashboard .admin-snapshot ul > li:hover {
+    background: #fff;
+}
+
+#admin_dashboard .admin-snapshot ul > li .squareish  .increment {
+    padding-top: 0px;
+/*    line-height: 56px; */
+    color: #464646;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+
+.dropdown.user-menu {
+    line-height: 24px;
+    text-align: left;
+}
+
+.dropdown.user-menu ul.dropdown-menu > li {
+    display: inline-block;
+    width: 100%;
+}
+
+
+.dropdown.user-menu ul.dropdown-menu  > li a:hover {
+    background-color: #afd9ee;
+    opacity: 0.9;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
+}
+
+.dropdown.user-menu ul.dropdown-menu > li.underline {
+    border-bottom: 1px solid #eaebec;
+}
+
+
+.dropdown.user-menu ul.dropdown-menu li > a {
+    height: 40px;
+    width: 100%;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+    line-height: 40px;
+    color: #000;
+    font-size: 16px;
+}
+
+.dropdown.user-menu .menu-container {
+    box-shadow: 2px 2px 3px 0 rgba(178,181,185,0.7);
+    display: block;
+}
+
+.navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+    border-radius: 0px !important;
+    padding-top: 0px;
+    width: 180px;
+    box-shadow: 2px 2px 3px 0 rgba(178,181,185,0.7);
+
 }
