@@ -9,7 +9,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         "change input[name=high_availability]": 'toggleHighAvailability'
     },
 
-    formFields: ["name", "host", "port", "size", "dbName", "username", "groupList", "streamUrl", "password", "jobTrackerHost", "jobTrackerPort", "hdfsVersion", "hiveKerberosPrincipal", "hiveKerberosKeytabLocation"],
+    formFields: ["name", "host", "port", "size", "dbName", "username", "groupList", "streamUrl", "password", "jobTrackerHost", "jobTrackerPort", "hiveMetastoreLocation", "hdfsVersion", "hiveKerberosPrincipal", "hiveKerberosKeytabLocation"],
 
     makeModel: function() {
         this.sourceModel = this.model;
@@ -74,6 +74,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             gpdbPgOrOracle: this.gpOrPg() || this.model.isOracle(),
             jdbcDataSource: this.model.isJdbc(),
             hdfsDataSource: this.model.constructorName === "HdfsDataSource",
+            hdfsHiveDataSource: this.model.constructorName === "HdfsDataSource" && this.model.isHive(),
             gnipDataSource: this.model.constructorName === "GnipDataSource",
             parameterCount: {count: this.model.numberOfConnectionParameters()},
             jdbcHiveDataSource: this.model.constructorName === "JdbcHiveDataSource"

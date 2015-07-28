@@ -5,8 +5,8 @@ class HdfsDataSource < ActiveRecord::Base
   include CommonDataSourceBehavior
   include Permissioner
 
+  attr_accessible :name, :host, :port, :description, :username, :group_list, :job_tracker_host, :job_tracker_port, :hdfs_version, :high_availability, :connection_parameters, :hive_metastore_location
 
-  attr_accessible :name, :host, :port, :description, :username, :group_list, :job_tracker_host, :job_tracker_port, :hdfs_version, :high_availability, :connection_parameters
   belongs_to :owner, :class_name => 'User'
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
@@ -68,7 +68,18 @@ class HdfsDataSource < ActiveRecord::Base
   end
 
   def hdfs_pairs
-    connection_parameters.map { |hsh| com.emc.greenplum.hadoop.plugins.HdfsPair.new(hsh['key'], hsh['value']) } if connection_parameters
+    pairs = []
+
+    if connection_parameters
+      connection_parameters.each { |hsh| pairs.push com.emc.greenplum.hadoop.plugins.HdfsPair.new(hsh['key'], hsh['value']) }
+    end
+
+    if is_hive
+      pairs.push com.emc.greenplum.hadoop.plugins.HdfsPair.new('is_hive', is_hive)
+      pairs.push com.emc.greenplum.hadoop.plugins.HdfsPair.new('hive.metastore.uris', hive_metastore_location)
+    end
+
+    pairs
   end
 
   def license_type

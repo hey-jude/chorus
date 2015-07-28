@@ -10,11 +10,21 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     },
 
     providerIconUrl: function() {
-        return this._imagePrefix + "icon_hdfs_data_source.png";
+        if(this.isHive()) {
+          return this._imagePrefix + "icon_hive_data_source.png";
+        } else {
+          return this._imagePrefix + "icon_hdfs_data_source.png";
+        }
     },
 
     isHadoop: function() {
         return true;
+    },
+
+    isHive: function() {
+      if(this.get('isHive')) {
+        return true;
+      }
     },
 
     isSingleLevelSource: function () {
@@ -22,6 +32,11 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     },
 
     declareValidations: function(newAttrs) {
+
+        if(this.get('isHive')) {
+          this.require("hiveMetastoreLocation", newAttrs);
+        }
+
         this.require("name", newAttrs);
         this.requirePattern("name", chorus.ValidationRegexes.MaxLength64(), newAttrs);
         this.require("host", newAttrs);
