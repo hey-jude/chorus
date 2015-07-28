@@ -478,6 +478,7 @@ DEPENDENCIES
   rspec (= 2.14.1)
   rspec-rails
   rspec_api_documentation!
+  rubyzip (= 0.9.9)
   sass-rails
   sequel (~> 4.0)
   shoulda-matchers
