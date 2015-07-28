@@ -195,8 +195,7 @@ class User < ActiveRecord::Base
 
   def developer=(value)
     write_attribute(:developer, value)
-
-    dev_role = Role.find_by_name("Developer")
+    dev_role = Role.find_by_name("WorkflowDeveloper")
     if value
       dev_role.users << self
     else

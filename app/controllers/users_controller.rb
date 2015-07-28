@@ -24,8 +24,6 @@ class UsersController < ApplicationController
     User.transaction do
       user.save!
 
-      Role.find_by_name("Admin").users << user if user_params[:admin]
-      Role.find_by_name("Developer").users << user if user_params[:developer]
       Events::UserAdded.by(current_user).add(:new_user => user)
     end
 

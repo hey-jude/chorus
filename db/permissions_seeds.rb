@@ -6,7 +6,6 @@ puts '---- Adding Roles ----'
 admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
 owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
 user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
-developer_role = Role.find_or_create_by_name(:name => 'developer'.camelize)
 collaborator_role = Role.find_or_create_by_name(:name => 'collaborator'.camelize)
 site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
 app_admin_role = Role.find_or_create_by_name(:name => 'application_administrator'.camelize)
@@ -22,6 +21,7 @@ admins = User.where(:admin => true).all
 admins.each do |admin|
   admin.roles << admin_role
   admin.roles << site_admin_role
+  admin.roles << app_manager_role
 end
 #puts ''
 #puts '---- Adding permissions ----'
@@ -353,33 +353,6 @@ role_permissions = {
     'CsvFile' =>      %w(create show update destroy)
   },
 
-  'Developer' => {
-    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
-    'ChorusScope' =>  %w(create show update destroy manage_scopes),
-    'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
-    'User' =>         %w(show change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
-    'Account' =>      %w(create show update destroy change_password lock unlock),
-    'Group' =>        %w(create show update destroy),
-    'Workspace' =>    %w(create show update destroy admin edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data),
-    'Workflow' =>     %w(create show update destroy run stop open),
-    'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
-    'Note' =>         %w(create show update destroy),
-    'Schema' =>       %w(create show update destroy),
-    'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
-    'Comment' =>      %w(create show update destroy promote_to_insight),
-    'Workfile' =>     %w(create show update destroy create_workflow run_workflow ),
-    'Workflow' =>     %w(create show update destroy run stop open),
-    'Job' =>          %w(create show update destroy run stop),
-    'Task' =>         %w(create show update destroy run stop),
-    'Milestone' =>    %w(create show update destroy complete restart),
-    'Tag' =>          %w(create show update destroy apply remove),
-    'Upload' =>       %w(create show update destroy),
-    'Import' =>       %w(create show update destroy),
-    'Notification' => %w(create show update destroy),
-    'CsvFile' =>      %w(create show update destroy)
-
-  },
-
   'Collaborator' => {
     'Events::Base' => %w(create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(),
@@ -624,9 +597,10 @@ User.find_in_batches({:batch_size => 100}) do |users|
   users.each do |user|
     if user.admin
       user.roles << site_admin_role unless user.roles.include? site_admin_role
+      user.roles << admin_role unless user.roles.include? admin_role
+      user.roles << app_manager_role unless user.roles.include? app_manager_role
     end
     if user.developer
-      user.roles << project_developer_role unless user.roles.include? project_developer_role
       user.roles << workflow_developer_role unless user.roles.include? workflow_developer_role
     end
     user.roles << collaborator_role unless user.roles.include? collaborator_role
