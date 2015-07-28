@@ -1,7 +1,7 @@
 @import "_common";
 
 /* page layout        */
-div[data-page="PublishedWorkletShow"],div[data-page="WorkletShow"] {
+div[data-page="PublishedWorkletShow"],div[data-page="WorkletEdit"],,div[data-page="WorkletPreview"] {
 
     #sidebar_wrapper {
         display: none;
@@ -23,6 +23,9 @@ $worklet-column-padding-y : $padding-x;
   max-height: 45px;
   width: 100%;
 
+  .menus {
+    margin-top: 0px;
+  }
   // background-color: $shaded-background-color;
 
   .icon {
@@ -149,6 +152,10 @@ $worklet-column-padding-y : $padding-x;
       top: 8px;
     }
   }
+}
+
+.no_history {
+  padding-left: 0 !important;
 }
 
 .published_worklet_content {

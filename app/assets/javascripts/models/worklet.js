@@ -69,6 +69,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         run: function(worklet_parameters) {
             this.save({worklet_parameters: worklet_parameters}, {
                 workflow_action: 'run',
+                silent: true,
                 unprocessableEntity: function() {
                     chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
                 }

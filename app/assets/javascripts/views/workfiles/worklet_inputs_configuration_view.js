@@ -102,7 +102,8 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         var filteredVars = _.omit(this.workflowVariables,
             ['@flowName', '@userName', '@defaultSchema',
              '@defaultPrefix', '@defaultTempdir',
-             '@defaultDelimiter', '@pigNumberOfReducers']);
+             '@defaultDelimiter', '@pigNumberOfReducers',
+             '@flowId', '@userId']);
 
         return {
             workflowVariables: _.map(filteredVars, function (value, prop) {
