@@ -74,7 +74,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             gpdbPgOrOracle: this.gpOrPg() || this.model.isOracle(),
             jdbcDataSource: this.model.isJdbc(),
             hdfsDataSource: this.model.constructorName === "HdfsDataSource",
-            hdfsHiveDataSource: this.model.constructorName === "HdfsDataSource" && this.model.isHive(),
+            hdfsHiveDataSource: this.model.constructorName === "HdfsDataSource" && this.model.isHdfsHive(),
             gnipDataSource: this.model.constructorName === "GnipDataSource",
             parameterCount: {count: this.model.numberOfConnectionParameters()},
             jdbcHiveDataSource: this.model.constructorName === "JdbcHiveDataSource"

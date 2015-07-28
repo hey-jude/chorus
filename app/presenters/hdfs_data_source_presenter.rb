@@ -7,7 +7,7 @@ class HdfsDataSourcePresenter < Presenter
         :entity_type => model.entity_type_name,
         :supports_work_flows => model.supports_work_flows,
         :hdfs_version => model.hdfs_version,
-        :is_hive => model.is_hive,
+        :is_hdfs_hive => model.is_hdfs_hive,
         :hive_metastore_location => model.hive_metastore_location,
         :is_deleted => model.deleted?
     }

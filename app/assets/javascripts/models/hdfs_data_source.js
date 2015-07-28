@@ -10,7 +10,7 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     },
 
     providerIconUrl: function() {
-        if(this.isHive()) {
+        if(this.isHdfsHive()) {
           return this._imagePrefix + "icon_hive_data_source.png";
         } else {
           return this._imagePrefix + "icon_hdfs_data_source.png";
@@ -21,8 +21,8 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
         return true;
     },
 
-    isHive: function() {
-      if(this.get('isHive')) {
+    isHdfsHive: function() {
+      if(this.get('isHdfsHive')) {
         return true;
       }
     },
@@ -33,7 +33,7 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
 
     declareValidations: function(newAttrs) {
 
-        if(this.get('isHive')) {
+        if(this.get('isHdfsHive')) {
           this.require("hiveMetastoreLocation", newAttrs);
         }
 
