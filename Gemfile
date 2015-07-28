@@ -21,11 +21,11 @@ gem 'premailer-rails'
 gem 'messengerjs-rails'
 gem 'codemirror-rails', '3.23'
 gem 'honor_codes', '~> 0.1.0'
-                       # Gem to generate JSON data output using Rails View
+# Gem to generate JSON data output using Rails View
 gem 'jbuilder'
-                       # Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
+# Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
 gem 'render_anywhere'
-                       # Bulk updating of active_record
+# Bulk updating of active_record
 gem 'activerecord-import','0.10.0'
 
 gem 'geo_pattern', '1.3.2'  # geopattern is used to generate the default worklet avatar images
@@ -49,7 +49,7 @@ group :assets do
 end
 
 group :integration do
-  gem 'capybara', :require => false
+  gem 'capybara', "~> 2.0.0", :require => false
   gem 'headless'
   gem 'capybara-screenshot'
 end
