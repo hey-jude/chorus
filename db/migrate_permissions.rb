@@ -441,7 +441,11 @@ DataSource.find_in_batches({:batch_size => 1000}) do |datasources|
   chorus_objects = []
   datasources.each do |data_source|
     print '.'
-    chorus_objects << [datasource_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    if data_source.owner != nil
+      chorus_objects << [datasource_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    else
+      chorus_objects << [datasource_class.id, data_source.id, nil, application_realm.id]
+    end
     #ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id, :chorus_scope_id => application_realm.id)
   end
   ChorusObject.import columns, chorus_objects, :validate => true
@@ -460,7 +464,11 @@ Database.find_in_batches({:batch_size => 1000}) do |databases|
     co = []
     co << [database_class.id, database.id, application_realm.id]
     if database.data_source != nil
-      co << [database.data_source.owner.id,  datasource_class.name, datasource_class.id, database.data_source.id]
+      if database.data_source.owner != nil
+        co << [database.data_source.owner.id,  datasource_class.name, datasource_class.id, database.data_source.id]
+      else
+        co << [nil,  datasource_class.name, datasource_class.id, database.data_source.id]
+      end
     else
       co << [nil, nil, nil, nil]
     end
@@ -479,7 +487,11 @@ HdfsDataSource.find_in_batches({:batch_size => 1000}) do |datasources|
   chorus_objects = []
   datasources.each do |data_source|
     print '.'
-    chorus_objects << [hdfs_data_source_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    if data_source.owner != nil
+      chorus_objects << [hdfs_data_source_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    else
+      chorus_objects << [hdfs_data_source_class.id, data_source.id, nil, application_realm.id]
+    end
   end
   ChorusObject.import columns, chorus_objects, :validate => true
 end
