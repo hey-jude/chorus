@@ -460,6 +460,7 @@ DEPENDENCIES
   pry-rails
   queue_classic!
   quiet_assets
+  rack (= 1.4.5)
   rails (= 3.2.18)
   rake
   render_anywhere

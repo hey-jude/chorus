@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.18'
 
+gem 'rack', '1.4.5' # rack 1.4.7 causes errors when performing multipart uploads [DEV-11813]
+
 gem 'will_paginate'
 gem 'net-ldap', '0.11',    :require => false
 gem 'paperclip', '3.0.4'
