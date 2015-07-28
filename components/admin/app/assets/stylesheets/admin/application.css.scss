@@ -589,12 +589,13 @@ img.profile {
 
 #admin_dashboard .admin-snapshot ul > li {
     display: inline-block;
-    margin-right: 10px;
+/*    margin-right: 10px; */
+    width: 18%;
 
 }
 
 #admin_dashboard .admin-snapshot ul > li .squareish {
-    width: 220px;
+/*    width: 220px; */
     height: 140px;
     display: block;
 }
