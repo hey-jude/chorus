@@ -1,3 +1,4 @@
+=begin
 # KT: See https://github.com/rubyzip/rubyzip#zipping-a-directory-recursively
 
 require 'rubygems'
@@ -60,3 +61,4 @@ class ZipFileGenerator
     end
   end
 end
+=end
