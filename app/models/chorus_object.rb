@@ -6,9 +6,38 @@ class ChorusObject < ActiveRecord::Base
   belongs_to :chorus_class
   belongs_to :chorus_scope
   belongs_to :owner, :class_name => "User"
-  has_many :chorus_object_roles
-  has_many :roles, :through => :chorus_object_roles
-  has_many :permissions, :through => :roles
+  has_many :chorus_object_roles, :dependent => :destroy
+  #has_many :roles, :through => :chorus_object_roles
+  #has_many :permissions, :through => :roles
+
+
+  # Due to the design of the schema, Rails doesn't play well with the roles association,
+  # So we have to do some manual building of objects
+  def roles_for_user(user)
+    role_ids = self.chorus_object_roles.where(:user_id => user.id).map(&:role_id)
+    Role.find(role_ids)
+  end
+
+  def users_for_role(role)
+    user_ids = self.chorus_object_roles.where(:role_id => role.id).map(&:user_id)
+    User.find(user_ids)
+  end
+
+  def add_user_to_object_role(user, role)
+    attributes = chorus_object_role_attributes_for(user, role)
+    unless ChorusObjectRole.where(attributes).first
+      self.chorus_object_roles.create(attributes)
+    end
+  end
+
+  def remove_user_from_object_role(user, role)
+    attributes = chorus_object_role_attributes_for(user, role)
+    chorus_object_role = self.chorus_object_roles.where(attributes).first
+    if chorus_object_role
+      ChorusObjectRole.destroy(chorus_object_role)
+      self.chorus_object_roles.destroy(chorus_object_role)
+    end
+  end
 
   def referenced_object
     actual_class = chorus_class.name.camelize.constantize
@@ -28,5 +57,11 @@ class ChorusObject < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  private
+
+  def chorus_object_role_attributes_for(user, role)
+    { :chorus_object_id => self.id, :user_id => user.id, :role_id => role.id }
   end
 end
