@@ -2,7 +2,7 @@
 chorus.models.PublishedWorklet = chorus.models.Worklet.include(
 ).extend({
     constructorName: "PublishedWorklet",
-    entityType: "worklet",
+    entityType: "published_worklet",
 
     urlTemplate: function(options) {
         var action = options && options.workflow_action;

@@ -456,6 +456,10 @@
             links: ["workfile"]
         },
 
+        WorkletResultShared: {
+            links: ["actor", "workfile", "workspace"]
+        },
+
         JobCreated: {
             links: ["actor", "job", "workspace"]
         },
@@ -604,8 +608,8 @@
         },
 
         milestoneState: function(self) {
-            object = self.model.get("milestone");
-            state = "milestone.state." + object.state.toString();
+            var object = self.model.get("milestone");
+            var state = "milestone.state." + object.state.toString();
             return t(state);
         },
 

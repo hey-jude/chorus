@@ -141,6 +141,7 @@ chorus_classes =  [
         {:name => 'pg_schema'.camelize},
         {:name => 'pg_table'.camelize},
         {:name => 'pg_view'.camelize},
+        {:name => 'published_worklet'.camelize},
         {:name => 'relational_dataset'.camelize},
         {:name => 'role'.camelize},
         {:name => 'run_sql_workfile_task'.camelize},

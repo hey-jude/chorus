@@ -25,4 +25,8 @@ resource "PublishedWorklets" do
   put "/worklets/:id/run" do
 
   end
+
+  post "/worklets/:id/share" do
+
+  end
 end

@@ -92,6 +92,7 @@ Chorus::Application.routes.draw do
   resources :worklets, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
     member do
       put 'run'
+      post 'share'
     end
   end
 
