@@ -14,9 +14,9 @@ Chorus::Application.routes.draw do
   end
 
   # Roles, groups and permissions routes
-  resources :roles
-  resources :groups
-  resources :permissions
+  #resources :roles
+  #resources :groups
+  #resources :permissions
 
   resources :hdfs_data_sources, :only => [:create, :index, :show, :update, :destroy] do
     scope :module => 'hdfs' do
