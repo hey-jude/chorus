@@ -111,7 +111,7 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
 
     dataSourceClass: function() {
         var dataSourceType = this.$("select.data_sources option:selected").attr("name");
-        if (dataSourceType === "register_existing_hdfs") {
+        if (dataSourceType === "register_existing_hdfs" || dataSourceType === "register_existing_hdfs_hive") {
             return chorus.models.HdfsDataSource;
         } else if (dataSourceType === "register_existing_gnip") {
             return chorus.models.GnipDataSource;
@@ -136,7 +136,9 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
             var input = $(i);
             updates[input.attr("name")] = input.val().trim();
         });
+
         updates["isHawq"] = this.$("select.data_sources option:selected").attr("hawq");
+        updates["isHdfsHive"] = this.$("select.data_sources option:selected").attr("hdfs_hive");
 
         updates.ssl = !!inputSource.find("input[name=ssl]").prop("checked");
         updates.shared = !!inputSource.find("input[name=shared]").prop("checked");
