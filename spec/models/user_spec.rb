@@ -303,16 +303,36 @@ describe User do
 
   describe "#admin=" do
     let(:admin) { users(:admin) }
+    let(:user) { users(:owner) }
 
     it "allows an admin to remove their own privileges, if there are other admins" do
       admin.admin = false
+      admin.save!
+      admin.reload
       admin.should_not be_admin
     end
 
     it "does not allow an admin to remove their own privileges if there are no other admins" do
       users(:evil_admin).delete
       admin.admin = false
+      admin.save!
+      admin.reload
       admin.should be_admin
+    end
+
+    it "should add the user to the ApplicationManager role" do
+      user.admin = false
+      user.admin = true
+      user.save!
+      user.reload
+      user.roles.should include(Role.find_by_name("ApplicationManager"))
+    end
+
+    it "should remove the user f rom the ApplicationManager role" do
+      admin.admin = false
+      admin.save!
+      admin.reload
+      admin.roles.should_not include(Role.find_by_name("ApplicationManager"))
     end
   end
 

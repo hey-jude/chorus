@@ -159,9 +159,9 @@ class User < ActiveRecord::Base
   end
 
   def self.admin_count
-    admin_role = Role.find_by_name('Admin')
+    admin_role = Role.find_by_name("ApplicationManager")
     if admin_role != nil
-      Role.find_by_name("Admin").users.size
+      Role.find_by_name("ApplicationManager").users.size
     else
       return 0
     end
@@ -178,7 +178,7 @@ class User < ActiveRecord::Base
       write_attribute(:admin, value)
 
       admin_role = Role.find_by_name("Admin")
-      site_admin_role = Role.find_by_name("SiteAdministrator")
+      site_admin_role = Role.find_by_name("ApplicationManager")
       if admin_role && value == true
         admin_role.users << self
         site_admin_role.users << self
