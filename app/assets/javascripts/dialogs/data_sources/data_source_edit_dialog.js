@@ -5,7 +5,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     title: t("data_sources.edit_dialog.title"),
     events: {
         "submit form": "save",
-        "click a.connection_parameters": "launchConnectionParametersDialog",
+        "click a.connection_parameters:visible": "launchConnectionParametersDialog",
         "change input[name=high_availability]": 'toggleHighAvailability'
     },
 

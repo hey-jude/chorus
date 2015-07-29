@@ -10,7 +10,7 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
         "submit form": "createDataSource",
         "change input[name=high_availability]": 'toggleHighAvailability',
         "change input[name=hiveKerberos]": 'toggleKerberos',
-        "click a.connection_parameters": "launchConnectionParametersDialog"
+        "click a.connection_parameters:visible": "launchConnectionParametersDialog"
     },
 
     postRender: function() {
