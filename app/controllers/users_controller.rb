@@ -21,16 +21,8 @@ class UsersController < ApplicationController
     # remove these lines when Roles are fully implemented
     user.admin = user_params[:admin] if user_params.key?(:admin)
     user.developer = user_params[:developer] if user_params.key?(:developer)
-    admin_role = Role.find_by_name("Admin")
-    developer_role = Role.find_by_name("Developer")
     User.transaction do
       user.save!
-      if user_params[:admin]
-        user.roles << admin_role unless user.roles.include? admin_role
-      end
-      if user_params[:developer]
-        user.roles <<  developer_role unless user.roles.include? developer_role
-      end
       default_group = Group.find_by_name('default_group')
       # Add user to the default group
       user.groups << default_group unless user.groups.include? default_group
