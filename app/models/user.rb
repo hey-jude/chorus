@@ -128,6 +128,10 @@ class User < ActiveRecord::Base
   end
 
   before_save :update_password_digest, :unless => lambda { password.blank? }
+  # Delete HABTM association objects
+  before_destroy { |user| user.groups.destroy_all }
+  before_destroy { |user| user.roles.destroy_all }
+
   after_initialize :defaults
 
   def defaults
