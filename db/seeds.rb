@@ -39,3 +39,8 @@ admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
 
 site_admin_role.users << chorusadmin if chorusadmin
 admin_role.users << chorusadmin if chorusadmin
+
+# Add chorusadmin to default group
+default_group = Group.find_or_create_by_name('default_group')
+chorusadmin.groups << default_group
+

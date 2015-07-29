@@ -5,5 +5,10 @@ class Group < ActiveRecord::Base
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :roles
+
+  # Delete HABTM association objects
+  before_destroy { |group| group.users.destroy_all }
+  before_destroy { |group| group.roles.destroy_all }
+
   has_one :chorus_scope
 end
