@@ -36,11 +36,9 @@ class Presenter
         hash = presenter_class.new(model, view_context, options).presentation_hash
         if cache_expiry != nil
           Chorus.log_debug "-- Storing data to cache for #{model.class.name} with ID = #{model.id} expires_in = #{cache_expiry} --"
-          hash.reject!{ |k| k.is_a? Proc }
           Rails.cache.write cache_key, hash, expires_in: cache_expiry
         else
           Chorus.log_debug "-- Storing data to cache for #{model.class.name} with ID = #{model.id}  --"
-          hash.reject!{ |k| k.is_a? Proc }
           Rails.cache.write cache_key, hash
         end
         return hash
