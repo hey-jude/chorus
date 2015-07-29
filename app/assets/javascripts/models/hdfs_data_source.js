@@ -11,7 +11,7 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
 
     providerIconUrl: function() {
         if(this.isHdfsHive()) {
-          return this._imagePrefix + "icon_hive_data_source.png";
+          return this._imagePrefix + "icon_hdfs_hive_data_source.png";
         } else {
           return this._imagePrefix + "icon_hdfs_data_source.png";
         }
