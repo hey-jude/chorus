@@ -57,7 +57,7 @@ class Workspace < ActiveRecord::Base
   before_save :handle_archiving, :if => :archived_changed?
   before_save :update_has_added_sandbox
   after_create :add_owner_as_member
-  after_create :add_owner_to_owner_role
+  after_create :add_owner_to_workspace_roles
 
   scope :active, where(:archived_at => nil)
 
@@ -389,8 +389,9 @@ class Workspace < ActiveRecord::Base
     end
   end
 
-  def add_owner_to_owner_role
+  def add_owner_to_workspace_roles
     self.add_user_to_object_role(owner, Role.find_by_name("Owner"))
+    self.add_user_to_object_role(owner, Role.find_by_name("Contributor"))
   end
 
   def archiver_is_set_when_archiving

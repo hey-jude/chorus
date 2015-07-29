@@ -31,11 +31,16 @@ module Authority
       roles = retrieve_roles(user)
 
       chorus_object = ChorusObject.where(:instance_id => object.id, :chorus_class_id => chorus_class.id).first
-      object_permissions = chorus_object.roles_for_user(user).map(&:permissions) if chorus_object
 
       actual_class = chorus_class.name.constantize
 
       class_permissions = common_permissions_between(roles, chorus_class)
+
+      if chorus_object
+        role_ids = chorus_object.roles_for_user(user).map(&:id)
+        object_permissions = Permission.where(:role_id => role_ids, :chorus_class_id => chorus_class.id)
+      end
+
       permissions = [class_permissions, object_permissions].flatten.compact
 
       activity_mask = actual_class.bitmask_for(activity_symbol)

@@ -242,6 +242,11 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
     workspace_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id, :chorus_scope_id => application_realm.id)
     workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
 
+    # Add members as Contributors
+    workspace.members.each do |member|
+      workspace_object.add_user_to_object_role(member, contributor_role)
+    end
+
     #workspace_object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
     #workspace.owner.object_roles << workspace_object_role
 
