@@ -219,9 +219,10 @@ $worklet-column-padding-y : $padding-x;
 
             }
             .description {
-                font-size: 12px;
-                font-style: italic;
-                padding: 2px 5px 5px 5px;
+                font-size: $small-font;
+                font-color: #CCC;
+                // font-style: italic;
+                // padding: 2px 5px 5px 5px;
             }
             input.textInput {
                 width: 250px;
