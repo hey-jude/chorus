@@ -20,7 +20,6 @@ admins = User.where(:admin => true).all
 
 admins.each do |admin|
   admin.roles << admin_role
-  admin.roles << site_admin_role
   admin.roles << app_manager_role
 end
 #puts ''
@@ -42,6 +41,7 @@ application_realm = ChorusScope.find_or_create_by_name(:name => 'application_rea
 default_group.chorus_scope = application_realm
 
 site_admin_role.groups << default_group unless site_admin_role.groups.include? default_group
+app_manager_role.groups << default_group unless app_manager_role.groups.include? default_group
 
 admin_role.groups << default_group unless admin_role.groups.include? default_group
 
@@ -596,7 +596,6 @@ puts ''
 User.find_in_batches({:batch_size => 100}) do |users|
   users.each do |user|
     if user.admin
-      user.roles << site_admin_role unless user.roles.include? site_admin_role
       user.roles << admin_role unless user.roles.include? admin_role
       user.roles << app_manager_role unless user.roles.include? app_manager_role
     end
