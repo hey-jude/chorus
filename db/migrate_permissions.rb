@@ -243,7 +243,6 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
     workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
 
     # Add members as Project Managers
-    print 'Add members as Project Managers'
     workspace.members.each do |member|
       workspace_object.add_user_to_object_role(member, project_manager_role)
     end
