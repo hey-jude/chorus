@@ -13,15 +13,18 @@ chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
     showResults: function() {
         // Render worklet output into the middle pane
         var main = this.options.mainPage;
-        var outputVars = this.model.workfile().get('outputTable') || [];
         var newView = new chorus.views.PublishedWorkletOutput({
-            resultsUrl: this.model.attachments()[0].url() + '&output_names=' + outputVars.join(';;;')
+            resultsId: this.model.id,
+            worklet: this.model.workfile(),
+            resultsUrl: this.model.attachments()[0].url()
         });
         main.updateMiddleContent(newView);
 
         // Style the selected history item.
         $('.published_worklet_history_item').removeClass('history_item_selected');
         $(this.el).addClass('history_item_selected');
+
+        $('#share_results_loading').show();
 
         this.workletVariableVersions = new chorus.collections.WorkletVariableVersionSet([], {eventId: this.model.id});
         this.workletVariableVersions.fetch();

@@ -14,9 +14,9 @@ Chorus::Application.routes.draw do
   end
 
   # Roles, groups and permissions routes
-  resources :roles
-  resources :groups
-  resources :permissions
+  #resources :roles
+  #resources :groups
+  #resources :permissions
 
   resources :hdfs_data_sources, :only => [:create, :index, :show, :update, :destroy] do
     scope :module => 'hdfs' do
@@ -92,6 +92,7 @@ Chorus::Application.routes.draw do
   resources :worklets, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
     member do
       put 'run'
+      post 'share'
     end
   end
 

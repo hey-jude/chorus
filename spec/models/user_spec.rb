@@ -21,19 +21,6 @@ describe User do
     end
   end
 
-  describe "permissions" do
-    # Since the permissions use a bitmask, it's important that the order of permissions
-    # never change after the customer has permissions in the database.
-    # If you need a new permission, append it to the end of the list.
-    # Updating the order of permissions after-the-fact will require
-    # lots of testing.
-
-    #it "should have the exact permissions specified" do
-    #  permissions_list = [:create, :destroy, :ldap, :update]
-    #  User::PERMISSIONS.should eq(permissions_list)
-    #end
-  end
-
   describe ".authenticate" do
     let(:user) { users(:default) }
 
@@ -296,6 +283,16 @@ describe User do
     it { should have_and_belong_to_many(:roles) }
     it { should have_many(:chorus_object_roles) }
     it { should have_many(:object_roles).through(:chorus_object_roles) }
+
+    let(:user) { users(:owner) }
+    let(:role) { roles(:a_role) }
+
+    it "should not allow the same role to be in .roles more than once" do
+       user.roles << role
+       expect {
+         user.roles << role
+       }.to_not change{ user.roles.count }
+    end
   end
 
   describe ".admin_count" do
@@ -306,16 +303,36 @@ describe User do
 
   describe "#admin=" do
     let(:admin) { users(:admin) }
+    let(:user) { users(:owner) }
 
     it "allows an admin to remove their own privileges, if there are other admins" do
       admin.admin = false
+      admin.save!
+      admin.reload
       admin.should_not be_admin
     end
 
     it "does not allow an admin to remove their own privileges if there are no other admins" do
       users(:evil_admin).delete
       admin.admin = false
+      admin.save!
+      admin.reload
       admin.should be_admin
+    end
+
+    it "should add the user to the ApplicationManager role" do
+      user.admin = false
+      user.admin = true
+      user.save!
+      user.reload
+      user.roles.should include(Role.find_by_name("ApplicationManager"))
+    end
+
+    it "should remove the user f rom the ApplicationManager role" do
+      admin.admin = false
+      admin.save!
+      admin.reload
+      admin.roles.should_not include(Role.find_by_name("ApplicationManager"))
     end
   end
 

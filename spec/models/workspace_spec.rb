@@ -47,6 +47,14 @@ describe Workspace do
       workspace.members.should include(owner)
     end
 
+    it "assigns the owner role to the owner" do
+      workspace.users_for_role(Role.find_by_name("Owner")).should include(owner)
+    end
+
+    it "assigns the contributor role to the owner" do
+      workspace.users_for_role(Role.find_by_name("Contributor")).should include(owner)
+    end
+
     it "shows sandbox datasets by default" do
       workspace.show_sandbox_datasets.should be_true
     end

@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     user.developer = user_params[:developer] if user_params.key?(:developer)
     User.transaction do
       user.save!
+
       default_group = Group.find_by_name('default_group')
       # Add user to the default group
       user.groups << default_group unless user.groups.include? default_group

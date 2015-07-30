@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
   # roles, groups, and permissions
   has_and_belongs_to_many :groups
-  has_and_belongs_to_many :roles, after_add: :check_admin_role, after_remove: :uncheck_admin_role
+  has_and_belongs_to_many :roles, after_add: :check_admin_role, after_remove: :uncheck_admin_role, :uniq => true
   #belongs_to :chorus_scope
 
   def uncheck_admin_role(role)
@@ -163,9 +163,9 @@ class User < ActiveRecord::Base
   end
 
   def self.admin_count
-    admin_role = Role.find_by_name('Admin')
+    admin_role = Role.find_by_name("ApplicationManager")
     if admin_role != nil
-      Role.find_by_name("Admin").users.size
+      Role.find_by_name("ApplicationManager").users.size
     else
       return 0
     end
@@ -182,7 +182,7 @@ class User < ActiveRecord::Base
       write_attribute(:admin, value)
 
       admin_role = Role.find_by_name("Admin")
-      site_admin_role = Role.find_by_name("SiteAdministrator")
+      site_admin_role = Role.find_by_name("ApplicationManager")
       if admin_role && value == true
         admin_role.users << self
         site_admin_role.users << self
@@ -199,8 +199,7 @@ class User < ActiveRecord::Base
 
   def developer=(value)
     write_attribute(:developer, value)
-
-    dev_role = Role.find_by_name("Developer")
+    dev_role = Role.find_by_name("WorkflowDeveloper")
     if value
       dev_role.users << self
     else

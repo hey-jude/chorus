@@ -14,6 +14,12 @@ class EventsController < ApplicationController
              end
 
     events = events.includes(Events::Base.activity_stream_eager_load_associations).order('events.id DESC')
+    if params[:results_only]
+      events = events.where(:action => Events::WorkfileResult)
+    end
+    if params[:current_user_only]
+      events = events.where(:actor_id => current_user.id)
+    end
     #@options =  { :workspace => workspace , :user => current_user, :rendering_activities => true, :show_latest_comments => false}
     #TODO Scope Filter results for current user's scope
     events = Events::Base.filter_by_scope(current_user, events) if current_user_in_scope?

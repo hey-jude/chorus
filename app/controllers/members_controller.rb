@@ -20,7 +20,7 @@ class MembersController < ApplicationController
 
     WorkspaceMembersManager.new(
         workspace,
-        { :member => params[:member_ids] },
+        { "Contributor" => params[:member_ids] },
         current_user
     ).update_membership
 

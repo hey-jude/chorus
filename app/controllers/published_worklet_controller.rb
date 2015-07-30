@@ -39,4 +39,13 @@ class PublishedWorkletController < ApplicationController
     present worklet, :status => :accepted
   end
 
+  def share
+    Events::WorkletResultShared.by(current_user).add(
+        :workfile => worklet,
+        :workspace => Workspace.find(params[:workspace_id]),
+        :result_note_id => params[:results_id]
+    )
+    present worklet, :status => :accepted
+  end
+
 end

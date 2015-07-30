@@ -156,7 +156,7 @@ describe EventPresenter, :type => :view do
           hash[:attachments][0][:entity_type].should == 'attachment'
           hash[:attachments][1][:entity_type].should == 'dataset'
           hash[:attachments][2][:entity_type].should == 'workfile'
-          hash[:attachments][1][:workspace].should == event.workspace
+          hash[:attachments][1][:workspace].should == event.workspace.attributes
           hash[:attachments][1][:entity_subtype].should == "SANDBOX_TABLE"
           hash[:attachments][3][:entity_type].should == "work_flow_result"
           hash[:attachments][3][:id].should == note_work_flow_result.result_id

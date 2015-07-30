@@ -19,6 +19,12 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
             });
             attachPoint.append(view.render().el);
         }, this);
+    },
+
+    additionalContext: function() {
+        return {
+            isEmpty: !this.collection || this.collection.length === 0
+        };
     }
 
 });

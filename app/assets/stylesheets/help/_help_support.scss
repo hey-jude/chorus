@@ -1,0 +1,12 @@
+@import "_common";
+@import "compass/css3/border-radius";
+
+.dialogs_help_and_support {
+    .messaging_block {
+            margin-top: 50px;
+    }
+   
+    #support_learn_more {
+        font-weight: $semibold;
+    }   
+}

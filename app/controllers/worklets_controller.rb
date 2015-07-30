@@ -95,9 +95,11 @@ class WorkletsController < ApplicationController
     process_id = worklet.run_now(current_user, variables)
     running_workfile = RunningWorkfile.new({:workfile_id => params[:id], :owner_id => current_user.id, :killable_id => process_id})
     running_workfile.save!
-    params[:workfile][:worklet_parameters][:fields].each do |field|
-      worklet_variable_version = WorkletVariableVersion.new({:worklet_variable_id => field['id'], :value => field['value'], :owner_id => current_user.id, :result_id => process_id})
-      worklet_variable_version.save!
+    if params[:workfile][:worklet_parameters][:fields]
+      params[:workfile][:worklet_parameters][:fields].each do |field|
+        worklet_variable_version = WorkletVariableVersion.new({:worklet_variable_id => field['id'], :value => field['value'], :owner_id => current_user.id, :result_id => process_id})
+        worklet_variable_version.save!
+      end
     end
 
     present worklet, :status => :accepted

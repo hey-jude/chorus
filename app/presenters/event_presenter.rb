@@ -109,7 +109,7 @@ class EventPresenter < Presenter
       datasets = model.datasets
       datasets.each do |dataset|
         model_hash = present(dataset, {:workspace => model.workspace}.merge(extended_options))
-        model_hash.merge!({:workspace => model.workspace}) if model.workspace
+        model_hash.merge!({:workspace => model.workspace.attributes}) if model.workspace
         model_hash.merge!({:entity_type => 'dataset'} )
         attachments << model_hash
       end
@@ -122,8 +122,9 @@ class EventPresenter < Presenter
       end
     end
 
-    if model.is_a?(Events::NoteOnWorkfile) || model.is_a?(Events::WorkfileResult)
-      model.notes_work_flow_results.each do |workflow_result|
+    if model.is_a?(Events::NoteOnWorkfile) || model.is_a?(Events::WorkfileResult) || model.is_a?(Events::WorkletResultShared)
+      results = model.is_a?(Events::WorkletResultShared) ? model.original_worklet_results : model.notes_work_flow_results
+      results.each do |workflow_result|
         model_hash = {
             :entity_type => (model.respond_to?(:workfile) && (model.workfile.is_a?(Worklet) || model.workfile.is_a?(PublishedWorklet))) ? 'worklet_result' : 'work_flow_result',
             :id => workflow_result.result_id,
@@ -131,6 +132,8 @@ class EventPresenter < Presenter
         }
 
         model_hash.merge!(:workfile_id => model.workfile.id) if model.respond_to?(:workfile)
+
+        model_hash.merge!(:output_vars => model.workfile.output_table) if (model.workfile.is_a?(Worklet) || model.workfile.is_a?(PublishedWorklet))
         attachments << model_hash
       end
     end
