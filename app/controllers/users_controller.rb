@@ -25,12 +25,6 @@ class UsersController < ApplicationController
     developer_role = Role.find_by_name("Developer")
     User.transaction do
       user.save!
-      if user_params[:admin]
-        user.roles << admin_role unless user.roles.include? admin_role
-      end
-      if user_params[:developer]
-        user.roles <<  developer_role unless user.roles.include? developer_role
-      end
       default_group = Group.find_by_name('default_group')
       # Add user to the default group
       user.groups << default_group unless user.groups.include? default_group
