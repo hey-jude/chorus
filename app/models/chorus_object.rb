@@ -10,6 +10,12 @@ class ChorusObject < ActiveRecord::Base
   #has_many :roles, :through => :chorus_object_roles
   #has_many :permissions, :through => :roles
 
+  # This is for debugging purposes only. It won't return AR objects.
+  def show_roles_and_users
+    chorus_object_roles.map(&:role).uniq.map do |r|
+      [r.name, users_for_role(r).map(&:username)]
+    end
+  end
 
   # Due to the design of the schema, Rails doesn't play well with the roles association,
   # So we have to do some manual building of objects

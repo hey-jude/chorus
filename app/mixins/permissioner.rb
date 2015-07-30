@@ -11,7 +11,12 @@ module Permissioner
   end
 
   # Use these methods to manipulate object-level roles. Method definitions can be found on ChorusObject
-  delegate :users_for_role, :roles_for_user, :add_user_to_object_role, :remove_user_from_object_role, to: :chorus_object
+  delegate :users_for_role,
+           :roles_for_user,
+           :add_user_to_object_role,
+           :remove_user_from_object_role,
+           :show_roles_and_users,
+           to: :chorus_object
 
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
