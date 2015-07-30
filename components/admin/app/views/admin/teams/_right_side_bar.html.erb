@@ -1,16 +1,15 @@
 <div class="multiple_selection hidden"></div>
 <div class="workspace_show_sidebar sidebar_content primary panel" data-template="workspace_show_sidebar">
 
-
   <div class="actions">
     <label>
       Team Actions
     </label>
     <ul>
-      <% if @teams %>
-        <li><%= link_to "Create Team" , admin.new_team_path , :remote => true %></li>
+      <% if controller.action_name == "index" %>
+          <li><%= link_to "Create Team" , admin.new_team_path , :remote => true %></li>
       <% end %>
-      <% if @team %>
+      <% if controller.action_name == "show" %>
           <li>
             <%= link_to "Edit Team Information" , admin.edit_team_path(@team) , :remote => true %>
           </li>

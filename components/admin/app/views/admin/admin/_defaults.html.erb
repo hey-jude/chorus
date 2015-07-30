@@ -4,9 +4,9 @@
   </div><!-- /.box-header -->
   <div class="box-body">
     <ol>
-      <li> <%= link_to t("defaults_new_people") , admin.users_path , :remote => true %> </li>
-      <li> <%= link_to t("defaults_new_workspaces") , admin.users_path , :remote => true %> </li>
-      <li> <%= link_to t("defaults_new_data") , admin.users_path , :remote => true %> </li>
+      <li> <%= link_to t("defaults_new_people") , admin.default_settings_admin_index_path(for: 'people') , :remote => true %> </li>
+      <li> <%= link_to t("defaults_new_workspaces") , admin.default_settings_admin_index_path(for: 'workspaces') , :remote => true %> </li>
+      <li> <%= link_to t("defaults_new_data") ,admin.default_settings_admin_index_path(for: 'data') , :remote => true %> </li>
     </ol>
   </div><!-- /.box-body -->
 </div>

@@ -1,0 +1,26 @@
+<div class='row'>
+  <div class="col-md-12">
+    <div id="breadcrumb">
+      <%= render partial: 'admin/shared/breadcrumb' %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-9" style="padding-right:0px !important;">
+    <div id="users_table">
+      <div class='chorus-box'>
+        <div class='box-header'>
+          <h3 class='box-title'><%= t('scopes')%></h3>
+        </div><!-- /.box-header -->
+        <div class='box-body'>
+          <p><%= image_tag('comingsoon.jpg', :alt => '[Coming Soon]') %></p>
+        </div><!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3" id="side-bar">
+    <div id="users_right_side_bar" class="primary_action_panel">
+      <%= render partial: 'licence_right_side_bar' %>
+    </div>
+  </div>
+</div>

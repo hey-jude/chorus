@@ -1,0 +1,3 @@
+$('#admin_dashboard').html('<%= escape_javascript(render "licence_info") %>');
+$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :admin_manage_tags, object: nil ) %>');
+$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb") %>');

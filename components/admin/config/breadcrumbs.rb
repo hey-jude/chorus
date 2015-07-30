@@ -3,6 +3,51 @@
    link "Admin", admin.admin_index_path
  end
 
+ crumb :admin_licence_info do
+   link "Licence info", admin.licence_info_admin_index_path
+   parent :admin
+ end
+
+ crumb :admin_email_config do
+   link "Email Config", admin.email_config_admin_index_path
+   parent :admin
+ end
+
+ crumb :admin_auth_config do
+   link "Authentication Configuration", admin.auth_config_admin_index_path
+   parent :admin
+ end
+
+ crumb :admin_general_settings do
+   link "General Settings", admin.general_settings_admin_index_path
+   parent :admin
+ end
+
+ crumb :admin_app_preferences do
+   link "Application Preferences", admin.app_preferences_admin_index_path
+   parent :admin
+ end
+
+ crumb :admin_default_settings do
+   link "Default Settings", admin.default_settings_admin_index_path
+   parent :admin
+ end
+
+ crumb :admin_app_preferences do
+   link "Application Preferences", admin.app_preferences_admin_index_path
+   parent :admin
+ end
+
+ crumb :admin_workflow_editor_pref do
+   link "Workflow Editor Settings", admin.workflow_editor_pref_admin_index_path
+   parent :admin
+ end
+
+ crumb :admin_manage_tags do
+   link "Manage Tags", admin.manage_tags_admin_index_path
+   parent :admin
+ end
+
  crumb :users do
    link "People", admin.users_path
    parent :admin

@@ -1,0 +1,8 @@
+<% if(@error) %>
+  $('#modalBox').html('<%= escape_javascript(render "edit") %>');
+  $('#newTeam').modal('show');
+
+<% else %>
+$('#newTeam').modal('hide');
+
+<%end%>
