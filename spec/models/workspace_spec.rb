@@ -52,7 +52,7 @@ describe Workspace do
     end
 
     it "assigns the contributor role to the owner" do
-      workspace.users_for_role(Role.find_by_name("Contributor")).should include(owner)
+      workspace.users_for_role(Role.find_by_name("ProjectManager")).should include(owner)
     end
 
     it "shows sandbox datasets by default" do

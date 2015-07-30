@@ -391,7 +391,7 @@ class Workspace < ActiveRecord::Base
 
   def add_owner_to_workspace_roles
     self.add_user_to_object_role(owner, Role.find_by_name("Owner"))
-    self.add_user_to_object_role(owner, Role.find_by_name("Contributor"))
+    self.add_user_to_object_role(owner, Role.find_by_name("ProjectManager"))
   end
 
   def archiver_is_set_when_archiving
