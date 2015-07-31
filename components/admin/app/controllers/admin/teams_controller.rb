@@ -42,5 +42,24 @@ module Admin
       end
     end
 
+    def manage_memberships
+
+    end
+
+    def manage_roles
+
+    end
+
+    def manage_scopes
+
+    end
+
+    def manage_workspaces
+
+    end
+
+
+
+
   end
 end

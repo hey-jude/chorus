@@ -695,3 +695,91 @@ img.profile {
     box-shadow: 2px 2px 3px 0 rgba(178,181,185,0.7);
 
 }
+
+.modal-dialog .modal-header {
+    background: #ddecfa;
+    border-bottom: 1px solid #eaebec;
+    line-height: 40px;
+    -ms-word-break: break-all;
+    word-break: break-all;
+
+}
+.modal-dialog .modal-header h1 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #606060;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-spacing: .135em;
+    vertical-align: middle;
+    margin: 0;
+    padding-right: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-dialog .modal-header .close {
+    color: #8a8b93;
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+
+.modal-dialog .modal-header .fa {
+    display: inline-block;
+    font: normal normal normal 14px/17px FontAwesome;
+    color: #8a8b93;
+    font-size: 16px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.modal-dialog .modal-footer {
+    background-color: #ddecfa;
+    border-top: 1px solid #eaebec;
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    padding: 10px;
+}
+
+.modal-dialog .modal-footer button.modalish.cancel,
+.modal-dialog .modal-footer .button_modalish.close_dialog
+{
+    min-width: 75px;
+    margin-right: 0;
+    color: #2c95dd;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    height: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 30px;
+
+}
+
+.modal-dialog .modal-footer input.btn {
+    #background-color: #26aee9;
+    background: linear-gradient(#26aee9 0,#43b8ec 100%);
+    text-overflow: ellipsis;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Source Sans Pro",Helvetica,Arial,Verdana,sans-serif;
+    min-width: 86px;
+    border-radius: 3px;
+    height: 30px;
+    padding-top: 2px;
+}
+
+.box-header .box-title {
+    font-weight: 600 !important;
+    font-size:  20px!important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}

@@ -1,9 +1,16 @@
 <tr role="row" class="<%= get_row_class(user.id)%>">
+  <td>
+    <%= image_tag("user4-128x128.jpg", :height => 32) %>
+  </td>
   <td class="sorting_1">
     <%= link_to "#{user.first_name} #{user.last_name}", admin.user_path(user) ,:remote => true %>
+    <br/>
+    <span>Department: <%= user.dept %></span>&nbsp;&nbsp;<span>Title: <%= user.title %></span>
   </td>
   <td>
     <%= user.username %>
+  </td>
+  <td>
     <%= user.email %>
   </td>
 </tr>

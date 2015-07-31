@@ -19,7 +19,7 @@ Admin::Engine.routes.draw do
   resources :users
 
   resources :teams do
-    get :manage_memberships , on: :member
+    get 'manage_memberships' , on: :member
     get 'manage_roles' , on: :member
     get 'manage_scopes' , on: :member
     get 'manage_workspaces' , on: :member
