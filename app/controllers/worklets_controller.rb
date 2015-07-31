@@ -54,7 +54,8 @@ class WorkletsController < ApplicationController
   end
 
   def destroy
-
+    worklet.destroy
+    render :json => {}
   end
 
   def publish

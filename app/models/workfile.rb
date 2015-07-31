@@ -164,6 +164,17 @@ class Workfile < ActiveRecord::Base
   def run_now(user)
   end
 
+  def destroy
+    associated_worklets = Worklet.where("additional_data LIKE '%\"workflow_id\":" + self.id.to_s + "%'")
+
+    if associated_worklets.count > 0
+      errors.add(:workfile, :worklet_associated)
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+
+    super
+  end
+
   def copy(user, workspace, new_file_name = nil)
     new_workfile = self.class.new
     new_workfile.file_name = new_file_name.nil? ? file_name : new_file_name

@@ -14,6 +14,21 @@ class Worklet < AlpineWorkfile
     process_id
   end
 
+  def destroy
+
+    if self.state == 'published'
+      errors.add(:workfile, :published_worklet_associated)
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+
+    published_worklet = PublishedWorklet.where("additional_data LIKE '%\"source_worklet_id\":" + self.id.to_s + "%'")
+    if published_worklet.count > 0
+      published_worklet.destroy_all
+    end
+
+    super
+  end
+
   def entity_subtype
     'worklet'
   end
