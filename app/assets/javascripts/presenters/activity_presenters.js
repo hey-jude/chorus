@@ -460,6 +460,14 @@
             links: ["actor", "workfile", "workspace"]
         },
 
+        WorkletPublished: {
+            links: ["workfile"]
+        },
+
+        WorkletUnpublished: {
+            links: ["workfile"]
+        },
+
         JobCreated: {
             links: ["actor", "job", "workspace"]
         },

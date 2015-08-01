@@ -77,6 +77,9 @@ class WorkletsController < ApplicationController
       published_worklet = PublishedWorklet.build_for(published_worklet_params)
       published_worklet.update_from_params!(published_worklet_params)
     end
+
+    Events::WorkletPublished.by(current_user).add(:workfile => worklet, :workspace => Workspace.find(worklet.workspace_id))
+
     present worklet, :status => :accepted
   end
 
@@ -88,6 +91,9 @@ class WorkletsController < ApplicationController
     existing_published_worklets = PublishedWorklet.where(:file_name => worklet.file_name)
     existing_published_worklets[0].assign_attributes(unpublished_param)
     existing_published_worklets[0].update_from_params!(unpublished_param)
+
+    Events::WorkletUnpublished.by(current_user).add(:workfile => worklet, :workspace => Workspace.find(worklet.workspace_id))
+
     present worklet, :status => :accepted
   end
 
