@@ -5,6 +5,11 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     shared: true,
     entityType: "hdfs_data_source",
 
+    beforeSave: function() {
+      this._super("beforeSave");
+      this.set('connectionParameters', this.connectionParametersWithoutHadoopHive());
+    },
+
     isShared: function() {
         return true;
     },
@@ -59,6 +64,19 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
 
     version: function() {
         return this.get("hdfsVersion");
+    },
+
+    connectionParametersWithoutHadoopHive: function() {
+      var pairs = this.get('connectionParameters');
+
+      pairs = _.map(pairs, function (pair) {
+        if(pair['key'] != 'is_hive' && pair['key'] != 'hive.metastore.uris') {
+          return pair;
+        }
+      });
+      pairs = _.compact(pairs);
+
+      return pairs;
     }
 
 });

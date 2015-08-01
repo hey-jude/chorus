@@ -43,7 +43,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     },
 
     rewriteLink: function () {
-        this.$('a.connection_parameters').text(t('data_sources.dialog.connection_parameters', {count: this.model.numberOfConnectionParameters()}));
+        this.$('a.connection_parameters').text(t('data_sources.dialog.connection_parameters', {count: this.model.connectionParametersWithoutHadoopHive().length}));
     },
 
     toggleHighAvailability: function (e) {
@@ -76,7 +76,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             hdfsDataSource: this.model.constructorName === "HdfsDataSource",
             hdfsHiveDataSource: this.model.constructorName === "HdfsDataSource" && this.model.isHdfsHive(),
             gnipDataSource: this.model.constructorName === "GnipDataSource",
-            parameterCount: {count: this.model.numberOfConnectionParameters()},
+            parameterCount: {count: this.model.connectionParametersWithoutHadoopHive().length},
             jdbcHiveDataSource: this.model.constructorName === "JdbcHiveDataSource"
         };
     },

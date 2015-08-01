@@ -11,7 +11,7 @@ class HdfsDataSource < ActiveRecord::Base
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
   has_many :hdfs_entries
-  has_many :workfile_execution_locations, :foreign_key => :execution_location_id, :conditions => { :execution_location_type => 'HdfsDataSource' }, :dependent => :destroy
+  has_many :workfile_execution_locations, :foreign_key => :execution_location_id, :conditions => {:execution_location_type => 'HdfsDataSource'}, :dependent => :destroy
   validates_presence_of :name, :host
   validates_presence_of :port, :unless => :high_availability?
   validates_inclusion_of :hdfs_version, :in => ChorusConfig.instance.hdfs_versions
@@ -37,7 +37,7 @@ class HdfsDataSource < ActiveRecord::Base
     data_source = HdfsDataSource.find(id)
     data_source.check_status!
   rescue => e
-    Rails.logger.error  "Unable to check status of DataSource: #{data_source.inspect}"
+    Rails.logger.error "Unable to check status of DataSource: #{data_source.inspect}"
     Rails.logger.error "#{e.message} :  #{e.backtrace}"
   end
 
@@ -67,21 +67,19 @@ class HdfsDataSource < ActiveRecord::Base
     !!(job_tracker_host && job_tracker_port)
   end
 
-  def hdfs_pairs
-    pairs = []
-
-    if connection_parameters
-      connection_parameters.each { |hsh|
-        pairs.push com.emc.greenplum.hadoop.plugins.HdfsPair.new(hsh['key'], hsh['value'])
-      }
-    end
+  def connection_parameters_including_hive
+    return unless connection_parameters
 
     if is_hdfs_hive
-      pairs.push com.emc.greenplum.hadoop.plugins.HdfsPair.new('is_hive', "true")
-      pairs.push com.emc.greenplum.hadoop.plugins.HdfsPair.new('hive.metastore.uris', hive_metastore_location)
+      connection_parameters << {"key" => "is_hive", "value" => "true"}
+      connection_parameters << {"key" => 'hive.metastore.uris', "value" => hive_metastore_location}
     end
 
-    pairs
+    connection_parameters
+  end
+
+  def hdfs_pairs
+    connection_parameters_including_hive.map { |hsh| com.emc.greenplum.hadoop.plugins.HdfsPair.new(hsh['key'], hsh['value']) } if connection_parameters_including_hive
   end
 
   def license_type
