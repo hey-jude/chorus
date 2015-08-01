@@ -63,8 +63,6 @@ class WorkletsController < ApplicationController
     worklet.assign_attributes(published_param)
     worklet.update_from_params!(published_param)
 
-    existing_published_worklets = PublishedWorklet.where(:file_name => worklet.file_name)
-
     if existing_published_worklets.any?
       existing_published_worklets[0].assign_attributes(published_param)
       existing_published_worklets[0].update_from_params!(published_param)
@@ -88,11 +86,11 @@ class WorkletsController < ApplicationController
     worklet.assign_attributes(unpublished_param)
     worklet.update_from_params!(unpublished_param)
 
-    existing_published_worklets = PublishedWorklet.where(:file_name => worklet.file_name)
-    existing_published_worklets[0].assign_attributes(unpublished_param)
-    existing_published_worklets[0].update_from_params!(unpublished_param)
-
-    Events::WorkletUnpublished.by(current_user).add(:workfile => worklet, :workspace => Workspace.find(worklet.workspace_id))
+    if existing_published_worklets.any?
+      existing_published_worklets[0].assign_attributes(unpublished_param)
+      existing_published_worklets[0].update_from_params!(unpublished_param)
+      Events::WorkletUnpublished.by(current_user).add(:workfile => worklet, :workspace => Workspace.find(worklet.workspace_id))
+    end
 
     present worklet, :status => :accepted
   end
@@ -114,6 +112,10 @@ class WorkletsController < ApplicationController
 
   def worklet
     @worklet ||= Worklet.find(params[:id])
+  end
+
+  def existing_published_worklets
+    @existing_published_worklets ||= PublishedWorklet.where("additional_data LIKE '%\"source_worklet_id\":" + worklet.id.to_s + "%'")
   end
 
   def workspace
