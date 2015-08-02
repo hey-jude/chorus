@@ -70,12 +70,14 @@ class HdfsDataSource < ActiveRecord::Base
   def connection_parameters_including_hive
     return unless connection_parameters
 
+    params = connection_parameters.clone
+
     if is_hdfs_hive
-      connection_parameters << {"key" => "is_hive", "value" => "true"}
-      connection_parameters << {"key" => 'hive.metastore.uris', "value" => hive_metastore_location}
+      params << {"key" => "is_hive", "value" => "true"}
+      params << {"key" => 'hive.metastore.uris', "value" => hive_metastore_location}
     end
 
-    connection_parameters
+    params
   end
 
   def hdfs_pairs
