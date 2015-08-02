@@ -5,11 +5,6 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     shared: true,
     entityType: "hdfs_data_source",
 
-    beforeSave: function() {
-      this._super("beforeSave");
-      this.set('connectionParameters', this.connectionParametersWithoutHadoopHive());
-    },
-
     isShared: function() {
         return true;
     },

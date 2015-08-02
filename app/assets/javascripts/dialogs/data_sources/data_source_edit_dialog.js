@@ -104,6 +104,8 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             delete attrs.hdfsVersion;
         }
 
+        attrs.connectionParameters = this.model.connectionParametersWithoutHadoopHive();
+
         attrs.highAvailability = !!this.$("input[name=high_availability]").prop("checked");
         attrs.ssl = !!this.$("input[name=ssl]").prop("checked");
 
