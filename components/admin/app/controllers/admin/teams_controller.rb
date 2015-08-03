@@ -43,6 +43,7 @@ module Admin
     end
 
     def destroy
+      @team = Group.find(params[:id])
       puts '-------  Teams destroy is called -------'
     end
 

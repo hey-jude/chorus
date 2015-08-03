@@ -4,7 +4,9 @@
   </div><!-- /.box-header -->
   <div class="box-body">
     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-
+      <div class="dataTables_paginate paging_simple" style="float:right">
+        <%= page_entries_info @team_users %>
+      </div>
       <div class="row">
         <div class="col-sm-12 no-padding">
           <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
@@ -21,9 +23,8 @@
           </table>
         </div>
       </div>
-      <div class="dataTables_paginate paging_simple_numbers" style="float:right">
-        <%= page_entries_info @team_users %>
-        <%= will_paginate @team_users, :class => 'digg_pagination', param_name: 'users_page' %>
+      <div class="dataTables_paginate paging_simple" style="float:right">
+        <%= will_paginate @team_users, :class => 'digg_pagination', :page_links => false, param_name: 'users_page' %>
       </div>
     </div>
   </div><!-- /.box-body -->
