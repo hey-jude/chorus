@@ -14,33 +14,45 @@
         <div class="worklet_param">
             <div class="section_header">Parameter {{@index}}</div>
             <div class="input_section">
-                <b>Workflow Variable</b>
-                <select name="variable_name_{{@index}}" class="workflow_variable">
+               
+               <div class="form_pair">
+               <label> Workflow Variable</label>
+                <select id="variable_name_{{@index}}" name="variable_name_{{@index}}" class="workflow_variable">
                     {{#each ../workflowVariables}}
                         <option value="{{this.variableName}}" {{selectedIfMatch this.variableName ../this.variableName}}>{{this.variableName}}</option>
                     {{/each}}
                 </select>
-                <br>
+                </div>
+                
+                <div class="form_pair">
+                    <input type="checkbox" id="use_default_{{@index}}" name="use_default_{{@index}}" value="true"{{#if this.useDefault}} checked{{/if}}>
+                    <label class="adjacent" for="use_default_{{@index}}">Use Workflow's Existing Value as Default</label>
+                </div>
+                
+                <div class="form_pair">
+                    <input type="checkbox" id="required_{{@index}}" name="required_{{@index}}" value="true" {{#if this.required}} checked{{/if}}>
+                    <label class="adjacent" for="required_{{@index}}">Required Field</label>
+                </div>
+                
+                <div class="form_pair">
+                    <label for="label_{{@index}}">Field Label</label>
+                    <input type="text" id="label_{{@index}}" name="label_{{@index}}" value="{{label}}">
+                </div>
+                
+                <div class="form_pair">
+                    <label for="description_{{@index}}">Description</label>
+                    <textarea id="description_{{@index}}" name="description_{{@index}}">{{this.description}}</textarea>
+                </div>
 
-                <input type="checkbox" name="use_default_{{@index}}" value="true"{{#if this.useDefault}} checked{{/if}}> Use Workflow's Existing Value as Default<br>
-                <input type="checkbox" name="required_{{@index}}" value="true" {{#if this.required}} checked{{/if}}> Required Field<br>
-                <br>
+                <div class="form_pair">
+                    <label for="data_type_{{@index}}">{{t "worklet.edit.inputs.data_type.label"}}</label>
+                    <select id="data_type_{{@index}}" name="data_type_{{@index}}" class="workflow_variable">
+                        {{#each ../dataTypes}}
+                            <option value="{{this}}" {{selectedIfMatch this ../this.dataType}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
 
-                <b>Field Label</b>
-                <input type="text" name="label_{{@index}}" placeholder="Store Name" value="{{label}}">
-                <br>
-
-                <b>Description</b>
-                <textarea name="description_{{@index}}" placeholder="Enter the name of the store you are evaluating">{{this.description}}</textarea>
-                <br>
-
-                <b>Input Data Type</b>
-                <select name="data_type_{{@index}}" class="workflow_variable">
-                    {{#each ../dataTypes}}
-                        <option value="{{this}}" {{selectedIfMatch this ../this.dataType}}>{{this}}</option>
-                    {{/each}}
-                </select>
-                <br>
             </div>
             <div class="row form_controls">
                 <button type="submit" class="delete_input_param" data-index="{{@index}}">Delete</button>

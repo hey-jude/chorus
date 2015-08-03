@@ -43,12 +43,14 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         },
 
         publishWorklet: function() {
+            this.bind("saved", this.publishSuccess);
             this.save({}, {
                 workflow_action: 'publish'
             });
         },
 
         unpublishWorklet: function() {
+            this.bind("saved", this.unpublishSuccess);
             this.save({}, {
                 workflow_action: 'unpublish'
             });
@@ -79,5 +81,15 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         save: function(attrs, options) {
             var overrides = {};
             return this._super("save", [attrs, _.extend(options, overrides)]);
+        },
+
+        publishSuccess: function(e) {
+            this.unbind("saved", this.publishSuccess);
+            chorus.toast("worklet.publish.toast", {"workletName": this.name()});
+        },
+
+        unpublishSuccess: function(e) {
+            this.unbind("saved", this.unpublishSuccess);
+            chorus.toast("worklet.unpublish.toast", {"workletName": this.name()});
         }
     });

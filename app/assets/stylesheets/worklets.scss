@@ -1,7 +1,21 @@
 @import "_common";
+@import "compass/css3/box-shadow";
+
+$workbench-module-title-height: 35px;
+$workbench-module-padding: 10px;
+$title-height: $workbench-module-title-height - $workbench-module-padding;
+
+
+$worklet-left-column-width: 200px;
+$worklet-right-column-width: 350px;
+$worklet-column-padding-x: $padding-x;
+$worklet-column-padding-y: $padding-x;
+
 
 /* page layout        */
-div[data-page="PublishedWorkletShow"],div[data-page="WorkletEdit"],,div[data-page="WorkletPreview"] {
+div[data-page="PublishedWorkletShow"],
+div[data-page="WorkletEdit"],
+div[data-page="WorkletPreview"] {
 
     #sidebar_wrapper {
         display: none;
@@ -10,14 +24,9 @@ div[data-page="PublishedWorkletShow"],div[data-page="WorkletEdit"],,div[data-pag
     #left {
         margin: 0;
     }
-
 }
 /* END page layout */
 
-$worklet-left-column-width : 210px;
-$worklet-right-column-width : 300px;
-$worklet-column-padding-x : $padding-x;
-$worklet-column-padding-y : $padding-x;
 
 .worklet_header {
   max-height: 45px;
@@ -43,11 +52,14 @@ $worklet-column-padding-y : $padding-x;
 
 }
 
-.worklet_inputs_configuration,.worklet_details_configuration {
+.worklet_inputs_configuration,
+.worklet_details_configuration {
   margin-top: 5px;
 }
 
-.worklet_new_dialog,.worklet_inputs_configuration,.worklet_details_configuration {
+.worklet_new_dialog,
+.worklet_inputs_configuration,
+.worklet_details_configuration {
   .worklet_param {
     border: 1px solid $border-color-darkest;
     margin: 5px;
@@ -67,12 +79,12 @@ $worklet-column-padding-y : $padding-x;
 
   .image_instructions {
     margin-left: 10px;
-    font-size: 12px;
+    font-size: $small-font;
     color: $color-text4;
   }
 
   .description_instructions {
-    font-size: 12px;
+    font-size: $small-font;
     color: $color-text4;
   }
 
@@ -111,7 +123,7 @@ $worklet-column-padding-y : $padding-x;
   }
 
   .workflow_details {
-    margin: 5px;
+    // margin: 5px;
   }
 
   .workfile_image {
@@ -133,10 +145,8 @@ $worklet-column-padding-y : $padding-x;
     }
 
     .bordered {
-      border: 5px solid #399ccd;
-      -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
-      -moz-box-shadow:    7px 7px 5px 0px rgba(50, 50, 50, 0.75);
-      box-shadow:         7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        border: 5px solid #399ccd;
+        @include single-box-shadow(rgba(50, 50, 50, 0.75), 7px, 7px, 5px, 0px);
     }
   }
 
@@ -158,6 +168,24 @@ $worklet-column-padding-y : $padding-x;
   padding-left: 0 !important;
 }
 
+.worklet_panel {
+    .header {
+        padding: 10px 0 10px 10px;
+//         border-top: $dark-border-canon;
+//         border-bottom: $dark-border-canon;
+
+        .title {
+            display: inline-block;
+            font-size: $medium-font;
+            color: $color-text2;
+        }
+    }
+
+
+
+}
+
+
 .published_worklet_content {
     padding-left: $worklet-left-column-width;   /* LC width */
     padding-right: $worklet-right-column-width;  /* RC width */
@@ -166,7 +194,8 @@ $worklet-column-padding-y : $padding-x;
     .worklet_output {
         width: 100%;
         height: 100%;
-        background-color: white;
+        background-color: $core-white;
+
         .iframe_wrapper {
             padding: 0 38px;
         }
@@ -219,9 +248,10 @@ $worklet-column-padding-y : $padding-x;
 
             }
             .description {
-                font-size: 12px;
-                font-style: italic;
-                padding: 2px 5px 5px 5px;
+                font-size: $small-font;
+                font-color: #CCC;
+                // font-style: italic;
+                // padding: 2px 5px 5px 5px;
             }
             input.textInput {
                 width: 250px;

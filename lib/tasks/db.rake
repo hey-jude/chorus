@@ -18,15 +18,19 @@ namespace :db do
   end
   # Load permissions seed data
   task :seed_permissions => :environment do
+    ENV['SKIP_SOLR'] = 'true'
     ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
       load Rails.root.join('db', 'permissions_seeds.rb')
     end
+    ENV['SKIP_SOLR'] = nil
   end
 
   task :migrate_permissions => :environment do
+    ENV['SKIP_SOLR'] = 'true'
     ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
       load Rails.root.join('db', 'migrate_permissions.rb')
     end
+    ENV['SKIP_SOLR'] = nil
   end
 
 

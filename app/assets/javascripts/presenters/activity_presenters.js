@@ -249,7 +249,8 @@
         },
 
         WorkfileCreated: {
-            links: [ "actor", "workfile", "workspace" ]
+            links: [ "actor", "workfile", "workspace" ],
+            computed: ["workfileType"]
         },
 
         WorkspaceAddSandbox: {
@@ -460,6 +461,14 @@
             links: ["actor", "workfile", "workspace"]
         },
 
+        WorkletPublished: {
+            links: ["workfile"]
+        },
+
+        WorkletUnpublished: {
+            links: ["workfile"]
+        },
+
         JobCreated: {
             links: ["actor", "job", "workspace"]
         },
@@ -564,6 +573,10 @@
         datasetType: function(self) {
             var type = self.model.dataset().metaType();
             return t("dataset.entitySubtypes." + type);
+        },
+
+        workfileType: function(self) {
+            return self.model.workfile().get('entitySubtype') === 'worklet' ? 'worklet' : 'file';
         },
 
         tableauWorkbookLink: function(self) {

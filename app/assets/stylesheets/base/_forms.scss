@@ -73,7 +73,7 @@ fieldset {
     label {
         display: block;
         
-        // add class .adjacent for when lable & field should be on the same line
+        // add class .adjacent to label when lable & field should be on the same line
         &.adjacent {
             display: inline-block;
         }

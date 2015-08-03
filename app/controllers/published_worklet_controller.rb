@@ -8,7 +8,7 @@ class PublishedWorkletController < ApplicationController
   #before_filter :authorize_edit_workfile, :only => [:update, :destroy,  :run, :stop]
 
   def index
-    published_worklets = PublishedWorklet.all
+    published_worklets = PublishedWorklet.where("additional_data LIKE '%\"state\":\"published\"%'").order(:id)
 
     present published_worklets
   end

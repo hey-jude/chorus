@@ -20,5 +20,16 @@ chorus.views.WorkletSidebar = chorus.views.AlpineWorkfileSidebar.extend ({
     unpublishWorklet: function(e) {
         e && e.preventDefault();
         this.model.isWorklet() && this.model.unpublishWorklet();
+    },
+
+    launchWorkfileDeleteDialog: function(e) {
+        e && e.preventDefault();
+        var alert = new chorus.alerts.WorkfileDelete({
+            model: this.model,
+            workfileId: this.model.id,
+            workspaceId: this.model.workspace().id,
+            workfileName: this.model.get("fileName")
+        });
+        alert.launchModal();
     }
 });
