@@ -42,6 +42,10 @@ module Admin
       end
     end
 
+    def destroy
+      puts '-------  Teams destroy is called -------'
+    end
+
     def manage_memberships
 
     end
@@ -57,8 +61,6 @@ module Admin
     def manage_workspaces
 
     end
-
-
 
 
   end

@@ -14,7 +14,8 @@
             <%= link_to "Edit Team Information" , admin.edit_team_path(@team) , :remote => true %>
           </li>
           <li>
-            <%= link_to "Manage Membership" , admin.manage_memberships_team_path(@team) , :remote => true %>
+            <a data-toggle="modal" href="#manageMembership">Manage Membership</a>
+            <!-- <#%= link_to "Manage Membership" , admin.manage_memberships_team_path(@team) , :remote => true %> -->
           </li>
           <li>
             <%= link_to "Manage Roles" , admin.manage_roles_team_path(@team) , :remote => true %>
@@ -26,7 +27,8 @@
             <%= link_to "Manage Workspaces" , admin.manage_workspaces_team_path(@team) , :remote => true %>
           </li>
           <li>
-            <%= link_to "Delete Team" , admin.team_path(@team), method: :destroy , :remote => true %>
+            <a data-toggle="modal" href="#deleteTeam">Delete Team</a>
+            <!-- <#%= link_to "Delete Team" , admin.team_path(@team), method: :destroy , :remote => true %> -->
           </li>
       <% end %>
     </ul>
@@ -34,6 +36,7 @@
 
 
 </div>
+
 
 
 
