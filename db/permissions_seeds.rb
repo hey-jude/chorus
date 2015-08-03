@@ -19,16 +19,16 @@ data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.came
 admins = User.where(:admin => true).all
 
 admins.each do |admin|
-  admin.roles << admin_role
-  admin.roles << app_manager_role
+  admin.roles << admin_role unless admin.roles.include?(admin_role)
+  admin.roles << app_manager_role unless admin.roles.include?(app_manager_role)
 end
 #puts ''
 #puts '---- Adding permissions ----'
 
-#chorusadmin = User.find_by_username("chorusadmin")
+chorusadmin = User.find_by_username("chorusadmin")
 
-#site_admin_role.users << chorusadmin if chorusadmin
-#admin_role.users << chorusadmin if chorusadmin
+site_admin_role.users << chorusadmin if chorusadmin && !site_admin_role.users.include?(chorusadmin)
+admin_role.users << chorusadmin if chorusadmin && !admin_role.users.include?(chorusadmin)
 
 # Groups
 puts '---- Adding Default Group  ----'
