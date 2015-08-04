@@ -1,2 +1,11 @@
-$('#deleteTeamConfirm').modal('hide');
-toastr.success("Team <%= @team.name %> is successfully deleted.", 'Chorus Administrator', {timeOut: 5000});
+<% if @error.nil? %>
+ $('#deleteTeamConfirm').modal('hide');
+ toastr.success("Team <b><%= @team.name %></b> was successfully deleted.", 'Chorus Administrator', {timeOut: 5000});
+
+ $('#admin_dashboard').html('<%= escape_javascript(render "index", :teams => @teams) %>');
+ $('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :teams, object: @teams ) %>');
+ $('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb") %>');
+
+<% else %>
+ toastr.error("There was error deleting Team <%= @team.name %>.", 'Chorus Administrator', {timeOut: 5000});
+<%end%>

@@ -3,6 +3,9 @@
     <div class='box-header'>
       <h3 class='box-title'>Manage Memberships</h3>
     </div><!-- /.box-header -->
+
+    <%= form_for @team , url: admin.manage_memberships_team_path do |f| %>
+
     <div class='box-body'>
       <div class="row">
         <div class="dual-list list-left col-md-5">
@@ -20,53 +23,52 @@
                 </div>
               </div>
             </div>
-            <ul class="list-group">
-              <li class="list-group-item">bootstrap-duallist <a href="https://github.com/bbilginn/bootstrap-duallist" target="_blank">github</a></li>
-              <li class="list-group-item">Dapibus ac facilisis in</li>
-              <li class="list-group-item">Morbi leo risus</li>
-              <li class="list-group-item">Porta ac consectetur ac</li>
-              <li class="list-group-item">Vestibulum at eros</li>
+            <ul class="list-group" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+              <% @available_members.each do |member |%>
+                  <li class="list-group-item"> <%= member.first_name %> <%= member.last_name %> </li>
+              <%end%>
             </ul>
           </div>
         </div>
 
         <div class="list-arrows col-md-2 text-center">
-          <button class="btn btn-default btn-sm move-left">
+          <span class="btn btn-default btn-sm move-left">
             <span class="glyphicon glyphicon-chevron-left"></span>
-          </button>
+          </span>
 
-          <button class="btn btn-default btn-sm move-right">
+          <span class="btn btn-default btn-sm move-right">
             <span class="glyphicon glyphicon-chevron-right"></span>
-          </button>
+          </span>
         </div>
 
         <div class="dual-list list-right col-md-5">
           <div class="well">
             <div class="row">
-              <div class="col-md-2">
-                <div class="btn-group">
-                  <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
-                </div>
-              </div>
               <div class="col-md-10">
                 <div class="input-group">
                   <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
                   <span class="input-group-addon glyphicon glyphicon-search"></span>
                 </div>
               </div>
+              <div class="col-md-2">
+                <div class="btn-group">
+                  <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                </div>
+              </div>
             </div>
             <ul class="list-group">
-              <li class="list-group-item">Cras justo odio</li>
-              <li class="list-group-item">Dapibus ac facilisis in</li>
-              <li class="list-group-item">Morbi leo risus</li>
-              <li class="list-group-item">Porta ac consectetur ac</li>
-              <li class="list-group-item">Vestibulum at eros</li>
+              <% @team_members.each do |member |%>
+                  <li class="list-group-item"> <%= member.first_name %> <%= member.last_name %> </li>
+              <%end%>
             </ul>
           </div>
         </div>
 
+        <%= f.submit "Save" %>
+
       </div>
     </div><!-- /.box-body -->
+    <% end %>
   </div>
 </div>
 
@@ -79,7 +81,8 @@
       $('body').on('click', '.list-group .list-group-item', function () {
         $(this).toggleClass('active');
       });
-      $('.list-arrows button').click(function () {
+
+      $('.list-arrows .btn').click(function () {
         var $button = $(this), actives = '';
         if ($button.hasClass('move-left')) {
           actives = $('.list-right ul li.active');

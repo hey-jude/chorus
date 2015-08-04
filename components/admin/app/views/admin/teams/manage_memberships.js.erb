@@ -1,5 +1,5 @@
-$('#left-panel').html('<%= escape_javascript(render "manage_memberships") %>');xx
-$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :team, object: @team ) %>');
+$('#left-panel').html('<%= escape_javascript(render "manage_memberships") %>');
+$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :team_manage_memberships, object: @team ) %>');
 $('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb" ) %>');
 
 $('#breadcrumb a').attr("data-remote", "true");

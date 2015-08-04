@@ -71,7 +71,13 @@
  crumb :team_manage_members do |team|
 
  end
-# crumb :project do |project|
+
+ crumb :team_manage_memberships do |team|
+   link "Manage Memberships" , admin.manage_memberships_team_path(team)
+   parent :team , team
+ end
+
+ # crumb :project do |project|
 #   link project.name, project_path(project)
 #   parent :projects
 # end

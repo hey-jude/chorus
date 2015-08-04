@@ -5,11 +5,12 @@ module Admin
     layout 'admin/admin_lte_2'
 
     def index
-      @teams = Group.paginate(:page => params[:page], :per_page => 10).order('name')
+     get_teams
     end
 
     def show
       @team = Group.find(params[:id])
+      @teams = Group.where("id <> ?", params[:id])
       @team_users = @team.users.paginate(:page => params[:users_page], :per_page => 10)
       @team_roles = @team.roles.paginate(:page => params[:roles_page], :per_page => 10)
       @team_scopes = @team.chorus_scopes.paginate(:page => params[:scopes_page], :per_page => 10)
@@ -44,12 +45,29 @@ module Admin
 
     def destroy
       @team = Group.find(params[:id])
-      puts '-------  Teams destroy is called -------'
+      if params[:teams_select] == "delete"
+        if @team.destroy
+          get_teams
+          @error = nil
+        else
+          @error = true
+        end
+      elsif params[:teams_select] = "move_to_another"
+        new_team_id = params[:new_team_id]
+        if @team.move_members_to_another_team(new_team_id)
+          @team.destroy
+          get_teams
+          @error = nil
+        else
+          @error = true
+        end
+      end
     end
 
     def manage_memberships
       @team = Group.find(params[:id])
-
+      @available_members = User.all
+      @team_members = @team.users
     end
 
     def manage_roles
@@ -65,6 +83,12 @@ module Admin
     def manage_workspaces
       @team = Group.find(params[:id])
 
+    end
+
+   private
+
+    def get_teams
+      @teams = Group.paginate(:page => params[:page], :per_page => 10).order('name')
     end
 
 

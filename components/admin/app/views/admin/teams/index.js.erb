@@ -1,3 +1,7 @@
-$('#admin_dashboard').html('<%= escape_javascript(render "index", :teams => @teams) %>');
-$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :teams, object: @teams ) %>');
-$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb") %>');
+
+  $('#admin_dashboard').html('<%= escape_javascript(render "index", :teams => @teams) %>');
+
+  $('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb",
+                                             breadcrumb_key: :teams, object: @teams ) %>');
+
+  $('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb") %>');
