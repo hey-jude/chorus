@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_many :comments
 
   # roles, groups, and permissions
-  has_and_belongs_to_many :groups
+  has_and_belongs_to_many :groups, :uniq => true
   has_and_belongs_to_many :roles, after_add: :check_admin_role, after_remove: :uncheck_admin_role, :uniq => true
   #belongs_to :chorus_scope
 
