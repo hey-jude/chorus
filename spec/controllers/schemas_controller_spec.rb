@@ -56,7 +56,7 @@ describe SchemasController do
     context "when the user does not have an account for the Data Source" do
       it "returns a 403" do
         mock(Authority).authorize!.with_any_args {
-          raise Authority::AccessDenied.new
+          raise Authority::AccessDenied.new("Forbidden", :activity, schema)
         }
 
         get :show, :id => schema.to_param

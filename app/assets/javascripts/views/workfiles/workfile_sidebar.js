@@ -113,6 +113,9 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
                 ctx.showUpdatedTime = false;
                 ctx.showVersions = false;
             }
+            if(this.model.get('entitySubtype') === 'worklet') {
+                ctx.showCopyLink = false;
+            }
             _.extend(ctx, this.modifierContext());
         }
         return ctx;
