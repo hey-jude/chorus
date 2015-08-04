@@ -100,8 +100,6 @@ FixtureBuilder.configure do |fbuilder|
     Events::UserAdded.by(user_with_restricted_access).add(:new_user => user_with_restricted_access)
 
 
-
-
     #Data Sources
     gpdb_data_source = FactoryGirl.create(:gpdb_data_source, :name => "searchquery", :description => "Just for searchquery and greenplumsearch", :host => "non.legit.example.com", :port => "5432", :db_name => "postgres", :owner => admin)
     fbuilder.name :default, gpdb_data_source
@@ -157,6 +155,9 @@ FixtureBuilder.configure do |fbuilder|
 
     fbuilder.name :searchable, HdfsEntry.create!({:path => "/searchquery/result.txt", :size => 10, :is_directory => false, :modified_at => "2010-10-20 22:00:00", :content_count => 4, :hdfs_data_source => hdfs_data_source}, :without_protection => true)
     fbuilder.name :searchable2, HdfsEntry.create!({:path => "/searchquery/other_result.txt", :size => 11, :is_directory => false, :modified_at => "2010-10-21 22:00:00", :content_count => 22, :hdfs_data_source => hdfs_data_source}, :without_protection => true)
+
+    hdfs_hive_data_source = FactoryGirl.create(:hdfs_data_source, :name => 'hdfs_hive', :is_hdfs_hive => true,
+                                               :hive_metastore_location => "thrift://cdh5cm.alpinenow.local:9083", :owner => admin)
 
     gnip_data_source = FactoryGirl.create(:gnip_data_source, :owner => owner, :name => "default", :description => "a searchquery example gnip account")
     FactoryGirl.create(:gnip_data_source, :owner => owner, :name => 'typeahead_gnip')
@@ -303,14 +304,14 @@ FixtureBuilder.configure do |fbuilder|
     # Tableau publications
     publication = with_current_user(owner) do
       FactoryGirl.create :tableau_workbook_publication, :name => "default",
-                                       :workspace => public_workspace, :dataset => chorus_view, :project_name => "Default"
+                         :workspace => public_workspace, :dataset => chorus_view, :project_name => "Default"
     end
 
     tableau_workfile = LinkedTableauWorkfile.create({:file_name => 'tableau',
-                                  :workspace => public_workspace,
-                                  :owner => owner,
-                                  :tableau_workbook_publication => publication
-                                 }, :without_protection => true)
+                                                     :workspace => public_workspace,
+                                                     :owner => owner,
+                                                     :tableau_workbook_publication => publication
+                                                    }, :without_protection => true)
 
     LinkedTableauWorkfile.create({:file_name => 'searchquery',
                                   :workspace => public_workspace,
@@ -319,32 +320,32 @@ FixtureBuilder.configure do |fbuilder|
                                  }, :without_protection => true)
 
     private_tableau_workfile = LinkedTableauWorkfile.create({:file_name => 'private_tableau',
-                                                     :workspace => private_workspace,
-                                                     :owner => owner,
-                                                     :tableau_workbook_publication => nil
-                                                    }, :without_protection => true)
+                                                             :workspace => private_workspace,
+                                                             :owner => owner,
+                                                             :tableau_workbook_publication => nil
+                                                            }, :without_protection => true)
 
     fbuilder.name :owner_creates_tableau_workfile, Events::TableauWorkfileCreated.by(owner).add(
-        :workbook_name => publication.name,
-        :dataset => publication.dataset,
-        :workspace => publication.workspace,
-        :workfile => tableau_workfile
-    )
+                                                   :workbook_name => publication.name,
+                                                   :dataset => publication.dataset,
+                                                   :workspace => publication.workspace,
+                                                   :workfile => tableau_workfile
+                                                 )
 
     #Alpine workfile
 
     work_flow = AlpineWorkfile.create!({:file_name => 'alpine_flow',
-                                     :workspace => public_workspace,
-                                     :owner => owner,
-                                     :dataset_ids => %w(1 2 3),
-                                    }, :without_protection => true)
+                                        :workspace => public_workspace,
+                                        :owner => owner,
+                                        :dataset_ids => %w(1 2 3),
+                                       }, :without_protection => true)
     work_flow.workfile_execution_locations.create(execution_location: default_database)
 
     hadoop_work_flow = AlpineWorkfile.create!({:file_name => 'alpine_hadoop_dataset_flow',
-                            :workspace => public_workspace,
-                            :owner => owner,
-                            :dataset_ids => HdfsDataset.limit(3).pluck(:id),
-                           }, :without_protection => true)
+                                               :workspace => public_workspace,
+                                               :owner => owner,
+                                               :dataset_ids => HdfsDataset.limit(3).pluck(:id),
+                                              }, :without_protection => true)
     hadoop_work_flow.workfile_execution_locations.create!(execution_location: hdfs_data_source)
 
     oracle_work_flow = AlpineWorkfile.create!({:file_name => 'alpine_oracle_flow',
@@ -533,8 +534,8 @@ FixtureBuilder.configure do |fbuilder|
     fbuilder.name :one, previous_import
 
     import_now = FactoryGirl.create(:import, :user => owner, :workspace => public_workspace, :to_table => "new_table_for_import",
-                                         :created_at => '2012-09-03 23:00:00-07',
-                                         :source => default_table)
+                                    :created_at => '2012-09-03 23:00:00-07',
+                                    :source => default_table)
     fbuilder.name :now, import_now
 
     other_schema = FactoryGirl.create(:gpdb_schema, database: default_database)
@@ -550,7 +551,7 @@ FixtureBuilder.configure do |fbuilder|
     fbuilder.name :csv, csv_import
 
     fbuilder.name :gnip, FactoryGirl.create(:gnip_import, :user => owner, :workspace => public_workspace, :to_table => "gnip_import_table",
-                                    :source => gnip_data_source)
+                                            :source => gnip_data_source)
 
     #Notes
     with_current_user(owner) do
@@ -686,10 +687,10 @@ FixtureBuilder.configure do |fbuilder|
       @gpdb_workspace.source_datasets << test_schema2.active_tables_and_views.first
 
       real_chorus_view = FactoryGirl.create(:chorus_view,
-                                               :name => "real_chorus_view",
-                                               :schema => test_schema,
-                                               :query => "select 1",
-                                               :workspace => real_workspace)
+                                            :name => "real_chorus_view",
+                                            :schema => test_schema,
+                                            :query => "select 1",
+                                            :workspace => real_workspace)
     end
 
     if ENV['PG_HOST']
@@ -747,6 +748,7 @@ FixtureBuilder.configure do |fbuilder|
 
     bad_users = User.select { |u| u.username.starts_with?('user') }
     if !bad_users.empty?
+      p bad_users
       raise "OH NO!  A user was created with an autogenerated name. All users created in fixtures should be named! Perhaps a factory ran amok?"
     end
 

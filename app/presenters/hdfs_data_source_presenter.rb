@@ -23,7 +23,7 @@ class HdfsDataSourcePresenter < Presenter
           :job_tracker_host => model.job_tracker_host,
           :job_tracker_port => model.job_tracker_port,
           :high_availability => model.high_availability?,
-          :connection_parameters => model.connection_parameters
+          :connection_parameters => model.connection_parameters_including_hive
       }.merge(owner_hash).
       merge(tags_hash))
     end
