@@ -11,6 +11,9 @@ app/assets/javascripts/environment.js
 /public/api
 /doc/api_documentation.tar.gz
 
+# LogArchiver generated files should never be in git
+/public/log_archiver
+
 # Ignore workfile attachments outside of public folder
 /system/workfile_versions/*
 /system/csv_files/*
