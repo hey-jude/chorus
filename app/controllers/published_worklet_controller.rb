@@ -10,6 +10,9 @@ class PublishedWorkletController < ApplicationController
   def index
     published_worklets = PublishedWorklet.where("additional_data LIKE '%\"state\":\"published\"%'").order(:id)
 
+    published_worklets = published_worklets.order_by(params[:order]).includes(:latest_workfile_version)
+    published_worklets = published_worklets.where("workfiles.file_name LIKE ?", "%#{params[:name_pattern]}%") if params[:name_pattern]
+
     present published_worklets
   end
 
