@@ -101,17 +101,22 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     startVisualizationWizard: function() {
         this.resultsConsole.clickClose();
 
-        // Show the Chiasm visualization container.
-        $('#chiasm-container').removeClass("hidden");
+        // This flag comes from the file chorus/config/chorus.properties
+        if(instance.attributes.chiasmEnabled){
 
-        this.$('.chart_icon:eq(0)').click();
-        this.$('.column_count').addClass('hidden');
-        this.$('.info_bar').removeClass('hidden');
-        this.$('.definition').addClass("hidden");
-        this.$('.create_chart').removeClass("hidden");
+          // Show the Chiasm visualization container.
+          $("#chiasm-container").removeClass("hidden");
+        }
+
+        this.$(".chart_icon:eq(0)").click();
+        this.$(".column_count").addClass("hidden");
+        this.$(".info_bar").removeClass("hidden");
+        this.$(".definition").addClass("hidden");
+        this.$(".create_chart").removeClass("hidden");
         this.$(".filters").removeClass("hidden");
         this.filterWizardView.options.showAliasedName = false;
         this.filterWizardView.resetFilters();
+
         chorus.PageEvents.trigger("start:visualization");
     },
 
@@ -131,7 +136,9 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         e.preventDefault();
 
         // Hide the Chiasm visualization container.
-        $('#chiasm-container').addClass("hidden");
+        if(instance.attributes.chiasmEnabled){
+          $('#chiasm-container').addClass("hidden");
+        }
 
         this.$('.definition').removeClass("hidden");
         this.$('.create_chart').addClass("hidden");
@@ -240,21 +247,23 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         this.$(".chart_config").removeClass("hidden");
         this.renderSubview("chartConfig");
 
-        // Update the Chiasm visualization to initialize.
-        this.updateChiasmVisualization();
+        // This flag comes from the file chorus/config/chorus.properties
+        if(instance.attributes.chiasmEnabled){
 
-        // Update the Chiasm visualization when configuration changes.
-        // The "configChanged" event is triggered whenever any part of the
-        // visualization configuration changes.
-        this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
+          // Update the Chiasm visualization to initialize.
+          this.updateChiasmVisualization();
+
+          // Update the Chiasm visualization when configuration changes.
+          // The "configChanged" event is triggered whenever any part of the
+          // visualization configuration changes.
+          this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
+        }
     },
 
     // Instantiates the Chiasm instance if it has not been started already.
     chiasmInit: function (){
         if (!this.chiasm) {
             this.chiasm = Chiasm($("#chiasm-container")[0]);
-
-            console.log(Model);
 
             this.chiasm.plugins.alpineDataLoader = function (){
                 var model = Model({

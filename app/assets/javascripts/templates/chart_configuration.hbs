@@ -22,6 +22,7 @@
     {{/each}}
 </div>
 
+{{#if showCreateChartButton}}
 <div class="button_wrapper controls">
     <button class="create"
         {{#if noColumnsAvailable}}
@@ -30,3 +31,4 @@
         >{{t "dataset.visualization.sidebar.create_chart"}}</button>
     <button class="cancel hidden">{{t "actions.cancel"}}</button>
 </div>
+{{/if}}
