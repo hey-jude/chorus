@@ -42,10 +42,12 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
         this.require("host", newAttrs);
         this.require("username", newAttrs);
         this.require("groupList", newAttrs);
+
         if (newAttrs.highAvailability === 'false') {
             this.require("port", newAttrs);
             this.requirePattern("port", chorus.ValidationRegexes.OnlyDigits(), newAttrs);
         }
+
         if (newAttrs.jobTrackerHost || newAttrs.jobTrackerPort) {
             this.require("jobTrackerHost", newAttrs);
             this.require("jobTrackerPort", newAttrs);
@@ -59,19 +61,6 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
 
     version: function() {
         return this.get("hdfsVersion");
-    },
-
-    connectionParametersWithoutHadoopHive: function() {
-      var pairs = this.get('connectionParameters');
-
-      pairs = _.map(pairs, function (pair) {
-        if(pair['key'] != 'is_hive' && pair['key'] != 'hive.metastore.uris') {
-          return pair;
-        }
-      });
-      pairs = _.compact(pairs);
-
-      return pairs;
     }
 
 });

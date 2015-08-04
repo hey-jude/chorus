@@ -26,13 +26,18 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
         }, this));
     },
 
+    // KT: August 2015 -- the way the DataSource dialogs work is very strange.  Here in the DataSourceNewDialog, all of
+    // the forms are backed by the 'AbstractDataSource' ... until they are submitted.  At that point the `createDataSource`
+    // method pulls the data out of the form, and creates a new model of the type you expect.
+    // Conversely -- in the DataSourceEditDialog, the form is backed by the correct (specific) DataSource type, always.
     makeModel: function () {
-        this.model = this.model || new chorus.models.GpdbDataSource();
+        this.model = this.model || new chorus.models.AbstractDataSource();
         this.listenTo(this.model, 'change', this.rewriteLink);
     },
 
     additionalContext: function() {
         var config = chorus.models.Config.instance();
+
         return {
             gnipConfigured: config.get('gnipConfigured'),
             oracleConfigured: config.get('oracleConfigured'),
@@ -143,7 +148,9 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
         updates.ssl = !!inputSource.find("input[name=ssl]").prop("checked");
         updates.shared = !!inputSource.find("input[name=shared]").prop("checked");
         updates.highAvailability = !!inputSource.find("input[name=high_availability]").prop("checked");
+
         updates.connectionParameters = this.model.get('connectionParameters');
+
         if(updates.hive) {
             updates.hiveKerberos = inputSource.find("input[name=hiveKerberos]:checked").val() === 'true';
             if (updates.hiveKerberos) {

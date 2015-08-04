@@ -88,5 +88,23 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
 
     usage: function() {
         return false;
+    },
+
+    // KT TODO refactor: the two methods following, belong more in HdfsDataSource -- but, it's difficult to get that
+    // to work, due to the way that the DataSourceNewDialog is written.
+    numberOfConnectionParameters: function() {
+        return this.connectionParametersWithoutHadoopHive().length;
+    },
+    connectionParametersWithoutHadoopHive: function() {
+      var pairs = this.get('connectionParameters');
+
+      pairs = _.map(pairs, function (pair) {
+        if(pair['key'] != 'is_hive' && pair['key'] != 'hive.metastore.uris') {
+          return pair;
+        }
+      });
+      pairs = _.compact(pairs);
+
+      return pairs;
     }
 });
