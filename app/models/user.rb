@@ -169,7 +169,7 @@ class User < ActiveRecord::Base
   def destroy
 
     if owned_workspaces.count > 0
-      errors.add(:workspace_count, :equal_to, {:count => 0})
+      errors.add(:workspace_count, :equal_to, {:count => owned_workspaces.count})
       raise ActiveRecord::RecordInvalid.new(self)
     elsif gpdb_data_sources.count > 0
       errors.add(:user, :nonempty_data_source_list)

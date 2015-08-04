@@ -393,7 +393,7 @@ describe User do
     it "does not allow deleting a user who owns a workspace" do
       workspace = FactoryGirl.create(:workspace)
       expect { workspace.owner.destroy}.to raise_exception(ActiveRecord::RecordInvalid)
-      workspace.owner.should have_error_on(:workspace_count).with_message(:equal_to).with_options(:count => 0)
+      workspace.owner.should have_error_on(:workspace_count).with_message(:equal_to).with_options(:count => workspace.owner.owned_workspaces.count)
     end
 
     it "deletes associated memberships" do
