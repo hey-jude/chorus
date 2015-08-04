@@ -254,21 +254,20 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         if (!this.chiasm) {
             this.chiasm = Chiasm($("#chiasm-container")[0]);
 
-            // TODO create this random sample loader plugin
-            // once the random sample API has been established.
-            //chiasm.plugins.randomSampleLoader = function (){
-            //    var model = Model();
-            //    model.set({
-            //        publicProperties: ["numCells", "name"],
-            //        type: Model.None,
-            //        name: Model.None
-            //    });
-            //    model.when(["type", "name"], function (type, name){
-            //        //console.log(type);
-            //        //console.log(name);
-            //    });
-            //    return model;
-            //};
+            console.log(Model);
+
+            this.chiasm.plugins.alpineDataLoader = function (){
+                var model = Model({
+                    publicProperties: ["dataset_id"],
+                    dataset_id: Model.None
+                });
+                model.when("dataset_id", function (dataset_id){
+                    if(dataset_id !== Model.None){
+                        console.log(dataset_id);
+                    }
+                });
+                return model;
+            };
         }
         return this.chiasm;
     },
@@ -306,15 +305,21 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
         var chiasm = this.chiasmInit();
 
+        var visualizationPlugin;
+        
+        if(chartOptions.type === "frequency"){
+          visualizationPlugin = "barChart";
+        }
+
         var config = {
-            layout: {
+            "layout": {
                 "plugin": "layout",
                 "state": {
                     "layout": "visualization"
                 }
             },
-            visualization: {
-                "plugin": "barChart",
+            "visualization": {
+                "plugin": visualizationPlugin,
                 "state": {
                     "xColumn": "bucket",
                     "xAxisLabel": chartOptions.yAxis,
@@ -331,8 +336,15 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                         "left": 50
                     }
                 }
+            },
+            "dataLoader": {
+                "plugin": "alpineDataLoader",
+                "state": {
+                    "dataset_id": this.chartConfig.model.id
+                }
             }
         };
+        console.log(chartOptions);
 
         chiasm.setConfig(config);
 
