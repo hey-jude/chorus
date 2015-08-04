@@ -48,18 +48,22 @@ module Admin
     end
 
     def manage_memberships
+      @team = Group.find(params[:id])
 
     end
 
     def manage_roles
+      @team = Group.find(params[:id])
 
     end
 
     def manage_scopes
+      @team = Group.find(params[:id])
 
     end
 
     def manage_workspaces
+      @team = Group.find(params[:id])
 
     end
 

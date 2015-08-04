@@ -68,6 +68,9 @@
    parent :teams
  end
 
+ crumb :team_manage_members do |team|
+
+ end
 # crumb :project do |project|
 #   link project.name, project_path(project)
 #   parent :projects

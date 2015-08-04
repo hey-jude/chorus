@@ -14,8 +14,7 @@
             <%= link_to "Edit Team Information" , admin.edit_team_path(@team) , :remote => true %>
           </li>
           <li>
-            <a data-toggle="modal" href="#manageMembership">Manage Membership</a>
-            <!-- <#%= link_to "Manage Membership" , admin.manage_memberships_team_path(@team) , :remote => true %> -->
+            <%= link_to "Manage Membership" , admin.manage_memberships_team_path(@team) , :remote => true %>
           </li>
           <li>
             <%= link_to "Manage Roles" , admin.manage_roles_team_path(@team) , :remote => true %>
