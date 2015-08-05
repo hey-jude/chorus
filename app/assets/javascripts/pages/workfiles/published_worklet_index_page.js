@@ -27,7 +27,7 @@ chorus.pages.PublishedWorkletIndexPage = chorus.pages.Base.include(
                     }
                 },
                 search: {
-                    placeholder: t("workfile.search_placeholder"),
+                    placeholder: t("published_worklet.search_placeholder"),
                     onTextChange: this.debouncedCollectionSearch()
                 }
             });
