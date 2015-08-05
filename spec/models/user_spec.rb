@@ -285,6 +285,7 @@ describe User do
     it { should have_many(:object_roles).through(:chorus_object_roles) }
 
     let(:user) { users(:owner) }
+    let(:admin) { users(:admin) }
     let(:role) { roles(:a_role) }
 
     it "should not allow the same role to be in .roles more than once" do
@@ -293,6 +294,30 @@ describe User do
          user.roles << role
        }.to_not change{ user.roles.count }
     end
+
+    it "should remove the AppManager role if Admin role is removed" do
+      admin.roles.destroy(Role.find_by_name("Admin"))
+      expect(admin.roles.find_by_name("ApplicationManager")).to be_nil
+    end
+
+    it "should remove the Admin role if the AppManager role is removed" do
+      admin.roles.destroy(Role.find_by_name("ApplicationManager"))
+      expect(admin.roles.find_by_name("Admin")).to be_nil
+    end
+
+    it "should add the Admin role if the AppManager role is added" do
+      admin_role = Role.find_by_name("Admin")
+      user.roles << admin_role
+      expect(user.roles).to include(Role.find_by_name("ApplicationManager"))
+    end
+
+    it "should add the AppManager role if the Admin role is added" do
+      app_manager_role = Role.find_by_name("ApplicationManager")
+      user.roles << app_manager_role
+      expect(user.roles).to include(Role.find_by_name("Admin"))
+    end
+
+
   end
 
   describe ".admin_count" do

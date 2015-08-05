@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
   # roles, groups, and permissions
   has_and_belongs_to_many :groups, :uniq => true
-  has_and_belongs_to_many :roles, :uniq => true
+  has_and_belongs_to_many :roles, :after_add => :add_missing_admin_role, :after_remove => :remove_extra_admin_role, :uniq => true
   #belongs_to :chorus_scope
 
   # object_roles allow a User to have different roles for different objects (currently just Workspace)
@@ -90,6 +90,22 @@ class User < ActiveRecord::Base
     self.roles << collaborator_role unless self.roles.include? collaborator_role
   end
 
+  def add_missing_admin_role(role)
+    admin_roles = [Role.find_by_name("Admin"), Role.find_by_name("ApplicationManager")]
+
+    if admin_roles.include? role
+      self.admin = true
+    end
+  end
+
+  def remove_extra_admin_role(role)
+    admin_roles = [Role.find_by_name("Admin"), Role.find_by_name("ApplicationManager")]
+
+    if admin_roles.include? role
+      self.admin = false
+    end
+  end
+
   def accessible_events(current_user)
     events.where("workspace_id IS NULL
                     OR workspace_id IN
@@ -114,35 +130,38 @@ class User < ActiveRecord::Base
   end
 
   def self.admin_count
-    admin_role = Role.find_by_name("ApplicationManager")
-    if admin_role != nil
-      Role.find_by_name("ApplicationManager").users.size
-    else
-      return 0
-    end
+    admin.size
   end
 
   def admin?
-      self.admin || Permissioner.is_admin?(self)
+    self.admin
   end
 
   scope :admin, where(:admin => true)
 
   def admin=(value)
-    unless admin? && self.class.admin_count == 1 # don't unset last admin
+    admin_role = Role.find_by_name("Admin")
+    app_manager_role = Role.find_by_name("ApplicationManager")
+    site_admin_role = Role.find_by_name("SiteAdministrator")
+
+    if value == true || value == "true"
+
+      admin_role.users << self unless admin_role.users.include? self
+      app_manager_role.users << self unless app_manager_role.users.include? self
+      site_admin_role.users << self unless site_admin_role.users.include? self || self.username != chorusadmin
       write_attribute(:admin, value)
 
-      admin_role = Role.find_by_name("Admin")
-      site_admin_role = Role.find_by_name("ApplicationManager")
+    elsif value == false || value == "false"
+      unless self.class.admin_count == 1 # don't unset last admin
 
-      if value == true || value == "true"
-        admin_role.users << self
-        site_admin_role.users << self
-      else
-        admin_role.users.delete(self)
-        site_admin_role.users.delete(self)
+        admin_role.users.delete(self) if admin_role.users.include? self
+        app_manager_role.users.delete(self) if app_manager_role.users.include? self
+        site_admin_role.users.delete(self) if site_admin_role.users.include? self
+        write_attribute(:admin, value)
+
       end
     end
+
   end
 
   scope :developer, where(:developer => true)
