@@ -3,7 +3,7 @@ chorus.pages.PublishedWorkletIndexPage = chorus.pages.Base.include(
 ).extend({
         constructorName: 'PublishedWorkletIndexPage',
 
-        setup: function() {
+        setup: function () {
 
             this.collection = new chorus.collections.PublishedWorkletSet();
             this.collection.sortAsc("fileName");
@@ -37,7 +37,5 @@ chorus.pages.PublishedWorkletIndexPage = chorus.pages.Base.include(
                 this.collection.sortAsc(field);
                 this.collection.fetch();
             }, this);
-
         }
-
     });

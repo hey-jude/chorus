@@ -1,3 +1,15 @@
-<div class="line">
-  <div class="published_worklets"></div>
-</div>
+{{#if models.length}}
+
+  {{#each models}}
+    <div class="card" style="background-image: url('{{ workletImageUrl }}');">
+      <a href="{{url}}">
+        <h3>{{fileName}}</h3>
+
+        <p>{{ description }}</p>
+      </a>
+    </div>
+  {{/each}}
+
+{{else}}
+  <div class="none">{{ t emptyListTranslationKey}}</div>
+{{/if}}
