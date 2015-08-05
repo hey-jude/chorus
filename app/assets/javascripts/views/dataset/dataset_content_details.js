@@ -2,7 +2,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         chorus.Mixins.StickyHeader
     ).extend({
     templateName: "dataset_content_details",
-    constructorName: 'DatasetContentDetails',
+    constructorName: "DatasetContentDetails",
     persistent: true,
 
     subviews: {
@@ -123,11 +123,11 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     selectVisualization: function(e) {
 
         // Extract the selected chart type.
-        var type = $(e.target).data('chart_type');
+        var type = $(e.target).data("chart_type");
 
         this.$(".create_chart .cancel").data("type", type);
-        this.$('.chart_icon').removeClass('selected');
-        $(e.target).addClass('selected');
+        this.$(".chart_icon").removeClass("selected");
+        $(e.target).addClass("selected");
         this.showTitle(e);
         this.showVisualizationConfig(type);
     },
@@ -137,16 +137,16 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
         // Hide the Chiasm visualization container.
         if(instance.attributes.chiasmEnabled){
-          $('#chiasm-container').addClass("hidden");
+          $("#chiasm-container").addClass("hidden");
         }
 
-        this.$('.definition').removeClass("hidden");
-        this.$('.create_chart').addClass("hidden");
+        this.$(".definition").removeClass("hidden");
+        this.$(".create_chart").addClass("hidden");
         this.$(".filters").addClass("hidden");
-        this.$('.column_count').removeClass("hidden");
-        this.$('.info_bar').addClass('hidden');
-        this.$(".chart_config").addClass('hidden');
-        chorus.PageEvents.trigger('cancel:visualization');
+        this.$(".column_count").removeClass("hidden");
+        this.$(".info_bar").addClass("hidden");
+        this.$(".chart_config").addClass("hidden");
+        chorus.PageEvents.trigger("cancel:visualization");
         if(this.chartConfig) {
             this.chartConfig.teardown(true);
             delete this.chartConfig;
@@ -156,13 +156,13 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     startCreateChorusViewWizard: function() {
         this.trigger("transform:sidebar", "chorus_view");
-        this.$('.chorusview').addClass("selected");
-        this.$('.definition').addClass("hidden");
-        this.$('.create_chart').addClass("hidden");
-        this.$('.create_chorus_view').removeClass("hidden");
-        this.$('.chorus_view_info').removeClass("hidden");
-        this.$('.column_count').addClass("hidden");
-        this.$('.filters').removeClass("hidden");
+        this.$(".chorusview").addClass("selected");
+        this.$(".definition").addClass("hidden");
+        this.$(".create_chart").addClass("hidden");
+        this.$(".create_chorus_view").removeClass("hidden");
+        this.$(".chorus_view_info").removeClass("hidden");
+        this.$(".column_count").addClass("hidden");
+        this.$(".filters").removeClass("hidden");
         this.filterWizardView.options.showAliasedName = true;
         this.filterWizardView.resetFilters();
         this.inDeriveChorusView = true;
@@ -172,12 +172,12 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     cancelCreateChorusView: function(e) {
         e.preventDefault();
-        chorus.PageEvents.trigger('cancel:sidebar', 'chorus_view');
-        this.$('.definition').removeClass("hidden");
-        this.$('.create_chorus_view').addClass("hidden");
+        chorus.PageEvents.trigger("cancel:sidebar", "chorus_view");
+        this.$(".definition").removeClass("hidden");
+        this.$(".create_chorus_view").addClass("hidden");
         this.$(".filters").addClass("hidden");
-        this.$('.column_count').removeClass("hidden");
-        this.$('.chorus_view_info').addClass('hidden');
+        this.$(".column_count").removeClass("hidden");
+        this.$(".chorus_view_info").addClass("hidden");
 
         this.$(".column_count input.search").trigger("textchange");
         this.subscribePageEvent("action:closePreview", this.closeDataPreview);
@@ -207,8 +207,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         this.$(".column_count").removeClass("hidden");
         this.$(".definition").removeClass("hidden");
         this.dataset.set({query: this.dataset.initialQuery});
-        chorus.PageEvents.trigger('cancel:sidebar', 'chorus_view');
-        chorus.PageEvents.trigger('dataset:cancelEdit');
+        chorus.PageEvents.trigger("cancel:sidebar", "chorus_view");
+        chorus.PageEvents.trigger("dataset:cancelEdit");
     },
 
     saveChorusView: function() {
@@ -218,8 +218,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     closeErrorWithDetailsLink: function(e) {
         e && e.preventDefault();
         this.$(".dataset_errors").addClass("hidden");
-        this.$('.standard_error').addClass('hidden');
-        this.$('.non_implementation_error').addClass('hidden');
+        this.$(".standard_error").addClass("hidden");
+        this.$(".non_implementation_error").addClass("hidden");
     },
 
     viewErrorDetails: function(e) {
@@ -231,8 +231,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     },
 
     showTitle: function(e) {
-        this.$(".chart_type_title").addClass('hidden');
-        this.$('.chart_type_title.' + $(e.target).data('chart_type')).removeClass('hidden');
+        this.$(".chart_type_title").addClass("hidden");
+        this.$(".chart_type_title." + $(e.target).data("chart_type")).removeClass("hidden");
     },
 
     showVisualizationConfig: function(chartType) {
@@ -293,7 +293,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
         // This code fetches the data via a "task" abstraction.
         // Copied from chart_configuration_view.js
-        var func = 'make' + _.capitalize(chartType) + 'Task';
+        var func = "make" + _.capitalize(chartType) + "Task";
         var task = this.chartConfig.model[func](chartOptions);
         task.set({filters: chartOptions.filters && chartOptions.filters.sqlStrings()});
 
@@ -368,9 +368,9 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     },
 
     showSelectedTitle: function(e) {
-        this.$('.chart_type_title').addClass('hidden');
-        var type = this.$('.selected').data('chart_type');
-        this.$('.chart_type_title.' + type).removeClass('hidden');
+        this.$(".chart_type_title").addClass("hidden");
+        var type = this.$(".selected").data("chart_type");
+        this.$(".chart_type_title." + type).removeClass("hidden");
     },
 
     additionalContext: function() {
@@ -387,17 +387,17 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     showErrorWithDetailsLink: function(taskOrColumnSet, alertClass) {
         this.$(".dataset_errors").removeClass("hidden");
         if(taskOrColumnSet.serverErrorMessage() === t("field_error.visualization.NOT_IMPLEMENTED")) {
-            this.$('.non_implementation_error').removeClass('hidden');
+            this.$(".non_implementation_error").removeClass("hidden");
         }
         else {
-            this.$('.standard_error').removeClass('hidden');
+            this.$(".standard_error").removeClass("hidden");
         }
         this.alertClass = alertClass;
         this.errorSource = taskOrColumnSet;
     },
 
     updateColumnCount: function() {
-        this.$('.count').text(t("dataset.column_count", {count: this.collection.length}));
+        this.$(".count").text(t("dataset.column_count", {count: this.collection.length}));
     },
 
     displayPublishDialog: function() {
@@ -415,7 +415,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     showPublish: function (workspaceArchived) {
         var canUpdate = this.dataset.workspace() && this.dataset.workspace().canUpdate();
-        return !!(chorus.models.Config.instance().get('tableauConfigured') && !this.dataset.isOracle() && !this.dataset.isJdbc() && !this.options.isDataSourceBrowser && !workspaceArchived && canUpdate);
+        return !!(chorus.models.Config.instance().get("tableauConfigured") && !this.dataset.isOracle() && !this.dataset.isJdbc() && !this.options.isDataSourceBrowser && !workspaceArchived && canUpdate);
     },
 
     teardown: function() {
