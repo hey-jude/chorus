@@ -260,30 +260,6 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         }
     },
 
-    // Instantiates the Chiasm instance if it has not been started already.
-    chiasmInit: function (){
-        if (!this.chiasm) {
-            this.chiasm = Chiasm($("#chiasm-container")[0]);
-
-            this.chiasm.plugins.alpineDataLoader = function (){
-                var model = Model({
-                    publicProperties: ["dataset_id"],
-                    dataset_id: Model.None
-                });
-                model.when("dataset_id", function (dataset_id){
-                    $.get("/vis_engine/reduce_data", function (data){
-                        console.log(data);
-                    });
-                    if(dataset_id !== Model.None){
-                        console.log(dataset_id);
-                    }
-                });
-                return model;
-            };
-        }
-        return this.chiasm;
-    },
-
     // Queries the server for data, depending on the current chart type and configuration.
     chiasmFetchData: function (chartOptions, callback){
         var chartType = chartOptions.type;
@@ -315,7 +291,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         var chartOptions = this.chartConfig.chartOptions();
         var alpineBlue = "#00a0e5";
 
-        var chiasm = this.chiasmInit();
+        var chiasm = VisEngine.chiasmInit($("#chiasm-container")[0]);
 
         var visualizationPlugin;
         
@@ -350,7 +326,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                 }
             },
             "dataLoader": {
-                "plugin": "alpineDataLoader",
+                "plugin": "visEngineDataLoader",
                 "state": {
                     "dataset_id": this.chartConfig.model.id
                 }
