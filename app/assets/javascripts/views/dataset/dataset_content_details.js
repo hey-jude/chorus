@@ -271,6 +271,9 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                     dataset_id: Model.None
                 });
                 model.when("dataset_id", function (dataset_id){
+                    $.get("/vis_engine/reduce_data", function (data){
+                        console.log(data);
+                    });
                     if(dataset_id !== Model.None){
                         console.log(dataset_id);
                     }
