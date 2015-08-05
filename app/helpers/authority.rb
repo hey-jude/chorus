@@ -87,7 +87,8 @@ module Authority
                       if object.respond_to? :shared then object.shared? else false end
 
                     when :data_source_account_exists
-                      user.data_source_accounts.exists?(:data_source_id => object.id)
+                      # Collaborators don't have data_source permissions yet so we have to include this workaround until 5.7
+                      user.data_source_accounts.exists?(:data_source_id => object.id) || object.is_a?(::HdfsDataSource)
 
                     when :current_user_can_create_comment_on_event
                         ::Events::Base.for_dashboard_of(user).find_by_id(object.id) || object.workspace.public?
