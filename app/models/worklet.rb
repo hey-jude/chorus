@@ -6,6 +6,13 @@ class Worklet < AlpineWorkfile
 
   has_many :variables, :foreign_key => :workfile_id, :class_name => 'WorkletVariable'
 
+  attr_accessible :worklet_image
+  has_attached_file :worklet_image, :styles => { :icon => "50x50>" },
+                    :path => ":rails_root/system/:class/:id/:style/:basename.:extension",
+                    :url => "/:class/:id/worklet_image?style=:style",
+                    :default_url => "/images/worklet_images/default.png"
+  validates_attachment_content_type :worklet_image, :content_type => /\Aimage\/.*\Z/
+
   before_validation { self.content_type ='worklet' }
 
   def run_now(user, variables)

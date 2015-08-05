@@ -24,7 +24,8 @@ class WorkletPresenter < AlpineWorkfilePresenter
         :output_table => model.output_table,
         :state => model.state,
         :description => model.description,
-        :variables => variables_array
+        :variables => variables_array,
+        :worklet_image_url => model.worklet_image.url
     })
 
     workfile.merge!({

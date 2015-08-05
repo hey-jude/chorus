@@ -1,4 +1,4 @@
-chorus.collections.PublishedWorkletSet = chorus.collections.Base.include(
+chorus.collections.PublishedWorkletSet = chorus.collections.LastFetchWins.include(
     chorus.Mixins.CollectionFetchingSearch
 ).extend({
         constructorName: "PublishedWorkletSet",

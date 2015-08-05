@@ -13,6 +13,7 @@ chorus.pages.PublishedWorkletIndexPage = chorus.pages.Base.include(
 
             this.mainContent = new chorus.views.MainContentList({
                 modelClass: "PublishedWorklet",
+                useCustomList: true,
                 collection: this.collection,
                 title: t("published_worklet.index.header"),
                 linkMenus: {
