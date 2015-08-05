@@ -1,6 +1,7 @@
 chorus.views.ProjectCard = chorus.views.Base.extend({
     constructorName: 'ProjectCard',
     templateName: 'dashboard/project_card',
+    additionalClass: "card",
 
     subviews: {
         '.activity': 'insightView',
@@ -130,5 +131,5 @@ chorus.views.ProjectCard = chorus.views.Base.extend({
     milestonesUrl: function () {
         return this.showUrl() + "/milestones";
     }
-    
+
 });
