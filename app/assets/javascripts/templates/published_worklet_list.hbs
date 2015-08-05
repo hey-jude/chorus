@@ -1,3 +1,7 @@
+{{#if pagination}}
+  <div class="pagination content_details"></div>
+{{/if}}
+
 {{#if models.length}}
 
   {{#each models}}
@@ -10,6 +14,4 @@
     </div>
   {{/each}}
 
-{{else}}
-  <div class="none">{{ t emptyListTranslationKey}}</div>
 {{/if}}
