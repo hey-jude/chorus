@@ -704,7 +704,7 @@ img.profile {
 .modal-dialog .modal-header {
     background: #ddecfa;
     border-bottom: 1px solid #eaebec;
-    line-height: 40px;
+    /*line-height: 40px; */
     -ms-word-break: break-all;
     word-break: break-all;
 
@@ -836,6 +836,11 @@ img.profile {
     margin-top: 10% !important;
 }
 
+.modal-content .dialog-header {
+    background: #71E2C6;
+}
+
+
 .dual-list .list-group {
     margin-top: 8px;
 }
@@ -850,4 +855,25 @@ img.profile {
 
 .list-arrows button {
     margin-bottom: 20px;
+}
+
+
+ul.member-list li.avatar {
+    width: 10%;
+}
+ul.member-list li.fullname {
+    width: 35%;
+    text-align: left;
+    color: #00a0e5;
+    font-size: 14px;
+}
+
+ul.member-list li.username {
+    width: 35%;
+    text-align: left;
+}
+
+ul.member-list li.action {
+    width: 15%;
+    text-align: right;
 }

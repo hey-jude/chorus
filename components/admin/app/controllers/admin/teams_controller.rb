@@ -70,6 +70,13 @@ module Admin
       @team_members = @team.users
     end
 
+    def update_memberships
+      @team = Group.find(params[:id])
+      @available_members = User.all
+      @team_members = @team.users
+
+    end
+
     def manage_roles
       @team = Group.find(params[:id])
 

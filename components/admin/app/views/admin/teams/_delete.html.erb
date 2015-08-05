@@ -5,12 +5,16 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-body">
-        <div>
-          <i class="fa fa-2x fa-exclamation-triangle"  style="color:darkorange;">&nbsp;&nbsp;</i><span>Are you sure you want to delete this team?</span>
-          <br/><br/>
-          <p>This team will be deleted and can not be recovered.</p>
-          <br/>
-          <p>Are you sure you want to continue?</p>
+        <div class="row">
+          <div class="col-md-1">
+            <i class="fa fa-2x fa-exclamation-triangle"  style="color:darkorange;"></i>
+          </div>
+          <div class="col-md-11">
+            <span>Are you sure you want to delete this team?</span>
+            <p>This team will be deleted and can not be recovered.</p>
+            <br/>
+            <p>Are you sure you want to continue?</p>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -29,27 +33,32 @@
     <%= form_for @team, url: admin.team_path(@team) , method: :delete, remote: true do |f| %>
         <div class="modal-content">
           <div class="modal-body">
-            <div>
-              <i class="fa fa-2x fa-exclamation-triangle"  style="color:darkorange;">&nbsp;&nbsp;</i><span>Are you sure you want to delete this team?</span>
-              <br/><br/>
-              This team will be deleted and can not be removed.
-              <br/><br/>
-              <p>People in this team will no longer have any of the benefits of membership in the group. However, all of the people will still have active accounts.</p>
-              <div class="radio">
-                <label>
-                  <%= radio_button_tag 'teams_select', 'move_to_another' %> Move Everyone to another team
-                </label>
-
-                <%= select_tag "new_team_id", options_from_collection_for_select(@teams, "id", "name") %>
+            <div class="row">
+              <div class="col-md-1">
+                <i class="fa fa-2x fa-exclamation-triangle"  style="color:darkorange;">&nbsp;&nbsp;</i>
               </div>
+              <div class="col-md-11">
+                <span>Are you sure you want to delete this team?</span>
+                <br/>
+                This team will be deleted and can not be removed.
+                <br/><br/>
+                <p>People in this team will no longer have any of the benefits of membership in the group. However, all of the people will still have active accounts.</p>
+                <div class="radio">
+                  <label>
+                    <%= radio_button_tag 'teams_select', 'move_to_another' %> Move Everyone to another team
+                  </label>
+                  <br/>
+                  <%= select_tag "new_team_id", options_from_collection_for_select(@teams, "id", "name"),  class:'form-control' %>
+                </div>
 
-              <br/>
-              <div class="radio">
-                <label>
-                  <%= radio_button_tag 'teams_select', 'delete' %>
-                   Just delete the team
-                 </label>
-                <p>Don't change anything else about the team right now.</p>
+                <br/>
+                <div class="radio">
+                  <label>
+                    <%= radio_button_tag 'teams_select', 'delete', :checked => true %>
+                     Just delete the team
+                   </label>
+                  <p>Don't change anything else about the team right now.</p>
+                </div>
               </div>
             </div>
           </div>
