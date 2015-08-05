@@ -359,6 +359,13 @@ describe User do
       admin.reload
       admin.roles.should_not include(Role.find_by_name("ApplicationManager"))
     end
+
+    it "should create an admin if passed the string 'true'" do
+      user.admin = false
+      user.admin = "true"
+      user.save!
+      expect(user.admin?).to be_true
+    end
   end
 
   describe '.developer_count' do
