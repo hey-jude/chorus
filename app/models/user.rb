@@ -92,18 +92,12 @@ class User < ActiveRecord::Base
 
   def add_missing_admin_role(role)
     admin_roles = [Role.find_by_name("Admin"), Role.find_by_name("ApplicationManager")]
-
-    if admin_roles.include? role
-      self.admin = true
-    end
+    self.admin = true if admin_roles.include? role
   end
 
   def remove_extra_admin_role(role)
     admin_roles = [Role.find_by_name("Admin"), Role.find_by_name("ApplicationManager")]
-
-    if admin_roles.include? role
-      self.admin = false
-    end
+    self.admin = false if admin_roles.include? role
   end
 
   def accessible_events(current_user)
