@@ -5,11 +5,11 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     title: t("data_sources.edit_dialog.title"),
     events: {
         "submit form": "save",
-        "click a.connection_parameters": "launchConnectionParametersDialog",
+        "click a.connection_parameters:visible": "launchConnectionParametersDialog",
         "change input[name=high_availability]": 'toggleHighAvailability'
     },
 
-    formFields: ["name", "host", "port", "size", "dbName", "username", "groupList", "streamUrl", "password", "jobTrackerHost", "jobTrackerPort", "hdfsVersion", "hiveKerberosPrincipal", "hiveKerberosKeytabLocation"],
+    formFields: ["name", "host", "port", "size", "dbName", "username", "groupList", "streamUrl", "password", "jobTrackerHost", "jobTrackerPort", "hiveMetastoreLocation", "hdfsVersion", "hiveKerberosPrincipal", "hiveKerberosKeytabLocation"],
 
     makeModel: function() {
         this.sourceModel = this.model;
@@ -43,7 +43,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     },
 
     rewriteLink: function () {
-        this.$('a.connection_parameters').text(t('data_sources.dialog.connection_parameters', {count: this.model.numberOfConnectionParameters()}));
+        this.$('a.connection_parameters').text(t('data_sources.dialog.connection_parameters', {count: this.model.connectionParametersWithoutHadoopHive().length}));
     },
 
     toggleHighAvailability: function (e) {
@@ -74,8 +74,9 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             gpdbPgOrOracle: this.gpOrPg() || this.model.isOracle(),
             jdbcDataSource: this.model.isJdbc(),
             hdfsDataSource: this.model.constructorName === "HdfsDataSource",
+            hdfsHiveDataSource: this.model.constructorName === "HdfsDataSource" && this.model.isHdfsHive(),
             gnipDataSource: this.model.constructorName === "GnipDataSource",
-            parameterCount: {count: this.model.numberOfConnectionParameters()},
+            parameterCount: {count: this.model.connectionParametersWithoutHadoopHive().length},
             jdbcHiveDataSource: this.model.constructorName === "JdbcHiveDataSource"
         };
     },
@@ -102,6 +103,8 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             attrs.hiveHadoopVersion = attrs.hdfsVersion;
             delete attrs.hdfsVersion;
         }
+
+        attrs.connectionParameters = this.model.connectionParametersWithoutHadoopHive();
 
         attrs.highAvailability = !!this.$("input[name=high_availability]").prop("checked");
         attrs.ssl = !!this.$("input[name=ssl]").prop("checked");

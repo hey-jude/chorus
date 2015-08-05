@@ -17,7 +17,7 @@ describe Events::JobDeleted do
   end
 
   its(:action) { should == "JobDeleted" }
-  its(:targets) { should == {:job => job} }
+  its(:targets) { should == {:job => job, :workspace => workspace} }
 
   it_creates_activities_for { [actor, job, workspace] }
 

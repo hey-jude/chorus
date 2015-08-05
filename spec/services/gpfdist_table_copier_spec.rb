@@ -80,7 +80,7 @@ describe GpfdistTableCopier, :greenplum_integration do
       end
     end
   end
-  
+
   it 'uses gpfdist if the gpfdist.ssl.enabled configuration is false (no in the test environment)' do
     copier.gpfdist_protocol.should == 'gpfdist'
   end
@@ -184,7 +184,7 @@ describe GpfdistTableCopier, :greenplum_integration do
     context "from a chorus view" do
       let(:source_dataset) do
         cv = FactoryGirl.build :chorus_view, :name => "a_chorus_view", :query => "select * from #{source_table}",
-                           :schema => schema, :workspace => workspaces(:public)
+                               :schema => schema, :workspace => workspaces(:public)
         cv.save(:validate => false)
         cv
       end

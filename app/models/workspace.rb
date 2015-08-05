@@ -9,9 +9,6 @@ class Workspace < ActiveRecord::Base
 
   PROJECT_STATUSES = [:on_track, :needs_attention, :at_risk]
 
-  # DO NOT CHANGE the order of these permissions, you'll accidently change everyone's permissons across the site.
-  # Order: show, update, destroy
-
   attr_accessible :id, :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,
                   :has_changed_settings, :show_sandbox_datasets, :is_project, :project_status, :project_status_reason,
                   :project_target_date
@@ -60,6 +57,7 @@ class Workspace < ActiveRecord::Base
   before_save :handle_archiving, :if => :archived_changed?
   before_save :update_has_added_sandbox
   after_create :add_owner_as_member
+  after_create :add_owner_to_workspace_roles
 
   scope :active, where(:archived_at => nil)
 
@@ -155,6 +153,7 @@ class Workspace < ActiveRecord::Base
     filtered_workfiles = self.workfiles.order_by(params[:order]).includes(:latest_workfile_version)
     filtered_workfiles = filtered_workfiles.with_file_type(params[:file_type]) if params[:file_type].present?
     filtered_workfiles = filtered_workfiles.where("workfiles.file_name LIKE ?", "%#{params[:name_pattern]}%") if params[:name_pattern]
+    filtered_workfiles = filtered_workfiles.where("type!='PublishedWorklet'") if params[:no_published_worklets]
     filtered_workfiles.includes(Workfile.eager_load_associations)
   end
 
@@ -388,6 +387,11 @@ class Workspace < ActiveRecord::Base
     unless members.include? owner
       memberships.create!({ :user => owner, :workspace => self }, { :without_protection => true })
     end
+  end
+
+  def add_owner_to_workspace_roles
+    self.add_user_to_object_role(owner, Role.find_by_name("Owner"))
+    self.add_user_to_object_role(owner, Role.find_by_name("ProjectManager"))
   end
 
   def archiver_is_set_when_archiving

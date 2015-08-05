@@ -52,8 +52,8 @@ chorus.dialogs.ConfigureJob = chorus.dialogs.Base.include(chorus.Mixins.DialogFo
         this.model = this.model || new chorus.models.Job({ workspace: {id: this.options.pageModel.id}, intervalUnit: 'on_demand' });
     },
 
-    modelSaved: function () {
-        name = this.model.name();
+    modelSaved: function (updatedModel) {
+        name = updatedModel.name();
         chorus.toast(this.toastMessage(), {jobName: name , toastOpts: {type: "success" }} );
         this.model.trigger('invalidated');
         this.closeModal();

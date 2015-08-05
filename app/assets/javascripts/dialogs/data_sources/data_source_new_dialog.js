@@ -10,7 +10,7 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
         "submit form": "createDataSource",
         "change input[name=high_availability]": 'toggleHighAvailability',
         "change input[name=hiveKerberos]": 'toggleKerberos',
-        "click a.connection_parameters": "launchConnectionParametersDialog"
+        "click a.connection_parameters:visible": "launchConnectionParametersDialog"
     },
 
     postRender: function() {
@@ -26,13 +26,18 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
         }, this));
     },
 
+    // KT: August 2015 -- the way the DataSource dialogs work is very strange.  Here in the DataSourceNewDialog, all of
+    // the forms are backed by the 'AbstractDataSource' ... until they are submitted.  At that point the `createDataSource`
+    // method pulls the data out of the form, and creates a new model of the type you expect.
+    // Conversely -- in the DataSourceEditDialog, the form is backed by the correct (specific) DataSource type, always.
     makeModel: function () {
-        this.model = this.model || new chorus.models.GpdbDataSource();
+        this.model = this.model || new chorus.models.AbstractDataSource();
         this.listenTo(this.model, 'change', this.rewriteLink);
     },
 
     additionalContext: function() {
         var config = chorus.models.Config.instance();
+
         return {
             gnipConfigured: config.get('gnipConfigured'),
             oracleConfigured: config.get('oracleConfigured'),
@@ -98,7 +103,7 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
         e && e.preventDefault();
 
         var merged_attributes = _.extend({}, this.model.attributes, this.fieldValues());
-        delete merged_attributes['entityType'] // Entity type is chosen by dataSourceClass so we don't want to keep it
+        delete merged_attributes['entityType']; // Entity type is chosen by dataSourceClass so we don't want to keep it
 
         this.resource = this.model = new (this.dataSourceClass())(merged_attributes);
         this.listenTo(this.model, "saved", this.saveSuccess);
@@ -111,7 +116,7 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
 
     dataSourceClass: function() {
         var dataSourceType = this.$("select.data_sources option:selected").attr("name");
-        if (dataSourceType === "register_existing_hdfs") {
+        if (dataSourceType === "register_existing_hdfs" || dataSourceType === "register_existing_hdfs_hive") {
             return chorus.models.HdfsDataSource;
         } else if (dataSourceType === "register_existing_gnip") {
             return chorus.models.GnipDataSource;
@@ -136,12 +141,16 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
             var input = $(i);
             updates[input.attr("name")] = input.val().trim();
         });
+
         updates["isHawq"] = this.$("select.data_sources option:selected").attr("hawq");
+        updates["isHdfsHive"] = this.$("select.data_sources option:selected").attr("hdfs_hive");
 
         updates.ssl = !!inputSource.find("input[name=ssl]").prop("checked");
         updates.shared = !!inputSource.find("input[name=shared]").prop("checked");
         updates.highAvailability = !!inputSource.find("input[name=high_availability]").prop("checked");
+
         updates.connectionParameters = this.model.get('connectionParameters');
+
         if(updates.hive) {
             updates.hiveKerberos = inputSource.find("input[name=hiveKerberos]:checked").val() === 'true';
             if (updates.hiveKerberos) {

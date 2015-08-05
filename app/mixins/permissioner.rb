@@ -6,17 +6,17 @@ module Permissioner
   extend ActiveSupport::Concern
 
   included do
-    # after_create :initialize_default_roles, :if => Proc.new { |obj| obj.class.const_defined? 'OBJECT_LEVEL_ROLES' }
     after_create :create_chorus_object
     after_destroy :destroy_chorus_object
   end
 
-  # def initialize_default_roles
-  #   default_roles = self.class::OBJECT_LEVEL_ROLES.map do |role_symbol|
-  #     Role.create(:name => role_symbol.to_s)
-  #   end
-  #   object_roles << default_roles
-  # end
+  # Use these methods to manipulate object-level roles. Method definitions can be found on ChorusObject
+  delegate :users_for_role,
+           :roles_for_user,
+           :add_user_to_object_role,
+           :remove_user_from_object_role,
+           :show_roles_and_users,
+           to: :chorus_object
 
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
@@ -39,7 +39,7 @@ module Permissioner
 
   # Returns true if user has site wide admin role.
   def self.is_admin?(user)
-    admin_roles = %w(SiteAdministrator ApplicationAdministrator Admin)
+    admin_roles = %w(SiteAdministrator ApplicationAdministrator Admin ApplicationManager)
     roles = user.roles
     roles.each do |role|
       if admin_roles.include?(role.name)

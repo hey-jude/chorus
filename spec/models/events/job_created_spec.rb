@@ -17,7 +17,7 @@ describe Events::JobCreated do
   end
 
   its(:action) { should == "JobCreated" }
-  its(:targets) { should == {:job => job} }
+  its(:targets) { should == {:job => job, :workspace => workspace} }
 
   it_creates_activities_for { [actor, job, workspace] }
 

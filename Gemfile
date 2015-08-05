@@ -4,6 +4,8 @@ gem 'rails', '3.2.18'
 
 gem 'vis_engine', path: 'components/visEngine'
 
+gem 'rack', '1.4.5' # rack 1.4.7 causes errors when performing multipart uploads [DEV-11813]
+
 gem 'will_paginate'
 gem 'net-ldap', '0.11',    :require => false
 gem 'paperclip', '3.0.4'
@@ -30,6 +32,9 @@ gem 'render_anywhere'
 # Bulk updating of active_record
 gem 'activerecord-import','0.10.0'
 
+gem 'geo_pattern', '1.3.2'  # geopattern is used to generate the default worklet avatar images
+
+gem 'rubyzip', '0.9.9'
 
 platform :jruby do
   gem 'jruby-openssl', :require => false

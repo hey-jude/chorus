@@ -126,6 +126,15 @@ describe MembersController do
 
         Notification.last.recipient.id == member4.id
       end
+
+      it "should add users to the correct workspace role" do # this role is ProjectManager right now but will change in 5.7
+        parameters = {:workspace_id => workspace.id, :member_ids => [member1.id, member2.id, member3.id, member4.id]}
+        role = Role.find_by_name("ProjectManager")
+
+        expect {
+          post :create, parameters
+        }.to change{ workspace.users_for_role(role).count }.by(2)
+      end
     end
 
     context "change some of the members for the workspace" do

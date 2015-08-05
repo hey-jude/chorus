@@ -26,7 +26,11 @@
 
             if ( associate === 'dataset' && this.get(associate)) {
                 model = new chorus.models.DynamicDataset(this.get(associate));
-            } else {
+            }
+            else if (associate === 'workfile' && this.get(associate) && this.get(associate).entitySubtype) {
+                model = new chorus.models.DynamicWorkfile(this.get(associate));
+            }
+            else {
                 var className = CLASS_MAP[associate];
                 var modelClass = chorus.models[className];
                 model = new modelClass(this.get(associate));
@@ -211,6 +215,9 @@
                         break;
                     case 'work_flow_result':
                         klass = chorus.models.WorkFlowResult;
+                        break;
+                    case 'worklet_result':
+                        klass = chorus.models.WorkletResult;
                         break;
                     default:
                         klass = chorus.models.Attachment;

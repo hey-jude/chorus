@@ -23,9 +23,9 @@ class UsersController < ApplicationController
     user.developer = user_params[:developer] if user_params.key?(:developer)
     User.transaction do
       user.save!
-
-      Role.find_by_name("Admin").users << user if user_params[:admin]
-      Role.find_by_name("Developer").users << user if user_params[:developer]
+      default_group = Group.find_by_name('default_group')
+      # Add user to the default group
+      user.groups << default_group unless user.groups.include? default_group
       Events::UserAdded.by(current_user).add(:new_user => user)
     end
 

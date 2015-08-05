@@ -152,6 +152,7 @@ GEM
     codemirror-rails (3.23)
       railties (>= 3.0, < 5)
     coderay (1.1.0)
+    color (1.7.1)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -197,6 +198,8 @@ GEM
       rspec (~> 2.0)
       rspec-instafail (~> 0.2.0)
       ruby-progressbar (~> 1.0)
+    geo_pattern (1.3.2)
+      color (~> 1.5)
     handlebars_assets (0.14.1)
       execjs (>= 1.2.9)
       sprockets (>= 2.0.3)
@@ -439,6 +442,7 @@ DEPENDENCIES
   fixture_builder
   foreman (>= 0.62)
   fuubar
+  geo_pattern (= 1.3.2)
   hadoopconf_gem!
   handlebars_assets
   hashie
@@ -467,6 +471,7 @@ DEPENDENCIES
   pry-rails
   queue_classic!
   quiet_assets
+  rack (= 1.4.5)
   rails (= 3.2.18)
   rake
   render_anywhere
@@ -474,6 +479,7 @@ DEPENDENCIES
   rspec (= 2.14.1)
   rspec-rails
   rspec_api_documentation!
+  rubyzip (= 0.9.9)
   sass-rails
   sequel (~> 4.0)
   shoulda-matchers

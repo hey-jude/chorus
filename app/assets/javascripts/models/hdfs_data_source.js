@@ -10,11 +10,21 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     },
 
     providerIconUrl: function() {
-        return this._imagePrefix + "icon_hdfs_data_source.png";
+        if(this.isHdfsHive()) {
+          return this._imagePrefix + "icon_hdfs_hive_data_source.png";
+        } else {
+          return this._imagePrefix + "icon_hdfs_data_source.png";
+        }
     },
 
     isHadoop: function() {
         return true;
+    },
+
+    isHdfsHive: function() {
+      if(this.get('isHdfsHive')) {
+        return true;
+      }
     },
 
     isSingleLevelSource: function () {
@@ -22,15 +32,22 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     },
 
     declareValidations: function(newAttrs) {
+
+        if(this.get('isHdfsHive')) {
+          this.require("hiveMetastoreLocation", newAttrs);
+        }
+
         this.require("name", newAttrs);
         this.requirePattern("name", chorus.ValidationRegexes.MaxLength64(), newAttrs);
         this.require("host", newAttrs);
         this.require("username", newAttrs);
         this.require("groupList", newAttrs);
+
         if (newAttrs.highAvailability === 'false') {
             this.require("port", newAttrs);
             this.requirePattern("port", chorus.ValidationRegexes.OnlyDigits(), newAttrs);
         }
+
         if (newAttrs.jobTrackerHost || newAttrs.jobTrackerPort) {
             this.require("jobTrackerHost", newAttrs);
             this.require("jobTrackerPort", newAttrs);

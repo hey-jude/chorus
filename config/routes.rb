@@ -17,9 +17,9 @@ Chorus::Application.routes.draw do
   end
 
   # Roles, groups and permissions routes
-  resources :roles
-  resources :groups
-  resources :permissions
+  #resources :roles
+  #resources :groups
+  #resources :permissions
 
   resources :hdfs_data_sources, :only => [:create, :index, :show, :update, :destroy] do
     scope :module => 'hdfs' do
@@ -92,6 +92,15 @@ Chorus::Application.routes.draw do
 
   resource :imports, :only => :update, :controller => 'dataset_imports'
 
+  resources :worklets, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
+    member do
+      put 'run'
+      post 'share'
+    end
+  end
+
+  resources :worklet_variable_versions, :only => [:index, :show]
+
   resources :workspaces, :only => [:index, :create, :show, :update, :destroy] do
     resources :members, :only => [:index, :create]
     resource :image, :only => [:create, :show], :controller => :workspace_images
@@ -100,6 +109,16 @@ Chorus::Application.routes.draw do
       collection do
         delete :index, action: :destroy_multiple
       end
+    end
+    resources :worklets, :only => [:create, :show, :update, :destroy] do
+      member do
+        put 'run'
+        get 'image'
+        put 'publish'
+        put 'unpublish'
+      end
+
+      resources :variables, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_variables
     end
     resources :jobs, :only => [:index, :create, :show, :update, :destroy] do
       resources :job_tasks, :only => [:create, :update, :destroy]
@@ -135,17 +154,17 @@ Chorus::Application.routes.draw do
 
   resources :job_tasks, :only => [:update]
 
-  resources :workfiles, :only => [:show, :destroy, :update] do
-    resource :draft, :only => [:show, :update, :create, :destroy], :controller => :workfile_draft
-    resources :versions, :only => [:update, :create, :show, :index, :destroy], :controller => 'workfile_versions'
-    resource :copy, :only => [:create], :controller => 'workfile_copy'
-    resource :download, :only => [:show], :controller => 'workfile_download'
-    resources :executions, :only => [:create, :destroy], :controller => 'workfile_executions'
-    resources :results, :only => [:create], :controller => 'workfile_results'
-    member do
-      post 'run'
-      post 'stop'
-    end
+    resources :workfiles, :only => [:show, :destroy, :update] do
+      resource :draft, :only => [:show, :update, :create, :destroy], :controller => :workfile_draft
+      resources :versions, :only => [:update, :create, :show, :index, :destroy], :controller => 'workfile_versions'
+      resource :copy, :only => [:create], :controller => 'workfile_copy'
+      resource :download, :only => [:show], :controller => 'workfile_download'
+      resources :executions, :only => [:create, :destroy], :controller => 'workfile_executions'
+      resources :results, :only => [:create], :controller => 'workfile_results'
+      member do
+        post 'run'
+        post 'stop'
+      end
   end
 
   resources :workfile_versions, :only => [] do
@@ -212,6 +231,8 @@ Chorus::Application.routes.draw do
   post 'download_chart', :controller => 'image_downloads'
 
   post 'download_data', :controller => 'data_downloads'
+
+  resource :log_archiver, :only => :show
 
   match '/' => 'root#index'
   match 'VERSION' => 'configurations#version'

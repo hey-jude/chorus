@@ -132,7 +132,7 @@ describe DatabasesController do
       subject { described_class.new }
 
       generate_fixture "forbiddenDataSource.json" do
-        stub(Authority).authorize! { raise Authority::AccessDenied }
+        stub(Authority).authorize! { raise Authority::AccessDenied.new("Forbidden", :activity, database) }
         get :show, :id => database.to_param
         response.should be_forbidden
       end

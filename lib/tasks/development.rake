@@ -39,6 +39,7 @@ namespace :development do
 
     Rake::Task["db:create"].invoke
     Rake::Task["db:migrate"].invoke
+    Rake::Task["db:seed_permissions"].invoke
     Rake::Task["db:seed_development"].invoke
     `CHORUS_HOME=#{root} #{root}/packaging/chorus_control.sh stop postgres`
   end

@@ -113,10 +113,10 @@ chorus.pages.WorkfileIndexPage = chorus.pages.Base.include(
             {name: 'import_workfile', target: chorus.dialogs.WorkfilesImport},
             {name: 'create_sql_workfile', target: chorus.dialogs.WorkfilesSqlNew}
         ];
-
         this.workspace.canUpdate() && _.each(updateActions, function (action) { actions.push(action); });
-        var createWorkflow = {name: 'create_workflow', target: chorus.dialogs.WorkFlowNew};
-        this.workspace.currentUserCanCreateWorkFlows() && actions.push(createWorkflow);
+        this.workspace.currentUserCanCreateWorkFlows() && actions.push({name: 'create_workflow', target: chorus.dialogs.WorkFlowNew});
+        // TODO: Once/if there is worklet creation not from a selected workfile, this should be added.
+        // this.workspace.currentUserCanCreateWorklets() && actions.push({name: 'create_worklet', target: chorus.dialogs.WorkletNew});
 
         this.primaryActionPanel = new chorus.views.PrimaryActionPanel({pageModel: this.workspace, actions: actions});
     }

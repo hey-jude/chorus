@@ -40,8 +40,8 @@ class User < ActiveRecord::Base
   has_many :comments
 
   # roles, groups, and permissions
-  has_and_belongs_to_many :groups
-  has_and_belongs_to_many :roles, after_add: :check_admin_role, after_remove: :uncheck_admin_role
+  has_and_belongs_to_many :groups, :uniq => true
+  has_and_belongs_to_many :roles, after_add: :check_admin_role, after_remove: :uncheck_admin_role, :uniq => true
   #belongs_to :chorus_scope
 
   def uncheck_admin_role(role)
@@ -66,10 +66,10 @@ class User < ActiveRecord::Base
       end
       self.save!
     end
-    if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
-      self.admin = false
-      self.save!
-    end
+    #if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
+    #  self.admin = false
+    #  self.save!
+    #end
   end
 
   def check_admin_role(role)
@@ -87,10 +87,10 @@ class User < ActiveRecord::Base
       self.save!
     end
 
-    if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
-      self.admin = false
-      self.save!
-    end
+    #if self.admin == true && (self.roles.include?(site_admin) || self.roles.include?(admin)) == false
+    #  self.admin = false
+    #  self.save!
+    #end
   end
 
   # object_roles allow a User to have different roles for different objects (currently just Workspace)
@@ -128,6 +128,10 @@ class User < ActiveRecord::Base
   end
 
   before_save :update_password_digest, :unless => lambda { password.blank? }
+  # Delete HABTM association objects
+  before_destroy { |user| user.groups.destroy_all }
+  before_destroy { |user| user.roles.destroy_all }
+
   after_initialize :defaults
 
   def defaults
@@ -159,7 +163,12 @@ class User < ActiveRecord::Base
   end
 
   def self.admin_count
-    Role.find_by_name("Admin").users.size
+    admin_role = Role.find_by_name("ApplicationManager")
+    if admin_role != nil
+      Role.find_by_name("ApplicationManager").users.size
+    else
+      return 0
+    end
   end
 
   def admin?
@@ -173,10 +182,15 @@ class User < ActiveRecord::Base
       write_attribute(:admin, value)
 
       admin_role = Role.find_by_name("Admin")
+      site_admin_role = Role.find_by_name("ApplicationManager")
       if admin_role && value == true
         admin_role.users << self
-      else
+        site_admin_role.users << self
+      elsif admin_role
         admin_role.users.delete(self)
+        site_admin_role.users.delete(self)
+      else
+          #
       end
     end
   end
@@ -185,8 +199,7 @@ class User < ActiveRecord::Base
 
   def developer=(value)
     write_attribute(:developer, value)
-
-    dev_role = Role.find_by_name("Developer")
+    dev_role = Role.find_by_name("WorkflowDeveloper")
     if value
       dev_role.users << self
     else

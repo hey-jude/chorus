@@ -249,7 +249,8 @@
         },
 
         WorkfileCreated: {
-            links: [ "actor", "workfile", "workspace" ]
+            links: [ "actor", "workfile", "workspace" ],
+            computed: ["workfileType"]
         },
 
         WorkspaceAddSandbox: {
@@ -456,6 +457,18 @@
             links: ["workfile"]
         },
 
+        WorkletResultShared: {
+            links: ["actor", "workfile", "workspace"]
+        },
+
+        WorkletPublished: {
+            links: ["workfile"]
+        },
+
+        WorkletUnpublished: {
+            links: ["workfile"]
+        },
+
         JobCreated: {
             links: ["actor", "job", "workspace"]
         },
@@ -562,6 +575,10 @@
             return t("dataset.entitySubtypes." + type);
         },
 
+        workfileType: function(self) {
+            return self.model.workfile().get('entitySubtype') === 'worklet' ? 'worklet' : 'file';
+        },
+
         tableauWorkbookLink: function(self) {
             var workbookName = self.model.get("workbookName");
             var workbookUrl = self.model.get("workbookUrl");
@@ -604,8 +621,8 @@
         },
 
         milestoneState: function(self) {
-            object = self.model.get("milestone");
-            state = "milestone.state." + object.state.toString();
+            var object = self.model.get("milestone");
+            var state = "milestone.state." + object.state.toString();
             return t(state);
         },
 

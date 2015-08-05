@@ -18,11 +18,12 @@ $refresh-activity-gutter: $activity-gutter - 5;
     height: $icon-image-height + 3px;
 }
 
-.notification_list, 
+.notification_list,
 .activity_list {
     a[href=''], a:not([href]) {
         color: $color-text3;
         text-decoration: none;
+        cursor: default;
     }
 
     .no_items {
@@ -112,7 +113,7 @@ $refresh-activity-gutter: $activity-gutter - 5;
     }
 }
 
-.activity_content, 
+.activity_content,
 .comment_content {
     ul.attachments {
         img {
@@ -141,15 +142,15 @@ $refresh-activity-gutter: $activity-gutter - 5;
         word-wrap: break-word;
         @include secondary-text-normal;
         // line-height: 20px;
-        
-        .author { 
+
+        .author {
             font-weight: $semibold;
         }
     }
 
     .actions {
         margin-top:5px;
-    
+
         .timestamp {
             @include secondary-text-small;
             line-height: 20px;
@@ -168,7 +169,7 @@ $refresh-activity-gutter: $activity-gutter - 5;
         a.edit_link {
             display: none;
 
-            @include secondary-text-small;            
+            @include secondary-text-small;
             border-left: solid 1px;
             padding-left: 5px;
             margin-left: 5px;
@@ -203,7 +204,7 @@ span.fa {
         // vertical-align: middle;
     }
 }
-            
+
 .popup_notifications li,
 li .activity_content,
 .comment_content {
@@ -232,7 +233,7 @@ li .activity_content,
 
     li.activity {
         border-bottom: $border-canon;
-        
+
         &.insight {
             background: #FFFFFF;
             border-bottom: $border-canon;
@@ -240,7 +241,7 @@ li .activity_content,
                 padding-top: 12px;
             }
         }
-        
+
         // special case when the insight is the first item in the list
         &.insight:first-child {
             .activity_item {
@@ -282,7 +283,7 @@ li .activity_content,
 }
 
 #sidebar {
-    &.data_source_list_sidebar, 
+    &.data_source_list_sidebar,
     &.workfile_show_sidebar {
         .activity_list .heading {
             display: none

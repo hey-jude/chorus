@@ -9,6 +9,14 @@ module Authority
 
   # Triggers a 403 in the ApplicationController
   class AccessDenied < StandardError
+    attr_reader :action, :subject, :payload
+
+    def initialize(message, action, subject, payload=nil)
+      @message = message
+      @action = action
+      @subject = subject
+      @payload = payload
+    end
   end
 
   # Attempts to match the given activity with the activities
@@ -25,16 +33,22 @@ module Authority
 
     # If we don't have new-style permissions chorus_classs for the object,
     # and the old permissions didn't pass either, then raise access denied
-    raise_access_denied if !legacy_action_allowed && chorus_class.nil?
+    raise_access_denied(activity_symbol, object) if !legacy_action_allowed && chorus_class.nil?
 
     if !legacy_action_allowed
       roles = retrieve_roles(user)
+
       chorus_object = ChorusObject.where(:instance_id => object.id, :chorus_class_id => chorus_class.id).first
 
       actual_class = chorus_class.name.constantize
 
       class_permissions = common_permissions_between(roles, chorus_class)
-      object_permissions = common_permissions_between(roles, chorus_object)
+
+      if chorus_object
+        role_ids = chorus_object.roles_for_user(user).map(&:id)
+        object_permissions = Permission.where(:role_id => role_ids, :chorus_class_id => chorus_class.id)
+      end
+
       permissions = [class_permissions, object_permissions].flatten.compact
 
       activity_mask = actual_class.bitmask_for(activity_symbol)
@@ -44,7 +58,7 @@ module Authority
       end
     end
 
-    raise_access_denied if !allowed && !legacy_action_allowed
+    raise_access_denied(activity_symbol, object) if !allowed && !legacy_action_allowed
 
     allowed || legacy_action_allowed
   end
@@ -188,8 +202,8 @@ module Authority
     (bits & mask) == mask
   end
 
-  def self.raise_access_denied
-    raise AccessDenied.new
+  def self.raise_access_denied(sym, obj)
+    raise AccessDenied.new("Not Authorized", sym, obj)
   end
 
 end

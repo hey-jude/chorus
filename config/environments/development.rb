@@ -30,7 +30,7 @@ Chorus::Application.configure do
   #config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Do not compress assets
-#  config.assets.compress = false
+  #  config.assets.compress = false
   config.assets.compress = false
 
   # Expands the lines which load the assets
@@ -40,8 +40,8 @@ Chorus::Application.configure do
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
   # Only turn it on if you really need concurrent requests
-  #config.allow_concurrency = true
-  #config.threadsafe!
+  config.allow_concurrency = true
+  config.threadsafe! unless defined?($rails_rake_task) && $rails_rake_task
 
   if ChorusConfig.instance['mail.enabled']
     config.action_mailer.delivery_method = :smtp

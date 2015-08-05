@@ -114,12 +114,12 @@ describe UsersController do
       it "should not make the user a developer if the flag is not set in the params" do
         params[:developer] = false
         post :create, params
-        Role.find_by_name("Developer").users.should_not include(User.find_by_username(params[:username]))
+        Role.find_by_name("WorkflowDeveloper").users.should_not include(User.find_by_username(params[:username]))
       end
 
       it 'should make a user a developer' do
         post :create, params
-        Role.find_by_name("Developer").users.should include(User.find_by_username(params[:username]))
+        Role.find_by_name("WorkflowDeveloper").users.should include(User.find_by_username(params[:username]))
         User.find_by_username(params[:username]).should be_developer
       end
 

@@ -19,10 +19,12 @@ FactoryGirl.define do
     description "This is a generic group"
   end
 
+  sequence(:role_name)
+
   factory :permission do
     permissions_mask 1
     after(:build) do |permission|
-      permission.role = create(:role, :name => "role for permission")
+      permission.role = create(:role, :name => generate(:role_name))
       permission.chorus_class = ChorusClass.create(:name => "NoClass")
     end
   end
