@@ -10,7 +10,6 @@ chorus.views.PublishedWorkletList = chorus.views.Base.extend({
 
     postRender: function() {
         // KT: a hack to adapt list_content_details.hbs to our needs:
-        $(".list_content_details").find(".explore, .button_holder").remove();
         $(".list_content_details").find(".count").detach().prependTo('.list_content_details');
     }
 });

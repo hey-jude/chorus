@@ -29,7 +29,8 @@ chorus.pages.PublishedWorkletIndexPage = chorus.pages.Base.include(
                 search: {
                     placeholder: t("published_worklet.search_placeholder"),
                     onTextChange: this.debouncedCollectionSearch()
-                }
+                },
+                contentDetailsOptions: { layout: 'card' }
             });
 
             this.mainContent.contentHeader.bind("choice:sort", function (choice) {
