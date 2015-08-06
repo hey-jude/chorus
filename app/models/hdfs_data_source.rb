@@ -75,6 +75,15 @@ class HdfsDataSource < ActiveRecord::Base
     if is_hdfs_hive
       params << {"key" => "is_hive", "value" => "true"}
       params << {"key" => 'hive.metastore.uris', "value" => hive_metastore_location}
+
+      # KT see: https://alpine.atlassian.net/browse/DEV-12009
+      searchable_hash = Hash[params.map { |h| [h["key"], h["value"]] }]
+      unless searchable_hash.keys.include? 'hive.metastore.client.connect.retry.delay'
+        params << {"key" => 'hive.metastore.client.connect.retry.delay', "value" => '1'}
+      end
+      unless searchable_hash.keys.include? 'hive.metastore.client.socket.timeout'
+        params << {"key" => 'hive.metastore.client.socket.timeout', "value" => '600'}
+      end
     end
 
     params
