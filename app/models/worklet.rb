@@ -8,6 +8,10 @@ class Worklet < AlpineWorkfile
 
   before_validation { self.content_type ='worklet' }
 
+  def execution_locations
+    WorkfileExecutionLocation.where(:workfile_id => self.workflow_id).map(&:execution_location)
+  end
+
   def run_now(user, variables)
     process_id = Alpine::API.run_worklet(self, user, variables)
     update_attributes(status: RUNNING, killable_id: process_id) unless process_id.empty?
