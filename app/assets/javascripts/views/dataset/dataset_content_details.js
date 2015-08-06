@@ -261,31 +261,31 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     },
 
     // Queries the server for data, depending on the current chart type and configuration.
-    chiasmFetchData: function (chartOptions, callback){
-        var chartType = chartOptions.type;
-        var datasetId = this.chartConfig.model.id;
-        var checkId =  Math.floor((Math.random()*1e8)+1).toString();
-        var url = "datasets/" + datasetId + "/visualizations";
+    //chiasmFetchData: function (chartOptions, callback){
+    //    var chartType = chartOptions.type;
+    //    var datasetId = this.chartConfig.model.id;
+    //    var checkId =  Math.floor((Math.random()*1e8)+1).toString();
+    //    var url = "datasets/" + datasetId + "/visualizations";
 
-        // This code fetches the data via a "task" abstraction.
-        // Copied from chart_configuration_view.js
-        var func = "make" + _.capitalize(chartType) + "Task";
-        var task = this.chartConfig.model[func](chartOptions);
-        task.set({filters: chartOptions.filters && chartOptions.filters.sqlStrings()});
+    //    // This code fetches the data via a "task" abstraction.
+    //    // Copied from chart_configuration_view.js
+    //    var func = "make" + _.capitalize(chartType) + "Task";
+    //    var task = this.chartConfig.model[func](chartOptions);
+    //    task.set({filters: chartOptions.filters && chartOptions.filters.sqlStrings()});
 
-        // This callback gets invoked once the data is loaded.
-        task.bindOnce("saved", function (model, data){
+    //    // This callback gets invoked once the data is loaded.
+    //    task.bindOnce("saved", function (model, data){
 
-            // Extract the tabular data format that Chiasm visualizations expect (array of objects)
-            callback(data.response.rows);
-        });
-        task.bindOnce("saveFailed", function (){
-            // TODO bubble errors to the UI
-            console.log("save failed");
-        });
+    //        // Extract the tabular data format that Chiasm visualizations expect (array of objects)
+    //        callback(data.response.rows);
+    //    });
+    //    task.bindOnce("saveFailed", function (){
+    //        // TODO bubble errors to the UI
+    //        console.log("save failed");
+    //    });
 
-        var x = task.save();
-    },
+    //    var x = task.save();
+    //},
     updateChiasmVisualization: function(){
 
         var chartOptions = this.chartConfig.chartOptions();
@@ -309,7 +309,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
             "visualization": {
                 "plugin": visualizationPlugin,
                 "state": {
-                    "xColumn": "bucket",
+                    "xColumn": "class",
                     "xAxisLabel": chartOptions.yAxis,
                     "yColumn": "count",
                     "yAxisLabel": "Count",
@@ -330,17 +330,45 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                 "state": {
                     "dataset_id": this.chartConfig.model.id
                 }
+            },
+            "dataReduction": {
+              "plugin": "dataReduction",
+              "state": {
+                "aggregate": {
+                  "dimensions": [{
+                    "column": "class"
+                  }],
+                  "measures": [{
+                    "outColumn": "count",
+                    "operator": "count"
+                  }]
+                }
+              }
+            },
+            "links": {
+              "plugin": "links",
+              "state": {
+                "bindings": [
+                  "dataLoader.data -> dataReduction.dataIn",
+                  "dataReduction.dataOut -> visualization.data"
+                ]
+              }
             }
         };
-        console.log(chartOptions);
+        //console.log(chartOptions);
 
         chiasm.setConfig(config);
-
-        this.chiasmFetchData(chartOptions, function (data){
-            chiasm.getComponent("visualization").then(function(visualization){
-                visualization.data = data;
-            });
+        chiasm.getComponent("dataReduction").then(function(dataReduction){
+          dataReduction.when("dataOut", function(data){
+            console.log(data);
+          });
         });
+
+        //this.chiasmFetchData(chartOptions, function (data){
+        //    chiasm.getComponent("visualization").then(function(visualization){
+        //        visualization.data = data;
+        //    });
+        //});
     },
 
     showSelectedTitle: function(e) {
