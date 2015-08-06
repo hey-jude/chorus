@@ -4,7 +4,8 @@ chorus.views.PublishedWorkletList = chorus.views.Base.extend({
 
     collectionModelContext: function (model) {
         return {
-            url: model.showUrl()
+            url: model.showUrl(),
+            avatarUrl: model.url({workflow_action: 'image'})
         };
     },
 
