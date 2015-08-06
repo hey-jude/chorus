@@ -7,10 +7,15 @@
 
 <div class="item_information">
     <div class="item_name">
-        {{#if url}}
-            <a title="{{name}}" class="name" href="{{url}}">{{name}}</a>
-        {{else}}
-            <span class="name">{{name}}</span>
+        {{#if isHdfsHive}}
+          {{!-- KT: this is meant to be temporary, see: https://alpine.atlassian.net/browse/DEV-11849 --}}
+          <span class="name" title="Browsing Hive data sources is not supported.">{{name}}</span>
+        {{else }}
+          {{#if url}}
+              <a title="{{name}}" class="name" href="{{url}}">{{name}}</a>
+          {{else}}
+              <span class="name">{{name}}</span>
+          {{/if}}
         {{/if}}
         {{> adminBadge }}
     </div>
