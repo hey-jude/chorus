@@ -873,7 +873,52 @@ ul.member-list li.username {
     text-align: left;
 }
 
+ul.member-list li.scope_name {
+    width: 80%;
+    text-align: left;
+}
+
 ul.member-list li.action {
     width: 15%;
     text-align: right;
 }
+
+ul.member-list .name {
+    color: #00a0e5;
+}
+
+.list-group-item {
+    padding-right: 0px !important;
+
+}
+
+
+.list-group-item .remove-list-item {
+    color: #606060;
+
+}
+
+.list-group-item .add-list-item {
+    color:#00a0e5;
+
+}
+.list-group-item:hover,  .list-group-item .list-inline li:hover{
+    background-color: #fff !important;
+    /* border-color: #fff !important; */
+    cursor: pointer !important;
+    border: 0px !important;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #fff !important;
+    /* border-color: #fff !important; */
+    cursor: pointer !important;
+    border: 0px !important;
+}
+
+/*
+.tooltip {
+    position: fixed;
+    z-index: 99999;
+}
+*/

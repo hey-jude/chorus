@@ -24,6 +24,9 @@ Admin::Engine.routes.draw do
     get 'manage_scopes' , on: :member
     get 'manage_workspaces' , on: :member
     put 'update_memberships' , on: :member
+    put 'update_scopes' , on: :member
+    put 'update_roles' , on: :member
+    put 'update_workspaces' , on: :member
   end
 
   resources :data_sources

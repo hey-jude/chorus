@@ -1,10 +1,165 @@
 <div id="members_table">
   <div class='chorus-box'>
     <div class='box-header'>
-      <h3 class='box-title'>Manage Scopes</h3>
+      <h3 class='box-title'>Manage Scope Groups</h3>
+      <p>People added will immediately have all the permissions and access available to this team. Poeple removed will no longer have any of the roles, abilities and access granted to the team.</p>
     </div><!-- /.box-header -->
-    <div class='box-body'>
-      <p><%= image_tag('comingsoon.jpg', :alt => '[Coming Soon]') %></p>
-    </div><!-- /.box-body -->
+
+    <%= form_for @team , url: admin.update_scopes_team_path, :method=> :put, :remote => true do |f| %>
+
+        <div class='box-body'>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="dual-list list-left col-md-5">
+              <div class="well">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h4>Available Scope Groups</h4>
+                    <div class="input-group">
+                      <span class="input-group-addon glyphicon glyphicon-search"></span>
+                      <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="margin-top: 38px;">
+                    <div class="btn-group">
+                      <a href="javascript:void(0);" onclick="transfer_all_items('available_scopes', 'current_scopes');" id="add_all_members"><i class="fa fa-lg fa-plus-circle"></i></a>&nbsp;<span>All</span>
+                    </div>
+                  </div>
+                </div>
+                <ul class="list-group" id="available_scopes" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+                  <% @available_scopes.each do | scope |%>
+                      <li class="list-group-item" id="scope_<%= scope.id %>">
+                        <ul class="list-inline member-list">
+                          <li class="scope_name">
+                            <span class="name"><%= scope.name %></span>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= scope.name %></strong><br/><%= scope.description %><br/><br/>30 People<br/>3 Teams<br/>7 Data Sources<br/>10 Workspaces</div>"></i>
+                            <br/>
+                            <span class="description"><%= scope.description %></span>
+                          </li>
+                          <li class="action">
+                            <a href="#" onclick="transfer_item('scope_<%= scope.id %>');"><i class="fa  fa-lg fa-plus-circle add-list-item"></i></a>
+                          </li>
+                        </ul>
+                      </li>
+                  <%end%>
+                </ul>
+              </div>
+            </div>
+            <div class="dual-list list-right col-md-5">
+              <div class="well">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h4>Current Scope Groups</h4>
+                    <div class="input-group">
+                      <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                      <span class="input-group-addon glyphicon glyphicon-search"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="margin-top: 38px;">
+                    <div class="btn-group">
+                      <a href="#deleteAllScopes" data-toggle="modal" id="remove_all_members"><i class="fa fa-lg fa-times-circle" style="color:#606060;"></i>&nbsp;<span>All</span></a>
+                    </div>
+                  </div>
+                </div>
+                <ul class="list-group"  id="current_scopes" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+                  <% @team_scopes.each do | scope |%>
+                      <li class="list-group-item" id="scope_<%= scope.id %>">
+                        <ul class="list-inline member-list">
+                          <li class="scope_name">
+                            <span class="name"><%= scope.name %></span>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= scope.name %></strong><br/><%= scope.description %><br/><br/>30 People<br/>3 Teams<br/>7 Data Sources<br/>10 Workspaces</div>"></i>
+                            <br/>
+                            <span class="description"><%= scope.description %></span>&nbsp;
+                          </li>
+                          <li class="action">
+                            <a href="#" onclick="transfer_item('scope_<%= scope.id %>');"><i class="fa  fa-lg fa-times-circle remove-list-item"></i></a>
+                          </li>
+                        </ul>
+                      </li>
+                  <%end%>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.submit "Save" , class: "btn btn-primary" %>
+              <a class="modalish cancel">Cancel</a>
+            </div>
+          </div>
+        </div><!-- /.box-body -->
+    <% end %>
   </div>
 </div>
+<div id="modalBox"></div>
+
+<div id="deleteAllScopes" class="modal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-center">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-1">
+            <i class="fa fa-2x fa-exclamation-triangle"  style="color:darkorange;">&nbsp;&nbsp;</i>
+          </div>
+          <div class="col-md-11">
+            <p><strong>Are you sure you want to remove this team from all scope groups?</strong></p>
+            <p>Once removed the members of this team will no longer be able access anything in the application</p>
+            <br/>
+            <p>Are you sure you want to continue?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="modalish cancel" data-dismiss="modal">Cancel</button>
+        <a href="javascript:void(0);" onclick="transfer_all_items('available_scopes', 'current_scopes');$('#deleteAllScopes').modal('hide');"  class="btn btn-primary">Remove All</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script type="application/javascript">
+
+  function transfer_all_items(from, to) {
+    console.log("transfering items from "  + from + " to " + to);
+    items = $("#" + from).children();
+    console.log(items);
+    for (var item in items ) {
+      //console.log(item);
+      $( item ).find( 'i').removeClass('fa-plus-circle').removeClass('add-list-item');
+      $( item ).find('i').addClass('fa-times-circle').addClass('remove-list-item');
+      //$( item ).remove();
+      //$( "#" + to ).append( item );
+    };
+
+  };
+
+  function transfer_item(id) {
+    if ( $("#" + id).closest(".list-left").length != 0  ) {
+      add_item(id);
+    }
+    else {
+      remove_item(id);
+    }
+  };
+
+  function add_item(id) {
+    console.log("add_item called with " + id);
+    var el = $.find(".list-left .list-group #" + id);
+    $( el ).find('i').removeClass('fa-plus-circle').removeClass('add-list-item');
+    $( el ).find('i').addClass('fa-times-circle').addClass('remove-list-item');
+/*    $(".list-left .list-group #" + id).remove(); */
+    $(".list-right ul#current_scopes").append(el);
+  };
+
+  function remove_item(id) {
+    console.log("remove_item called with " + id);
+    var el = $.find(".list-right .list-group #" + id);
+    $( el ).find('i').removeClass('fa-times-circle').removeClass('remove-list-item');
+    $( el ).find('i').addClass('fa-plus-circle').addClass('add-list-item');
+    /*  $(".list-right .list-group #" + id).remove();  */
+    $(".list-left ul#available_scopes").append(el);
+  };
+</script>

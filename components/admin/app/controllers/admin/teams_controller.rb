@@ -79,13 +79,24 @@ module Admin
 
     def manage_roles
       @team = Group.find(params[:id])
-
+      @available_roles = Role.all
+      @team_roles = @team.roles
     end
 
     def manage_scopes
       @team = Group.find(params[:id])
+      @team_scopes = @team.chorus_scopes
+      @available_scopes = ChorusScope.all -  @team.chorus_scopes
 
     end
+
+    def update_scopes
+      @team = Group.find(params[:id])
+      @team_scopes = @team.chorus_scopes
+      @available_scopes = ChorusScope.all -  @team.chorus_scopes
+
+    end
+
 
     def manage_workspaces
       @team = Group.find(params[:id])
