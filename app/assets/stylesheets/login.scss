@@ -8,7 +8,7 @@ div.login {
     $card-border-radius: 5px;
     $image-fudge: 10px;
 
-    
+
     position: absolute;
     top: 0;
     left: 0;
@@ -26,10 +26,10 @@ div.login {
     width: $card-width;
     background-color: transparent;
     top: 30px;
-        
+
 //     ul {
 //         li {
-//             margin-top: 10px;        
+//             margin-top: 10px;
 //         }
 //     }
     }
@@ -37,17 +37,17 @@ div.login {
     .login_content {
         position: relative;
         margin-left: auto;
-        margin-right: auto; 
-        top: $card-top;  
+        margin-right: auto;
+        top: $card-top;
     }
-    
+
     .form_controls {
 		margin-top: 15px;
 		padding-right: 0px;
 		padding-left: 0px;
     }
-    
-    .card {
+
+    .login_card {
         margin-left: auto;
         margin-right: auto;
 
@@ -81,7 +81,7 @@ div.login {
             }
         }
 	}
-	
+
 	.logo.alpine {
 		display: block;
 		margin-left: auto;
@@ -97,7 +97,7 @@ div.login {
 		margin-bottom: $image-fudge;
 	}
 
-    .login_footer {        
+    .login_footer {
         margin-left: auto;
         margin-right: auto;
 
