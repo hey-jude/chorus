@@ -1,0 +1,17 @@
+{{#if pagination}}
+  <div class="pagination content_details"></div>
+{{/if}}
+
+{{#if models.length}}
+
+  {{#each models}}
+    <div class="card" style="background-image: url('{{ avatarUrl }}');">
+      <a href="{{url}}">
+        <h3>{{fileName}}</h3>
+
+        <p>{{ description }}</p>
+      </a>
+    </div>
+  {{/each}}
+
+{{/if}}
