@@ -137,7 +137,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
         // Hide the Chiasm visualization container.
         if(instance.attributes.chiasmEnabled){
-          $("#chiasm-container").addClass("hidden");
+            $("#chiasm-container").addClass("hidden");
         }
 
         this.$(".definition").removeClass("hidden");
@@ -250,13 +250,13 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         // This flag comes from the file chorus/config/chorus.properties
         if(instance.attributes.chiasmEnabled){
 
-          // Update the Chiasm visualization to initialize.
-          this.updateChiasmVisualization();
+            // Update the Chiasm visualization to initialize.
+            this.updateChiasmVisualization();
 
-          // Update the Chiasm visualization when configuration changes.
-          // The "configChanged" event is triggered whenever any part of the
-          // visualization configuration changes.
-          this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
+            // Update the Chiasm visualization when configuration changes.
+            // The "configChanged" event is triggered whenever any part of the
+            // visualization configuration changes.
+            this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
         }
     },
 
@@ -309,7 +309,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
             "visualization": {
                 "plugin": visualizationPlugin,
                 "state": {
-                    "xColumn": "class",
+                    "xColumn": chartOptions.yAxis,
                     "xAxisLabel": chartOptions.yAxis,
                     "yColumn": "count",
                     "yAxisLabel": "Count",
@@ -332,18 +332,18 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                 }
             },
             "dataReduction": {
-              "plugin": "dataReduction",
-              "state": {
-                "aggregate": {
-                  "dimensions": [{
-                    "column": "class"
-                  }],
-                  "measures": [{
-                    "outColumn": "count",
-                    "operator": "count"
-                  }]
+                "plugin": "dataReduction",
+                "state": {
+                    "aggregate": {
+                        "dimensions": [{
+                            "column": chartOptions.yAxis
+                        }],
+                        "measures": [{
+                            "outColumn": "count",
+                            "operator": "count"
+                        }]
+                    }
                 }
-              }
             },
             "links": {
               "plugin": "links",
@@ -355,7 +355,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
               }
             }
         };
-        //console.log(chartOptions);
+        console.log(chartOptions);
 
         chiasm.setConfig(config);
         chiasm.getComponent("dataReduction").then(function(dataReduction){
