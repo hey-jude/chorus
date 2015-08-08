@@ -1,0 +1,16 @@
+<div class="breadcrumb">
+    {{#each breadcrumbItems}}
+    <a href="#" class="breadcrumb_item {{this.class}}" data-mode="{{this.edit_mode}}">
+        {{this.label}}
+        <div style="float: right;">
+            {{#if hasErrors}}
+                <span class="fa fa-exclamation-circle" style="color: red;"></span>
+            {{else}}
+                {{#if unsaved}}
+                    *
+                {{/if}}
+            {{/if}}
+        </div>
+    </a>
+    {{/each}}
+</div>

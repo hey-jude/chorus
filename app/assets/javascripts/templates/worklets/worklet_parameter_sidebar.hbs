@@ -1,0 +1,26 @@
+<div class="title">
+    Worklet Inputs
+</div>
+
+<div class="worklet_parameters">
+</div>
+
+{{#if noParameters}}
+    <div class="no_parameters_notice">
+        <span class="notice_icon fa fa-lg fa-exclamation-circle"></span> No inputs have been defined.
+    </div>
+{{/if}}
+
+<div class="spinner_div">
+    <span class="loading_spinner"></span>Worklet is running
+</div>
+
+<div class="row form_controls">
+    {{#if editState}}
+        <button class="modalish submit test_worklet_button">Test</button>
+    {{/if}}
+
+    {{#if runState}}
+        <button class="modalish submit run_worklet_button">Run</button>
+    {{/if}}
+</div>

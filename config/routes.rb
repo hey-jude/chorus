@@ -96,7 +96,7 @@ Chorus::Application.routes.draw do
     end
   end
 
-  resources :worklet_variable_versions, :only => [:index, :show]
+  resources :worklet_parameter_versions, :only => [:index, :show]
 
   resources :workspaces, :only => [:index, :create, :show, :update, :destroy] do
     resources :members, :only => [:index, :create]
@@ -115,7 +115,7 @@ Chorus::Application.routes.draw do
         put 'unpublish'
       end
 
-      resources :variables, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_variables
+      resources :parameters, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_parameters
     end
     resources :jobs, :only => [:index, :create, :show, :update, :destroy] do
       resources :job_tasks, :only => [:create, :update, :destroy]

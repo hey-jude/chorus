@@ -56,7 +56,7 @@
             ["workspaces/:workspaceId/tags/:scope/:entityType/:name", "WorkspaceTagShow"],
             //["workspaces/:workspaceId/worklets/:workfileId", "WorkletShow"],
             ["workspaces/:workspaceId/worklets/:id", "WorkletEdit"],
-            ["workspaces/:workspaceId/worklets/:id/preview", "WorkletPreview"],
+            ["workspaces/:workspaceId/worklets/:id/run", "WorkletRun"],
             ["worklets", "PublishedWorkletIndex"],
             ["worklets/:id", "PublishedWorkletShow"],
             ["data_sources", "DataSourceIndex"],

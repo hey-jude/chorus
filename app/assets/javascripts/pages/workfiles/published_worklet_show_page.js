@@ -1,38 +1,95 @@
 chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
-
     setup: function(workletId) {
-        this.publishedWorklet = new chorus.models.PublishedWorklet({id:workletId});
-        this.publishedWorklet.fetch();
+        this.subscribePageEvent("worklet:run", this.runEventHandler);
+        this.subscribePageEvent("menu:worklet", this.menuEventHandler);
 
-        this.onceLoaded(this.publishedWorklet, this.fetchHistory);
+        this.worklet = new chorus.models.PublishedWorklet({ id:workletId });
+        this.worklet.fetch();
+
+        this.pollForRunStatus = _.bind(function() {
+            this.worklet.fetch({
+                success: _.bind(function(model) {
+                    if(!model.get('running')) {
+                        clearInterval(this.pollerID);
+                        chorus.PageEvents.trigger("worklet:run", "runStopped");
+                        var activities = model.activities();
+                        activities.loaded = false;
+                        activities.fetchAll();
+                        this.onceLoaded(activities, this.reloadHistory);
+                    }
+                }, this)
+            });
+        }, this);
+
+        this.onceLoaded(this.worklet, this.buildPage);
     },
 
-    fetchHistory: function() {
-        this.history = this.publishedWorklet.activities({resultsOnly: true, currentUserOnly: true});
-        this.history.fetchAll();
-        this.onceLoaded(this.history, this.buildPage);
-    },
-
-    updateMiddleContent: function(newView) {
-        if (this.mainContent.content.workletOutput) {
-            this.mainContent.content.workletOutput.teardown(true);
+    menuEventHandler: function(menu_item) {
+        if (menu_item === 'close') {
+            this.closePage();
         }
+    },
 
-        this.mainContent.content.workletOutput = newView;
-        this.mainContent.content.renderSubview('workletOutput');
+    closePage: function() {
+
+    },
+
+    runEventHandler: function(event) {
+        if (event === 'runStarted') {
+            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+        }
+    },
+
+    reloadHistory: function() {
+        this.mainContent.content.workletHistory.render();
+        this.mainContent.content.workletHistory.historyItems[0].showResults();
+    },
+
+    showHistory: function() {
+        var history_options = {
+            model: this.model,
+            collection: this.history,
+            mainPage: this
+        };
+
+        var newView = new chorus.views.PublishedWorkletHistory(history_options);
+
+        if (this.mainContent.content.workletHistory) {
+            this.mainContent.content.workletHistory.teardown(true);
+        }
+        this.mainContent.content.workletHistory = newView;
+        //this.mainContent.content.historyView = newView;
+        this.mainContent.content.renderSubview('workletHistory');
 
         this.trigger('resized');
     },
 
     buildPage: function() {
-        var options = {
-            model: this.publishedWorklet,
+        this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
+        this.history.fetchAll();
+        this.onceLoaded(this.history, this.showHistory);
+
+        this.headerView = new chorus.views.WorkletHeader({
+            model: this.worklet,
+            menuOptions: [],
+            state: 'publishedRun'
+        });
+
+        this.subNav = this.headerView;
+        this.sidebar = new chorus.views.WorkletParameterSidebar({
+            model: this.worklet,
+            state: 'running'
+        });
+
+        this.contentView = new chorus.views.PublishedWorkletContent({
+            model: this.worklet,
             collection: this.history,
             mainPage: this
-        };
-        var contentView = new chorus.views.PublishedWorkletContent(options);
+        });
+
         this.mainContent = new chorus.views.MainContentView({
-            content: contentView
+            model: this.model,
+            content: this.contentView
         });
 
         this.render();

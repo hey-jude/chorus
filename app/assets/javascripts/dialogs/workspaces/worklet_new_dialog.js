@@ -2,7 +2,7 @@ chorus.dialogs.WorkletNew = chorus.dialogs.Base.include(
         chorus.Mixins.DialogFormHelpers
     ).extend({
         constructorName: "WorkletNew",
-        templateName: "worklet_new_dialog",
+        templateName: "worklets/worklet_new_dialog",
         title: t("worklet.create_new_title"),
         events: {
             "submit form":"save"

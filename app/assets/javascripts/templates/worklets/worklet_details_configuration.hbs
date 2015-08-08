@@ -1,0 +1,44 @@
+<div class="worklet_details_configuration">
+    <div class="main_header">Configure Worklet</div>
+
+    <b>Define the Worklet Details</b>
+    <br>
+
+    <div class="description_instructions">
+        Describe the worklet.
+    </div>
+    <br>
+
+    <div class="workflow_details">
+        <div class="errors"></div>
+
+        <div class="section_header">Worklet Details</div>
+
+        <label class="required">Name</label>
+        <input type="text" name="fileName" placeholder="Worklet Name" value="{{fileName}}">
+        <br>
+
+        <label>{{t 'worklet.new.description.label' }}</label>
+        <textarea name="description">{{description}}</textarea>
+        <br>
+
+        <label>Worklet Image</label>
+        <div class="image_upload">
+            <div class="worklet_image" style="background-image: url('{{avatarUrl}}')"></div>
+            <div class="image_instructions">
+                The Worklet image provides a visual 
+                avatar for the worker. The image must 
+                be in PNG, GIF, or JPG format.
+                </div>
+        </div>
+        <div style="clear: both;"></div>
+        <!--<hr>-->
+        <!--<div class="spinner_div">-->
+            <!--<span class='loading_spinner'></span>Updating...-->
+        <!--</div>-->
+        <!--<div class="row form_controls">-->
+            <!--<button type="submit" class="modalish save_details">Save</button>-->
+        <!--</div>-->
+
+    </div>
+</div>

@@ -10,8 +10,8 @@ class PublishedWorklet < Worklet
     'published_worklet'
   end
 
-  def published_variables
-    WorkletVariable.where(:workfile_id => self.source_worklet_id)
+  def published_parameters
+    WorkletParameter.where(:workfile_id => self.source_worklet_id)
   end
 
 end

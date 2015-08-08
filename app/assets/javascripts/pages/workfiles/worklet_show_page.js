@@ -2,7 +2,7 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
     helpId: "workfile",
 
     setup: function (workspaceId, workletId) {
-        this.subNav = new chorus.views.SubNav({workspace: this.workspace, tab: "workfiles"});
+        // this.subNav = new chorus.views.SubNav({workspace: this.workspace, tab: "workfiles"});
         this.requiredResources.add(this.workspace);
 
         this.subscribePageEvent("menu:worklet", this.menuEventHandler);
@@ -18,29 +18,181 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
     },
 
     menuEventHandler: function(menu_item) {
-        if (menu_item === 'edit_mode') {
-            chorus.router.navigate(this.worklet.showUrl());
-        }
+    }
+});
 
-        if (menu_item === 'preview_mode') {
-            chorus.router.navigate(this.worklet.showUrl() + '/preview');
+chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
+    setup: function (workspaceId, workletId) {
+        this._super("setup", [workspaceId, workletId]);
+
+        this.subscribePageEvent("submenu:worklet", this.breadcrumbMenuEventHandler);
+
+        this.listenTo(this.worklet, "saved", this.workletSaved);
+        this.listenTo(this.worklet, "saveFailed", this.workletSaveFailed);
+    },
+
+    menuEventHandler: function(menu_item) {
+        this._super("menuEventHandler", [menu_item]);
+
+        if (menu_item === 'close') {
+            this.closePage();
+        } else if (menu_item === 'save') {
+            this.saveAll();
         }
     },
 
-    updateMiddleContent: function(newView) {
-        if (this.mainContent.content.workletOutput) {
-            this.mainContent.content.workletOutput.teardown(true);
-        }
+    closePage: function() {
 
-        this.mainContent.content.workletOutput = newView;
-        this.mainContent.content.renderSubview('workletOutput');
-
-        this.trigger('resized');
     },
 
-    hideHistory: function() {
-        $(this.mainContent.content.workletHistory.el).toggle(false);
-        $('.published_worklet_content').addClass('no_history');
+    workletSaved: function(e) {
+        chorus.PageEvents.trigger("worklet:editor:save", "saved");
+    },
+
+    workletSaveFailed: function(e) {
+        chorus.PageEvents.trigger("worklet:editor:save", "failed");
+    },
+
+    saveAll: function() {
+        // For each editor view, check if it's unsaved or has errors.
+        // For error-having views, indicate the error and short-circuit
+        // save.
+        var views = _.pairs(this.editorViews);
+        var error_having_views = _.filter(views, function (view_pair) {
+            return view_pair[1].content.hasErrors();
+        });
+
+        if (error_having_views.length > 0) {
+            // console.log(error_having_views[0][0] + " has errors.");
+            this.showEditorMode(error_having_views[0][0]);
+            return;
+        }
+
+        //var unsaved_views = _.filter(views, function (view_pair) {
+        //    return view_pair[1].content.hasUnsavedChanges();
+        //});
+
+        chorus.PageEvents.trigger("worklet:editor:save", "saving");
+        this.worklet.save();
+        this.editorViews['inputs'].content.saveParameters();
+    },
+
+    breadcrumbMenuEventHandler: function(menu_item) {
+        var valid_modes = _.keys(this.editorViews);
+        if (valid_modes.indexOf(menu_item) !== -1) {
+            this.showEditorMode(menu_item);
+        }
+    },
+
+    showEditorMode: function(edit_mode) {
+        var editorView = this.editorViews[edit_mode];
+        this.subNav = editorView.subNav;
+        this.sidebar = editorView.sidebar;
+        this.mainContent.contentHeader = editorView.contentHeader;
+        this.mainContent.content = editorView.content;
+
+        this.render();
+    },
+
+    buildEditorView: function(mode, settings) {
+        // Each worklet edit page has these view components:
+        return {
+            subNav: new chorus.views.WorkletHeader({
+                model: this.worklet,
+                mode: mode,
+                state: 'editing',
+                menuOptions: settings.menuOptions
+            }),
+            sidebar: new chorus.views.WorkletParameterSidebar({
+                model: this.worklet,
+                state: 'editing',
+                editorMode: mode
+            }),
+            contentHeader: new chorus.views.WorkletEditorSubheader({
+                mode: mode
+            }),
+            content: new (settings.viewClass)({
+                model: this.worklet
+            })
+        };
+    },
+
+    buildPage: function() {
+        // Initial (default) view for the editor:
+        var initial_mode = 'inputs';
+
+        // Build the editor views:
+        this.editorViews = {};
+
+        this.editorViews['inputs'] = this.buildEditorView('inputs', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletInputsConfiguration
+        });
+
+        this.editorViews['details'] = this.buildEditorView('details', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletDetailsConfiguration
+        });
+
+        this.editorViews['workflow'] = this.buildEditorView('workflow', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletWorkflowConfiguration
+        });
+
+        this.editorViews['outputs'] = this.buildEditorView('outputs', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletOutputsConfiguration
+        });
+
+        // Render initial view
+        this.subNav = this.editorViews[initial_mode].subNav;
+        this.sidebar = this.editorViews[initial_mode].sidebar;
+        this.mainContent = new chorus.views.MainContentView({
+            model: this.worklet,
+            contentHeader: this.editorViews[initial_mode].contentHeader,
+            content: this.editorViews[initial_mode].content
+        });
+        this.render();
+    }
+});
+
+
+chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
+    setup: function (workspaceId, workletId) {
+        this._super("setup", [workspaceId, workletId]);
+
+        this.subscribePageEvent("worklet:run", this.runEventHandler);
+        this.subscribePageEvent("menu:worklet", this.menuEventHandler);
+
+        this.pollForRunStatus = _.bind(function() {
+            this.worklet.fetch({
+                success: _.bind(function(model) {
+                    if(!model.get('running')) {
+                        clearInterval(this.pollerID);
+                        chorus.PageEvents.trigger("worklet:run", "runStopped");
+                        var activities = model.activities();
+                        activities.loaded = false;
+                        activities.fetchAll();
+                        this.onceLoaded(activities, this.reloadHistory);
+                    }
+                }, this)
+            });
+        }, this);
+    },
+
+    menuEventHandler: function(menu_item) {
+        this._super("menuEventHandler", [menu_item]);
+    },
+
+    runEventHandler: function(event) {
+        if (event === 'runStarted') {
+            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+        }
+    },
+
+    reloadHistory: function() {
+        this.mainContent.content.workletHistory.render();
+        this.mainContent.content.workletHistory.$('.history_item')[0].click();
     },
 
     showHistory: function() {
@@ -52,23 +204,15 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
 
         var newView = new chorus.views.PublishedWorkletHistory(history_options);
 
-        // Refactor updateMiddleContent to be updateContent(which_pane, new_content) instead of this redundant code:
         if (this.mainContent.content.workletHistory) {
             this.mainContent.content.workletHistory.teardown(true);
         }
         this.mainContent.content.workletHistory = newView;
-        this.mainContent.content.workletSubmit.historyView = newView;
+        //this.mainContent.content.historyView = newView;
         this.mainContent.content.renderSubview('workletHistory');
 
-        $('.published_worklet_content').removeClass('no_history');
         this.trigger('resized');
-    }
-});
-
-chorus.pages.WorkletPreviewPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
-    //menuEventHandler: function(menu_item) {
-    //    this._super("menuEventHandler", [menu_item]);
-    //},
+    },
 
     buildPage: function() {
         this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
@@ -78,101 +222,26 @@ chorus.pages.WorkletPreviewPage = chorus.pages.WorkletWorkspaceDisplayBase.exten
         this.headerView = new chorus.views.WorkletHeader({
             model: this.worklet,
             menuOptions: [],
-            mode: 'preview'
+            state: 'workspaceRun'
+        });
+
+        this.subNav = this.headerView;
+        this.sidebar = new chorus.views.WorkletParameterSidebar({
+            model: this.worklet,
+            state: 'running'
         });
 
         this.contentView = new chorus.views.PublishedWorkletContent({
             model: this.worklet,
-            collection: this.history
+            collection: this.history,
+            mainPage: this
         });
 
         this.mainContent = new chorus.views.MainContentView({
             model: this.model,
-            contentHeader: this.headerView,
             content: this.contentView
         });
 
         this.render();
-
-        // Show history
-        // $(this.mainContent.content.workletSubmit.el).find('.form_controls').toggle(true);
-        // this.showHistory();
-    }
-});
-
-chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
-    menuEventHandler: function(menu_item) {
-        this._super("menuEventHandler", [menu_item]);
-
-        if (menu_item === 'details') {
-            this.showDetailsConfiguration();
-        }
-
-        if (menu_item === 'inputs') {
-            this.showInputsConfiguration();
-        }
-    },
-
-    showDetailsConfiguration: function() {
-        var details_configuration = new chorus.views.WorkletDetailsConfiguration({
-            model: this.worklet,
-            workflowOperators: this.workflowOperators
-        });
-
-        this.updateMiddleContent(details_configuration);
-    },
-
-    showInputsConfiguration: function() {
-        var inputs_configuration = new chorus.views.WorkletInputsConfiguration({
-            model: this.worklet,
-            previewPane: this.mainContent.content.workletSubmit,
-            workflowVariables: this.workflowVariables && this.workflowVariables.get('variableMap'),
-        });
-
-        this.updateMiddleContent(inputs_configuration);
-    },
-
-    hidePreviewControls: function() {
-        this.hideHistory();
-        $(this.mainContent.content.workletSubmit.el).find('.form_controls').toggle(false);
-    },
-
-    buildPage: function() {
-        this.workflowVariables = new chorus.models.WorkFlowVariables({workfile_id: this.worklet.get('workflowId')});
-        this.workflowVariables.fetch();
-        //this.onceLoaded(this.workflowVariables, this.showInputsConfiguration);
-
-        this.workflowOperators = new chorus.models.WorkFlowOperators({workfile_id: this.worklet.get('workflowId')});
-        this.workflowOperators.fetch();
-        this.onceLoaded(this.workflowOperators, this.showDetailsConfiguration);
-
-        //this.workflow = new chorus.models.AlpineWorkfile({id: this.worklet.workflow_id, workspace: this.workspace});
-        //this.workflow.fetch();
-        //this.onceLoaded(this.workflow, function (e) {
-        //    debugger;
-        //});
-
-        this.headerView = new chorus.views.WorkletHeader({
-            model: this.worklet,
-            menuOptions: [
-                {data: "details", text: "Configure Details"}, //t("workfiles.header.menu.sort.by_date")
-                {data: "inputs", text: "Configure Inputs"}
-            ],
-            mode: 'edit'
-        });
-
-        this.contentView = new chorus.views.PublishedWorkletContent({
-            model: this.worklet,
-            collection: this.history
-        });
-
-        this.mainContent = new chorus.views.MainContentView({
-            model: this.model,
-            contentHeader: this.headerView,
-            content: this.contentView
-        });
-
-        this.render();
-        this.hidePreviewControls();
     }
 });

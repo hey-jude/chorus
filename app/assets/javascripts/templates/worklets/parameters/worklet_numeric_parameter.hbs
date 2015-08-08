@@ -1,0 +1,21 @@
+{{#if editing}}
+    <div class="title_bar">
+        <div class="title_text">
+            Parameter
+        </div>
+        <div class="buttons">
+            <span class="fa fa-lg fa-trash"></span>
+            <span class="fa fa-lg fa-gear"></span>
+        </div>
+    </div>
+{{/if}}
+
+<div class="content">
+    <div class="input_section">
+        <label for="{{variableName}}" class="label{{#if required}} required{{/if}}">{{label}}</label>
+        <input type="text" class="text_input{{#if required}} required{{/if}}" {{#if required}}required{{/if}} name="{{variableName}}">
+    </div>
+    <div class="description">
+        {{description}}
+    </div>
+</div>
