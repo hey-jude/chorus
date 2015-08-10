@@ -1,7 +1,7 @@
 <tr role="row" class="<%= get_row_class(team.id)%>">
   <td><%= check_box_tag 'user_id',  team.id %></td>
   <td class="sorting_1">
-      <%= link_to "#{team.name}", admin.team_path(team) ,:remote => true %>
+      <%= link_to "#{team.name}", admin.team_path(team) ,:remote => true %><br/>
       <%= team.description %>
   </td>
   <td><%= team.users.size %> </td>

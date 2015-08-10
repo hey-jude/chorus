@@ -1,10 +1,126 @@
 <div id="members_table">
   <div class='chorus-box'>
     <div class='box-header'>
-      <h3 class='box-title'>Manage Roles</h3>
+      <h3 class='box-title'>Manage Roles help by Team</h3>
+      <p>Grant general application roles to this team.</p>
     </div><!-- /.box-header -->
-    <div class='box-body'>
-      <p><%= image_tag('comingsoon.jpg', :alt => '[Coming Soon]') %></p>
-    </div><!-- /.box-body -->
+
+    <%= form_for @team , url: admin.update_roles_team_path, :method=> :put, :remote => true do |f| %>
+
+        <div class='box-body'>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="dual-list list-left col-md-5">
+              <div class="well">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h4>Available Application Roles</h4>
+                    <div class="input-group">
+                      <span class="input-group-addon glyphicon glyphicon-search"></span>
+                      <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="margin-top: 38px;">
+                    <div class="btn-group">
+                      <a href="javascript:void(0);" onclick="transfer_all_items('available_roles', 'current_roles');" id="add_all_members"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>&nbsp;<span>All</span>
+                    </div>
+                  </div>
+                </div>
+                <ul class="list-group" id="available_roles" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+                  <% @available_roles.each do | role |%>
+                      <li class="list-group-item" id="role_<%= role.id %>">
+                        <ul class="list-inline member-list">
+                          <li class="role_name">
+                            <span class="name"><%= role.name %></span>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= role.name %></strong><br/><%= role.description %><br/>30 People</div>"></i>
+                            <br/>
+                            <span class="description"><%= role.description %></span>
+                          </li>
+                          <li class="action">
+                            <a href="#" onclick="transfer_item('role_<%= role.id %>', '.list-right ul#current_roles');"><i class="fa  fa-lg fa-plus-circle add-list-item"></i></a>
+                          </li>
+                        </ul>
+                      </li>
+                  <%end%>
+                </ul>
+              </div>
+            </div>
+            <div class="dual-list list-right col-md-5">
+              <div class="well">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h4>Application Roles Granted</h4>
+                    <div class="input-group">
+                      <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                      <span class="input-group-addon glyphicon glyphicon-search"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="margin-top: 38px;">
+                    <div class="btn-group">
+                      <a href="#deleteAllroles" data-toggle="modal" id="remove_all_members"><i class="fa fa-lg fa-times-circle remove-list-item"></i>&nbsp;<span>All</span></a>
+                    </div>
+                  </div>
+                </div>
+                <ul class="list-group"  id="current_roles" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+                  <% @team_roles.each do | role |%>
+                      <li class="list-group-item" id="role_<%= role.id %>">
+                        <ul class="list-inline member-list">
+                          <li class="role_name">
+                            <span class="name"><%= role.name %></span>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= role.name %></strong><br/><%= role.description %><br/><br/>30 People</div>"></i>
+                            <br/>
+                            <span class="description"><%= role.description %></span>&nbsp;
+                          </li>
+                          <li class="action">
+                            <a href="#" onclick="transfer_item('role_<%= role.id %>', '.list-left ul#available_roles');"><i class="fa  fa-lg fa-times-circle remove-list-item"></i></a>
+                          </li>
+                        </ul>
+                      </li>
+                  <%end%>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.submit "Save" , class: "btn btn-primary" %>
+              <a class="modalish cancel">Cancel</a>
+            </div>
+          </div>
+        </div><!-- /.box-body -->
+    <% end %>
   </div>
 </div>
+<div id="modalBox"></div>
+
+<div id="deleteAllroles" class="modal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-center">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-1">
+            <i class="fa fa-2x fa-exclamation-triangle"  style="color:darkorange;">&nbsp;&nbsp;</i>
+          </div>
+          <div class="col-md-11">
+            <p><strong>Are you sure you want to remove this team from all role groups?</strong></p>
+            <p>Once removed the members of this team will no longer be able access anything in the application</p>
+            <br/>
+            <p>Are you sure you want to continue?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="modalish cancel" data-dismiss="modal">Cancel</button>
+        <a href="javascript:void(0);" onclick="transfer_all_items('available_roles', 'current_roles');$('#deleteAllroles').modal('hide');"  class="btn btn-primary">Remove All</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script type="application/javascript">
+
+
+</script>

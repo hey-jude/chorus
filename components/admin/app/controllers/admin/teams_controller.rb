@@ -66,21 +66,28 @@ module Admin
 
     def manage_memberships
       @team = Group.find(params[:id])
-      @available_members = User.all
       @team_members = @team.users
+      @available_members = User.all - @team.users
     end
 
     def update_memberships
       @team = Group.find(params[:id])
-      @available_members = User.all
       @team_members = @team.users
+      @available_members = User.all - @team.users
 
     end
 
     def manage_roles
       @team = Group.find(params[:id])
-      @available_roles = Role.all
       @team_roles = @team.roles
+      @available_roles = Role.all - @team.roles
+    end
+
+    def update_roles
+      @team = Group.find(params[:id])
+      @team_roles = @team.roles
+      @available_roles = Role.all - @team.roles
+
     end
 
     def manage_scopes

@@ -1,19 +1,22 @@
-<div class='chorus-box'>
+<div class='chorus-box no-border'>
   <div class='box-header'>
     <h3 class='box-title'><%= t('teams')%></h3>
   </div><!-- /.box-header -->
   <div class='box-body'>
     <div id='example1_wrapper' class='dataTables_wrapper form-inline dt-bootstrap'>
-      <%= render partial: 'table_search' %>
+      <div class="dataTables_paginate paging_simple" style="float:right">
+        <%= page_entries_info @teams %>
+      </div>
+      <!-- <#%=  render partial: 'table_search' %>  -->
       <div class='row'>
-        <div class='col-sm-12'>
+        <div class='col-sm-12 no-padding'>
           <table id='example1' class='table table-bordered table-striped dataTable' role='grid' aria-describedby='example1_info'>
             <%= render partial: 'table_header' %>
             <tbody>
                  <%= render partial: 'table_row' , collection: @teams , as: :team %>
                  <tr id='new_row' style='hidden:true'></tr>
             </tbody>
-              <%= render partial: 'table_footer'  %>
+              <!--  < #%= render partial: 'table_footer'  %> -->
           </table>
        </div>
      </div>

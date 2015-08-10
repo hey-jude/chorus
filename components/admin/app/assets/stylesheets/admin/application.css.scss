@@ -110,7 +110,7 @@
 }
 
 .dropdown.tasks-menu .lozenge.empty {
-    background: #006e9e;
+    background: #15d6cb;
 }
 
 .dropdown.tasks-menu .lozenge {
@@ -873,7 +873,7 @@ ul.member-list li.username {
     text-align: left;
 }
 
-ul.member-list li.scope_name {
+ul.member-list li.scope_name, ul.member-list li.role_name {
     width: 80%;
     text-align: left;
 }
