@@ -30,6 +30,10 @@ module Alpine
       new(user: user).stop_work_flow(killer.killable_id)
     end
 
+    def self.stop_worklet(killer, killable_id, user=killer.job.owner)
+      new(user: user).stop_work_flow(killable_id)
+    end
+
     def self.copy_work_flow(work_flow, new_id)
       new.copy_work_flow(work_flow, new_id)
     end

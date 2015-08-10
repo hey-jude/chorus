@@ -44,6 +44,8 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
             url += '/image';
         } else if (action === 'upload_image') {
             url += '/upload_image';
+        } else if (action === 'stop') {
+            url += "/stop/";
         }
         return url;
     },
@@ -114,13 +116,20 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         return this._parameters;
     },
 
-    run: function(worklet_parameters) {
-        this.save({worklet_parameters: worklet_parameters}, {
+    run: function(worklet_parameters, test_run) {
+        this.save({worklet_parameters: worklet_parameters, test_run: test_run}, {
             workflow_action: 'run',
             silent: true,
             unprocessableEntity: function() {
                 chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
             }
+        });
+    },
+
+    stop: function() {
+        this.save({}, {
+            workflow_action: 'stop',
+            method: 'create'
         });
     },
 

@@ -16,6 +16,9 @@ chorus.models.PublishedWorklet = chorus.models.Worklet.include(
         if (action === 'run') {
             url += "/run/";
         }
+        else if (action === 'stop') {
+            url += "/stop/";
+        }
 
         return url;
     },
@@ -28,6 +31,13 @@ chorus.models.PublishedWorklet = chorus.models.Worklet.include(
     run: function(worklet_parameters) {
         this.save({worklet_parameters: worklet_parameters}, {
             workflow_action: 'run'
+        });
+    },
+
+    stop: function() {
+        this.save({}, {
+            workflow_action: 'stop',
+            method: 'create'
         });
     }
 });

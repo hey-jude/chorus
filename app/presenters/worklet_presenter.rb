@@ -27,9 +27,17 @@ class WorkletPresenter < AlpineWorkfilePresenter
         :parameters => parameters_array
     })
 
+    running_workfile = RunningWorkfile.where(:workfile_id => model.id, :owner_id => current_user.id)
+
     workfile.merge!({
-        :running => RunningWorkfile.where(:workfile_id => model.id, :owner_id => current_user.id).any?
+        :running => running_workfile.any?
     })
+
+    if running_workfile.any?
+      workfile.merge!({
+        :killable_id => running_workfile[0].killable_id
+      })
+    end
 
     workfile
   end

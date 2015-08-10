@@ -29,12 +29,21 @@ class PublishedWorkletController < ApplicationController
   def run
     worklet_params = params[:workfile][:worklet_parameters][:string].inspect
     process_id = worklet.run_now(current_user, worklet_params)
-    running_workfile = RunningWorkfile.new({:workfile_id => params[:id], :owner_id => current_user.id, :killable_id => process_id})
+    test_run = params[:workfile][:test_run]
+    running_workfile = RunningWorkfile.new({:workfile_id => params[:id], :owner_id => current_user.id, :killable_id => process_id, :status => test_run ? 'test_run' : ''})
     running_workfile.save!
-    params[:workfile][:worklet_parameters][:fields].each do |field|
-      worklet_parameter_version = WorkletParameterVersion.new({:worklet_parameter_id => field['id'], :value => field['value'], :owner_id => current_user.id, :result_id => process_id})
-      worklet_parameter_version.save!
+    if !test_run
+      params[:workfile][:worklet_parameters][:fields].each do |field|
+        worklet_variable_version = WorkletParameterVersion.new({:worklet_variable_id => field['id'], :value => field['value'], :owner_id => current_user.id, :result_id => process_id})
+        worklet_variable_version.save!
+      end
     end
+    present worklet, :status => :accepted
+  end
+
+  def stop
+    response = worklet.stop_now(current_user)
+    RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => params[:workfile][:id]).destroy_all if response.code == '200'
     present worklet, :status => :accepted
   end
 

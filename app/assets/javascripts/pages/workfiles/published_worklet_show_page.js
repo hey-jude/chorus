@@ -12,10 +12,18 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
                     if(!model.get('running')) {
                         clearInterval(this.pollerID);
                         chorus.PageEvents.trigger("worklet:run", "runStopped");
-                        var activities = model.activities();
-                        activities.loaded = false;
-                        activities.fetchAll();
-                        this.onceLoaded(activities, this.reloadHistory);
+                        if(this.clickedStop) {
+                            this.clickedStop = false;
+                        }
+                        else {
+                            var activities = model.activities();
+                            activities.loaded = false;
+                            activities.fetchAll();
+                            this.onceLoaded(activities, this.reloadHistory);
+                        }
+                    }
+                    else {
+                        this.sidebar.runEventHandler('runStarted');
                     }
                 }, this)
             });
@@ -37,6 +45,9 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
     runEventHandler: function(event) {
         if (event === 'runStarted') {
             this.pollerID = setInterval(this.pollForRunStatus, 1000);
+        }
+        else if( event === 'clickedStop') {
+            this.clickedStop = true;
         }
     },
 
@@ -93,6 +104,10 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
         });
 
         this.render();
+
+        if(this.worklet.get('running')) {
+            chorus.PageEvents.trigger("worklet:run", "runStarted");
+        }
     }
 });
 

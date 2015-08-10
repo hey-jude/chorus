@@ -8,7 +8,8 @@ chorus.views.WorkletParameterSidebar = chorus.views.Base.extend({
 
     events: {
         "click button.test_worklet_button": 'testRunClicked',
-        "click button.run_worklet_button": 'runClicked'
+        "click button.run_worklet_button": 'runClicked',
+        "click button.stop_worklet_button": 'stopClicked'
     },
 
     setup: function() {
@@ -31,11 +32,13 @@ chorus.views.WorkletParameterSidebar = chorus.views.Base.extend({
 
     runEventHandler: function(event) {
         if (event === 'runStopped') {
-            this.$(".form_controls").show();
+            this.$(".form_controls.run_worklet").show();
             this.$(".spinner_div").hide();
+            this.$(".form_controls.stop_worklet").hide();
         } else if (event === 'runStarted') {
-            this.$(".form_controls").hide();
+            this.$(".form_controls.run_worklet").hide();
             this.$(".spinner_div").show();
+            this.$(".form_controls.stop_worklet").show();
         }
     },
 
@@ -72,12 +75,19 @@ chorus.views.WorkletParameterSidebar = chorus.views.Base.extend({
 
     testRunClicked: function(e) {
         e && e.preventDefault();
-        //TODO: Jason: Test dialog stuff goes here.
-        //if (this.workletParametersView.validateParameterInputs()) {
-        //    var worklet_parameters = this.createAlpinePayload();
-        //    // this.model.run(worklet_parameters);
-        //    // chorus.PageEvents.trigger("worklet:run", "runStarted");
-        //}
+        if (this.workletParametersView.validateParameterInputs()) {
+            var dialog = new chorus.dialogs.WorkletTest({
+                model: this.model,
+                workletParameters: this.createAlpinePayload()
+            });
+            dialog.launchModal();
+        }
+    },
+
+    stopClicked: function(e) {
+        e && e.preventDefault();
+        this.model.stop();
+        chorus.PageEvents.trigger("worklet:run", "clickedStop");
     },
 
     additionalContext: function () {
@@ -96,6 +106,9 @@ chorus.views.WorkletParameterSidebar = chorus.views.Base.extend({
         }, this));
 
         this.$(".loading_spinner").startLoading(null, {color: '#959595'});
+        if(this.model.get('running')) {
+            this.runEventHandler('runStarted');
+        }
 
         //if (this.model.get('running')) {
         //    this.$(".form_controls").hide();

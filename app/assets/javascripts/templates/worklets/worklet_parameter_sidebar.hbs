@@ -15,7 +15,7 @@
     <span class="loading_spinner"></span>Worklet is running
 </div>
 
-<div class="row form_controls">
+<div class="row form_controls run_worklet">
     {{#if editState}}
         <button class="modalish submit test_worklet_button">Test</button>
     {{/if}}
@@ -24,3 +24,8 @@
         <button class="modalish submit run_worklet_button">Run</button>
     {{/if}}
 </div>
+{{#if runState}}
+    <div class="row form_controls stop_worklet" style="padding-top: 20px; display: none;">
+        <button type="submit" class="submit stop_worklet_button modalish">Stop Running Worklet</button>
+    </div>
+{{/if}}
