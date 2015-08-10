@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.10'
 gem 'activeresource'
 
-gem 'rack', '1.4.5' # rack 1.4.7 causes errors when performing multipart uploads [DEV-11813]
-
 # KT TODO: "Rails 4.0 has removed attr_accessible and attr_protected feature in favor of Strong Parameters. You can use the
 # Protected Attributes gem for a smooth upgrade path."
 # Due to config/initializers/additional_data.rb it's not trivial to delete all the attr_accessible pieces from the
