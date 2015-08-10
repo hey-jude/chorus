@@ -113,6 +113,7 @@ Chorus::Application.routes.draw do
         get 'image'
         put 'publish'
         put 'unpublish'
+        post 'upload_image'
       end
 
       resources :parameters, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_parameters

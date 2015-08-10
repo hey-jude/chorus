@@ -42,8 +42,34 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
             url += "/run";
         } else if (action === 'image') {
             url += '/image';
+        } else if (action === 'upload_image') {
+            url += '/upload_image';
         }
         return url;
+    },
+
+    initialize:function () {
+        this._super('initialize', arguments);
+        this.files = [];
+    },
+
+    addFileUpload:function (uploadModel) {
+        this.files.push(uploadModel);
+    },
+
+    removeFileUpload:function (uploadModel) {
+        this.files.splice(this.files.indexOf(uploadModel), 1);
+    },
+
+    saveFiles:function () {
+
+        this.fileUploadErrors = 0;
+        this.filesToBeSaved = this.files.length;
+        _.each(this.files, function(file) {
+            file.data.url = this.url({ workflow_action: 'upload_image' });
+            file.data.submit();
+            this.removeFileUpload(file);
+        }, this);
     },
 
     isWorklet: function() {

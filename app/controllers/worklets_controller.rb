@@ -50,7 +50,18 @@ class WorkletsController < ApplicationController
   end
 
   def image
-    send_data GeoPattern.generate(worklet.id, generator: GeoPattern::HexagonPattern), type: 'image/svg+xml', disposition: 'inline'
+    worklet_image = worklet.worklet_image
+    if worklet_image.present?
+      send_file worklet_image.path(:display), disposition: 'inline'
+    else
+      send_data GeoPattern.generate(worklet.id, generator: GeoPattern::HexagonPattern), type: 'image/svg+xml', disposition: 'inline'
+    end
+  end
+
+  def upload_image
+    worklet.image = params[:contents]
+    worklet.save!
+    present worklet.worklet_image
   end
 
   def destroy

@@ -17,10 +17,36 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
         this.listenTo(this.model, "saveFailed", this.workletSaveFailed);
     },
 
+    desktopFileChosen: function(e, data) {
+        var uploadModel = new chorus.models.CommentFileUpload(data);
+        this.model.addFileUpload(uploadModel);
+        var file = data.files[0];
+        this.loadNewImage(file);
+
+        file.isUpload = true;
+
+    },
+
+    loadNewImage: function(file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#avatar_img').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(file);
+    },
+
     postRender: function() {
         if (this.hasErrors()) {
             this.showErrors();
         }
+
+        var multipart = !window.jasmine;
+        this.$("input[type=file]").fileupload({
+            add: _.bind(this.desktopFileChosen, this),
+            multipart: multipart,
+            dataType: "text",
+            dropZone: this.$("input[type=file]")
+        });
     },
 
     hasUnsavedChanges: function() {
@@ -88,6 +114,10 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
     workletSaved: function(e) {
         this._hasUnsavedChanges = false;
         this.broadcastEditorState();
+        if (this.model.files.length) {
+            this.loadNewImage(this.model.files[0].get('files')[0]);
+            this.model.saveFiles();
+        }
     },
 
     workletSaveFailed: function(e) {
@@ -98,10 +128,10 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
     },
 
     additionalContext: function () {
-        return {
-            // Worklet avatar
-            avatarUrl: this.model.url({workflow_action: 'image'}),
-            description: this.model.get('description')
-        };
+        var context = {description: this.model.get('description')};
+        if (this.model.files.length === 0) {
+            context['avatarUrl'] = this.model.url({workflow_action: 'image'});
+        }
+        return context;
     }
 });

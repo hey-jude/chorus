@@ -6,6 +6,10 @@ class Worklet < AlpineWorkfile
 
   has_many :parameters, :foreign_key => :workfile_id, :class_name => 'WorkletParameter'
 
+  has_attached_file :image, :styles => {:display => "500x310>"},
+                    :path => ":rails_root/system/worklets/:id/:style/:basename.:extension"
+  #validates_attachment_content_type :worklet_image, :content_type => /\Aimage\/.*\Z/
+
   before_validation { self.content_type ='worklet' }
 
   def execution_locations
@@ -31,6 +35,10 @@ class Worklet < AlpineWorkfile
     end
 
     super
+  end
+
+  def worklet_image
+    self.image
   end
 
   def entity_subtype

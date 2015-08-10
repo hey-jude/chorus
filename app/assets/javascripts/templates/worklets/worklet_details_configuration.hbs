@@ -24,12 +24,18 @@
 
         <label>Worklet Image</label>
         <div class="image_upload">
-            <div class="worklet_image" style="background-image: url('{{avatarUrl}}')"></div>
+            <img id="avatar_img" src="{{avatarUrl}}" class="worklet_image"/>
             <div class="image_instructions">
                 The Worklet image provides a visual 
                 avatar for the worker. The image must 
                 be in PNG, GIF, or JPG format.
                 </div>
+        </div>
+        <div>
+            <span class="file-wrapper">
+                <button type="submit" class="upload_new_image">Upload New Image</button>
+                <input type="file" class="file-input" name="contents" multiple=""/>
+            </span>
         </div>
         <div style="clear: both;"></div>
         <!--<hr>-->
