@@ -402,8 +402,6 @@ role_permissions = {
 
   },
 
-
-
   'SiteAdministrator' => {
     'Events::Base' =>  %w(create show update destroy create_comment_on create_attachment_on),
     'ChorusScope' =>   %w(create show update destroy manage_scopes),
