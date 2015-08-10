@@ -87,9 +87,10 @@ class User < ActiveRecord::Base
   after_initialize :defaults
 
   def defaults
-    collaborator_role = Role.find_or_create_by_name("Collaborator")
-    user_role = Role.find_or_create_by_name("User")
+    collaborator_role = Role.find_or_create_by(:name => "Collaborator")
+    user_role = Role.find_or_create_by(:name => "User")
     self.roles << collaborator_role unless self.roles.include? collaborator_role
+    self.roles << user_role unless self.roles.include? user_role
     self.roles << user_role unless self.roles.include? user_role
   end
 

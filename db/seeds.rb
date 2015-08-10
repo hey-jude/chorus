@@ -36,14 +36,14 @@ end
 chorusadmin = User.find_by_username("chorusadmin")
 chorusadmin.admin = true
 chorusadmin.save!
-site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
-admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
+site_admin_role = Role.find_or_create_by(:name => 'site_administrator'.camelize)
+admin_role = Role.find_or_create_by(:name => 'admin'.camelize)
 
 site_admin_role.users << chorusadmin if chorusadmin && !site_admin_role.users.include?(chorusadmin)
 admin_role.users << chorusadmin if chorusadmin && !admin_role.users.include?(chorusadmin)
 
 
 # Add chorusadmin to default group
-default_group = Group.find_or_create_by_name('default_group')
+default_group = Group.find_or_create_by(:name => 'default_group')
 chorusadmin.groups << default_group
 
