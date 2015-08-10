@@ -8,7 +8,8 @@ class Milestone < ActiveRecord::Base
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
   has_many :comments, :through => :events
-  has_many :most_recent_comments, :through => :events, :source => :comments, :class_name => "Comment", :order => "id DESC", :limit => 1
+
+  has_many :most_recent_comments, -> { order('id DESC').limit(1) }, :through => :events, :source => :comments, :class_name => "Comment"
 
   attr_accessible :name, :state, :target_date
 
@@ -47,17 +48,17 @@ class Milestone < ActiveRecord::Base
 
   def create_milestone_updated_event
     Events::MilestoneUpdated.add(
-        :actor => current_user,
-        :milestone => self,
-        :workspace => workspace
+      :actor => current_user,
+      :milestone => self,
+      :workspace => workspace
     )
   end
 
   def create_milestone_created_event
     Events::MilestoneCreated.add(
-        :actor => current_user,
-        :milestone => self,
-        :workspace => workspace
+      :actor => current_user,
+      :milestone => self,
+      :workspace => workspace
     )
   end
 
