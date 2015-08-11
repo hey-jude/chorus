@@ -259,107 +259,124 @@ div[data-page="PublishedWorkletShow"] {
 
 .worklets_worklet_editor_subheader {
 
-  // breadcrumb = worklet steps bar
-  .breadcrumb {
-    $background-color-breadcrumb-container: #cddcf3;
+  // workletSteps = breadcrumb = worklet steps bar
+  .workletSteps {
+  
+    $background-color-workletSteps-container: #cddcf3;
     $text-color-past: #FFFFFF;
     $text-color-future: $charcoal;
-    $background-color-breadcrumb-past: #415885;
-    $background-color-breadcrumb-current: #006ba1;
-    $background-color-breadcrumb-future: #FFFFFF;
-    $background-color-breadcrumb-hover: $background-color-breadcrumb-current;
-    $breadcrumb-height: 36px;
+    $background-color-workletStep-past: #415885;
+    $background-color-workletStep-current: #006ba1;
+    $background-color-workletStep-future: #FFFFFF;
+    $background-color-workletStep-hover: $background-color-workletStep-current;
+    
+    // height & width of an individual step
+    $workletStep-height: 30px;
+    $workletStep-width: 110px;
+    
+    // space between steps
+    $workletStep-separation: 2px;
+
     width: 100%;
-    background: $background-color-breadcrumb-container;
+    background: $background-color-workletSteps-container;
     padding: 10px 0 10px 0;
     font-size: $medium-font;
     display: inline-block;
 
+    
+    a {
+        width: $workletStep-width;
+        text-decoration: none;
+        outline: none;
+        display: block;
+        float: left;
+        line-height: $workletStep-height;
+        padding: 0 10px 0 60px;
+        position: relative;
+      
+        &:first-child {
+            padding-left: 46px;
+            border-radius: 20px 0 0 20px;      
+        }
+      
 
-    .past, a.past:after {
-      background: $background-color-breadcrumb-past;
+        &:last-child {
+            border-radius: 0 20px 20px 0;
+            padding-right: 20px;
+          
+            &:before {
+                left: 14px;
+            }
+            
+            &:after {
+                content: none;
+            }   
+        }
+
+        &:before {
+          border-radius: 100%;
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          margin: 8px 0;
+          position: absolute;
+          top: 0;
+          left: 30px;
+          font-weight: $bold;
+        }
+
+        // Trickery for the arrow
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: -$workletStep-height / 2;
+
+          width: $workletStep-height;
+          height: $workletStep-height;
+
+          // sqrt(2)/2
+          transform: scale(.7071) rotate(45deg);
+          z-index: 1;
+
+          // $background-container: #cddcf3 = rgb(205, 220, 243)
+          // offset-x | offset-y | blur-radius | spread-radius | color
+          box-shadow:
+            2px -2px 0 2px rgba(205, 220, 243, 1),
+            3px -3px 0 2px rgba(205, 220, 243, 0.1);
+
+          border-radius: 0 5px 0 50px;
+        }  
+    }
+
+
+    .past,
+    a.past:after {
+      background: $background-color-workletStep-past;
       color: $text-color-past;
     }
 
-    .current, a.current:after {
-      background: $background-color-breadcrumb-current;
+    .current,
+    a.current:after {
+      background: $background-color-workletStep-current;
       color: $text-color-past;
     }
 
-    .future, a.future:after {
-      background: $background-color-breadcrumb-future;
+    .future,
+    a.future:after {
+      background: $background-color-workletStep-future;
       color: $text-color-future;
     }
     a.future:hover {
       color: $text-color-past;
     }
 
-    a {
-      width: 100px;
-      text-decoration: none;
-      outline: none;
-      display: block;
-      float: left;
-      line-height: $breadcrumb-height;
-      padding: 0 10px 0 60px;
-      position: relative;
+    a:hover,
+    a:hover:after {
+      background: $background-color-workletStep-hover;
     }
+    
 
-    a:first-child {
-      padding-left: 46px;
-      border-radius: 20px 0 0 20px;
-    }
-
-    a:first-child:before {
-      left: 14px;
-    }
-
-    a:last-child {
-      border-radius: 0 20px 20px 0;
-      padding-right: 20px;
-    }
-
-    a:hover, a:hover:after {
-      background: $background-color-breadcrumb-hover
-    }
-
-    // Trickery for the arrow:
-    a:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: -$breadcrumb-height/2;
-
-      width: $breadcrumb-height;
-      height: $breadcrumb-height;
-
-      // sqrt(2)/2
-      transform: scale(.7071) rotate(45deg);
-      z-index: 1;
-
-      // $background-container: #cddcf3 = rgb(205, 220, 243)
-      box-shadow:
-          2px -2px 0 2px rgba(205, 220, 243, 1),
-          3px -3px 0 2px rgba(205, 220, 243, 0.1);
-
-      border-radius: 0 5px 0 50px;
-    }
-
-    a:last-child:after {
-      content: none;
-    }
-
-    a:before {
-      border-radius: 100%;
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      margin: 8px 0;
-      position: absolute;
-      top: 0;
-      left: 30px;
-      font-weight: $bold;
-    }
   }
 }
 
@@ -440,7 +457,6 @@ div[data-page="PublishedWorkletShow"] {
   }
 
   .worklet_details {
-
   }
 
   .workflow_details {
@@ -448,7 +464,6 @@ div[data-page="PublishedWorkletShow"] {
   }
 
   .workfile_image {
-
   }
 
   #workfile_image_container {
@@ -499,10 +514,10 @@ div[data-page="PublishedWorkletShow"] {
     //         border-bottom: $dark-border-canon;
 
     .title {
-      display: inline-block;
-      font-size: $medium-font;
-      color: $color-text2;
-      @include ellipsis;
+        display: inline-block;
+        font-size: $medium-font;
+        color: $color-text2;
+        @include ellipsis;
     }
   }
 }

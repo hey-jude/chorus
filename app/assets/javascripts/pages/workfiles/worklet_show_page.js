@@ -25,7 +25,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     setup: function (workspaceId, workletId) {
         this._super("setup", [workspaceId, workletId]);
 
-        this.subscribePageEvent("submenu:worklet", this.breadcrumbMenuEventHandler);
+        this.subscribePageEvent("submenu:worklet", this.workletStepsMenuEventHandler);
 
         this.listenTo(this.worklet, "saved", this.workletSaved);
         this.listenTo(this.worklet, "saveFailed", this.workletSaveFailed);
@@ -77,7 +77,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.editorViews['inputs'].content.saveParameters();
     },
 
-    breadcrumbMenuEventHandler: function(menu_item) {
+    workletStepsMenuEventHandler: function(menu_item) {
         var valid_modes = _.keys(this.editorViews);
         if (valid_modes.indexOf(menu_item) !== -1) {
             this.showEditorMode(menu_item);

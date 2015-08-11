@@ -5,10 +5,10 @@ chorus.views.WorkletEditorSubheader = chorus.views.Base.extend({
     //tagName: "ul",
 
     events: {
-        "click a.breadcrumb_item": 'clickedBreadcrumbItem'
+        "click a.workletSteps_item": 'clickedWorkletStepsItem'
     },
 
-    clickedBreadcrumbItem: function(e) {
+    clickedWorkletStepsItem: function(e) {
         e && e.preventDefault();
 
         chorus.PageEvents.trigger("submenu:worklet", e.target.dataset.mode);
@@ -34,7 +34,7 @@ chorus.views.WorkletEditorSubheader = chorus.views.Base.extend({
 
     additionalContext: function() {
         return {
-            breadcrumbItems: _.map(this.editorModes,
+            workletStepsItems: _.map(this.editorModes,
                 function (edit_mode, mode_index) {
                     return {
                         class: (mode_index === this.current_mode_index)? 'current' : (mode_index < this.current_mode_index)? 'past' : 'future',
