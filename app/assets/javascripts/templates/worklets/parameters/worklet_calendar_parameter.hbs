@@ -1,0 +1,25 @@
+{{#if editing}}
+    <div class="title_bar">
+        <div class="title_text">
+            Parameter
+        </div>
+        <div class="buttons">
+            <a href="#" class="delete_input_param"><span class="fa fa-lg fa-trash"></span></a>
+            <a href="#" class="scroll_input_param"><span class="fa fa-lg fa-gear"></span></a>
+        </div>
+    </div>
+{{/if}}
+
+<div class="content">
+    <div class="errors"></div>
+    <div class="input_section">
+        <label class="label{{#if required}} required{{/if}}">{{label}}</label>
+
+        <div class="start_date_widget">
+            <div class="start_date"></div>
+        </div>
+    </div>
+    <div class="description">
+        {{description}}
+    </div>
+</div>
