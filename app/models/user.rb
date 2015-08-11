@@ -142,7 +142,9 @@ class User < ActiveRecord::Base
 
       admin_role.users << self unless admin_role.users.include? self
       app_manager_role.users << self unless app_manager_role.users.include? self
-      site_admin_role.users << self unless site_admin_role.users.include? self || self.username != chorusadmin
+      if self.username == 'chorusadmin'
+        site_admin_role.users << self unless site_admin_role.users.include? self
+      end
       write_attribute(:admin, value)
 
     elsif value == false || value == "false"
