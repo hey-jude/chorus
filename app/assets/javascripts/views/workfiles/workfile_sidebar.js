@@ -21,6 +21,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         "click a.copy": 'launchCopyWorkfileDialog',
         "click a.new_note": 'launchNotesNewDialog',
         "click a.create_worklet": 'launchNewWorkletDialog',
+        "click a.worklet_usage": 'launchWorkletUsageDialog',
         "click a.run_now": 'runWorkflow',
         "click a.run_worklet": 'runWorklet',
         "click a.stop" : 'stopWorkflow'
@@ -103,7 +104,8 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
             showRunWorklet: workspaceActive && this.model.isAlpine() && this.model.isWorklet() && canUpdate,
             isRunning: this.model.get('status') === 'running',
             inWorkfile: this.options.inWorkfile,
-            showCreateWorklet: this.model.isAlpine() && !this.model.isWorklet()
+            showCreateWorklet: this.model.isAlpine() && !this.model.isWorklet(),
+            showWorkletUsage: this.model.get('associatedWorklets').length > 0
         };
 
         if (this.model) {
@@ -202,6 +204,16 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         var dialog = new chorus.dialogs.WorkletNew({
             workflow: this.model,
             pageModel: this.model.workspace()
+        });
+
+        dialog.launchModal();
+    },
+
+    launchWorkletUsageDialog: function(e) {
+        e && e.preventDefault();
+
+        var dialog = new chorus.dialogs.WorkletUsage({
+            associatedWorklets: this.model.get('associatedWorklets')
         });
 
         dialog.launchModal();

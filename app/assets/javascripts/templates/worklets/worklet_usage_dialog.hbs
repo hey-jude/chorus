@@ -1,0 +1,36 @@
+<!-- <form> -->
+<div class="girdle">
+
+    <div class='sub_header'>
+        <div>Worklets that use this workflow:</div>
+    </div>
+
+    <div id="content">
+        <ul>
+            {{#each associatedWorklets}}
+                <li class="worklet_list_item">
+                    <div class="worklet_usage_item">
+                        <div class="image_container" style="float: left;">
+                            <img class="workspaceIconSmall" src="/workspaces/{{workspaceId}}/worklets/{{id}}/image/" title="Workspace" style="width: 100px;" alt=""/>
+                        </div>
+                        <div class="details" style="float: left; padding-left: 20px; width: 200px;">
+                            <div>
+                                <a class="workspace_link" href="/workspaces/{{workspaceId}}/worklets/{{id}}/" style="font-size: 18px;">{{fileName}}</a>
+                            </div>
+                            <div class="pair location" style="padding-top: 10px; font-size: 14px;">
+                                {{description}}
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+
+</div>
+<!-- END girdle -->
+
+{{> closeWindowFormControls }}
+
+<!-- </form> -->

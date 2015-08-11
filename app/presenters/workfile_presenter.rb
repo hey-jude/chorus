@@ -23,6 +23,11 @@ class WorkfilePresenter < Presenter
         :owner => present(model.owner, :succinct => true),
       })
     end
+
+    workfile.merge!({
+        :associated_worklets => Worklet.where("additional_data LIKE '%\"workflow_id\":" + model.id.to_s + "%' AND content_type='worklet'").order(:file_name)
+    })
+
     workfile
   end
 

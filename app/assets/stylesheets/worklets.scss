@@ -710,3 +710,16 @@ div[data-page="PublishedWorkletShow"] {
     //    padding-bottom: 20000px + $worklet-column-padding-y;  /* X + padding-bottom */
     //    margin-bottom: -20000px;  /* X */
     //}
+
+.worklet_usage_item {
+    padding: 5px;
+    width: 440px;
+}
+.worklet_list_item {
+    border-top: 2px gray solid;
+    border-right: 2px gray solid;
+    border-left: 2px gray solid;
+    &:last-child {
+        border-bottom: 2px gray solid;
+    }
+}
