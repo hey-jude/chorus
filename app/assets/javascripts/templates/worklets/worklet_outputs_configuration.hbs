@@ -11,6 +11,32 @@
 
     <div class="workflow_details">
 
+        <div class="section_header">Worklet Details</div>
+
+        <label class="required">Name</label>
+        <input type="text" name="fileName" placeholder="Worklet Name" value="{{fileName}}">
+        <br>
+
+        <label>{{t 'worklet.new.description'}}</label>
+        <textarea name="description">{{description}}</textarea>
+        <br>
+
+
+        <label>Worklet Image {{t "worklet.edit.settings.avatar_label"}}</label>
+        <div class="image_upload">
+            <div class="worklet_image" style="background-image: url('{{avatarUrl}}')"></div>
+             <!-- <div class="worklet_image"><img src="{{avatarUrl}}" alt="{{fileName}}"/></div> -->
+
+                <div class="image_instructions">
+                    {{t "worklet.edit.settings.avatar_instructions"}}
+
+                </div>
+        </div>
+        <div style="clear: both;"></div>
+
+        <br>
+        <br>
+
         <h4>Worklet Run Settings</h4>
         <br>
         <b>Run Workflow As...</b>

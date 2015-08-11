@@ -28,7 +28,7 @@ chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
 
         this.trigger('resized');
 
-        // Style the selected history item.
+        // Style the selected history item
         $('.published_worklet_history_item').removeClass('history_item_selected');
         $(this.el).addClass('history_item_selected');
 
@@ -53,7 +53,6 @@ chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
                 var select = $("select[name='" + name +"']");
                 select.val(model.get('value'));
                 select.next().find('.ui-selectmenu-text').text(model.get('value'));
-
             }
             else if (dataType === t('worklet.parameter.datatype.multiple_option_select') || dataType === 'multipleOptions') {
                 var value = model.get('value');

@@ -15,7 +15,7 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
 
     setup: function () {
         this.pairs = this.model.connectionParametersWithoutHadoopHive();
-        if(this.pairs.length == 0) {
+        if(this.pairs.length === 0) {
           this.pairs = [{key: '', value: ''}];
         }
 
@@ -42,7 +42,7 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
         for (var k in this.pairs) {
             var key = this.pairs[k].key.trim();
 
-            // Don't allow any key to be blank.
+            // Don't allow any key to be blank
             if (key === '') {
                 validation_errors['key_' + k] = t('validation.required', {fieldName: "Key"});
             }
@@ -141,7 +141,7 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
         _.each(this.pairs, function(pair, index) { this[pair.key] = index; }, existing_params);
 
         // For each fetched param, either overwrite if it already is defined
-        // or append it to the list.
+        // or append it to the list
         var param_set = this.fetchedParams.models[0].attributes.params;
         for (var i = 0; i < param_set.length; i++) {
             if (existing_params.hasOwnProperty(param_set[i].name)) {

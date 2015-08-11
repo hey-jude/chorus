@@ -16,7 +16,7 @@ chorus.views.ListContentDetails = chorus.views.Base.include(
 
     setup: function(){
         this.listenTo(this.collection, "remove", this.render);
-        if(this.options.layout != 'card') {
+        if(this.options.layout !== 'card') {
             this.buttonView = this.options.buttonView || new chorus.views.ListContentDetailsButtonView(this.options);
         }
         if (this.options.multiSelect) {
@@ -109,7 +109,7 @@ chorus.views.ListContentDetails = chorus.views.Base.include(
             searchTerm: this.collection && this.collection.attributes && this.collection.attributes[this.collection.searchAttr],
             workspaceId: this.collection && this.collection.attributes && this.collection.attributes.workspaceId,
             multiSelect: this.options.multiSelect,
-            cardLayout: this.options.layout == 'card'
+            cardLayout: this.options.layout === 'card'
         };
 
         if (this.collection.loaded && this.collection.pagination) {

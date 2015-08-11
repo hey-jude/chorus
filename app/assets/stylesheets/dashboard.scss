@@ -439,17 +439,6 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
 /* ********** */
 /* ********** */
 
-/* empty and app-tip needs a better home location. */
-/* they are not specific to dashboard */
-/* empty state: general case for when a 'set' has no contents. */
-
-.empty_state {
-    color: $disabled-text;
-    p { 
-        margin-top: 10px;
-    }
-}
-
 
 /* in-app "intrinsic assistance" text */
 $tip-text-color: $disabled-text;

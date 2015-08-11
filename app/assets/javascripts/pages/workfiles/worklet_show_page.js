@@ -1,5 +1,5 @@
 chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
-    helpId: "workfile",
+    helpId: "touchpoint",
 
     setup: function (workspaceId, workletId) {
         // this.subNav = new chorus.views.SubNav({workspace: this.workspace, tab: "workfiles"});
@@ -208,7 +208,6 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
             this.mainContent.content.workletHistory.teardown(true);
         }
         this.mainContent.content.workletHistory = newView;
-        //this.mainContent.content.historyView = newView;
         this.mainContent.content.renderSubview('workletHistory');
 
         this.trigger('resized');

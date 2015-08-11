@@ -1,26 +1,26 @@
 <div class="title">
-    Worklet Inputs
+    {{t "worklet.edit.inputs_sidebar.title"}}
 </div>
 
-<div class="worklet_parameters">
-</div>
+<div class="worklet_parameters"></div>
 
 {{#if noParameters}}
+<!--   TODO fix this to be a shared empty message type -->
     <div class="no_parameters_notice">
-        <span class="notice_icon fa fa-lg fa-exclamation-circle"></span> No inputs have been defined.
+        <span class="notice_icon fa fa-lg fa-exclamation-circle"></span>{{t "worklet.edit.inputs_sidebar.empty.message"}}
     </div>
 {{/if}}
 
 <div class="spinner_div">
-    <span class="loading_spinner"></span>Worklet is running
+    <span class="loading_spinner"></span>{{t "general.running"}}
 </div>
 
 <div class="row form_controls">
     {{#if editState}}
-        <button class="modalish submit test_worklet_button">Test</button>
+        <button class="modalish submit test_worklet_button">{{t "worklet.workbench.mode.run"}}</button>
     {{/if}}
 
     {{#if runState}}
-        <button class="modalish submit run_worklet_button">Run</button>
+        <button class="modalish submit run_worklet_button">{{t "worklet.workbench.mode.run"}}</button>
     {{/if}}
 </div>

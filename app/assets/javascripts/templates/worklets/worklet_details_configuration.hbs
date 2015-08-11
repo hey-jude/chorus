@@ -1,39 +1,40 @@
 <div class="worklet_details_configuration">
-    <div class="main_header">Configure Worklet</div>
+    <div class="main_header">{{t "worklet.main.configure_worklet"}}</div>
 
-    <b>Define the Worklet Details</b>
-    <br>
+    <div>
+      <b>
+        {{t "worklet.main.define_the_worklet_details"}}
+      </b>
 
-    <div class="description_instructions">
-        Describe the worklet.
+      <div class="description_instructions">
+          {{t "worklet.main.describe_the_worklet"}}
+      </div>
     </div>
-    <br>
+
 
     <div class="workflow_details">
         <div class="errors"></div>
 
-        <div class="section_header">Worklet Details</div>
+        <div class="section_header">{{t "worklet.main.worklet_details.title"}}</div>
 
-        <label class="required">Name</label>
-        <input type="text" name="fileName" placeholder="Worklet Name" value="{{fileName}}">
+        <label class="required">{{t "worklet.main.worklet_details.filename.label"}}</label>
+        <input type="text" name="fileName" placeholder="{{t 'workfiles.new.filename_placeholder'}}" value="{{fileName}}">
         <br>
 
         <label>{{t 'worklet.new.description.label' }}</label>
         <textarea name="description">{{description}}</textarea>
         <br>
 
-        <label>Worklet Image</label>
+        <label>{{t "worklet.edit.avatar_image_label"}}</label>
         <div class="image_upload">
-            <img id="avatar_img" src="{{avatarUrl}}" class="worklet_image"/>
+            <img id="avatar_img" src="{{avatarUrl}}" class="worklet_image" alt=""/>
             <div class="image_instructions">
-                The Worklet image provides a visual 
-                avatar for the worker. The image must 
-                be in PNG, GIF, or JPG format.
-                </div>
+              {{t "worklet.edit.avatar_image_description_info"}}
+            </div>
         </div>
         <div>
             <span class="file-wrapper">
-                <button type="submit" class="upload_new_image">Upload New Image</button>
+                <button type="submit" class="upload_new_image">{{t "worklet.edit.avatar_image_upload_new_image"}}</button>
                 <input type="file" class="file-input" name="contents" multiple=""/>
             </span>
         </div>

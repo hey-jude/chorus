@@ -12,10 +12,6 @@ $worklet-column-padding-x: $padding-x;
 $worklet-column-padding-y: $padding-x;
 
 
-$worklet-history-item-normal-color: #CCC;
-$worklet-history-item-selected-color: $accent-shade;
-        
-
 /* page layout        */
 div[data-page="WorkletEdit"],
 div[data-page="WorkletRun"] {
@@ -182,15 +178,13 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 
-  // No parameters = EMPTY
+  // No parameter yet:
   .no_parameters_notice {
     height: 50px;
     line-height: 50px;
     background-color: $shaded-background-color;
     border: $dark-border-canon;
     margin: 3px;
-    
-    //TODO revise to use normal marker display for emty message
     .notice_icon {
       margin-left: 10px;
       margin-right: 10px;
@@ -198,7 +192,7 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 
-  // Pending type assignment parameter
+  // Pending type assignment parameter:
   .worklets_parameters_worklet_parameter {
     .content {
       text-align: center;
@@ -563,7 +557,7 @@ div[data-page="PublishedWorkletShow"] {
         
     .history_item_selected {
         .history_item {
-            background-color: $worklet-history-item-selected-color;
+            background-color: $accent-shade;
         }
     }
     
@@ -578,6 +572,77 @@ div[data-page="PublishedWorkletShow"] {
 }
 // END: worklet history panel
 
+
+// **********
+// parameter inputs panel
+.worklet_submit {
+    width: $worklet-right-column-width;          /* RC width */
+    height: 100%;
+    margin-right: -$worklet-right-column-width;  /* RC width */
+
+    .header {
+        
+        background: $accent-shade;
+    }
+
+
+    .variable {
+        padding: 8px;
+        .label {
+
+        }
+        .description {
+            font-size: $small-font;
+             font-color: #CCC;
+             // font-style: italic;
+            // padding: 2px 5px 5px 5px;
+        }
+        input.textInput {
+            width: 250px;
+        }
+        select {
+            min-width: 200px;
+        }
+        .checkboxes {
+            padding: 5px;
+            background-color: white;
+        }
+    }
+    background-color: $pattens-blue;
+
+
+    .spinner_div {
+        display: none;
+        color: $color-text4;
+        font-size: 12px;
+        position:absolute;
+        right: 15px;
+
+        .loading_spinner {
+            left: 8px;
+            top: 8px;
+
+        }
+    }
+}
+
+.published_worklet_content {
+    padding-left: $worklet-left-column-width;   /* LC width */
+    padding-right: $worklet-right-column-width;  /* RC width */
+    overflow: hidden;
+// =======
+  .header {
+    padding: 10px 0 10px 10px;
+    //         border-top: $dark-border-canon;
+    //         border-bottom: $dark-border-canon;
+
+    .title {
+      display: inline-block;
+      font-size: $medium-font;
+      color: $color-text2;
+    }
+  }
+}
 
 .worklets_published_worklet_content {
     position: relative;

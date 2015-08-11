@@ -1,11 +1,17 @@
-<div class="title">
-    History
+<div class="header">
+    <div class="title">{{t "worklet.run.history.heading"}}</div>
 </div>
 
 <div class="history">
     <div class="worklet_history_list">
+        
         {{#if isEmpty}}
-            You do not currently have any run results for this worklet
+            <div class="empty_state">
+                <span class="icon"></span>
+                <p class="empty_message">
+                    {{t "worklet.run.history.empty.message"}}
+                </p>
+            </div> 
         {{/if}}
     </div>
 </div>

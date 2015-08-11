@@ -1,11 +1,16 @@
 <div id="share_results_loading" style="padding: 10px 20px; display: none;">
-    Loading...
+    {{t "general.loading"}}
 </div>
-<div class="iframe_wrapper" style="text-align: center;">
+
+<div class="iframe_wrapper">
+
     <div style="display: inline-block;">
         <div class="row form_controls" id="share_results" style="padding: 10px; margin-bottom: 15px; display: none; width: 780px; background: rgb(240, 245, 250)">
-            <button class="submit modalish" style="float:left;">Share These Results</button>
+            <button class="submit modalish" style="float:left;">{{t "worklet.share_these_results"}}</button>
         </div>
-        <iframe id="results" src="{{resultsUrl}}" style="width: 800px; border: none;"></iframe>
+
+        <iframe id="results" src="{{resultsUrl}}"></iframe>
+        <!-- <iframe id="results" src="{{resultsUrl}}" style="width: 800px; border: none;"></iframe> --> <!-- TODO: delete inline style version when finished -->
     </div>
+
 </div>

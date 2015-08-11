@@ -24,7 +24,7 @@ chorus.views.WorkletSidebar = chorus.views.AlpineWorkfileSidebar.extend ({
 
     launchWorkfileDeleteDialog: function(e) {
         e && e.preventDefault();
-        var alert = new chorus.alerts.WorkfileDelete({
+        var alert = new chorus.alerts.WorkfileDelete ({
             model: this.model,
             workfileId: this.model.id,
             workspaceId: this.model.workspace().id,

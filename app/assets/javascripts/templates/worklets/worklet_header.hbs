@@ -10,16 +10,17 @@
     {{#if editing}}
         {{#if saving}}
             <div class="spinner_div">
-                <span class='loading_spinner'></span> Saving...
+                <span class='loading_spinner'></span> {{t "general.saving"}}
             </div>
         {{else}}
-            <button class="submit modalish save" data-event-type="save">Save</button>
+            <button class="submit modalish save" data-event-type="save">{{t "form.button.save"}}</button>
         {{/if}}
     {{/if}}
 
-    <button class="modalish close" data-event-type="close">Close</button>
+    <button class="modalish close" data-event-type="close">{{t "form.button.close"}}</button>
 
-    <a href="#" class="menu_launcher"><span>Actions<span class="fa fa-caret-down caret"></span></span></a>
+    <a href="#" class="menu_launcher"><span>{{t "worklet.workbench.header.actions.menu"}}
+      <span class="fa fa-caret-down caret"></span></span></a>
 
     <div class="menu popup_worklet_menu hidden">
         <ul>
