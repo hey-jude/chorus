@@ -510,11 +510,14 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 
-  .worklet_details {
-  }
-
   .workflow_details {
     // margin: 5px;
+      .item_name {
+          padding-top: 12px;
+          .item_description {
+              font-weight: bold;
+  }
+      }
   }
 
   .workfile_image {

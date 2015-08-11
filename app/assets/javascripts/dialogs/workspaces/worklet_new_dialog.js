@@ -50,7 +50,10 @@ chorus.dialogs.WorkletNew = chorus.dialogs.Base.include(
         additionalContext: function() {
             return {
                 workflow: this.workflow.attributes,
-                fromExisting: typeof(this.workflow.id) !== 'undefined'
+                fromExisting: typeof(this.workflow.id) !== 'undefined',
+                modifiedTime: new Date(this.workflow.get('userModifiedAt')).toString('MM-dd-yyyy HH:mm:ss'),
+                hasComments: this.workflow.get('recentComments').length > 0,
+                lastComment: this.workflow.get('recentComments')[0].body
             };
-        },
+        }
     });
