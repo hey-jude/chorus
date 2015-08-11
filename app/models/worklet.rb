@@ -22,6 +22,18 @@ class Worklet < AlpineWorkfile
     process_id
   end
 
+  def stop_now(user)
+    running_workfile = RunningWorkfile.where(:owner_id => user.id, :workfile_id => self.id)
+    if running_workfile.any?
+      killable_id = running_workfile[0].killable_id
+      response = Alpine::API.stop_worklet(self, killable_id, user)
+      update_attribute(:status, IDLE) if response.code == '200'
+      response
+    else
+      ''
+    end
+  end
+
   def destroy
 
     if self.state == 'published'
@@ -47,7 +59,7 @@ class Worklet < AlpineWorkfile
 
   def create_result_event(result_id)
     event = super
-    RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => self.id).destroy_all
+    #RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => self.id).destroy_all
     WorkletParameterVersion.where(:result_id => result_id).update_all(:event_id => event.id)
     event
   end

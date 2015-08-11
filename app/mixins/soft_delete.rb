@@ -26,5 +26,9 @@ module SoftDelete
     def find_with_destroyed *args
       self.with_exclusive_scope { find(*args) }
     end
+
+    def where_with_destroyed *args
+      self.with_exclusive_scope { where(*args) }
+    end
   end
 end

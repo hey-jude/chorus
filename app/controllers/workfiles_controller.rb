@@ -65,7 +65,7 @@ class WorkfilesController < ApplicationController
     workfile.update_from_params!(params[:workfile])
 
     if(params[:workfile][:status] && params[:workfile][:status] == 'idle')
-      RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => params[:workfile][:id]).destroy_all
+      RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => params[:id]).destroy_all
     end
 
     present workfile, :presenter_options => {:include_execution_schema => true}
