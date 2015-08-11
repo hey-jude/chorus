@@ -28,6 +28,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
             this.listenTo(v, "saved", this.paramSaved);
             this.listenTo(v, "validationFailed", this.paramSaveFailed);
         }, this);
+        this.subscribePageEvent('parameter:scrollTo', this.scrollToParameter);
         this.subscribePageEvent('parameter:deleted', this.paramDeleted);
 
         // Alpine-passed workflow variables
@@ -43,6 +44,16 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         Handlebars.registerHelper("selectedIfMatch", function(value1, value2) {
             return (value1 === value2)? "selected" : "";
         });
+    },
+
+    scrollToParameter: function(param_model) {
+        var param_ind = _.map(this.parameters.models, function(m) {
+            return _.where(m, this.attributes).length > 0;
+        }, param_model).indexOf(true);
+
+        var target = this.$('div.worklet_param[data-index="' + param_ind + '"]');
+
+        $('html,body').animate({ scrollTop: target.offset().top }, 1000);
     },
 
     postRender: function() {
@@ -176,8 +187,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         //var p = this.workletParams()[e.currentTarget.dataset.index]
         var m = this.parameters.models[e.currentTarget.dataset.index];
         new chorus.alerts.WorkletParameterDeleteAlert({
-            model: m,
-            collection_index: e.currentTarget.dataset.index
+            model: m
         }).launchModal();
     },
 

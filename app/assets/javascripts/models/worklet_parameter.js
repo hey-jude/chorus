@@ -190,7 +190,7 @@ chorus.models.WorkletCalendarParameter = chorus.models.WorkletParameter.extend({
     // Validations specific to calendar parameters
     declareRunValidations: function(newAttrs) {
         this._super('declareRunValidations', [newAttrs]);
-        
+
         if (_.include(newAttrs[this.get('variableName')], "NaN")) {
             this.errors[this.get('variableName')] = t("validation.valid_date", { 'fieldName': this.get('label') });
         }

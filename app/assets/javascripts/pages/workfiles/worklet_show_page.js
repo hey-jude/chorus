@@ -42,7 +42,6 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     closePage: function() {
-
     },
 
     workletSaved: function(e) {

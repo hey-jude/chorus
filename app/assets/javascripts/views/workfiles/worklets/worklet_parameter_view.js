@@ -102,6 +102,23 @@ chorus.views.WorkletParameter = chorus.views.Base.extend({
     templateName: "worklets/parameters/worklet_parameter",
     additionalClass: "worklet_parameter",
 
+    events: {
+        "click a.delete_input_param": 'deleteParameter',
+        "click a.scroll_input_param": 'scrollToParameter'
+    },
+
+    deleteParameter: function(e) {
+        e && e.preventDefault();
+
+        new chorus.alerts.WorkletParameterDeleteAlert({ model: this.model }).launchModal();
+    },
+
+    scrollToParameter: function(e) {
+        e && e.preventDefault();
+
+        chorus.PageEvents.trigger("parameter:scrollTo", this.model);
+    },
+
     setup: function() {
         this.state = this.options.state || 'running';
     },
