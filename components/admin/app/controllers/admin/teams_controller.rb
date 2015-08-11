@@ -72,9 +72,13 @@ module Admin
 
     def update_memberships
       @team = Group.find(params[:id])
+       members = params[:members]
+       @team.users.destroy_all
+       members.each do |member_id|
+         @team.users << User.find(member_id);
+       end
       @team_members = @team.users
       @available_members = User.all - @team.users
-
     end
 
     def manage_roles

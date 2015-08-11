@@ -4,9 +4,9 @@
       <%= link_to "#{team.name}", admin.team_path(team) ,:remote => true %><br/>
       <%= team.description %>
   </td>
-  <td><%= team.users.size %> </td>
-  <td><%= team.roles.size %> </td>
-  <td><%= team.chorus_scopes.size %> </td>
+  <td><i class="fa fa-lg fa-users"></i>&nbsp;&nbsp;<%= team.users.size %> </td>
+  <td><i class="fa fa-lg fa-comments"></i>&nbsp;&nbsp;<%= team.roles.size %> </td>
+  <td><i class="fa fa-lg fa-eye"></i>&nbsp;&nbsp;<%= team.chorus_scopes.size %> </td>
 
 </tr>
 

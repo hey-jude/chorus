@@ -45,9 +45,17 @@ function add_item(id, target) {
     var el = $.find(".list-left .list-group #" + id);
     $( el ).find('i').removeClass('fa-plus-circle').removeClass('add-list-item');
     $( el ).find('i').addClass('fa-times-circle').addClass('remove-list-item');
-    /*    $(".list-left .list-group #" + id).remove(); */
-    //$(".list-right ul#current_scopes").append(el);
-    $( target ).prepend(el);
+    // need to remove hard reference to available_items
+    $( el ).data('transfer-id', 'available_items');
+    $( "#" + target ).prepend(el);
+    var ac = $("#available-count").data('available-count');
+    var cc = $("#current-count").data('current-count');
+    console.log("ac = " + ac);
+    console.log("cc =  " + cc);
+    $("#available-count").data('available-count', (parseInt(ac) - 1));
+    $("#current-count").data('current-count', (parseInt(cc) + 1));
+    $("#available-count").html("Available Members (" + (parseInt(ac) - 1) + ")");
+    $("#current-count").html("Team Members (" + (parseInt(cc) + 1) + ")");
 };
 
 function remove_item(id, target) {
@@ -55,7 +63,10 @@ function remove_item(id, target) {
     var el = $.find(".list-right .list-group #" + id);
     $( el ).find('i').removeClass('fa-times-circle').removeClass('remove-list-item');
     $( el ).find('i').addClass('fa-plus-circle').addClass('add-list-item');
+    // Need to remove hard reference to current_items
+    $( el ).data('transfer-id', 'current_items');
     /*  $(".list-right .list-group #" + id).remove();  */
     //$(".list-left ul#available_scopes").append(el);
-    $( target ).prepend(el);
+    $( "#" + target ).prepend(el);
 };
+

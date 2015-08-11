@@ -14,7 +14,7 @@
             <div class="row">
               <div class="col-md-10">
                 <!-- <h4>Available People&nbsp;(<#%= @available_members.count %>)</h4> -->
-                <h4>Available People</h4>
+                <h4 id="available-count" data-available-count="<%= @available_members.count %>">Available People (<%= @available_members.count %>)</h4>
                 <div class="input-group">
                   <span class="input-group-addon glyphicon glyphicon-search"></span>
                   <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
@@ -22,13 +22,13 @@
               </div>
               <div class="col-md-2" style="margin-top: 38px;">
                 <div class="btn-group">
-                  <a href="javascript:void(0);" onclick="transfer_all_items('available_scopes', 'current_scopes');" id="add_all_members"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>&nbsp;<span>All</span>
+                  <a href="javascript:void(0);" onclick="transfer_all_items('available_items', 'current_items');" id="add_all_members"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>&nbsp;<span>All</span>
                 </div>
               </div>
             </div>
-            <ul class="list-group" id="available_members" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+            <ul class="list-group" id="available_items" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
               <% @available_members.each do |member |%>
-                  <li class="list-group-item" id="member_<%= member.id %>">
+                  <li class="list-group-item" id="member_<%= member.id %>" data-item-id="<%= member.id %>" data-transfer-id ="current_items">
                     <ul class="list-inline member-list">
                       <li class="avatar">
                         <%= image_tag("user4-128x128.jpg", :height => 32) %>
@@ -40,7 +40,7 @@
                         <%= member.username %>
                       </li>
                       <li class="action">
-                        <a href="javascript:void(0);" onclick="transfer_item('member_<%= member.id %>', '.list-right ul#current_members');"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>
+                        <a href="javascript:void(0);" onclick="transfer_item('member_<%= member.id %>', $('#member_<%= member.id %>').data('transfer-id'));"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>
                       </li>
                     </ul>
                   </li>
@@ -53,7 +53,7 @@
             <div class="row">
               <div class="col-md-10">
                 <!-- <h4>Team Members&nbsp;(<#%= @team_members.count %>)</h4> -->
-                <h4>Team Members</h4>
+                <h4 id="current-count" data-current-count="<%= @team_members.count %>" >Team Members (<%= @team_members.count %>)</h4>
                 <div class="input-group">
                   <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
                   <span class="input-group-addon glyphicon glyphicon-search"></span>
@@ -65,9 +65,9 @@
                 </div>
               </div>
             </div>
-            <ul class="list-group"  id="current_members" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+            <ul class="list-group"  id="current_items" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
               <% @team_members.each do |member |%>
-                  <li class="list-group-item" id="member_<%= member.id %>">
+                  <li class="list-group-item" id="member_<%= member.id %>" data-item-id="<%= member.id %>" data-transfer-id ="available_items">
                     <ul class="list-inline member-list">
                       <li class="avatar">
                         <%= image_tag("user4-128x128.jpg", :height => 32) %>
@@ -78,8 +78,8 @@
                       <li class="username">
                         <%= member.username %>
                       </li>
-                      <li class="action">
-                        <a href="#" onclick="transfer_item('member_<%= member.id %>', '.list-left ul#available_members');"><i class="fa  fa-lg fa-times-circle remove-list-item"></i></a>
+                      <li class="action" data-transfer="available-items">
+                        <a href="#" onclick="transfer_item('member_<%= member.id %>', $('#member_<%= member.id %>').data('transfer-id'));"><i class="fa  fa-lg fa-times-circle remove-list-item"></i></a>
                       </li>
                     </ul>
                   </li>
@@ -90,7 +90,8 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <%= f.submit "Save" , class: "btn btn-primary" %>
+          <!-- <#%= f.submit "Save" , class: "btn btn-primary" %> -->
+          <a href="javascript:void(0);" onclick="submit_form('<%= admin.update_memberships_team_path %>', 'ul#current_items');" class="btn btn-primary">Save</a>
           <a class="modalish cancel">Cancel</a>
         </div>
       </div>
@@ -128,53 +129,32 @@
 
 <script type="application/javascript">
 
-  /*
-  $( document ).ready(function() {
 
-    $(function () {
-
-      $('body').on('click', '.list-group .list-group-item', function () {
-        $(this).toggleClass('active');
-      });
-
-      $('.list-arrows .btn').click(function () {
-        var $button = $(this), actives = '';
-        if ($button.hasClass('move-left')) {
-          actives = $('.list-right ul li.active');
-          actives.clone().appendTo('.list-left ul');
-          actives.remove();
-        } else if ($button.hasClass('move-right')) {
-          actives = $('.list-left ul li.active');
-          actives.clone().appendTo('.list-right ul');
-          actives.remove();
-        }
-      });
-      $('.dual-list .selector').click(function () {
-        var $checkBox = $(this);
-        if (!$checkBox.hasClass('selected')) {
-          $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
-          $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
-        } else {
-          $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
-          $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
-        }
-      });
-      $('[name="SearchDualList"]').keyup(function (e) {
-        var code = e.keyCode || e.which;
-        if (code == '9') return;
-        if (code == '27') $(this).val(null);
-        var $rows = $(this).closest('.dual-list').find('.list-group li');
-        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-        $rows.show().filter(function () {
-          var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-          return !~text.indexOf(val);
-        }).hide();
-      });
-
+  function submit_form(url, collection_id) {
+    var members = []
+    console.log('submit_form called with url =  ' + url);
+    $(collection_id).children().each(function(){
+      members.push($( this ).data('item-id'));
     });
 
+    console.log(members);
 
-  });
-*/
+    $.ajaxSetup({
+      'beforeSend': function (xhr){
+        xhr.setRequestHeader("Accept", "text/javascript")}
+    });
+    $.ajax({
+      url:  url,
+      type: 'put',
+      format: 'js',
+      data: { 'members' : members}
+    })
+            .done(function( data ) {
+              eval(data);
+              if ( console && console.log ) {
+                //console.log(data);
+              }
+            });
+  };
 
 </script>
