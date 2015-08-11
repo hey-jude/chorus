@@ -14,12 +14,12 @@ chorus.views.WorkletSidebar = chorus.views.AlpineWorkfileSidebar.extend ({
 
     publishWorklet: function(e) {
         e && e.preventDefault();
-        this.model.isWorklet() && this.model.publishWorklet();
+        new chorus.alerts.WorkletPublish({model: this.model}).launchModal();
     },
 
     unpublishWorklet: function(e) {
         e && e.preventDefault();
-        this.model.isWorklet() && this.model.unpublishWorklet();
+        new chorus.alerts.WorkletUnpublish({model: this.model}).launchModal();
     },
 
     launchWorkfileDeleteDialog: function(e) {
