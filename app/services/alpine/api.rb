@@ -23,7 +23,7 @@ module Alpine
     end
 
     def self.run_worklet(work_flow, user, variables)
-      new(user: user).run_work_flow(work_flow, {worklet: true, post_variable_data: variables})
+      new(user: user).run_work_flow(work_flow, {worklet: true, post_variable_data: variables, run_as_creator: work_flow.run_persona == 'creator'})
     end
 
     def self.stop_work_flow(killer, user=killer.job.owner)
@@ -153,6 +153,10 @@ module Alpine
       }
       if options[:worklet]
         params.merge!({original_workfile_id: work_flow.workflow_id})
+        if options[:run_as_creator]
+          params.merge!({user_id: work_flow.owner_id})
+          params.merge!({user_name: User.find(work_flow.owner_id).username})
+        end
       end
       params[:job_task_id] = options[:task].id if options[:task]
 
