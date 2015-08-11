@@ -89,7 +89,10 @@ User.find_in_batches({:batch_size => 5}) do |users|
     end
     print '.'
     user_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(user.class.name).id, :instance_id => user.id, :chorus_scope_id => application_realm.id)
-    user_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
+    object_role = ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
+    user_object.chorus_object_roles << object_role unless user_object.chorus_object_roles.include? object_role
+
+    #user_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
 
     #user_object_role = ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
     # add all users to default scope (application realm) by adding user to the default group
@@ -240,11 +243,17 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
     # Add owner as workspace role
     print '.'
     workspace_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id, :chorus_scope_id => application_realm.id)
-    workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
+    object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
+    workspace_object.chorus_object_roles << object_role unless workspace_object.chorus_object_roles.include? object_role
+    #workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
 
     # Add members as Project Managers
     workspace.members.each do |member|
-      workspace_object.add_user_to_object_role(member, project_manager_role)
+      object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => member.id, :role_id => project_manager_role.id)
+      workspace_object.chorus_object_roles << object_role unless  workspace_object.chorus_object_roles.include? object_role
+
+      #workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => member.id, :role_id => project_manager_role.id)
+      #workspace_object.add_user_to_object_role(member, project_manager_role)
     end
 
     #workspace_object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
