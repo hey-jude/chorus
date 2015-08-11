@@ -7,7 +7,9 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         "click a.delete_input_param": 'deleteParameter',
         "click button.add_new_parameter": 'newParameter',
         "click button.save_all_parameters": 'saveParameters',
-        "change input,textarea,select": 'updateParameter'
+        "change input,textarea,select": 'updateParameter',
+        "click a.add_parameter_option": 'addParameterOptionInput',
+        "click a.delete_parameter_option": 'deleteParameterOptionInput'
     },
 
     setup: function() {
@@ -76,13 +78,6 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         });
     },
 
-    workletParams: function() {
-        // Becomes the representation given to the view.
-        return _.map(this.parameters.models, function(v) {
-            return v.attributes;
-        });
-    },
-
     showParamErrors: function(param, param_index) {
         _.each(param.errors, function(val, key) {
             var vName = _.underscored(key) + '_' + param_index;
@@ -112,6 +107,12 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         //     return v.get('id') == this;
         // }, param_info.id);
         var i = (typeof(model_index) !== 'number')? e.target.dataset.index : model_index;
+
+        // Casts to more specific type if hasn't already been.
+        if (this.parameters.models[i].get('dataType') && this.parameters.models[i].constructorName === "WorkletParameter") {
+            this.parameters.models[i] = this.parameters.models[i].castByDataType();
+        }
+
         var param_model = this.parameters.models[i];
         var updates = {
             variableName: $('select[name=variable_name_' + i + '] option:selected').val(),
@@ -122,6 +123,19 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
             dataType: $('select[name=data_type_' + i + '] option:selected').val()
         };
 
+        // Select options:
+        var opts_els = $('input[name^=option_][data-index=' + i + ']');
+        if (opts_els.length > 0) {
+            var options = _.map(opts_els, function(o) {
+                return {
+                    option: $(o).val(),
+                    value: $('input[name=value_' + o.dataset.optionIndex + '_' + o.dataset.index + ']').val()
+                };
+            });
+            updates.options = options;
+        }
+
+        // Validate and set the model on client side.
         this.clearParamErrors(param_model, i);
         param_model.set(updates);
         if (!param_model.performValidation(updates)) {
@@ -142,6 +156,8 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         // Update preview pane
         this.model.parameters().trigger('update');
+
+        this.render();
     },
 
     paramSaved: function() {
@@ -171,7 +187,6 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         // Remove from collection
         this.model.parameters().remove(param_options.model);
         this.paramChanged();
-        this.render();
     },
 
     newParameter: function(e) {
@@ -188,8 +203,6 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         //new_var.save();
         this.parameters.add(new_var);
         this.paramChanged();
-
-        this.render();
     },
 
     saveParameters: function(e) {
@@ -199,6 +212,52 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         _.each(this.model.parameters().models, function(param_model, index) {
             this.updateParameter(null, index, true);
         }, this);
+    },
+
+
+    addParameterOptionInput: function(e) {
+        e && e.preventDefault();
+
+        var m = this.parameters.models[e.currentTarget.dataset.index];
+        var options = m.get('options') || [];
+
+        options.push({
+            option: '',
+            value: ''
+        });
+
+        m.options = options;
+
+        this.paramChanged();
+    },
+
+    deleteParameterOptionInput: function(e) {
+        e && e.preventDefault();
+
+        var m = this.parameters.models[e.currentTarget.dataset.index];
+        var options = m.get('options');
+        var del_at = e.currentTarget.dataset.optionIndex;
+
+        if (!options || typeof(options[del_at]) === 'undefined') {
+            return;
+        }
+
+        m.options = options.splice(del_at, 1);
+
+        this.paramChanged();
+    },
+
+    workletParams: function() {
+        // Becomes the representation given to the view.
+        return _.map(this.parameters.models, function(v, i) {
+            return _.extend(v.attributes, {
+                hasOptions: v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select'),
+                useDefaultDisabled: (v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select')),
+                isCalendar: v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'),
+                displayIndex: i,
+                options: v.get('options') || []
+            });
+        });
     },
 
     additionalContext: function () {

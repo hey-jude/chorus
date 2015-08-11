@@ -1,8 +1,30 @@
-Parameter ({{dataType}})
-<hr>
+{{#if editing}}
+    <div class="title_bar">
+        <div class="title_text">
+            Parameter
+        </div>
+        <div class="buttons">
+            <span class="fa fa-lg fa-trash"></span>
+            <span class="fa fa-lg fa-gear"></span>
+        </div>
+    </div>
+{{/if}}
 
-<b>Name:</b> {{label}}
-<br>
-<b>Description:</b> {{description}}
-
-<input type="text" class="{{#if required}}required{{/if}}" {{#if required}}required{{/if}} name="{{variableName}}">
+<div class="content">
+    <div class="errors"></div>
+    <div class="input_section">
+        <label class="label{{#if required}} required{{/if}}">{{label}}</label>
+        <div class="multiple_select_container">
+            {{#each options}}
+                <div class="multiple_select_input">
+                    <input type="checkbox" name="{{../variableName}}_{{@index}}" value="{{this.value}}">
+                    <label for="{{variableName}}_{{@index}}">{{this.option}}</label>
+                </div>
+            {{/each}}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="description">
+        {{description}}
+    </div>
+</div>

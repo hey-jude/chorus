@@ -41,8 +41,13 @@
                 <!-- <br> -->
 
                 <div class="form_pair">
-                    <input type="checkbox" id="use_default_{{@index}}" name="use_default_{{@index}}" data-index="{{@index}}" value="true"{{#if this.useDefault}} checked{{/if}}>
-                    <label class="adjacent" for="use_default_{{@index}}">{{t "worklet.configure.inputs.use_existing"}}</label>
+                    {{#if useDefaultDisabled}}
+                        <input type="checkbox" id="use_default_{{@index}}" name="use_default_{{@index}}" data-index="{{@index}}" value="true" disabled>
+                        <label class="adjacent disabled" for="use_default_{{@index}}">{{t "worklet.configure.inputs.use_existing"}}</label>
+                    {{else}}
+                        <input type="checkbox" id="use_default_{{@index}}" name="use_default_{{@index}}" data-index="{{@index}}" value="true"{{#if this.useDefault}} checked{{/if}}>
+                        <label class="adjacent" for="use_default_{{@index}}">{{t "worklet.configure.inputs.use_existing"}}</label>
+                    {{/if}}
                 </div>
                 
                 <div class="form_pair">
@@ -74,6 +79,32 @@
                     </select>
                 </div>
 
+                {{#if hasOptions}}
+                    <br>
+                    <div class="description_instructions">
+                    {{t "worklet.configure.inputs.option_description"}}
+                    </div>
+                    <div class="option_edit">
+                        <table>
+                            <tr>
+                                <th>#</th>
+                                <th><div class="required">Option</div></th>
+                                <th>Value</th>
+                                <th></th>
+                            </tr>
+                            {{#each this.options}}
+                                <tr>
+                                    <td class="row_num_col">{{@index}}</td>
+                                    <td class="option_input_col"><input type="text" name="option_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.option}}"></td>
+                                    <td class="value_input_col"><input type="text" name="value_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.value}}"></td>
+                                    <td class="delete_button_col"><a class="delete_parameter_option" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}"><span class="delete_icon fa fa-lg fa-times-circle"></span></a></td>
+                                </tr>
+                            {{/each}}
+                        </table>
+                    </div>
+                    <a class="add_parameter_option" href="#" data-index="{{@index}}"><span class="fa fa-lg fa-plus-circle"></span> {{t "worklet.configure.inputs.add_option"}}</a>
+                {{/if}}
+
             </div>
             <div class="row form_controls">
                 <button type="submit" class="modalish save_input_param" data-index="{{@index}}">{{t "worklet.configure.inputs.update_preview.button"}}</button>
@@ -84,6 +115,5 @@
         {{/each}}
         <hr>
         <button class="modalish add_new_parameter">{{t "worklet.configure.inputs.add_another_parameter.button"}}</button>
-        <!--<button class="modalish save_all_parameters">Save Parameters</button>-->
     </div>
 </div>

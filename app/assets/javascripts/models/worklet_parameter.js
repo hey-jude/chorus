@@ -8,9 +8,38 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
             this.set('workspaceId', this.collection.attributes.workspaceId);
             this.set('workletId', this.collection.attributes.workletId);
         } else {
-            this.set('workspaceId', options.workspaceId);
-            this.set('workletId', options.workletId);
+            this.set('workspaceId', options.workspaceId || options.get('workspaceId'));
+            this.set('workletId',  options.workletId || options.get('workletId'));
         }
+    },
+
+    castByDataType: function() {
+        var type = this.get('dataType');
+        var modelClass = null;
+
+        //worklet.parameter.datatype.number=Number
+        //worklet.parameter.datatype.text=Text
+        //worklet.parameter.datatype.single_option_select=Select Single Option
+        //worklet.parameter.datatype.multiple_option_select=Select Multiple Options
+        //worklet.parameter.datatype.datetime_calendar=Date/time - Calendar
+        //worklet.parameter.datatype.datetime_relative=Date/time - Relative
+
+        if (type === t('worklet.parameter.datatype.number') || type === 'integer') {
+            modelClass = chorus.models.WorkletNumericParameter;
+        } else if (type === t('worklet.parameter.datatype.text') || type === 'string') {
+            modelClass = chorus.models.WorkletTextParameter;
+        } else if (type === t('worklet.parameter.datatype.single_option_select') || type === 'singleOption') {
+            modelClass = chorus.models.WorkletSingleOptionParameter;
+        } else if (type === t('worklet.parameter.datatype.multiple_option_select') || type === 'multipleOptions') {
+            modelClass = chorus.models.WorkletMultipleOptionParameter;
+        }
+        else {
+            return this;
+            // You could instead (unnecessarily) do:
+            // modelClass = chorus.models.WorkletParameter;
+        }
+
+        return new modelClass(this);
     },
 
     // There are two "validations" using similar machinery that happen using these "parameter" models;
@@ -101,5 +130,53 @@ chorus.models.WorkletTextParameter = chorus.models.WorkletParameter.extend({
         //var varName = this.get('variableName');
         //var varLabel = this.get('label');
         // this.runRequireTextReasonable(varName, newAttrs, varLabel, this.get('required') === false);
+    }
+});
+
+chorus.models.WorkletSingleOptionParameter = chorus.models.WorkletParameter.extend({
+    constructorName: "WorkletSingleOptionParameter",
+    viewClass: chorus.views.WorkletSingleOptionParameter,
+
+    // Validations specific to single input parameters
+    declareRunValidations: function(newAttrs) {
+        this._super('declareRunValidations', [newAttrs]);
+    },
+
+    // Validations for editing mode:
+    declareValidations: function(newAttrs) {
+        // For any options, all "option" values must be provided.
+        this._super('declareValidations', [newAttrs]);
+
+        _.each(newAttrs.options, function(o, i) {
+            var opt_value = o.option;
+
+            if (!opt_value || _.stripTags(opt_value).match(chorus.ValidationRegexes.AllWhitespace())) {
+                this.errors["option_" + i] = t("validation.required", { 'fieldName': "Option" });
+            }
+        }, this);
+    }
+});
+
+chorus.models.WorkletMultipleOptionParameter = chorus.models.WorkletSingleOptionParameter.extend({
+    constructorName: "WorkletMultipleOptionParameter",
+    viewClass: chorus.views.WorkletMultipleOptionParameter,
+
+    // Validations specific to multiple input parameters
+    declareRunValidations: function(newAttrs) {
+        this._super('declareRunValidations', [newAttrs]);
+    },
+
+    runModeRequire: function(attr, newAttrs, variableLabel) {
+        var value = newAttrs && newAttrs.hasOwnProperty(attr) ? newAttrs[attr] : this.get(attr);
+        var present = value;
+
+
+        if (!_.isArray(value) || value.length === 0) {
+            present = false;
+        }
+
+        if (!present) {
+            this.errors[attr] = t("validation.required", { 'fieldName': variableLabel });
+        }
     }
 });

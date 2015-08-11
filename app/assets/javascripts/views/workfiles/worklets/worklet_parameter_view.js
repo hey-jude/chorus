@@ -25,40 +25,10 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
         return this.noFilter;
     },
 
-    parameterModelByDataType: function(parameter_model) {
-        var type = parameter_model.get('dataType');
-        var modelClass = null;
-
-        //worklet.parameter.datatype.number=Number
-        //worklet.parameter.datatype.text=Text
-        //worklet.parameter.datatype.single_option_select=Select Single Option
-        //worklet.parameter.datatype.multiple_option_select=Select Multiple Options
-        //worklet.parameter.datatype.datetime_calendar=Date/time - Calendar
-        //worklet.parameter.datatype.datetime_relative=Date/time - Relative
-
-        if (type === t('worklet.parameter.datatype.number') || type === 'integer') {
-            modelClass = chorus.models.WorkletNumericParameter;
-        } else if (type === t('worklet.parameter.datatype.text') || type === 'string') {
-            modelClass = chorus.models.WorkletTextParameter;
-        }
-        //else if (type === t('worklet.parameter.datatype.single_option_select') || type === 'singleOption') {
-        //    modelClass = chorus.models.WorkletSingleOptionParameter;
-        //} else if (type === t('worklet.parameter.datatype.multiple_option_select') || type === 'multipleOptions') {
-        //    modelClass = chorus.models.WorkletMultipleOptionParameter;
-        //}
-        else {
-            return parameter_model;
-            // You could instead (unnecessarily) do:
-            // modelClass = chorus.models.WorkletParameter;
-        }
-
-        return new modelClass(parameter_model);
-    },
-
     preRender: function () {
         this.parameters = this.collection.filter(this.filter, this).map(function (parameter_model) {
             // Cast model to subclass that has type-specific validations
-            parameter_model = this.parameterModelByDataType(parameter_model);
+            parameter_model = parameter_model.castByDataType();
 
             // View specific to the subclass is stored in "viewClass" attribute of the model.
             var parameter_view = new parameter_model.viewClass({
@@ -138,7 +108,6 @@ chorus.views.WorkletParameter = chorus.views.Base.extend({
 
     getUserInput: function() {
         // Assumes there's an <input name="n"> where "n" is this.model.get('variableName')
-        // E.g. for <input type="text">
         var v = {};
         v[this.model.get('variableName')] = this.$el.find('input[name="' + this.model.get('variableName') + '"]').val();
 
@@ -160,10 +129,53 @@ chorus.views.WorkletTextParameter = chorus.views.WorkletParameter.extend({
     templateName: "worklets/parameters/worklet_text_parameter"
 });
 
-//chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.extend({
-//    templateName: "worklets/parameters/worklet_single_option_parameter"
-//});
-//
-//chorus.views.WorkletMultipleOptionParameter = chorus.views.WorkletParameter.extend({
-//    templateName: "worklets/parameters/worklet_multiple_option_parameter"
-//});
+
+chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.extend({
+    templateName: "worklets/parameters/worklet_single_option_parameter",
+
+    showErrors: function(model) {
+        var err_el = this.$el.find(".errors");
+        err_el.removeClass("hidden");
+
+        var output = ["<ul>"];
+        _.each(model.errors, function(msg, field_name) {
+            this.push("<li>" + msg + "</li>");
+        }, output);
+        output.push("</ul>");
+
+        err_el.html(output.join(""));
+    },
+
+    getUserInput: function() {
+        // Assumes there's an <select name="n"> where "n" is this.model.get('variableName')
+        var v = {};
+        var var_el = this.$el.find('select[name="' + this.model.get('variableName') + '"]  option:selected');
+        // Uses the name of the option if the option value is blank.
+        v[this.model.get('variableName')] = var_el.val() || var_el[0].dataset.optionLabel;
+
+        return v;
+    }
+});
+
+chorus.views.WorkletMultipleOptionParameter = chorus.views.WorkletSingleOptionParameter.extend({
+    templateName: "worklets/parameters/worklet_multiple_option_parameter",
+
+    getUserInput: function() {
+        // Assumes there are <input type="checkbox" name"n_i"> where "n" is this.model.get('variableName')
+        // and "i" is the ith option in this.model.get('options').
+
+        // Filter for only the options that are checked
+        var checked_options = _.filter(this.model.get('options'), function(o, i) {
+            return $('input[name="' + this.model.get('variableName') + '_' + i + '"]' )[0].checked;
+        }, this);
+
+        // Return the options as an array of strings in the result object.
+        var v = {};
+        v[this.model.get('variableName')] = _.map(checked_options, function(o) {
+            // Uses o.option if (!o.value) (i.e. if o.value is blank)
+            return o.value || o.option;
+        });
+
+        return v;
+    }
+});

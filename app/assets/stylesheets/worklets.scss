@@ -173,6 +173,23 @@ div[data-page="PublishedWorkletShow"] {
           width: $worklet-right-column-width - 25px;
           margin: 5px;
         }
+
+        .single_select_input {
+          width: $worklet-right-column-width - 25px;
+          margin: 5px;
+        }
+
+        .multiple_select_container {
+          .multiple_select_input {
+            float: left;
+            text-align: left;
+            font-size: $small-font;
+            word-wrap: break-word;
+            width: ($worklet-right-column-width - 50px)/2;
+            max-width: ($worklet-right-column-width - 50px)/2;
+            margin: 5px;
+          }
+        }
       }
 
       .description {
@@ -398,11 +415,48 @@ div[data-page="PublishedWorkletShow"] {
     margin: 5px;
 
     .input_section {
+      .disabled {
+        color: $disabled-text;
+      }
       margin: 10px;
     }
 
     .workflow_variable {
 
+    }
+
+    .option_edit {
+      margin-top: 5px;
+
+      .delete_icon {
+        color: red;
+      }
+      table {
+        border-spacing: 5px;
+        border-collapse: separate;
+        th {
+          background-color: lightgray;
+          text-align: left;
+        }
+        td {
+          text-align: left;
+        }
+        .row_num_col {
+          background-color: lightgray;
+          min-width: 10px;
+        }
+        .option_input_col {
+          padding: 2px;
+          width: 250px;
+        }
+        .value_input_col {
+          padding: 2px;
+          width: 150px;
+        }
+        .delete_col {
+          width: 20px;
+        }
+      }
     }
   }
 

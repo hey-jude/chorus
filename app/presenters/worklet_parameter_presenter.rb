@@ -8,7 +8,9 @@ class WorkletParameterPresenter < Presenter
         :label => model.label,
         :data_type => model.data_type,
         :use_default => model.use_default,
-        :required => model.required
+        :required => model.required,
+        :options => model.options,
+        :validations => model.validations
     }
 
     results
