@@ -26,6 +26,10 @@ resource "PublishedWorklets" do
 
   end
 
+  post "/worklets/:id/stop" do
+
+  end
+
   post "/worklets/:id/share" do
 
   end

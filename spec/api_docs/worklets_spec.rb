@@ -34,6 +34,10 @@ resource "Worklets" do
 
   end
 
+  post "/workspaces/:workspace_id/worklets/:id/stop" do
+
+  end
+
   put "/workspaces/:workspace_id/worklets/:id/unpublish" do
 
   end
