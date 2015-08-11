@@ -107,12 +107,6 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         //     return v.get('id') == this;
         // }, param_info.id);
         var i = (typeof(model_index) !== 'number')? e.target.dataset.index : model_index;
-
-        // Casts to more specific type if hasn't already been.
-        if (this.parameters.models[i].get('dataType') && this.parameters.models[i].constructorName === "WorkletParameter") {
-            this.parameters.models[i] = this.parameters.models[i].castByDataType();
-        }
-
         var param_model = this.parameters.models[i];
         var updates = {
             variableName: $('select[name=variable_name_' + i + '] option:selected').val(),
@@ -138,6 +132,8 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         // Validate and set the model on client side.
         this.clearParamErrors(param_model, i);
         param_model.set(updates);
+        param_model = param_model.castByDataType();
+        this.parameters.models[i] = param_model;
         if (!param_model.performValidation(updates)) {
             this.showParamErrors(param_model, i);
             this.broadcastEditorState();
@@ -145,7 +141,9 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         }
 
         if (perform_save === true) {
-            param_model.save(updates);
+            // Use the "worklet parameter" model's end-point when saving
+            var generic = new chorus.models.WorkletParameter(param_model);
+            generic.save(updates);
         }
         this.paramChanged();
     },
@@ -226,7 +224,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
             value: ''
         });
 
-        m.options = options;
+        m.set('options', options);
 
         this.paramChanged();
     },
@@ -250,7 +248,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     workletParams: function() {
         // Becomes the representation given to the view.
         return _.map(this.parameters.models, function(v, i) {
-            return _.extend(v.attributes, {
+            return _.extend(_.clone(v.attributes), {
                 hasOptions: v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select'),
                 useDefaultDisabled: (v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select')),
                 isCalendar: v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'),
