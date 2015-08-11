@@ -1,11 +1,13 @@
 <div class="worklet_inputs_configuration">
-    <div class="main_header">Configure Worklet</div>
+    <div class="main_header">{{t "worklet.main.configure_worklet_title"}}</div>
 
-    <b>Build the Worklet Inputs</b>
+    <b>
+      {{t "worklet.main.step_worklet_inputs"}}
+    </b>
     <br>
 
     <div class="description_instructions">
-        Create each of the input parameters that will be used to run the Workflow.
+        {{t "worklet.main.step_worklet_inputs_description"}}
     </div>
 
     <br>
@@ -15,10 +17,10 @@
         {{#each workletParams}}
         <div class="worklet_param">
             <div class="section_header">
-                Parameter {{@index}}
+                {{t "worklet.configure.inputs.inputs_number_heading"}} {{@index}}
                 <div class="section_controls">
                     <a href="#" class="delete_input_param" data-index="{{@index}}">
-                        <span class="fa fa-lg fa-trash" id="primary-data"></span>
+                        <span class="fa fa-trash" id="primary-data"></span>
                     </a>
                 </div>
                 <!--<button type="submit" class="delete_input_param" data-index="{{@index}}">Delete</button>-->
@@ -26,35 +28,37 @@
             <div class="input_section">
                
                <div class="form_pair">
-               <label> Workflow Variable</label>
-                <select id="variable_name_{{@index}}" name="variable_name_{{@index}}" data-index="{{@index}}" class="workflow_variable">
-                    {{#each ../workflowVariables}}
-                        <option value="{{this.variableName}}" {{selectedIfMatch this.variableName ../this.variableName}}>{{this.variableName}}</option>
-                    {{/each}}
-                </select>
+                   <label for="variable_name_{{@index}}">
+                      {{t "worklet.configure.inputs.workflow_variable"}}
+                   </label>
+                    <select id="variable_name_{{@index}}" name="variable_name_{{@index}}" data-index="{{@index}}" class="workflow_variable">
+                        {{#each ../workflowVariables}}
+                            <option value="{{this.variableName}}" {{selectedIfMatch this.variableName ../this.variableName}}>{{this.variableName}}</option>
+                        {{/each}}
+                    </select>
                 </div>
 
-                <br>
+                <!-- <br> -->
 
                 <div class="form_pair">
                     <input type="checkbox" id="use_default_{{@index}}" name="use_default_{{@index}}" data-index="{{@index}}" value="true"{{#if this.useDefault}} checked{{/if}}>
-                    <label class="adjacent" for="use_default_{{@index}}">Use Workflow's Existing Value as Default</label>
+                    <label class="adjacent" for="use_default_{{@index}}">{{t "worklet.configure.inputs.use_existing"}}</label>
                 </div>
                 
                 <div class="form_pair">
                     <input type="checkbox" id="required_{{@index}}" name="required_{{@index}}" data-index="{{@index}}" value="true" {{#if this.required}} checked{{/if}}>
-                    <label class="adjacent" for="required_{{@index}}">Required Field</label>
+                    <label class="adjacent" for="required_{{@index}}">{{t "worklet.configure.inputs.required_field"}}</label>
                 </div>
 
                 <br>
 
                 <div class="form_pair">
-                    <label for="label_{{@index}}" class="required">Field Label</label>
+                    <label for="label_{{@index}}" class="required">{{t "worklet.configure.inputs.field_label"}}</label>
                     <input type="text" id="label_{{@index}}" name="label_{{@index}}" data-index="{{@index}}" value="{{label}}">
                 </div>
                 
                 <div class="form_pair">
-                    <label for="description_{{@index}}">Description</label>
+                    <label for="description_{{@index}}">{{t "worklet.configure.inputs.field_description"}}</label>
                     <textarea id="description_{{@index}}" data-index="{{@index}}" name="description_{{@index}}">{{this.description}}</textarea>
                 </div>
 
@@ -72,14 +76,14 @@
 
             </div>
             <div class="row form_controls">
-                <button type="submit" class="modalish save_input_param" data-index="{{@index}}">Update Preview</button>
+                <button type="submit" class="modalish save_input_param" data-index="{{@index}}">{{t "worklet.configure.inputs.update_preview.button"}}</button>
             </div>
             <br>
         </div>
         <br><br>
         {{/each}}
         <hr>
-        <button class="modalish add_new_parameter">Add Parameter</button>
+        <button class="modalish add_new_parameter">{{t "worklet.configure.inputs.add_another_parameter.button"}}</button>
         <!--<button class="modalish save_all_parameters">Save Parameters</button>-->
     </div>
 </div>
