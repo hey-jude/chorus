@@ -5,8 +5,8 @@ chorus.WorkletConstants = {
         t('worklet.parameter.datatype.number'),
         t('worklet.parameter.datatype.single_option_select'),
         t('worklet.parameter.datatype.multiple_option_select'),
-        t('worklet.parameter.datatype.datetime_calendar'),
-        t('worklet.parameter.datatype.datetime_relative')
+        t('worklet.parameter.datatype.datetime_calendar')//,
+        //t('worklet.parameter.datatype.datetime_relative')
     ],
     OmittedWorkflowVariables: [
         '@flowName', '@userName', '@defaultSchema',

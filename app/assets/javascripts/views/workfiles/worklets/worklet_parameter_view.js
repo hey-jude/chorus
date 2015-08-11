@@ -129,10 +129,7 @@ chorus.views.WorkletTextParameter = chorus.views.WorkletParameter.extend({
     templateName: "worklets/parameters/worklet_text_parameter"
 });
 
-
-chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.extend({
-    templateName: "worklets/parameters/worklet_single_option_parameter",
-
+chorus.Mixins.WorkletErrorOverride = {
     showErrors: function(model) {
         var err_el = this.$el.find(".errors");
         err_el.removeClass("hidden");
@@ -144,7 +141,12 @@ chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.extend
         output.push("</ul>");
 
         err_el.html(output.join(""));
-    },
+    }
+};
+
+chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.include(chorus.Mixins.WorkletErrorOverride).extend(
+    {
+    templateName: "worklets/parameters/worklet_single_option_parameter",
 
     getUserInput: function() {
         // Assumes there's an <select name="n"> where "n" is this.model.get('variableName')
@@ -157,7 +159,7 @@ chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.extend
     }
 });
 
-chorus.views.WorkletMultipleOptionParameter = chorus.views.WorkletSingleOptionParameter.extend({
+chorus.views.WorkletMultipleOptionParameter = chorus.views.WorkletParameter.include(chorus.Mixins.WorkletErrorOverride).extend({
     templateName: "worklets/parameters/worklet_multiple_option_parameter",
 
     getUserInput: function() {
@@ -175,6 +177,32 @@ chorus.views.WorkletMultipleOptionParameter = chorus.views.WorkletSingleOptionPa
             // Uses o.option if (!o.value) (i.e. if o.value is blank)
             return o.value || o.option;
         });
+
+        return v;
+    }
+});
+
+chorus.views.WorkletCalendarParameter = chorus.views.WorkletParameter.include(chorus.Mixins.WorkletErrorOverride).extend({
+    templateName: "worklets/parameters/worklet_calendar_parameter",
+
+    subviews: {
+        ".start_date": "startDatePicker"
+    },
+
+    setup: function() {
+        this._super('setup', []);
+
+        this.startDatePicker = new chorus.views.DatePicker({
+            selector: 'start_date',
+            disableBeforeToday: false
+        });
+    },
+
+    getUserInput: function() {
+        // Returns as 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
+        // See vendor/moment.js
+        var v = {};
+        v[this.model.get('variableName')] = this.startDatePicker.getDate().toISOString();
 
         return v;
     }

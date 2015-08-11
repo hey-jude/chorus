@@ -32,6 +32,8 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
             modelClass = chorus.models.WorkletSingleOptionParameter;
         } else if (type === t('worklet.parameter.datatype.multiple_option_select') || type === 'multipleOptions') {
             modelClass = chorus.models.WorkletMultipleOptionParameter;
+        } else if (type === t('worklet.parameter.datatype.datetime_calendar') || type === 'multipleOptions') {
+            modelClass = chorus.models.WorkletCalendarParameter;
         }
         else {
             return this;
@@ -177,6 +179,20 @@ chorus.models.WorkletMultipleOptionParameter = chorus.models.WorkletSingleOption
 
         if (!present) {
             this.errors[attr] = t("validation.required", { 'fieldName': variableLabel });
+        }
+    }
+});
+
+chorus.models.WorkletCalendarParameter = chorus.models.WorkletParameter.extend({
+    constructorName: "WorkletCalendarParameter",
+    viewClass: chorus.views.WorkletCalendarParameter,
+
+    // Validations specific to calendar parameters
+    declareRunValidations: function(newAttrs) {
+        this._super('declareRunValidations', [newAttrs]);
+        
+        if (_.include(newAttrs[this.get('variableName')], "NaN")) {
+            this.errors[this.get('variableName')] = t("validation.valid_date", { 'fieldName': this.get('label') });
         }
     }
 });
