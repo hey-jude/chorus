@@ -106,7 +106,7 @@ module Alpine
 
     def request_run(work_flow, options)
       #response = request_base.post(run_path(work_flow, options), '{"@xxx":"80", "@user_name":"chorusadmin", "@flow_name":"easy_3_186", "@default_schema":"public", "@default_prefix":"ch1", "@default_tempdir":"/tmp", "@default_delimiter":",", "@pig_number_of_reducers":"-1"}', {'Content-Type' => 'application/json'})
-      response = request_base.post(run_path(work_flow, options), options[:post_variable_data] ? options[:post_variable_data] : '', {'Content-Type' => 'application/json'})
+      response = request_base.post(run_path(work_flow, options), options[:post_variable_data] == "nil" ? "{}" : options[:post_variable_data], {'Content-Type' => 'application/json'})
 
       unless response.code == '200' && (process_id = JSON.parse(response.body)['process_id']).present?
         raise RunError.new(response.body)
