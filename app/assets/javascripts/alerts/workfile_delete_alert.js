@@ -18,6 +18,11 @@ chorus.alerts.WorkfileDelete = chorus.alerts.ModelDelete.extend({
         });
     },
 
+    cancelAlert:function () {
+        this.model.serverErrors = {};
+        this._super("cancelAlert", arguments);
+    },
+
     setup:function () {
         this.title = t("workfile.delete.title", {workfileTitle:this.model.get("fileName")});
         this.redirectUrl = this.model.workspace().workfilesUrl();
