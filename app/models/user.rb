@@ -166,9 +166,9 @@ class User < ActiveRecord::Base
     write_attribute(:developer, value)
     dev_role = Role.find_by_name("WorkflowDeveloper")
     if value == true || value == "true"
-      dev_role.users << self
+      dev_role.users << self unless dev_role.users.include? self
     else
-      dev_role.users.delete(self)
+      dev_role.users.delete(self) if dev_role.users.include? self
     end
   end
 
