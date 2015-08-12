@@ -88,9 +88,6 @@ User.find_in_batches({:batch_size => 5}) do |users|
       ChorusClass.create(:name => user.class.name)
     end
     print '.'
-    user_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(user.class.name).id, :instance_id => user.id, :chorus_scope_id => application_realm.id)
-    object_role = ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
-    user_object.chorus_object_roles << object_role unless user_object.chorus_object_roles.include? object_role
 
     #user_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
 
