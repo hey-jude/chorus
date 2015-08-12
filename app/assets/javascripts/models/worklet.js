@@ -9,10 +9,10 @@ chorus.WorkletConstants = {
         //t('worklet.parameter.datatype.datetime_relative')
     ],
     OmittedWorkflowVariables: [
-        '@flowName', '@userName', '@defaultSchema',
-        '@defaultPrefix', '@defaultTempdir',
-        '@defaultDelimiter', '@pigNumberOfReducers',
-        '@flowId', '@userId'
+        '@flow_name', '@user_name', '@default_schema',
+        '@default_prefix', '@default_tempdir',
+        '@default_delimiter', '@pig_number_of_reducers',
+        '@flow_id', '@user_id'
     ]
 };
 
