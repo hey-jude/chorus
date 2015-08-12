@@ -1,4 +1,4 @@
-chorus.views.WorkletParameterSidebar = chorus.views.Base.extend({
+chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     constructorName: "WorkletParameterSidebar",
     templateName: "worklets/worklet_parameter_sidebar",
 
@@ -99,6 +99,8 @@ chorus.views.WorkletParameterSidebar = chorus.views.Base.extend({
     },
 
     postRender: function() {
+        this._super('postRender');
+
         _.defer(_.bind(function() {
             _.each($("select.worklet_select"), function(select) {
                 chorus.styleSelect(select, {style: 'width: 250px'});
