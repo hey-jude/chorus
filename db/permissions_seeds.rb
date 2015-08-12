@@ -375,6 +375,32 @@ role_permissions = {
     'CsvFile' =>      %w()
 
   },
+
+  'User' => {
+      'Events::Base' => %w(create_comment_on create_attachment_on),
+      'ChorusScope' =>  %w(),
+      'Role' =>         %w(),
+      'User' =>         %w(),
+      'Account' =>      %w(),
+      'Group' =>        %w(),
+      'Workspace' =>    %w(),
+      'DataSource' =>   %w(show),
+      'Note' =>         %w(create show),
+      'Schema' =>       %w(),
+      'Sandbox' =>      %w(),
+      'Comment' =>      %w(create show promote_to_insight),
+      'Workfile' =>     %w(),
+      'Workflow' =>     %w(),
+      'Job' =>          %w(),
+      'Task' =>         %w(),
+      'Milestone' =>    %w(),
+      'Tag' =>          %w(create show apply remove),
+      'Upload' =>       %w(),
+      'Import' =>       %w(),
+      'Notification' => %w(),
+      'CsvFile' =>      %w()
+
+  },
   
 
   'SiteAdministrator' => {
