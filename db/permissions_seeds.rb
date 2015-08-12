@@ -40,10 +40,7 @@ application_realm = ChorusScope.find_or_create_by_name(:name => 'application_rea
 # add application_realm to default group
 default_group.chorus_scope = application_realm
 
-site_admin_role.groups << default_group unless site_admin_role.groups.include? default_group
-app_manager_role.groups << default_group unless app_manager_role.groups.include? default_group
-
-admin_role.groups << default_group unless admin_role.groups.include? default_group
+collaborator_role.groups << default_group unless collaborator_role.groups.include? default_group
 
 #Role.all.each do |role|
 #    role.groups << default_group
