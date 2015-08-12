@@ -26,5 +26,8 @@ chorus.alerts.WorkfileDelete = chorus.alerts.ModelDelete.extend({
     setup:function () {
         this.title = t("workfile.delete.title", {workfileTitle:this.model.get("fileName")});
         this.redirectUrl = this.model.workspace().workfilesUrl();
+        if(this.model.get('fileType') === 'worklet') {
+            this.deleteMessage = "worklet.delete.toast";
+        }
     }
 });
