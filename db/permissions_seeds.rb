@@ -603,6 +603,7 @@ User.find_in_batches({:batch_size => 100}) do |users|
       user.roles << workflow_developer_role unless user.roles.include? workflow_developer_role
     end
     user.roles << collaborator_role unless user.roles.include? collaborator_role
+    user.roles << user_role unless user.roles.include? user_role
   end
 end
 
