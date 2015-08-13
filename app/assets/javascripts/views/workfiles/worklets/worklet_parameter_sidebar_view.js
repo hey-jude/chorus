@@ -3,6 +3,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     templateName: "worklets/worklet_parameter_sidebar",
 
     additionalClass: "worklet_panel",
+
     subviews: {
         ".worklet_parameters": "workletParametersView"
     },
@@ -10,7 +11,8 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     events: {
         "click button.test_worklet_button": 'testRunClicked',
         "click button.run_worklet_button": 'runClicked',
-        "click button.stop_worklet_button": 'stopClicked'
+        "click button.stop_worklet_button": 'stopClicked',
+        "click button.reset_inputs": "resetInputs"
     },
 
     setup: function() {
@@ -87,6 +89,12 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         e && e.preventDefault();
         this.model.stop();
         chorus.PageEvents.trigger("worklet:run", "clickedStop");
+    },
+
+    resetInputs: function() {
+   /* jshint ignore:start */
+        console.log ("resetting...");
+    /* jshint ignore:end */
     },
 
     additionalContext: function () {

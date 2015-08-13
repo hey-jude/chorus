@@ -32,7 +32,7 @@ chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
         $('.published_worklet_history_item').removeClass('history_item_selected');
         $(this.el).addClass('history_item_selected');
 
-        $('#share_results_loading').show();
+        $('#workletResults_loading').show();
 
         this.workletParameterVersions = new chorus.collections.WorkletParameterVersionSet([], {eventId: this.model.id});
         this.workletParameterVersions.fetch();

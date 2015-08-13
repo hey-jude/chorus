@@ -30,6 +30,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
         });
     },
 
+
     updateElapsedTime: function() {
         var cur_time = new Date().getTime() / 1000;
         var elapsed_time = Math.floor(cur_time - this.startTime);

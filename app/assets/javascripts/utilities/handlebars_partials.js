@@ -23,3 +23,6 @@ Handlebars.registerPartial("headerSearchbar", window.HandlebarsTemplates["compon
 Handlebars.registerPartial("headerRight", window.HandlebarsTemplates["components/header_right"]);
 
 Handlebars.registerPartial("legendRequired", window.HandlebarsTemplates["components/legend_for_required"]);
+
+// worklets
+Handlebars.registerPartial("workletCard", window.HandlebarsTemplates["worklets/worklet_catalog_card"]);

@@ -5,13 +5,7 @@
 {{#if models.length}}
 
   {{#each models}}
-      <div class="card" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ avatarUrl }}');">
-      <a href="{{url}}">
-        <h3>{{fileName}}</h3>
-
-        <p>{{ description }}</p>
-      </a>
-    </div>
+    {{> workletCard}}
   {{/each}}
 
 {{/if}}

@@ -16,7 +16,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
         this.$("#results").on("load", function () {
             if(this.getAttribute('src')) {
                 $('#share_results').show();
-                $('#share_results_loading').hide();
+                $('#workletResults_loading').hide();
                 this.style.height='1000px';
             }
         });
