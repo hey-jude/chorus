@@ -8,6 +8,7 @@ describe User do
   describe "defaults" do
     it "has the default role" do
       User.new.roles.should include(Role.find_by_name("Collaborator"))
+      User.new.roles.should include(Role.find_by_name("User"))
     end
 
     it "doesn't duplicate roles when pulling record from database" do
@@ -17,7 +18,7 @@ describe User do
 
       u = User.find_by_username("single_role")
       new_roles = u.roles
-      old_roles.should eq(new_roles)
+      old_roles.sort.should eq(new_roles.sort)
     end
   end
 
