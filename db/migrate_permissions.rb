@@ -1,4 +1,5 @@
 
+
 admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
 owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
 user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
@@ -12,16 +13,6 @@ project_manager_role = Role.find_or_create_by_name(:name => 'project_manager'.ca
 project_developer_role = Role.find_or_create_by_name(:name => 'project_developer'.camelize)
 contributor_role = Role.find_or_create_by_name(:name => 'contributor'.camelize)
 data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.camelize)
-
-# Groups
-puts '---- Adding Default Group  ----'
-default_group = Group.find_or_create_by_name(:name => 'default_group')
-
-
-# Scope
-puts ''
-puts '---- Adding application_realm as Default Scope ----'
-application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
 
 
 role_class = ChorusClass.where(:name => 'role'.camelize).first
@@ -67,6 +58,30 @@ schema_class = ChorusClass.where(:name => 'schema'.camelize).first
 task_class = ChorusClass.where(:name => 'task'.camelize).first
 insight_class = ChorusClass.where(:name => 'insight'.camelize).first
 upload_class = ChorusClass.where(:name => 'upload'.camelize).first
+
+
+# Check if we need to run these migrations. compare the count of users, workspaces and datasources againts the corresponding object count in chorus_objects table. If they match, the migration has been run and we can skip it.
+
+if ENV['force'] !=  'true'
+  user_co_count = ChorusObject.where(:chorus_class_id => user_class.id).count
+  ws_co_count = ChorusObject.where(:chorus_class_id =>  workspace_class.id).count
+  datasource_co_count = ChorusObject.where(:chorus_class_id => datasource_class.id).count
+  puts '---- Checking to see if migration_permissions is needed to run ----'
+  if user_co_count == User.count && ws_co_count == Workspace.count && datasource_co_count == DataSource.count
+    puts "---- Skipping permissions migration. If you need to run permissions migration again use 'rake db:migrate_permissions force=true' from command line. ----"
+    exit(0)
+  end
+end
+
+# Groups
+puts '---- Adding Default Group  ----'
+default_group = Group.find_or_create_by_name(:name => 'default_group')
+
+
+# Scope
+puts ''
+puts '---- Adding application_realm as Default Scope ----'
+application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
 
 puts ''
 puts "===================== Adding Chorus Object =========================="
