@@ -66,12 +66,20 @@ if ENV['force'] !=  'true'
   user_co_count = ChorusObject.where(:chorus_class_id => user_class.id).count
   ws_co_count = ChorusObject.where(:chorus_class_id =>  workspace_class.id).count
   datasource_co_count = ChorusObject.where(:chorus_class_id => datasource_class.id).count
-  puts '---- Checking to see if migration_permissions is needed to run ----'
   if user_co_count == User.count && ws_co_count == Workspace.count && datasource_co_count == DataSource.count
+    puts ''
     puts "---- Skipping permissions migration. If you need to run permissions migration again use 'rake db:migrate_permissions force=true' from command line. ----"
+    puts ''
     exit(0)
   end
 end
+
+puts ''
+puts '==============================================================================='
+puts 'This task may take few minutes to an hour based on the amount of data in your'
+puts 'Chorus database. Please do not cancel this task until it is finished.'
+puts '==============================================================================='
+puts ''
 
 # Groups
 puts '---- Adding Default Group  ----'
