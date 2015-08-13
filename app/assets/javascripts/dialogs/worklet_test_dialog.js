@@ -21,14 +21,16 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
                 success: _.bind(function(model) {
                     if(!model.get('running')) {
                         clearInterval(this.pollerID);
-                        this.$('#test_results')[0].src = this.testResultUrl();
-                        this.$("#test_results").on("load", function () {
+
+                        this.$('#testResults_frame')[0].src = this.testResultUrl();
+                        this.$("#testResults_frame").on("load", function () {
                             if(this.getAttribute('src')) {
-                                $('#test_results').show();
-                                $('#share_results_loading').hide();
-                                this.style.height='500px';
+                                $('#testResults_frame').show();
+                                $('#workletResults_loading').hide();
+                                // this.style.height='500px';
                             }
                         });
+
                     }
                 }, this)
             });

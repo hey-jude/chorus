@@ -1,14 +1,15 @@
 <div class="worklet_outputs_configuration">
     <div class="main_header">{{t "worklet.main.configure_worklet_title"}}</div>
     <div class="workflow_details">
-        <h4>Worklet Run Settings</h4>
+        <h4>{{t "worklet.configure.settings.run_settings.heading"}}</h4>
         <br>
-        <b>Run Workflow As...</b>
+        <b>{{t "worklet.configure.settings.run_as.label"}}Run Workflow As...</b>
         <br>
         <div class="description_instructions">
-            Specify the account to use to run the workflow. The run account must have credentials to
-            access the source data.
-        </div><br>
+            {{t "worklet.configure.settings.run_as.description"}}
+        </div>
+        
+        <br>
 
         {{#each runPersonas}}
             <input type="radio" name="run_persona" id="run_as_{{this.run_persona}}" value="{{this.run_persona}}"{{#if this.selected}} checked{{/if}}>
@@ -22,22 +23,32 @@
         <br>
         <br>
 
-        <h4>Worklet Output</h4>
+        <h4>{{t "worklet.configure.settings.output.heading"}}</h4>
         <br>
-        <b>Worklet Output to Display</b>
+        <b>{{t "worklet.configure.settings.output.label"}}</b>
         <br>
         <div class="description_instructions">
-            Select which workflow output should be displayed to the end-user.
+            {{t "worklet.configure.settings.output.description"}}
         </div>
-
-        <div id="workfile_image_container">
-            {{#each operators}}
-                <a href="#" class="visual_operator">
-                    <div id="{{this.id}}" data-index="{{this.index}}" class="image_operator{{#if this.selected}} bordered{{/if}}" style="left: {{this.left}}px; top: {{this.top}}px;"></div>
-                </a>
-            {{/each}}
-            <img class="workfile_image" src="{{workflowImageUrl}}"/>
+        
+        <div id="worklet_outputs">
+            <div id="workfile_image_container">
+                {{#each operators}}
+                    <a href="#" class="visual_operator">
+                        <div id="{{this.id}}" data-index="{{this.index}}" class="image_operator" style="left: {{this.left}}px; top: {{this.top}}px;"></div>
+                    </a>
+                {{/each}}
+                <img class="workfile_image" src="{{workflowImageUrl}}" alt=""/>
+                <!-- repeat under the image -->
+                {{#each operators}}
+                    <a href="#" class="visual_operator_bottom">
+                        <div id="{{this.id}}B" class="image_operator_bottom {{#if this.selected}}marked{{/if}}" style="left: {{this.bg_left}}px; top: {{this.bg_top}}px;"></div>
+                    </a>
+                {{/each}}
+                
+            </div>
         </div>
+        
         <br>
         {{#each operators}}
             <input type="checkbox" class="checkbox_operator" id="{{this.id}}_checkbox" data-index="{{this.index}}"{{#if this.selected}} checked{{/if}}> {{this.name}}<br>

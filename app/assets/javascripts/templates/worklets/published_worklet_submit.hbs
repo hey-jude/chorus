@@ -3,6 +3,7 @@
 
 <div class="header">
     <div class="title">{{t "worklet.run.inputs.heading"}}</div>
+    <div id="worklet_input_reset" class="button configure configure_widget" title="{{t 'worklet.run.reset_inputs.button'}}"><span class="fa fa-times"></span></div>
 </div>
 
 <div class="worklet_parameters"></div>
@@ -17,7 +18,7 @@
                     <div class="description">{{description}}</div>
                     <div class="input">
                         {{#if integer}}
-                            <input type="text" class="textInput" name="{{variableName}}" maxlength="256"/>
+                            <input type="text" class="textInput" name="{{variableName}}" maxlength="256"/> <!-- TODO: check spec for length of input -->
                         {{else}}
                         {{#if string}}
                             <input type="text" class="textInput" name="{{variableName}}" maxlength="256"/>

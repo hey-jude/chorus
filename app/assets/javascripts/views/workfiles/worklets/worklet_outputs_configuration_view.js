@@ -44,7 +44,7 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
     },
 
     postRender: function() {
-        // Adjusts workflow canvas so that the top or left-most operator is within view.
+        // Adjusts workflow canvas so that the top or left-most operator is within view
         var icon_size = 50;
         var wfi = $('#workfile_image_container');
 
@@ -74,10 +74,15 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
 
         var op = this.workflowOperators.getOperators()[e.target.dataset.index];
         op.selected = typeof(op.selected) === 'undefined' ? true : !op.selected;
+        
+        // map to the other operator marker that is under the image= 'bottom'
+        var clicked_target_id =  e.target.id;
+        var bottom_target_id = "#" + clicked_target_id + "B";
 
-        $(e.target).toggleClass('bordered');
+        // update the 'bottom'
+        $(bottom_target_id).toggleClass("marked");
 
-        // Also update checkbox
+        // Also update checkbox 
         var checkbox_op = $('#op_' + e.target.dataset.index + '_checkbox');
         checkbox_op && checkbox_op.prop('checked', !checkbox_op.prop('checked'));
 
@@ -99,7 +104,7 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
 
         var updates = {};
 
-        // Gather the checked output operators into updates['output_operators'] array.
+        // Gather the checked output operators into updates['output_operators'] array
         var checked_ops = _.filter($('.checkbox_operator'), function(el) { return el.checked; });
         var all_ops = this.workflowOperators.getOperators();
         updates['outputTable'] = _.map(checked_ops, function (el) {
@@ -116,7 +121,7 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
         }
         updates['runPersona'] = run_persona;
 
-        // Store changes into client side model, and run validation on the updates.
+        // Store changes into client side model, and run validation on the updates
         this.model.set(updates, { silent: true });
 
         this._hasUnsavedChanges = true;
@@ -148,6 +153,7 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
 
     annotatedOperators: function() {
         var icon_size = 50;
+        var icon_offset = 6;  // offset to adjust for the border/marker sizes. dependent on the css
         var output_table = this.model.get('outputTable');
 
         return _.map(this.workflowOperators.getOperators(), function (op, index) {
@@ -155,8 +161,10 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
                     id: "op_" + index,
                     name: op.name,
                     index: index,
-                    left: op.position.startX - this.icon_size/2,
-                    top: op.position.startY - this.icon_size/2,
+                    left: (op.position.startX - this.icon_size/2),
+                    top: (op.position.startY - this.icon_size/2),
+                    bg_left: (op.position.startX - this.icon_size/2) - icon_offset,
+                    bg_top: (op.position.startY - this.icon_size/2) - icon_offset,
                     selected: _.contains(this.output_table, op.name)
                 };
             }, {

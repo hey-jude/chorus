@@ -54,8 +54,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     saveAll: function() {
         // For each editor view, check if it's unsaved or has errors.
-        // For error-having views, indicate the error and short-circuit
-        // save.
+        // For error-having views, indicate the error and short-circuit save
         var views = _.pairs(this.editorViews);
         var error_having_views = _.filter(views, function (view_pair) {
             return view_pair[1].content.hasErrors();

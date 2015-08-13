@@ -24,13 +24,13 @@
 
             {{/if}}
             {{#if showRunWorklet}}
-                <li><a href="#" class="run_worklet">Run Worklet</a></li>
+                <li><a href="#" class="run_worklet">{{t 'actions.sidebar.worklet.run'}}</a></li>
             {{/if}}
             {{#if showCreateWorklet}}
-                <li><a href="#" class="create_worklet">Create Worklet</a></li>
+                <li><a href="#" class="create_worklet">{{t 'work_flows.actions.worklet.create_new'}}</a></li>
             {{/if}}
             {{#if showWorkletUsage}}
-                <li><a href="#" class="worklet_usage">View Worklet Usage</a></li>
+                <li><a href="#" class="worklet_usage">{{t 'work_flows.actions.worklet.view_usage'}}</a></li>
             {{/if}}
             {{#if showAddNoteLink}}
                 <li><a class="new_note dialog-launch" href="#">{{t "actions.add_note"}}</a></li>
@@ -47,10 +47,11 @@
                 <li><a href="#" class="delete alert-launch">{{t "workfile.delete.button"}}</a></li>
             {{/if}}
             {{#if showPublishWorklet}}
-                <li><a href="#" class="publish">Publish Worklet</a></li>
-            {{/if}}
-            {{#if showUnpublishWorklet}}
-                <li><a href="#" class="unpublish">Unpublish Worklet</a></li>
+                <li><a href="#" class="publish">Publish Worklet{{t 'actions.sidebar.worklet.publish'}}</a></li>
+            {{else}}
+                {{#if showUnpublishWorklet}}
+                    <li><a href="#" class="unpublish">{{t 'actions.sidebar.worklet.depublish'}}</a></li>
+                {{/if}}
             {{/if}}
         </ul>
     </div>

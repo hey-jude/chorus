@@ -2,7 +2,6 @@ chorus.views.WorkletEditorSubheader = chorus.views.Base.extend({
     templateName: "worklets/worklet_editor_subheader",
     constructorName: "WorkletEditorSubheaderView",
     //additionalClass: "sub_nav",
-    //tagName: "ul",
 
     events: {
         "click a.workletSteps_item": 'clickedWorkletStepsItem'

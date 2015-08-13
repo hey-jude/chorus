@@ -28,7 +28,7 @@ chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
 
         this.trigger('resized');
 
-        // Style the selected history item
+        // Style the selected history entry
         $('.published_worklet_history_item').removeClass('history_item_selected');
         $(this.el).addClass('history_item_selected');
 
@@ -66,6 +66,7 @@ chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
     },
 
     additionalContext: function() {
+        // data values for the history entry
         var date = new Date(this.model.get('timestamp'));
         var dateString = date.toString('yyyy-MM-dd HH:mm:ss');
         var relativeTime = date.toRelativeTime();

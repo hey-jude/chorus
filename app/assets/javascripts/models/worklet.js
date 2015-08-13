@@ -140,11 +140,11 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
 
     publishSuccess: function(e) {
         this.unbind("saved", this.publishSuccess);
-        chorus.toast("worklet.publish.toast", {"workletName": this.name(), toastOpts: {type: "success"}});
+        chorus.toast("worklet.publish.success.toast", {"workletName": this.name(), toastOpts: {type: "success"}});
     },
 
     unpublishSuccess: function(e) {
         this.unbind("saved", this.unpublishSuccess);
-        chorus.toast("worklet.unpublish.toast", {"workletName": this.name(), toastOpts: {type: "deletion"}});
+        chorus.toast("worklet.unpublish.success.toast", {"workletName": this.name(), toastOpts: {type: "deletion"}});
     }
 });

@@ -2,6 +2,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     constructorName: "WorkletParameterSidebar",
     templateName: "worklets/worklet_parameter_sidebar",
 
+    additionalClass: "worklet_panel",
     subviews: {
         ".worklet_parameters": "workletParametersView"
     },
@@ -17,7 +18,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         this.state = this.options.state || 'running';
 
         // Render parameter list into a view,
-        // update when collection has updated.
+        // update when collection has updated
         this.workletParametersView = new chorus.views.WorkletParameterList({
             model: this.model,
             state: this.state
@@ -65,7 +66,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     runClicked: function(e) {
         e && e.preventDefault();
 
-        // If all parameters validate, gather up the inputs and invoke alpine run with them.
+        // If all parameters validate, gather up the inputs and invoke alpine run with them
         if (this.workletParametersView.validateParameterInputs()) {
             var worklet_parameters = this.createAlpinePayload();
             this.model.run(worklet_parameters);

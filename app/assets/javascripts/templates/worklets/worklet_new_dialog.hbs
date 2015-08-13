@@ -23,14 +23,14 @@
 
                 <div class="item_information">
                     <div class="item_name">
-                        <span class="item_description">Workflow name:</span> {{workflow.fileName}}
+                        <span class="item_description">{{t "worklet.configure.workflow_used_info.name"}}</span> {{workflow.fileName}}
                     </div>
                     <div class="item_name">
-                        <span class="item_description">Last modified at:</span> {{modifiedTime}}
+                        <span class="item_description">{{t "worklet.configure.workflow_used_info.description"}}</span> {{modifiedTime}}
                     </div>
                     {{#if hasComments}}
                         <div class="item_name">
-                            <span class="item_description">Most recent comment:</span> {{lastComment}}
+                            <span class="item_description">{{t "worklet.configure.workflow_used_info.comment"}}</span> {{lastComment}}
                         </div>
                     {{/if}}
                 </div>
