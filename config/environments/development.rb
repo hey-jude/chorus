@@ -47,9 +47,6 @@ Chorus::Application.configure do
   # number of complex assets.
   config.assets.debug = false
 
-  # Give paperclip path to ImageMagick tools
-  Paperclip.options[:command_path] = "/usr/local/bin/"
-
   # Only turn it on if you really need concurrent requests
   #config.allow_concurrency = true
   #config.threadsafe!
