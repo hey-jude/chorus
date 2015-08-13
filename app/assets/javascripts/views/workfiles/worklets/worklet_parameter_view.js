@@ -193,7 +193,7 @@ chorus.views.WorkletMultipleOptionParameter = chorus.views.WorkletParameter.incl
         v[this.model.get('variableName')] = _.map(checked_options, function(o) {
             // Uses o.option if (!o.value) (i.e. if o.value is blank)
             return o.value || o.option;
-        });
+        }).join(',');
 
         return v;
     }

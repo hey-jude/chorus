@@ -172,8 +172,7 @@ chorus.models.WorkletMultipleOptionParameter = chorus.models.WorkletSingleOption
         var value = newAttrs && newAttrs.hasOwnProperty(attr) ? newAttrs[attr] : this.get(attr);
         var present = value;
 
-
-        if (!_.isArray(value) || value.length === 0) {
+        if (!_.isString(value) || _.stripTags(value).match(chorus.ValidationRegexes.AllWhitespace())) {
             present = false;
         }
 

@@ -1,18 +1,17 @@
-
-<div id="workletResults_loading">
-    <div id="loading_doohickey">
-        <div class="spinner_container"></div>
-        <p class="loading_title">{{t "general.running" }}</p>
-        <p class="loading_time">{{t "worklet.running_time_information.label"}}<span id="load_time">00:00:00</span></p>
+<div id="share_results_loading" style="padding: 10px 20px; height: 500px; width: 800px;">
+    <div id="spinner_container">
+        <div id="spinner"></div>
+    </div>
+    <div id="elapsed_time_container">
+        {{t 'general.running'}}
+        <br>
+        <br>
+        {{t 'worklet.run.elapsed_time'}} <span id="elapsed_time"></span>
     </div>
 </div>
 
-<!-- <div class="iframe_wrapper" style="text-align: center; width: 100%;"> -->
 <div class="iframe_wrapper">
-    <!-- <div style="display: inline-block;"> -->
-        <!-- <iframe id="test_results" style="width: 800px; height: 0px; border: none;"></iframe> -->
-        <iframe id="testResults_frame"></iframe>
-    <!-- </div> -->
+    <iframe id="testResults_frame"></iframe>
 </div>
 
 {{> closeWindowFormControls }}

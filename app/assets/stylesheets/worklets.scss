@@ -418,6 +418,33 @@ div[data-page="PublishedWorkletShow"] {
   border: 1px solid $border-color-darkest;
 }
 
+.worklets_worklet_test {
+  #share_results_loading {
+    $spinner-width: 100px;
+    text-align: center;
+
+    #elapsed_time_container {
+      #elapsed_time {
+
+      }
+    }
+
+    #spinner_container {
+      width: 100%;
+      height: $spinner-width;
+      text-align: center;
+      padding-top: $spinner-width;
+
+      .spinner {
+        width: 0px;
+        height: 0px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+}
+
 .worklet_new_dialog,
 .worklet_inputs_configuration,
 .worklet_details_configuration,

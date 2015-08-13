@@ -8,46 +8,63 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
         this.model = this.options.model;
         this.workletParameters = this.options.workletParameters;
 
-        this.listenTo(this.model, "saved", this.startPolling);
+        this.listenTo(this.model, "saved", this.startRun);
+        this.subscribePageEvent("worklet:run", this.runEventHandler);
+
         this.model.run(this.workletParameters, true);
+        chorus.PageEvents.trigger("worklet:run", "runStarted");
     },
 
-    startPolling: function(model) {
+    postRender: function() {
+        // container box will be 2*radius + 2*
+        this.$('#spinner').startLoading(null, {
+            lines: 12,
+            length: 32,
+            width: 11,
+            radius: 36,
+            color: '#00A0E5',
+            speed: 1,
+            trail: 75,
+            shadow: false,
+            scale: 1
+        });
+    },
 
-        this.resultId = model.get('killableId');
+    updateElapsedTime: function() {
+        var cur_time = new Date().getTime() / 1000;
+        var elapsed_time = Math.floor(cur_time - this.startTime);
 
-        this.pollForRunStatus = _.bind(function() {
-            this.model.fetch({
-                success: _.bind(function(model) {
-                    if(!model.get('running')) {
-                        clearInterval(this.pollerID);
+        this.$('#elapsed_time').html(elapsed_time + ' sec.');
+    },
 
-                        this.$('#testResults_frame')[0].src = this.testResultUrl();
-                        this.$("#testResults_frame").on("load", function () {
-                            if(this.getAttribute('src')) {
-                                $('#testResults_frame').show();
-                                $('#workletResults_loading').hide();
-                                // this.style.height='500px';
-                            }
-                        });
+    startRun: function() {
+        this.resultId = this.model.get('killableId');
+        this.startTime = new Date().getTime() / 1000;
+        this.elapsedTimeCounter = setInterval(this.updateElapsedTime.bind(this), 1000);
+    },
 
+    runEventHandler: function(event) {
+        if (event === 'runStopped') {
+            this.$('#testResults_frame')[0].src = this.testResultUrl();
+            this.$("#testResults_frame").on("load",
+                { counter: this.elapsedTimeCounter },
+                function (event) {
+                    if(this.getAttribute('src')) {
+                        $('#spinner').stopLoading();
+                        $('#testResults_frame').show();
+                        $('#share_results_loading').hide();
+                        clearInterval(event.data.counter);
+                        this.style.height = '500px';
                     }
-                }, this)
-            });
-        }, this);
-
-        this.pollerID = setInterval(this.pollForRunStatus, 5000);
-
+                }
+            );
+        }
     },
 
     modalClosed: function() {
-        if(this.pollerID) {
-            clearInterval(this.pollerID);
-        }
         if(this.model.get('running')) {
             this.model.stop();
         }
-
         this._super("modalClosed");
     },
 

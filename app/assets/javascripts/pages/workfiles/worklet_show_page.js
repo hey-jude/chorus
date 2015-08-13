@@ -10,7 +10,30 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
         this.worklet = new chorus.models.Worklet({id: workletId, workspace: this.workspace});
         this.worklet.fetch();
 
+        this.subscribePageEvent("worklet:run", this.runEventHandler);
+        this.pollForRunStatus = _.bind(function() {
+            this.worklet.fetch({
+                success: _.bind(function(model) {
+                    if(!model.get('running')) {
+                        chorus.PageEvents.trigger("worklet:run", "runStopped");
+                    }
+                }, this)
+            });
+        }, this);
+
         this.onceLoaded(this.worklet, this.buildPage);
+    },
+
+    runEventHandler: function(event) {
+        if (event === 'runStarted') {
+            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+        }
+        else if (event === 'runStopped') {
+            if (!_.isNull(this.pollerID)) {
+                clearInterval(this.pollerID);
+                this.pollerID = null;
+            }
+        }
     },
 
     makeModel: function(workspaceId) {
@@ -158,32 +181,6 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     setup: function (workspaceId, workletId) {
         this._super("setup", [workspaceId, workletId]);
-
-        this.subscribePageEvent("worklet:run", this.runEventHandler);
-        this.subscribePageEvent("menu:worklet", this.menuEventHandler);
-
-        this.pollForRunStatus = _.bind(function() {
-            this.worklet.fetch({
-                success: _.bind(function(model) {
-                    if(!model.get('running')) {
-                        clearInterval(this.pollerID);
-                        chorus.PageEvents.trigger("worklet:run", "runStopped");
-                        if(this.clickedStop) {
-                            this.clickedStop = false;
-                        }
-                        else {
-                            var activities = model.activities();
-                            activities.loaded = false;
-                            activities.fetchAll();
-                            this.onceLoaded(activities, this.reloadHistory);
-                        }
-                    }
-                    else {
-                        this.sidebar.runEventHandler('runStarted');
-                    }
-                }, this)
-            });
-        }, this);
     },
 
     menuEventHandler: function(menu_item) {
@@ -191,10 +188,19 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     runEventHandler: function(event) {
-        if (event === 'runStarted') {
-            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+        this._super("runEventHandler", [event]);
+
+        if (event === 'runStopped') {
+            if (this.clickedStop) {
+                this.clickedStop = false;
+            } else {
+                var activities = this.worklet.activities();
+                activities.loaded = false;
+                activities.fetchAll();
+                this.onceLoaded(activities, this.reloadHistory);
+            }
         }
-        else if( event === 'clickedStop') {
+        else if (event === 'clickedStop') {
             this.clickedStop = true;
         }
     },
@@ -206,7 +212,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     showHistory: function() {
         var history_options = {
-            model: this.model,
+            model: this.worklet,
             collection: this.history,
             mainPage: this
         };
@@ -246,13 +252,13 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         });
 
         this.mainContent = new chorus.views.MainContentView({
-            model: this.model,
+            model: this.worklet,
             content: this.contentView
         });
 
         this.render();
 
-        if(this.worklet.get('running')) {
+        if (this.worklet.get('running')) {
             chorus.PageEvents.trigger("worklet:run", "runStarted");
         }
     }

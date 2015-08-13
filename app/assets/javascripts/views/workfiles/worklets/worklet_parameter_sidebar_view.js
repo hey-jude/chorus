@@ -33,13 +33,11 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
 
     runEventHandler: function(event) {
         if (event === 'runStopped') {
-            this.$(".form_controls.run_worklet").show();
-            this.$(".spinner_div").hide();
-            this.$(".form_controls.stop_worklet").hide();
+            this.$(".run_worklet").stopLoading();
+            this.$(".stop_worklet").hide();
         } else if (event === 'runStarted') {
-            this.$(".form_controls.run_worklet").hide();
-            this.$(".spinner_div").show();
-            this.$(".form_controls.stop_worklet").show();
+            this.$(".run_worklet").startLoading("general.running", {color: '#959595'});
+            this.$(".stop_worklet").show();
         }
     },
 
@@ -69,8 +67,8 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         // If all parameters validate, gather up the inputs and invoke alpine run with them
         if (this.workletParametersView.validateParameterInputs()) {
             var worklet_parameters = this.createAlpinePayload();
-            this.model.run(worklet_parameters);
             chorus.PageEvents.trigger("worklet:run", "runStarted");
+            this.model.run(worklet_parameters);
         }
     },
 
@@ -108,17 +106,8 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
             });
         }, this));
 
-        this.$(".loading_spinner").startLoading(null, {color: '#959595'});
         if(this.model.get('running')) {
             this.runEventHandler('runStarted');
         }
-
-        //if (this.model.get('running')) {
-        //    this.$(".form_controls").hide();
-        //    this.$(".spinner_div").show();
-        //} else {
-        //    this.$(".form_controls").show();
-        //    this.$(".spinner_div").hide();
-        //}
     }
 });
