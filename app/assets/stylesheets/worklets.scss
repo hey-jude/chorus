@@ -647,14 +647,13 @@ $worklet_operator_selection_color: #399ccd;
         width: 43px;
         height: 43px;
     }
-    
     .marked {
-        border: 10px solid $worklet_operator_selection_color;
+        border: 9px solid $worklet_operator_selection_color;
         border-radius: 25px;
+        background-color: $worklet_operator_selection_color;
         @include filter (blur(5px));
         -webkit-filter: blur(5px);
         -ms-filter: blur(5px);
-
     }
   }
 }
@@ -712,7 +711,6 @@ $worklet_operator_selection_color: #399ccd;
             font-weight: normal;
             font-size: $small-font;
         }
-        
     }
         
     .history_item_selected {
@@ -892,30 +890,60 @@ $worklet-testResults-loader-width: 170px;
 
 // CATALOG
 .worklet_catalog_card {
-    background-color: #F00;
+    @include border-radius(3px);
     
     a {
-        position: absolute;
-        width: 100%;
-        height: 100%;
         text-decoration: none;
-   
         &:hover {
             text-decoration: none;
         }
+    }
     
-        .internal {
-            margin: 10px;
-            // padding: 10px;
-            position: relative;
+    .worklet_card_avatar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #111;
+        
+        img {
+            // @include filter(brightness(0.77));
+            opacity: 0.73;
             
-            h3 {}
-            p {}
-            
-            * {
-                color: #000;
-
+            &:hover {
+                opacity: 0.96;
             }
+        }
+    }
+    .worklet_card_content {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        
+        color:$core-white;
+
+        .worklet_title {
+            padding: 10px;
+            position: relative;
+            height: 100%;
+            // color: $core-white;
+             
+            h3 {
+                @include font-primary-bold;
+                @include ellipsis;
+            }
+    
+            
+        }
+        .worklet_description {
+            margin: 10px;
+            position: absolute;
+            
+            bottom: 0px;
         }
     }
 }

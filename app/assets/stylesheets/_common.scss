@@ -507,7 +507,10 @@ $lozenge-color-selected-dark: $brand-dark;
     font-size: 18px;
     font-weight: normal;
 }
-
+@mixin font-primary-bold {
+    font-size: 18px;
+    font-weight: $semibold;
+}
 @mixin font-primary-link {
     color: $brand;
     @include font-primary;

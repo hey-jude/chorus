@@ -1,10 +1,22 @@
 {{!-- partial --}}
-<div class="card worklet_catalog_card" style="background: url('{{ avatarUrl }}');">
-    <a href="{{url}}">
-        <div class="internal">
-            <h3>{{fileName}}</h3>
-
-            <p>{{ description }}</p>
+    <!-- <div class="card worklet_catalog_card" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ avatarUrl }}');"> -->
+    <div class="card worklet_catalog_card">
+        <div class="worklet_card_avatar">
+            <a href="{{url}}"><img src="{{ avatarUrl }}" alt=""></a>
         </div>
-    </a>
-</div>
+        
+        <div class="worklet_card_content">
+            <!-- <a href="{{url}}"> -->
+                <div class="worklet_title">
+                    <h3>{{fileName}}</h3>
+                    <!-- <p>{{description}}</p> -->
+                </div>
+                {{#if description}}
+                <div class="worklet_description">
+                    {{description}}
+                </div>
+                {{/if}}
+                
+            <!-- </a> -->
+        </div>
+    </div>
