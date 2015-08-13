@@ -26,3 +26,4 @@ Handlebars.registerPartial("legendRequired", window.HandlebarsTemplates["compone
 
 // worklets
 Handlebars.registerPartial("workletCard", window.HandlebarsTemplates["worklets/worklet_catalog_card"]);
+Handlebars.registerPartial("workletInputpanelTaskButtons", window.HandlebarsTemplates["worklets/worklet_inputpanel_taskbuttons"]);
