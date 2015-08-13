@@ -8,13 +8,7 @@
 
 <div class="menus">
     {{#if editing}}
-        {{#if saving}}
-            <div class="spinner_div">
-                <span class='loading_spinner'></span> {{t "general.saving"}}
-            </div>
-        {{else}}
             <button class="submit modalish save" data-event-type="save">{{t "form.button.save"}}</button>
-        {{/if}}
     {{/if}}
 
     <button class="modalish close" data-event-type="close">{{t "form.button.close"}}</button>

@@ -25,8 +25,11 @@ chorus.views.WorkletHeader = chorus.views.Base.extend({
     },
 
     editorSavingEvent: function(event) {
-        this._saving = (event === 'saving');
-        this.render();
+        if (event === 'saving') {
+            this.$('button.save').startLoading("general.saving");
+        } else {
+            this.$('button.save').stopLoading();
+        }
     },
 
     togglePopupMenu: function(e) {
@@ -35,7 +38,6 @@ chorus.views.WorkletHeader = chorus.views.Base.extend({
 
     additionalContext: function() {
         return {
-            saving: this._saving,
             editing: this.state === 'editing',
             iconUrl: this.model.iconUrl()
         };

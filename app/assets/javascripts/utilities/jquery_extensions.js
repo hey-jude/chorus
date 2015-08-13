@@ -54,7 +54,7 @@ jQuery.fn.extend({
 });
 
 jQuery.stripHtml = function(string) {
-    return $("<div>" + string + "</div>").text();
+    return $(document.createElement("div")).html(string).text();
 };
 
 jQuery.fn.scrollTo = function( target, options, callback ){

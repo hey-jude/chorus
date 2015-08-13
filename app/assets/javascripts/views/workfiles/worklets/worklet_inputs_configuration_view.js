@@ -109,7 +109,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         param.errors = {};
     },
 
-    updateParameter: function(e, model_index, perform_save) {
+    updateParameter: function(e, model_index, perform_save, save_options) {
         e && e.preventDefault();
 
         // Below uses e.target.dataset.index to index model.
@@ -121,21 +121,21 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         var i = (typeof(model_index) !== 'number')? e.target.dataset.index : model_index;
         var param_model = this.parameters.models[i];
         var updates = {
-            variableName: $('select[name=variable_name_' + i + '] option:selected').val(),
-            description: $('textarea[name=description_' + i + ']').val(),
-            label: $('input[name=label_' + i + ']').val(),
-            useDefault: $('input[name=use_default_' + i + ']')[0].checked,
-            required: $('input[name=required_' + i + ']')[0].checked,
-            dataType: $('select[name=data_type_' + i + '] option:selected').val()
+            variableName: this.$('select[name=variable_name_' + i + '] option:selected').val(),
+            description: this.$('textarea[name=description_' + i + ']').val(),
+            label: this.$('input[name=label_' + i + ']').val(),
+            useDefault: this.$('input[name=use_default_' + i + ']')[0].checked,
+            required: this.$('input[name=required_' + i + ']')[0].checked,
+            dataType: this.$('select[name=data_type_' + i + '] option:selected').val()
         };
 
         // Select options:
-        var opts_els = $('input[name^=option_][data-index=' + i + ']');
+        var opts_els = this.$('input[name^=option_][data-index=' + i + ']');
         if (opts_els.length > 0) {
             var options = _.map(opts_els, function(o) {
                 return {
-                    option: $(o).val(),
-                    value: $('input[name=value_' + o.dataset.optionIndex + '_' + o.dataset.index + ']').val()
+                    option: this.$(o).val(),
+                    value: this.$('input[name=value_' + o.dataset.optionIndex + '_' + o.dataset.index + ']').val()
                 };
             });
             updates.options = options;
@@ -155,9 +155,13 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         if (perform_save === true) {
             // Use the "worklet parameter" model's end-point when saving
             var generic = new chorus.models.WorkletParameter(param_model);
-            generic.save(updates);
+            var save_state = false !== generic.save(updates, save_options);
+
+            this.paramChanged();
+            return save_state;
+        } else {
+            this.paramChanged();
         }
-        this.paramChanged();
     },
 
     paramChanged: function() {
@@ -171,9 +175,6 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     },
 
     paramSaved: function() {
-        this._hasUnsavedChanges = false;
-        this.broadcastEditorState();
-
         // Update preview pane
         this.model.parameters().trigger('update');
     },
@@ -218,9 +219,19 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         e && e.preventDefault();
 
         this.clearErrors();
-        _.each(this.model.parameters().models, function(param_model, index) {
-            this.updateParameter(null, index, true);
+        var save_attempts = _.map(this.model.parameters().models, function(param_model, index) {
+            return this.updateParameter(null, index, true, { wait: true });
         }, this);
+
+        if (!_.contains(save_attempts, false)) {
+            this._hasUnsavedChanges = false;
+            this.broadcastEditorState();
+            return true;
+        } else {
+            this._hasUnsavedChanges = true;
+            this.broadcastEditorState();
+            return false;
+        }
     },
 
 
