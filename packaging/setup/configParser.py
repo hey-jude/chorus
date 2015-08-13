@@ -30,7 +30,7 @@ class ConfigParser(dict):
                 if self[line] is None:
                     f.write(str(line) + "\n")
                 else:
-                    f.write(str(line) + " = " + str(self[line]) + "\n")
+                    f.write(str(line) + "=" + str(self[line]) + "\n")
 
     def __setitem__(self, key, value):
         if not self.has_key(key):
