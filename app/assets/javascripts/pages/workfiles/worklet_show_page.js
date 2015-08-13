@@ -62,8 +62,6 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     menuEventHandler: function(menu_item) {
-        this._super("menuEventHandler", [menu_item]);
-
         if (menu_item === 'close') {
             if (this.hasUnsavedChanges()) {
                 new chorus.alerts.WorkletUnsavedAlert({
@@ -118,7 +116,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
         chorus.PageEvents.trigger("worklet:editor:save", "saving");
 
-        return this.editorViews['inputs'].content.saveParameters() && this.worklet.save({ wait: true });
+        return this.editorViews['inputs'].content.saveParameters() && this.worklet.save(this.worklet.attributes, { wait: true });
     },
 
     workletStepsMenuEventHandler: function(menu_item) {
