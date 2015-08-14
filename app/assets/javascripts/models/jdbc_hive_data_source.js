@@ -37,11 +37,7 @@ chorus.models.JdbcHiveDataSource = chorus.models.DataSource.extend({
         this.require("host", newAttrs);
         this.require("hiveHadoopVersion", newAttrs);
 
-        if(newAttrs.hiveKerberos !== true) {
-            newAttrs.hiveKerberos = false;
-        }
-
-        if (newAttrs.hiveKerberos) {
+        if (this.get("hiveKerberos")) {
             this.require("hiveKerberosPrincipal", newAttrs);
             this.require("hiveKerberosKeytabLocation", newAttrs);
         }
