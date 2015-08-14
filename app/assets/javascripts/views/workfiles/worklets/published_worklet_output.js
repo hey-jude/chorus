@@ -34,7 +34,8 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
 
     additionalContext: function() {
         return {
-            resultsUrl: this.resultsUrl
+            resultsUrl: this.resultsUrl,
+            isPublished: this.worklet && this.worklet.get('fileType') === 'published_worklet'
         };
     }
 });
