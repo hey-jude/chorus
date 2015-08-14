@@ -3,7 +3,7 @@
     <div class="workflow_details">
         <h4>{{t "worklet.configure.settings.run_settings.heading"}}</h4>
         <br>
-        <b>{{t "worklet.configure.settings.run_as.label"}}Run Workflow As...</b>
+        <b>{{t "worklet.configure.settings.run_as.label"}}</b>
         <br>
         <div class="description_instructions">
             {{t "worklet.configure.settings.run_as.description"}}
@@ -17,11 +17,8 @@
 
         {{/each}}
 
-        <!--<input type="radio" name="run_persona" id="run_as_other" value="run_as_other">-->
-        <!--<label for="run_as_other">Run as...</label><br>-->
-
-        <br>
-        <br>
+        {{!-- <input type="radio" name="run_persona" id="run_as_other" value="run_as_other"> --}}
+        {{!-- <label for="run_as_other">Run as...</label> --}}
 
         <h4>{{t "worklet.configure.settings.output.heading"}}</h4>
         <br>
@@ -49,11 +46,10 @@
             </div>
         </div>
         
-        <br>
+        
         {{#each operators}}
             <input type="checkbox" class="checkbox_operator" id="{{this.id}}_checkbox" data-index="{{this.index}}"{{#if this.selected}} checked{{/if}}> {{this.name}}<br>
         {{/each}}
-        <br>
 
         <!--<hr>-->
         <!--<div class="spinner_div">-->
