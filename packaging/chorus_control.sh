@@ -98,6 +98,21 @@ function start () {
   fi
 }
 
+function migrate() {
+  EXIT_STATUS=0
+  pushd $CHORUS_HOME > /dev/null
+  flag=false
+  if [[ "$@" == "-f" || "$@" == "force" ]]; then
+    flag=true;
+  fi
+  $bin/start-postgres.sh;
+  EXIT_STATUS=`expr $EXIT_STATUS + $?`;
+  EXIT_STATUS=0
+  RAILS_ENV=$RAILS_ENV $RUBY -S $RAKE db:migrate_permissions force=$flag
+  EXIT_STATUS=`expr $EXIT_STATUS + $?`
+  popd > /dev/null
+}
+
 function stop () {
   while getopts "t:" OPTION; do
        case $OPTION in
@@ -275,6 +290,7 @@ function usage () {
   echo "  $script setup                                    setup chorus and alpine"
   echo "  $script health_check                             health check chorus service"
   echo "  $script configure                                configure chorus and alpine"
+  echo "  $script migrate [-f force]                       migrate permissions"
   echo
   if [ "$ALPINE_HOME" != "" ]; then
     echo "The following services are available: postgres, workers, indexer, scheduler, solr, webserver, alpine."
@@ -333,6 +349,9 @@ case $command in
 	   ;;
 	configure )
 	   configure ${@}
+	   ;;
+	migrate )
+	   migrate ${@}
 	   ;;
     * )
        usage
