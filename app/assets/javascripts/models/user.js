@@ -31,14 +31,15 @@ chorus.models.User = chorus.models.Base.extend({
         this.requireValidEmailAddress('email', newAttrs);
 
         if (!this.ldap){
-            this.requireConfirmationForChange('password', newAttrs);
+            this.validatePasswordIfChanged(newAttrs);
         }
     },
 
-    requireConfirmationForChange: function (name, newAttrs) {
-        if (this.isNew() || (newAttrs && newAttrs.hasOwnProperty(name))) {
-            this.require(name, newAttrs);
-            this.requireConfirmation(name, newAttrs);
+    validatePasswordIfChanged: function (newAttrs) {
+        if (this.isNew() || (newAttrs && newAttrs.hasOwnProperty('password'))) {
+            this.require('password', newAttrs);
+            this.requireConfirmation('password', newAttrs);
+            this.requirePattern("password", /^.{6,256}$/, newAttrs, "user.change_password_self.length_validation");
         }
     },
 
