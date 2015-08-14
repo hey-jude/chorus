@@ -66,7 +66,7 @@ chorus.views.ListContentDetails = chorus.views.Base.include(
     },
 
     startLoading: function(selector) {
-        this.$(selector).text(t("loading"));
+        this.$(selector).text(t("general.loading"));
     },
 
     updateFilterCount: function() {
