@@ -50,7 +50,7 @@ module LogArchiver
     alpine_install = {path: "/tmp/install.log",
                       archive_path: "#{ASSEMBLE_ZIP_DIR}/alpine_install_logs"}
 
-    postgres = {path: "#{(`echo $CHORUS_HOME`).to_s.strip}/shared/db/server.log",
+    postgres = {path: "#{(`echo $CHORUS_HOME`).to_s.strip}/../shared/db/server.log",
                 archive_path: "#{ASSEMBLE_ZIP_DIR}/postgres_logs"}
 
     chorus = {path: "#{Rails.root}/log",
@@ -75,7 +75,7 @@ module LogArchiver
   end
 
   def tomcat_path(version)
-    "#{(`echo $CHORUS_HOME`).to_s.strip}/alpine-current/apache-tomcat-#{version}/logs"
+    "#{(`echo $CHORUS_HOME`).to_s.strip}/../alpine-current/apache-tomcat-#{version}/logs"
   end
 
   def truncate_logs_into_assemble_zip_dir
