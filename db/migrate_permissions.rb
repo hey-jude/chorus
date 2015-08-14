@@ -111,12 +111,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
       ChorusClass.create(:name => user.class.name)
     end
     print '.'
-
-    #user_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
-
-    #user_object_role = ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
-    # add all users to default scope (application realm) by adding user to the default group
-    #user.chorus_scopes << application_realm
+    ChorusObject.create(:chorus_class_id => user_class.id, :instance_id => user.id, :chorus_scope_id => application_realm.id)
     user.groups << default_group
     count = count + user.gpdb_data_sources.count
     user.gpdb_data_sources.each do |data_source|
