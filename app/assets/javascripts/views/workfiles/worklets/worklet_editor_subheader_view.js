@@ -29,7 +29,6 @@ chorus.views.WorkletEditorSubheader = chorus.views.Base.extend({
         { mode: 'details', label: t('worklet.edit_mode.details'), hasErrors: false, unsaved: false },
         { mode: 'outputs', label: t('worklet.edit_mode.outputs'), hasErrors: false, unsaved: false },
         { mode: 'inputs', label: t('worklet.edit_mode.inputs'), hasErrors: false, unsaved: false }
-
     ],
 
     additionalContext: function() {

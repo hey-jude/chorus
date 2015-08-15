@@ -1,4 +1,6 @@
-<div class="worklet_inputs_configuration">
+{{!-- worklet: the parameters --}}
+
+<div class="worklet_configuration_panel worklet_inputs_configuration">
     <div class="main_header">{{t "worklet.main.configure_worklet_title"}}</div>
 
     <b>
@@ -21,8 +23,8 @@
                 <div class="section_controls">
                     <a href="#" class="delete_input_param" data-index="{{@index}}"><span class="fa fa-lg fa-trash"></span></a>
                 </div>
-                <!--<button type="submit" class="delete_input_param" data-index="{{@index}}">Delete</button>-->
             </div>
+
             <div class="input_section">
                
                <div class="form_pair">
@@ -35,8 +37,6 @@
                         {{/each}}
                     </select>
                 </div>
-
-                <!-- <br> -->
 
                 <div class="form_pair">
                     {{#if useDefaultDisabled}}
@@ -53,8 +53,6 @@
                     <label class="adjacent" for="required_{{@index}}">{{t "worklet.configure.inputs.required_field"}}</label>
                 </div>
 
-                <br>
-
                 <div class="form_pair">
                     <label for="label_{{@index}}" class="required">{{t "worklet.configure.inputs.field_label"}}</label>
                     <input type="text" id="label_{{@index}}" name="label_{{@index}}" data-index="{{@index}}" value="{{label}}">
@@ -64,8 +62,6 @@
                     <label for="description_{{@index}}">{{t "worklet.configure.inputs.field_description"}}</label>
                     <textarea id="description_{{@index}}" data-index="{{@index}}" name="description_{{@index}}">{{this.description}}</textarea>
                 </div>
-
-                <br>
 
                 <div class="form_pair">
                     <label for="data_type_{{@index}}" class="required">{{t "worklet.edit.input.data_type.label"}}</label>
@@ -78,39 +74,46 @@
                 </div>
 
                 {{#if hasOptions}}
-                    <br>
+                    
                     <div class="description_instructions">
                     {{t "worklet.configure.inputs.option_description"}}
                     </div>
                     <div class="option_edit">
                         <table>
+                            <thead>
                             <tr>
-                                <th>#</th>
-                                <th><div class="required">{{t "worklet.configure.select_option.label"}}Option</div></th>
-                                <th>{{t "worklet.configure.select_value.label"}}</th>
-                                <th></th>
+                                <th class="index_col">#</th>
+                                <th class="option_input_col"><span class="required">{{t "worklet.configure.select_option.label"}}</span></th>
+                                <th class="value_input_col">{{t "worklet.configure.select_value.label"}}</th>
+                                <th class="delete_col"></th>
                             </tr>
+                            </thead>
                             {{#each this.options}}
                                 <tr>
-                                    <td class="row_num_col">{{@index}}</td>
-                                    <td class="option_input_col"><input type="text" name="option_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.option}}"></td>
-                                    <td class="value_input_col"><input type="text" name="value_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.value}}"></td>
-                                    <td class="delete_button_col"><a class="delete_parameter_option" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}"><span class="delete_icon fa fa-lg fa-times-circle"></span></a></td>
+                                    <td class="index_col">{{@index}}</td>
+                                    <td class="option_input_col">
+                                        <input type="text" name="option_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.option}}"/>
+                                    </td>
+                                    <td class="value_input_col">
+                                        <input type="text" name="value_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.value}}"/>
+                                    </td>
+                                    <td class="delete_col">
+                                        <a class="removeWidget delete_parameter_option" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" title="{{t 'worklet.configure.delete_option.tooltip'}}"><span class="remove fa fa-times-circle"></span></a>
+                                    </td>
                                 </tr>
                             {{/each}}
                         </table>
                     </div>
-                    <a class="add_parameter_option" href="#" data-index="{{@index}}"><span class="fa fa-lg fa-plus-circle"></span> {{t "worklet.configure.inputs.add_option"}}</a>
+                    <a class="add_parameter_option addWidget" href="#" data-index="{{@index}}"><span class="fa fa-plus-circle add"></span> {{t "worklet.configure.inputs.add_option"}}</a>
                 {{/if}}
             </div>
-            <!--<div class="row form_controls">-->
-                <!--<button type="submit" class="modalish save_input_param" data-index="{{@index}}">{{t "worklet.configure.inputs.update_preview.button"}}</button>-->
-            <!--</div>-->
-            <br>
         </div>
-        <br><br>
         {{/each}}
-        <hr>
-        <button class="modalish add_new_parameter">{{t "worklet.configure.inputs.add_another_parameter.button"}}</button>
+
+        <div id="worklet_add_new_parameter">  
+            <hr>
+            <button class="modalish add_new_parameter">{{t "worklet.configure.inputs.add_another_parameter.button"}}</button>
+        </div>
+
     </div>
 </div>

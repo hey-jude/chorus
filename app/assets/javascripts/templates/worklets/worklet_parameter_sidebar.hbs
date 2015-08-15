@@ -1,6 +1,6 @@
 <div class="header">
     <div class="heading">{{t "worklet.edit.inputs_sidebar.heading"}}</div>
-    <div id="worklet_input_reset" class="button reset_inputs" title="{{t 'worklet.run.reset_inputs.button'}}"><span class="fa fa-times"></span></div>
+    <div id="worklet_input_reset" class="button reset_inputs" title="{{t 'worklet.run.reset_inputs.button'}}"><span class="fa fa-rotate-left"></span></div>
 </div>
 
 <div class="worklet_parameters"></div>
@@ -24,7 +24,7 @@
 
 <!-- TODO remove inline css -->
 {{#if runState}}
-    <div class="row form_controls stop_worklet" style="padding-top: 20px; display: none;">
+    <div id="stop_worklet" class="row form_controls hidden">
         <button type="submit" class="submit stop_worklet_button modalish">{{t "worklet.workbench.mode.run_stop_run"}}</button>
     </div>
 {{/if}}

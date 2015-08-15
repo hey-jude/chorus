@@ -36,10 +36,10 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     runEventHandler: function(event) {
         if (event === 'runStopped') {
             this.$(".run_worklet").stopLoading();
-            this.$(".stop_worklet").hide();
+            this.$("#stop_worklet").hide();
         } else if (event === 'runStarted') {
             this.$(".run_worklet").startLoading("general.running", {color: '#959595'});
-            this.$(".stop_worklet").show();
+            this.$("#stop_worklet").show();
         }
     },
 

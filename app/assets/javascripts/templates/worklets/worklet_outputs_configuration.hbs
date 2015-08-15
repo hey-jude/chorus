@@ -1,24 +1,30 @@
-<div class="worklet_outputs_configuration">
+{{!-- worklet: run settings & outputs to display --}}
+
+<div class="worklet_configuration_panel worklet_outputs_configuration">
     <div class="main_header">{{t "worklet.main.configure_worklet_title"}}</div>
+    
     <div class="workflow_details">
         <h4>{{t "worklet.configure.settings.run_settings.heading"}}</h4>
-        <br>
+        
+        
         <b>{{t "worklet.configure.settings.run_as.label"}}</b>
-        <br>
+
         <div class="description_instructions">
             {{t "worklet.configure.settings.run_as.description"}}
         </div>
         
-        <br>
 
         {{#each runPersonas}}
+        <div class="form_pair">
             <input type="radio" name="run_persona" id="run_as_{{this.run_persona}}" value="{{this.run_persona}}"{{#if this.selected}} checked{{/if}}>
-            <label for="run_as_{{this.run_persona}}">{{this.persona_run_statement}}</label><br>
-
+            <label class="adjacent" for="run_as_{{this.run_persona}}">{{this.persona_run_statement}}</label>
+        </div>
         {{/each}}
 
-        {{!-- <input type="radio" name="run_persona" id="run_as_other" value="run_as_other"> --}}
-        {{!-- <label for="run_as_other">Run as...</label> --}}
+        {{!-- commented out until feature is ready at which point it should be included in the list above --}
+        {{!--<input type="radio" name="run_persona" id="run_as_other" value="run_as_other"> --}}
+        {{!--<label for="run_as_other">Run as...</label> --}}
+
 
         <h4>{{t "worklet.configure.settings.output.heading"}}</h4>
         <br>
@@ -36,7 +42,7 @@
                     </a>
                 {{/each}}
                 <img class="workfile_image" src="{{workflowImageUrl}}" alt=""/>
-                <!-- repeat under the image -->
+                {!-- repeat under the image --}}
                 {{#each operators}}
                     <a href="#" class="visual_operator_bottom">
                         <div id="{{this.id}}B" class="image_operator_bottom {{#if this.selected}}marked{{/if}}" style="left: {{this.bg_left}}px; top: {{this.bg_top}}px;"></div>
@@ -48,15 +54,11 @@
         
         
         {{#each operators}}
-            <input type="checkbox" class="checkbox_operator" id="{{this.id}}_checkbox" data-index="{{this.index}}"{{#if this.selected}} checked{{/if}}> {{this.name}}<br>
+        <div class="form_pair">
+            <input type="checkbox" class="checkbox_operator" id="{{this.id}}_checkbox" data-index="{{this.index}}"{{#if this.selected}} checked{{/if}}>
+            <label class="adjacent" for="{{this.id}}_checkbox">{{this.name}}</label>
+        </div>
         {{/each}}
 
-        <!--<hr>-->
-        <!--<div class="spinner_div">-->
-        <!--<span class='loading_spinner'></span>Updating...-->
-        <!--</div>-->
-        <!--<div class="row form_controls">-->
-        <!--<button type="submit" class="modalish update_details">Update</button>-->
-        <!--</div>-->
     </div>
 </div>

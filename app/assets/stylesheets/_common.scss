@@ -83,7 +83,7 @@ $border-color-darkest:  darken($border-color, 15%);
 // Text colors
 $color-text1:   darken($charcoal, 10%);
 $color-text2:   $charcoal;
-$color-text3:   lighten($charcoal, 10%);
+$color-text3:   lighten($charcoal, 7%);
 $color-text4:   lighten($bright-grey, 20%);
 $link-color:    $brand;
 $disabled-text: #939799;
@@ -155,6 +155,10 @@ $type-ahead-result-border-color:            #A5A6A8;
 $content-header-link-color:     $color-text4;
 $required-marker-color:         $error;
 
+// LINKS */
+$default-link-color: $blue;
+$low-light-link-color: $gray;
+
 
 // NOTIFICATIONS aka MESSAGING
 // COLORS
@@ -215,6 +219,11 @@ $alert-icon-medium:     16px;
 $alert-icon-small:      12px;
 
 
+// APPLICATION ICONS
+$delete-icon-color:         #D08077;
+$delete-icon-hover-color:   #EE5740;
+$add-icon-color:            scale_color($default-link-color, $saturation: -10%);
+$add-icon-hover-color:      $default-link-color;
 
 // Dimensions
 $sidebar-width : 266px;
@@ -341,13 +350,8 @@ $mid-light-type: #5f5f5f;
 
 $action-bar-highlighted-font-color: $fiji-green;
 
-// LINK */
-
-$default-link-color: $blue;
-$low-light-link-color: $gray;
 
 // LISTS */
-
 $list-horizontal-divider: 1px solid $border-color;
 $list-vertical-divider: 1px solid $border-color;
 $list-selectable-hover-color: rgba(0,0,0,0.1);
@@ -362,7 +366,6 @@ $list-breadcrumb-spacingright: 5px;
 $list-breadcrumb-size: 13px;
 
 // WHITESPACE */
-
 $baseLineHeight: 1.5em !default; //must be in em
 $baseFontSize: 15px !default; // must be px
 
@@ -408,6 +411,8 @@ $lozenge-color-normal-dark: darken($lozenge-color-normal, 7%);
 $lozenge-color-hover-dark: darken($lozenge-color-hover, 7%);
 $lozenge-color-selected-dark: $brand-dark;
 
+$lozenge-font-weight: $semibold;
+$lozenge-font-size: 12px;
 
 ///////////////////////////////////////////////////////
 // Mixins
@@ -748,10 +753,10 @@ $lozenge-color-selected-dark: $brand-dark;
 }
 
 // ********* */
-// used to generate the pill shapes used in sub nav and right-side nav tabs */
+// LOZENGE: generates the pill shapes used in sub nav and right-side nav tabs */
 // call with: */
-// min-width: min width of the pill */
-// height: height of the pill. if none provided, defaults to 21px */
+//   min-width: min width of the pill */
+//   height: height of the pill. if none provided, defaults to 21px */
 
 @mixin pill-tab($min-width, $height: $default-lozenge-height) {
     &:hover .lozenge {
@@ -760,7 +765,7 @@ $lozenge-color-selected-dark: $brand-dark;
     }
     .lozenge {
         @include lozenge(0, $min-width, $height);
-        font-size: 12px;
+        font-size: $lozenge-font-size;
         color: $color-text2;
         padding: 0 10px;
     }
@@ -797,7 +802,7 @@ $lozenge-color-selected-dark: $brand-dark;
     @include uppercase;
     height: $height;
     line-height: $height;
-    font-weight: $semibold;
+    font-weight: $lozenge-font-weight;
     display: inline-block;
     padding: $padding;
     text-align: center;

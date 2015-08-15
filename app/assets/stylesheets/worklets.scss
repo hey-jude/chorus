@@ -18,11 +18,22 @@ $worklet-history-item-normal-color: #CCC;
 $worklet-history-item-selected-color: $accent-shade;
         
 
-/* page layout        */
+$worklet-edit-avatar-size: 150px;
+
+
+// *****
+// PAGE LAYOUT
 
 #help,
 .content_footer {
     display: none;
+}
+
+
+div[data-page="WorkletEdit"] {
+    .content_header {
+        border: none;
+    }
 }
 
 
@@ -58,7 +69,6 @@ div[data-page="WorkletRun"] {
         width: $worklet-right-column-width;
 
     #sidebar {
-        
       width: $worklet-right-column-width;
       /* position: absolute; */
       /* width: 266px; */
@@ -108,7 +118,7 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 }
-/* END page layout */
+// END: page layout
 
 
 .content_header {
@@ -153,15 +163,28 @@ div[data-page="PublishedWorkletShow"] {
   }
 }
 
-.reset_inputs {
-    $height-button-widgetshell: 23px;
 
-    @include panel-button($height-button-widgetshell);
-    width: 35px;
-    font-size: $small-font;
+// *****
+// INPUTS PANEL
+#worklet_input_reset {
+    
+    position: absolute;
+    top: 10px;
+    right: $page-margin-right;
 
+    &.reset_inputs {
+        $height-button-widgetshell: 19px;
+
+        @include panel-button($height-button-widgetshell);
+        width: 35px;
+        font-size: $small-font;
+    }
 }
 
+#stop_worklet {
+    padding-top: 20px;
+
+}
 
 .worklets_worklet_parameter_sidebar {
   background-color: $pattens-blue;
@@ -182,7 +205,6 @@ div[data-page="PublishedWorkletShow"] {
     min-height: 80px;
     background-color: $core-white;
     border: $dark-border-canon;
-    // margin: 3px;
 
     .title_bar {
       position: relative;
@@ -245,7 +267,7 @@ div[data-page="PublishedWorkletShow"] {
     border: $dark-border-canon;
     margin: 3px;
     
-    //TODO revise to use normal marker display for emty message
+    //TODO revise to use normal marker display for empty message
     .notice_icon {
       margin-left: 10px;
       margin-right: 10px;
@@ -312,12 +334,18 @@ div[data-page="PublishedWorkletShow"] {
   }
 }
 
-.worklets_worklet_editor_subheader {
+// container for the steps heading thingy
 
-  // workletSteps = breadcrumb = worklet steps bar
-  .workletSteps {
+$background-color-workletSteps-container: #cddcf3;
+    
+.worklets_worklet_editor_subheader {
+    background-color: $background-color-workletSteps-container;
+    max-height: 50px;
+}
+
+// workletSteps = breadcrumb = worklet steps bar
+#workletSteps {
   
-    $background-color-workletSteps-container: #cddcf3;
     $text-color-past: #FFFFFF;
     $text-color-future: $charcoal;
     $background-color-workletStep-past: #415885;
@@ -327,18 +355,16 @@ div[data-page="PublishedWorkletShow"] {
     
     // height & width of an individual step
     $workletStep-height: 30px;
-    $workletStep-width: 110px;
+    $workletStep-width: 135px;
     
     // space between steps
     $workletStep-separation: 2px;
 
-    width: 100%;
-    background: $background-color-workletSteps-container;
     padding: 10px 0 10px 0;
-    font-size: $medium-font;
+    margin-left: $page-margin-left;
+
     display: inline-block;
 
-    
     a {
         width: $workletStep-width;
         text-decoration: none;
@@ -346,15 +372,19 @@ div[data-page="PublishedWorkletShow"] {
         display: block;
         float: left;
         line-height: $workletStep-height;
-        padding: 0 10px 0 60px;
+        padding: 0 10px 0 35px;
         position: relative;
-      
+
+        // variant of the lozenge
+        @include uppercase;
+        font-weight: $semibold;
+        font-size: $lozenge-font-size;
+
         &:first-child {
             padding-left: 46px;
             border-radius: 20px 0 0 20px;      
         }
       
-
         &:last-child {
             border-radius: 0 20px 20px 0;
             padding-right: 20px;
@@ -404,7 +434,6 @@ div[data-page="PublishedWorkletShow"] {
         }  
     }
 
-
     .past,
     a.past:after {
       background: $background-color-workletStep-past;
@@ -431,13 +460,12 @@ div[data-page="PublishedWorkletShow"] {
       background: $background-color-workletStep-hover;
     }
     
-
-  }
 }
+// }
 
-.worklet_inputs_configuration,
-.worklet_details_configuration {
-  margin-top: 5px;
+.worklet_configuration_panel {
+  // margin-top: 5px;
+  border: 1px solid #F00;  // TODO: remove when final
 }
 
 .worklets_parameters_worklet_numeric_parameter {
@@ -476,6 +504,7 @@ div[data-page="PublishedWorkletShow"] {
 .worklet_details_configuration,
 .worklet_outputs_configuration,
 .worklet_workflow_configuration {
+
   .worklet_param {
     border: 1px solid $border-color-darkest;
     margin: 5px;
@@ -488,42 +517,78 @@ div[data-page="PublishedWorkletShow"] {
     }
 
     .workflow_variable {
-
     }
 
+    // table for building option list
     .option_edit {
-      margin-top: 5px;
 
-      .delete_icon {
-        color: red;
-      }
-      table {
-        border-spacing: 5px;
-        border-collapse: separate;
-        th {
-          background-color: lightgray;
-          text-align: left;
+        $worklet-optiontable-border-size: 1px;
+        $worklet-optiontable-header-color: #CCCCC9;
+
+        margin-top: 5px;
+
+        table {
+            min-width: 500px;
+            width: 90%;
+            
+            border-spacing: $worklet-optiontable-border-size;
+            border-collapse: separate;
+            
+            th, td {
+                padding: 1px 5px 1px 3px;
+                text-align: left;
+            }
+            th {
+              background-color: $worklet-optiontable-header-color;
+              font-size: $small-font;
+              height: 2em;
+            }
+
+            .index_col {
+              background-color: $worklet-optiontable-header-color;
+              width: 13px;
+              max-width: 13px;
+              text-align: right;
+            }
+            .option_input_col,
+            .value_input_col {
+                width: 210px;
+                width: 200px;
+            }
+            
+            td.option_input_col, td.value_input_col {
+              padding-left: 1px;
+              padding-right: 1px;
+            }
+            .delete_col {
+              width: 5px;
+              max-width: 5px;
+              text-align: center;
+            }
         }
-        td {
-          text-align: left;
+        // option delete
+        .removeWidget {
+            .remove {
+                color: $delete-icon-color;
+                &:hover {
+                    color: $delete-icon-hover-color;
+                }
+            }
         }
-        .row_num_col {
-          background-color: lightgray;
-          min-width: 10px;
-        }
-        .option_input_col {
-          padding: 2px;
-          width: 250px;
-        }
-        .value_input_col {
-          padding: 2px;
-          width: 150px;
-        }
-        .delete_col {
-          width: 20px;
-        }
-      }
+
     }
+    // option add
+    .addWidget {
+        font-size: $small-font;
+        .add {
+            vertical-align: text-top;
+            color: $add-icon-color;
+            &:hover {
+                color: $add-icon-hover-color;
+            }
+        }
+    }
+        
   }
 
   select.workflow_variable, .ui-selectmenu-button .ui-button {
@@ -531,30 +596,47 @@ div[data-page="PublishedWorkletShow"] {
     min-width: 215px;
   }
 
-  .image_instructions {
-    margin-left: 10px;
-    font-size: $small-font;
-    color: $color-text4;
-  }
-
   .description_instructions {
     font-size: $small-font;
     color: $color-text4;
   }
 
-  .worklet_image {
+
+
+.avatar_img_envelope {
+    overflow: hidden;
+    width: $worklet-edit-avatar-size;
+    height: $worklet-edit-avatar-size;
+    display: inline-block;
+    
+    vertical-align: top;
+}
+
+  img.worklet_image {
     background-size: cover;
-    float: left;
-    width: 150px;
-    height: 150px;
-    margin-right: 5px;
+    // float: left;
+    // width: $worklet-edit-avatar-size;
+    // height: $worklet-edit-avatar-size;
+    // margin-right: 5px;
+    width: 100%;
+    
   }
+
+
+  .image_instructions {
+    margin-left: 10px;
+    font-size: $small-font;
+    color: $color-text4;
+    width: 39%;
+    display: inline-block;
+  }
+
 
   .main_header {
     font-size: $page_header-fontsize;
     height: 40px;
-    padding-top: 10px;
-    padding-left: 5px;
+    margin-top: 10px;
+    // padding-left: 5px;
     margin-bottom: 5px;
   }
 
@@ -577,7 +659,6 @@ div[data-page="PublishedWorkletShow"] {
   }
 
   .workflow_details {
-    // margin: 5px;
       .item_name {
           padding-top: 12px;
           .item_description {
@@ -586,8 +667,7 @@ div[data-page="PublishedWorkletShow"] {
       }
   }
 
-  .workfile_image {
-  }
+  .workfile_image {}
 
 
   .spinner_div {
@@ -611,9 +691,10 @@ div[data-page="PublishedWorkletShow"] {
 .worklet_panel {
     box-sizing: border-box;
     border: 1px solid #F00;
+    position: relative;
 
   .header {
-    padding: 10px 0 10px 10px;
+    padding: 10px 10px 10px 10px;
 
     .title {
         display: inline-block;
@@ -676,7 +757,7 @@ $worklet_operator_selection_color: #399ccd;
   }
 }
 
-// *********
+// *****
 // worklet history panel
 .worklet_history {
     width: $worklet-left-column-width; /* LC width */
@@ -867,7 +948,6 @@ $worklet-testResults-loader-width: 170px;
 #loading_doohickey {
     position: relative;
     width: $worklet-testResults-loader-width;
-    // min-height: 100px;
     
     background-color: #49F;
     border: 1px solid #00F;
@@ -900,12 +980,12 @@ $worklet-testResults-loader-width: 170px;
 #testResults_frame {
     height: 650px;
     width: $default-dialog-width-wide - 25px;
-
 }
 
 // END: TEST RESULTS
 
 
+// *****
 // CATALOG
 .worklet_catalog_card {
     @include border-radius(3px);
@@ -928,43 +1008,38 @@ $worklet-testResults-loader-width: 170px;
         
         img {
             // @include filter(brightness(0.77));
-            opacity: 0.73;
+            width: 100%;
             
+            opacity: 0.73;
             &:hover {
-                opacity: 0.96;
+                opacity: 0.97;
             }
         }
     }
     .worklet_card_content {
-        pointer-events: none;
+        pointer-events: none; // makes the text content transparent to click events
         position: absolute;
         top: 0;
         width: 100%;
         height: 100%;
-        
         color:$core-white;
 
         .worklet_title {
             padding: 10px;
             position: relative;
             height: 100%;
-            // color: $core-white;
              
             h3 {
                 @include font-primary-bold;
                 @include ellipsis;
             }
-    
-            
         }
         .worklet_description {
             margin: 10px;
             position: absolute;
-            
             bottom: 0px;
         }
     }
 }
-
 
 // END: CATALOG

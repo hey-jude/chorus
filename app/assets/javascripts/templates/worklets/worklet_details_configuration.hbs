@@ -1,10 +1,12 @@
-<div class="worklet_details_configuration">
+{{!-- worklet: details --}}
+
+<div class="worklet_configuration_panel worklet_details_configuration">
     <div class="main_header">{{t "worklet.main.configure_worklet"}}</div>
 
     <div>
-      <b>
+      <!-- <b> -->
         {{t "worklet.main.define_the_worklet_details"}}
-      </b>
+      <!-- </b> -->
 
       <div class="description_instructions">
           {{t "worklet.main.describe_the_worklet"}}
@@ -17,28 +19,35 @@
 
         <div class="section_header">{{t "worklet.main.worklet_details.title"}}</div>
 
-        <label class="required">{{t "worklet.main.worklet_details.filename.label"}}</label>
-        <input type="text" name="fileName" placeholder="{{t 'workfiles.new.filename_placeholder'}}" value="{{fileName}}">
-        <br>
+        <div class="form_pair form_row">
+            <label class="required">{{t "worklet.main.worklet_details.filename.label"}}</label>
+            <input type="text" name="fileName" placeholder="{{t 'workfiles.new.filename_placeholder'}}" value="{{fileName}}">
+        </div>
 
-        <label>{{t 'worklet.new.description.label' }}</label>
-        <textarea name="description">{{description}}</textarea>
-        <br>
-
-        <label>{{t "worklet.edit.avatar_image_label"}}</label>
-        <div class="image_upload">
-            <img id="avatar_img" src="{{avatarUrl}}" class="worklet_image" alt=""/>
-            <div class="image_instructions">
-              {{t "worklet.edit.avatar_image_description_info"}}
+        <div class="form_pair form_row">
+            <label>{{t 'worklet.new.description.label' }}</label>
+            <textarea name="description">{{description}}</textarea>
+        </div>
+        
+        <div class="form_pair form_row">
+            <label>{{t "worklet.edit.avatar_image_label"}}</label>
+            <div class="image_upload">
+                <div class="avatar_img_envelope">
+                    <img id="avatar_img" src="{{avatarUrl}}" class="worklet_image" alt=""/>
+                </div>
+                <div class="image_instructions">
+                  {{t "worklet.edit.avatar_image_description_info"}}
+                </div>
+            </div>
+            <div>
+                <span class="file-wrapper">
+                    <button type="submit" class="choose button_action upload_new_image">{{t "worklet.edit.avatar_image_upload_new_image.button"}}</button>
+                    <input type="file" class="file-input" name="contents" multiple=""/>
+                </span>
             </div>
         </div>
-        <div>
-            <span class="file-wrapper">
-                <button type="submit" class="upload_new_image">{{t "worklet.edit.avatar_image_upload_new_image"}}</button>
-                <input type="file" class="file-input" name="contents" multiple=""/>
-            </span>
-        </div>
-        <div style="clear: both;"></div>
+        
+        <!-- <div style="clear: both;"></div> -->
         <!--<hr>-->
         <!--<div class="spinner_div">-->
             <!--<span class='loading_spinner'></span>Updating...-->
