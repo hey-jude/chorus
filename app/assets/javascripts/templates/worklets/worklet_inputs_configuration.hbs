@@ -32,6 +32,7 @@
                       {{t "worklet.configure.inputs.workflow_variable"}}
                    </label>
                     <select id="variable_name_{{@index}}" name="variable_name_{{@index}}" data-index="{{@index}}" class="workflow_variable">
+                        <option value="" selected disabled>{{t "general.select_one"}}</option>
                         {{#each ../workflowVariables}}
                             <option value="{{this.variableName}}" {{selectedIfMatch this.variableName ../this.variableName}}>{{this.variableName}}</option>
                         {{/each}}
@@ -66,7 +67,7 @@
                 <div class="form_pair">
                     <label for="data_type_{{@index}}" class="required">{{t "worklet.edit.input.data_type.label"}}</label>
                     <select id="data_type_{{@index}}" name="data_type_{{@index}}" data-index="{{@index}}" class="workflow_variable">
-                        <option value=""></option>
+                        <option value="" selected disabled>{{t "general.select_one"}}</option>
                         {{#each ../dataTypes}}
                             <option value="{{this}}" {{selectedIfMatch this ../this.dataType}}>{{this}}</option>
                         {{/each}}

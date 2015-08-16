@@ -53,7 +53,7 @@ describe("chorus.dialogs.DataSourcesNew", function() {
         });
 
         it("starts with no select box selected", function() {
-            expect(this.dialog.$(".data_sources option:selected").text()).toMatchTranslation("selectbox.select_one");
+            expect(this.dialog.$(".data_sources option:selected").text()).toMatchTranslation("general.select_one");
         });
 
         it("starts with the submit button disabled", function() {
