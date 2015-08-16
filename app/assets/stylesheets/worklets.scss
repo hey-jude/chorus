@@ -52,12 +52,16 @@ div[data-page="PublishedWorkletShow"] {
         margin-right: 10px;
     }
     
-
     .content_header {
         border: none;
     }
 }
 
+div[data-page="PublishedWorkletShow"] { 
+    .content_header {
+        display: none;
+    }
+}
 
 div[data-page="PublishedWorkletIndex"] {
   #left {
@@ -156,12 +160,20 @@ div[data-page="PublishedWorkletShow"] {
     max-height: 40px;
     // margin-left: 7px;
     float: left;
+    position: relative;
+    // adjustments particular to the current icon
+    top: 2px;
+    left: -2px;
+    
   }
 
+    // ?????????
+    // TODO where is this used?
+    // ???????
   .item_information {
     float: left;
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 5px;
     max-width: 70%;
     h1 {
         @include ellipsis;
@@ -379,14 +391,15 @@ div[data-page="PublishedWorkletShow"] {
 
 // container for the steps heading thingy
 
-$background-color-workletSteps-container: #cddcf3;
-    
+$workletSteps-container-background-color: #CDDCF3;
+$workletSteps-container-height: 50px;
+
 .worklets_worklet_editor_subheader {
-    background-color: $background-color-workletSteps-container;
-    max-height: 50px;
+    background-color: $workletSteps-container-background-color;
+    max-height: $workletSteps-container-height;
 }
 
-// workletSteps = breadcrumb = worklet steps bar
+// workletSteps AKA breadcrumb = worklet steps bar
 #workletSteps {
   
     $text-color-past: #FFFFFF;
@@ -397,7 +410,7 @@ $background-color-workletSteps-container: #cddcf3;
     $background-color-workletStep-hover: $background-color-workletStep-current;
     
     // height & width of an individual step
-    $workletStep-height: 30px;
+    $workletStep-height: 29px;
     $workletStep-width: 135px;
     
     // space between steps
@@ -550,7 +563,7 @@ $background-color-workletSteps-container: #cddcf3;
 
     border: $border-canon;
     @include border-radius(2px);
-    margin: 0 10px 10px 0;
+    margin: 0 0 10px 0;
 
     .input_section {
       .disabled {

@@ -550,8 +550,8 @@ $lozenge-font-size: 12px;
 
 @mixin uppercase {
     text-transform: uppercase;
-    letter-spacing: 1px;
-    word-spacing: 0.135em;
+    letter-spacing: 1.05px;
+    word-spacing: 0.14em;
 }
 
 @mixin list-section-heading {
