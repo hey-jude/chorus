@@ -51,7 +51,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
             return _.where(m, this.attributes).length > 0;
         }, param_model).indexOf(true);
 
-        var target = 'div.worklet_param[data-index="' + param_ind + '"]';
+        var target = 'div.worklet_parameter_module[data-index="' + param_ind + '"]';
         var offset_div = $('#sub_nav');
 
         $('body').scrollTo(target, { offsetTop: offset_div.offset().top + offset_div.height() });

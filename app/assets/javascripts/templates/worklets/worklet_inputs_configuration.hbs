@@ -17,11 +17,11 @@
         <div class="errors"></div>
 
         {{#each workletParams}}
-        <div class="worklet_param" data-index="{{@index}}">
+        <div class="worklet_parameter_module" data-index="{{@index}}">
             <div class="section_header">
                 {{t "worklet.configure.inputs.inputs_number_heading"}} {{@index}}
                 <div class="section_controls">
-                    <a href="#" class="delete_input_param" data-index="{{@index}}"><span class="fa fa-lg fa-trash"></span></a>
+                    <a href="#" class="delete_input_param" data-index="{{@index}}" title="{{t 'worklet.configure.delete_parameter.tooltip'}}"><span class="fa fa-lg fa-trash"></span></a>
                 </div>
             </div>
 
