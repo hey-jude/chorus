@@ -10,7 +10,7 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
 
     preRender: function() {
         this.historyItems = _.map(this.collection.models, function(model, index) {
-            var view = new chorus.views.PublishedWorkletHistoryItem({
+            var view = new chorus.views.PublishedWorkletHistoryEntry({
                 model: model,
                 index: this.collection.length - index,
                 mainPage: this.mainPage

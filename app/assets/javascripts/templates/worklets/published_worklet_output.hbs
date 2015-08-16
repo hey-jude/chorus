@@ -1,17 +1,17 @@
-<!-- <div id="share_results_loading" style="padding: 10px 20px; display: none;"> -->
+{{!-- shell for workflow output in worklet RUN workbench --}}
 
-<div id="workletResults_loading">
+<div id="workletResults_loading" class="hidden">
     {{t "general.loading"}}
 </div>
 
 <div class="iframe_wrapper">
 
-    <div style="display: inline-block;">
+    <!-- <div style="display: inline-block;"> -->
+    <div>
         {{#if isPublished}}
-            <div class="row form_controls" id="share_results" style="padding: 10px; margin-bottom: 15px; display: none; width: 780px; background: rgb(240, 245, 250)">
-
-            <button class="submit modalish">{{t "worklet.share_these_results"}}</button>
-        </div>
+            <div class="form_controls" id="share_all_results">
+                <button class="submit modalish">{{t "worklet.results.share_these_results.button"}}!</button>
+            </div>
         {{/if}}
 
         <iframe id="results" src="{{resultsUrl}}"></iframe>

@@ -70,7 +70,7 @@ chorus.views.PublishedWorkletSubmit = chorus.views.Base.extend({
 
     reloadHistory: function() {
         this.historyView.render();
-        this.historyView.$('.history_item')[0].click();
+        this.historyView.$('.history_entry')[0].click();
     },
 
     additionalContext: function () {

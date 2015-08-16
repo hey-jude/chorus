@@ -11,6 +11,9 @@
     <div class="errors"></div>
     <div class="input_section">
         <label class="label{{#if required}} required{{/if}}">{{label}}</label>
+        <div class="description">
+        {{description}}
+        </div>
         <div class="multiple_select_container">
             {{#each options}}
                 <div class="multiple_select_input">
@@ -21,7 +24,5 @@
         </div>
         <div style="clear: both;"></div>
     </div>
-    <div class="description">
-        {{description}}
-    </div>
+
 </div>

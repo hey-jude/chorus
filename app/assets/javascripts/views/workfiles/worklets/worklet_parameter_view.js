@@ -30,14 +30,14 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
             // Cast model to subclass that has type-specific validations
             parameter_model = parameter_model.castByDataType();
 
-            // View specific to the subclass is stored in "viewClass" attribute of the model.
+            // View specific to the subclass is stored in "viewClass" attribute of the model
             var parameter_view = new parameter_model.viewClass({
                 model: parameter_model,
                 state: this.state
             });
             this.registerSubView(parameter_view);
 
-            // Storing both view and model instances for validation ease.
+            // Storing both view and model instances for validation ease
             return { view: parameter_view, model: parameter_model };
         }, this);
     },
@@ -45,7 +45,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
     postRender: function () {
         if (this.parameters.length) {
             // Renders each subview into a document fragment container first
-            // so as to not incrementally re-render inefficiently.
+            // so as to not incrementally re-render inefficiently
             var container = document.createDocumentFragment();
             _.each(this.parameters, function(parameter) {
                 container.appendChild(parameter.view.render().el);
@@ -68,7 +68,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
 
     validateParameterInputs: function() {
         // Uses the { view: ..., model: ... } structure as created in this.preRender
-        // to validate each model, and then to display on the view.
+        // to validate each model, and then to display on the view
         this.collectParameterUserInputs();
 
         var hasErrors = _.filter(this.parameters, function(parameter) {
@@ -82,7 +82,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
 
         if (hasErrors.length > 0) {
             _.each(hasErrors, function(parameter) {
-                // Places error to the left of the input.
+                // Places error to the left of the input
                 parameter.view.showErrors(parameter.model, {
                     position: {
                         at: "left center",
@@ -169,7 +169,7 @@ chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.includ
         // Assumes there's an <select name="n"> where "n" is this.model.get('variableName')
         var v = {};
         var var_el = this.$el.find('select[name="' + this.model.get('variableName') + '"]  option:selected');
-        // Uses the name of the option if the option value is blank.
+        // Uses the name of the option if the option value is blank
         v[this.model.get('variableName')] = var_el.val() || var_el[0].dataset.optionLabel;
 
         return v;

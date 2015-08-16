@@ -9,8 +9,8 @@ $workbench-module-title-height: 35px;
 $workbench-module-padding: 10px;
 $title-height: $workbench-module-title-height - $workbench-module-padding;
 
-$worklet-left-column-width: 200px;
-$worklet-right-column-width: 350px;
+$worklet-left-column-width: 170px;  // history panel
+$worklet-right-column-width: 350px; // inputs panel
 $worklet-column-padding-x: $padding-x;
 $worklet-column-padding-y: $padding-x;
 
@@ -43,6 +43,9 @@ $worklet-edit-avatar-size: 150px;
     display: none;
 }
 
+.content_header {
+  padding: 0;
+}
 
 div[data-page="WorkletEdit"],
 div[data-page="WorkletRun"],
@@ -52,8 +55,12 @@ div[data-page="PublishedWorkletShow"] {
         margin-right: 10px;
     }
     
+    .primary_action_panel,
     .content_header {
         border: none;
+    }
+    #sidebar .sidebar_content {
+        margin-bottom: 0;
     }
 }
 
@@ -126,10 +133,6 @@ div[data-page="PublishedWorkletShow"] {
 
     #sidebar {
       width: $worklet-right-column-width;
-      /* position: absolute; */
-      /* width: 266px; */
-      /* padding-left: 16px; */
-      /* padding-top: 10px; */
       padding-left: 0;
       padding-top: 0;
       top: 45px;
@@ -139,10 +142,6 @@ div[data-page="PublishedWorkletShow"] {
 }
 // END: page layout
 
-
-.content_header {
-  padding: 0;
-}
 
 
 .worklets_worklet_header {
@@ -154,11 +153,9 @@ div[data-page="PublishedWorkletShow"] {
         margin-left: $page-margin-left;
         margin-right: $page-margin-right;
     }
-    
 
   .icon {
     max-height: 40px;
-    // margin-left: 7px;
     float: left;
     position: relative;
     // adjustments particular to the current icon
@@ -180,7 +177,7 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 
-
+    // top actions for the worklet
   .worklet_menu {
     position: absolute;
     right: 0;
@@ -241,25 +238,25 @@ div[data-page="PublishedWorkletShow"] {
 
 }
 
+// right side parameter panel
 .worklets_worklet_parameter_sidebar {
   background-color: $pattens-blue;
-  width: $worklet-right-column-width;          /* RC width */
+  width: $worklet-right-column-width;
   height: 100%;
+  // height: 100vh;
 
   .heading {
     max-width: $worklet-right-column-width - (2 * $worklet-column-padding-x);
-//     padding: 10px 0 10px 20px;
-//     background: $accent-shade;
-//     border-top: $dark-border-canon;
-//     border-bottom: $dark-border-canon;
   }
 
 
   // Common to all parameters
+  // worklet_parameter = an input block on right panel
   .worklet_parameter {
     min-height: 80px;
     background-color: $core-white;
     border: $dark-border-canon;
+    box-sizing: border-box;
 
     .title_bar {
       position: relative;
@@ -267,31 +264,39 @@ div[data-page="PublishedWorkletShow"] {
       line-height: 25px;
       background-color: $shaded-background-color;
 
-      .title_text {}
+      .title_text {
+        margin-left: 10px;
+      }
 
       .buttons {
         position: absolute;
-        right: 0;
+        right: 20px;
         top: 0;
       }
     }
 
     .content {
-      margin: 5px;
-      width: $worklet-right-column-width - 18px;
+
+      // width: $worklet-right-column-width - 25px;
+      width: inherit;
+      height: inherit;
+      
+      margin: 5px 25px 10px 10px;
+      
       .input_section {
         .label {
-          font-weight: $bold;
+          font-weight: $semibold;
         }
 
         .text_input {
-          width: $worklet-right-column-width - 25px;
-          margin: 5px;
+          // width: $worklet-right-column-width - 25px;
+          // margin: 5px;
         }
 
         .single_select_input {
-          width: $worklet-right-column-width - 25px;
-          margin: 5px;
+          // width: $worklet-right-column-width - 25px;
+          width: 100%;
+          // margin: 5px;
         }
 
         .multiple_select_container {
@@ -302,15 +307,17 @@ div[data-page="PublishedWorkletShow"] {
             word-wrap: break-word;
             width: ($worklet-right-column-width - 50px)/2;
             max-width: ($worklet-right-column-width - 50px)/2;
-            margin: 5px;
+            // margin: 5px;
           }
+        }
+        .description {
+            margin: 5px 0;
+            font-size: $small-font;
+            color: $color-text4;
         }
       }
 
-      .description {
-        font-size: $small-font;
-        color: #CCC;
-      }
+
     }
   }
 
@@ -358,7 +365,7 @@ div[data-page="PublishedWorkletShow"] {
 
     .description {
       font-size: $small-font;
-      font-color: #CCC;
+      color: $color-text4;
     }
 
     input.textInput {
@@ -521,7 +528,6 @@ $workletSteps-container-height: 50px;
 // }
 
 .worklet_configuration_panel {
-//   border: 1px solid #F00;  // TODO: remove when final
   margin-left: $page-margin-left;
 }
 
@@ -558,7 +564,7 @@ $workletSteps-container-height: 50px;
 
 
 
-// module for each input parameter
+// module for each input parameter's configuration
 .worklet_parameter_module {
 
     border: $border-canon;
@@ -571,7 +577,6 @@ $workletSteps-container-height: 50px;
       }
       margin: 10px;
     }
-
 
     // for building the list of options
     .option_edit {
@@ -689,13 +694,11 @@ $workletSteps-container-height: 50px;
     font-size: $page_header-fontsize;
     height: 40px;
     margin-top: 10px;
-    // padding-left: 5px;
     margin-bottom: 5px;
   }
     .step_header {
         h3 {}
         margin-bottom: 10px;
-        
     }
 
     
@@ -744,7 +747,6 @@ $workletSteps-container-height: 50px;
 
 .worklet_panel {
     box-sizing: border-box;
-    border: 1px solid #F00;
     position: relative;
 
   .header {
@@ -760,10 +762,10 @@ $workletSteps-container-height: 50px;
   }
 }
 
-// for the visual operator selector 
+// spit and gum for the visual operator selector 
 #worklet_outputs {
 
-$worklet_operator_selection_color: #399ccd;
+    $worklet_operator_selection_color: #399ccd;
 
 
     .visual_operator {
@@ -778,74 +780,77 @@ $worklet_operator_selection_color: #399ccd;
         z-index: 10;
     }
 
-  #workfile_image_container {
-    position: relative;
-    
-    border: 1px solid $border-color-darkest;
-    
-    max-width: 100%;
-    max-height: 420px;
-    margin: 10px 0 10px 0;
-    overflow: scroll;
+    #workfile_image_container {
+        position: relative;
 
-    .image_operator,
-    .image_operator_bottom {
-        position: absolute;
+        border: 1px solid $border-color-darkest;
+
+        max-width: 100%;
+        max-height: 420px;
+        margin: 10px 0 10px 0;
+        overflow: scroll;
+
+        .image_operator,
+        .image_operator_bottom {
+            position: absolute;
+        }
+        .image_operator {
+            width: 46px;
+            height: 46px;
+        }
+        .image_operator_bottom {
+            width: 43px;
+            height: 43px;
+        }
+        .marked {
+            border: 9px solid $worklet_operator_selection_color;
+            border-radius: 25px;
+            background-color: $worklet_operator_selection_color;
+            @include filter (blur(5px));
+            -webkit-filter: blur(5px);
+            -ms-filter: blur(5px);
+        }
     }
-    .image_operator {
-        width: 46px;
-        height: 46px;
-    }
-    .image_operator_bottom {
-        width: 43px;
-        height: 43px;
-    }
-    .marked {
-        border: 9px solid $worklet_operator_selection_color;
-        border-radius: 25px;
-        background-color: $worklet_operator_selection_color;
-        @include filter (blur(5px));
-        -webkit-filter: blur(5px);
-        -ms-filter: blur(5px);
-    }
-  }
 }
 
 // *****
 // worklet history panel
 .worklet_history {
+
+    $run_version_width: 20px;
+
     width: $worklet-left-column-width; /* LC width */
     height: 100%;
+    // height: 100vh;
+    
+    background-color: #EEEEE7;
     
     position: absolute;
     left: 0px;
-    // right: $worklet-left-column-width; /* LC width */
-    // margin-left: -100%;
+    border-right: $darker-border-canon;
 
     .header {
-//         max-width: $worklet-left-column-width - (2 * $worklet-column-padding-x);
-//         padding: 10px 0 10px 20px;
-        
         background: $accent-shade;
     }
 
     .history {
-        padding: $worklet-column-padding-x;
-        background-color: lightgray;
-
+        // padding: $worklet-column-padding-x;
+        // background-color: lightgray;
+        background-color: $core-white;
     }
 
-    .history_item {
-    
-        $run_version_width: 25px;
-
+    .history_entry {
+        position: relative;
+        min-height: 25px;
         background-color: $core-white;
-        border-top: 1px solid $black;
-        border-bottom: 1px solid $black;
+        border-top: $darker-border-canon;
         
-        margin-bottom: 8px;
-        padding: 7px;
+        padding: 5px 0 10px $worklet-column-padding-x;
         cursor: pointer;
+    
+        &.selected {
+            background-color: $worklet-history-item-selected-color;
+        }
     
         .run_version {
             // position: relative;
@@ -864,10 +869,22 @@ $worklet_operator_selection_color: #399ccd;
             font-weight: normal;
             font-size: $small-font;
         }
+        .delete_entry {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+    
     }
+    .worklets_published_worklet_history_entry:last-child {
+        .history_entry {
+            border-bottom: $darker-border-canon;
+        }
+    }
+    
         
-    .history_item_selected {
-        .history_item {
+    .history_entry_selected {
+        .history_entry {
             background-color: $worklet-history-item-selected-color;
         }
     }
@@ -897,13 +914,28 @@ $worklet_operator_selection_color: #399ccd;
     // padding-right: $worklet-right-column-width;  /* RC width */
 
     .worklet_output {
-        padding-left: $worklet-left-column-width;
+        margin-left: $worklet-left-column-width;
         background-color: $core-white;
 
         .iframe_wrapper {
-            padding: 0 38px;
+//             padding: 0 38px;
+            padding: 5px 0 0 0;
             // height: 100%;
+            
+            .form_controls {
+                &#share_all_results {
+                    display: none;
+                    margin: 0px 10px 15px 0px;
+                    // padding: 10px;
 
+                    min-width: 780px;
+                    // background: rgb(240, 245, 250);
+                    button {
+                        margin: 0;
+                    }
+                }
+            }
+            
             iframe {
                 width: 100%;
                 height: 0px;

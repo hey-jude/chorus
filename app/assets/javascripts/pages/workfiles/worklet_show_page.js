@@ -228,7 +228,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     reloadHistory: function() {
         this.mainContent.content.workletHistory.render();
-        this.mainContent.content.workletHistory.$('.history_item')[0].click();
+        this.mainContent.content.workletHistory.$('.history_entry')[0].click();
     },
 
     showHistory: function() {

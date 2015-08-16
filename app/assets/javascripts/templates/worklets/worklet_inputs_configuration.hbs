@@ -62,12 +62,12 @@
 
                 <div class="form_pair">
                     <label for="label_{{@index}}" class="required">{{t "worklet.configure.inputs.field_label"}}</label>
-                    <input type="text" id="label_{{@index}}" name="label_{{@index}}" data-index="{{@index}}" value="{{label}}">
+                    <input type="text" id="label_{{@index}}" name="label_{{@index}}" data-index="{{@index}}" value="{{label}}" maxlength="64">
                 </div>
                 
                 <div class="form_pair">
                     <label for="description_{{@index}}">{{t "worklet.configure.inputs.field_description"}}</label>
-                    <textarea id="description_{{@index}}" data-index="{{@index}}" name="description_{{@index}}">{{this.description}}</textarea>
+                    <textarea id="description_{{@index}}" data-index="{{@index}}" name="description_{{@index}}" maxlength="256">{{this.description}}</textarea>
                 </div>
 
                 <div class="form_pair">
@@ -99,10 +99,10 @@
                                 <tr>
                                     <td class="index_col">{{@index}}</td>
                                     <td class="option_input_col">
-                                        <input type="text" name="option_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.option}}"/>
+                                        <input type="text" name="option_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.option}}" maxlength="64"/>
                                     </td>
                                     <td class="value_input_col">
-                                        <input type="text" name="value_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.value}}"/>
+                                        <input type="text" name="value_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.value}}" maxlength="64"/>
                                     </td>
                                     <td class="delete_col">
                                         <a class="removeWidget delete_parameter_option" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" title="{{t 'worklet.configure.delete_option.tooltip'}}"><span class="remove fa fa-times-circle"></span></a>

@@ -3,7 +3,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
     templateName: "worklets/published_worklet_output",
 
     events: {
-        'click #share_results': 'openShareResultsDialog'
+        'click #share_all_results button': 'openShareResultsDialog'
     },
 
     setup: function() {
@@ -15,7 +15,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
     postRender:function() {
         this.$("#results").on("load", function () {
             if(this.getAttribute('src')) {
-                $('#share_results').show();
+                $('#share_all_results').show();
                 $('#workletResults_loading').hide();
                 this.style.height='1000px';
             }

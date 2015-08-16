@@ -1,9 +1,9 @@
-chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
-    constructorName: 'PublishedWorkletHistoryItemView',
-    templateName: 'worklets/published_worklet_history_item',
+chorus.views.PublishedWorkletHistoryEntry = chorus.views.Base.extend({
+    constructorName: 'PublishedWorkletHistoryEntryView',
+    templateName: 'worklets/published_worklet_history_entry',
 
     events: {
-        'click div.history_item': 'showResults'
+        'click div.history_entry': 'showResults'
     },
 
     setup: function() {
@@ -25,12 +25,11 @@ chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
 
         main.workletOutput = newView;
         main.renderSubview('workletOutput');
-
         this.trigger('resized');
 
         // Style the selected history entry
-        $('.published_worklet_history_item').removeClass('history_item_selected');
-        $(this.el).addClass('history_item_selected');
+        $('.history_entry').removeClass('selected');
+        $(this.el).addClass('selected');
 
         $('#workletResults_loading').show();
 
@@ -68,7 +67,7 @@ chorus.views.PublishedWorkletHistoryItem = chorus.views.Base.extend({
     additionalContext: function() {
         // data values for the history entry
         var date = new Date(this.model.get('timestamp'));
-        var dateString = date.toString('yyyy-MM-dd HH:mm:ss');
+        var dateString = date.toString('HH:mm:ss  dd-MM-yyyy');
         var relativeTime = date.toRelativeTime();
         return {
             number: this.options.index,
