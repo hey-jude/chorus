@@ -1,13 +1,28 @@
 {{!-- worklet: run settings & outputs to display --}}
 
 <div class="worklet_configuration_panel worklet_outputs_configuration">
-    <div class="main_header">{{t "worklet.main.configure_worklet_title"}}</div>
+    {{#if isNewWorklet}}
+    <div class="main_header"><h2>{{t "worklet.main.make_new_worklet.heading"}}</h2></div>    
+    {{else}}
+    <div class="main_header"><h2>{{t "worklet.main.configure_worklet.heading"}}</h2></div>
+    {{/if}}
     
-    <div class="workflow_details">
-        <h4>{{t "worklet.configure.settings.run_settings.heading"}}</h4>
-        
-        
-        <b>{{t "worklet.configure.settings.run_as.label"}}</b>
+
+    <div class="step_header">
+        <h3>{{t "worklet.configure.settings.run_settings.heading"}}</h3>
+        <div class="description_instructions">
+          {{t "worklet.configure.settings.run_settings.description"}}
+        </div>
+    </div>
+    
+    
+
+    <!-- <div class="workflow_details"> -->
+    <div>
+    
+        <div class="section_header">{{t "worklet.main.worklet_outputs.section_credentials.title"}}</div>
+   
+        <!-- <h4>{{t "worklet.configure.settings.run_as.label"}}</h4> -->
 
         <div class="description_instructions">
             {{t "worklet.configure.settings.run_as.description"}}
@@ -26,10 +41,11 @@
         {{!--<label for="run_as_other">Run as...</label> --}}
 
 
-        <h4>{{t "worklet.configure.settings.output.heading"}}</h4>
-        <br>
+        <div class="section_header">{{t "worklet.main.worklet_outputs.section_output.title"}}</div>   
+<!--         <h4>{{t "worklet.configure.settings.output.heading"}}</h4> -->
+
         <b>{{t "worklet.configure.settings.output.label"}}</b>
-        <br>
+
         <div class="description_instructions">
             {{t "worklet.configure.settings.output.description"}}
         </div>

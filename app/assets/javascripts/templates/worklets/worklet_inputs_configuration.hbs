@@ -1,24 +1,30 @@
 {{!-- worklet: the parameters --}}
 
 <div class="worklet_configuration_panel worklet_inputs_configuration">
-    <div class="main_header">{{t "worklet.main.configure_worklet_title"}}</div>
+    {{#if isNewWorklet}}
+    <div class="main_header"><h2>{{t "worklet.main.make_new_worklet.heading"}}</h2></div>    
+    {{else}}
+    <div class="main_header"><h2>{{t "worklet.main.configure_worklet.heading"}}</h2></div>
+    {{/if}}
 
-    <b>
-      {{t "worklet.main.step_worklet_inputs"}}
-    </b>
-    <br>
 
-    <div class="description_instructions">
-        {{t "worklet.main.step_worklet_inputs_description"}}
+    <div class="step_header">
+        <h3>{{t "worklet.main.step_worklet_inputs"}}</h3>
+        <div class="description_instructions">
+          {{t "worklet.main.step_worklet_inputs_description"}}
+        </div>
     </div>
+    
 
-    <br>
-    <div class="workflow_details">
+
+    <!-- <div class="workflow_details"> -->
+    <div>
+    
         <div class="errors"></div>
 
         {{#each workletParams}}
         <div class="worklet_parameter_module" data-index="{{@index}}">
-            <div class="section_header">
+            <div class="parameter_section_header">
                 {{t "worklet.configure.inputs.inputs_number_heading"}} {{@index}}
                 <div class="section_controls">
                     <a href="#" class="delete_input_param" data-index="{{@index}}" title="{{t 'worklet.configure.delete_parameter.tooltip'}}"><span class="fa fa-lg fa-trash"></span></a>

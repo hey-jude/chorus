@@ -1,23 +1,27 @@
 {{!-- worklet: details --}}
 
 <div class="worklet_configuration_panel worklet_details_configuration">
-    <div class="main_header">{{t "worklet.main.configure_worklet"}}</div>
+    {{#if isNewWorklet}}
+    <div class="main_header"><h2>{{t "worklet.main.make_new_worklet.heading"}}</h2></div>    
+    {{else}}
+    <div class="main_header"><h2>{{t "worklet.main.configure_worklet.heading"}}</h2></div>
+    {{/if}}
+    
 
-    <div>
-      <!-- <b> -->
-        {{t "worklet.main.define_the_worklet_details"}}
-      <!-- </b> -->
-
-      <div class="description_instructions">
+    <div class="step_header">
+        <h3>{{t "worklet.main.define_the_worklet_details"}}</h3>
+        <div class="description_instructions">
           {{t "worklet.main.describe_the_worklet"}}
-      </div>
+        </div>
     </div>
 
 
-    <div class="workflow_details">
+    <!-- <div class="workflow_details"> -->
+    <div>
+
         <div class="errors"></div>
 
-        <div class="section_header">{{t "worklet.main.worklet_details.title"}}</div>
+        <div class="section_header">{{t "worklet.main.worklet_details.section.title"}}</div>
 
         <div class="form_pair form_row">
             <label class="required">{{t "worklet.main.worklet_details.filename.label"}}</label>
@@ -46,15 +50,7 @@
                 </span>
             </div>
         </div>
-        
-        <!-- <div style="clear: both;"></div> -->
-        <!--<hr>-->
-        <!--<div class="spinner_div">-->
-            <!--<span class='loading_spinner'></span>Updating...-->
-        <!--</div>-->
-        <!--<div class="row form_controls">-->
-            <!--<button type="submit" class="modalish save_details">Save</button>-->
-        <!--</div>-->
+
 
     </div>
 </div>

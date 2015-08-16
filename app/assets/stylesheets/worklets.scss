@@ -2,8 +2,8 @@
 @import "layout/_header";
 @import "compass/css3/box-shadow";
 @import "compass/css3/filter";
-
 @import "components/_button";
+
 
 $workbench-module-title-height: 35px;
 $workbench-module-padding: 10px;
@@ -16,9 +16,23 @@ $worklet-column-padding-y: $padding-x;
 
 $worklet-history-item-normal-color: #CCC;
 $worklet-history-item-selected-color: $accent-shade;
-        
 
 $worklet-edit-avatar-size: 150px;
+
+
+@mixin section-bar($bgcolor) {
+    height: 25px;
+
+    background-color: $bgcolor;
+    border-bottom: $border-canon;
+
+    line-height: 25px;
+    padding: 0 $default-padding-horizontal;
+
+    font-size: $medium-font;
+    font-weight: $semibold;
+    color: $color-text3;
+}
 
 
 // *****
@@ -33,6 +47,12 @@ $worklet-edit-avatar-size: 150px;
 div[data-page="WorkletEdit"],
 div[data-page="WorkletRun"],
 div[data-page="PublishedWorkletShow"] {
+    #main_content {
+        border: 0;
+        margin-right: 10px;
+    }
+    
+
     .content_header {
         border: none;
     }
@@ -526,8 +546,10 @@ $background-color-workletSteps-container: #cddcf3;
 
 
 // module for each input parameter
-  .worklet_parameter_module {
-    border: 1px solid $border-color-darkest;
+.worklet_parameter_module {
+
+    border: $border-canon;
+    @include border-radius(2px);
     margin: 0 10px 10px 0;
 
     .input_section {
@@ -537,15 +559,12 @@ $background-color-workletSteps-container: #cddcf3;
       margin: 10px;
     }
 
-//     .workflow_variable {
-//     }
-
 
     // for building the list of options
     .option_edit {
 
         $worklet-optiontable-border-size: 1px;
-        $worklet-optiontable-header-color: #CCCCC9;
+        $worklet-optiontable-header-color: #DDDDD9;
 
         margin-top: 5px;
 
@@ -609,9 +628,8 @@ $background-color-workletSteps-container: #cddcf3;
                 color: $add-icon-hover-color;
             }
         }
-    }
-        
-  }
+    }        
+}
 
 
 .worklet_new_dialog,
@@ -661,19 +679,20 @@ $background-color-workletSteps-container: #cddcf3;
     // padding-left: 5px;
     margin-bottom: 5px;
   }
+    .step_header {
+        h3 {}
+        margin-bottom: 10px;
+        
+    }
+
+    
 
   .section_header {
-    height: 25px;
-    background-color: $dialog-header-background;
-    border-bottom: $border-canon;
+    @include section-bar(#DDDDD8);
+  }
 
-    line-height: 25px;
-    padding: 0 $default-padding-horizontal;
-    word-break: break-all;
-
-    font-size: $medium-font;
-    font-weight: $semibold;
-    color: $color-text3;
+  .parameter_section_header {
+    @include section-bar($dialog-header-background);
 
     .section_controls {
       float: right;
