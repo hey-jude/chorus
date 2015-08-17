@@ -44,7 +44,7 @@ $worklet-edit-avatar-size: 150px;
 }
 
 .content_header {
-  padding: 0;
+    padding: 0;
 }
 
 div[data-page="WorkletEdit"],
@@ -140,7 +140,7 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 }
-// END: page layout
+// END: PAGE LAYOUT
 
 
 
@@ -161,7 +161,6 @@ div[data-page="PublishedWorkletShow"] {
     // adjustments particular to the current icon
     top: 2px;
     left: -2px;
-    
   }
 
     // ?????????
@@ -191,11 +190,13 @@ div[data-page="PublishedWorkletShow"] {
         
         font-size: 12px;
     }
+    button:last-child {
+        margin-right: 0;
+    }
     .actions_menu {
         margin-left: 10px;
         text-decoration: none;
     }
-    
     .caret {
         margin-left: $caret-margin;
     }
@@ -212,45 +213,30 @@ div[data-page="PublishedWorkletShow"] {
       @include username-item-link($menu-item-height-default);
     }
   }
-  
+
 }
 
 
 // *****
 // INPUTS PANEL
-#worklet_input_reset {
-    
-    position: absolute;
-    top: 10px;
-    right: $page-margin-right;
-
-    &.reset_inputs {
-        $height-button-widgetshell: 19px;
-
-        @include panel-button($height-button-widgetshell);
-        width: 35px;
-        font-size: $small-font;
-    }
-}
-
-#stop_worklet {
-    padding-top: 20px;
-
-}
 
 // right side parameter panel
 .worklets_worklet_parameter_sidebar {
-  background-color: $pattens-blue;
+
   width: $worklet-right-column-width;
   height: 100%;
   // height: 100vh;
+
+    .header {
+        background-color: $pattens-blue;
+    }
 
   .heading {
     max-width: $worklet-right-column-width - (2 * $worklet-column-padding-x);
   }
 
 
-  // Common to all parameters
+  // Common to all parameters in the inputs panel
   // worklet_parameter = an input block on right panel
   .worklet_parameter {
     min-height: 80px;
@@ -258,6 +244,10 @@ div[data-page="PublishedWorkletShow"] {
     border: $dark-border-canon;
     box-sizing: border-box;
 
+    &~ .worklet_parameter {
+        border-top: none;
+    }
+    
     .title_bar {
       position: relative;
       height: 25px;
@@ -273,10 +263,19 @@ div[data-page="PublishedWorkletShow"] {
         right: 20px;
         top: 0;
       }
+      .scroll_input_param {
+        position: absolute;
+        right: 20px;
+        top: 0;
+        
+        color: $add-icon-color;
+            &:hover {
+                color: $add-icon-hover-color;
+            }
+      }
     }
 
     .content {
-
       // width: $worklet-right-column-width - 25px;
       width: inherit;
       height: inherit;
@@ -285,30 +284,25 @@ div[data-page="PublishedWorkletShow"] {
       
       .input_section {
         .label {
-          font-weight: $semibold;
+            font-weight: $semibold;
         }
 
-        .text_input {
-          // width: $worklet-right-column-width - 25px;
-          // margin: 5px;
-        }
+        .text_input {}
 
         .single_select_input {
-          // width: $worklet-right-column-width - 25px;
-          width: 100%;
-          // margin: 5px;
+            // width: $worklet-right-column-width - 25px;
+            width: 100%;
         }
 
         .multiple_select_container {
-          .multiple_select_input {
-            float: left;
-            text-align: left;
-            font-size: $small-font;
-            word-wrap: break-word;
-            width: ($worklet-right-column-width - 50px)/2;
-            max-width: ($worklet-right-column-width - 50px)/2;
-            // margin: 5px;
-          }
+            .multiple_select_input {
+                float: left;
+                text-align: left;
+                font-size: $small-font;
+                word-wrap: break-word;
+                width: ($worklet-right-column-width - 50px)/2;
+                max-width: ($worklet-right-column-width - 50px)/2;
+            }
         }
         .description {
             margin: 5px 0;
@@ -316,8 +310,6 @@ div[data-page="PublishedWorkletShow"] {
             color: $color-text4;
         }
       }
-
-
     }
   }
 
@@ -395,7 +387,29 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 }
+#worklet_input_reset {
+    
+    position: absolute;
+    top: 10px;
+    right: $page-margin-right;
 
+    &.reset_inputs {
+        $height-button-widgetshell: 19px;
+
+        @include panel-button($height-button-widgetshell);
+        width: 35px;
+        font-size: $small-font;
+    }
+}
+
+#stop_worklet {
+    padding-top: 20px;
+}
+
+// END: INPUTS PANEL
+
+
+// WORKLET STEPS
 // container for the steps heading thingy
 
 $workletSteps-container-background-color: #CDDCF3;
@@ -406,7 +420,7 @@ $workletSteps-container-height: 50px;
     max-height: $workletSteps-container-height;
 }
 
-// workletSteps AKA breadcrumb = worklet steps bar
+// workletSteps = worklet steps bar
 #workletSteps {
   
     $text-color-past: #FFFFFF;
@@ -439,7 +453,7 @@ $workletSteps-container-height: 50px;
         padding: 0 10px 0 35px;
         position: relative;
 
-        // variant of the lozenge
+        // variant of the 'lozenge'
         @include uppercase;
         font-weight: $semibold;
         font-size: $lozenge-font-size;
@@ -456,7 +470,6 @@ $workletSteps-container-height: 50px;
             &:before {
                 left: 14px;
             }
-            
             &:after {
                 content: none;
             }   
@@ -525,7 +538,8 @@ $workletSteps-container-height: 50px;
     }
     
 }
-// }
+// END: WORKLET STEPS
+
 
 .worklet_configuration_panel {
   margin-left: $page-margin-left;
@@ -542,7 +556,6 @@ $workletSteps-container-height: 50px;
 
     #elapsed_time_container {
       #elapsed_time {
-
       }
     }
 
@@ -561,7 +574,6 @@ $workletSteps-container-height: 50px;
     }
   }
 }
-
 
 
 // module for each input parameter's configuration
@@ -588,7 +600,7 @@ $workletSteps-container-height: 50px;
 
         table {
             min-width: 500px;
-            width: 90%;
+            width: 100%;
             
             border-spacing: $worklet-optiontable-border-size;
             border-collapse: separate;
@@ -648,6 +660,11 @@ $workletSteps-container-height: 50px;
         }
     }        
 }
+#worklet_add_new_parameter {
+    border-top: 1px dotted #999;
+    margin-top: 20px;
+    padding-top: 10px;
+}
 
 
 .worklet_new_dialog,
@@ -701,7 +718,7 @@ $workletSteps-container-height: 50px;
         margin-bottom: 10px;
     }
 
-    
+
 
   .section_header {
     @include section-bar(#DDDDD8);
@@ -827,10 +844,10 @@ $workletSteps-container-height: 50px;
     
     position: absolute;
     left: 0px;
-    border-right: $darker-border-canon;
+    border-right: $border-canon;
 
     .header {
-        background: $accent-shade;
+        background-color: $pattens-blue;
     }
 
     .history {
@@ -870,9 +887,13 @@ $workletSteps-container-height: 50px;
             font-size: $small-font;
         }
         .delete_entry {
+            visibility: hidden;
             position: absolute;
             right: 10px;
             top: 5px;
+        }
+        &:hover .delete_entry {
+            visibility: visible;
         }
     
     }
@@ -979,12 +1000,7 @@ $workletSteps-container-height: 50px;
 //         }
 //     }
 
-    //>div {
-    //    position: relative;
-    //    float: left;
-    //    padding-bottom: 20000px + $worklet-column-padding-y;  /* X + padding-bottom */
-    //    margin-bottom: -20000px;  /* X */
-    //}
+
 
 .worklet_usage_item {
     padding: 5px;
@@ -1031,37 +1047,37 @@ $worklet-testResults-loader-width: 170px;
 }
 
 
-#loading_doohickey {
-    position: relative;
-    width: $worklet-testResults-loader-width;
-    
-    background-color: #49F;
-    border: 1px solid #00F;
-    border-radius: 5px;
-    
-    padding: 5px;
-    text-align: center;
-
-    .spinner_container {
-        // placeholder for a spinner
-        width: 70px;
-        height: 70px;
-        background-color: #999;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 10px;
-    }
-    p.loading_title {
-        position: relative;
-        font-weight: $bold;
-        font-size: 16px;
-        color: #444;
-    }
-    p.loading_time {
-        position: relative;
-        color: #444;
-    }
-}
+// #loading_doohickey {
+//     position: relative;
+//     width: $worklet-testResults-loader-width;
+//     
+//     background-color: #49F;
+//     border: 1px solid #00F;
+//     border-radius: 5px;
+//     
+//     padding: 5px;
+//     text-align: center;
+// 
+//     .spinner_container {
+//         // placeholder for a spinner
+//         width: 70px;
+//         height: 70px;
+//         background-color: #999;
+//         margin-left: auto;
+//         margin-right: auto;
+//         margin-bottom: 10px;
+//     }
+//     p.loading_title {
+//         position: relative;
+//         font-weight: $bold;
+//         font-size: 16px;
+//         color: #444;
+//     }
+//     p.loading_time {
+//         position: relative;
+//         color: #444;
+//     }
+// }
 
 #testResults_frame {
     height: 650px;

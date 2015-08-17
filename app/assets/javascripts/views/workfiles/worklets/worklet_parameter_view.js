@@ -103,15 +103,14 @@ chorus.views.WorkletParameter = chorus.views.Base.extend({
     additionalClass: "worklet_parameter",
 
     events: {
-        "click a.delete_input_param": 'deleteParameter',
+        // "click a.delete_input_param": 'deleteParameter',
         "click a.scroll_input_param": 'scrollToParameter'
     },
 
-    deleteParameter: function(e) {
-        e && e.preventDefault();
-
-        new chorus.alerts.WorkletParameterDeleteAlert({ model: this.model }).launchModal();
-    },
+//     deleteParameter: function(e) {
+//         e && e.preventDefault();
+//         new chorus.alerts.WorkletParameterDeleteAlert({ model: this.model }).launchModal();
+//     },
 
     scrollToParameter: function(e) {
         e && e.preventDefault();
@@ -127,7 +126,6 @@ chorus.views.WorkletParameter = chorus.views.Base.extend({
         // Assumes there's an <input name="n"> where "n" is this.model.get('variableName')
         var v = {};
         v[this.model.get('variableName')] = this.$el.find('input[name="' + this.model.get('variableName') + '"]').val();
-
         return v;
     },
 

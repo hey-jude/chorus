@@ -223,7 +223,7 @@ $alert-icon-small:      12px;
 // APPLICATION ICONS
 $delete-icon-color:         #D08077;
 $delete-icon-hover-color:   #EE5740;
-$add-icon-color:            scale_color($default-link-color, $saturation: -10%);
+$add-icon-color:            scale_color($default-link-color, $lightness: 25%, $saturation: -25%);
 $add-icon-hover-color:      $default-link-color;
 
 // Dimensions
