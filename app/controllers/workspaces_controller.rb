@@ -98,7 +98,16 @@ class WorkspacesController < ApplicationController
 
   def destroy
     workspace = Workspace.find(params[:id])
+    worklets = Worklet.where(:workspace_id => params[:id])
+    worklets.each do |worklet|
+      Authority.authorize! :destroy, worklet, current_user, { :or => :current_user_is_worklets_workspace_owner }
+    end
     Authority.authorize! :destroy, workspace, current_user, { :or => :current_user_is_object_owner }
+
+    if worklets.any?
+      worklets.destroy_all
+    end
+
     Events::WorkspaceDeleted.by(current_user).add(:workspace => workspace)
     workspace.destroy
 
