@@ -47,7 +47,16 @@ chorus.views.MultipleSelectionSidebarMenu = chorus.views.Base.include(
 
         additionalContext: function () {
             var actions = _.map(this.actions, this.templateValues);
+
+            // Only show the list of actions in the sidebar (Disable, Enable, Delete)
+            // if the currently logged in user has permissions to
+            // update ALL of the currently selected jobs.
+            var canUpdateSelected = this.selectedModels.every(function (selectedModel){
+                return selectedModel.workspace().canUpdate();
+            });
+
             return {
+                canUpdateSelected: canUpdateSelected,
                 selectedModels: this.selectedModels,
                 modelCount: this.selectedModels.length,
                 actions: actions
