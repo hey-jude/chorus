@@ -156,6 +156,9 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
             // Use the "worklet parameter" model's end-point when saving
             var generic = new chorus.models.WorkletParameter(param_model);
             var save_state = false !== generic.save(updates, save_options);
+            if (save_state === true) {
+                this.parameters.models[i] = generic;
+            }
 
             this.paramChanged();
             return save_state;
