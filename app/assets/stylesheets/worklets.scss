@@ -2,6 +2,7 @@
 @import "layout/_header";
 @import "compass/css3/box-shadow";
 @import "compass/css3/filter";
+@import "compass/utilities/general/clearfix";
 @import "components/_button";
 
 
@@ -24,9 +25,9 @@ $worklet-edit-avatar-size: 150px;
     height: 25px;
 
     background-color: $bgcolor;
-    border-bottom: $border-canon;
+    // border-bottom: $border-canon;
 
-    line-height: 25px;
+    line-height: 24px;
     padding: 0 $default-padding-horizontal;
 
     font-size: $medium-font;
@@ -423,7 +424,8 @@ $workletSteps-container-height: 50px;
 // workletSteps = worklet steps bar
 #workletSteps {
   
-    $text-color-past: #FFFFFF;
+    $text-color-past: #EEEEEE;
+    $text-color-current: #FFFFFF;
     $text-color-future: $charcoal;
     $background-color-workletStep-past: #415885;
     $background-color-workletStep-current: #006ba1;
@@ -432,7 +434,7 @@ $workletSteps-container-height: 50px;
     
     // height & width of an individual step
     $workletStep-height: 29px;
-    $workletStep-width: 135px;
+    $workletStep-min-width: 135px;
     
     // space between steps
     $workletStep-separation: 2px;
@@ -442,9 +444,11 @@ $workletSteps-container-height: 50px;
 
     display: inline-block;
     min-width: 790px;
+    width: 90%;
 
     a {
-        width: $workletStep-width;
+        min-width: $workletStep-min-width;
+        width: 20%;
         text-decoration: none;
         outline: none;
         display: block;
@@ -520,7 +524,7 @@ $workletSteps-container-height: 50px;
     .current,
     a.current:after {
       background: $background-color-workletStep-current;
-      color: $text-color-past;
+      color: $text-color-current;
     }
 
     .future,
@@ -660,7 +664,7 @@ $workletSteps-container-height: 50px;
         }
     }        
 }
-#worklet_add_new_parameter {
+#worklet_add_new_parameter_section {
     border-top: 1px dotted #999;
     margin-top: 20px;
     padding-top: 10px;
@@ -668,20 +672,41 @@ $workletSteps-container-height: 50px;
 
 
 .worklet_new_dialog,
-.worklet_inputs_configuration,
+.worklet_workflow_configuration,
 .worklet_details_configuration,
 .worklet_outputs_configuration,
-.worklet_workflow_configuration {
+.worklet_inputs_configuration {
+
+    .description_instructions {
+        font-size: $small-font;
+        color: $color-text4;
+    }
+
+    .main_header {
+        font-size: $page_header-fontsize;
+        height: 40px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    .step_header {
+        h3 {}
+        margin-bottom: 10px;
+    }
+
+}
 
 
-  select.workflow_variable, .ui-selectmenu-button .ui-button {
+.worklet_new_dialog,
+.worklet_workflow_configuration,
+.worklet_details_configuration,
+.worklet_outputs_configuration,
+.worklet_inputs_configuration {
+
+
+  select.workflow_variable,
+  .ui-selectmenu-button .ui-button {
     display: block;
     min-width: 215px;
-  }
-
-  .description_instructions {
-    font-size: $small-font;
-    color: $color-text4;
   }
 
   .avatar_img_envelope {
@@ -698,30 +723,20 @@ $workletSteps-container-height: 50px;
     width: 100%;
   }
 
-
   .image_instructions {
     margin-left: 10px;
     font-size: $small-font;
     color: $color-text4;
-    width: 39%;
+    width: 35%;
     display: inline-block;
-  }
-
-  .main_header {
-    font-size: $page_header-fontsize;
-    height: 40px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-    .step_header {
-        h3 {}
-        margin-bottom: 10px;
+    p {
+        margin-top: 0;
     }
-
-
+  }
 
   .section_header {
     @include section-bar(#DDDDD8);
+    margin: 3px 0 5px 0;
   }
 
   .parameter_section_header {
@@ -732,16 +747,15 @@ $workletSteps-container-height: 50px;
     }
   }
 
-  .workflow_details {
-      .item_name {
-          padding-top: 12px;
-          .item_description {
-              font-weight: $bold;
-            }
-      }
-  }
+//   .workflow_details {
+//       .item_name {
+//           padding-top: 12px;
+//           .item_description {
+//               font-weight: $bold;
+//             }
+//       }
+//   }
 
-  .workfile_image {}
 
   .spinner_div {
     display: none;
@@ -757,10 +771,32 @@ $workletSteps-container-height: 50px;
   }
 }
 
+.worklet_new_dialog {
+    .workfile_image {
+        float: left;
+        position: relative;
+        top: 5px;
+        margin-right: 10px;
+        @include clearfix;
+    }
 
-.no_history {
-  padding-left: 0 !important;
+    table {
+        tr {
+        }
+        th {
+            width: 40%;
+        }
+        th, td {
+            vertical-align: top;
+            padding: .6em 1px 1px 0;
+        }
+    }
 }
+
+
+// .no_history {
+//   padding-left: 0 !important;
+// }
 
 .worklet_panel {
     box-sizing: border-box;
@@ -779,11 +815,11 @@ $workletSteps-container-height: 50px;
   }
 }
 
-// spit and gum for the visual operator selector 
+
+// spit-and-gum for the visual operator selector 
 #worklet_outputs {
 
     $worklet_operator_selection_color: #399ccd;
-
 
     .visual_operator {
         position: relative;
@@ -852,7 +888,6 @@ $workletSteps-container-height: 50px;
 
     .history {
         // padding: $worklet-column-padding-x;
-        // background-color: lightgray;
         background-color: $core-white;
     }
 
@@ -870,7 +905,7 @@ $workletSteps-container-height: 50px;
         }
     
         .run_version {
-            // position: relative;
+
             width: $run_version_width;
             float: left;
             
@@ -913,9 +948,11 @@ $workletSteps-container-height: 50px;
     // TODO: generalize this for use in multiple workbench panels - history & inputs.
     .empty_state {
         position: relative;
+        padding: 5px 5px 10px 10px;
         font-size: $small-font;
+        background-color: #CCCCC9;
         .empty_message {
-            margin-left: 25px;
+            margin-left: 25px; // for icon
             p {
                 margin: 0;
             }
@@ -939,7 +976,6 @@ $workletSteps-container-height: 50px;
         background-color: $core-white;
 
         .iframe_wrapper {
-//             padding: 0 38px;
             padding: 5px 0 0 0;
             // height: 100%;
             
@@ -969,17 +1005,12 @@ $workletSteps-container-height: 50px;
 
 //     .worklet_history {
 //         position: absolute;
-//         width: $worklet-left-column-width; /* LC width */
 //         height: 100%;
 //         top: 0;
 //         left: 0;
 // 
 //         .title {
-//             width: $worklet-left-column-width - (2 * $worklet-column-padding-x);
 //             padding: 10px 0 10px 20px;
-//             background: $accent-shade;
-//             border-top: $dark-border-canon;
-//             border-bottom: $dark-border-canon;
 //         }
 // 
 //         .history {

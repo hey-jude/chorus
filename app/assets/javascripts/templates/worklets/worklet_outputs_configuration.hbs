@@ -15,9 +15,7 @@
         </div>
     </div>
     
-    
 
-    <!-- <div class="workflow_details"> -->
     <div>
     
         <div class="section_header">{{t "worklet.main.worklet_outputs.section_credentials.title"}}</div>
@@ -42,7 +40,7 @@
 
 
         <div class="section_header">{{t "worklet.main.worklet_outputs.section_output.title"}}</div>   
-<!--         <h4>{{t "worklet.configure.settings.output.heading"}}</h4> -->
+
 
         <b>{{t "worklet.configure.settings.output.label"}}</b>
 
@@ -58,7 +56,7 @@
                     </a>
                 {{/each}}
                 <img class="workfile_image" src="{{workflowImageUrl}}" alt=""/>
-                {!-- repeat under the image --}}
+                {{!-- repeat under the image --}}
                 {{#each operators}}
                     <a href="#" class="visual_operator_bottom">
                         <div id="{{this.id}}B" class="image_operator_bottom {{#if this.selected}}marked{{/if}}" style="left: {{this.bg_left}}px; top: {{this.bg_top}}px;"></div>

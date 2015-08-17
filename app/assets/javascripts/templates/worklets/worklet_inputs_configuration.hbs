@@ -16,8 +16,6 @@
     </div>
     
 
-
-    <!-- <div class="workflow_details"> -->
     <div>
     
         <div class="errors"></div>
@@ -117,8 +115,16 @@
         </div>
         {{/each}}
 
-        <div id="worklet_add_new_parameter">
-            <button class="modalish add_new_parameter">{{t "worklet.configure.inputs.add_another_parameter.button"}}</button>
+        <div id="worklet_add_new_parameter_section">
+            
+            <button class="modalish add_new_parameter">
+            {{#if workletParams}}
+                {{t "worklet.configure.inputs.add_another_parameter.button"}}
+            {{else}}
+                {{t "worklet.configure.inputs.add_first_parameter.button"}}
+            {{/if}}
+            </button>
+
         </div>
 
     </div>
