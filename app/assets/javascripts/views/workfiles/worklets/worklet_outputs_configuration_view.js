@@ -181,12 +181,12 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
             runPersonas: [
                 {
                     run_persona: "creator",
-                    persona_run_statement: "Run as worklet creator",
+                    persona_run_statement: t("worklet.configure.settings.run_as.creator"),
                     selected: !run_persona || run_persona === "creator"
                 },
                 {
                     run_persona: "person_running",
-                    persona_run_statement: "Run as the person running the worklet",
+                    persona_run_statement: t("worklet.configure.settings.run_as.user"),
                     selected: run_persona === "person_running"
                 }
             ],
