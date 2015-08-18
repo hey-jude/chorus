@@ -76,11 +76,8 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
         op.selected = typeof(op.selected) === 'undefined' ? true : !op.selected;
         
         // map to the other operator marker that is under the image= 'bottom'
-        var clicked_target_id =  e.target.id;
-        var bottom_target_id = "#" + clicked_target_id + "B";
-
-        // update the 'bottom'
-        $(bottom_target_id).toggleClass("marked");
+        var bottom_checkbox_op = $('#' + e.target.id + 'B');
+        bottom_checkbox_op.toggleClass("marked");
 
         // Also update checkbox 
         var checkbox_op = $('#op_' + e.target.dataset.index + '_checkbox');
@@ -95,8 +92,8 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
         op.selected = typeof(op.selected) === 'undefined' ? true : !op.selected;
 
         // Also update visualization
-        var vis_op = $('#op_' + e.currentTarget.dataset.index);
-        vis_op && vis_op.toggleClass('bordered');
+        var bottom_checkbox_op = $('#op_' + e.currentTarget.dataset.index + 'B');
+        bottom_checkbox_op && bottom_checkbox_op.toggleClass("marked");
     },
 
     updateDetails: function(e, perform_save) {
