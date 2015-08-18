@@ -29,7 +29,7 @@ chorus.views.PublishedWorkletHistoryEntry = chorus.views.Base.extend({
 
         // Style the selected history entry
         $('.history_entry').removeClass('selected');
-        $(this.el).addClass('selected');
+        $(this.el).find('.history_entry').addClass('selected');
 
         $('#workletResults_loading').show();
 
