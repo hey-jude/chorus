@@ -19,7 +19,7 @@ class Milestone < ActiveRecord::Base
   after_update :create_milestone_updated_event, :if => :current_user
   after_create :create_milestone_created_event, :if => :current_user
   after_destroy :project_hooks
-
+  before_destroy :save_name_for_activities
   before_validation :set_state_planned, :on => :create
 
 
@@ -58,6 +58,13 @@ class Milestone < ActiveRecord::Base
         :milestone => self,
         :workspace => workspace
     )
+  end
+
+  def save_name_for_activities
+    milestone_name = self.name
+    self.events.each do |event|
+      event.update_attribute(:additional_data, "{\"milestone_name\": #{milestone_name}}")
+    end
   end
 
 end
