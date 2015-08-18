@@ -26,14 +26,15 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
     },
 
     preRender: function () {
-        this.parameters = this.collection.filter(this.filter, this).map(function (parameter_model) {
+        this.parameters = this.collection.filter(this.filter, this).map(function (parameter_model, displayIndex) {
             // Cast model to subclass that has type-specific validations
             parameter_model = parameter_model.castByDataType();
 
             // View specific to the subclass is stored in "viewClass" attribute of the model
             var parameter_view = new parameter_model.viewClass({
                 model: parameter_model,
-                state: this.state
+                state: this.state,
+                displayIndex: displayIndex
             });
             this.registerSubView(parameter_view);
 
@@ -131,7 +132,8 @@ chorus.views.WorkletParameter = chorus.views.Base.extend({
 
     additionalContext: function () {
         return {
-            editing: this.state === 'editing'
+            editing: this.state === 'editing',
+            displayIndexPlusOne: this.options.displayIndex + 1
         };
     }
 });
