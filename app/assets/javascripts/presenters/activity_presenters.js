@@ -579,9 +579,9 @@
         workfileType: function(self) {
             switch(self.model.workfile().get('entitySubtype')) {
                 case "worklet":
-                    return "worklet";
+                    return t("entity.worklet").toLowerCase();
                 case "published_worklet":
-                    return "published worklet";
+                    return t("entity.published_worklet").toLowerCase();
                 default:
                     return "file";
             }
@@ -590,9 +590,9 @@
         workfileTypeCaps: function(self) {
             switch(self.model.workfile().get('entitySubtype')) {
                 case "worklet":
-                    return "Worklet";
+                    return t("entity.worklet");
                 case "published_worklet":
-                    return "Published Worklet";
+                    return t("entity.published_worklet");
                 default:
                     return "Workfile";
             }
