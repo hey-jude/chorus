@@ -282,6 +282,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
                 useDefaultDisabled: (v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select')),
                 isCalendar: v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'),
                 displayIndex: i,
+                displayIndexPlusOne: i + 1,
                 options: v.get('options') || []
             });
         });

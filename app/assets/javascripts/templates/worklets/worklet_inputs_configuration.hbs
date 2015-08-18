@@ -15,22 +15,19 @@
         </div>
     </div>
     
-
     <div>
-    
         <div class="errors"></div>
 
         {{#each workletParams}}
         <div class="worklet_parameter_module" data-index="{{@index}}">
             <div class="parameter_section_header">
-                {{t "worklet.configure.inputs.inputs_number_heading"}} {{@index}}
+                {{t "worklet.configure.inputs.inputs_number_heading"}} {{displayIndexPlusOne}}
                 <div class="section_controls">
                     <a href="#" class="delete_input_param" data-index="{{@index}}" title="{{t 'worklet.configure.delete_parameter.tooltip'}}"><span class="fa fa-lg fa-trash delete"></span></a>
                 </div>
             </div>
 
             <div class="input_section">
-               
                <div class="form_pair">
                    <label for="variable_name_{{@index}}">
                       {{t "worklet.configure.inputs.workflow_variable"}}
@@ -79,7 +76,6 @@
                 </div>
 
                 {{#if hasOptions}}
-                    
                     <div class="description_instructions">
                     {{t "worklet.configure.inputs.option_description"}}
                     </div>
@@ -116,7 +112,6 @@
         {{/each}}
 
         <div id="worklet_add_new_parameter_section">
-            
             <button class="modalish add_new_parameter">
             {{#if workletParams}}
                 {{t "worklet.configure.inputs.add_another_parameter.button"}}
@@ -124,8 +119,6 @@
                 {{t "worklet.configure.inputs.add_first_parameter.button"}}
             {{/if}}
             </button>
-
         </div>
-
     </div>
 </div>
