@@ -34,6 +34,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
 
     additionalContext: function() {
         return {
+            hasNoResults: _.isUndefined(this.resultsUrl),
             resultsUrl: this.resultsUrl,
             isPublished: this.worklet && this.worklet.get('fileType') === 'published_worklet'
         };

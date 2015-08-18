@@ -286,15 +286,15 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
                 // Single/multiple-options related
                 hasOptions: v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select'),
-                useDefaultDisabled: (v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select')),
                 options: _.map(v.get('options') || [], function (o,i) { return _.extend(_.clone(o), { optionIndexPlusOne: i + 1 }); }),
-
-                // Calendar flag
-                isCalendar: v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'),
 
                 // For use instead of the handlebars @index:
                 displayIndex: i,
-                displayIndexPlusOne: i + 1
+                displayIndexPlusOne: i + 1,
+
+                useDefaultDisabled: (v.get('dataType') === t('worklet.parameter.datatype.single_option_select') ||
+                                     v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select') ||
+                                     v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'))
             });
         }, {
             workflowVars: this.filteredWorkflowVariables()

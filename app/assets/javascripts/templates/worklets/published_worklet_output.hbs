@@ -1,4 +1,11 @@
 {{!-- shell for workflow output in worklet RUN workbench --}}
+{{#if hasNoResults}}
+    <div class="placeholder_section">
+        <img src="http://placekitten.com/g/700/500">
+        <br>
+        Michel: Change me.
+    </div>
+{{/if}}
 
 <div id="workletResults_loading" class="hidden">
     {{t "general.loading"}}
