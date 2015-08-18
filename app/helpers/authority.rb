@@ -124,6 +124,9 @@ module Authority
                     when :current_user_is_notes_workspace_owner
                       (object.class < ::Events::Base) && object.workspace && (object.workspace.owner == user)
 
+                    when :current_user_is_worklets_workspace_owner
+                      object.is_a?(Worklet) && object.workspace && object.workspace.owner == user
+
                     when :current_user_promoted_note
                       (object.class < ::Events::Base) && object.promoted_by == user
 
