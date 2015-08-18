@@ -12,6 +12,10 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
         this.subscribePageEvent("worklet:run", this.runEventHandler);
 
         this.model.run(this.workletParameters, true);
+        this.listenToOnce(this.model, "saved", this.runStarted);
+    },
+
+    runStarted: function() {
         chorus.PageEvents.trigger("worklet:run", "runStarted");
     },
 

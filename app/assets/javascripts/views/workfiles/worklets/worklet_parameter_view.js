@@ -19,6 +19,16 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
         }
 
         this.noFilter = true;
+
+        this.model.fetchWorkflowVariables();
+        this.subscribePageEvent('worklet:workflow_variables_loaded', this.workflowVariablesLoaded);
+    },
+
+    workflowVariablesLoaded: function(workflowVariables) {
+        if (_.isEmpty(this.workflowVariables) && !_.isEmpty(workflowVariables)) {
+            this.workflowVariables = workflowVariables;
+            this.render();
+        }
     },
 
     filter: function (parameter_model) {
@@ -30,11 +40,16 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
             // Cast model to subclass that has type-specific validations
             parameter_model = parameter_model.castByDataType();
 
+            // Get default value from alpine-provided workflow variables
+            var workflow_var_pair = _.find(this.workflowVariables, function(w) { return w.variableName === this + ""; }, parameter_model.get('variableName'));
+
+
             // View specific to the subclass is stored in "viewClass" attribute of the model
             var parameter_view = new parameter_model.viewClass({
                 model: parameter_model,
                 state: this.state,
-                displayIndex: displayIndex
+                displayIndex: displayIndex,
+                variableDefault: workflow_var_pair && workflow_var_pair.variableDefault
             });
             this.registerSubView(parameter_view);
 
@@ -133,7 +148,8 @@ chorus.views.WorkletParameter = chorus.views.Base.extend({
     additionalContext: function () {
         return {
             editing: this.state === 'editing',
-            displayIndexPlusOne: this.options.displayIndex + 1
+            displayIndexPlusOne: this.options.displayIndex + 1,
+            variableDefault: this.options.variableDefault
         };
     }
 });

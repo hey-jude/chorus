@@ -1,15 +1,21 @@
 {{!-- shell for workflow output in worklet RUN workbench --}}
+
 {{#if hasNoResults}}
-    <div class="placeholder_section">
-        <img src="http://placekitten.com/g/700/500">
-        <br>
-        Michel: Change me.
+    <div id="placeholder_section">
+        
+        <div class="">
+        
+            <img src="http://placekitten.com/g/700/500">
+        
+        </div>
+
+        
     </div>
 {{/if}}
 
-<div id="workletResults_loading" class="hidden">
-    {{t "general.loading"}}
-</div>
+<!-- <div id="workletResults_loading" class="hidden"> -->
+<!--     {{t "general.loading"}} -->
+<!-- </div> -->
 
 <div class="iframe_wrapper">
 

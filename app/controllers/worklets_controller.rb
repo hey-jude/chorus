@@ -108,6 +108,17 @@ class WorkletsController < ApplicationController
 
   def run
     worklet_params = params[:workfile][:worklet_parameters][:string].inspect
+
+    worklet.execution_locations.each do |execution_location|
+      if execution_location.is_a?(Database)
+        if worklet.run_persona == 'creator'
+          authorize_data_source_access_for_user(execution_location, worklet.owner)
+        else
+          authorize_data_source_access(execution_location)
+        end
+      end
+    end
+
     process_id = worklet.run_now(current_user, worklet_params)
     test_run = params[:workfile][:test_run]
     running_workfile = RunningWorkfile.new({:workfile_id => params[:id], :owner_id => current_user.id, :killable_id => process_id, :status => test_run ? 'test_run' : ''})
@@ -119,12 +130,16 @@ class WorkletsController < ApplicationController
       end
     end
 
-    def stop
-      response = worklet.stop_now(current_user)
-      RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => params[:workfile][:id]).destroy_all if response.code == '200'
-      present worklet, :status => :accepted
-    end
+    present worklet, :status => :accepted
+  rescue Authority::AccessDenied
+    render_no_db_access
+  rescue Alpine::API::RunError
+    render_run_failed
+  end
 
+  def stop
+    response = worklet.stop_now(current_user)
+    RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => params[:workfile][:id]).destroy_all if response.code == '200'
     present worklet, :status => :accepted
   end
 
@@ -139,4 +154,13 @@ class WorkletsController < ApplicationController
   def workspace
     @workspace ||= Workspace.find(params[:workspace_id])
   end
+
+  def render_no_db_access
+    present_errors({:record => :RUN_NO_DB_ACCESS}, :status => :unprocessable_entity)
+  end
+
+  def render_run_failed
+    present_errors({:record => :RUN_FAILED}, :status => :unprocessable_entity)
+  end
+
 end

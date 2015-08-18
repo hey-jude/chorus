@@ -83,3 +83,17 @@ fieldset {
         }
     }
 }
+
+// a form group is a group of multiple form pairs
+// clusters them together closer for better user clumping
+.form_group {
+    margin-bottom: 7px;
+
+    .form_pair {
+        &~ .form_pair {
+            margin-top: 0;
+        }
+    } 
+}
+
+

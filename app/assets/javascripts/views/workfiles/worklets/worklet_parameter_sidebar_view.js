@@ -12,7 +12,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         "click button.test_worklet_button": 'testRunClicked',
         "click button.run_worklet_button": 'runClicked',
         "click button.stop_worklet_button": 'stopClicked',
-        "click button.reset_inputs": "resetInputs"
+        "click div.reset_inputs": "resetInputs"
     },
 
     setup: function() {
@@ -92,9 +92,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     },
 
     resetInputs: function() {
-   /* jshint ignore:start */
-        console.log ("resetting...");
-    /* jshint ignore:end */
+        this.render();
     },
 
     additionalContext: function () {

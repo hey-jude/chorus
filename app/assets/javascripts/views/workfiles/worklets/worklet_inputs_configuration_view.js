@@ -31,19 +31,22 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         this.subscribePageEvent('parameter:scrollTo', this.scrollToParameter);
         this.subscribePageEvent('parameter:deleted', this.paramDeleted);
 
-        // Alpine-passed workflow variables
-        // this.workflowVariables = this.options.workflowVariables;
-        this.workflowVariables = new chorus.models.WorkFlowVariables({
-            workfile_id: this.model.get('workflowId')
-        });
-        this.workflowVariables.fetch();
-        this.onceLoaded(this.workflowVariables, this.render);
-
         // Necessary because handlebars can't do if (v1 == v2) print("selected")
         // for v1,v2 dynamic without some helper like this.
         Handlebars.registerHelper("selectedIfMatch", function(value1, value2) {
             return (value1 === value2)? "selected" : "";
         });
+
+        // Alpine-passed workflow variables
+        this.model.fetchWorkflowVariables();
+        this.subscribePageEvent('worklet:workflow_variables_loaded', this.workflowVariablesLoaded);
+    },
+
+    workflowVariablesLoaded: function(workflowVariables) {
+        if (_.isEmpty(this.workflowVariables) && !_.isEmpty(workflowVariables)) {
+            this.workflowVariables = workflowVariables;
+            this.render();
+        }
     },
 
     scrollToParameter: function(param_model) {
@@ -277,7 +280,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     workletParams: function() {
         // Used to render the parameter edit modules:
         return _.map(this.parameters.models, function(v, i) {
-            var workflow_var_pair = _.find(this.workflowVars, function(w) { return w.variableName === this + ""; }, v.get('variableName'));
+            var workflow_var_pair = _.find(this.workflowVariables, function(w) { return w.variableName === this + ""; }, v.get('variableName'));
 
             return _.extend(_.clone(v.attributes), {
                 // Store the variable default (sifted from the array of workflow variables)
@@ -296,26 +299,12 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
                                      v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select') ||
                                      v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'))
             });
-        }, {
-            workflowVars: this.filteredWorkflowVariables()
-        });
-    },
-
-    filteredWorkflowVariables: function() {
-        var varMap = this.workflowVariables && this.workflowVariables.get('variableMap');
-        var filteredVars = _.omit(varMap, chorus.WorkletConstants.OmittedWorkflowVariables);
-
-        return _.map(filteredVars, function (value, prop) {
-            return {
-                variableName: prop,
-                variableDefault: value
-            };
-        });
+        }, this);
     },
 
     additionalContext: function () {
         return {
-            workflowVariables: this.filteredWorkflowVariables(),
+            workflowVariables: this.workflowVariables,
             workletParams: this.workletParams(),
             dataTypes: chorus.WorkletConstants.DataTypes
         };

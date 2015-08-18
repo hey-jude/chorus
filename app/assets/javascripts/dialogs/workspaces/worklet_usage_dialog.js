@@ -3,7 +3,7 @@ chorus.dialogs.WorkletUsage = chorus.dialogs.Base.include(
     ).extend({
         constructorName: "WorkletUsage",
         templateName: "worklets/worklet_usage_dialog",
-        title: t("worklet.worklet_usage_title"),
+        title: t("worklet.dialog.worklet_usage.title"),
         persistent:true,
 
         setup:function () {
