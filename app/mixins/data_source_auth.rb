@@ -8,6 +8,13 @@ module DataSourceAuth
                          { :or => [:data_source_is_shared, :data_source_account_exists] }
   end
 
+  def authorize_data_source_access_for_user(resource, user)
+    Authority.authorize! :explore_data,
+                         resource.data_source,
+                         user,
+                         { :or => [:data_source_is_shared, :data_source_account_exists] }
+  end
+
   def authorize_data_sources_access(resource)
     resource.data_sources.each do |data_source|
       Authority.authorize! :explore_data,
