@@ -42,26 +42,36 @@ chorus.views.PublishedWorkletHistoryEntry = chorus.views.Base.extend({
         this.workletParameterVersions.each(function(model) {
             var dataType = model.get('dataType');
             var name = model.get('name');
+            var value = model.get('value');
+
             if (dataType === t('worklet.parameter.datatype.number') ||
                 dataType === t('worklet.parameter.datatype.text') ||
                 dataType === 'integer' ||
                 dataType === 'string') {
-                $("input[name='" + name +"']").val(model.get('value'));
+                $("input[name='" + name +"']").val(value);
             }
             else if (dataType === t('worklet.parameter.datatype.single_option_select') || dataType === 'singleOption') {
                 var select = $("select[name='" + name +"']");
-                select.val(model.get('value'));
-                select.next().find('.ui-selectmenu-text').text(model.get('value'));
+                select.val(value);
+                select.next().find('.ui-selectmenu-text').text(value);
             }
             else if (dataType === t('worklet.parameter.datatype.multiple_option_select') || dataType === 'multipleOptions') {
-                var value = model.get('value');
-                value = value.substring(1, value.length-1);
-                var values = value.split(',');
-                _.each(values, function(v) {
-                    $("[name='" + name + "']").find("input[value=\'" + v + "\']").prop('checked', true);
+                _.each($("[name^='" + name + "']"), function(p) {
+                    $(p).prop('checked', false);
+                });
+
+                _.each(value.split(','), function(v) {
+                    $("[name^='" + name + "'][value=\'" + v + "\']").prop('checked', true);
                 });
             }
-        });
+            else if (dataType === t('worklet.parameter.datatype.datetime_calendar')) {
+                var d = moment(value);
+                var date_container = $("div[data-var-name='" + name + "']");
+                date_container.find('.day').val(d.format("DD"));
+                date_container.find('.month').val(d.format("MM"));
+                date_container.find('.year').val(d.format("YYYY"));
+            }
+        }, this);
     },
 
     additionalContext: function() {
