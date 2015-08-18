@@ -11,13 +11,17 @@
     <div class="errors"></div>
     <div class="input_section">
         <label class="label{{#if required}} required{{/if}}">{{label}}</label>
+
+        {{#if description}}
         <div class="description">
-        {{description}}
+            {{description}}
         </div>
+        {{/if}}
+
         <div class="multiple_select_container">
             {{#each options}}
                 <div class="multiple_select_input">
-                    <input type="checkbox" name="{{../variableName}}_{{@index}}" value="{{this.value}}">
+                    <input type="checkbox" id="{{../variableName}}_{{@index}}" name="{{../variableName}}_{{@index}}" value="{{this.value}}"/>
                     <label for="{{../variableName}}_{{@index}}">{{this.option}}</label>
                 </div>
             {{/each}}

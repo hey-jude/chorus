@@ -222,7 +222,7 @@ div[data-page="PublishedWorkletShow"] {
 // *****
 // INPUTS PANEL
 
-// right side parameter panel
+// right side panel of parameters for END-USER view
 .worklets_worklet_parameter_sidebar {
 
   width: $worklet-right-column-width;
@@ -258,6 +258,7 @@ div[data-page="PublishedWorkletShow"] {
 
       .title_text {
         margin-left: 10px;
+        font-weight: $semibold;
       }
 
       .buttons {
@@ -278,7 +279,9 @@ div[data-page="PublishedWorkletShow"] {
     }
 
     .content {
-      // width: $worklet-right-column-width - 25px;
+    
+        $margin-above-input-fields: 4px;    
+
       width: inherit;
       height: inherit;
       
@@ -286,17 +289,19 @@ div[data-page="PublishedWorkletShow"] {
       
       .input_section {
         .label {
-            font-weight: $semibold;
+            // font-weight: $semibold;
         }
 
         .text_input {}
 
         .single_select_input {
             // width: $worklet-right-column-width - 25px;
-            width: 100%;
+            width: 99%;
         }
 
         .multiple_select_container {
+            margin-top: $margin-above-input-fields;
+
             .multiple_select_input {
                 float: left;
                 text-align: left;
@@ -306,8 +311,11 @@ div[data-page="PublishedWorkletShow"] {
                 max-width: ($worklet-right-column-width - 50px)/2;
             }
         }
+        .start_date_widget {
+            margin-top: $margin-above-input-fields;
+        }
         .description {
-            margin: 5px 0;
+            margin: $margin-above-input-fields 0 $margin-above-input-fields+1 0;
             font-size: $small-font;
             color: $color-text4;
         }
@@ -412,19 +420,23 @@ div[data-page="PublishedWorkletShow"] {
 
 
 // WORKLET STEPS
-// container for the steps heading thingy
+
 
 $workletSteps-container-background-color: #CDDCF3;
 $workletSteps-container-height: 50px;
 
+// container for the steps heading thingy
 .worklets_worklet_editor_subheader {
     background-color: $workletSteps-container-background-color;
     max-height: $workletSteps-container-height;
+    
+    padding-left: $page-margin-left;
+    padding-right: 10px;
 }
 
 // workletSteps = worklet steps bar
 #workletSteps {
-  
+    
     $text-color-past: #EEEEEE;
     $text-color-current: #FFFFFF;
     $text-color-future: $charcoal;
@@ -435,17 +447,16 @@ $workletSteps-container-height: 50px;
     
     // height & width of an individual step
     $workletStep-height: 29px;
-    $workletStep-min-width: 135px;
+    $workletStep-min-width: 130px;
     
     // space between steps
     $workletStep-separation: 2px;
 
     padding: 10px 0 10px 0;
-    margin-left: $page-margin-left;
 
     display: inline-block;
-    min-width: 790px;
-    width: 90%;
+    min-width: 855px;
+    width: 93%;
 
     a {
         min-width: $workletStep-min-width;
@@ -455,7 +466,7 @@ $workletSteps-container-height: 50px;
         display: block;
         float: left;
         line-height: $workletStep-height;
-        padding: 0 10px 0 35px;
+        padding: 0 10px 0 30px;
         position: relative;
 
         // variant of the 'lozenge'
@@ -464,7 +475,7 @@ $workletSteps-container-height: 50px;
         font-size: $lozenge-font-size;
 
         &:first-child {
-            padding-left: 46px;
+            // padding-left: 46px;
             border-radius: 20px 0 0 20px;      
         }
       
@@ -581,7 +592,7 @@ $workletSteps-container-height: 50px;
 }
 
 
-// module for each input parameter's configuration
+// module for each input parameter's configuration fields
 .worklet_parameter_module {
     position: relative;
     border: $border-canon;
@@ -622,8 +633,8 @@ $workletSteps-container-height: 50px;
 
             .index_col {
               background-color: $worklet-optiontable-header-color;
-              width: 13px;
-              max-width: 13px;
+              width: 10px;
+              max-width: 10px;
               text-align: right;
             }
             .option_input_col,
@@ -704,7 +715,6 @@ $workletSteps-container-height: 50px;
 .worklet_outputs_configuration,
 .worklet_inputs_configuration {
 
-
   select.workflow_variable,
   .ui-selectmenu-button .ui-button {
     display: block;
@@ -743,7 +753,9 @@ $workletSteps-container-height: 50px;
 
   .parameter_section_header {
     @include section-bar($dialog-header-background);
-
+    .fa-trash {
+        font-size: 1.2em;
+    }
     .section_controls {
       float: right;
     }
@@ -821,9 +833,6 @@ $workletSteps-container-height: 50px;
 }
 
 
-// .no_history {
-//   padding-left: 0 !important;
-// }
 
 .worklet_panel {
     box-sizing: border-box;
@@ -1002,9 +1011,11 @@ $workletSteps-container-height: 50px;
     .worklet_output {
         margin-left: $worklet-left-column-width;
         background-color: $core-white;
-        .placeholder_section {
-          // Fill me in
+        #placeholder_section {
+
+
           color: hotpink;
+
         }
 
         .iframe_wrapper {
@@ -1064,20 +1075,47 @@ $workletSteps-container-height: 50px;
 //     }
 
 
+// *****
+// DIALOG: WORKLETS that use this workflow
+.worklets_worklet_usage_dialog {
 
-.worklet_usage_item {
-    padding: 5px;
-    width: 440px;
-}
-.worklet_list_item {
-    border-top: 2px gray solid;
-    border-right: 2px gray solid;
-    border-left: 2px gray solid;
-    &:last-child {
-        border-bottom: 2px gray solid;
+//     .worklet_list_item {
+//         border-top: $darker-border-canon;
+//         border-right: $darker-border-canon;
+//         border-left: $darker-border-canon;
+//         &:last-child {
+//             border-bottom: $darker-border-canon;
+//         } 
+//     }
+    .sub_header {
+        margin-top: -1em;
     }
-}
+    .worklet_catalog_card {
+        position: relative;
+        height: 100px;
+        
+        margin-bottom: 10px;
+    }
+//     .worklet_usage_item {
+        // padding: 5px;
+        // width: 440px;
+        // width: 100%;
+//     }
+    
+//     .image_container {
+//         float: left;
+//         
+//         img {
+//             width: 100px;
+//         }
+//     }
+//     .details {
+//         float: left;
+//     }
 
+ // style="float: left; padding-left: 20px; width: 200px;"
+ 
+}
 
 
 // *****
@@ -1153,8 +1191,7 @@ $worklet-testResults-loader-width: 170px;
 // *****
 // CATALOG
 .worklet_catalog_card {
-    @include border-radius(3px);
-    
+
     a {
         text-decoration: none;
         &:hover {
@@ -1170,11 +1207,11 @@ $worklet-testResults-loader-width: 170px;
         height: 100%;
         overflow: hidden;
         background-color: #111;
+        @include border-radius(3px);
         
         img {
             // @include filter(brightness(0.77));
             width: 100%;
-            
             opacity: 0.73;
             &:hover {
                 opacity: 0.97;
@@ -1187,7 +1224,7 @@ $worklet-testResults-loader-width: 170px;
         top: 0;
         width: 100%;
         height: 100%;
-        color:$core-white;
+        color: $core-white;
 
         .worklet_title {
             padding: 10px;

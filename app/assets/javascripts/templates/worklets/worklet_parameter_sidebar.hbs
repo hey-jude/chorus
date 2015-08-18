@@ -8,7 +8,7 @@
 {{#if noParameters}}
 <!--   TODO fix this to be a shared empty message type -->
     <div class="no_parameters_notice">
-        <span class="notice_icon fa fa-lg fa-exclamation-circle"></span>{{t "worklet.edit.inputs_sidebar.empty.message"}}
+        <span class="notice_icon fa fa-exclamation-circle"></span>{{t "worklet.edit.inputs_sidebar.empty.message"}}
     </div>
 {{/if}}
 
@@ -22,7 +22,6 @@
     {{/if}}
 </div>
 
-<!-- TODO remove inline css -->
 {{#if runState}}
     <div id="stop_worklet" class="row form_controls hidden">
         <button type="submit" class="submit stop_worklet_button modalish">{{t "worklet.workbench.mode.run_stop_run"}}</button>

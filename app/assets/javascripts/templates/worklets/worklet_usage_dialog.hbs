@@ -6,26 +6,51 @@
     </div>
 
     <div id="content">
-        <ul>
+        <!-- <ul> -->
             {{#each associatedWorklets}}
+<!-- 
                 <li class="worklet_list_item">
                     <div class="worklet_usage_item">
-                        <div class="image_container" style="float: left;">
-                            <img class="workspaceIconSmall" src="/workspaces/{{workspace.id}}/worklets/{{id}}/image/" title="Workspace" style="width: 100px;" alt=""/>
+                        <div class="image_container">
+                            <img class="workspaceIconSmall" src="/workspaces/{{workspace.id}}/worklets/{{id}}/image/" alt=""/>
                         </div>
-                        <div class="details" style="float: left; padding-left: 20px; width: 200px;">
+                        <div class="details">
                             <div>
-                                <a class="workspace_link" href="/#workspaces/{{workspace.id}}/worklets/{{id}}/" style="font-size: 18px;">{{fileName}}</a>
+                                <a class="workspace_link" href="/#workspaces/{{workspace.id}}/worklets/{{id}}/">{{fileName}}</a>
                             </div>
-                            <div class="pair location" style="padding-top: 10px; font-size: 14px;">
+                            <div class="pair location">
                                 {{description}}
                             </div>
                         </div>
                         <div style="clear: both;"></div>
                     </div>
                 </li>
+ -->
+                
+                <!-- <li class="worklet_list_item"> -->
+                <div class="worklet_catalog_card">
+                    <div class="worklet_card_avatar">
+                        <a href="/#workspaces/{{workspace.id}}/worklets/{{id}}/"><img src="/workspaces/{{workspace.id}}/worklets/{{id}}/image/" alt=""></a>
+                    </div>
+        
+                    <div class="worklet_card_content">
+                            <div class="worklet_title">
+                                <h3>{{fileName}}</h3>
+                            </div>
+                            {{#if description}}
+                            <div class="worklet_description">
+                                {{description}}
+                            </div>
+                            {{/if}}
+
+                    </div>
+                </div>
+                <!-- </li>  -->
+
+
             {{/each}}
-        </ul>
+            
+        <!-- </ul> -->
     </div>
 
 </div>

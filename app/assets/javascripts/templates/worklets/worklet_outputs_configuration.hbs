@@ -26,21 +26,20 @@
             {{t "worklet.configure.settings.run_as.description"}}
         </div>
         
-
-        {{#each runPersonas}}
-        <div class="form_pair">
-            <input type="radio" name="run_persona" id="run_as_{{this.run_persona}}" value="{{this.run_persona}}"{{#if this.selected}} checked{{/if}}>
-            <label class="adjacent" for="run_as_{{this.run_persona}}">{{this.persona_run_statement}}</label>
+        <div class="form_group">
+            {{#each runPersonas}}
+            <div class="form_pair">
+                <input type="radio" name="run_persona" id="run_as_{{this.run_persona}}" value="{{this.run_persona}}"{{#if this.selected}} checked{{/if}}/>
+                <label class="adjacent" for="run_as_{{this.run_persona}}">{{this.persona_run_statement}}</label>
+            </div>
+            {{/each}}
         </div>
-        {{/each}}
 
         {{!-- commented out until feature is ready at which point it should be included in the list above --}
         {{!--<input type="radio" name="run_persona" id="run_as_other" value="run_as_other"> --}}
         {{!--<label for="run_as_other">Run as...</label> --}}
 
-
         <div class="section_header">{{t "worklet.main.worklet_outputs.section_output.title"}}</div>   
-
 
         <b>{{t "worklet.configure.settings.output.label"}}</b>
 
@@ -66,13 +65,13 @@
             </div>
         </div>
         
-        
-        {{#each operators}}
-        <div class="form_pair">
-            <input type="checkbox" class="checkbox_operator" id="{{this.id}}_checkbox" data-index="{{this.index}}"{{#if this.selected}} checked{{/if}}>
-            <label class="adjacent" for="{{this.id}}_checkbox">{{this.name}}</label>
+        <div class="form_group">
+            {{#each operators}}
+            <div class="form_pair">
+                <input type="checkbox" class="checkbox_operator" id="{{this.id}}_checkbox" data-index="{{this.index}}"{{#if this.selected}} checked{{/if}}/>
+                <label class="adjacent" for="{{this.id}}_checkbox">{{this.name}}</label>
+            </div>
+            {{/each}}
         </div>
-        {{/each}}
-
     </div>
 </div>

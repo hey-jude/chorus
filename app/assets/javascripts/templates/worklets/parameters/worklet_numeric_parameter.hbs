@@ -10,10 +10,13 @@
 <div class="content">
     <div class="input_section">
         <label for="{{variableName}}" class="label{{#if required}} required{{/if}}">{{label}}</label>
-        <input type="text" class="text_input{{#if required}} required{{/if}}" {{#if required}}required{{/if}} name="{{variableName}}" maxlength="20">
+        <input type="text" class="text_input{{#if required}} required{{/if}}" {{#if required}}required{{/if}} name="{{variableName}}" placeholder="{{t 'worklet.edit.input.data_type_number.placeholder'}}" maxlength="20"/>
+        
+        {{#if description}}
         <div class="description">
             {{description}}
         </div>
+        {{/if}}
         
     </div>
 </div>
