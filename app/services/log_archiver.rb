@@ -14,24 +14,21 @@ module LogArchiver
     @log_archiver_logfile = File.new("#{ASSEMBLE_ZIP_DIR}/log_archiver.log", "w+")
     start_time = Time.now
     log "Log archiver started at #{start_time.to_formatted_s(:long)}"
-
     log "Truncating logs into #{ASSEMBLE_ZIP_DIR} ..."
 
     truncate_logs_into_assemble_zip_dir
+    add_config_files_to_archive
+    add_licences_to_archive
+    add_properties_to_archive
+    add_hdfs_data_sources_to_archive
 
     log "Zipping, after: #{Time.now - start_time}."
-
     @log_archiver_logfile.close()
 
     # alpine_logs_20150720150924.zip
-    zip_path = "#{ARCHIVE_DIR}/alpine_logs_#{Time.now.to_formatted_s(:number)}.zip"
+    zip_file_path = zip_file
+    zip_file_path
 
-    zip_file = ZipFileGenerator.new(ASSEMBLE_ZIP_DIR, zip_path)
-    zip_file.write()
-
-    `rm -rf #{ASSEMBLE_ZIP_DIR}`
-
-    zip_path
   end
 
   private
@@ -129,4 +126,87 @@ module LogArchiver
     end
   end
 
+  # TODO: Need to update ALL files paths.
+
+  def config_files
+    alpine_runtime = "#{Rails.root}/config/alpine.runtime.conf"
+    alpine   = "#{Rails.root}/config/alpine.runtime.conf"
+
+    [alpine_runtime, alpine]
+
+  end
+
+  def licence_files
+    chorus =  "#{Rails.root}/config/chorus.license.default"
+    alpine =  "#{Rails.root}/config/chorus.license"
+
+    [chorus, alpine]
+  end
+
+  def properties_files
+    chorus =  "#{Rails.root}/config/chorus.properties.example"
+    deploy =  "#{Rails.root}/config/chorus.properties"
+
+    [chorus, deploy]
+  end
+
+
+
+
+  def add_config_files_to_archive
+    archive_path =  "#{ASSEMBLE_ZIP_DIR}/config_files"
+    log_cmd "mkdir -p #{archive_path}"
+    config_files.each do |file|
+      if File.exists?(file)
+        copy_file(file,archive_path)
+      end
+    end
+  end
+
+  def add_licences_to_archive
+    archive_path =  "#{ASSEMBLE_ZIP_DIR}/licence_files"
+    log_cmd "mkdir -p #{archive_path}"
+    licence_files.each do |file|
+      if File.exists?(file)
+        copy_file(file  ,archive_path)
+      end
+    end
+  end
+
+  def add_properties_to_archive
+    archive_path = "#{ASSEMBLE_ZIP_DIR}/properties_files"
+    log_cmd "mkdir -p #{archive_path}"
+    properties_files.each do |file|
+      if File.exists?(file)
+        copy_file(file,archive_path)
+      end
+    end
+  end
+
+  def add_hdfs_data_sources_to_archive
+    archive_path = "#{ASSEMBLE_ZIP_DIR}/registered_hdfs_data_sources/"
+    log_cmd "mkdir -p #{archive_path}"
+    api = request.protocol.to_s + request.host.to_s + ":"+ request.port.to_s + "/api/hdfs/get_a_list_of_registered_hdfs_data_sources.html"
+    archive_path_file = archive_path + "hdfs_data_sources.html"
+    download_api_list_to_archieve_path(api,archive_path_file)
+  end
+
+  def download_api_list_to_archieve_path(api,archive_path)
+   `curl --insecure -o #{archive_path} #{api}`
+  end
+
+  def copy_file(from,to)
+   `cp #{from} #{to}`
+  end
+
+
+  def zip_file
+    zip_path = "#{ARCHIVE_DIR}/alpine_logs_#{Time.now.to_formatted_s(:number)}.zip"
+
+    zip_file = ZipFileGenerator.new(ASSEMBLE_ZIP_DIR, zip_path)
+    zip_file.write()
+
+    `rm -rf #{ASSEMBLE_ZIP_DIR}`
+     zip_path
+  end
 end
