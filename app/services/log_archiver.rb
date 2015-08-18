@@ -130,11 +130,9 @@ module LogArchiver
   # TODO: Need to refactor more.
   def set_chorus_home
     @chorus_home = (`echo $CHORUS_HOME`).to_s.strip
-    logger.debug "CHorus Home -----> #{@chorus_home}"
   end
 
   def config_files
-    logger.debug "CHorus Home -----> #{@chorus_home}"
     alpine_runtime = "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.runtime.conf"
     alpine   = "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.conf"
 
