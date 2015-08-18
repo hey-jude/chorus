@@ -583,7 +583,7 @@ $workletSteps-container-height: 50px;
 
 // module for each input parameter's configuration
 .worklet_parameter_module {
-
+    position: relative;
     border: $border-canon;
     @include border-radius(2px);
     margin: 0 0 10px 0;
@@ -665,6 +665,7 @@ $workletSteps-container-height: 50px;
         }
     }        
 }
+
 #worklet_add_new_parameter_section {
     border-top: 1px dotted #999;
     margin-top: 20px;
@@ -745,6 +746,31 @@ $workletSteps-container-height: 50px;
 
     .section_controls {
       float: right;
+    }
+  }
+
+  .variable_details_section {
+    position: absolute;
+    right: 10px;
+    top: 25px + 10px;
+
+    border: $border-canon;
+    width: 200px;
+
+    .variable_detail_content {
+      padding: 5px;
+
+      .notice_icon {
+        margin-left: 10px;
+        margin-right: 10px;
+        color: #2c95dd;
+      }
+
+      .subsection_header {
+        font-size: $medium-font;
+        font-weight: $semibold;
+        color: $color-text2;
+      }
     }
   }
 

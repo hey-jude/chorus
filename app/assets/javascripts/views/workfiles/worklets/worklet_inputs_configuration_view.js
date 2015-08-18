@@ -275,31 +275,47 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     },
 
     workletParams: function() {
-        // Becomes the representation given to the view.
+        // Used to render the parameter edit modules:
         return _.map(this.parameters.models, function(v, i) {
+            var workflow_var_pair = _.find(this.workflowVars, function(w) { return w.variableName === this + ""; }, v.get('variableName'));
+
             return _.extend(_.clone(v.attributes), {
+                // Store the variable default (sifted from the array of workflow variables)
+                noVariableSelected: _.isUndefined(v.get('variableName')),
+                variableDefault: workflow_var_pair && workflow_var_pair.variableDefault,
+
+                // Single/multiple-options related
                 hasOptions: v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select'),
                 useDefaultDisabled: (v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select')),
+                options: _.map(v.get('options') || [], function (o,i) { return _.extend(_.clone(o), { optionIndexPlusOne: i + 1 }); }),
+
+                // Calendar flag
                 isCalendar: v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'),
+
+                // For use instead of the handlebars @index:
                 displayIndex: i,
-                displayIndexPlusOne: i + 1,
-                options: _.map(v.get('options') || [], function (o,i) { return _.extend(_.clone(o), { optionIndexPlusOne: i + 1 }); })
+                displayIndexPlusOne: i + 1
             });
+        }, {
+            workflowVars: this.filteredWorkflowVariables()
+        });
+    },
+
+    filteredWorkflowVariables: function() {
+        var varMap = this.workflowVariables && this.workflowVariables.get('variableMap');
+        var filteredVars = _.omit(varMap, chorus.WorkletConstants.OmittedWorkflowVariables);
+
+        return _.map(filteredVars, function (value, prop) {
+            return {
+                variableName: prop,
+                variableDefault: value
+            };
         });
     },
 
     additionalContext: function () {
-        // TODO: Alpine includes some variables that are read-only.
-        // This isn't the best place to do this filtering.
-        var varMap = this.workflowVariables && this.workflowVariables.get('variableMap');
-        var filteredVars = _.omit(varMap, chorus.WorkletConstants.OmittedWorkflowVariables);
         return {
-            workflowVariables: _.map(filteredVars, function (value, prop) {
-                return {
-                    variableName: prop,
-                    variableDefault: value
-                };
-            }),
+            workflowVariables: this.filteredWorkflowVariables(),
             workletParams: this.workletParams(),
             dataTypes: chorus.WorkletConstants.DataTypes
         };

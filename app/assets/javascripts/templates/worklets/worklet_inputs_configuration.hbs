@@ -27,6 +27,26 @@
                 </div>
             </div>
 
+            <div class="variable_details_section">
+                <div class="parameter_section_header">
+                    {{t "worklet.configure.inputs.variable_details"}}
+                </div>
+
+                <div class="variable_detail_content">
+                    {{#if noVariableSelected}}
+                        <div class="no_parameters_notice">
+                            <span class="notice_icon fa fa-lg fa-info-circle"></span><span class="description_instructions">{{t "worklet.configure.inputs.variable_details_description"}}</span>
+                        </div>
+                    {{else}}
+                        <div class="subsection_header">
+                        {{t "worklet.configure.inputs.variable_details_default_value"}}
+                        </div>
+                        <div class="default_value_subsection">
+                            {{this.variableDefault}}
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
             <div class="input_section">
                <div class="form_pair">
                    <label for="variable_name_{{@index}}">
