@@ -87,6 +87,10 @@ class ChorusConfig
     !!self['gnip.enabled']
   end
 
+  def touchpoints_enabled?
+    !!self['touchpoints.enabled']
+  end
+
   def syslog_configured?
     (self['logging.syslog.enabled'] && true)
   end

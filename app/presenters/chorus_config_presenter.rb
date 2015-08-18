@@ -21,7 +21,8 @@ class ChorusConfigPresenter < Presenter
         :hive_hdfs_versions => model.hive_hdfs_versions,
         :time_zones => model.time_zones,
         :license => present(License.instance, options),
-        :restrict_data_source_creation => model.restrict_data_source_creation?
+        :restrict_data_source_creation => model.restrict_data_source_creation?,
+        :touchpoints_enabled => model.touchpoints_enabled?
     }
 
     begin
