@@ -152,7 +152,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         this.parameters.models[i] = param_model;
 
         // If we're updating data type then we want to rerender before validating.
-        if (old_dt !== updates.dataType) {
+        if (!_.isUndefined(old_dt) && old_dt !== updates.dataType) {
             this.render();
         }
 
@@ -161,7 +161,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         if (!param_model.performValidation(updates)) {
             this.showParamErrors(param_model, i);
             this.broadcastEditorState();
-            return;
+            return false;
         }
 
         if (perform_save === true) {
