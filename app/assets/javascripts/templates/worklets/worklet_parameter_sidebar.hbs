@@ -19,11 +19,6 @@
 
     {{#if runState}}
         <button class="modalish submit run_worklet run_worklet_button">{{t "worklet.workbench.mode.run"}}</button>
+        <button class="modalish submit stop_worklet stop_worklet_button">{{t "worklet.workbench.mode.run_stop_run"}}</button>
     {{/if}}
 </div>
-
-{{#if runState}}
-    <div id="stop_worklet" class="row form_controls hidden">
-        <button type="submit" class="submit stop_worklet_button modalish">{{t "worklet.workbench.mode.run_stop_run"}}</button>
-    </div>
-{{/if}}

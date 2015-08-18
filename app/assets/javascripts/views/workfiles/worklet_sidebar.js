@@ -1,9 +1,10 @@
 //= require ./workfile_sidebar
 chorus.views.WorkletSidebar = chorus.views.AlpineWorkfileSidebar.extend ({
     additionalContext: function() {
+        var canUpdate = this.model && this.model.workspace().canUpdate();
         var ctx = this._super('additionalContext', arguments);
-        ctx.showPublishWorklet = this.model.get('state') === 'completed';
-        ctx.showUnpublishWorklet = this.model.get('state') === 'published';
+        ctx.showPublishWorklet = this.model.get('state') === 'completed' && canUpdate;
+        ctx.showUnpublishWorklet = this.model.get('state') === 'published' && canUpdate;
         return ctx;
     },
     setup: function() {
