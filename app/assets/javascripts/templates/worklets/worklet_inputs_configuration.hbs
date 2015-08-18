@@ -91,7 +91,7 @@
                             </thead>
                             {{#each this.options}}
                                 <tr>
-                                    <td class="index_col">{{@index}}</td>
+                                    <td class="index_col">{{optionIndexPlusOne}}</td>
                                     <td class="option_input_col">
                                         <input type="text" name="option_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.option}}" maxlength="64"/>
                                     </td>

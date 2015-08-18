@@ -283,7 +283,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
                 isCalendar: v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'),
                 displayIndex: i,
                 displayIndexPlusOne: i + 1,
-                options: v.get('options') || []
+                options: _.map(v.get('options') || [], function (o,i) { return _.extend(_.clone(o), { optionIndexPlusOne: i + 1 }); })
             });
         });
     },
