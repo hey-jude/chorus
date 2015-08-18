@@ -204,9 +204,13 @@ class ChorusConfig
   def initialize_hive_hdfs_versions
     versions = [
         'Cloudera CDH5',
+        'Cloudera CDH5.3',
+        'Cloudera CDH5.4',
         'Hortonworks HDP 2',
+        'Hortonworks HDP 2.2',
         'IBM Big Insights 4.0',
-        'MapR4'
+        'MapR4',
+        'Pivotal HD3'
     ]
     versions.sort
   end
