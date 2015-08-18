@@ -34,8 +34,8 @@ class PublishedWorkletController < ApplicationController
     running_workfile.save!
     if !test_run
       params[:workfile][:worklet_parameters][:fields].each do |field|
-        worklet_variable_version = WorkletParameterVersion.new({:worklet_variable_id => field['id'], :value => field['value'], :owner_id => current_user.id, :result_id => process_id})
-        worklet_variable_version.save!
+        worklet_parameter_version = WorkletParameterVersion.new({:worklet_parameter_id => field['id'], :value => field['value'], :owner_id => current_user.id, :result_id => process_id})
+        worklet_parameter_version.save!
       end
     end
     present worklet, :status => :accepted
