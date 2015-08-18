@@ -1,5 +1,6 @@
 chorus.models.WorkletParameter = chorus.models.Base.extend({
     constructorName: "WorkletParameter",
+    parameterWrapper: "worklet_parameter",
     urlTemplate: "workspaces/{{workspaceId}}/worklets/{{workletId}}/parameters/{{id}}",
     viewClass: chorus.views.WorkletParameter,
 
@@ -41,7 +42,10 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
             // modelClass = chorus.models.WorkletParameter;
         }
 
-        return new modelClass(this);
+        var newModel = new modelClass(this);
+        newModel.cid = this.cid;
+
+        return newModel;
     },
 
     // There are two "validations" using similar machinery that happen using these "parameter" models;

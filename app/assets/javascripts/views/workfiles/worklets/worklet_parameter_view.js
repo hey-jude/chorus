@@ -214,10 +214,8 @@ chorus.views.WorkletCalendarParameter = chorus.views.WorkletParameter.include(ch
     },
 
     getUserInput: function() {
-        // Returns as 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
-        // See vendor/moment.js
         var v = {};
-        v[this.model.get('variableName')] = this.startDatePicker.getDate().toISOString();
+        v[this.model.get('variableName')] = this.startDatePicker.getDate().format('YYYY-MM-DD');
 
         return v;
     }

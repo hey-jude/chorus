@@ -141,11 +141,20 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
             updates.options = options;
         }
 
-        // Validate and set the model on client side.
-        this.clearParamErrors(param_model, i);
+        var old_dt = param_model.get('dataType');
+
+        // Set the attributes for the changes, and cast to specific parameter class.
         param_model.set(updates);
         param_model = param_model.castByDataType();
         this.parameters.models[i] = param_model;
+
+        // If we're updating data type then we want to rerender before validating.
+        if (old_dt !== updates.dataType) {
+            this.render();
+        }
+
+        // Validate and set the model on client side.
+        this.clearParamErrors(param_model, i);
         if (!param_model.performValidation(updates)) {
             this.showParamErrors(param_model, i);
             this.broadcastEditorState();
@@ -153,13 +162,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         }
 
         if (perform_save === true) {
-            // Use the "worklet parameter" model's end-point when saving
-            var generic = new chorus.models.WorkletParameter(param_model);
-            var save_state = false !== generic.save(updates, save_options);
-            if (save_state === true) {
-                this.parameters.models[i] = generic;
-            }
-
+            var save_state = false !== param_model.save(updates, save_options);
             this.paramChanged();
             return save_state;
         } else {
@@ -190,15 +193,16 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     deleteParameter: function(e) {
         e && e.preventDefault();
         //var p = this.workletParams()[e.currentTarget.dataset.index]
-        var m = this.parameters.models[e.currentTarget.dataset.index];
+        var m = this.parameters.at(e.currentTarget.dataset.index);
         new chorus.alerts.WorkletParameterDeleteAlert({
-            model: m
+            model: m,
+            at: e.currentTarget.dataset.index
         }).launchModal();
     },
 
     paramDeleted: function(param_options) {
         // Remove from collection
-        this.model.parameters().remove(param_options.model);
+        this.parameters.remove(param_options.model);
         this.paramChanged();
     },
 
