@@ -16,23 +16,37 @@ module LogArchiver
     log "Log archiver started at #{start_time.to_formatted_s(:long)}"
     log "Truncating logs into #{ASSEMBLE_ZIP_DIR} ..."
 
-    truncate_logs_into_assemble_zip_dir
-    set_chorus_home
-    add_config_files_to_archive
-    add_licences_to_archive
-    add_properties_to_archive
-    add_hdfs_data_sources_to_archive
+    @chorus_home = (`echo $CHORUS_HOME`).to_s.strip
+
+    add_logs
+    add_config_files
+    add_licences
+    add_properties
+    add_hdfs_data_sources
 
     log "Zipping, after: #{Time.now - start_time}."
     @log_archiver_logfile.close()
 
     # alpine_logs_20150720150924.zip
-    zip_file_path = zip_file
-    zip_file_path
+    zip_file_path = zip
 
+    zip_file_path
   end
 
   private
+
+  def log_cmd(cmd)
+    log cmd
+    log `#{cmd}`
+  end
+
+  def log(msg)
+    unless msg.blank?
+      logger.debug msg
+      @log_archiver_logfile.write("#{msg}\n")
+      @log_archiver_logfile.flush
+    end
+  end
 
   # KT: from Nate ... see: https://alpine.atlassian.net/browse/DEV-11637
   # Alpine.log > chorus user's home directory
@@ -48,7 +62,7 @@ module LogArchiver
     alpine_install = {path: "/tmp/install.log",
                       archive_path: "#{ASSEMBLE_ZIP_DIR}/alpine_install_logs"}
 
-    postgres = {path: "#{(`echo $CHORUS_HOME`).to_s.strip}/../../shared/db/server.log",
+    postgres = {path: "#{@chorus_home}/shared/db/server.log",
                 archive_path: "#{ASSEMBLE_ZIP_DIR}/postgres_logs"}
 
     chorus = {path: "#{Rails.root}/log",
@@ -73,10 +87,10 @@ module LogArchiver
   end
 
   def tomcat_path(version)
-    "#{(`echo $CHORUS_HOME`).to_s.strip}/../../alpine-current/apache-tomcat-#{version}/logs"
+    "#{@chorus_home}/alpine-current/apache-tomcat-#{version}/logs"
   end
 
-  def truncate_logs_into_assemble_zip_dir
+  def add_logs
 
     log_locations.each do |log|
       if File.exists?(log[:path])
@@ -114,108 +128,73 @@ module LogArchiver
     log_cmd("tail -n #{num_lines} \"#{path}\" > \"#{truncated_path}\"")
   end
 
-  def log_cmd(cmd)
-    log cmd
-    log `#{cmd}`
-  end
+  def add_config_files
+    path = "#{ASSEMBLE_ZIP_DIR}/config_files"
 
-  def log(msg)
-    unless msg.blank?
-      logger.debug msg
-      @log_archiver_logfile.write("#{msg}\n")
-      @log_archiver_logfile.flush
-    end
-  end
-
-  # TODO: Need to refactor more.
-  def set_chorus_home
-    @chorus_home = (`echo $CHORUS_HOME`).to_s.strip
-  end
-
-  def config_files
-    alpine_runtime = "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.runtime.conf"
-    alpine   = "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.conf"
-
-    [alpine_runtime, alpine]
-  end
-
-  def licence_files
-    chorus =  "#{@chorus_home}/shared/chorus.license"
-    alpine =  "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/alpine.license"
-
-    [chorus, alpine]
-  end
-
-  def properties_files
-    chorus =  "#{@chorus_home}/shared/chorus.properties"
-    deploy =  "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/deploy.properties"
-
-    [chorus, deploy]
-  end
-
-  def add_config_files_to_archive
-    archive_path =  "#{ASSEMBLE_ZIP_DIR}/config_files"
-    log_cmd "mkdir -p #{archive_path}"
-    config_files.each do |file|
+    ["#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.runtime.conf",
+     "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.conf"].each do |file|
       if File.exists?(file)
-        copy_file(file,archive_path)
+        copy_file(file, path)
       else
-        @log_archiver_logfile.write("WARN: FILE NOT FOUND: #{file} \n")
-        @log_archiver_logfile.flush
+        log "WARN: Not found! #{file} \n"
       end
     end
   end
 
-  def add_licences_to_archive
-    archive_path =  "#{ASSEMBLE_ZIP_DIR}/licence_files"
-    log_cmd "mkdir -p #{archive_path}"
-    licence_files.each do |file|
+  def add_licences
+    path = "#{ASSEMBLE_ZIP_DIR}/licence_files"
+
+    ["#{@chorus_home}/shared/chorus.license", "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/alpine.license"].each do |file|
       if File.exists?(file)
-        copy_file(file  ,archive_path)
+        copy_file(file, path)
       else
-        @log_archiver_logfile.write("WARN: FILE NOT FOUND: #{file} \n")
-        @log_archiver_logfile.flush
+        log "WARN: Not found! #{file} \n"
       end
     end
   end
 
-  def add_properties_to_archive
-    archive_path = "#{ASSEMBLE_ZIP_DIR}/properties_files"
-    log_cmd "mkdir -p #{archive_path}"
-    properties_files.each do |file|
+  def add_properties
+    path = "#{ASSEMBLE_ZIP_DIR}/properties_files"
+
+    ["#{@chorus_home}/shared/chorus.properties",
+     "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/deploy.properties"].each do |file|
+
       if File.exists?(file)
-        copy_file(file,archive_path)
+        copy_file(file, path)
       else
-        @log_archiver_logfile.write("WARN: FILE NOT FOUND: #{file} \n")
-        @log_archiver_logfile.flush
+        log "WARN: Not found! #{file} \n"
       end
     end
+
   end
 
-  def add_hdfs_data_sources_to_archive
-    archive_path = "#{ASSEMBLE_ZIP_DIR}/registered_hdfs_data_sources/"
-    log_cmd "mkdir -p #{archive_path}"
-    api = request.protocol.to_s + request.host.to_s + ":"+ request.port.to_s + "/api/hdfs/get_a_list_of_registered_hdfs_data_sources.html"
-    archive_path_file = archive_path + "hdfs_data_sources.html"
-    download_api_list_to_archieve_path(api,archive_path_file)
+  def add_hdfs_data_sources
+    path = "#{ASSEMBLE_ZIP_DIR}/registered_hdfs_data_sources/"
+    log_cmd "mkdir -p #{path}"
+
+    # NB: 'request' is available because, this is mixed into a controller.
+    api = request.protocol.to_s + request.host.to_s + ":"+ request.port.to_s + "/hdfs_data_sources"
+
+    archive_path_file = path + "hdfs_data_sources.json"
+    download_api_list(api, archive_path_file)
   end
 
-  def download_api_list_to_archieve_path(api,archive_path)
+  def download_api_list(api, archive_path)
     log_cmd("curl --insecure -o #{archive_path} #{api}")
   end
 
-  def copy_file(from,to)
+  def copy_file(from, to)
+    log_cmd "mkdir -p #{to}"
     log_cmd("cp #{from} #{to}")
   end
 
-
-  def zip_file
+  def zip
     zip_path = "#{ARCHIVE_DIR}/alpine_logs_#{Time.now.to_formatted_s(:number)}.zip"
 
     zip_file = ZipFileGenerator.new(ASSEMBLE_ZIP_DIR, zip_path)
     zip_file.write()
 
     `rm -rf #{ASSEMBLE_ZIP_DIR}`
-     zip_path
+    zip_path
   end
 end
