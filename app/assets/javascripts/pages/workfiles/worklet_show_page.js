@@ -96,7 +96,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     workletSaved: function(e) {
         chorus.PageEvents.trigger("worklet:editor:save", "saved");
-        chorus.toast('worklet.save.success.toast', {toastOpts: {type: "success"}});
+        chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
     },
 
     workletSaveFailed: function(e) {
