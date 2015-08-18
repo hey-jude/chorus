@@ -14,8 +14,6 @@ chorus.views.TagListSidebar = chorus.views.Sidebar.extend({
         this.subscribePageEvent('tag:deselected', function() {
             this.setTag(null);
         });
-
-        // When a tag is deleted, make sure it disappears from the sidebar.
         this.subscribePageEvent('tag:deleted', function() {
             this.setTag(null);
         });
