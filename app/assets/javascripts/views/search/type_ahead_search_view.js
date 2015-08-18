@@ -19,7 +19,6 @@ chorus.views.TypeAheadSearch = chorus.views.Base.extend({
 
             var isBinaryHdfs = result.get('entityType') === 'hdfs_file' && ( result.get('isBinary') !== false );
 
-            debugger;
             return {
                 name: result.highlightedName(),
                 type: t("type_ahead.entity." + this.entityTypeForResult(result)),
