@@ -116,6 +116,39 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         return this._parameters;
     },
 
+    fetchWorkflowVariables: function(options) {
+        if (this._fetchedWorkflowVars !== true) {
+            // Alpine-passed workflow variables
+            if (_.isUndefined(this.get('workflowId'))) {
+                return;
+            }
+
+            this.workflowVariables = new chorus.models.WorkFlowVariables({
+                workfile_id: this.get('workflowId')
+            });
+
+            this.workflowVariables.fetch(options);
+            this.workflowVariables.once('loaded', _.bind(function() {
+                this._fetchedWorkflowVars = true;
+                chorus.PageEvents.trigger("worklet:workflow_variables_loaded", this._filteredWorkflowVariables());
+            }, this));
+        } else {
+            chorus.PageEvents.trigger("worklet:workflow_variables_loaded", this._filteredWorkflowVariables());
+        }
+    },
+
+    _filteredWorkflowVariables: function() {
+        var varMap = this.workflowVariables && this.workflowVariables.get('variableMap');
+        var filteredVars = _.omit(varMap, chorus.WorkletConstants.OmittedWorkflowVariables);
+
+        return _.map(filteredVars, function (value, prop) {
+            return {
+                variableName: prop,
+                variableDefault: value
+            };
+        });
+    },
+
     run: function(worklet_parameters, test_run) {
         this.save({worklet_parameters: worklet_parameters, test_run: test_run}, {
             workflow_action: 'run',
