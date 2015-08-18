@@ -210,7 +210,7 @@ class ChorusConfig
         'Hortonworks HDP 2.2',
         'IBM Big Insights 4.0',
         'MapR4',
-        'Pivotal HD3'
+        'Pivotal HD 3'
     ]
     versions.sort
   end
