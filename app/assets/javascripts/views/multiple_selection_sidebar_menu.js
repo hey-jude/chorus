@@ -31,10 +31,14 @@ chorus.views.MultipleSelectionSidebarMenu = chorus.views.Base.include(
         revealOnlyMultiActions: function () {
             $('.multiple_selection').removeClass('hidden');
             $('#sidebar').find('.primary').addClass('hidden');
-        }, revealOnlySingleActions: function () {
+        },
+
+        revealOnlySingleActions: function () {
             $('.multiple_selection').addClass('hidden');
             $('#sidebar').find('.primary').removeClass('hidden');
-        }, revealNoActions: function () {
+        },
+
+        revealNoActions: function () {
             $('#sidebar').find('.primary').addClass('hidden');
             $('.multiple_selection').addClass('hidden');
         },
@@ -48,11 +52,12 @@ chorus.views.MultipleSelectionSidebarMenu = chorus.views.Base.include(
         additionalContext: function () {
             var actions = _.map(this.actions, this.templateValues);
 
-            // Only show the list of actions in the sidebar (Disable, Enable, Delete)
-            // if the currently logged in user has permissions to
-            // update ALL of the currently selected jobs.
-            var canUpdateSelected = this.selectedModels.every(function (selectedModel){
-                return selectedModel.workspace().canUpdate();
+            var canUpdateSelected = this.selectedModels.every(function (model) {
+                if (typeof model.canUpdate == 'function') {
+                  return model.canUpdate();
+                } else {
+                  return true;
+                }
             });
 
             return {
