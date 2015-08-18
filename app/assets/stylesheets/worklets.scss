@@ -601,7 +601,7 @@ $workletSteps-container-height: 50px;
 
     .input_section {
       .disabled {
-        color: $disabled-text;
+        @include disabled-text;
       }
       margin: 10px;
     }

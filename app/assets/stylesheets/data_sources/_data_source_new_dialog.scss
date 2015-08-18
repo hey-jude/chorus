@@ -206,7 +206,7 @@
         }
 
         .disabled {
-            color: $color-text4;
+            @include disabled-text;
         }
 
         .max_size {

@@ -86,7 +86,7 @@ $color-text2:   $charcoal;
 $color-text3:   lighten($charcoal, 7%);
 $color-text4:   lighten($bright-grey, 20%);
 $link-color:    $brand;
-$disabled-text: #939799;
+$disabled-text: #A4A5A6;
 
 $caret-color:   $light-sky-blue;
 
@@ -531,6 +531,11 @@ $lozenge-font-size: 12px;
     color: $brand-dark;
     font-size: $small-font;
     font-weight: $semibold;
+}
+
+@mixin disabled-text {
+    color: $disabled-text;
+    cursor: normal;
 }
 
 @mixin font-menu {
