@@ -92,6 +92,12 @@ div[data-page="PublishedWorkletIndex"] {
   }
 }
 
+div[data-page="WorkletRun"] {
+  .content_header {
+    display: none;
+  }
+}
+
 div[data-page="WorkletEdit"],
 div[data-page="WorkletRun"] {
   .sub_nav {
