@@ -17,6 +17,7 @@ module LogArchiver
     log "Truncating logs into #{ASSEMBLE_ZIP_DIR} ..."
 
     truncate_logs_into_assemble_zip_dir
+    set_chorus_home
     add_config_files_to_archive
     add_licences_to_archive
     add_properties_to_archive
@@ -126,32 +127,33 @@ module LogArchiver
     end
   end
 
-  # TODO: Need to update ALL files paths.
+  # TODO: Need to refactor more.
+  def set_chorus_home
+    @chorus_home = (`echo $CHORUS_HOME`).to_s.strip
+    logger.debug "CHorus Home -----> #{@chorus_home}"
+  end
 
   def config_files
-    alpine_runtime = "#{Rails.root}/config/alpine.runtime.conf"
-    alpine   = "#{Rails.root}/config/alpine.runtime.conf"
+    logger.debug "CHorus Home -----> #{@chorus_home}"
+    alpine_runtime = "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.runtime.conf"
+    alpine   = "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.conf"
 
     [alpine_runtime, alpine]
-
   end
 
   def licence_files
-    chorus =  "#{Rails.root}/config/chorus.license.default"
-    alpine =  "#{Rails.root}/config/chorus.license"
+    chorus =  "#{@chorus_home}/shared/chorus.license"
+    alpine =  "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/alpine.license"
 
     [chorus, alpine]
   end
 
   def properties_files
-    chorus =  "#{Rails.root}/config/chorus.properties.example"
-    deploy =  "#{Rails.root}/config/chorus.properties"
+    chorus =  "#{@chorus_home}/shared/chorus.properties"
+    deploy =  "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/deploy.properties"
 
     [chorus, deploy]
   end
-
-
-
 
   def add_config_files_to_archive
     archive_path =  "#{ASSEMBLE_ZIP_DIR}/config_files"
@@ -159,6 +161,9 @@ module LogArchiver
     config_files.each do |file|
       if File.exists?(file)
         copy_file(file,archive_path)
+      else
+        @log_archiver_logfile.write("WARN: FILE NOT FOUND: #{file} \n")
+        @log_archiver_logfile.flush
       end
     end
   end
@@ -169,6 +174,9 @@ module LogArchiver
     licence_files.each do |file|
       if File.exists?(file)
         copy_file(file  ,archive_path)
+      else
+        @log_archiver_logfile.write("WARN: FILE NOT FOUND: #{file} \n")
+        @log_archiver_logfile.flush
       end
     end
   end
@@ -179,6 +187,9 @@ module LogArchiver
     properties_files.each do |file|
       if File.exists?(file)
         copy_file(file,archive_path)
+      else
+        @log_archiver_logfile.write("WARN: FILE NOT FOUND: #{file} \n")
+        @log_archiver_logfile.flush
       end
     end
   end
@@ -192,11 +203,11 @@ module LogArchiver
   end
 
   def download_api_list_to_archieve_path(api,archive_path)
-   `curl --insecure -o #{archive_path} #{api}`
+    log_cmd("curl --insecure -o #{archive_path} #{api}")
   end
 
   def copy_file(from,to)
-   `cp #{from} #{to}`
+    log_cmd("cp #{from} #{to}")
   end
 
 
