@@ -19,6 +19,7 @@ chorus.views.TypeAheadSearch = chorus.views.Base.extend({
 
             var isBinaryHdfs = result.get('entityType') === 'hdfs_file' && ( result.get('isBinary') !== false );
 
+            debugger;
             return {
                 name: result.highlightedName(),
                 type: t("type_ahead.entity." + this.entityTypeForResult(result)),
@@ -31,8 +32,11 @@ chorus.views.TypeAheadSearch = chorus.views.Base.extend({
     },
 
     entityTypeForResult: function(result) {
-        if(result.get('entityType') === 'dataset' && result.get('entitySubtype') === 'CHORUS_VIEW') {
+        if (result.get('entityType') === 'dataset' && result.get('entitySubtype') === 'CHORUS_VIEW') {
             return 'chorusView';
+        }
+        else if (result.get('entityType') === 'workfile' && result.get('entitySubtype') !== null) {
+            return result.get('entitySubtype');
         }
         return result.get('entityType');
     },
