@@ -1,6 +1,7 @@
 chorus.alerts.WorkletUnsavedAlert = chorus.Modal.extend({
     templateName: "worklets/unsaved_alert",
     constructorName: "WorkletUnsavedAlert",
+    additionalClass: "alert error",
 
     events: {
         "click button.close_with_save": "closeWithSave",
@@ -33,7 +34,7 @@ chorus.alerts.WorkletUnsavedAlert = chorus.Modal.extend({
 
     additionalContext: function(ctx) {
         return {
-            body: t("worklet.edit.unsaved_changes.text"),
+            text: t("worklet.edit.unsaved_changes.text"),
             title: t("worklet.edit.unsaved_changes.title"),
             save: t("worklet.edit.unsaved_changes.close_with_save"),
             cancel: t("worklet.edit.unsaved_changes.cancel"),
