@@ -167,7 +167,7 @@ select.has_error {
   @include border-radius(1px);
 
   @include error-background-icon;
-  background-position: right 20px top;
+  background-position: right 20px top 50%;
 }
 
 input.has_error,
