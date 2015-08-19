@@ -575,16 +575,23 @@ $workletSteps-container-height: 50px;
 
 // module for each input parameter's configuration fields
 .worklet_parameter_module {
+    max-width: 760px;
+    background-color: lighten($light-gray-blue, 5%);
     position: relative;
     border: $border-canon;
     @include border-radius(2px);
     margin: 0 0 10px 0;
 
     .input_section {
+      margin: 10px;
+
       .disabled {
         color: $disabled-text;
       }
-      margin: 10px;
+
+      .form_input {
+          width: 70%;
+      }
     }
 
     .errors {
@@ -597,7 +604,7 @@ $workletSteps-container-height: 50px;
     .option_edit {
 
         $worklet-optiontable-border-size: 1px;
-        $worklet-optiontable-header-color: #DDDDD9;
+        $worklet-optiontable-header-color: $shaded-background-color;
 
         margin-top: 5px;
 
@@ -757,6 +764,7 @@ $workletSteps-container-height: 50px;
 
     border: $border-canon;
     width: 200px;
+    min-height: 100px;
 
     .variable_detail_content {
       padding: 5px;
