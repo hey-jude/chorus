@@ -177,7 +177,7 @@ chorus.Mixins.WorkletErrorOverride = {
     }
 };
 
-chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.include(chorus.Mixins.WorkletErrorOverride).extend(
+chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.extend(
     {
     templateName: "worklets/parameters/worklet_single_option_parameter",
 

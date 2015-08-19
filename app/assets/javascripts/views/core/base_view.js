@@ -84,7 +84,7 @@ chorus.views.Base = chorus.views.Bare.extend({
         if (!model) { return; }
 
         _.each(model.errors, function(val, key) {
-            var $input = self.$("input[name=\"" + key + "\"], form textarea[name=\"" + key + "\"]");
+            var $input = self.$("select[name=\"" + key + "\"], input[name=\"" + key + "\"], form textarea[name=\"" + key + "\"]");
             self.markInputAsInvalid($input, val, isModal, options);
         });
         this.displayServerErrors(model);

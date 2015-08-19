@@ -97,7 +97,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         var other_errors = [];
         _.each(param.errors, function(val, key) {
             var vName = _.underscored(key) + '_' + param_index;
-            var $input = this.view.$("input[name=\"" + vName + "\"], form textarea[name=\"" + vName + "\"]");
+            var $input = this.view.$("select[name=\"" + vName + "\"], input[name=\"" + vName + "\"], form textarea[name=\"" + vName + "\"]");
 
             // If the error isn't on a text input, we show as an error div rather than a tool tip.
             if ($input.length === 0) {
@@ -123,7 +123,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     clearParamErrors: function(param, param_index) {
         _.each(param.errors, function(val, key) {
             var vName = _.underscored(key) + '_' + param_index;
-            var $input = this.$("input.has_error[name=\"" + vName + "\"], form textarea.has_error[name=\"" + vName + "\"]");
+            var $input = this.$("select.has_error[name=\"" + vName + "\"], input.has_error[name=\"" + vName + "\"], form textarea.has_error[name=\"" + vName + "\"]");
             $input.qtip("destroy");
             $input.removeData("qtip");
             $input.removeClass("has_error");
@@ -194,18 +194,18 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         });
         if (!_.isEmpty(dup_var_params)) {
             var var_name = param_model.get('variableName');
-            var err_msg = param_model.errors[var_name] = t('worklet.validation.duplicate_workflow_variable', { name: var_name });
+            var err_msg = t('worklet.validation.duplicate_workflow_variable', { name: var_name });
 
             // Show errors on this model
-            param_model.errors[var_name] = err_msg;
+            param_model.errors["variable_name"] = err_msg;
             has_validation_errors = true;
         } else {
             // Reassignment of variable name can lead to the case where
             // we'd like to automatically clear the variableName error on the formerly
             // assigned parameter.
             _.each(this.parameters.models, function(p, j) {
-                if (p.errors && !_.isUndefined(p.errors[this.varName])) {
-                    var tmp_errs = _.omit(p.errors, this.varName);
+                if (p.errors && !_.isUndefined(p.errors["variable_name"]) && p.get('variableName') === this.varName) {
+                    var tmp_errs = _.omit(p.errors, "variable_name");
                     this.view.clearParamErrors(p, j);
                     p.errors = tmp_errs;
                     this.view.showParamErrors(p, j);
