@@ -6,10 +6,23 @@
 <div class="worklet_parameters"></div>
 
 {{#if noParameters}}
-<!--   TODO fix this to be a shared empty message type -->
+
+    {{#if editState}}
+
     <div class="no_parameters_notice">
         <span class="notice_icon fa fa-exclamation-circle"></span>{{t "worklet.edit.inputs_sidebar.empty.message"}}
-    </div>
+    </div>    
+    
+    {{else}}
+        {{#if runState}}
+    
+        <div class="no_parameters_notice">
+            <span class="notice_icon fa fa-exclamation-circle"></span>{{t "worklet.run.inputs_sidebar.empty.message"}}
+        </div>
+      
+        {{/if}}
+    {{/if}}
+
 {{/if}}
 
 <div class="row form_controls">
