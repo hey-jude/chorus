@@ -6,28 +6,8 @@
     </div>
 
     <div id="content">
-        <!-- <ul> -->
             {{#each associatedWorklets}}
-<!-- 
-                <li class="worklet_list_item">
-                    <div class="worklet_usage_item">
-                        <div class="image_container">
-                            <img class="workspaceIconSmall" src="/workspaces/{{workspace.id}}/worklets/{{id}}/image/" alt=""/>
-                        </div>
-                        <div class="details">
-                            <div>
-                                <a class="workspace_link" href="/#workspaces/{{workspace.id}}/worklets/{{id}}/">{{fileName}}</a>
-                            </div>
-                            <div class="pair location">
-                                {{description}}
-                            </div>
-                        </div>
-                        <div style="clear: both;"></div>
-                    </div>
-                </li>
- -->
-                
-                <!-- <li class="worklet_list_item"> -->
+
                 <div class="worklet_catalog_card">
                     <div class="worklet_card_avatar">
                         <a href="/#workspaces/{{workspace.id}}/worklets/{{id}}/"><img src="/workspaces/{{workspace.id}}/worklets/{{id}}/image/" alt=""></a>
@@ -45,12 +25,9 @@
 
                     </div>
                 </div>
-                <!-- </li>  -->
-
 
             {{/each}}
-            
-        <!-- </ul> -->
+
     </div>
 
 </div>

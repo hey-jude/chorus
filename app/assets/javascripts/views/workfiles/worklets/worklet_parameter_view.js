@@ -3,7 +3,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
     templateName: "worklets/parameters/worklet_parameter_list",
 
     setup: function() {
-        // this.parameters becomes the filtered set of variable views.
+        // this.parameters becomes the filtered set of variable views
         this.parameters = [];
         this.collection = this.model.parameters();
 
@@ -42,7 +42,6 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
 
             // Get default value from alpine-provided workflow variables
             var workflow_var_pair = _.find(this.workflowVariables, function(w) { return w.variableName === this + ""; }, parameter_model.get('variableName'));
-
 
             // View specific to the subclass is stored in "viewClass" attribute of the model
             var parameter_view = new parameter_model.viewClass({
