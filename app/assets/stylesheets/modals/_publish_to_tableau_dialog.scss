@@ -20,6 +20,6 @@
   }
 
   .disabled {
-    color: #a9a9a9;
+    @include disabled-text;
   }
 }

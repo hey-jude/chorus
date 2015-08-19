@@ -303,7 +303,6 @@ $menu-item-height-default: 40px;
         }
 
 
-
         // primary navigation menu
         
 $primary-nav-separation-height: 30px;
@@ -389,6 +388,9 @@ $primary-nav-separation-height: 30px;
                 font-size: 19px;
             }
             
+            .disabled {
+                @include disabled-text;
+            }
         }
 
         .menu.popup_username {
