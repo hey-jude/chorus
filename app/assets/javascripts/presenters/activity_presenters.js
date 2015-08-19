@@ -738,7 +738,13 @@
         },
 
         modelLink: function(model) {
-            return Handlebars.helpers.linkTo(model.showUrl(), model.name());
+
+            // Disable links for Hadoop Hive data sources (temporary in 5.6)
+            if(model.isHdfsHive){
+                return model.name();
+            } else {
+                return Handlebars.helpers.linkTo(model.showUrl(), model.name());
+            }
         },
 
         dialogLink: function (model, linkTranslation) {
