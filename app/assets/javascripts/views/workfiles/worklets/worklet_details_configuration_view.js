@@ -44,12 +44,17 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
         }
 
         var multipart = !window.jasmine;
+
         this.$("input[type=file]").fileupload({
             add: _.bind(this.desktopFileChosen, this),
             multipart: multipart,
             dataType: "text",
             dropZone: this.$("input[type=file]")
         });
+
+        if (this.model.files.length) {
+          this.loadNewImage(this.model.files[0].get('files')[0]);
+        }
     },
 
     hasUnsavedChanges: function() {
@@ -117,10 +122,6 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
     workletSaved: function(e) {
         this._hasUnsavedChanges = false;
         this.broadcastEditorState();
-        if (this.model.files.length) {
-            this.loadNewImage(this.model.files[0].get('files')[0]);
-            this.model.saveFiles();
-        }
     },
 
     workletSaveFailed: function(e) {
