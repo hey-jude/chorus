@@ -45,7 +45,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
 
     createAlpinePayload: function() {
         var worklet_parameters = {
-            string: null,
+            string: {},
             fields: []
         };
 
@@ -57,7 +57,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
                 value: parameter.userInput[var_name]
             });
 
-            worklet_parameters.string = parameter.userInput;
+            _.extend(worklet_parameters.string, parameter.userInput);
         });
 
         return worklet_parameters;
