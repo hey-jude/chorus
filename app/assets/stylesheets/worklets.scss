@@ -613,6 +613,12 @@ $workletSteps-container-height: 50px;
       margin: 10px;
     }
 
+    .errors {
+      li {
+        width: 70%;
+      }
+    }
+
     // for building the list of options
     .option_edit {
 
@@ -769,6 +775,8 @@ $workletSteps-container-height: 50px;
   }
 
   .variable_details_section {
+    z-index: 1;
+    background-color: #ffffff;
     position: absolute;
     right: 10px;
     top: 25px + 10px;

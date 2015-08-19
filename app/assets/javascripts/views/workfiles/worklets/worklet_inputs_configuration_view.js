@@ -94,11 +94,30 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     },
 
     showParamErrors: function(param, param_index) {
+        var other_errors = [];
         _.each(param.errors, function(val, key) {
             var vName = _.underscored(key) + '_' + param_index;
-            var $input = this.$("input[name=\"" + vName + "\"], form textarea[name=\"" + vName + "\"]");
-            this.markInputAsInvalid($input, val, false);
-        }, this);
+            var $input = this.view.$("input[name=\"" + vName + "\"], form textarea[name=\"" + vName + "\"]");
+
+            // If the error isn't on a text input, we show as an error div rather than a tool tip.
+            if ($input.length === 0) {
+                this.other_errors.push(val);
+            } else {
+                this.view.markInputAsInvalid($input, val, false);
+            }
+        }, { view: this, other_errors: other_errors });
+
+        if (other_errors.length !== 0) {
+            var err_el = this.$el.find("div.worklet_parameter_module[data-index=" + param_index + "] .errors");
+            err_el.removeClass("hidden");
+
+            var output = ["<ul>"];
+            _.each(other_errors, function(msg) {
+                this.push("<li>" + msg + "</li>");
+            }, output);
+            output.push("</ul>");
+            err_el.html(output.join(""));
+        }
     },
 
     clearParamErrors: function(param, param_index) {
@@ -109,6 +128,10 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
             $input.removeData("qtip");
             $input.removeClass("has_error");
         }, this);
+
+        var err_el = this.$el.find("div.worklet_parameter_module[data-index=" + param_index + "] .errors");
+        err_el.empty().addClass("hidden");
+
         param.errors = {};
     },
 
@@ -145,6 +168,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         }
 
         var old_dt = param_model.get('dataType');
+        var old_vn = param_model.get('variableName');
 
         // Set the attributes for the changes, and cast to specific parameter class.
         param_model.set(updates);
@@ -158,7 +182,41 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         // Validate and set the model on client side.
         this.clearParamErrors(param_model, i);
-        if (!param_model.performValidation(updates)) {
+        var has_validation_errors = !param_model.performValidation(updates);
+
+        // Validate workflow variable uniqueness
+        var dup_var_params = _.reject(this.parameters.models, function(p, i) {
+            return (i === 1*this.index) || (p.get('variableName') !== this.varName);
+        }, {
+            view: this,
+            index: i,
+            varName: param_model.get('variableName')
+        });
+        if (!_.isEmpty(dup_var_params)) {
+            var var_name = param_model.get('variableName');
+            var err_msg = param_model.errors[var_name] = t('worklet.validation.duplicate_workflow_variable', { name: var_name });
+
+            // Show errors on this model
+            param_model.errors[var_name] = err_msg;
+            has_validation_errors = true;
+        } else {
+            // Reassignment of variable name can lead to the case where
+            // we'd like to automatically clear the variableName error on the formerly
+            // assigned parameter.
+            _.each(this.parameters.models, function(p, j) {
+                if (p.errors && !_.isUndefined(p.errors[this.varName])) {
+                    var tmp_errs = _.omit(p.errors, this.varName);
+                    this.view.clearParamErrors(p, j);
+                    p.errors = tmp_errs;
+                    this.view.showParamErrors(p, j);
+                }
+            }, {
+                view: this,
+                varName: old_vn
+            });
+        }
+
+        if (has_validation_errors === true) {
             this.showParamErrors(param_model, i);
             this.broadcastEditorState();
             return false;
