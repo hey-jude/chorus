@@ -29,7 +29,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
             if(this.getAttribute('src')) {
                 $('#share_all_results').show();
                 $('#workletResults_loading').hide();
-                this.style.height='1000px';
+                this.style.height='900px';
             }
         });
     },

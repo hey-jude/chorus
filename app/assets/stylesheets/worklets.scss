@@ -571,32 +571,6 @@ $workletSteps-container-height: 50px;
   border: 1px solid $border-color-darkest;
 }
 
-.worklets_worklet_test {
-  #share_results_loading {
-    $spinner-width: 100px;
-    text-align: center;
-
-    #elapsed_time_container {
-      #elapsed_time {
-      }
-    }
-
-    #spinner_container {
-      width: 100%;
-      height: $spinner-width;
-      text-align: center;
-      padding-top: $spinner-width;
-
-      .spinner {
-        width: 0px;
-        height: 0px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-  }
-}
-
 
 // module for each input parameter's configuration fields
 .worklet_parameter_module {
@@ -1032,9 +1006,8 @@ $workletSteps-container-height: 50px;
                 &#share_all_results {
                     display: none;
                     margin: 0px 10px 15px 0px;
-                    // padding: 10px;
 
-                    min-width: 780px;
+                    min-width: 700px;
                     // background: rgb(240, 245, 250);
                     button {
                         margin: 0;
@@ -1127,8 +1100,6 @@ $workletSteps-container-height: 50px;
 // *****
 // TEST RESULTS
 
-$worklet-testResults-loader-width: 170px;
-
 .worklets_worklet_test {
     .iframe_wrapper {
         padding: 0;
@@ -1146,47 +1117,43 @@ $worklet-testResults-loader-width: 170px;
 }
 
 #workletResults_loading {
-    padding: 20px;
-    // height: 620px;
-    width: $worklet-testResults-loader-width;
+
+    $spinner-size: 200px;
+    $worklet-testResults-loader-width: 170px;
+
+    // padding: 20px;
+    // width: $worklet-testResults-loader-width;
+    width: 700px;
+    height: 1000px;
+    height: 100%;
+    
     margin-left: auto;
     margin-right: auto;
+
+    text-align: center;
+
+    #spinner_container {
+        text-align: center;
+        height: $spinner-size;
+        position: relative;
+        
+        #spinner {
+            position: relative;
+            top: $spinner-size / 2;
+        }
+
+        .spinner {
+            width: 0px;
+            height: 0px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
 }
 
 
-// #loading_doohickey {
-//     position: relative;
-//     width: $worklet-testResults-loader-width;
-//     
-//     background-color: #49F;
-//     border: 1px solid #00F;
-//     border-radius: 5px;
-//     
-//     padding: 5px;
-//     text-align: center;
-// 
-//     .spinner_container {
-//         // placeholder for a spinner
-//         width: 70px;
-//         height: 70px;
-//         background-color: #999;
-//         margin-left: auto;
-//         margin-right: auto;
-//         margin-bottom: 10px;
-//     }
-//     p.loading_title {
-//         position: relative;
-//         font-weight: $bold;
-//         font-size: 16px;
-//         color: #444;
-//     }
-//     p.loading_time {
-//         position: relative;
-//         color: #444;
-//     }
-// }
-
 #testResults_frame {
+    display: none;
     height: 650px;
     width: $default-dialog-width-wide - 25px;
 }

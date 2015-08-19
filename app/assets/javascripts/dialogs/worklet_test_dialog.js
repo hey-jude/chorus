@@ -56,8 +56,8 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
                 function (event) {
                     if(this.getAttribute('src')) {
                         $('#spinner').stopLoading();
+                        $('#workletResults_loading').hide();
                         $('#testResults_frame').show();
-                        $('#share_results_loading').hide();
                         clearInterval(event.data.counter);
                         this.style.height = '500px';
                     }
