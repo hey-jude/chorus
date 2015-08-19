@@ -16,7 +16,8 @@ module LogArchiver
     log "Log archiver started at #{start_time.to_formatted_s(:long)}"
     log "Truncating logs into #{ASSEMBLE_ZIP_DIR} ..."
 
-    @chorus_home = (`echo $CHORUS_HOME`).to_s.strip
+    # KT: chorus_control.sh modifies $CHORUS_HOME for the webserver process -- appending './current'
+    @chorus_home = "#{(`echo $CHORUS_HOME`).to_s.strip}/../.."
 
     add_logs
     add_config_files
@@ -172,8 +173,8 @@ module LogArchiver
     path = "#{ASSEMBLE_ZIP_DIR}/registered_hdfs_data_sources/"
     log_cmd "mkdir -p #{path}"
 
-    # NB: 'request' is available because, this is mixed into a controller.
-    api = request.protocol.to_s + request.host.to_s + ":"+ request.port.to_s + "/hdfs_data_sources"
+    # KT TODO: make this less hacky ...
+    api = request.protocol.to_s + request.host.to_s + ":"+ ChorusConfig.instance.server_port.to_s + "/hdfs_data_sources"
 
     archive_path_file = path + "hdfs_data_sources.json"
     download_api_list(api, archive_path_file)
