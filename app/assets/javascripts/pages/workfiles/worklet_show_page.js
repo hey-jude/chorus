@@ -96,7 +96,6 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     workletSaved: function(e) {
         chorus.PageEvents.trigger("worklet:editor:save", "saved");
-        chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
     },
 
     workletSaveFailed: function(e) {
@@ -117,7 +116,13 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
         chorus.PageEvents.trigger("worklet:editor:save", "saving");
 
-        return this.editorViews['inputs'].content.saveParameters() && this.worklet.save(this.worklet.attributes, { wait: true });
+        if (this.editorViews['inputs'].content.saveParameters() && this.worklet.save(this.worklet.attributes, { wait: true })) {
+            chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
+            return true;
+        } else {
+            chorus.PageEvents.trigger("worklet:editor:save", "failed");
+            return false;
+        }
     },
 
     workletStepsMenuEventHandler: function(menu_item) {

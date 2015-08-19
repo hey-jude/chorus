@@ -1,25 +1,38 @@
 {{!-- shell for workflow output in worklet RUN workbench --}}
 
-{{#if hasNoResults}}
-    <div id="placeholder_section">
-        
-        <div class="">
-        
-            <img src="http://placekitten.com/g/700/500">
-        
-        </div>
 
-        
+    {{!-- display for when worklet is opened and results are not selected --}}
+
+    <div id="not_showing_results_section">
+
+        {{#if hasNoHistory}}
+            <div id="hasNoHistory">
+                <span class="notice_icon fa fa-info-circle"></span>
+                
+                <h3>{{t "worklet.workbench.no_history.heading"}}</h3>
+                <p>{{t "worklet.workbench.no_history.description"}}</p>
+                <p>
+                    <a href="https://alpine.atlassian.net/wiki/display/V5/" title="{{t 'help.link_address.tooltip'}}">{{t "worklet.help.documentation.learn_more"}}</a>
+                </p>
+ 
+            </div>
+        {{/if}}
+
+
+        {{#if hasNoResults}}
+            <div id="hasNoResults">
+
+                <h3>{{t "worklet.workbench.no_results.heading"}}</h3>
+                <p>{{t "worklet.workbench.no_results.description"}}</p>
+               
+            </div>
+        {{/if}}
+    
     </div>
-{{/if}}
 
-<!-- <div id="workletResults_loading" class="hidden"> -->
-<!--     {{t "general.loading"}} -->
-<!-- </div> -->
 
 <div class="iframe_wrapper">
 
-    <!-- <div style="display: inline-block;"> -->
     <div>
         {{#if isPublished}}
             <div class="form_controls" id="share_all_results">

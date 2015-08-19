@@ -48,8 +48,9 @@
                 </div>
             </div>
             <div class="input_section">
+               <div class="errors"></div>
                <div class="form_pair">
-                   <label for="variable_name_{{@index}}">
+                   <label for="variable_name_{{@index}}" class="required">
                       {{t "worklet.configure.inputs.workflow_variable"}}
                    </label>
                     <select id="variable_name_{{@index}}" name="variable_name_{{@index}}" data-index="{{@index}}" class="workflow_variable">
@@ -80,12 +81,12 @@
                 <div class="form_group">              
                     <div class="form_pair">
                         <label for="label_{{@index}}" class="required">{{t "worklet.configure.inputs.field_label"}}</label>
-                        <input type="text" id="label_{{@index}}" name="label_{{@index}}" data-index="{{@index}}" value="{{label}}" maxlength="64"/>
+                        <input class="form_input" type="text" id="label_{{@index}}" name="label_{{@index}}" data-index="{{@index}}" value="{{label}}" maxlength="64"/>
                     </div>
                 
                     <div class="form_pair">
                         <label for="description_{{@index}}">{{t "worklet.configure.inputs.field_description"}}</label>
-                        <textarea id="description_{{@index}}" data-index="{{@index}}" name="description_{{@index}}" maxlength="256">{{this.description}}</textarea>
+                        <textarea class="form_input id="description_{{@index}}" data-index="{{@index}}" name="description_{{@index}}" maxlength="256">{{this.description}}</textarea>
                     </div>
                 </div>
                 
@@ -98,7 +99,7 @@
                             {{/each}}
                         </select>
                     </div>
-                
+
 
                 {{#if hasOptions}}
                     <div class="description_instructions">

@@ -63,7 +63,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
             collection: this.history,
             mainPage: this
         };
-
+        
         var newView = new chorus.views.PublishedWorkletHistory(history_options);
 
         if (this.mainContent.content.workletHistory) {
@@ -109,6 +109,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
         if(this.worklet.get('running')) {
             chorus.PageEvents.trigger("worklet:run", "runStarted");
         }
+
     }
 });
 

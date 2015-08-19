@@ -63,7 +63,7 @@ $informational:     $pacific-blue;
 $error:             $fire-engine-red;
 $alert:             $fire-engine-red;
 $needs-attention:   $pumpkin;
-
+$neutral:           #E7E7E3;
 
 // Background colors
 $list-hover-color:          $accent;
@@ -191,8 +191,7 @@ $warning-icon-color:        #B24E11;
 $informational-background-color:    #DAEDFE;
 $informational-border-color:        #A3C0E0;
 $informational-icon-color:          #002755;
-//$informational-text-color:        #333;
-$informational-text-color:          #002244;
+$informational-text-color:          #102249;
 
 $success-color:             $ok;
 $success-background-color:  #DFF0D8;
@@ -202,6 +201,14 @@ $success-text-color:        #448044;
 
 $normal-tooltip-text-color: $core-white;
 $informational-tooltip-text-color: #DAEDFE;
+
+
+// neutral: displaying messages and text that is more background, not informational/foreground.
+$neutral-background-color:    #E7E7E3;
+$neutral-border-color:        #A3C0E0;
+$neutral-icon-color:          #002755;
+$neutral-text-color:          #696969;
+
 
 
 // hard errors
