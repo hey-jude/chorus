@@ -30,11 +30,14 @@
     </p>
   </div>
 
-  <div class="messaging_block">
-    <h5>{{t "help.help_and_support.sub_title_2"}}</h5>
-    <p>{{{t "help.help_and_support.logs_download_message"}}}</p>
-    <button class="download_logs button_modalish">{{t "help.help_and_support.button.download_logs"}}</button>
-  </div>
+  {{#ifAdmin}}
+    <div class="messaging_block">
+      <h5>{{t "help.help_and_support.sub_title_2"}}</h5>
+
+      <p>{{{t "help.help_and_support.logs_download_message"}}}</p>
+      <button class="download_logs button_modalish">{{t "help.help_and_support.button.download_logs"}}</button>
+    </div>
+  {{/ifAdmin}}
 
 </div>
 
