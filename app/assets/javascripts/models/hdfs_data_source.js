@@ -1,12 +1,19 @@
 chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     constructorName: "HdfsDataSource",
     urlTemplate: "hdfs_data_sources/{{id}}",
-    showUrlTemplate: "hdfs_data_sources/{{id}}/browse/",
     shared: true,
     entityType: "hdfs_data_source",
 
     isShared: function() {
         return true;
+    },
+
+    showUrlTemplate: function() {
+      if(this.get("isHdfsHive")) {
+        return null;
+      } else {
+        return "hdfs_data_sources/{{id}}/browse/";
+      }
     },
 
     providerIconUrl: function() {
