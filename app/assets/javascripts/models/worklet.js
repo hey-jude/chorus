@@ -153,9 +153,14 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         this.save({worklet_parameters: worklet_parameters, test_run: test_run}, {
             workflow_action: 'run',
             silent: true,
-            unprocessableEntity: function() {
-                chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
-            }
+            unprocessableEntity: _.bind(function(e) {
+                if(this.serverErrorMessage()) {
+                    chorus.toast(this.serverErrorMessage(), {skipTranslation: true, toastOpts: {type: "error"}});
+                }
+                else {
+                    chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
+                }
+            }, this)
         });
     },
 

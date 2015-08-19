@@ -17,7 +17,6 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
             });
 
             this.registerSubView(view);
-
             return view;
         }, this);
     },

@@ -104,6 +104,7 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
     declareValidations: function(newAttrs) {
         this.require('label');
         this.require('dataType');
+        this.require('variableName');
     }
 });
 

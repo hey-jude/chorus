@@ -30,7 +30,15 @@ chorus.models.PublishedWorklet = chorus.models.Worklet.include(
 
     run: function(worklet_parameters) {
         this.save({worklet_parameters: worklet_parameters}, {
-            workflow_action: 'run'
+            workflow_action: 'run',
+            unprocessableEntity: _.bind(function(e) {
+                if(this.serverErrorMessage()) {
+                    chorus.toast(this.serverErrorMessage(), {skipTranslation: true, toastOpts: {type: "error"}});
+                }
+                else {
+                    chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
+                }
+            }, this)
         });
     },
 

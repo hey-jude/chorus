@@ -48,8 +48,9 @@
                 </div>
             </div>
             <div class="input_section">
+               <div class="errors"></div>
                <div class="form_pair">
-                   <label for="variable_name_{{@index}}">
+                   <label for="variable_name_{{@index}}" class="required">
                       {{t "worklet.configure.inputs.workflow_variable"}}
                    </label>
                     <select id="variable_name_{{@index}}" name="variable_name_{{@index}}" data-index="{{@index}}" class="workflow_variable">
@@ -98,7 +99,7 @@
                             {{/each}}
                         </select>
                     </div>
-                
+
 
                 {{#if hasOptions}}
                     <div class="description_instructions">

@@ -94,21 +94,44 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     },
 
     showParamErrors: function(param, param_index) {
+        var other_errors = [];
         _.each(param.errors, function(val, key) {
             var vName = _.underscored(key) + '_' + param_index;
-            var $input = this.$("input[name=\"" + vName + "\"], form textarea[name=\"" + vName + "\"]");
-            this.markInputAsInvalid($input, val, false);
-        }, this);
+            var $input = this.view.$("select[name=\"" + vName + "\"], input[name=\"" + vName + "\"], form textarea[name=\"" + vName + "\"]");
+
+            // If the error isn't on a text input, we show as an error div rather than a tool tip.
+            if ($input.length === 0) {
+                this.other_errors.push(val);
+            } else {
+                this.view.markInputAsInvalid($input, val, false);
+            }
+        }, { view: this, other_errors: other_errors });
+
+        if (other_errors.length !== 0) {
+            var err_el = this.$el.find("div.worklet_parameter_module[data-index=" + param_index + "] .errors");
+            err_el.removeClass("hidden");
+
+            var output = ["<ul>"];
+            _.each(other_errors, function(msg) {
+                this.push("<li>" + msg + "</li>");
+            }, output);
+            output.push("</ul>");
+            err_el.html(output.join(""));
+        }
     },
 
     clearParamErrors: function(param, param_index) {
         _.each(param.errors, function(val, key) {
             var vName = _.underscored(key) + '_' + param_index;
-            var $input = this.$("input.has_error[name=\"" + vName + "\"], form textarea.has_error[name=\"" + vName + "\"]");
+            var $input = this.$("select.has_error[name=\"" + vName + "\"], input.has_error[name=\"" + vName + "\"], form textarea.has_error[name=\"" + vName + "\"]");
             $input.qtip("destroy");
             $input.removeData("qtip");
             $input.removeClass("has_error");
         }, this);
+
+        var err_el = this.$el.find("div.worklet_parameter_module[data-index=" + param_index + "] .errors");
+        err_el.empty().addClass("hidden");
+
         param.errors = {};
     },
 
@@ -145,6 +168,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         }
 
         var old_dt = param_model.get('dataType');
+        var old_vn = param_model.get('variableName');
 
         // Set the attributes for the changes, and cast to specific parameter class.
         param_model.set(updates);
@@ -158,7 +182,41 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         // Validate and set the model on client side.
         this.clearParamErrors(param_model, i);
-        if (!param_model.performValidation(updates)) {
+        var has_validation_errors = !param_model.performValidation(updates);
+
+        // Validate workflow variable uniqueness
+        var dup_var_params = _.reject(this.parameters.models, function(p, i) {
+            return (i === 1*this.index) || (p.get('variableName') !== this.varName);
+        }, {
+            view: this,
+            index: i,
+            varName: param_model.get('variableName')
+        });
+        if (!_.isEmpty(dup_var_params)) {
+            var var_name = param_model.get('variableName');
+            var err_msg = t('worklet.validation.duplicate_workflow_variable', { name: var_name });
+
+            // Show errors on this model
+            param_model.errors["variable_name"] = err_msg;
+            has_validation_errors = true;
+        } else {
+            // Reassignment of variable name can lead to the case where
+            // we'd like to automatically clear the variableName error on the formerly
+            // assigned parameter.
+            _.each(this.parameters.models, function(p, j) {
+                if (p.errors && !_.isUndefined(p.errors["variable_name"]) && p.get('variableName') === this.varName) {
+                    var tmp_errs = _.omit(p.errors, "variable_name");
+                    this.view.clearParamErrors(p, j);
+                    p.errors = tmp_errs;
+                    this.view.showParamErrors(p, j);
+                }
+            }, {
+                view: this,
+                varName: old_vn
+            });
+        }
+
+        if (has_validation_errors === true) {
             this.showParamErrors(param_model, i);
             this.broadcastEditorState();
             return false;
@@ -205,7 +263,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
     paramDeleted: function(param_options) {
         // Remove from collection
-        this.parameters.remove(param_options.model);
+        this.parameters.remove(param_options.model.cid);
         this.paramChanged();
     },
 

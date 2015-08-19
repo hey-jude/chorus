@@ -23,6 +23,9 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
         var file = data.files[0];
         this.loadNewImage(file);
 
+        this._hasUnsavedChanges = true;
+        this.broadcastEditorState();
+
         file.isUpload = true;
 
     },

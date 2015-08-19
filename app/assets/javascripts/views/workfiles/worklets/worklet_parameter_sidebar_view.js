@@ -36,10 +36,10 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     runEventHandler: function(event) {
         if (event === 'runStopped') {
             this.$(".run_worklet").stopLoading();
-            this.$("#stop_worklet").hide();
+            this.$(".stop_worklet").hide();
         } else if (event === 'runStarted') {
             this.$(".run_worklet").startLoading("general.running", {color: '#959595'});
-            this.$("#stop_worklet").show();
+            this.$(".stop_worklet").show();
         }
     },
 
@@ -69,9 +69,13 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         // If all parameters validate, gather up the inputs and invoke alpine run with them
         if (this.workletParametersView.validateParameterInputs()) {
             var worklet_parameters = this.createAlpinePayload();
-            chorus.PageEvents.trigger("worklet:run", "runStarted");
             this.model.run(worklet_parameters);
+            this.listenToOnce(this.model, "saved", this.runStarted);
         }
+    },
+
+    runStarted: function() {
+        chorus.PageEvents.trigger("worklet:run", "runStarted");
     },
 
     testRunClicked: function(e) {
@@ -112,6 +116,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
             });
         }, this));
 
+        this.$(".stop_worklet").hide();
         if(this.model.get('running')) {
             this.runEventHandler('runStarted');
         }
