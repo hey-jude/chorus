@@ -263,7 +263,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
     paramDeleted: function(param_options) {
         // Remove from collection
-        this.parameters.remove(param_options.model);
+        this.parameters.remove(param_options.model.cid);
         this.paramChanged();
     },
 
