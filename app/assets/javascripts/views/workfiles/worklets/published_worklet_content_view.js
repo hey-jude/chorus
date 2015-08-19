@@ -7,9 +7,11 @@ chorus.views.PublishedWorkletContent = chorus.views.Base.extend({
     },
 
     setup: function() {
+
         this.workletOutput = new chorus.views.PublishedWorkletOutput({
             worklet: this.model
         });
+
         var history_options = {
             model: this.model,
             collection: this.collection,

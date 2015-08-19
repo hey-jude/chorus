@@ -11,6 +11,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
         this.worklet = this.options.worklet;
         this.resultsUrl = this.options.resultsUrl;
 
+
         // We want to display a placeholder when we don't have any run history
         this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
         this.listenTo(this.history, 'loaded', this.historyLoaded);
@@ -22,6 +23,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
             this._historyLoaded = true;
             this.render();
         }
+
     },
 
     postRender:function() {
@@ -46,6 +48,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
 
     additionalContext: function() {
         return {
+
             resultsUrl: this.resultsUrl,
             isPublished: this.worklet && this.worklet.get('fileType') === 'published_worklet',
             hasNoResults: _.isUndefined(this.resultsUrl),
