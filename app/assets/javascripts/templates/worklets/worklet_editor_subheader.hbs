@@ -2,12 +2,13 @@
     {{#each workletStepsItems}}
     <a href="#" class="workletSteps_item {{this.class}}" data-mode="{{this.edit_mode}}">
         {{this.label}}
-        <div style="float: right;">
+        <div class="status_mark">
             {{#if hasErrors}}
-                <span class="fa fa-exclamation-circle" style="color: red;"></span>{{!-- TODO: replace with classes of regular error --}}
+                <!-- <span class="fa fa-exclamation-circle" style="color: red;"></span>{{!~~ TODO: replace with classes of regular error ~~}} -->
+                <span class="fa invalid"></span>
             {{else}}
                 {{#if unsaved}}
-                    *
+                    <span class="mark_of_change"></span>
                 {{/if}}
             {{/if}}
         </div>

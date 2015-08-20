@@ -280,7 +280,7 @@ div[data-page="PublishedWorkletShow"] {
         }
         .scroll_input_param {
             position: absolute;
-            right: 20px;
+            right: $page-margin-right;
             top: 0;
 
             color: $add-icon-color;
@@ -604,7 +604,24 @@ $workletSteps-container-height: 50px;
     a:hover:after {
       background: $background-color-workletStep-hover;
     }
-
+    .status_mark {
+        float: right;
+        font-size: $alert-icon-medium;
+    }
+    .mark_of_change {
+        &::after {
+            content: "*";
+            line-height: 0px;
+            position: relative;
+            top: 3px;
+        }
+    }
+    .invalid {
+        &::before {
+            @include alert-error-icon;
+            color: adjust-color($error-icon-color, $lightness: 25%);
+        }
+    }
 }
 // END: WORKLET STEPS
 
@@ -702,6 +719,8 @@ $workletSteps-container-height: 50px;
     }
     // add an option
     .addWidget {
+        display: block;
+        margin-top: 2px;
         font-size: $small-font;
         .add {
             vertical-align: text-top;
