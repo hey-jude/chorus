@@ -422,11 +422,24 @@ div[data-page="PublishedWorkletShow"] {
 
 }
 
-div[data-page="PublishedWorkletShow"] {
+
+// change the display when viewing for RUN
+div[data-page="PublishedWorkletShow"],
+div[data-page="WorkletRun"] {
     .worklets_worklet_parameter_sidebar {
         .worklet_parameter {
+            
+            $worklet_parameter-module-barcolor-A: adjust-color($parameter-background-color, $lightness: -5%);
+            $worklet_parameter-module-barcolor-B: adjust-color($parameter-background-color, $lightness: 5%);
+            
             background-color: $parameter-background-color;
             border: none;
+            border-bottom: 1px solid $worklet_parameter-module-barcolor-A;
+            border-top: $worklet_parameter-module-barcolor-B;
+            
+            .label {
+                font-weight: $semibold;
+            }
         }
     }
 }
@@ -1047,8 +1060,7 @@ $workletSteps-container-height: 50px;
         margin-right: $worklet_output-margin-internal-right;
         background-color: $core-white;
         
-        #not_showing_results_section {
-         
+        .not_showing_results_section {
             padding-top: 25px;
         
             > div {
@@ -1056,7 +1068,7 @@ $workletSteps-container-height: 50px;
                     width: 70%;
                     margin-left: auto;
                     margin-right: auto;
-                    margin-bottom: 20px;
+                    // margin-bottom: 20px;
             }   
 
             #hasNoResults {
