@@ -59,6 +59,8 @@ class Worklet < AlpineWorkfile
 
   def create_result_event(result_id)
     event = super
+    event.output_table = self.output_table
+    event.save!
     #RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => self.id).destroy_all
     WorkletParameterVersion.where(:result_id => result_id).update_all(:event_id => event.id)
     event

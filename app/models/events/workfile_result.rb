@@ -2,6 +2,7 @@ module Events
   class WorkfileResult < Base
     has_targets :workfile
     has_activities :actor, :workfile, :workspace
+    has_additional_data :output_table
 
     after_create :notify_run_complete, :if => :should_notify?
 
