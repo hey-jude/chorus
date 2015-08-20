@@ -13,10 +13,17 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
 
         this.model.run(this.workletParameters, true);
         this.listenToOnce(this.model, "saved", this.runStarted);
+        this.listenToOnce(this.model, "saveFailed", this.runFailed);
     },
 
     runStarted: function() {
         chorus.PageEvents.trigger("worklet:run", "runStarted");
+    },
+
+    runFailed: function() {
+        // This line is a terrible hack to get rid of any unnecessary error fields that come from running the test window.  Not pretty, but we can think of a better way later.
+        window.$('.errors').hide();
+        this.closeModal();
     },
 
     postRender: function() {
