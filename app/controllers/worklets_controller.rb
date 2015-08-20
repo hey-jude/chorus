@@ -50,6 +50,7 @@ class WorkletsController < ApplicationController
       update_publish_params[:file_name] = params[:workfile][:file_name] if !params[:workfile][:file_name].nil?
       update_publish_params[:description] = params[:workfile][:description] if !params[:workfile][:description].nil?
       update_publish_params[:run_persona] = params[:workfile][:run_persona] if !params[:workfile][:run_persona].nil?
+      update_publish_params[:output_table] = params[:workfile][:output_table] if !params[:workfile][:output_table].nil?
       existing_published_worklets[0].assign_attributes(update_publish_params)
       existing_published_worklets[0].update_from_params!(update_publish_params)
     end
