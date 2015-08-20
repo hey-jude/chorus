@@ -34,7 +34,6 @@ $parameter-background-color: #F4F6FA;
     height: 25px;
 
     background-color: $bgcolor;
-    // border-bottom: $border-canon;
 
     line-height: 24px;
     padding: 0 $default-padding-horizontal;
@@ -200,7 +199,6 @@ div[data-page="PublishedWorkletShow"] {
         line-height: 0;
         padding: 2px;
         margin-right: 5px;
-
         font-size: 12px;
     }
 
@@ -282,8 +280,8 @@ div[data-page="PublishedWorkletShow"] {
             position: absolute;
             right: $page-margin-right;
             top: 0;
-
             color: $add-icon-color;
+
             &:hover {
                 color: $add-icon-hover-color;
             }
@@ -292,13 +290,12 @@ div[data-page="PublishedWorkletShow"] {
 
     .input_content {
 
-        $margin-above-input-fields: 4px;
+        $margin-above-input-fields: 3px;
 
       margin-left: 10px;
       margin-right: 25px;
       padding-top: 5px;
       padding-bottom: 10px;
-
 
       .input_section {
         .label {
@@ -329,6 +326,7 @@ div[data-page="PublishedWorkletShow"] {
         .description {
             margin: $margin-above-input-fields 0 $margin-above-input-fields+1 0;
             font-size: $small-font;
+            line-height: 16px;
             color: $color-text4;
         }
       }
@@ -409,7 +407,6 @@ div[data-page="PublishedWorkletShow"] {
     // used for the TEST || RUN button at bottom of input panel
     .form_controls {
         width: 100%;
-    
         margin: 0 0 20px 0;
         padding: 9px 0 30px 0;
         background-color: $worklet-panel-header-color;
@@ -535,10 +532,10 @@ $workletSteps-container-height: 50px;
             border-radius: 0 20px 20px 0;
             padding-right: 20px;
 
-            &:before {
+            &::before {
                 left: 14px;
             }
-            &:after {
+            &::after {
                 content: none;
             }
         }
@@ -556,7 +553,7 @@ $workletSteps-container-height: 50px;
         }
 
         // Trickery for the arrow
-        &:after {
+        &::after {
           content: '';
           position: absolute;
           top: 0;
@@ -580,19 +577,19 @@ $workletSteps-container-height: 50px;
     }
 
     .past,
-    a.past:after {
+    a.past::after {
       background: $background-color-workletStep-past;
       color: $text-color-past;
     }
 
     .current,
-    a.current:after {
+    a.current::after {
       background: $background-color-workletStep-current;
       color: $text-color-current;
     }
 
     .future,
-    a.future:after {
+    a.future::after {
       background: $background-color-workletStep-future;
       color: $text-color-future;
     }
@@ -601,7 +598,7 @@ $workletSteps-container-height: 50px;
     }
 
     a:hover,
-    a:hover:after {
+    a:hover::after {
       background: $background-color-workletStep-hover;
     }
     .status_mark {
@@ -781,7 +778,6 @@ $workletSteps-container-height: 50px;
     width: $worklet-edit-avatar-size;
     height: $worklet-edit-avatar-size;
     display: inline-block;
-
     vertical-align: top;
 }
 
@@ -823,7 +819,7 @@ $workletSteps-container-height: 50px;
     position: absolute;
     right: 10px;
     top: 45px;
-    
+
     font-size: 12px;
     background-color: darken($parameter-background-color, 2.5%);
     color: $color-text3;
@@ -964,7 +960,6 @@ $workletSteps-container-height: 50px;
     height: 100vh;
 
     background-color: #EEEEE8;
-
     position: absolute;
     left: 0px;
     border-right: $border-canon;
@@ -981,7 +976,7 @@ $workletSteps-container-height: 50px;
         position: relative;
         min-height: 25px;
         background-color: $core-white;
-        border-top: $darker-border-canon;
+        border-top: $border-canon;
 
         padding: 5px 0 10px $worklet-column-padding-x;
         cursor: pointer;
@@ -991,7 +986,6 @@ $workletSteps-container-height: 50px;
         }
 
         .run_version {
-
             width: $run_version_width;
             float: left;
 
@@ -1020,10 +1014,9 @@ $workletSteps-container-height: 50px;
     }
     .worklets_published_worklet_history_entry:last-child {
         .history_entry {
-            border-bottom: $darker-border-canon;
+            border-bottom: $border-canon;
         }
     }
-
 
     .history_entry_selected {
         .history_entry {
@@ -1053,7 +1046,6 @@ $workletSteps-container-height: 50px;
 // END: worklet history panel
 
 .form_controls {
-
     width: 100%;
     margin: 5px 0 20px 0;
     padding: 9px 0 10px 0;
@@ -1091,7 +1083,6 @@ $workletSteps-container-height: 50px;
             }   
 
             #hasNoResults {
-                // background-color: #F9F9F6;
                 background-color: #EBECD5;
                 border: 1px solid #DBDDD2;
                 @include border-radius($default-border-radius);
@@ -1105,7 +1096,6 @@ $workletSteps-container-height: 50px;
             }
 
             #hasNoHistory {
-
                 padding: 10px 20px 20px 50px;
                 background-color: $informational-background-color;
                 border: 1px solid $informational-border-color;
@@ -1156,35 +1146,6 @@ $workletSteps-container-height: 50px;
 
 
 
-//     .worklet_history {
-//         position: absolute;
-//         height: 100%;
-//         top: 0;
-//         left: 0;
-//
-//         .title {
-//             padding: 10px 0 10px 20px;
-//         }
-//
-//         .history {
-//             padding:  $worklet-column-padding-x;
-//             background-color: lightgray;
-//             .history_item {
-//                 background-color: white;
-//                 border: 2px black;
-//                 margin-bottom: 8px;
-//                 padding: 7px;
-//                 cursor: pointer;
-//             }
-//         }
-//         .history_item_selected {
-//             .history_item {
-//                 background-color: $accent-shade;
-//             }
-//         }
-//     }
-
-
 // *****
 // DIALOG: WORKLETS that use this workflow
 .worklets_worklet_usage_dialog {
@@ -1227,7 +1188,6 @@ $workletSteps-container-height: 50px;
     $spinner-size: 200px;
     $worklet-testResults-loader-width: 170px;
 
-    // padding: 20px;
     // width: $worklet-testResults-loader-width;
     width: 700px;
     height: 1000px;
@@ -1327,7 +1287,8 @@ $workletSteps-container-height: 50px;
 
 
 
-
+// ** interim development of button generalization
+// ** not currently in use
 button.modalish,
 .button_modalish {
 
@@ -1339,7 +1300,6 @@ button.modalish,
 
         @include button-canon;
         // @include button-secondary-coloring;
-
 
         background-color: $test-button-color;
         @include filter-gradient($test-button-color, $test-button-color-darker, vertical);
@@ -1373,7 +1333,5 @@ button.modalish,
 
             box-shadow: inset 0px 1px 1px 0px $button-shade;
         }
-
     }
-    
 }
