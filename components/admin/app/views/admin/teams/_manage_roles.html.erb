@@ -22,13 +22,13 @@
                   </div>
                   <div class="col-md-2" style="margin-top: 38px;">
                     <div class="btn-group">
-                      <a href="javascript:void(0);" onclick="transfer_all_items('available_roles', 'current_roles');" id="add_all_members"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>&nbsp;<span>All</span>
+                      <a href="javascript:void(0);" onclick="transfer_all_items('available_items', 'current_items');" id="add_all_members"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>&nbsp;<span>All</span>
                     </div>
                   </div>
                 </div>
-                <ul class="list-group" id="available_roles" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+                <ul class="list-group" id="available_items" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
                   <% @available_roles.each do | role |%>
-                      <li class="list-group-item" id="role_<%= role.id %>">
+                      <li class="list-group-item" id="role_<%= role.id %>" data-item-id="<%= role.id %>" data-transfer-id ="current_items">
                         <ul class="list-inline member-list">
                           <li class="role_name">
                             <span class="name"><%= role.name %></span>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= role.name %></strong><br/><%= role.description %><br/>30 People</div>"></i>
@@ -36,7 +36,7 @@
                             <span class="description"><%= role.description %></span>
                           </li>
                           <li class="action">
-                            <a href="#" onclick="transfer_item('role_<%= role.id %>', '.list-right ul#current_roles');"><i class="fa  fa-lg fa-plus-circle add-list-item"></i></a>
+                            <a href="javascript:void(0);" onclick="transfer_item('role_<%= role.id %>', $('#role_<%= role.id %>').data('transfer-id'));"><i class="fa  fa-lg fa-plus-circle add-list-item"></i></a>
                           </li>
                         </ul>
                       </li>
@@ -60,9 +60,9 @@
                     </div>
                   </div>
                 </div>
-                <ul class="list-group"  id="current_roles" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+                <ul class="list-group"  id="current_items" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
                   <% @team_roles.each do | role |%>
-                      <li class="list-group-item" id="role_<%= role.id %>">
+                      <li class="list-group-item" id="role_<%= role.id %>" data-item-id="<%= role.id %>" data-transfer-id ="available_items">
                         <ul class="list-inline member-list">
                           <li class="role_name">
                             <span class="name"><%= role.name %></span>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= role.name %></strong><br/><%= role.description %><br/><br/>30 People</div>"></i>
@@ -70,7 +70,7 @@
                             <span class="description"><%= role.description %></span>&nbsp;
                           </li>
                           <li class="action">
-                            <a href="#" onclick="transfer_item('role_<%= role.id %>', '.list-left ul#available_roles');"><i class="fa  fa-lg fa-times-circle remove-list-item"></i></a>
+                            <a href="#" onclick="transfer_item('role_<%= role.id %>',$('#role_<%= role.id %>').data('transfer-id'));"><i class="fa  fa-lg fa-times-circle remove-list-item"></i></a>
                           </li>
                         </ul>
                       </li>
@@ -82,7 +82,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <%= f.submit "Save" , class: "btn btn-primary" %>
+              <a href="javascript:void(0);" onclick="submit_dual_list_form('<%= admin.update_roles_team_path %>', 'ul#current_items');" class="btn btn-primary">Save</a>
               <a class="modalish cancel">Cancel</a>
             </div>
           </div>

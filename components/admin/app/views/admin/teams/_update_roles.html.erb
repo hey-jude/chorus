@@ -1,4 +1,4 @@
-<div id="updateTeamMembers" class="modal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="updateTeamRoles" class="modal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-center">
 
     <!-- Modal content-->
@@ -10,9 +10,9 @@
           </div>
           <div class="col-md-11">
             <% if @change_count > 0 %>
-              <p><%= @change_count %> new people are added to the team.</p>
+              <p><%= @change_count %> new roles are added to the team.</p>
             <% else %>
-              <p><%=  -@change_count %> people have been removed from the team.</p>
+              <p><%=  -@change_count %> roles have been removed from the team.</p>
             <% end %>
           </div>
         </div>

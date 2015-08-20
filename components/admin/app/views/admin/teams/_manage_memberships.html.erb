@@ -91,7 +91,7 @@
       <div class="row">
         <div class="col-md-12">
           <!-- <#%= f.submit "Save" , class: "btn btn-primary" %> -->
-          <a href="javascript:void(0);" onclick="submit_form('<%= admin.update_memberships_team_path %>', 'ul#current_items');" class="btn btn-primary">Save</a>
+          <a href="javascript:void(0);" onclick="submit_dual_list_form('<%= admin.update_memberships_team_path %>', 'ul#current_items');" class="btn btn-primary">Save</a>
           <a class="modalish cancel">Cancel</a>
         </div>
       </div>
@@ -130,31 +130,6 @@
 <script type="application/javascript">
 
 
-  function submit_form(url, collection_id) {
-    var members = []
-    console.log('submit_form called with url =  ' + url);
-    $(collection_id).children().each(function(){
-      members.push($( this ).data('item-id'));
-    });
 
-    console.log(members);
-
-    $.ajaxSetup({
-      'beforeSend': function (xhr){
-        xhr.setRequestHeader("Accept", "text/javascript")}
-    });
-    $.ajax({
-      url:  url,
-      type: 'put',
-      format: 'js',
-      data: { 'members' : members}
-    })
-            .done(function( data ) {
-              eval(data);
-              if ( console && console.log ) {
-                //console.log(data);
-              }
-            });
-  };
 
 </script>

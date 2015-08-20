@@ -72,10 +72,11 @@ module Admin
 
     def update_memberships
       @team = Group.find(params[:id])
-       members = params[:members]
+       members = params[:items]
+       @change_count = members.count - @team.users.count
        @team.users.destroy_all
        members.each do |member_id|
-         @team.users << User.find(member_id);
+         @team.users << User.find(member_id)
        end
       @team_members = @team.users
       @available_members = User.all - @team.users
@@ -89,6 +90,12 @@ module Admin
 
     def update_roles
       @team = Group.find(params[:id])
+      roles = params[:items]
+      @change_count = roles.count - @team.roles.count
+      @team.roles.destroy_all
+      roles.each do |role_id|
+        @team.roles << Role.find(role_id)
+      end
       @team_roles = @team.roles
       @available_roles = Role.all - @team.roles
 

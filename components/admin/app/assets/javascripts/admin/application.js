@@ -70,3 +70,29 @@ function remove_item(id, target) {
     $( "#" + target ).prepend(el);
 };
 
+function submit_dual_list_form(url, collection_id) {
+    var items = []
+    console.log('submit_form called with url =  ' + url);
+    $(collection_id).children().each(function(){
+        items.push($( this ).data('item-id'));
+    });
+
+    console.log(items);
+
+    $.ajaxSetup({
+        'beforeSend': function (xhr){
+            xhr.setRequestHeader("Accept", "text/javascript")}
+    });
+    $.ajax({
+        url:  url,
+        type: 'put',
+        format: 'js',
+        data: { 'items' : items}
+    })
+        .done(function( data ) {
+            eval(data);
+            if ( console && console.log ) {
+                //console.log(data);
+            }
+        });
+};
