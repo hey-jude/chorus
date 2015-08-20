@@ -163,7 +163,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
                     option: this.$(o).val(),
                     value: this.$('input[name=value_' + o.dataset.optionIndex + '_' + o.dataset.index + ']').val()
                 };
-            });
+            }, this);
             updates.options = options;
         }
 
