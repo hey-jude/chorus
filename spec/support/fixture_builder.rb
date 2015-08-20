@@ -440,13 +440,22 @@ FixtureBuilder.configure do |fbuilder|
 
     ##Milestones
     default_milestone = FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 2)
+    default_milestone_1 = FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 2)
+    default_milestone_2 = FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 2)
+
     fbuilder.name :default, default_milestone
 
     FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 25)
     FactoryGirl.create(:milestone, :workspace => public_workspace, target_date: Date.today + 12)
 
-    Events::MilestoneCreated.by(owner).add(:milestone => default_milestone, :workspace => default_milestone.workspace)
+    Events::MilestoneCreated.by(owner).add(:milestone => default_milestone_1, :workspace => default_milestone.workspace , :milestone_name => default_milestone.name)
+    Events::MilestoneCreated.by(owner).add(:milestone => default_milestone_2, :workspace => default_milestone.workspace , :milestone_name => default_milestone.name)
+
+    # For testing out showing Milestone Name as text in activity for deleted Milestone
+    default_milestone_2.destroy
+
     Events::MilestoneUpdated.by(owner).add(:milestone => default_milestone, :workspace => default_milestone.workspace)
+
 
     ##Jobs
     default_job = FactoryGirl.create(:job, :workspace => public_workspace)

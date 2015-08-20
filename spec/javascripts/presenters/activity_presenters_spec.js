@@ -2374,11 +2374,17 @@ describe("chorus.presenters.Activity", function() {
             this.actor = this.model.actor();
             this.workspace = this.model.workspace();
             this.milestone = this.model.milestone();
+            if(this.milestone == null){
+                milestoneNameOrLink = this.model.getMilestoneNameOrLink();
+            }
+            else {
+                milestoneNameOrLink =  linkTo(this.milestone.showUrl(), this.milestone.name());
+            }
 
             this.translation_params = {
                 actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
                 workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name()),
-                milestoneLink:  linkTo(this.milestone.showUrl(), this.milestone.name())
+                milestoneNameOrLink: milestoneNameOrLink
             };
         });
 

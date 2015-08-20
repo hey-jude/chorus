@@ -65,6 +65,10 @@
             return this.model.hasCommitMessage();
         },
 
+        getMilestoneName: function() {
+            return this.model.getMilestoneName();
+        },
+
         isWorkfileImage: function() {
             if(this.model.workfile()) {
                 return this.model.workfile().get("fileType") === "image";
@@ -484,7 +488,8 @@
         },
 
         MilestoneCreated: {
-            links: ["actor", "milestone", "workspace"]
+            links: ["actor", "milestone", "workspace"],
+            computed: ["milestoneNameOrLink"]
         }
 
     };
@@ -652,6 +657,21 @@
             var object = self.model.get("milestone");
             var state = "milestone.state." + object.state.toString();
             return t(state);
+        },
+
+        milestoneNameOrLink: function(self) {
+            var milestone = self.model.get("milestone")
+
+            if (milestone === null ) {
+                var milestoneName = self.model.getMilestoneName();
+                if(milestoneName) {
+                    return milestoneName
+                }
+            }
+            else {
+                var milestone_model = new chorus.models.Milestone(milestone)
+                return milestone_model.showLink();
+            }
         },
 
         importSourceDatasetLink: function(self) {

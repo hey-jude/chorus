@@ -253,6 +253,10 @@
             return this.get("commitMessage");
         },
 
+        getMilestoneName: function() {
+            return this.get("milestoneName");
+        },
+
         isUserGenerated: function () {
             return this.isNote() || this.isInsight() || this.isSubComment();
         },

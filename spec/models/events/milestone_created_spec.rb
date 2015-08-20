@@ -12,7 +12,8 @@ describe Events::MilestoneCreated do
      Events::MilestoneCreated.add(
         :actor => actor,
         :milestone => milestone,
-        :workspace => workspace
+        :workspace => workspace,
+        :milestone_name => milestone.name
     )
    end
 
