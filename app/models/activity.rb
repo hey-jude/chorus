@@ -10,4 +10,17 @@ class Activity < ActiveRecord::Base
   def self.global
     where(:entity_type => GLOBAL)
   end
+
+  def self.remove_events_with_deleted_milestones(events)
+    milestone_created_events = events.where(:action => Events::MilestoneCreated)
+    milestone_created_events.each do |milestone_event|
+      milestone = Milestone.find(milestone_event.target1_id) rescue nil
+      if milestone.blank? && milestone_event.additional_data.blank?
+        logger.debug "Rejected event =======> #{milestone_event.id}"
+        events = events.reject {|e| e.id == milestone_event.id}
+      end
+    end
+    return events
+  end
+
 end

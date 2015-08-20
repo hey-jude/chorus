@@ -23,8 +23,11 @@ class EventsController < ApplicationController
     #@options =  { :workspace => workspace , :user => current_user, :rendering_activities => true, :show_latest_comments => false}
     #TODO Scope Filter results for current user's scope
     events = Events::Base.filter_by_scope(current_user, events) if current_user_in_scope?
+    events = Activity.remove_events_with_deleted_milestones(events)
     present paginate(events), :presenter_options => {:activity_stream => true, :succinct => true,
                                                       :workfile_as_latest_version => true, :cached => true, :namespace => 'activities'}
+
+    #TODO Need to clean this code; not sure why its here.
 
     # response = render_to_string :index, :formats => [:json]
     # json = JSON.parse(response)
