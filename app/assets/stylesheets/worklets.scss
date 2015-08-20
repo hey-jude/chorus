@@ -16,7 +16,6 @@ $worklet-column-padding-x: $padding-x;
 $worklet-column-padding-y: $padding-x;
 
 $worklet-history-item-normal-color: #CCC;
-// $worklet-history-item-selected-color: $accent-shade;
 $worklet-history-item-selected-color: #DEF2DD;
 
 $worklet-edit-avatar-size: 150px;
@@ -43,10 +42,19 @@ $parameter-background-color: #F4F6FA;
     color: $color-text3;
 }
 
+@mixin description-text ($top: 1px, $right: 0px, $bottom: 1px, $left: 0px) {
+    margin: $top $right $bottom $left;
+    font-size: $small-font;
+    line-height: $small-font * 1.3;
+    color: $color-text4;
+}
+
 
 // ********************
-// PAGE LAYOUT
+// BROAD PAGE LAYOUT
 
+
+// a lot of turning-off of things that are inherited from the one lousy logged-in page template
 #help,
 .content_footer {
     display: none;
@@ -54,6 +62,17 @@ $parameter-background-color: #F4F6FA;
 
 .content_header {
     padding: 0;
+}
+
+div[data-page="PublishedWorkletShow"] {
+    .content_header {
+        display: none;
+    }
+}
+div[data-page="WorkletRun"] {
+  .content_header {
+    display: none;
+  }
 }
 
 div[data-page="WorkletEdit"],
@@ -70,12 +89,6 @@ div[data-page="PublishedWorkletShow"] {
     }
     #sidebar .sidebar_content {
         margin-bottom: 0;
-    }
-}
-
-div[data-page="PublishedWorkletShow"] {
-    .content_header {
-        display: none;
     }
 }
 
@@ -97,12 +110,6 @@ div[data-page="PublishedWorkletIndex"] {
   }
 }
 
-div[data-page="WorkletRun"] {
-  .content_header {
-    display: none;
-  }
-}
-
 div[data-page="WorkletEdit"],
 div[data-page="WorkletRun"] {
   .sub_nav {
@@ -116,18 +123,13 @@ div[data-page="WorkletRun"] {
   #sidebar_wrapper {
         width: $worklet-right-column-width;
 
-    #sidebar {
-      width: $worklet-right-column-width;
-      /* position: absolute; */
-      /* width: 266px; */
-      /* padding-left: 16px; */
-      /* padding-top: 10px; */
-
-      padding-left: 0;
-      padding-top: 0;
-      top: 0;
-      bottom: 0;
-    }
+        #sidebar {
+            width: $worklet-right-column-width;
+            padding-left: 0;
+            padding-top: 0;
+            top: 0;
+            bottom: 0;
+        }
   }
 }
 
@@ -154,10 +156,24 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 }
-// END: PAGE LAYOUT
+// END: BROAD PAGE LAYOUT
 
 
 
+// WORKBENCH COMMON STYLES 
+
+div[data-page="WorkletEdit"],
+div[data-page="WorkletRun"],
+div[data-page="PublishedWorkletShow"] {
+
+    .description {
+        @include description-text ($top: 1px, $bottom: 2px);
+    }
+
+}
+  
+    
+// top header bar for workbench screens
 .worklets_worklet_header {
     position: relative;
     background-color: $core-white;
@@ -168,14 +184,14 @@ div[data-page="PublishedWorkletShow"] {
         margin-right: $page-margin-right;
     }
 
-  .icon {
-    max-height: 40px;
-    float: left;
-    position: relative;
-    // adjustments particular to the current icon
-    top: 2px;
-    left: -2px;
-  }
+    .icon {
+        max-height: 40px;
+        float: left;
+        position: relative;
+        // adjustments particular to the current icon
+        top: 2px;
+        left: -2px;
+    }
 
 
   .item_information {
@@ -189,48 +205,46 @@ div[data-page="PublishedWorkletShow"] {
   }
 
     // top actions for the worklet
-  .worklet_menu {
-    position: absolute;
-    right: 0;
+    .worklet_menu {
+        position: absolute;
+        right: 0;
 
-    button {
-        min-width: 72px;
-        height: 24px;
-        line-height: 0;
-        padding: 2px;
-        margin-right: 5px;
-        font-size: 12px;
+        button {
+            min-width: 72px;
+            height: 24px;
+            line-height: 0;
+            padding: 2px;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .spinner {
+          margin: 0 auto;
+        }
+        button:last-child {
+            margin-right: 0;
+        }
+        .actions_menu {
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .caret {
+            margin-left: $caret-margin;
+        }
     }
 
-    .spinner {
-      margin: 0 auto;
-    }
+    .popup_worklet_menu {
+        line-height: 24px;
+        // account for 1px border around popup
+        right: 0;
+        width: $header-margin * 6;
 
-    button:last-child {
-        margin-right: 0;
+        li {
+          @include username-item-link($menu-item-height-default);
+        }
     }
-    .actions_menu {
-        margin-left: 10px;
-        text-decoration: none;
-    }
-    .caret {
-        margin-left: $caret-margin;
-    }
-
-  }
-
-  .popup_worklet_menu {
-    line-height: 24px;
-    // account for 1px border around popup
-    right: 0;
-    width: $header-margin * 6;
-
-    li {
-      @include username-item-link($menu-item-height-default);
-    }
-  }
-
 }
+// END: top header
 
 
 // *****
@@ -292,15 +306,13 @@ div[data-page="PublishedWorkletShow"] {
 
         $margin-above-input-fields: 3px;
 
-      margin-left: 10px;
-      margin-right: 25px;
-      padding-top: 5px;
-      padding-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 25px;
+        padding-top: 5px;
+        padding-bottom: 10px;
 
       .input_section {
-        .label {
-            // font-weight: $semibold;
-        }
+        .label {}
 
         .text_input {}
 
@@ -324,17 +336,13 @@ div[data-page="PublishedWorkletShow"] {
             margin-top: $margin-above-input-fields;
         }
         .description {
-            margin: $margin-above-input-fields 0 $margin-above-input-fields+1 0;
-            font-size: $small-font;
-            line-height: 16px;
-            color: $color-text4;
+            @include description-text ($top: $margin-above-input-fields, $bottom: $margin-above-input-fields+1);
         }
       }
     }
   }
 
-  // No parameters = EMPTY
-
+    // No parameters = EMPTY
     .no_parameters_notice {
         height: 50px;
         line-height: 50px;
@@ -356,39 +364,33 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
 
-  // Text parameter
-//   .worklets_parameters_worklet_text_parameter {
-//     .content {
-//       .input_section {}
-//     }
-//   }
 
   // Number parameter
   // .worklets_parameters_worklet_numeric_parameter {}
 
-  .parameter {
-    padding: 8px;
+//   .parameter {
+//     padding: 8px;
 
-    .label {}
+//     .label {}
 
-    .description {
-      font-size: $small-font;
-      color: $color-text4;
-    }
+//     .description {
+//       font-size: $small-font;
+//       color: $color-text4;
+//     }
 
-    input.textInput {
-      width: 250px;
-    }
+//     input.textInput {
+//       width: 250px;
+//     }
 
-    select {
-      min-width: 200px;
-    }
+//     select {
+//       min-width: 200px;
+//     }
 
-    .checkboxes {
-      padding: 5px;
-      background-color: $core-white;
-    }
-  }
+//     .checkboxes {
+//       padding: 5px;
+//       background-color: $core-white;
+//     }
+//   }
 
   .spinner_div {
       display: none;
@@ -403,7 +405,6 @@ div[data-page="PublishedWorkletShow"] {
     }
   }
   
-
     // used for the TEST || RUN button at bottom of input panel
     .form_controls {
         width: 100%;
@@ -418,7 +419,7 @@ div[data-page="PublishedWorkletShow"] {
     }
 
 }
-
+// END: .worklets_worklet_parameter_sidebar 
 
 // change the display when viewing for RUN
 div[data-page="PublishedWorkletShow"],
@@ -442,11 +443,11 @@ div[data-page="WorkletRun"] {
 }
 
 .notice_icon {
-      margin-left: 10px;
-      margin-right: 10px;
-      color: #3399CC;
-      font-size: $alert-icon-medium;
-    }
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #3399CC;
+    font-size: $alert-icon-medium;
+}
     
 #worklet_input_reset {
 
@@ -503,12 +504,12 @@ $workletSteps-container-height: 50px;
     $workletStep-separation: 2px;
 
     padding: 10px 0 10px 0;
-
     display: inline-block;
     min-width: 855px;
     width: 93%;
 
     a {
+        position: relative;
         min-width: $workletStep-min-width;
         width: 20%;
         text-decoration: none;
@@ -517,7 +518,6 @@ $workletSteps-container-height: 50px;
         float: left;
         line-height: $workletStep-height;
         padding: 0 10px 0 30px;
-        position: relative;
 
         // variant of the 'lozenge'
         @include uppercase;
@@ -541,24 +541,24 @@ $workletSteps-container-height: 50px;
         }
 
         &:before {
+          position: absolute;
+          top: 0;
+          left: 30px;
           border-radius: 100%;
           width: 20px;
           height: 20px;
           line-height: 20px;
           margin: 8px 0;
-          position: absolute;
-          top: 0;
-          left: 30px;
           font-weight: $bold;
         }
 
         // Trickery for the arrow
         &::after {
-          content: '';
           position: absolute;
           top: 0;
           right: -$workletStep-height / 2;
-
+          content: '';
+            
           width: $workletStep-height;
           height: $workletStep-height;
 
@@ -593,6 +593,7 @@ $workletSteps-container-height: 50px;
       background: $background-color-workletStep-future;
       color: $text-color-future;
     }
+
     a.future:hover {
       color: $text-color-past;
     }
@@ -624,13 +625,12 @@ $workletSteps-container-height: 50px;
 
 
 .worklet_configuration_panel {
-  margin-left: $page-margin-left;
+    margin-left: $page-margin-left;
 }
 
 
 // module for each input parameter's configuration fields
 .worklet_parameter_module {
-    // max-width: 760px;
     
     background-color: $parameter-background-color;
     position: relative;
@@ -690,7 +690,7 @@ $workletSteps-container-height: 50px;
             .option_input_col,
             .value_input_col {
                 width: 210px;
-                width: 200px;
+                width: 210px;
             }
 
             td.option_input_col, td.value_input_col {
@@ -712,8 +712,8 @@ $workletSteps-container-height: 50px;
                 }
             }
         }
-
     }
+
     // add an option
     .addWidget {
         display: block;
@@ -736,16 +736,13 @@ $workletSteps-container-height: 50px;
 }
 
 
+
 .worklet_new_dialog,
 .worklet_workflow_configuration,
 .worklet_details_configuration,
 .worklet_outputs_configuration,
 .worklet_inputs_configuration {
 
-    .description_instructions {
-        font-size: $small-font;
-        color: $color-text4;
-    }
 
     .main_header {
         font-size: $page_header-fontsize;
@@ -756,6 +753,10 @@ $workletSteps-container-height: 50px;
     .step_header {
         h3 {}
         margin-bottom: 10px;
+    }
+    .section_header {
+        @include section-bar(#DDDDD8);
+        margin: 3px 0 5px 0;
     }
 
 }
@@ -797,11 +798,6 @@ $workletSteps-container-height: 50px;
     }
   }
 
-  .section_header {
-    @include section-bar(#DDDDD8);
-    margin: 3px 0 5px 0;
-  }
-
   .parameter_section_header {
     @include section-bar($dialog-header-background);
     .fa-trash {
@@ -814,20 +810,19 @@ $workletSteps-container-height: 50px;
 
   .variable_details_section {
     z-index: 1;
-    // background-color: #ffffff;
     
     position: absolute;
     right: 10px;
     top: 45px;
 
     font-size: 12px;
-    background-color: darken($parameter-background-color, 2.5%);
+    background-color: scale-color($parameter-background-color, $lightness: -2.5%);
     color: $color-text3;
     width: 200px;
     min-height: 90px;
     
     .subsection_header {
-        @include section-bar( darken($dialog-header-background, 2.5%));
+        @include section-bar(scale-color($dialog-header-background, $lightness: -2.5%));
         font-size: 12px;
         margin-top: 0;
     }
@@ -835,13 +830,9 @@ $workletSteps-container-height: 50px;
     .variable_detail_content {
       padding: 5px;
 
-      .label_header {
-        // font-weight: $semibold;
-        // color: $color-text3;
-      }
+      .label_header {}
     }
   }
-
 
   .spinner_div {
     display: none;
@@ -858,6 +849,11 @@ $workletSteps-container-height: 50px;
 }
 
 .worklet_new_dialog {
+    .workflow_details, .worklet_details {
+        margin-top: 1em;
+        margin-bottom: 1.5em;
+    }
+
     .workfile_image {
         float: left;
         position: relative;
@@ -866,11 +862,14 @@ $workletSteps-container-height: 50px;
         @include clearfix;
     }
 
+    .description {
+        @include description-text ($top: 1px, $bottom: 2px);
+    }
+
     table {
-        tr {
-        }
         th {
             width: 40%;
+            font-weight: $semibold;
         }
         th, td {
             vertical-align: top;
@@ -1138,7 +1137,6 @@ $workletSteps-container-height: 50px;
 // *****
 // DIALOG: WORKLETS that use this workflow
 .worklets_worklet_usage_dialog {
-
     .sub_header {
         margin-top: -1em;
     }
@@ -1148,8 +1146,6 @@ $workletSteps-container-height: 50px;
 
         margin-bottom: 10px;
     }
-
-
 }
 
 
@@ -1162,14 +1158,13 @@ $workletSteps-container-height: 50px;
         width: 100%;
         text-align: right;
 
-        // match the color coming from alpine until we can fix it
+        // TODO: match the color coming from alpine until we can fix it
         background-color: rgb(240, 245, 250);
 
         iframe {
             border: 0;
         }
     }
-
 }
 
 #workletResults_loading {
@@ -1177,9 +1172,8 @@ $workletSteps-container-height: 50px;
     $spinner-size: 200px;
     $worklet-testResults-loader-width: 170px;
 
-    // width: $worklet-testResults-loader-width;
     width: 700px;
-    height: 1000px;
+    // height: 1000px;
     height: 100%;
     
     margin-left: auto;
@@ -1283,8 +1277,16 @@ button.modalish,
 
     &.test_worklet_buttonX {
     
+//         $warm-bones:            rgb(241,242,245);
+//         $bone-offwhite:         rgb(231,232,236);
+//         $nearly-white:          rgb(250,252,253);
+//         $wet-concrete:          rgb(115,115,115);
+//         $dry-concrete:          rgb(197,203,211);
+
         $test-button-color: #B1A71B;
         $test-button-color-darker: adjust-color($test-button-color, $lightness: -5%);
+        $test-button-font-color: #666661;
+        $test-button-border-color: rgb(205,213,220);
         // @include secondary-button;
 
         @include button-canon;
@@ -1295,8 +1297,9 @@ button.modalish,
         @include background(linear-gradient($test-button-color 0%, $test-button-color-darker 100%));
         @include background-image(linear-gradient(top, $test-button-color-darker 0%, $test-button-color 100%));
         
-        color: $wet-concrete;
-        border: 1px solid $another-shade-of-gray;
+        color: $test-button-font-color;
+        border: 1px solid $test-button-border-color;
+
 
         &:disabled, &:disabled:hover {
             background-color: $bone-white;
@@ -1304,7 +1307,7 @@ button.modalish,
             @include background(linear-gradient($bone-offwhite 0%, $nearly-white 100%));
             @include background-image(linear-gradient(top, $bone-white 0%, $nearly-white 100%));
             
-            color: $low-light-type;
+            color: #7D7D7D;
         }
 
         &:hover {
