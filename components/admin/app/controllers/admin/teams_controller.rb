@@ -72,12 +72,18 @@ module Admin
 
     def update_memberships
       @team = Group.find(params[:id])
-       members = params[:items]
-       @change_count = members.count - @team.users.count
-       @team.users.destroy_all
-       members.each do |member_id|
-         @team.users << User.find(member_id)
+       if params[:items]
+         members = params[:items]
+         @change_count = members.count - @team.users.count
+         @team.users.destroy_all
+         members.each do |member_id|
+           @team.users << User.find(member_id)
+         end
+       elsif params[:items].blank?
+         @change_count =  -(@team.users.count)
+         @team.users.destroy_all
        end
+
       @team_members = @team.users
       @available_members = User.all - @team.users
     end
