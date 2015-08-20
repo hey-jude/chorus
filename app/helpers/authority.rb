@@ -30,7 +30,6 @@ module Authority
     # retreive user and object information
     legacy_action_allowed = handle_legacy_action(options, object, user) if options
     chorus_class = ChorusClass.search_permission_tree(object.class, activity_symbol)
-
     # If we don't have new-style permissions chorus_classs for the object,
     # and the old permissions didn't pass either, then raise access denied
     raise_access_denied(activity_symbol, object) if !legacy_action_allowed && chorus_class.nil?
@@ -158,6 +157,9 @@ module Authority
 
     elsif object.is_a?(Comment)
       Events::Base.for_dashboard_of(current_user).exists?(comment.event_id)
+
+    elsif object.is_a?(DataSource)
+        object.accessible_to(user)
 
     elsif object.is_a?(Workspace)
       object.visible_to? user
