@@ -11,8 +11,8 @@ class Role < ActiveRecord::Base
   has_many :chorus_objects, :through => :chorus_object_roles
 
   # Delete HABTM association objects
-  before_destroy { |role| role.groups.destroy_all }
-  before_destroy { |role| role.users.destroy_all }
+  before_destroy { groups.clear }
+  before_destroy { users.clear }
 
 
   def permissions_for(class_name)
