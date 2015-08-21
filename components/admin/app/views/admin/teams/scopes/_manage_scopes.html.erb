@@ -14,7 +14,7 @@
               <div class="well">
                 <div class="row">
                   <div class="col-md-10">
-                    <h4>Available Scope Groups</h4>
+                    <h4 id="available-count" data-available-count="<%= @available_scopes.count %>">Available Scope Groups (<%= @available_scopes.count %>)</h4>
                     <div class="input-group">
                       <span class="input-group-addon glyphicon glyphicon-search"></span>
                       <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
@@ -22,21 +22,24 @@
                   </div>
                   <div class="col-md-2" style="margin-top: 38px;">
                     <div class="btn-group">
-                      <a href="javascript:void(0);" onclick="transfer_all_items('available_scopes', 'current_scopes');" id="add_all_members"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>&nbsp;<span>All</span>
+                      <a href="javascript:void(0);" onclick="transfer_all_items('available_items', 'current_items');" id="add_all_members"><i class="fa fa-lg fa-plus-circle add-list-item"></i></a>&nbsp;<span>All</span>
                     </div>
                   </div>
                 </div>
-                <ul class="list-group" id="available_scopes" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+                <ul class="list-group" id="available_items" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
                   <% @available_scopes.each do | scope |%>
-                      <li class="list-group-item" id="scope_<%= scope.id %>">
+                      <li class="list-group-item" id="scope_<%= scope.id %>" data-item-id="<%= scope.id %>" data-transfer-id="current_items">
                         <ul class="list-inline member-list">
                           <li class="scope_name">
-                            <span class="name"><%= scope.name %></span>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= scope.name %></strong><br/><%= scope.description %><br/><br/>30 People<br/>3 Teams<br/>7 Data Sources<br/>10 Workspaces</div>"></i>
+                            <span class="name"><%= scope.name %></span>&nbsp;
+                            <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= scope.name %></strong><br/><%= scope.description %><br/>"></i>
                             <br/>
                             <span class="description"><%= scope.description %></span>
                           </li>
                           <li class="action">
-                            <a href="#" onclick="transfer_item('scope_<%= scope.id %>', '.list-right ul#current_scopes');"><i class="fa  fa-lg fa-plus-circle add-list-item"></i></a>
+                            <a href="#" onclick="transfer_item('scope_<%= scope.id %>', $('#scope_<%= scope.id %>').data('transfer-id'));">
+                              <i class="fa  fa-lg fa-plus-circle add-list-item"></i>
+                            </a>
                           </li>
                         </ul>
                       </li>
@@ -48,7 +51,7 @@
               <div class="well">
                 <div class="row">
                   <div class="col-md-10">
-                    <h4>Current Scope Groups</h4>
+                    <h4 id="current-count" data-current-count="<%= @team_scopes.count %>"> Current Scope Groups (<%= @team_scopes.count %>)</h4>
                     <div class="input-group">
                       <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
                       <span class="input-group-addon glyphicon glyphicon-search"></span>
@@ -60,17 +63,20 @@
                     </div>
                   </div>
                 </div>
-                <ul class="list-group"  id="current_scopes" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
+                <ul class="list-group"  id="current_items" style="max-height:400px;overflow-y:scroll;overflow: -moz-scrollbars-vertical;">
                   <% @team_scopes.each do | scope |%>
-                      <li class="list-group-item" id="scope_<%= scope.id %>">
+                      <li class="list-group-item" id="scope_<%= scope.id %>" data-item-id="<%= scope.id %>" data-transfer-id="available_items">
                         <ul class="list-inline member-list">
                           <li class="scope_name">
-                            <span class="name"><%= scope.name %></span>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= scope.name %></strong><br/><%= scope.description %><br/><br/>30 People<br/>3 Teams<br/>7 Data Sources<br/>10 Workspaces</div>"></i>
+                            <span class="name"><%= scope.name %></span>&nbsp;
+                            <i class="fa fa-question-circle" data-toggle="tooltip" data-html="true" data-container=".box-body" data-placement="top" title="<div style='text-align: left;width:150px;font-size:10px;'><strong><%= scope.name %></strong><br/><%= scope.description %><br/>"></i>
                             <br/>
                             <span class="description"><%= scope.description %></span>&nbsp;
                           </li>
                           <li class="action">
-                            <a href="#" onclick="transfer_item('scope_<%= scope.id %>', '.list-left ul#available_scopes');"><i class="fa  fa-lg fa-times-circle remove-list-item"></i></a>
+                            <a href="#" onclick="transfer_item('scope_<%= scope.id %>', $('#scope_<%= scope.id %>').data('transfer-id'));">
+                              <i class="fa  fa-lg fa-times-circle remove-list-item"></i>
+                            </a>
                           </li>
                         </ul>
                       </li>
@@ -82,8 +88,10 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <%= f.submit "Save" , class: "btn btn-primary" %>
-              <a class="modalish cancel">Cancel</a>
+              <div style="">
+                <a href="javascript:void(0);" onclick="submit_dual_list_form('<%= admin.update_scopes_team_path %>', 'ul#current_items');" class="btn btn-primary">Save</a> or
+                <%= link_to 'Cancel', admin.team_path(@team) , remote: true %>
+              </div>
             </div>
           </div>
         </div><!-- /.box-body -->
@@ -112,15 +120,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="modalish cancel" data-dismiss="modal">Cancel</button>
-        <a href="javascript:void(0);" onclick="transfer_all_items('available_scopes', 'current_scopes');$('#deleteAllScopes').modal('hide');"  class="btn btn-primary">Remove All</a>
+        <a href="#" onClick="transfer_all_items('current_items', 'available_items');" , id="remove_all_scopes"  data-toggle="modal"  class="btn btn-primary"  data-dismiss="modal">
+          Remove All
+        </a>
       </div>
     </div>
 
   </div>
 </div>
-
-
-<script type="application/javascript">
-
-
-</script>

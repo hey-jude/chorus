@@ -7,6 +7,7 @@ gemspec
 
 
 gem "gretel"
+gem 'jquery-ui-rails'
 
 # Following line is needed only for Rails 3.2.x. In Rails 4 turbolinks in part of core rails.
 gem 'turbolinks'

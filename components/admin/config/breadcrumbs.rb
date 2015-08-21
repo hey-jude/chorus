@@ -68,14 +68,26 @@
    parent :teams
  end
 
- crumb :team_manage_members do |team|
-
- end
-
  crumb :team_manage_memberships do |team|
    link "Manage Memberships" , admin.manage_memberships_team_path(team)
    parent :team , team
  end
+
+ crumb :team_manage_roles do |team|
+   link "Manage Roles" , admin.manage_roles_team_path(team)
+   parent :team , team
+ end
+
+ crumb :team_manage_scope_groups do |team|
+   link "Manage Scope Groups" , admin.manage_scopes_team_path(team)
+   parent :team , team
+ end
+
+ crumb :team_manage_workspaces do |team|
+   link "Manage Workspaces" , admin.manage_workspaces_team_path(team)
+   parent :team , team
+ end
+
 
  # crumb :project do |project|
 #   link project.name, project_path(project)

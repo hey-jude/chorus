@@ -19,5 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 3.2.18'
   s.add_dependency 'jquery-rails', '2.1.4'
   s.add_dependency 'gretel', '3.0.8'
+  s.add_dependency 'jquery-ui-rails'
 
 end

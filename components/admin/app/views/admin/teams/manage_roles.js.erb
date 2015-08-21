@@ -1,5 +1,9 @@
-$('#left-panel').html('<%= escape_javascript(render "manage_roles") %>');xx
-$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :team, object: @team ) %>');
+$('#left-panel').html('<%= escape_javascript(render "admin/teams/roles/manage_roles") %>');
+$('#breadcrumb').html('<%= escape_javascript(render "admin/shared/single_breadcrumb", breadcrumb_key: :team_manage_roles, object: @team ) %>');
 $('#breadcrumb').html('<%= escape_javascript(render "admin/shared/breadcrumb" ) %>');
+
+$('#side-bar').hide();
+$('#left-panel').addClass("col-md-12");
+$('#left-panel').removeClass("col-md-9");
 
 $('#breadcrumb a').attr("data-remote", "true");

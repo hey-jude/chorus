@@ -1,0 +1,23 @@
+<div id="updateTeamRoles" class="modal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-center">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header dialog-header">
+        <div class="row">
+          <div class="col-md-1" style="padding-top:12px;">
+            <i class="fa  fa-check-circle"  style="color:forestgreen;font-size:30px;"></i>
+          </div>
+          <div class="col-md-11">
+            <% if @change_count > 0 %>
+                <p><%= @change_count %> new scopes are added to the team.</p>
+            <% else %>
+                <p><%=  -@change_count %> scopes have been removed from the team.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= link_to 'Cancel', admin.team_path(@team) , remote: true %>
+  </div>
+</div>

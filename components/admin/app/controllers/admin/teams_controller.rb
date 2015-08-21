@@ -96,29 +96,45 @@ module Admin
 
     def update_roles
       @team = Group.find(params[:id])
-      roles = params[:items]
-      @change_count = roles.count - @team.roles.count
-      @team.roles.destroy_all
-      roles.each do |role_id|
-        @team.roles << Role.find(role_id)
+      if params[:items]
+        roles = params[:items]
+        @change_count = roles.count - @team.roles.count
+        @team.roles.destroy_all
+        roles.each do |role_id|
+          @team.roles << Role.find(role_id)
+        end
+      elsif params[:items].blank?
+        @change_count =  -(@team.roles.count)
+        @team.roles.destroy_all
       end
+
       @team_roles = @team.roles
       @available_roles = Role.all - @team.roles
 
     end
 
     def manage_scopes
-      @team = Group.find(params[:id])
-      @team_scopes = @team.chorus_scopes
-      @available_scopes = ChorusScope.all -  @team.chorus_scopes
-
+        @team = Group.find(params[:id])
+        @team_scopes = @team.chorus_scopes
+        @available_scopes = ChorusScope.all -  @team.chorus_scopes
     end
 
     def update_scopes
       @team = Group.find(params[:id])
+      if params[:items]
+        scopes = params[:items]
+        @change_count = scopes.count - @team.chorus_scopes.count
+        @team.chorus_scopes.destroy_all
+        scopes.each do |scope_id|
+          @team.chorus_scopes << ChorusScope.find(scope_id)
+        end
+      elsif params[:items].blank?
+        @change_count =  -(@team.chorus_scopes.count)
+        @team.chorus_scopes.destroy_all
+      end
+
       @team_scopes = @team.chorus_scopes
       @available_scopes = ChorusScope.all -  @team.chorus_scopes
-
     end
 
 
