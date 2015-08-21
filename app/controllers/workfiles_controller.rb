@@ -111,7 +111,7 @@ class WorkfilesController < ApplicationController
   end
 
   def authorize_edit_workfile
-    Authority.authorize! :update, workfile.workspace, current_user, { :or => :can_edit_sub_objects }
+    Authority.authorize! :update, workfile.workspace, current_user, { :or => :can_edit_sub_objects }  unless (workfile.is_a?(PublishedWorklet) || (workfile.is_a?(Worklet) && workfile.workspace.public?))
   end
 
   def convert_form_encoded_arrays

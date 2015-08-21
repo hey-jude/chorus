@@ -78,6 +78,10 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         return true;
     },
 
+    canEdit: function() {
+        return this.isLatestVersion() && this.workspace().isActive();
+    },
+
     basisWorkflow: function() {
         return new chorus.models.AlpineWorkfile({id: this.get('workflowId')});
     },
