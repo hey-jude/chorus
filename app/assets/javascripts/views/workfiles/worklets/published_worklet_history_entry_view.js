@@ -16,7 +16,8 @@ chorus.views.PublishedWorkletHistoryEntry = chorus.views.Base.extend({
         var newView = new chorus.views.PublishedWorkletOutput({
             resultsId: this.model.id,
             worklet: this.model.workfile(),
-            resultsUrl: this.model.attachments()[0].url()
+            resultsUrl: this.model.attachments()[0].url(),
+            outputTable: this.model.get('outputTable')
         });
 
         if (main.workletOutput) {
