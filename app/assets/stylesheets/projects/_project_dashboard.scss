@@ -41,7 +41,7 @@ $card-progressbar_zero: rgba(#C0C0C0, 0.5);
                 border-color: $card-progressbar_highlight;
                 background-color: transparent;
             }
-            .card {
+            .progress_bar_body {
                 background-color: $card-progressbar_highlight;
             }
         }
@@ -118,7 +118,7 @@ $card-progressbar_zero: rgba(#C0C0C0, 0.5);
         }
 
         /* normal cases of progress bar: progress > 0% */
-        .card {
+        .progress_bar_body {
             background-color: $card-progressbar;
         }
 

@@ -1,10 +1,19 @@
-<div id="share_results_loading" style="padding: 10px 20px; height: 500px; width: 800px;">
-    Loading...
-</div>
-<div class="iframe_wrapper" style="text-align: center; width: 100%;">
-    <div style="display: inline-block;">
-        <iframe id="test_results" style="width: 800px; height: 0px; border: none;"></iframe>
+
+<div id="workletResults_loading">
+    <div id="spinner_container">
+        <div id="spinner"></div>
     </div>
+    <div id="loading_time_container">
+        <p class="loading_title">{{t "general.running" }}</p>
+
+        <p class="loading_time">
+            {{t "worklet.running_time_information.label"}} <span id="elapsed_time"></span>
+        </p>
+    </div>
+</div>
+
+<div class="iframe_wrapper">
+    <iframe id="testResults_frame"></iframe>
 </div>
 
 {{> closeWindowFormControls }}

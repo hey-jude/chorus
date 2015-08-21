@@ -7,6 +7,8 @@ class WorkletParameter < ActiveRecord::Base
   serialize :additional_data, JsonHashSerializer
   has_additional_data :options, :validations
 
+  default_scope :order => 'created_at ASC'
+
   attr_accessible :workfile_id,
                   :use_default,
                   :variable_name,

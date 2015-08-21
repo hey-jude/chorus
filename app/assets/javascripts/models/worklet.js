@@ -78,6 +78,10 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         return true;
     },
 
+    canEdit: function() {
+        return this.isLatestVersion() && this.workspace().isActive();
+    },
+
     basisWorkflow: function() {
         return new chorus.models.AlpineWorkfile({id: this.get('workflowId')});
     },
@@ -116,13 +120,51 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         return this._parameters;
     },
 
+    fetchWorkflowVariables: function(options) {
+        if (this._fetchedWorkflowVars !== true) {
+            // Alpine-passed workflow variables
+            if (_.isUndefined(this.get('workflowId'))) {
+                return;
+            }
+
+            this.workflowVariables = new chorus.models.WorkFlowVariables({
+                workfile_id: this.get('workflowId')
+            });
+
+            this.workflowVariables.fetch(options);
+            this.workflowVariables.once('loaded', _.bind(function() {
+                this._fetchedWorkflowVars = true;
+                chorus.PageEvents.trigger("worklet:workflow_variables_loaded", this._filteredWorkflowVariables());
+            }, this));
+        } else {
+            chorus.PageEvents.trigger("worklet:workflow_variables_loaded", this._filteredWorkflowVariables());
+        }
+    },
+
+    _filteredWorkflowVariables: function() {
+        var varMap = this.workflowVariables && this.workflowVariables.get('variableMap');
+        var filteredVars = _.omit(varMap, chorus.WorkletConstants.OmittedWorkflowVariables);
+
+        return _.map(filteredVars, function (value, prop) {
+            return {
+                variableName: prop,
+                variableDefault: value
+            };
+        });
+    },
+
     run: function(worklet_parameters, test_run) {
         this.save({worklet_parameters: worklet_parameters, test_run: test_run}, {
             workflow_action: 'run',
             silent: true,
-            unprocessableEntity: function() {
-                chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
-            }
+            unprocessableEntity: _.bind(function(e) {
+                if(this.serverErrorMessage()) {
+                    chorus.toast(this.serverErrorMessage(), {skipTranslation: true, toastOpts: {type: "error"}});
+                }
+                else {
+                    chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
+                }
+            }, this)
         });
     },
 
@@ -140,11 +182,11 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
 
     publishSuccess: function(e) {
         this.unbind("saved", this.publishSuccess);
-        chorus.toast("worklet.publish.toast", {"workletName": this.name(), toastOpts: {type: "success"}});
+        chorus.toast("worklet.publish.success.toast", {"workletName": this.name(), toastOpts: {type: "success"}});
     },
 
     unpublishSuccess: function(e) {
         this.unbind("saved", this.unpublishSuccess);
-        chorus.toast("worklet.unpublish.toast", {"workletName": this.name(), toastOpts: {type: "deletion"}});
+        chorus.toast("worklet.unpublish.success.toast", {"workletName": this.name(), toastOpts: {type: "deletion"}});
     }
 });

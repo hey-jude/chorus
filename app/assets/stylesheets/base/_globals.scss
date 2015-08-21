@@ -17,7 +17,6 @@ a {
     cursor: pointer;
 }
 
-
 html, body {
     color: $color-text1;
     background-color: $body-background-color !important;
@@ -42,7 +41,6 @@ input, textarea {
 
 textarea {
     resize: none;
-
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
@@ -55,7 +53,10 @@ input[type=radio] {
 }
 
 input[type=checkbox] {
-    margin: 5px 4px 5px 0;
+    margin: 4px 2px 5px 0;
+}
+input[type=radio] {
+    margin: 4px 2px 5px 0;
 }
 
 // form: red asterisk for required fields */

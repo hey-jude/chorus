@@ -104,7 +104,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
             showRunWorklet: workspaceActive && this.model.isAlpine() && this.model.isWorklet() && canUpdate,
             isRunning: this.model.get('status') === 'running',
             inWorkfile: this.options.inWorkfile,
-            showCreateWorklet: this.model.isAlpine() && !this.model.isWorklet(),
+            showCreateWorklet: this.model.isAlpine() && !this.model.isWorklet() && canUpdate,
             showWorkletUsage: this.model.get('associatedWorklets').length > 0
         };
 

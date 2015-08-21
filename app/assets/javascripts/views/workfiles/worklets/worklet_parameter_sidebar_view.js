@@ -2,6 +2,8 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     constructorName: "WorkletParameterSidebar",
     templateName: "worklets/worklet_parameter_sidebar",
 
+    additionalClass: "worklet_panel",
+
     subviews: {
         ".worklet_parameters": "workletParametersView"
     },
@@ -9,7 +11,8 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     events: {
         "click button.test_worklet_button": 'testRunClicked',
         "click button.run_worklet_button": 'runClicked',
-        "click button.stop_worklet_button": 'stopClicked'
+        "click button.stop_worklet_button": 'stopClicked',
+        "click div.reset_inputs": "resetInputs"
     },
 
     setup: function() {
@@ -17,7 +20,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         this.state = this.options.state || 'running';
 
         // Render parameter list into a view,
-        // update when collection has updated.
+        // update when collection has updated
         this.workletParametersView = new chorus.views.WorkletParameterList({
             model: this.model,
             state: this.state
@@ -32,19 +35,17 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
 
     runEventHandler: function(event) {
         if (event === 'runStopped') {
-            this.$(".form_controls.run_worklet").show();
-            this.$(".spinner_div").hide();
-            this.$(".form_controls.stop_worklet").hide();
+            this.$(".run_worklet").stopLoading();
+            this.$(".stop_worklet").hide();
         } else if (event === 'runStarted') {
-            this.$(".form_controls.run_worklet").hide();
-            this.$(".spinner_div").show();
-            this.$(".form_controls.stop_worklet").show();
+            this.$(".run_worklet").startLoading("general.running", {color: '#959595'});
+            this.$(".stop_worklet").show();
         }
     },
 
     createAlpinePayload: function() {
         var worklet_parameters = {
-            string: null,
+            string: {},
             fields: []
         };
 
@@ -56,7 +57,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
                 value: parameter.userInput[var_name]
             });
 
-            worklet_parameters.string = parameter.userInput;
+            _.extend(worklet_parameters.string, parameter.userInput);
         });
 
         return worklet_parameters;
@@ -65,12 +66,16 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
     runClicked: function(e) {
         e && e.preventDefault();
 
-        // If all parameters validate, gather up the inputs and invoke alpine run with them.
+        // If all parameters validate, gather up the inputs and invoke alpine run with them
         if (this.workletParametersView.validateParameterInputs()) {
             var worklet_parameters = this.createAlpinePayload();
             this.model.run(worklet_parameters);
-            chorus.PageEvents.trigger("worklet:run", "runStarted");
+            this.listenToOnce(this.model, "saved", this.runStarted);
         }
+    },
+
+    runStarted: function() {
+        chorus.PageEvents.trigger("worklet:run", "runStarted");
     },
 
     testRunClicked: function(e) {
@@ -90,6 +95,10 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         chorus.PageEvents.trigger("worklet:run", "clickedStop");
     },
 
+    resetInputs: function() {
+        this.render();
+    },
+
     additionalContext: function () {
         return {
             editState: this.state === 'editing',
@@ -107,17 +116,9 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
             });
         }, this));
 
-        this.$(".loading_spinner").startLoading(null, {color: '#959595'});
+        this.$(".stop_worklet").hide();
         if(this.model.get('running')) {
             this.runEventHandler('runStarted');
         }
-
-        //if (this.model.get('running')) {
-        //    this.$(".form_controls").hide();
-        //    this.$(".spinner_div").show();
-        //} else {
-        //    this.$(".form_controls").show();
-        //    this.$(".spinner_div").hide();
-        //}
     }
 });

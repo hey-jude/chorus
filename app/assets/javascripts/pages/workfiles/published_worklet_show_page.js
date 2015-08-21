@@ -39,7 +39,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
     },
 
     closePage: function() {
-
+        chorus.router.navigate('#/worklets');
     },
 
     runEventHandler: function(event) {
@@ -52,6 +52,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
     },
 
     reloadHistory: function() {
+        this.mainContent.content.workletHistory.collection = this.worklet.activities();
         this.mainContent.content.workletHistory.render();
         this.mainContent.content.workletHistory.historyItems[0].showResults();
     },
@@ -62,7 +63,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
             collection: this.history,
             mainPage: this
         };
-
+        
         var newView = new chorus.views.PublishedWorkletHistory(history_options);
 
         if (this.mainContent.content.workletHistory) {
@@ -108,6 +109,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
         if(this.worklet.get('running')) {
             chorus.PageEvents.trigger("worklet:run", "runStarted");
         }
+
     }
 });
 

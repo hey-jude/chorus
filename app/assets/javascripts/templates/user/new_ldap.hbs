@@ -1,5 +1,5 @@
-<!-- TEMPLATE -->
-<!-- new user profile LDAP ENABLED -->
+{{!-- TEMPLATE --}}
+{{!-- new user profile LDAP ENABLED --}}
 
 {{> errorDiv}}
 {{#ifAdmin}}
@@ -29,7 +29,6 @@
         <legend>{{t "user.profile.group_app_roles.title"}}</legend>
 
             <span class="left admin">
-               <!-- <label class="placeholder"></label> -->
                 <label>
                        <input type="checkbox" name="admin" id="admin-checkbox" {{#if admin}}checked{{/if}}/>
                        <label class="checkbox-label" for="admin-checkbox">{{t "users.make_admin"}}</label>
@@ -38,7 +37,6 @@
            
             
              <span class="left admin">
-                <!-- <label class="placeholder"></label> -->
                  <label>
                     <input type="checkbox" name="developer" id="developer-checkbox" {{#if developer}}checked{{/if}}/>
                     <label class="checkbox-label" for="developer-checkbox">{{t "users.make_developer"}}</label>

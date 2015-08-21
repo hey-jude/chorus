@@ -87,7 +87,9 @@ class User < ActiveRecord::Base
 
   def defaults
     collaborator_role = Role.find_or_create_by_name("Collaborator")
+    user_role = Role.find_or_create_by_name("User")
     self.roles << collaborator_role unless self.roles.include? collaborator_role
+    self.roles << user_role unless self.roles.include? user_role
   end
 
   def add_missing_admin_role(role)

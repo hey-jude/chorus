@@ -1,7 +1,7 @@
 <form class="worklet_new_dialog">
     <div class="girdle">
         <div class="creation_instructions">
-            <h2>{{t 'worklet.new.creation_instructions_header'}}</h2>
+
             {{#if fromExisting}}
                 {{t 'worklet.new.creation_instructions_from_workflow'}}
             {{else}}
@@ -9,54 +9,61 @@
             {{/if}}
         </div>
 
-        <br>
 
-        <!--Show only if workflow already selected as basis:-->
+        {{!--Show only if workflow already selected as basis: --}}
         {{#if fromExisting}}
             <div class="workflow_details">
                 <div class="section_header">{{t 'worklet.new.workflow_details_header'}}</div>
 
-                <!-- TODO: Make pretty, use the workflow details in this.workflow -->
-                <span class="image">
-                    <img src="/images/workfiles/large/afm.png" alt="{{t 'entity.name.workflow.thing'}}">
+                {{!-- TODO: Make pretty, use the workflow details in this.workflow --}}
+                <span class="image workfile_image">
+                    <img src="/images/workfiles/large/afm.png" alt="{{t 'entity.name.workflow.thing'}}"/>
                 </span>
 
-                <div class="item_information">
-                    <div class="item_name">
-                        <span class="item_description">Workflow name:</span> {{workflow.fileName}}
-                    </div>
-                    <div class="item_name">
-                        <span class="item_description">Last modified at:</span> {{modifiedTime}}
-                    </div>
-                    {{#if hasComments}}
-                        <div class="item_name">
-                            <span class="item_description">Most recent comment:</span> {{lastComment}}
-                        </div>
-                    {{/if}}
-                </div>
+<table>
+	<tr>
+	    <th>{{t "worklet.configure.workflow_used_info.name"}}</th>
+	    <td>{{workflow.fileName}}</td>
+	</tr>
+	<tr>
+	    <th>{{t "worklet.configure.workflow_used_info.user_modified_at"}}</th>
+      <td>{{modifiedTime}}</td>
+	</tr>
+	{{#if hasComments}}
+	<tr>
+	    <th>{{t "worklet.configure.workflow_used_info.comment"}}</th>
+	    <td>{{{lastComment}}}</td>
+	</tr>
+	{{/if}}
+</table>
+
+
             </div>
 
-            <br>
+
         {{/if}}
 
         <div class="worklet_details">
             <div class="section_header">{{t 'worklet.new.worklet_details_header'}}</div>
-            <label class="required">{{t 'worklet.new.name.label'}}</label>
-            <input type="text" name="workletName" placeholder="{{t 'worklet.new.name.placeholder'}}" tabindex="1" maxlength="60"/>
 
-            <br>
+            <div class="form_pair">
+            <label class="required" for="workletName">{{t 'worklet.new.name.label'}}</label>
+            <input type="text" id="workletName" name="workletName" placeholder="{{t 'worklet.new.name.placeholder'}}" tabindex="1" maxlength="64"/>
+            </div>
 
-            <label>{{t 'worklet.new.description.label'}}</label>
-            <textarea name="workletDescription" rows="2" tabindex="2">{{summary}}</textarea>
+            <div class="form_pair">
+            <label for="workletDescription">{{t 'worklet.new.description.label'}}</label>
+            <textarea name="workletDescription" id="workletDescription" rows="2" tabindex="2" maxlength="256">{{summary}}</textarea>
+            </div>
 
-            <div class="description_instructions">
+            <div class="description">
                 {{t 'worklet.new.description_instructions'}}
             </div>
         </div>
         {{> legendRequired}}
 
     </div>
-    <!-- END girdle -->
+    {{!-- END girdle --}}
 
     {{formControlsWithDisabledSubmit "worklet.new.continue"}}
 </form>

@@ -31,19 +31,22 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         this.subscribePageEvent('parameter:scrollTo', this.scrollToParameter);
         this.subscribePageEvent('parameter:deleted', this.paramDeleted);
 
-        // Alpine-passed workflow variables
-        // this.workflowVariables = this.options.workflowVariables;
-        this.workflowVariables = new chorus.models.WorkFlowVariables({
-            workfile_id: this.model.get('workflowId')
-        });
-        this.workflowVariables.fetch();
-        this.onceLoaded(this.workflowVariables, this.render);
-
         // Necessary because handlebars can't do if (v1 == v2) print("selected")
         // for v1,v2 dynamic without some helper like this.
         Handlebars.registerHelper("selectedIfMatch", function(value1, value2) {
             return (value1 === value2)? "selected" : "";
         });
+
+        // Alpine-passed workflow variables
+        this.model.fetchWorkflowVariables();
+        this.subscribePageEvent('worklet:workflow_variables_loaded', this.workflowVariablesLoaded);
+    },
+
+    workflowVariablesLoaded: function(workflowVariables) {
+        if (_.isEmpty(this.workflowVariables) && !_.isEmpty(workflowVariables)) {
+            this.workflowVariables = workflowVariables;
+            this.render();
+        }
     },
 
     scrollToParameter: function(param_model) {
@@ -51,7 +54,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
             return _.where(m, this.attributes).length > 0;
         }, param_model).indexOf(true);
 
-        var target = 'div.worklet_param[data-index="' + param_ind + '"]';
+        var target = 'div.worklet_parameter_module[data-index="' + param_ind + '"]';
         var offset_div = $('#sub_nav');
 
         $('body').scrollTo(target, { offsetTop: offset_div.offset().top + offset_div.height() });
@@ -91,25 +94,48 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     },
 
     showParamErrors: function(param, param_index) {
+        var other_errors = [];
         _.each(param.errors, function(val, key) {
             var vName = _.underscored(key) + '_' + param_index;
-            var $input = this.$("input[name=\"" + vName + "\"], form textarea[name=\"" + vName + "\"]");
-            this.markInputAsInvalid($input, val, false);
-        }, this);
+            var $input = this.view.$("select[name=\"" + vName + "\"], input[name=\"" + vName + "\"], form textarea[name=\"" + vName + "\"]");
+
+            // If the error isn't on a text input, we show as an error div rather than a tool tip.
+            if ($input.length === 0) {
+                this.other_errors.push(val);
+            } else {
+                this.view.markInputAsInvalid($input, val, false);
+            }
+        }, { view: this, other_errors: other_errors });
+
+        if (other_errors.length !== 0) {
+            var err_el = this.$el.find("div.worklet_parameter_module[data-index=" + param_index + "] .errors");
+            err_el.removeClass("hidden");
+
+            var output = ["<ul>"];
+            _.each(other_errors, function(msg) {
+                this.push("<li>" + msg + "</li>");
+            }, output);
+            output.push("</ul>");
+            err_el.html(output.join(""));
+        }
     },
 
     clearParamErrors: function(param, param_index) {
         _.each(param.errors, function(val, key) {
             var vName = _.underscored(key) + '_' + param_index;
-            var $input = this.$("input.has_error[name=\"" + vName + "\"], form textarea.has_error[name=\"" + vName + "\"]");
+            var $input = this.$("select.has_error[name=\"" + vName + "\"], input.has_error[name=\"" + vName + "\"], form textarea.has_error[name=\"" + vName + "\"]");
             $input.qtip("destroy");
             $input.removeData("qtip");
             $input.removeClass("has_error");
         }, this);
+
+        var err_el = this.$el.find("div.worklet_parameter_module[data-index=" + param_index + "] .errors");
+        err_el.empty().addClass("hidden");
+
         param.errors = {};
     },
 
-    updateParameter: function(e, model_index, perform_save) {
+    updateParameter: function(e, model_index, perform_save, save_options) {
         e && e.preventDefault();
 
         // Below uses e.target.dataset.index to index model.
@@ -121,43 +147,88 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         var i = (typeof(model_index) !== 'number')? e.target.dataset.index : model_index;
         var param_model = this.parameters.models[i];
         var updates = {
-            variableName: $('select[name=variable_name_' + i + '] option:selected').val(),
-            description: $('textarea[name=description_' + i + ']').val(),
-            label: $('input[name=label_' + i + ']').val(),
-            useDefault: $('input[name=use_default_' + i + ']')[0].checked,
-            required: $('input[name=required_' + i + ']')[0].checked,
-            dataType: $('select[name=data_type_' + i + '] option:selected').val()
+            variableName: this.$('select[name=variable_name_' + i + '] option:selected').val(),
+            description: this.$('textarea[name=description_' + i + ']').val(),
+            label: this.$('input[name=label_' + i + ']').val(),
+            useDefault: this.$('input[name=use_default_' + i + ']')[0].checked,
+            required: this.$('input[name=required_' + i + ']')[0].checked,
+            dataType: this.$('select[name=data_type_' + i + '] option:selected').val()
         };
 
         // Select options:
-        var opts_els = $('input[name^=option_][data-index=' + i + ']');
+        var opts_els = this.$('input[name^=option_][data-index=' + i + ']');
         if (opts_els.length > 0) {
             var options = _.map(opts_els, function(o) {
                 return {
-                    option: $(o).val(),
-                    value: $('input[name=value_' + o.dataset.optionIndex + '_' + o.dataset.index + ']').val()
+                    option: this.$(o).val(),
+                    value: this.$('input[name=value_' + o.dataset.optionIndex + '_' + o.dataset.index + ']').val()
                 };
-            });
+            }, this);
             updates.options = options;
+        }
+
+        var old_dt = param_model.get('dataType');
+        var old_vn = param_model.get('variableName');
+
+        // Set the attributes for the changes, and cast to specific parameter class.
+        param_model.set(updates);
+        param_model = param_model.castByDataType();
+        this.parameters.models[i] = param_model;
+
+        // If we're updating data type then we want to rerender before validating.
+        if (!_.isUndefined(old_dt) && old_dt !== updates.dataType) {
+            this.render();
         }
 
         // Validate and set the model on client side.
         this.clearParamErrors(param_model, i);
-        param_model.set(updates);
-        param_model = param_model.castByDataType();
-        this.parameters.models[i] = param_model;
-        if (!param_model.performValidation(updates)) {
+        var has_validation_errors = !param_model.performValidation(updates);
+
+        // Validate workflow variable uniqueness
+        var dup_var_params = _.reject(this.parameters.models, function(p, i) {
+            return (i === 1*this.index) || (p.get('variableName') !== this.varName);
+        }, {
+            view: this,
+            index: i,
+            varName: param_model.get('variableName')
+        });
+        if (!_.isEmpty(dup_var_params)) {
+            var var_name = param_model.get('variableName');
+            var err_msg = t('worklet.validation.duplicate_workflow_variable', { name: var_name });
+
+            // Show errors on this model
+            param_model.errors["variable_name"] = err_msg;
+            has_validation_errors = true;
+        } else {
+            // Reassignment of variable name can lead to the case where
+            // we'd like to automatically clear the variableName error on the formerly
+            // assigned parameter.
+            _.each(this.parameters.models, function(p, j) {
+                if (p.errors && !_.isUndefined(p.errors["variable_name"]) && p.get('variableName') === this.varName) {
+                    var tmp_errs = _.omit(p.errors, "variable_name");
+                    this.view.clearParamErrors(p, j);
+                    p.errors = tmp_errs;
+                    this.view.showParamErrors(p, j);
+                }
+            }, {
+                view: this,
+                varName: old_vn
+            });
+        }
+
+        if (has_validation_errors === true) {
             this.showParamErrors(param_model, i);
             this.broadcastEditorState();
-            return;
+            return false;
         }
 
         if (perform_save === true) {
-            // Use the "worklet parameter" model's end-point when saving
-            var generic = new chorus.models.WorkletParameter(param_model);
-            generic.save(updates);
+            var save_state = false !== param_model.save(updates, save_options);
+            this.paramChanged();
+            return save_state;
+        } else {
+            this.paramChanged();
         }
-        this.paramChanged();
     },
 
     paramChanged: function() {
@@ -171,9 +242,6 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     },
 
     paramSaved: function() {
-        this._hasUnsavedChanges = false;
-        this.broadcastEditorState();
-
         // Update preview pane
         this.model.parameters().trigger('update');
     },
@@ -186,15 +254,16 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     deleteParameter: function(e) {
         e && e.preventDefault();
         //var p = this.workletParams()[e.currentTarget.dataset.index]
-        var m = this.parameters.models[e.currentTarget.dataset.index];
+        var m = this.parameters.at(e.currentTarget.dataset.index);
         new chorus.alerts.WorkletParameterDeleteAlert({
-            model: m
+            model: m,
+            at: e.currentTarget.dataset.index
         }).launchModal();
     },
 
     paramDeleted: function(param_options) {
         // Remove from collection
-        this.model.parameters().remove(param_options.model);
+        this.parameters.remove(param_options.model.cid);
         this.paramChanged();
     },
 
@@ -218,9 +287,19 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         e && e.preventDefault();
 
         this.clearErrors();
-        _.each(this.model.parameters().models, function(param_model, index) {
-            this.updateParameter(null, index, true);
+        var save_attempts = _.map(this.model.parameters().models, function(param_model, index) {
+            return this.updateParameter(null, index, true, { wait: true });
         }, this);
+
+        if (!_.contains(save_attempts, false)) {
+            this._hasUnsavedChanges = false;
+            this.broadcastEditorState();
+            return true;
+        } else {
+            this._hasUnsavedChanges = true;
+            this.broadcastEditorState();
+            return false;
+        }
     },
 
 
@@ -257,30 +336,33 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     },
 
     workletParams: function() {
-        // Becomes the representation given to the view.
+        // Used to render the parameter edit modules:
         return _.map(this.parameters.models, function(v, i) {
+            var workflow_var_pair = _.find(this.workflowVariables, function(w) { return w.variableName === this + ""; }, v.get('variableName'));
+
             return _.extend(_.clone(v.attributes), {
+                // Store the variable default (sifted from the array of workflow variables)
+                noVariableSelected: _.isUndefined(v.get('variableName')),
+                variableDefault: workflow_var_pair && workflow_var_pair.variableDefault,
+
+                // Single/multiple-options related
                 hasOptions: v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select'),
-                useDefaultDisabled: (v.get('dataType') === t('worklet.parameter.datatype.single_option_select') || v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select')),
-                isCalendar: v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'),
+                options: _.map(v.get('options') || [], function (o,i) { return _.extend(_.clone(o), { optionIndexPlusOne: i + 1 }); }),
+
+                // For use instead of the handlebars @index:
                 displayIndex: i,
-                options: v.get('options') || []
+                displayIndexPlusOne: i + 1,
+
+                useDefaultDisabled: (v.get('dataType') === t('worklet.parameter.datatype.single_option_select') ||
+                                     v.get('dataType') === t('worklet.parameter.datatype.multiple_option_select') ||
+                                     v.get('dataType') === t('worklet.parameter.datatype.datetime_calendar'))
             });
-        });
+        }, this);
     },
 
     additionalContext: function () {
-        // TODO: Alpine includes some variables that are read-only.
-        // This isn't the best place to do this filtering.
-        var varMap = this.workflowVariables && this.workflowVariables.get('variableMap');
-        var filteredVars = _.omit(varMap, chorus.WorkletConstants.OmittedWorkflowVariables);
         return {
-            workflowVariables: _.map(filteredVars, function (value, prop) {
-                return {
-                    variableName: prop,
-                    variableDefault: value
-                };
-            }),
+            workflowVariables: this.workflowVariables,
             workletParams: this.workletParams(),
             dataTypes: chorus.WorkletConstants.DataTypes
         };

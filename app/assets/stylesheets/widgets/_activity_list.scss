@@ -141,7 +141,6 @@ $refresh-activity-gutter: $activity-gutter - 5;
     .comment_header {
         word-wrap: break-word;
         @include secondary-text-normal;
-        // line-height: 20px;
 
         .author {
             font-weight: $semibold;
@@ -201,7 +200,6 @@ $refresh-activity-gutter: $activity-gutter - 5;
 span.fa {
     &.fa-trash {
         padding: 0 3px;
-        // vertical-align: middle;
     }
 }
 

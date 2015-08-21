@@ -21,85 +21,6 @@
         margin-bottom: 0;
     }
 
-//     .data_sources_form {
-//
-// //     	same variables as data_source_edit_dialog */
-// //     	todo: refactor these out to a common class instead of duplicating */
-//         $fieldset-width: $default-dialog-width - (2 * $dialog-padding-leftRight) - 10;
-//
-//         $field_max_width: 460px;
-//         $hostname_width: 365px;
-//         $account_width: 220px;
-//         $input-spacing: 10px;
-//         $size_width: 75px;
-//         $width_margin_buffer: 5px;
-//
-//         margin-bottom: $dialog-padding-bottom;
-//
-//         label[name=host], input[name=host],
-//         label[name=database], input[name=database],
-//         label[name=jobTrackerHost], input[name=jobTrackerHost],
-//         // label[name=hiveKerberosPrincipal], input[name=hiveKerberosPrincipal],
-//         // label[name=hiveKerberosKeytabLocation], input[name=hiveKerberosKeytabLocation]
-//         {
-//             width: $hostname-width;
-//         }
-//
-//         input, textarea,
-//         textarea[name=description] {
-//             max-width: $field_max_width;
-//         }
-//
-//
-//         label[name=port], input[name=port],
-//         label[name=jobTrackerPort], input[name=jobTrackerPort] {
-//             width: $size_width;
-//             margin-left: $input-spacing;
-//         }
-//
-//         label.db_username, input.db_username,
-//         label[name=databaseName], input[name=databaseName],
-//         .username, .group_list, .gnip_username {
-//             width: $account_width;
-//         }
-//
-//         label[name=size], input[name=size] {
-//             width: $size_width;
-//             margin-top: 1px;
-//         }
-//
-//         label.db_password, input.db_password,
-//         label[name=schemaName], input[name=schemaName],
-//         .group_list, .gnip_password {
-//             width: $fieldset-width - $account_width - $dialog-padding - $width_margin_buffer;
-//             margin-left: $input-spacing;
-//         }
-//
-// //         img.help {
-// //             display: inline-block;
-// //             margin-top: -3px;
-// //             vertical-align: middle;
-// //         }
-//
-//         .instructions {
-//             @include dialog-label;
-//             margin-top: 20px;
-//             display: inline-block;
-//         }
-//
-//         .disabled {
-//             color : $color-text4;
-//         }
-//
-//         .max_size {
-//             @include dialog-label;
-//         }
-//
-//         select, .ui-selectmenu-button .ui-button {
-//             width: 300px;
-//         }
-//     }
-
 }
     .data_source_fields {
 
@@ -158,47 +79,6 @@
         }
 
 
-
-//         label[name=host], input[name=host],
-//         label[name=database], input[name=database],
-//         label[name=jobTrackerHost], input[name=jobTrackerHost],
-//         label[name=hiveKerberosPrincipal], input[name=hiveKerberosPrincipal],
-//         label[name=hiveKerberosKeytabLocation], input[name=hiveKerberosKeytabLocation] {
-//             width: $field_large_width;
-//         }
-
-
-//         label.partwidth,
-//         input.partwidth {
-//             width: $field_small_width;
-//         }
-
-//         label[name=port],
-//         input[name=port],
-//         label[name=jobTrackerPort],
-//         input[name=jobTrackerPort] {
-//             width: $field_small_width;
-//             margin-left: $field_spacing;
-//         }
-
-//         label.db_username, input.db_username,
-//         label[name=databaseName], input[name=databaseName],
-//         .username, .group_list, .gnip_username {
-//             width: $account_width;
-//         }
-
-//         label[name=size], input[name=size] {
-//             width: $size_width;
-//             margin-top: 1px;
-//         }
-
-//         label.db_password, input.db_password,
-//         label[name=schemaName], input[name=schemaName],
-//         .group_list, .gnip_password {
-//             width: $fieldset-width - $account_width - $dialog-padding - $width_margin_buffer;
-//             margin-left: $input-spacing;
-//         }
-
         .instructions {
             @include dialog-label;
             margin-top: 20px;
@@ -206,7 +86,7 @@
         }
 
         .disabled {
-            color: $color-text4;
+            @include disabled-text;
         }
 
         .max_size {

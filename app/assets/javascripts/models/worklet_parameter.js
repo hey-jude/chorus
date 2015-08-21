@@ -1,5 +1,6 @@
 chorus.models.WorkletParameter = chorus.models.Base.extend({
     constructorName: "WorkletParameter",
+    parameterWrapper: "worklet_parameter",
     urlTemplate: "workspaces/{{workspaceId}}/worklets/{{workletId}}/parameters/{{id}}",
     viewClass: chorus.views.WorkletParameter,
 
@@ -41,7 +42,10 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
             // modelClass = chorus.models.WorkletParameter;
         }
 
-        return new modelClass(this);
+        var newModel = new modelClass(this);
+        newModel.cid = this.cid;
+
+        return newModel;
     },
 
     // There are two "validations" using similar machinery that happen using these "parameter" models;
@@ -100,7 +104,15 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
     declareValidations: function(newAttrs) {
         this.require('label');
         this.require('dataType');
+        this.require('variableName');
+    },
+
+    attrToLabel: {
+      "label":"worklet.configure.inputs.field_label",
+      "dataType":"worklet.edit.input.data_type.label",
+      "variableName":"worklet.configure.inputs.workflow_variable"
     }
+
 });
 
 chorus.models.WorkletNumericParameter = chorus.models.WorkletParameter.extend({
@@ -172,8 +184,7 @@ chorus.models.WorkletMultipleOptionParameter = chorus.models.WorkletSingleOption
         var value = newAttrs && newAttrs.hasOwnProperty(attr) ? newAttrs[attr] : this.get(attr);
         var present = value;
 
-
-        if (!_.isArray(value) || value.length === 0) {
+        if (!_.isString(value) || _.stripTags(value).match(chorus.ValidationRegexes.AllWhitespace())) {
             present = false;
         }
 

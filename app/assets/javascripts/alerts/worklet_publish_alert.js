@@ -9,6 +9,7 @@ chorus.alerts.WorkletPublish = chorus.alerts.Confirm.extend({
 
     confirmAlert: function() {
         this.model.publishWorklet();
-        this.closeModal();
+        this.$("button.submit").startLoading("actions.publishing");
+        this.listenToOnce(this.model, "saved", this.closeModal);
     }
 });

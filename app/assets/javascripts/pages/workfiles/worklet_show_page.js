@@ -10,14 +10,44 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
         this.worklet = new chorus.models.Worklet({id: workletId, workspace: this.workspace});
         this.worklet.fetch();
 
+        this.subscribePageEvent("worklet:run", this.runEventHandler);
+        this.pollForRunStatus = _.bind(function() {
+            this.worklet.fetch({
+                success: _.bind(function(model) {
+                    if(!model.get('running')) {
+                        chorus.PageEvents.trigger("worklet:run", "runStopped");
+                    }
+                }, this)
+            });
+        }, this);
+
         this.onceLoaded(this.worklet, this.buildPage);
+    },
+
+    menuEventHandler: function(menu_item) {
+        if (menu_item === 'close') {
+            this.closePage();
+        }
+    },
+
+    runEventHandler: function(event) {
+        if (event === 'runStarted') {
+            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+        }
+        else if (event === 'runStopped') {
+            if (!_.isNull(this.pollerID)) {
+                clearInterval(this.pollerID);
+                this.pollerID = null;
+            }
+        }
+    },
+
+    closePage: function() {
+        chorus.router.navigate(this.worklet.workspace().workfilesUrl());
     },
 
     makeModel: function(workspaceId) {
         this.loadWorkspace(workspaceId);
-    },
-
-    menuEventHandler: function(menu_item) {
     }
 });
 
@@ -32,16 +62,36 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     menuEventHandler: function(menu_item) {
-        this._super("menuEventHandler", [menu_item]);
-
         if (menu_item === 'close') {
-            this.closePage();
+            if (this.hasUnsavedChanges()) {
+                new chorus.alerts.WorkletUnsavedAlert({
+                    model: this.worklet
+                }).launchModal();
+            } else {
+                this.closePage();
+            }
         } else if (menu_item === 'save') {
             this.saveAll();
+        } else if (menu_item === 'close_with_save') {
+            if (this.saveAll()) {
+                this.closePage();
+            }
+        } else if (menu_item === 'close_without_save') {
+            this.closePage();
         }
     },
 
-    closePage: function() {
+    hasUnsavedChanges: function() {
+        var views = _.pairs(this.editorViews);
+        var unsaved_views = _.filter(views, function (view_pair) {
+            return view_pair[1].content.hasUnsavedChanges();
+        });
+
+        var error_having_views = _.filter(views, function (view_pair) {
+            return view_pair[1].content.hasErrors();
+        });
+
+        return error_having_views.length > 0 || unsaved_views.length > 0;
     },
 
     workletSaved: function(e) {
@@ -54,26 +104,25 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     saveAll: function() {
         // For each editor view, check if it's unsaved or has errors.
-        // For error-having views, indicate the error and short-circuit
-        // save.
-        var views = _.pairs(this.editorViews);
-        var error_having_views = _.filter(views, function (view_pair) {
+        // For error-having views, indicate the error and short-circuit save
+        var error_having_views = _.filter(_.pairs(this.editorViews), function (view_pair) {
             return view_pair[1].content.hasErrors();
         });
 
         if (error_having_views.length > 0) {
-            // console.log(error_having_views[0][0] + " has errors.");
             this.showEditorMode(error_having_views[0][0]);
             return;
         }
 
-        //var unsaved_views = _.filter(views, function (view_pair) {
-        //    return view_pair[1].content.hasUnsavedChanges();
-        //});
-
         chorus.PageEvents.trigger("worklet:editor:save", "saving");
-        this.worklet.save();
-        this.editorViews['inputs'].content.saveParameters();
+
+        if (this.editorViews['inputs'].content.saveParameters() && this.worklet.save(this.worklet.attributes, { wait: true })) {
+            chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
+            return true;
+        } else {
+            chorus.PageEvents.trigger("worklet:editor:save", "failed");
+            return false;
+        }
     },
 
     workletStepsMenuEventHandler: function(menu_item) {
@@ -159,32 +208,6 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     setup: function (workspaceId, workletId) {
         this._super("setup", [workspaceId, workletId]);
-
-        this.subscribePageEvent("worklet:run", this.runEventHandler);
-        this.subscribePageEvent("menu:worklet", this.menuEventHandler);
-
-        this.pollForRunStatus = _.bind(function() {
-            this.worklet.fetch({
-                success: _.bind(function(model) {
-                    if(!model.get('running')) {
-                        clearInterval(this.pollerID);
-                        chorus.PageEvents.trigger("worklet:run", "runStopped");
-                        if(this.clickedStop) {
-                            this.clickedStop = false;
-                        }
-                        else {
-                            var activities = model.activities();
-                            activities.loaded = false;
-                            activities.fetchAll();
-                            this.onceLoaded(activities, this.reloadHistory);
-                        }
-                    }
-                    else {
-                        this.sidebar.runEventHandler('runStarted');
-                    }
-                }, this)
-            });
-        }, this);
     },
 
     menuEventHandler: function(menu_item) {
@@ -192,22 +215,32 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     runEventHandler: function(event) {
-        if (event === 'runStarted') {
-            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+        this._super("runEventHandler", [event]);
+
+        if (event === 'runStopped') {
+            if (this.clickedStop) {
+                this.clickedStop = false;
+            } else {
+                var activities = this.worklet.activities();
+                activities.loaded = false;
+                activities.fetchAll();
+                this.onceLoaded(activities, this.reloadHistory);
+            }
         }
-        else if( event === 'clickedStop') {
+        else if (event === 'clickedStop') {
             this.clickedStop = true;
         }
     },
 
     reloadHistory: function() {
+        this.mainContent.content.workletHistory.collection = this.worklet.activities();
         this.mainContent.content.workletHistory.render();
-        this.mainContent.content.workletHistory.$('.history_item')[0].click();
+        this.mainContent.content.workletHistory.$('.history_entry')[0].click();
     },
 
     showHistory: function() {
         var history_options = {
-            model: this.model,
+            model: this.worklet,
             collection: this.history,
             mainPage: this
         };
@@ -247,13 +280,13 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         });
 
         this.mainContent = new chorus.views.MainContentView({
-            model: this.model,
+            model: this.worklet,
             content: this.contentView
         });
 
         this.render();
 
-        if(this.worklet.get('running')) {
+        if (this.worklet.get('running')) {
             chorus.PageEvents.trigger("worklet:run", "runStarted");
         }
     }

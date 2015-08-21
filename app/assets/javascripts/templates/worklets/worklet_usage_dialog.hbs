@@ -2,34 +2,36 @@
 <div class="girdle">
 
     <div class='sub_header'>
-        <div>Worklets that use this workflow:</div>
+        <div>{{t "worklet.dialog.workflow_worklets_using.title"}}</div>
     </div>
 
     <div id="content">
-        <ul>
             {{#each associatedWorklets}}
-                <li class="worklet_list_item">
-                    <div class="worklet_usage_item">
-                        <div class="image_container" style="float: left;">
-                            <img class="workspaceIconSmall" src="/workspaces/{{workspace.id}}/worklets/{{id}}/image/" title="Workspace" style="width: 100px;" alt=""/>
-                        </div>
-                        <div class="details" style="float: left; padding-left: 20px; width: 200px;">
-                            <div>
-                                <a class="workspace_link" href="/#workspaces/{{workspace.id}}/worklets/{{id}}/" style="font-size: 18px;">{{fileName}}</a>
+
+                <div class="worklet_catalog_card">
+                    <div class="worklet_card_avatar">
+                        <a href="/#workspaces/{{workspace.id}}/worklets/{{id}}/"><img src="/workspaces/{{workspace.id}}/worklets/{{id}}/image/" alt=""></a>
+                    </div>
+        
+                    <div class="worklet_card_content">
+                            <div class="worklet_title">
+                                <h3>{{fileName}}</h3>
                             </div>
-                            <div class="pair location" style="padding-top: 10px; font-size: 14px;">
+                            {{#if description}}
+                            <div class="worklet_description">
                                 {{description}}
                             </div>
-                        </div>
-                        <div style="clear: both;"></div>
+                            {{/if}}
+
                     </div>
-                </li>
+                </div>
+
             {{/each}}
-        </ul>
+
     </div>
 
 </div>
-<!-- END girdle -->
+{{!-- END girdle --}}
 
 {{> closeWindowFormControls }}
 

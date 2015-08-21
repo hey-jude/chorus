@@ -454,7 +454,8 @@
         },
 
         WorkfileResult: {
-            links: ["workfile"]
+            links: ["workfile", "workspace"],
+            computed: ["workfileTypeCaps", "workletEnding"]
         },
 
         WorkletResultShared: {
@@ -576,7 +577,34 @@
         },
 
         workfileType: function(self) {
-            return self.model.workfile().get('entitySubtype') === 'worklet' ? 'worklet' : 'file';
+            switch(self.model.workfile().get('entitySubtype')) {
+                case "worklet":
+                    return t("entity.worklet").toLowerCase();
+                case "published_worklet":
+                    return t("entity.published_worklet").toLowerCase();
+                default:
+                    return "file";
+            }
+        },
+
+        workfileTypeCaps: function(self) {
+            switch(self.model.workfile().get('entitySubtype')) {
+                case "worklet":
+                    return t("entity.worklet");
+                case "published_worklet":
+                    return t("entity.published_worklet");
+                default:
+                    return "Workfile";
+            }
+        },
+
+        workletEnding: function(self) {
+            switch(self.model.workfile().get('entitySubtype')) {
+                case "worklet":
+                    return " in workspace " + presenterHelpers.modelLink(self.model["workfile"]()["workspace"]()).string;
+                default:
+                    return "";
+            }
         },
 
         tableauWorkbookLink: function(self) {

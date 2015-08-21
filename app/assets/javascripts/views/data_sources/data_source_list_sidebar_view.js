@@ -82,7 +82,7 @@ chorus.views.DataSourceListSidebar = chorus.views.Sidebar.extend({
         this.requiredResources.reset();
         this.listenTo(this.resource, "change", this.render);
 
-        if(this.resource.isGreenplum() || this.resource.isPostgres() || this.resource.isOracle() || this.resource.isJdbc()) {
+        if(this.resource.isGreenplum() || this.resource.isPostgres() || this.resource.isOracle() || this.resource.isJdbc() || this.resource.isJdbcHive()) {
             var account = this.dataSource.accountForCurrentUser();
             this.dataSource.accounts().fetchAllIfNotLoaded();
             account.fetchIfNotLoaded();

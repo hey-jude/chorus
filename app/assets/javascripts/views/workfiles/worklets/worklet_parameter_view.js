@@ -3,7 +3,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
     templateName: "worklets/parameters/worklet_parameter_list",
 
     setup: function() {
-        // this.parameters becomes the filtered set of variable views.
+        // this.parameters becomes the filtered set of variable views
         this.parameters = [];
         this.collection = this.model.parameters();
 
@@ -19,6 +19,16 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
         }
 
         this.noFilter = true;
+
+        this.model.fetchWorkflowVariables();
+        this.subscribePageEvent('worklet:workflow_variables_loaded', this.workflowVariablesLoaded);
+    },
+
+    workflowVariablesLoaded: function(workflowVariables) {
+        if (_.isEmpty(this.workflowVariables) && !_.isEmpty(workflowVariables)) {
+            this.workflowVariables = workflowVariables;
+            this.render();
+        }
     },
 
     filter: function (parameter_model) {
@@ -26,18 +36,23 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
     },
 
     preRender: function () {
-        this.parameters = this.collection.filter(this.filter, this).map(function (parameter_model) {
+        this.parameters = this.collection.filter(this.filter, this).map(function (parameter_model, displayIndex) {
             // Cast model to subclass that has type-specific validations
             parameter_model = parameter_model.castByDataType();
 
-            // View specific to the subclass is stored in "viewClass" attribute of the model.
+            // Get default value from alpine-provided workflow variables
+            var workflow_var_pair = _.find(this.workflowVariables, function(w) { return w.variableName === this + ""; }, parameter_model.get('variableName'));
+
+            // View specific to the subclass is stored in "viewClass" attribute of the model
             var parameter_view = new parameter_model.viewClass({
                 model: parameter_model,
-                state: this.state
+                state: this.state,
+                displayIndex: displayIndex,
+                variableDefault: workflow_var_pair && workflow_var_pair.variableDefault
             });
             this.registerSubView(parameter_view);
 
-            // Storing both view and model instances for validation ease.
+            // Storing both view and model instances for validation ease
             return { view: parameter_view, model: parameter_model };
         }, this);
     },
@@ -45,7 +60,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
     postRender: function () {
         if (this.parameters.length) {
             // Renders each subview into a document fragment container first
-            // so as to not incrementally re-render inefficiently.
+            // so as to not incrementally re-render inefficiently
             var container = document.createDocumentFragment();
             _.each(this.parameters, function(parameter) {
                 container.appendChild(parameter.view.render().el);
@@ -68,7 +83,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
 
     validateParameterInputs: function() {
         // Uses the { view: ..., model: ... } structure as created in this.preRender
-        // to validate each model, and then to display on the view.
+        // to validate each model, and then to display on the view
         this.collectParameterUserInputs();
 
         var hasErrors = _.filter(this.parameters, function(parameter) {
@@ -82,7 +97,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
 
         if (hasErrors.length > 0) {
             _.each(hasErrors, function(parameter) {
-                // Places error to the left of the input.
+                // Places error to the left of the input
                 parameter.view.showErrors(parameter.model, {
                     position: {
                         at: "left center",
@@ -103,15 +118,14 @@ chorus.views.WorkletParameter = chorus.views.Base.extend({
     additionalClass: "worklet_parameter",
 
     events: {
-        "click a.delete_input_param": 'deleteParameter',
+        // "click a.delete_input_param": 'deleteParameter',
         "click a.scroll_input_param": 'scrollToParameter'
     },
 
-    deleteParameter: function(e) {
-        e && e.preventDefault();
-
-        new chorus.alerts.WorkletParameterDeleteAlert({ model: this.model }).launchModal();
-    },
+//     deleteParameter: function(e) {
+//         e && e.preventDefault();
+//         new chorus.alerts.WorkletParameterDeleteAlert({ model: this.model }).launchModal();
+//     },
 
     scrollToParameter: function(e) {
         e && e.preventDefault();
@@ -127,13 +141,14 @@ chorus.views.WorkletParameter = chorus.views.Base.extend({
         // Assumes there's an <input name="n"> where "n" is this.model.get('variableName')
         var v = {};
         v[this.model.get('variableName')] = this.$el.find('input[name="' + this.model.get('variableName') + '"]').val();
-
         return v;
     },
 
     additionalContext: function () {
         return {
-            editing: this.state === 'editing'
+            editing: this.state === 'editing',
+            displayIndexPlusOne: this.options.displayIndex + 1,
+            variableDefault: this.options.variableDefault
         };
     }
 });
@@ -161,7 +176,7 @@ chorus.Mixins.WorkletErrorOverride = {
     }
 };
 
-chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.include(chorus.Mixins.WorkletErrorOverride).extend(
+chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.extend(
     {
     templateName: "worklets/parameters/worklet_single_option_parameter",
 
@@ -169,7 +184,7 @@ chorus.views.WorkletSingleOptionParameter = chorus.views.WorkletParameter.includ
         // Assumes there's an <select name="n"> where "n" is this.model.get('variableName')
         var v = {};
         var var_el = this.$el.find('select[name="' + this.model.get('variableName') + '"]  option:selected');
-        // Uses the name of the option if the option value is blank.
+        // Uses the name of the option if the option value is blank
         v[this.model.get('variableName')] = var_el.val() || var_el[0].dataset.optionLabel;
 
         return v;
@@ -193,7 +208,7 @@ chorus.views.WorkletMultipleOptionParameter = chorus.views.WorkletParameter.incl
         v[this.model.get('variableName')] = _.map(checked_options, function(o) {
             // Uses o.option if (!o.value) (i.e. if o.value is blank)
             return o.value || o.option;
-        });
+        }).join(',');
 
         return v;
     }
@@ -216,10 +231,8 @@ chorus.views.WorkletCalendarParameter = chorus.views.WorkletParameter.include(ch
     },
 
     getUserInput: function() {
-        // Returns as 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
-        // See vendor/moment.js
         var v = {};
-        v[this.model.get('variableName')] = this.startDatePicker.getDate().toISOString();
+        v[this.model.get('variableName')] = "'" + this.startDatePicker.getDate().format('YYYY-MM-DD') + "'";
 
         return v;
     }

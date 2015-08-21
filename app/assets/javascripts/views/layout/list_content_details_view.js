@@ -11,7 +11,7 @@ chorus.views.ListContentDetails = chorus.views.Base.include(
     },
 
     subviews: {
-        "div.button_holder" : "buttonView"
+        "div.button_holder": "buttonView"
     },
 
     setup: function(){
@@ -66,7 +66,7 @@ chorus.views.ListContentDetails = chorus.views.Base.include(
     },
 
     startLoading: function(selector) {
-        this.$(selector).text(t("loading"));
+        this.$(selector).text(t("general.loading"));
     },
 
     updateFilterCount: function() {

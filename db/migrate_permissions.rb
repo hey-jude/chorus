@@ -1,4 +1,5 @@
 
+
 admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
 owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
 user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
@@ -68,6 +69,38 @@ task_class = ChorusClass.where(:name => 'task'.camelize).first
 insight_class = ChorusClass.where(:name => 'insight'.camelize).first
 upload_class = ChorusClass.where(:name => 'upload'.camelize).first
 
+
+# Check if we need to run these migrations. compare the count of users, workspaces and datasources againts the corresponding object count in chorus_objects table. If they match, the migration has been run and we can skip it.
+
+if ENV['force'] !=  'true'
+  user_co_count = ChorusObject.where(:chorus_class_id => user_class.id).count
+  ws_co_count = ChorusObject.where(:chorus_class_id =>  workspace_class.id).count
+  datasource_co_count = ChorusObject.where(:chorus_class_id => datasource_class.id).count
+  if user_co_count == User.count && ws_co_count == Workspace.count && datasource_co_count == DataSource.count
+    puts ''
+    puts "---- Skipping permissions migration. If you need to run permissions migration again use 'rake db:migrate_permissions force=true' from command line. ----"
+    puts ''
+    exit(0)
+  end
+end
+
+puts ''
+puts '==============================================================================='
+puts 'This task may take few minutes to an hour based on the amount of data in your'
+puts 'Chorus database. Please do not cancel this task until it is finished.'
+puts '==============================================================================='
+puts ''
+
+# Groups
+puts '---- Adding Default Group  ----'
+default_group = Group.find_or_create_by_name(:name => 'default_group')
+
+
+# Scope
+puts ''
+puts '---- Adding application_realm as Default Scope ----'
+application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
+
 puts ''
 puts "===================== Adding Chorus Object =========================="
 
@@ -88,13 +121,8 @@ User.find_in_batches({:batch_size => 5}) do |users|
       ChorusClass.create(:name => user.class.name)
     end
     print '.'
-
-    #user_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
-
-    #user_object_role = ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
-    # add all users to default scope (application realm) by adding user to the default group
-    #user.chorus_scopes << application_realm
-    user.groups << default_group unless user.groups.include?(default_group)
+    ChorusObject.create(:chorus_class_id => user_class.id, :instance_id => user.id, :chorus_scope_id => application_realm.id)
+    user.groups << default_group
     count = count + user.gpdb_data_sources.count
     user.gpdb_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil

@@ -1,0 +1,21 @@
+{{!-- partial --}}
+
+    <div class="card worklet_catalog_card">
+        <div class="worklet_card_avatar">
+            <a href="{{url}}"><img src="{{ avatarUrl }}" alt=""></a>
+        </div>
+        
+        <div class="worklet_card_content">
+            <!-- <a href="{{url}}"> --> <!-- TODO delete when final -->
+                <div class="worklet_title">
+                    <h3>{{fileName}}</h3>
+                </div>
+                {{#if description}}
+                <div class="worklet_description">
+                    {{description}}
+                </div>
+                {{/if}}
+                
+            <!-- </a> -->
+        </div>
+    </div>

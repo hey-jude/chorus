@@ -4,7 +4,7 @@ class WorkletParameterVersionPresenter < Presenter
     {
         :result_id => model.result_id,
         :event_id => model.event_id,
-        :worklet_variable_id => model.worklet_parameter_id,
+        :worklet_parameter_id => model.worklet_parameter_id,
         :owner_id => model.owner_id,
         :value => model.value,
         :name => worklet_parameter.variable_name,

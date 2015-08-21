@@ -11,12 +11,12 @@ $debug-browser-support: true;
 $border-blue:           rgb(0,140,200);
 $another-blue:          rgb(38,174,233);
 $third-blue:            rgb(67,184,236);
-$another-shade-of-gray: rgb(215,223,231);
-$bone-offwhite:         rgb(233,234,238);
-$bone-white:            rgb(243,244,247);
+$another-shade-of-gray: rgb(205,213,220);
+$bone-offwhite:         rgb(231,232,236);
+$bone-white:            rgb(241,242,245);
 $warm-bones:            rgb(241,242,245);
 $nearly-white:          rgb(250,252,253);
-$wet-concrete:          rgb(117,117,117);
+$wet-concrete:          rgb(115,115,115);
 $dry-concrete:          rgb(197,203,211);
 $button-shade:          rgba(10,117,163,0.13);
 
@@ -36,6 +36,42 @@ $default-button-height: $button-height;
         opacity: 1;
     }
 }
+
+// need to build this to generate buttons from any given color.
+
+// @mixin button-factory-main ($base-color) {
+//     $color-main: $base-color;
+//     $color-derived-darker-1: 
+//     $color-derived-lighter-1: 
+//     $color-border: darken($color-main, 20%);
+//  
+//     background-color: $color-main;
+// 
+//     @include filter-gradient($color-main, $another-blue, vertical);
+//     @include background(linear-gradient($bone-offwhite 0%, $color-main 0%, $another-blue 100%));
+//     @include background-image(linear-gradient(top, $bone-offwhite 0%, $color-main 0%, $another-blue 100%));
+// 
+//     color: $nearly-white;
+//     border: 1px solid $color-border;
+// 
+//     &:hover {
+//         background-color: $color-derived-1;
+//         @include filter-gradient($another-blue, $third-blue, vertical);
+//         @include background(linear-gradient($another-blue 0%, $third-blue 100%));
+//         @include background-image(linear-gradient(top, $another-blue 0%, $third-blue 100%));
+//     }
+// 
+//     &:active {
+//         background-color: $color-derived-1;
+//         @include filter-gradient($another-blue, $brand, vertical);
+//         @include background(linear-gradient($another-blue 0%, $brand 100%, $bone-offwhite 100%));
+//         @include background-image(linear-gradient(top, $another-blue 0%, $color-main 100%, $bone-offwhite 100%));
+// 
+//         box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,0.192);
+//     }
+// }
+
+
 
 @mixin button-primary-coloring {
     // background-image: linear-gradient(0deg, $bone-offwhite 0%, $brand 0%, $another-blue 100%);
@@ -125,8 +161,8 @@ $default-button-height: $button-height;
 }
 
 @mixin button-actionary-coloring {
-    //background-image: linear-gradient(0deg, $bone-offwhite 0%, $bone-white 100%);
-    //     background: linear-gradient(0deg, rgba($bone-offwhite, 0.7) 0%, rgba($bone-white, 0.8) 100%);
+    // background-image: linear-gradient(0deg, $bone-offwhite 0%, $bone-white 100%);
+    // background: linear-gradient(0deg, rgba($bone-offwhite, 0.7) 0%, rgba($bone-white, 0.8) 100%);
     // @include background(linear-gradient(rgba($bone-offwhite, 0.7) 0%, rgba($bone-white, 0.8) 100%));
         background-color: rgba($bone-offwhite, 0.7);
         @include filter-gradient(rgba($bone-offwhite, 0.7), rgba($bone-white, 0.8), vertical);
@@ -190,8 +226,8 @@ $default-button-height: $button-height;
 }
 
 @mixin actionary-button {
-    // buttons that are used when it is actually an action
-    // publish, preview, visualize, etc.
+    // buttons that are used when it is really an action
+    // eg: publish, preview, visualize, etc.
     @include button-canon;
     font-size: 13px;
     @include button-actionary-coloring;

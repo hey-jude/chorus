@@ -2,7 +2,6 @@ chorus.views.WorkletEditorSubheader = chorus.views.Base.extend({
     templateName: "worklets/worklet_editor_subheader",
     constructorName: "WorkletEditorSubheaderView",
     //additionalClass: "sub_nav",
-    //tagName: "ul",
 
     events: {
         "click a.workletSteps_item": 'clickedWorkletStepsItem'
@@ -30,7 +29,6 @@ chorus.views.WorkletEditorSubheader = chorus.views.Base.extend({
         { mode: 'details', label: t('worklet.edit_mode.details'), hasErrors: false, unsaved: false },
         { mode: 'outputs', label: t('worklet.edit_mode.outputs'), hasErrors: false, unsaved: false },
         { mode: 'inputs', label: t('worklet.edit_mode.inputs'), hasErrors: false, unsaved: false }
-
     ],
 
     additionalContext: function() {

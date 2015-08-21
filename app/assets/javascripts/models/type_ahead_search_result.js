@@ -14,7 +14,7 @@ chorus.models.TypeAheadSearchResult = chorus.models.SearchResult.extend({
             case "workspace":
                 return new chorus.models.Workspace(result);
             case "workfile":
-                return new chorus.models.Workfile(result);
+                return new chorus.models.DynamicWorkfile(result);
             case "hdfs_file":
                 return new chorus.models.HdfsEntry(result);
             case "dataset":

@@ -421,7 +421,7 @@ describe("chorus.pages.WorkspaceDatasetIndexPage", function() {
                     });
 
                     it("shows the Loading text in the count span", function() {
-                        expect($(this.page.$(".count"))).toContainTranslation("loading");
+                        expect($(this.page.$(".count"))).toContainTranslation("general.loading");
                     });
 
                     it("throttles the number of search requests", function() {
@@ -453,7 +453,7 @@ describe("chorus.pages.WorkspaceDatasetIndexPage", function() {
                             expect(this.page.mainContent.contentDetails.render).not.toHaveBeenCalled();
                         });
                         it("shows the Loading text in the count span", function() {
-                            expect($(this.page.$(".count"))).not.toMatchTranslation("loading");
+                            expect($(this.page.$(".count"))).not.toMatchTranslation("general.loading");
                         });
                     });
                 });

@@ -162,7 +162,7 @@ describe("chorus.views.DatasetStatistics", function() {
                 var humanizedDatasetType = Handlebars.helpers.humanizedDatasetType(this.dataset.attributes, this.dataset.statistics());
                 var text = this.view.$(".table_type").text();
 
-                expect(text).not.toMatchTranslation("loading");
+                expect(text).not.toMatchTranslation("general.loading");
                 expect(text).toBe(humanizedDatasetType);
             });
 
