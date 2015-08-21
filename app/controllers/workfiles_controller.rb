@@ -29,7 +29,7 @@ class WorkfilesController < ApplicationController
                          workfile.workspace,
                          current_user,
                          { :or => [ :current_user_is_in_workspace,
-                                    :workspace_is_public ] }
+                                    :workspace_is_public] } unless workfile.is_a?(PublishedWorklet)
     if params[:connect].present?
       authorize_data_sources_access workfile
       workfile.attempt_data_source_connection
