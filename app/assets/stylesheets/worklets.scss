@@ -851,6 +851,15 @@ $workletSteps-container-height: 50px;
   }
 }
 
+.worklets_worklet_workflow_configuration {
+  table {
+    width: 420px;
+    th {
+      text-align: left;
+    }
+  }
+}
+
 .worklet_new_dialog, .worklets_worklet_workflow_configuration {
     .workflow_details, .worklet_details {
         margin-top: 1em;
@@ -870,9 +879,7 @@ $workletSteps-container-height: 50px;
     }
 
     table {
-        // width: 420px;
         th {
-            text-align: left;
             width: 40%;
             font-weight: $semibold;
         }
