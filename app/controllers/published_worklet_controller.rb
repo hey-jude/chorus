@@ -83,7 +83,7 @@ class PublishedWorkletController < ApplicationController
         :workspace => Workspace.find(params[:workspace_id]),
         :result_note_id => params[:results_id]
     )
-    present worklet, :status => :accepted
+    present Workspace.find(params[:workspace_id]), :status => :accepted
   end
 
   def render_no_db_access
