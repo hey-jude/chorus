@@ -65,11 +65,11 @@ chorus.views.WorkletWorkflowConfiguration = chorus.views.Base.extend({
 
     additionalContext: function() {
         var hasComments = this.workflow.get('recentComments') && this.workflow.get('recentComments').length > 0;
-        
+
         return {
             workflow: this.workflow.attributes,
             workflowIconUrl: this.workflow.iconUrl(),
-            workflowWorkfileUrl: this.workflow.workfilesUrl(),
+            workflowWorkfileUrl: this.model.workspace().showUrl() + this.workflow.url(),
             //workflowEditUrl: this.workflow.workFlowShowUrl(),
             modifiedTime: new Date(this.workflow.get('userModifiedAt')).toString('MM-dd-yyyy HH:mm:ss'),
             hasComments: hasComments,
