@@ -88,7 +88,7 @@ div[data-page="PublishedWorkletShow"] {
     .primary_action_panel,
     .content_header {
         border: none;
-        
+
     }
     #sidebar .sidebar_content {
         margin-bottom: 0;
@@ -163,7 +163,7 @@ div[data-page="PublishedWorkletShow"] {
 
 
 
-// WORKBENCH COMMON STYLES 
+// WORKBENCH COMMON STYLES
 
 div[data-page="WorkletEdit"],
 div[data-page="WorkletRun"],
@@ -174,8 +174,8 @@ div[data-page="PublishedWorkletShow"] {
     }
 
 }
-  
-    
+
+
 // top header bar for workbench screens
 .worklets_worklet_header {
     position: relative;
@@ -407,14 +407,14 @@ div[data-page="PublishedWorkletShow"] {
         top: 8px;
     }
   }
-  
+
     // used for the TEST || RUN button at bottom of input panel
     .form_controls {
         width: 100%;
         margin: 0 0 20px 0;
         padding: 9px 0 30px 0;
         background-color: $worklet-panel-header-color;
-    
+
         button {
             float: left;
             margin-left: 10px;
@@ -422,22 +422,22 @@ div[data-page="PublishedWorkletShow"] {
     }
 
 }
-// END: .worklets_worklet_parameter_sidebar 
+// END: .worklets_worklet_parameter_sidebar
 
 // change the display when viewing for RUN
 div[data-page="PublishedWorkletShow"],
 div[data-page="WorkletRun"] {
     .worklets_worklet_parameter_sidebar {
         .worklet_parameter {
-            
+
             $worklet_parameter-module-barcolor-A: adjust-color($parameter-background-color, $lightness: -5%);
             $worklet_parameter-module-barcolor-B: adjust-color($parameter-background-color, $lightness: 5%);
-            
+
             background-color: $parameter-background-color;
             border: none;
             border-bottom: 1px solid $worklet_parameter-module-barcolor-A;
             border-top: $worklet_parameter-module-barcolor-B;
-            
+
             .label {
                 font-weight: $semibold;
             }
@@ -451,7 +451,7 @@ div[data-page="WorkletRun"] {
     color: #3399CC;
     font-size: $alert-icon-medium;
 }
-    
+
 #worklet_input_reset {
 
     position: absolute;
@@ -561,7 +561,7 @@ $workletSteps-container-height: 50px;
           top: 0;
           right: -$workletStep-height / 2;
           content: '';
-            
+
           width: $workletStep-height;
           height: $workletStep-height;
 
@@ -634,7 +634,7 @@ $workletSteps-container-height: 50px;
 
 // module for each input parameter's configuration fields
 .worklet_parameter_module {
-    
+
     background-color: $parameter-background-color;
     position: relative;
     border: $border-canon;
@@ -813,7 +813,7 @@ $workletSteps-container-height: 50px;
 
   .variable_details_section {
     z-index: 1;
-    
+
     position: absolute;
     right: 10px;
     top: 45px;
@@ -823,13 +823,13 @@ $workletSteps-container-height: 50px;
     color: $color-text3;
     width: 200px;
     min-height: 90px;
-    
+
     .subsection_header {
         @include section-bar(scale-color($dialog-header-background, $lightness: -2.5%));
         font-size: 12px;
         margin-top: 0;
     }
-    
+
     .variable_detail_content {
       padding: 5px;
 
@@ -851,7 +851,7 @@ $workletSteps-container-height: 50px;
   }
 }
 
-.worklet_new_dialog {
+.worklet_new_dialog, .worklets_worklet_workflow_configuration {
     .workflow_details, .worklet_details {
         margin-top: 1em;
         margin-bottom: 1.5em;
@@ -870,7 +870,9 @@ $workletSteps-container-height: 50px;
     }
 
     table {
+        width: 420px;
         th {
+            text-align: left;
             width: 40%;
             font-weight: $semibold;
         }
@@ -901,7 +903,7 @@ $workletSteps-container-height: 50px;
 }
 
 
-// spit-and-gum for the visual operator selector 
+// spit-and-gum for the visual operator selector
 // that is part of configure worklet: select outputs
 #worklet_outputs_selector_tool {
 
@@ -1061,25 +1063,25 @@ $workletSteps-container-height: 50px;
         margin-left: $worklet-left-column-width + $worklet_output-margin-internal-left;
         margin-right: $worklet_output-margin-internal-right;
         background-color: $core-white;
-        
+
         .not_showing_results_section {
             padding-top: 25px;
-        
+
             > div {
                     position: relative;
                     width: 70%;
                     margin-left: auto;
                     margin-right: auto;
                     // margin-bottom: 20px;
-            }   
+            }
 
             #hasNoResults {
                 background-color: #EBECD5;
                 border: 1px solid #DBDDD2;
                 @include border-radius($default-border-radius);
-        
+
                 padding: 10px 20px 20px 50px;
-            
+
                 h3, p {
                     font-size: 1.17em;
                 }
@@ -1101,9 +1103,9 @@ $workletSteps-container-height: 50px;
                 h3 {
                     font-weight: $semibold;
                     font-size: 1.1em;
-                } 
+                }
             }
-            
+
         }
 
         .iframe_wrapper {
@@ -1178,7 +1180,7 @@ $workletSteps-container-height: 50px;
     width: 700px;
     // height: 1000px;
     height: 100%;
-    
+
     margin-left: auto;
     margin-right: auto;
 
@@ -1188,7 +1190,7 @@ $workletSteps-container-height: 50px;
         text-align: center;
         height: $spinner-size;
         position: relative;
-        
+
         #spinner {
             position: relative;
             top: $spinner-size / 2;
@@ -1232,7 +1234,7 @@ $workletSteps-container-height: 50px;
         overflow: hidden;
         background-color: #111;
 
-        @include border-radius($default-border-radius);        
+        @include border-radius($default-border-radius);
 
         img {
             // @include filter(brightness(0.77));
@@ -1279,7 +1281,7 @@ button.modalish,
 .button_modalish {
 
     &.test_worklet_buttonX {
-    
+
 //         $warm-bones:            rgb(241,242,245);
 //         $bone-offwhite:         rgb(231,232,236);
 //         $nearly-white:          rgb(250,252,253);
@@ -1299,7 +1301,7 @@ button.modalish,
         @include filter-gradient($test-button-color, $test-button-color-darker, vertical);
         @include background(linear-gradient($test-button-color 0%, $test-button-color-darker 100%));
         @include background-image(linear-gradient(top, $test-button-color-darker 0%, $test-button-color 100%));
-        
+
         color: $test-button-font-color;
         border: 1px solid $test-button-border-color;
 
@@ -1309,7 +1311,7 @@ button.modalish,
             @include filter-gradient($bone-offwhite, $nearly-white, vertical);
             @include background(linear-gradient($bone-offwhite 0%, $nearly-white 100%));
             @include background-image(linear-gradient(top, $bone-white 0%, $nearly-white 100%));
-            
+
             color: #7D7D7D;
         }
 

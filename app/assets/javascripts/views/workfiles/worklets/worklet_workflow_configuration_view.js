@@ -63,9 +63,19 @@ chorus.views.WorkletWorkflowConfiguration = chorus.views.Base.extend({
     workletSaveFailed: function(e) {
     },
 
-    additionalContext: function () {
-        return {
-            workflow: this.workflow
-        };
+    additionalContext: function() {
+      var hasComments = this.workflow.get('recentComments').length > 0;
+
+      var context = {
+        workflow: this.workflow.attributes,
+        modifiedTime: new Date(this.workflow.get('userModifiedAt')).toString('MM-dd-yyyy HH:mm:ss'),
+        hasComments: hasComments
+      };
+
+      if (hasComments) {
+        context['lastComment'] = this.workflow.get('recentComments')[0].body;
+      }
+
+      return context;
     }
 });
