@@ -42,8 +42,6 @@ chorus.views.MultipleSelectionSidebarMenu = chorus.views.Base.include(
 
             if(canUpdateSelected){
                 $('.multiple_selection').removeClass('hidden');
-            } else {
-                $('.multiple_selection').addClass('hidden');
             }
 
             $('#sidebar').find('.primary').addClass('hidden');
