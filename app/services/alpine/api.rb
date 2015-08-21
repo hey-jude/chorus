@@ -34,6 +34,15 @@ module Alpine
       new(user: user).stop_work_flow(killable_id)
     end
 
+    def self.check_work_flow(killable_id, user)
+      new(user: user).check_work_flow(killable_id)
+    end
+
+
+    def check_work_flow(process_id)
+      request_check(process_id)
+    end
+
     def self.copy_work_flow(work_flow, new_id)
       new.copy_work_flow(work_flow, new_id)
     end
@@ -100,6 +109,12 @@ module Alpine
 
     def request_stop(process_id)
       request_base.post(stop_path(process_id), '')
+    rescue StandardError => e
+      log_error(e)
+    end
+
+    def request_check(process_id)
+      request_base.post(check_path(process_id), '')
     rescue StandardError => e
       log_error(e)
     end
@@ -178,6 +193,14 @@ module Alpine
         :session_id => session_id,
         :workfile_id => work_flow.id,
         :new_workfile_id => new_id
+      }
+      path_with(params)
+    end
+
+    def check_path(process_id)
+      params = {
+          method: 'checkWorkFlowRunning',
+          process_id: process_id
       }
       path_with(params)
     end
