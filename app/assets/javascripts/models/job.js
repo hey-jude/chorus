@@ -22,7 +22,7 @@ chorus.models.Job = chorus.models.Base.extend({
     },
 
     canUpdate: function() {
-      this.workspace().canUpdate();
+      return this.workspace().canUpdate();
     },
 
     tasks: function () {
