@@ -14,17 +14,6 @@ project_developer_role = Role.find_or_create_by_name(:name => 'project_developer
 contributor_role = Role.find_or_create_by_name(:name => 'contributor'.camelize)
 data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.camelize)
 
-# Groups
-puts '---- Adding Default Group  ----'
-default_group = Group.find_or_create_by_name(:name => 'default_group')
-
-
-# Scope
-puts ''
-puts '---- Adding application_realm as Default Scope ----'
-application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
-
-
 role_class = ChorusClass.where(:name => 'role'.camelize).first
 chorus_scope_class = ChorusClass.where(:name => 'chorus_scope'.camelize).first
 workspace_class = ChorusClass.where(:name => 'workspace'.camelize).first
@@ -122,7 +111,7 @@ User.find_in_batches({:batch_size => 5}) do |users|
     end
     print '.'
     ChorusObject.create(:chorus_class_id => user_class.id, :instance_id => user.id, :chorus_scope_id => application_realm.id)
-    user.groups << default_group
+    user.groups << default_group unless user.groups.include?(default_group)
     count = count + user.gpdb_data_sources.count
     user.gpdb_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
