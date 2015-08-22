@@ -1213,8 +1213,7 @@ $workletSteps-container-height: 50px;
 }
 
 #testResults_frame {
-    display: none;
-    height: 650px;
+    height: 0px;
     width: $default-dialog-width-wide - 25px;
 }
 
