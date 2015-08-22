@@ -59,6 +59,14 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
         this.listenTo(this.worklet, "saved", this.workletSaved);
         this.listenTo(this.worklet, "saveFailed", this.workletSaveFailed);
+
+        // Show input editor if scrollto on a parameter is clicked.
+        this.subscribePageEvent("parameter:scrollTo", _.bind(function(e) {
+            if (this._edit_mode !== 'inputs') {
+                this.showEditorMode('inputs');
+                chorus.PageEvents.trigger("parameter:scrollTo", e);
+            }
+        }, this));
     },
 
     menuEventHandler: function(menu_item) {
@@ -134,6 +142,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     showEditorMode: function(edit_mode) {
+        this._edit_mode = edit_mode;
         var editorView = this.editorViews[edit_mode];
         this.subNav = editorView.subNav;
         this.sidebar = editorView.sidebar;
