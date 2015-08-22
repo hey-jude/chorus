@@ -1,14 +1,14 @@
 class WorkletParametersController < ApplicationController
   def index
-    #worklet = Worklet.find(params[:worklet_id])
+    #worklet = Worklet.find(params[:workfile_id])
     #present worklet.variables
 
-    worklet_parameters = WorkletParameter.where(:workfile_id => params[:worklet_id])
+    worklet_parameters = WorkletParameter.where(:workfile_id => params[:workfile_id])
     present worklet_parameters
   end
 
   def show
-    #worklet = Worklet.find(params[:worklet_id])
+    #worklet = Worklet.find(params[:workfile_id])
     #worklet_parameter = worklet.parameters.find(params[:id])
 
     worklet_parameter = WorkletParameter.find(params[:id])
@@ -16,7 +16,7 @@ class WorkletParametersController < ApplicationController
   end
 
   def update
-    #worklet = Worklet.find(params[:worklet_id])
+    #worklet = Worklet.find(params[:workfile_id])
 
     # Authority.authorize! :edit, worklet_variable, current_user
     worklet_parameter = WorkletParameter.find(params[:id])
@@ -26,7 +26,7 @@ class WorkletParametersController < ApplicationController
   end
 
   def create
-    worklet_parameter = WorkletParameter.new(params[:worklet_parameter].merge('workfile_id' => params[:worklet_id]))
+    worklet_parameter = WorkletParameter.new(params[:worklet_parameter].merge('workfile_id' => params[:workfile_id]))
     worklet_parameter.save!
 
     present worklet_parameter, :status => :created

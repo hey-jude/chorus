@@ -1,17 +1,19 @@
 chorus.models.WorkletParameter = chorus.models.Base.extend({
     constructorName: "WorkletParameter",
     parameterWrapper: "worklet_parameter",
-    urlTemplate: "workspaces/{{workspaceId}}/worklets/{{workletId}}/parameters/{{id}}",
+    urlTemplate: "workspaces/{{workspaceId}}/worklets/{{workfileId}}/parameters/{{id}}",
     viewClass: chorus.views.WorkletParameter,
 
     initialize: function(options) {
         if (this.collection) {
             this.set('workspaceId', this.collection.attributes.workspaceId);
-            this.set('workletId', this.collection.attributes.workletId);
+            this._workletId = this.collection.attributes.workletId;
         } else {
             this.set('workspaceId', options.workspaceId || options.get('workspaceId'));
-            this.set('workletId',  options.workletId || options.get('workletId'));
+            this._workletId = options.workletId || options.get('workfileId');
         }
+
+        this.set('workfileId', this._workletId);
     },
 
     castByDataType: function() {
@@ -44,6 +46,7 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
 
         var newModel = new modelClass(this);
         newModel.cid = this.cid;
+        newModel.set('workfileId', this.get('workfileId'));
 
         return newModel;
     },
