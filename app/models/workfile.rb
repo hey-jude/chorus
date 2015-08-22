@@ -165,7 +165,7 @@ class Workfile < ActiveRecord::Base
   end
 
   def destroy
-    associated_worklets = Worklet.where("additional_data LIKE '%\"workflow_id\":" + self.id.to_s + "%'")
+    associated_worklets = Worklet.where("additional_data SIMILAR TO '%(,|{)\"workflow_id\":#{ self.id.to_s }(,|})%'")
 
     if associated_worklets.count > 0
       errors.add(:workfile, :worklet_associated)

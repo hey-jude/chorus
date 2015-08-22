@@ -173,7 +173,7 @@ class WorkletsController < ApplicationController
   end
 
   def existing_published_worklets
-    @existing_published_worklets ||= PublishedWorklet.where("additional_data LIKE '%\"source_worklet_id\":" + worklet.id.to_s + "%'")
+    @existing_published_worklets ||= PublishedWorklet.where("additional_data SIMILAR TO '%(,|{)\"source_worklet_id\":#{ worklet.id.to_s }(,|})%'")
   end
 
   def workspace

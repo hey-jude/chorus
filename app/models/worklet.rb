@@ -41,7 +41,7 @@ class Worklet < AlpineWorkfile
       raise ActiveRecord::RecordInvalid.new(self)
     end
 
-    published_worklet = PublishedWorklet.where("additional_data LIKE '%\"source_worklet_id\":" + self.id.to_s + "%'")
+    published_worklet = PublishedWorklet.where("additional_data SIMILAR TO '%(,|{)\"source_worklet_id\":#{ self.id.to_s }(,|})%'")
     if published_worklet.count > 0
       published_worklet.destroy_all
     end
