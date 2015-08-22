@@ -5,6 +5,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
 
         this.worklet = new chorus.models.PublishedWorklet({ id:workletId });
         this.worklet.fetch();
+        this.handleFetchErrorsFor(this.worklet);
 
         this.pollForRunStatus = _.bind(function() {
             this.worklet.fetch({

@@ -18,6 +18,9 @@ class PublishedWorkletController < ApplicationController
 
   def show
     #authorize! :show, worklet.workspace
+    if worklet.state != 'published'
+      Authority.raise_access_denied(:show, worklet)
+    end
 
     present worklet, :presenter_options => {:contents => true, :workfile_as_latest_version => true}
   end
