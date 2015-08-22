@@ -46,7 +46,6 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
 
         var newModel = new modelClass(this);
         newModel.cid = this.cid;
-        newModel.set('workfileId', this.get('workfileId'));
 
         return newModel;
     },
