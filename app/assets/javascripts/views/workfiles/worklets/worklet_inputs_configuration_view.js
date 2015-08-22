@@ -271,7 +271,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         e && e.preventDefault();
 
         var new_var = new chorus.models.WorkletParameter({
-            workletId: this.model.id,
+            workfileId: this.model.id,
             workspaceId: this.model.workspace().id
         });
         this.listenTo(new_var, "saved", this.paramChanged);

@@ -10,7 +10,7 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
             this._workletId = this.collection.attributes.workletId;
         } else {
             this.set('workspaceId', options.workspaceId || options.get('workspaceId'));
-            this._workletId = options.workletId || options.get('workfileId');
+            this._workletId = options.workfileId || options.get('workfileId');
         }
 
         this.set('workfileId', this._workletId);
