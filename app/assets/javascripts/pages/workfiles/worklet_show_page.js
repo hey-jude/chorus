@@ -117,7 +117,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         chorus.PageEvents.trigger("worklet:editor:save", "saving");
 
         if (this.editorViews['inputs'].content.saveParameters() && this.worklet.save(this.worklet.attributes, { wait: true })) {
-            this.worklet.saveFiles();
+            this.worklet.saveImageFile();
             chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
             return true;
         } else {

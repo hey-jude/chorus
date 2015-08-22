@@ -52,26 +52,18 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
 
     initialize:function () {
         this._super('initialize', arguments);
-        this.files = [];
+        this.file = null;
     },
 
     addFileUpload:function (uploadModel) {
-        this.files.push(uploadModel);
+        this.file = uploadModel;
     },
 
-    removeFileUpload:function (uploadModel) {
-        this.files.splice(this.files.indexOf(uploadModel), 1);
-    },
-
-    saveFiles:function () {
-
-        this.fileUploadErrors = 0;
-        this.filesToBeSaved = this.files.length;
-        _.each(this.files, function(file) {
-            file.data.url = this.url({ workflow_action: 'upload_image' });
-            file.data.submit();
-            this.removeFileUpload(file);
-        }, this);
+    saveImageFile:function () {
+        if (!_.isNull(this.file)) {
+            this.file.data.url = this.url({ workflow_action: 'upload_image' });
+            this.file.data.submit();
+        }
     },
 
     isWorklet: function() {

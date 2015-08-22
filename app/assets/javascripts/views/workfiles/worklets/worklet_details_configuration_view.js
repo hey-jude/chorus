@@ -52,8 +52,8 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
             dropZone: this.$("input[type=file]")
         });
 
-        if (this.model.files.length) {
-          this.loadNewImage(this.model.files[0].get('files')[0]);
+        if (!_.isNull(this.model.file)) {
+          this.loadNewImage(this.model.file.get('files')[0]);
         }
     },
 
@@ -133,7 +133,7 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
 
     additionalContext: function () {
         var context = {description: this.model.get('description')};
-        if (this.model.files.length === 0) {
+        if (_.isNull(this.model.file)) {
             context['avatarUrl'] = this.model.url({workflow_action: 'image'});
         }
         return context;
