@@ -26,6 +26,10 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
 
     showUrlTemplate: "workspaces/{{workspace.id}}/worklets/{{this.id}}",
 
+    attrToLabel:{
+        "fileName": "entity.name.Worklet.name"
+    },
+
     showRunUrl: function() {
         return this.showUrl() + '/run';
     },
