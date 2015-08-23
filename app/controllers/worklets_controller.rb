@@ -103,17 +103,22 @@ class WorkletsController < ApplicationController
   end
 
   def unpublish
-    unpublished_param = {:state => 'completed'}
-    worklet.assign_attributes(unpublished_param)
-    worklet.update_from_params!(unpublished_param)
+    if existing_published_worklets.any? && RunningWorkfile.where(:workfile_id => existing_published_worklets[0].id).any?
+        render_cannot_unpublish
+    else
 
-    if existing_published_worklets.any?
-      existing_published_worklets[0].assign_attributes(unpublished_param)
-      existing_published_worklets[0].update_from_params!(unpublished_param)
-      Events::WorkletUnpublished.by(current_user).add(:workfile => worklet, :workspace => Workspace.find(worklet.workspace_id))
+      unpublished_param = {:state => 'completed'}
+      worklet.assign_attributes(unpublished_param)
+      worklet.update_from_params!(unpublished_param)
+
+      if existing_published_worklets.any?
+        existing_published_worklets[0].assign_attributes(unpublished_param)
+        existing_published_worklets[0].update_from_params!(unpublished_param)
+        Events::WorkletUnpublished.by(current_user).add(:workfile => worklet, :workspace => Workspace.find(worklet.workspace_id))
+      end
+
+      present worklet, :status => :accepted
     end
-
-    present worklet, :status => :accepted
   end
 
   def run
@@ -186,6 +191,10 @@ class WorkletsController < ApplicationController
 
   def render_run_failed
     present_errors({:record => :RUN_FAILED}, :status => :unprocessable_entity)
+  end
+
+  def render_cannot_unpublish
+    present_errors({:record => :CANNOT_UNPUBLISH}, :status => :unprocessable_entity)
   end
 
 end

@@ -91,16 +91,19 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
     },
 
     publishWorklet: function() {
-        this.bind("saved", this.publishSuccess);
+        this.listenToOnce(this, "saved", this.publishSuccess);
         this.save({}, {
             workflow_action: 'publish'
         });
     },
 
     unpublishWorklet: function() {
-        this.bind("saved", this.unpublishSuccess);
+        this.listenToOnce(this, "saved", this.unpublishSuccess);
         this.save({}, {
-            workflow_action: 'unpublish'
+            workflow_action: 'unpublish',
+            unprocessableEntity: _.bind(function(e) {
+                chorus.toast(this.serverErrorMessage(), {skipTranslation: true, toastOpts: {type: "error"}});
+            }, this)
         });
     },
 
@@ -177,12 +180,10 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
     },
 
     publishSuccess: function(e) {
-        this.unbind("saved", this.publishSuccess);
         chorus.toast("worklet.publish.success.toast", {"workletName": this.name(), toastOpts: {type: "success"}});
     },
 
     unpublishSuccess: function(e) {
-        this.unbind("saved", this.unpublishSuccess);
         chorus.toast("worklet.unpublish.success.toast", {"workletName": this.name(), toastOpts: {type: "deletion"}});
     }
 });

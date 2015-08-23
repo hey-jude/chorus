@@ -11,5 +11,6 @@ chorus.alerts.WorkletUnpublish = chorus.alerts.Confirm.extend({
         this.model.unpublishWorklet();
         this.$("button.submit").startLoading("actions.unpublishing");
         this.listenToOnce(this.model, "saved", this.closeModal);
+        this.listenToOnce(this.model, "saveFailed", this.closeModal);
     }
 });
