@@ -13,6 +13,7 @@ class Workfile < ActiveRecord::Base
   attr_accessible :description, :file_name, :as => [:default, :create]
   attr_accessible :owner, :workspace, :as => :create
   attr_accessible :status
+  attr_accessible :content_type
   attr_accessor :resolve_name_conflicts
 
   serialize :additional_data, JsonHashSerializer
@@ -93,7 +94,12 @@ class Workfile < ActiveRecord::Base
     integer :workspace_id, :multiple => true
     integer :member_ids, :multiple => true
     boolean :public
+    text :content_type, :stored => true
   end
+
+  has_shared_search_fields [
+       { :type => :string, :name => :content_type }
+   ]
 
   def self.eager_load_associations
     [
@@ -143,6 +149,7 @@ class Workfile < ActiveRecord::Base
           without :security_type_name, Workfile.security_type_name
           with :member_ids, current_user.id
           with :public, true
+          with :content_type, 'published_worklet'
         end
       end
     end
