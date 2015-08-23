@@ -7,6 +7,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     setup: function() {
         this.model = this.options.model;
         this.workletParameters = this.options.workletParameters;
+        this.model.serverErrors = {};
 
         this.listenTo(this.model, "saved", this.startRun);
         this.subscribePageEvent("worklet:run", this.runEventHandler);
