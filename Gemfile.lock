@@ -76,6 +76,7 @@ PATH
     admin (0.0.1)
       gretel (= 3.0.8)
       jquery-rails (= 2.1.4)
+      jquery-ui-rails
       rails (~> 3.2.18)
 
 GEM
@@ -227,6 +228,8 @@ GEM
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (5.0.5)
+      railties (>= 3.2.16)
     jruby-openssl (0.9.5-java)
     json (1.8.1)
     json (1.8.1-java)

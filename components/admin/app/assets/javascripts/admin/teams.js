@@ -98,3 +98,8 @@ function submit_dual_list_form(url, collection_id) {
             }
         });
 };
+
+
+
+
+

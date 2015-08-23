@@ -8,6 +8,7 @@
     <ul>
       <% if controller.action_name == "index" %>
           <li><%= link_to "Create Team" , admin.new_team_path , :remote => true %></li>
+          <li><a href="#" onclick="add_member();">Add Member</a> </li>
       <% end %>
       <% if controller.action_name == "show" %>
           <li>

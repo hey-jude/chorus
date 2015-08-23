@@ -18,3 +18,57 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div id="container">
+      <ul id="team_0">
+
+      </ul>
+      <ul id="team_1">
+
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+  function add_member() {
+    $.ajax({
+      type: "GET",
+      url: "guildman_2.xml",
+      dataType: "xml",
+      format: "js"
+    })
+      .done(function( data ) {
+          $(data).find("gameData > teamData > team").map(function() {
+            var $team = $(this);
+            //console.log($team.find("name").text());
+            var row = $("#container").append("<div class='row'></div>");
+            var tab = row.append('<div class=col-md-6 id=' + $team.find("name").text() + '></div>');
+            tab.append("<h2> Team: " +  $team.find("name").text() + "</h2>");
+            $team.find("members > member").map(function(){
+              $member = $(this);
+              var team_html = "<ul>";
+              var team_html = tab.append("<ul id=" + $member.text() + "></ul>");
+              $member_data = $(data).find("gameData > memberData > member").filter(function() {
+                if ( $( this ).find("member_id").text() === $member.text()) {
+                  return this;
+                }
+              });
+              team_html.append("<li><span> Name: " + $member_data.find("name").text() + "</span></li>");
+              team_html.append("<li><span> Strength: " + $member_data.find("strength").text() + "</span></li>");
+              team_html.append("<li><span> Endurance: " + $member_data.find("endurance").text() + "</span></li>");
+              team_html.append("<li><span> Wisdom:" + $member_data.find("wisdom").text() + "</span></li>");
+            });
+          });
+
+      });
+
+  };
+
+</script>
