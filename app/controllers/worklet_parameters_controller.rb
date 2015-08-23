@@ -26,7 +26,7 @@ class WorkletParametersController < ApplicationController
   end
 
   def create
-    worklet_parameter = WorkletParameter.new(params[:worklet_parameter].merge('workfile_id' => params[:workfile_id]))
+    worklet_parameter = WorkletParameter.new(params[:worklet_parameter])
     worklet_parameter.save!
 
     present worklet_parameter, :status => :created
