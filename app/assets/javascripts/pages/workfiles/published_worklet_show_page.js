@@ -59,13 +59,11 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
     },
 
     showHistory: function() {
-        var history_options = {
+        var newView = new chorus.views.PublishedWorkletHistory({
             model: this.model,
             collection: this.history,
             mainPage: this
-        };
-        
-        var newView = new chorus.views.PublishedWorkletHistory(history_options);
+        });
 
         if (this.mainContent.content.workletHistory) {
             this.mainContent.content.workletHistory.teardown(true);
@@ -90,7 +88,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
 
         this.subNav = this.headerView;
         this.sidebar = new chorus.views.WorkletParameterSidebar({
-            model: this.worklet,
+            worklet: this.worklet,
             state: 'running'
         });
 

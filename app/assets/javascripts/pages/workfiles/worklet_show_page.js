@@ -162,7 +162,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
                 menuOptions: settings.menuOptions
             }),
             sidebar: new chorus.views.WorkletParameterSidebar({
-                model: this.worklet,
+                worklet: this.worklet,
                 state: 'editing',
                 editorMode: mode
             }),
@@ -249,13 +249,11 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     showHistory: function() {
-        var history_options = {
+        var newView = new chorus.views.PublishedWorkletHistory({
             model: this.worklet,
             collection: this.history,
             mainPage: this
-        };
-
-        var newView = new chorus.views.PublishedWorkletHistory(history_options);
+        });
 
         if (this.mainContent.content.workletHistory) {
             this.mainContent.content.workletHistory.teardown(true);
@@ -279,7 +277,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
         this.subNav = this.headerView;
         this.sidebar = new chorus.views.WorkletParameterSidebar({
-            model: this.worklet,
+            worklet: this.worklet,
             state: 'running'
         });
 

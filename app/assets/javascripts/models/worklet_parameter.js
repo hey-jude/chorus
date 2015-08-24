@@ -20,13 +20,6 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
         var type = this.get('dataType');
         var modelClass = null;
 
-        //worklet.parameter.datatype.number=Number
-        //worklet.parameter.datatype.text=Text
-        //worklet.parameter.datatype.single_option_select=Select Single Option
-        //worklet.parameter.datatype.multiple_option_select=Select Multiple Options
-        //worklet.parameter.datatype.datetime_calendar=Date/time - Calendar
-        //worklet.parameter.datatype.datetime_relative=Date/time - Relative
-
         if (type === t('worklet.parameter.datatype.number') || type === 'integer') {
             modelClass = chorus.models.WorkletNumericParameter;
         } else if (type === t('worklet.parameter.datatype.text') || type === 'string') {

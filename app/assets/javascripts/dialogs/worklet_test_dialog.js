@@ -5,7 +5,6 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     title: t("worklet.test.title"),
 
     setup: function() {
-        this.model = this.options.model;
         this.workletParameters = this.options.workletParameters;
         this.model.serverErrors = {};
 
