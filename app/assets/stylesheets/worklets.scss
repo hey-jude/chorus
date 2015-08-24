@@ -818,7 +818,7 @@ $workletSteps-container-height: 50px;
     right: 10px;
     top: 45px;
 
-    font-size: 12px;
+    font-size: $small-font;
     background-color: scale-color($parameter-background-color, $lightness: -2.5%);
     color: $color-text3;
     width: 200px;
@@ -826,13 +826,12 @@ $workletSteps-container-height: 50px;
 
     .subsection_header {
         @include section-bar(scale-color($dialog-header-background, $lightness: -2.5%));
-        font-size: 12px;
+        font-size: $small-font;
         margin-top: 0;
     }
 
     .variable_detail_content {
       padding: 5px;
-
       .label_header {}
     }
   }
@@ -840,7 +839,7 @@ $workletSteps-container-height: 50px;
   .spinner_div {
     display: none;
     color: $color-text4;
-    font-size: 12px;
+    font-size: $small-font;
     position:absolute;
     right: 15px;
 
@@ -1177,12 +1176,10 @@ $workletSteps-container-height: 50px;
     $worklet-testResults-loader-width: 170px;
 
     width: 700px;
-    // height: 1000px;
     height: 100%;
 
     margin-left: auto;
     margin-right: auto;
-
     text-align: center;
 
     #spinner_container {
@@ -1207,6 +1204,7 @@ $workletSteps-container-height: 50px;
 #testResults_frame {
     height: 0px;
     width: $default-dialog-width-wide - 25px;
+    display: none;
 }
 
 // END: TEST RESULTS

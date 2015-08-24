@@ -45,7 +45,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
         var cur_time = new Date().getTime() / 1000;
         var elapsed_time = Math.floor(cur_time - this.startTime);
 
-        this.$('#elapsed_time').html(elapsed_time + ' sec.');
+        this.$('#elapsed_time').html(elapsed_time + ' sec.');  // TODO: i18n for the elapsed time string. // or do this whole thing with a time + closure?
     },
 
     startRun: function() {
