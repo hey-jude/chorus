@@ -103,6 +103,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
             workflow_action: 'unpublish',
             unprocessableEntity: _.bind(function(e) {
                 chorus.toast(this.serverErrorMessage(), {skipTranslation: true, toastOpts: {type: "error"}});
+                this.serverErrors = {};
             }, this)
         });
     },
@@ -159,6 +160,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
             unprocessableEntity: _.bind(function(e) {
                 if(this.serverErrorMessage()) {
                     chorus.toast(this.serverErrorMessage(), {skipTranslation: true, toastOpts: {type: "error"}});
+                    this.serverErrors = {};
                 }
                 else {
                     chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
