@@ -3,7 +3,7 @@ class Group < ActiveRecord::Base
 
   validates :name, :presence => true, uniqueness: true
 
-  has_and_belongs_to_many :chorus_scope, :uniq => true
+  has_and_belongs_to_many :chorus_scopes, :uniq => true
   has_and_belongs_to_many :users, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 

@@ -1,11 +1,11 @@
 set :user, "root"
 set :use_sudo, false
-set :application, "54.183.47.47"
+set :application, "10.0.0.165"
 set :scm, 'git'
-set :branch, "pt-fix-84142054"
+set :branch, "rgp-admin"
 
 set :scm_username, 'prakash-alpine'
-set :scm_password, 'q2W#e4R%'
+set :scm_password, ''
 set :scm_verbose, true
 set :repository,  "git@github.com:Chorus/chorus.git"
 #set :repository, "https://ff-pteli:769cf08411b4fb028a209d768cddaf84f8abc061@github.com/FirstFuel/demo_firstengage.git"
@@ -17,7 +17,7 @@ set :shared, '../shared/chorus'
 # set :deploy_to, "/var/www/#{application}"
 
 #set :deploy_to, "/home/#{user}/chorus"
-set :deploy_to, "/usr/local/chorus"
+set :deploy_to, "/usr/local/chorus-admin"
 
 #set :deploy_via, :export
 #set :deploy_via, :copy
@@ -79,7 +79,7 @@ after 'deploy:update_code', :roles => [:app, :db, :web] do
   #run "cp #{release_path}/app/views/layouts/application.rhtml.production #{release_path}/app/views/layouts/application.rhtml"
   #run "cp #{release_path}/config/gmaps_api_key.yml.production #{release_path}/config/gmaps_api_key.yml"
   #run "cp #{shared_path}/public/.htaccess #{release_path}/public/."
-  run "ln -nfs #{shared_path}/demo_data #{release_path}/demo_data"
+  #run "ln -nfs #{shared_path}/demo_data #{release_path}/demo_data"
   run "ln -nfs #{shared_path}/postgres-db #{release_path}/db"
   run "rm -rf #{release_path}/tmp"
   run "ln -nfs #{shared_path}/tmp #{release_path}/tmp"
@@ -87,7 +87,7 @@ after 'deploy:update_code', :roles => [:app, :db, :web] do
   run "ln -nfs #{shared_path}/log #{release_path}/log"
   run "rm -rf #{release_path}/system"
   run "ln -nfs #{shared_path}/system #{release_path}/system"
-  run "ln -nfs #{shared_path}/bin #{release_path}/bin"
+  #run "ln -nfs #{shared_path}/bin #{release_path}/bin"
 
   upload "./config/secret.key",  "#{release_path}/config/secret.key"
   upload "./config/secret.token", "#{release_path}/config/secret.token"
