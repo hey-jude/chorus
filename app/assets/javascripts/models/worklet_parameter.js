@@ -1,7 +1,7 @@
 chorus.models.WorkletParameter = chorus.models.Base.extend({
     constructorName: "WorkletParameter",
     parameterWrapper: "worklet_parameter",
-    urlTemplate: "workspaces/{{workspaceId}}/worklets/{{workfileId}}/parameters/{{id}}",
+    urlTemplate: "workspaces/{{workspaceId}}/touchpoints/{{workfileId}}/parameters/{{id}}",
     viewClass: chorus.views.WorkletParameter,
 
     initialize: function(options) {

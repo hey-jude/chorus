@@ -24,7 +24,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         entitySubtype: "worklet"
     },
 
-    showUrlTemplate: "workspaces/{{workspace.id}}/worklets/{{this.id}}",
+    showUrlTemplate: "workspaces/{{workspace.id}}/touchpoints/{{this.id}}",
 
     attrToLabel:{
         "fileName": "entity.name.Worklet.name"
@@ -36,7 +36,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
 
     urlTemplate: function(options) {
         var action = options && options.workflow_action;
-        var url =  "workspaces/{{workspace.id}}/worklets/{{this.id}}";
+        var url =  "workspaces/{{workspace.id}}/touchpoints/{{this.id}}";
 
         if (action === 'publish') {
             url += "/publish/";

@@ -40,7 +40,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
     },
 
     closePage: function() {
-        chorus.router.navigate('#/worklets');
+        chorus.router.navigate('#/touchpoints');
     },
 
     runEventHandler: function(event) {
