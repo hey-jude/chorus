@@ -6,13 +6,14 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
 
     setup: function() {
         this.workletParameters = this.options.workletParameters;
+        this.worklet = this.options.worklet;
 
-        this.listenTo(this.model, "saved", this.startRun);
+        this.listenTo(this.worklet, "saved", this.startRun);
         this.subscribePageEvent("worklet:run", this.runEventHandler);
 
-        this.model.run(this.workletParameters, true);
-        this.listenToOnce(this.model, "saved", this.runStarted);
-        this.listenToOnce(this.model, "saveFailed", this.runFailed);
+        this.worklet.run(this.workletParameters, true);
+        this.listenToOnce(this.worklet, "saved", this.runStarted);
+        this.listenToOnce(this.worklet, "saveFailed", this.runFailed);
     },
 
     runStarted: function() {
@@ -49,7 +50,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     },
 
     startRun: function() {
-        this.resultId = this.model.get('killableId');
+        this.resultId = this.worklet.get('killableId');
         this.startTime = new Date().getTime() / 1000;
         this.elapsedTimeCounter = setInterval(this.updateElapsedTime.bind(this), 1000);
     },
@@ -73,18 +74,20 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     },
 
     modalClosed: function() {
-        if(this.model.get('running')) {
-            this.model.stop();
+        if (this.worklet.get('running')) {
+            this.worklet.stop();
         }
         this._super("modalClosed");
     },
 
     testResultUrl: function() {
-        var outputVars = this.model.get('outputTable') || [];
-        return "/alpinedatalabs/main/chorus.do?method=showWorkletResults&session_id=" + chorus.session.get("sessionId") + "&workfile_id=" + this.model.id + "&result_id=" + this.resultId + "&output_names=" +  outputVars.join(';;;') + "&iebuster=" + chorus.cachebuster();
+        var outputVars = this.worklet.get('outputTable') || [];
+        return "/alpinedatalabs/main/chorus.do?method=showWorkletResults&session_id=" + chorus.session.get("sessionId") + "&workfile_id=" + this.worklet.id + "&result_id=" + this.resultId + "&output_names=" +  outputVars.join(';;;') + "&iebuster=" + chorus.cachebuster();
     },
 
     additionalContext: function(context) {
-
+        // If there's no this.model, additionalContext must return an object.
+        return {
+        };
     }
 });

@@ -87,7 +87,7 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         e && e.preventDefault();
         if (this.workletParametersView.validateParameterInputs()) {
             var dialog = new chorus.dialogs.WorkletTest({
-                model: this.worklet,
+                worklet: this.worklet,
                 workletParameters: this.createAlpinePayload()
             });
             dialog.launchModal();
