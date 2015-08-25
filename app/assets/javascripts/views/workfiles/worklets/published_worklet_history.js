@@ -32,6 +32,11 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
             });
             attachPoint.append(container);
         }
+
+        if (this._showLatestEntry === true) {
+            this.historyItems[0].showResults();
+            this._showLatestEntry = false;
+        }
     },
 
     additionalContext: function() {

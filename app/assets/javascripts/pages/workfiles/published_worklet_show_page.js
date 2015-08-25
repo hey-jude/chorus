@@ -54,8 +54,8 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
 
     reloadHistory: function() {
         this.mainContent.content.workletHistory.collection = this.worklet.activities();
+        this.mainContent.content.workletHistory._showLatestEntry = true;
         this.mainContent.content.workletHistory.render();
-        this.mainContent.content.workletHistory.historyItems[0].showResults();
     },
 
     showHistory: function() {
