@@ -226,21 +226,23 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         if (perform_save === true) {
             var save_state = false !== param_model.save(updates, save_options);
-            this.paramChanged();
+            this.paramChanged(true);
             return save_state;
         } else {
-            this.paramChanged();
+            this.paramChanged(true);
         }
     },
 
-    paramChanged: function() {
+    paramChanged: function(rerender) {
         this._hasUnsavedChanges = true;
         this.broadcastEditorState();
 
         // Update preview pane
         this.model.parameters().trigger('update');
 
-        this.render();
+        if (rerender === true) {
+            this.render();
+        }
     },
 
     paramSaved: function() {
@@ -266,7 +268,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     paramDeleted: function(param_options) {
         // Remove from collection
         this.parameters.remove(param_options.model.cid);
-        this.paramChanged();
+        this.paramChanged(true);
     },
 
     newParameter: function(e) {
@@ -282,7 +284,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         //new_var.save();
         this.parameters.add(new_var);
-        this.paramChanged();
+        this.paramChanged(true);
     },
 
     saveParameters: function(e) {
@@ -318,7 +320,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         m.set('options', options);
 
-        this.paramChanged();
+        this.paramChanged(true);
     },
 
     deleteParameterOptionInput: function(e) {
@@ -334,7 +336,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         m.options = options.splice(del_at, 1);
 
-        this.paramChanged();
+        this.paramChanged(true);
     },
 
     workletParams: function() {
