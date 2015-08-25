@@ -21,7 +21,7 @@
         <div class="multiple_select_container">
             {{#each options}}
                 <div class="multiple_select_input">
-                    <input type="checkbox" id="{{../variableName}}_{{@index}}" name="{{../variableName}}_{{@index}}" value="{{this.value}}"/>
+                    <input type="checkbox" id="{{../variableName}}_{{@index}}" name="{{../variableName}}_{{@index}}" value="{{#if this.value}}{{this.value}}{{else}}{{this.option}}{{/if}}"/>
                     <label for="{{../variableName}}_{{@index}}">{{this.option}}</label>
                 </div>
             {{/each}}
