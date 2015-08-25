@@ -60,7 +60,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
 
     showHistory: function() {
         var newView = new chorus.views.PublishedWorkletHistory({
-            model: this.model,
+            worklet: this.worklet,
             collection: this.history,
             mainPage: this
         });
@@ -69,7 +69,6 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
             this.mainContent.content.workletHistory.teardown(true);
         }
         this.mainContent.content.workletHistory = newView;
-        //this.mainContent.content.historyView = newView;
         this.mainContent.content.renderSubview('workletHistory');
 
         this.trigger('resized');
@@ -81,7 +80,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
         this.onceLoaded(this.history, this.showHistory);
 
         this.headerView = new chorus.views.WorkletHeader({
-            model: this.worklet,
+            worklet: this.worklet,
             menuOptions: [],
             state: 'publishedRun'
         });
@@ -93,13 +92,13 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
         });
 
         this.contentView = new chorus.views.PublishedWorkletContent({
-            model: this.worklet,
+            worklet: this.worklet,
             collection: this.history,
             mainPage: this
         });
 
         this.mainContent = new chorus.views.MainContentView({
-            model: this.model,
+            worklet: this.worklet,
             content: this.contentView
         });
 

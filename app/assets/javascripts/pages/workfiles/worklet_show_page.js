@@ -43,7 +43,6 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
     },
 
     closePage: function() {
-
         chorus.router.navigate(this.worklet.workspace().workfilesUrl());
     },
 
@@ -162,7 +161,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         // Each worklet edit page has these view components:
         return {
             subNav: new chorus.views.WorkletHeader({
-                model: this.worklet,
+                worklet: this.worklet,
                 mode: mode,
                 state: 'editing',
                 menuOptions: settings.menuOptions
@@ -212,7 +211,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.subNav = this.editorViews[initial_mode].subNav;
         this.sidebar = this.editorViews[initial_mode].sidebar;
         this.mainContent = new chorus.views.MainContentView({
-            model: this.worklet,
+            worklet: this.worklet,
             contentHeader: this.editorViews[initial_mode].contentHeader,
             content: this.editorViews[initial_mode].content
         });
@@ -256,7 +255,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     showHistory: function() {
         var newView = new chorus.views.PublishedWorkletHistory({
-            model: this.worklet,
+            worklet: this.worklet,
             collection: this.history,
             mainPage: this
         });
@@ -276,7 +275,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.onceLoaded(this.history, this.showHistory);
 
         this.headerView = new chorus.views.WorkletHeader({
-            model: this.worklet,
+            worklet: this.worklet,
             menuOptions: [],
             state: 'workspaceRun'
         });
@@ -288,13 +287,13 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         });
 
         this.contentView = new chorus.views.PublishedWorkletContent({
-            model: this.worklet,
+            worklet: this.worklet,
             collection: this.history,
             mainPage: this
         });
 
         this.mainContent = new chorus.views.MainContentView({
-            model: this.worklet,
+            worklet: this.worklet,
             content: this.contentView
         });
 

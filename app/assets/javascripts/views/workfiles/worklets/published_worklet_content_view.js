@@ -7,22 +7,22 @@ chorus.views.PublishedWorkletContent = chorus.views.Base.extend({
     },
 
     setup: function() {
+        this.worklet = this.options.worklet;
 
         this.workletOutput = new chorus.views.PublishedWorkletOutput({
-            worklet: this.model
+            worklet: this.worklet
         });
 
-        var history_options = {
-            model: this.model,
+        this.workletHistory = new chorus.views.PublishedWorkletHistory({
+            worklet: this.worklet,
             collection: this.collection,
             mainPage: this.options.mainPage
-        };
-        this.workletHistory = new chorus.views.PublishedWorkletHistory(history_options);
+        });
     },
 
     additionalContext: function () {
         return {
-           imagePath: this.model.imageUrl()
+           imagePath: this.worklet.imageUrl()
         };
     }
 });

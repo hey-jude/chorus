@@ -3,7 +3,7 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
     templateName: "worklets/published_worklet_history",
 
     setup: function() {
-        this.model = this.options.model;
+        this.worklet = this.options.worklet;
         this.collection = this.options.collection;
         this.mainPage = this.options.mainPage;
     },

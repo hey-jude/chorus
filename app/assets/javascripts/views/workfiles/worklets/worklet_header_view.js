@@ -11,6 +11,8 @@ chorus.views.WorkletHeader = chorus.views.Base.extend({
     },
 
     setup: function() {
+        this.worklet = this.options.worklet;
+
         this.subscribePageEvent("worklet:editor:save", this.editorSavingEvent);
         this.state = this.options.state || 'running';
     },
@@ -36,7 +38,7 @@ chorus.views.WorkletHeader = chorus.views.Base.extend({
     additionalContext: function() {
         return {
             editing: this.state === 'editing',
-            iconUrl: this.model.iconUrl()
+            iconUrl: this.worklet.iconUrl()
         };
     }
 });
