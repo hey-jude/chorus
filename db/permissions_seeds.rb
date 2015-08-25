@@ -38,7 +38,7 @@ puts ''
 puts '---- Adding application_realm as Default Scope ----'
 application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
 # add application_realm to default group
-default_group.chorus_scope = application_realm
+default_group.chorus_scopes << application_realm
 
 collaborator_role.groups << default_group unless collaborator_role.groups.include? default_group
 
