@@ -29,7 +29,7 @@ module Permissioner
     else
       groups = user.groups
       groups.each do |group|
-        if group.chorus_scope != nil
+        if group.chorus_scopes.any?
           return true
         end
       end
