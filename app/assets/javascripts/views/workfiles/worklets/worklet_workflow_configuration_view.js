@@ -18,6 +18,8 @@ chorus.views.WorkletWorkflowConfiguration = chorus.views.Base.extend({
 
         this.listenTo(this.model, "saved", this.workletSaved);
         this.listenTo(this.model, "saveFailed", this.workletSaveFailed);
+
+        this.broadcastEditorState();
     },
 
     postRender: function() {

@@ -68,6 +68,8 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
             this.file.data.url = this.url({ workflow_action: 'upload_image' });
             this.file.data.submit();
         }
+
+        return true;
     },
 
     isWorklet: function() {

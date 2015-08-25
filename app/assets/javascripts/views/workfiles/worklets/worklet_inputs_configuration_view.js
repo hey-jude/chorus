@@ -40,6 +40,8 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         // Alpine-passed workflow variables
         this.model.fetchWorkflowVariables();
         this.subscribePageEvent('worklet:workflow_variables_loaded', this.workflowVariablesLoaded);
+
+        this.broadcastEditorState();
     },
 
     workflowVariablesLoaded: function(workflowVariables) {

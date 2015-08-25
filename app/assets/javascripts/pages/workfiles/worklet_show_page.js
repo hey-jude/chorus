@@ -43,6 +43,7 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
     },
 
     closePage: function() {
+
         chorus.router.navigate(this.worklet.workspace().workfilesUrl());
     },
 
@@ -129,8 +130,9 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
         chorus.PageEvents.trigger("worklet:editor:save", "saving");
 
-        if (this.editorViews['inputs'].content.saveParameters() && this.worklet.save(this.worklet.attributes, { wait: true })) {
-            this.worklet.saveImageFile();
+        if (this.editorViews['inputs'].content.saveParameters() && // Inputs view
+            this.worklet.saveImageFile() && // Details view's image
+            this.worklet.save(this.worklet.attributes, { wait: true })) { // Other views
             return true;
         } else {
             chorus.PageEvents.trigger("worklet:editor:save", "failed");
