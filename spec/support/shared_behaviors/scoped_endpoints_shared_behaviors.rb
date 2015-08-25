@@ -4,7 +4,7 @@ shared_examples "a scoped endpoint" do
     test_scope = ChorusScope.create(:name => "a scope")
     test_group = Group.create(:name => "a group")
     test_group.users << user
-    test_group.chorus_scope = test_scope
+    test_group.chorus_scopes << test_scope
     test_group.save!
 
     mock.proxy(klass).filter_by_scope.with_any_args
