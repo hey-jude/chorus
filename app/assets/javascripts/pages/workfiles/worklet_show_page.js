@@ -161,7 +161,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         // Each worklet edit page has these view components:
         return {
             subNav: new chorus.views.WorkletHeader({
-                worklet: this.worklet,
+                model: this.worklet,
                 mode: mode,
                 state: 'editing',
                 menuOptions: settings.menuOptions
@@ -275,7 +275,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.onceLoaded(this.history, this.showHistory);
 
         this.headerView = new chorus.views.WorkletHeader({
-            worklet: this.worklet,
+            model: this.worklet,
             menuOptions: [],
             state: 'workspaceRun'
         });

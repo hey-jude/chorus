@@ -80,7 +80,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
         this.onceLoaded(this.history, this.showHistory);
 
         this.headerView = new chorus.views.WorkletHeader({
-            worklet: this.worklet,
+            model: this.worklet,
             menuOptions: [],
             state: 'publishedRun'
         });
