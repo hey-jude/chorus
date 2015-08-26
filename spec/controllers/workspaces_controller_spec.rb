@@ -22,6 +22,13 @@ describe WorkspacesController do
       decoded_response.map(&:name).should include workspaces(:public).name
     end
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Workspace }
+      let!(:user)  { owner }
+      let!(:action){ :index }
+      let!(:params){ { :format => :json} }
+    end
+
     it "returns workspaces the user is a member of" do
       log_in other_user
       get :index, :format => :json
