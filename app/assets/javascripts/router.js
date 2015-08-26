@@ -55,10 +55,6 @@
             ["workspaces/:workspaceId/tags/:name", "WorkspaceTagShow"],
             ["workspaces/:workspaceId/tags/:scope/:entityType/:name", "WorkspaceTagShow"],
             //["workspaces/:workspaceId/worklets/:workfileId", "WorkletShow"],
-            ["workspaces/:workspaceId/touchpoints/:id", "WorkletEdit"],
-            ["workspaces/:workspaceId/touchpoints/:id/run", "WorkletRun"],
-            ["touchpoints", "PublishedWorkletIndex"],
-            ["touchpoints/:id", "PublishedWorkletShow"],
             ["data_sources", "DataSourceIndex"],
             ["data_sources/:dataSourceId/databases", "DatabaseIndex"],
             ["databases/:databaseId", "GpdbSchemaIndex"],
@@ -78,9 +74,24 @@
             ["about", "About"]
         ],
 
+        addConditionalFeatureRoutes: function() {
+            this.config = chorus.models.Config.instance();
+
+            if (this.config.get("touchpointsEnabled") === true) {
+                this.maps = $.merge(this.maps, [
+                    ["workspaces/:workspaceId/touchpoints/:id", "WorkletEdit"],
+                    ["workspaces/:workspaceId/touchpoints/:id/run", "WorkletRun"],
+                    ["touchpoints", "PublishedWorkletIndex"],
+                    ["touchpoints/:id", "PublishedWorkletShow"]
+                ]);
+            }
+        },
+
         initialize:function (app) {
             var self = this;
             self.app = app;
+
+            this.addConditionalFeatureRoutes();
 
             _.each(this.maps, function (map) {
                 var pattern = map[0],

@@ -8,6 +8,12 @@ class PublishedWorkletController < ApplicationController
   #before_filter :authorize_edit_workfile, :only => [:update, :destroy,  :run, :stop]
 
   def index
+    chorus_config = ChorusConfig.instance
+    if chorus_config['touchpoints'].nil? || (chorus_config['touchpoints'] && chorus_config['touchpoints']['enabled'] == false)
+      render nothing: true, status: :unauthorized
+      return
+    end
+
     published_worklets = PublishedWorklet.where("additional_data LIKE '%\"state\":\"published\"%'")
 
     published_worklets = published_worklets.order_by(params[:order]).includes(:latest_workfile_version)
