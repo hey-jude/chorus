@@ -16,4 +16,14 @@
     <iframe id="testResults_frame"></iframe>
 </div>
 
-{{> closeWindowFormControls }}
+{{!-- equivalent to closeWindowFormControls partial --}}
+<div id="dialog_bottom" class="form_controls">
+    
+    {{#if runState}}
+        <button class="modalish submit run_worklet run_worklet_button">{{t "worklet.workbench.mode.run"}}</button>
+        <button class="modalish submit stop_worklet stop_worklet_button">{{t "worklet.workbench.mode.run_stop_run"}}</button>
+    {{else}}
+        <button type="button" class="cancel modalish">{{t "actions.close_window"}}</button>
+    {{/if}}
+
+</div>

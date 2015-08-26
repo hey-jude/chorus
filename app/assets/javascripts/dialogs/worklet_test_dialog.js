@@ -88,6 +88,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     additionalContext: function(context) {
         // If there's no this.model, additionalContext must return an object.
         return {
+                // runState how to rreturn a run state value to the dialog in order to determine which button to display
         };
     }
 });
