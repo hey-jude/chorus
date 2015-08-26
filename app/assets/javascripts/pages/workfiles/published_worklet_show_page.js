@@ -110,4 +110,3 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
 
     }
 });
-

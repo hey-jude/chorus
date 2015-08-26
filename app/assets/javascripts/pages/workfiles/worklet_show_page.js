@@ -181,7 +181,9 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     buildPage: function() {
-        // Initial (default) view for the editor:
+        // Initial (default) view for the editor steps when opening worklet
+        // possible values: from WorkletEditorSubheader. 
+        // 'workflow', 'details', 'outputs', 'inputs'
         var initial_mode = 'inputs';
 
         // Build the editor views:
@@ -192,6 +194,11 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
             viewClass: chorus.views.WorkletInputsConfiguration
         });
 
+        this.editorViews['outputs'] = this.buildEditorView('outputs', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletOutputsConfiguration
+        });
+
         this.editorViews['details'] = this.buildEditorView('details', {
             menuOptions: [],
             viewClass: chorus.views.WorkletDetailsConfiguration
@@ -200,11 +207,6 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.editorViews['workflow'] = this.buildEditorView('workflow', {
             menuOptions: [],
             viewClass: chorus.views.WorkletWorkflowConfiguration
-        });
-
-        this.editorViews['outputs'] = this.buildEditorView('outputs', {
-            menuOptions: [],
-            viewClass: chorus.views.WorkletOutputsConfiguration
         });
 
         // Render initial view
