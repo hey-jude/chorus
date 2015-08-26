@@ -738,7 +738,16 @@
         },
 
         modelLink: function(model) {
-            return Handlebars.helpers.linkTo(model.showUrl(), model.name());
+            var url = model.showUrl();
+            
+            if(url){
+                return Handlebars.helpers.linkTo(url, model.name());
+            } else {
+
+                // If the URL is null, do not create an <a> element,
+                // so as not to give the user the impression the text is clickable.
+                return model.name();
+            }
         },
 
         dialogLink: function (model, linkTranslation) {
