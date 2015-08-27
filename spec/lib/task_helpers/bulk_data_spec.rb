@@ -25,7 +25,7 @@ describe BulkData do
     before do
       BulkData.create_fake_users(file_name, 2)
       CSV.open(file_name, 'a') do |file|
-        file << %w(Charlie Chambers chch t chch@somewhere.com ThisGuy Nowhere hahaha)
+        file << %w(Charlie Chambers chch true chch@somewhere.com ThisGuy Nowhere hahaha)
       end
     end
 
