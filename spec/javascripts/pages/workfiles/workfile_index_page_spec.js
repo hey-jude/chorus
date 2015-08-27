@@ -149,8 +149,9 @@ describe("chorus.pages.WorkfileIndexPage", function() {
             itBehavesLike.aPageWithPrimaryActions([
                 {name: 'import_workfile', target: chorus.dialogs.WorkfilesImport},
                 {name: 'create_sql_workfile', target: chorus.dialogs.WorkfilesSqlNew},
-                {name: 'create_workflow', target: chorus.dialogs.WorkFlowNew},
-                {name: 'create_worklet', target: chorus.dialogs.WorkletNew}
+                {name: 'create_workflow', target: chorus.dialogs.WorkFlowNew}
+                // TODO: Once/if there is worklet creation not from a selected workfile, this should be added.
+                //{name: 'create_worklet', target: chorus.dialogs.WorkletNew}
             ]);
         });
 

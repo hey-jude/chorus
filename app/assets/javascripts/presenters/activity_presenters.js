@@ -1,6 +1,9 @@
 (function() {
     var presenterHelpers, headerDefinitions;
     chorus.presenters.Activity = chorus.presenters.Base.extend({
+        helpers: function() {
+            return presenterHelpers;
+        },
 
         headerHtml: function() {
             var string = t(presenterHelpers.headerTranslationKey(this, this.isNotification()), presenterHelpers.headerParams(this));

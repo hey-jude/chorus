@@ -9,7 +9,7 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     },
 
     showUrlTemplate: function() {
-      if(this.get("isHdfsHive")) {
+      if(this.isHdfsHive()) {
         return null;
       } else {
         return "hdfs_data_sources/{{id}}/browse/";
