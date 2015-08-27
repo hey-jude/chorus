@@ -20,4 +20,8 @@ describe Attachment do
       attachment.security_type_name.should == attachment.note.security_type_name
     end
   end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { attachments(:attachment_workspace) }
+  end
 end

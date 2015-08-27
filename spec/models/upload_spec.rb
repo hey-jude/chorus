@@ -12,4 +12,8 @@ describe Upload do
   end
 
   it_behaves_like 'an upload that goes stale'
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { Upload.first }
+  end
 end

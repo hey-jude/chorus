@@ -11,7 +11,11 @@ shared_examples "a permissioned model" do
     let(:model_a){ model }
 
     let(:model_b){
-      model.dup.tap{|model| model.save!(:validate => false)}
+      model.dup.tap do |model|
+        model.name = model.name + "_different" if model.respond_to?(:name) && model.class != HdfsEntry
+        model.path = model.path + "_different" if model.class == HdfsEntry
+        model.save!(:validate => false)
+      end
     }
 
     before do

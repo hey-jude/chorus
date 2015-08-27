@@ -170,4 +170,8 @@ describe Tag do
       tag.destroy
     end
   end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { Tag.create!(name: "scope") }
+  end
 end

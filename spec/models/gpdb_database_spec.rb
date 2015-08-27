@@ -17,6 +17,10 @@ describe GpdbDatabase do
     let(:database) { databases(:default) }
   end
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { databases(:default) }
+  end
+
   describe "validations" do
     it 'has a valid factory' do
       FactoryGirl.build(:gpdb_database).should be_valid
