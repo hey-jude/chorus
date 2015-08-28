@@ -74,6 +74,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     },
 
     modalClosed: function() {
+        $(window).off("beforeunload", this.closeModal);
         if(this.model.get('running')) {
             this.model.stop();
         }
