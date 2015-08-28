@@ -18,6 +18,7 @@ class DataSourcesController < ApplicationController
   end
 
   def show
+    Authority.authorize! :show, @data_source, current_user, { :or => :data_source_is_shared }
     present @data_source
   end
 

@@ -94,7 +94,7 @@ chorus.handlebarsHelpers.dataset = {
             }
         }
         else {
-            return t("loading");
+            return t("general.loading");
         }
         var key = keys.join(".");
         return t(key);

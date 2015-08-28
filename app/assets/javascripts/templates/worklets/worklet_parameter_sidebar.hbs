@@ -1,0 +1,38 @@
+<div class="header">
+    <div class="heading">{{t "worklet.edit.inputs_sidebar.heading"}}</div>
+    <div id="worklet_input_reset" class="button reset_inputs" title="{{t 'worklet.run.reset_inputs.button'}}"><span class="fa fa-rotate-left"></span></div>
+</div>
+
+<div class="worklet_parameters"></div>
+
+{{#if noParameters}}
+
+    {{#if editState}}
+
+    <div class="no_parameters_notice">
+        <span class="notice_icon fa fa-exclamation-circle"></span>{{t "worklet.edit.inputs_sidebar.empty.message"}}
+    </div>    
+    
+    {{else}}
+        {{#if runState}}
+    
+        <div class="no_parameters_notice">
+            <span class="notice_icon fa fa-exclamation-circle"></span>{{t "worklet.run.inputs_sidebar.empty.message"}}
+        </div>
+      
+        {{/if}}
+    {{/if}}
+
+{{/if}}
+
+
+<div class="form_controls">
+    {{#if editState}}
+        <button class="modalish submit test_worklet test_worklet_button">{{t "worklet.workbench.mode.test"}}</button>
+    {{/if}}
+
+    {{#if runState}}
+        <button class="modalish submit run_worklet run_worklet_button">{{t "worklet.workbench.mode.run"}}</button>
+        <button class="modalish submit stop_worklet stop_worklet_button">{{t "worklet.workbench.mode.run_stop_run"}}</button>
+    {{/if}}
+</div>

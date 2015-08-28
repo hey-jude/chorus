@@ -2,7 +2,7 @@ $debug-browser-support: true;
 
 @import "_browser_support";
 @import "_common";
-@import "components/_button";
+@import "_button_common";
 @import "compass/css3/border-radius";
 
 
@@ -56,13 +56,6 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
         background-color: $shaded-background-color;
         display: inline-block;
         cursor: pointer;
-
-        /* covers the glyphs used, such as the cog */
-        // i {
-        //     color: $color-text3;
-        //     font-size: 13px;
-        //     line-height: $height-button-widgetshell;
-        // }
     }
     
     .configure {
@@ -322,13 +315,6 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
         display: inline-block;
         margin-right: 3px;
         cursor: pointer;
-        
-        /* covers the glyphs used; i.e the cog */
-        // i {
-        //      color: $color-text3;
-        //      font-size: $small-font;
-        //      line-height: $height-button-widgetshell;
-        // }
 
         /* remove rightside margin on the rightmost button so that it is flush right */
         &:last-child {
@@ -364,7 +350,6 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
         margin-left: 0px;
     }
 }
-    
 
 /* rules for the recent activity hovering list that is part of the workspace cards */
 
@@ -438,17 +423,6 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
 
 /* ********** */
 /* ********** */
-
-/* empty and app-tip needs a better home location. */
-/* they are not specific to dashboard */
-/* empty state: general case for when a 'set' has no contents. */
-
-.empty_state {
-    color: $disabled-text;
-    p { 
-        margin-top: 10px;
-    }
-}
 
 
 /* in-app "intrinsic assistance" text */

@@ -92,14 +92,15 @@ Chorus::Application.routes.draw do
 
   resource :imports, :only => :update, :controller => 'dataset_imports'
 
-  resources :worklets, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
+  resources :touchpoints, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
     member do
       put 'run'
+      post 'stop'
       post 'share'
     end
   end
 
-  resources :worklet_variable_versions, :only => [:index, :show]
+  resources :worklet_parameter_versions, :only => [:index, :show]
 
   resources :workspaces, :only => [:index, :create, :show, :update, :destroy] do
     resources :members, :only => [:index, :create]
@@ -110,15 +111,17 @@ Chorus::Application.routes.draw do
         delete :index, action: :destroy_multiple
       end
     end
-    resources :worklets, :only => [:create, :show, :update, :destroy] do
+    resources :touchpoints, :only => [:create, :show, :update, :destroy], :controller => :worklets do
       member do
         put 'run'
+        post 'stop'
         get 'image'
         put 'publish'
         put 'unpublish'
+        post 'upload_image'
       end
 
-      resources :variables, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_variables
+      resources :parameters, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_parameters
     end
     resources :jobs, :only => [:index, :create, :show, :update, :destroy] do
       resources :job_tasks, :only => [:create, :update, :destroy]

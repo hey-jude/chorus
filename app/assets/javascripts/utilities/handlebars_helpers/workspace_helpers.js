@@ -35,9 +35,18 @@ chorus.handlebarsHelpers.workspace = {
 
         function linkToContextObject(workspace) {
             contextObject.setWorkspace(workspace);
-            return Handlebars.helpers.linkTo(contextObject.showUrl(), workspace.get('name'), {
-                title: workspace.get('name')
-            }).toString();
+
+            //TODO: better solution for this, hard-coding for published worklets for now
+            if(contextObject.get('entitySubtype') === 'published_worklet') {
+                return Handlebars.helpers.linkTo('#/touchpoints', 'Touchpoints', {
+                    title: 'Touchpoints'
+                }).toString();
+            }
+            else {
+                return Handlebars.helpers.linkTo(contextObject.workspace().showUrl(), workspace.get('name'), {
+                    title: workspace.get('name')
+                }).toString();
+            }
         }
 
         var workspaceLink = linkToContextObject(workspaceSet.at(0));

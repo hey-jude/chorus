@@ -32,18 +32,25 @@ describe('chorus.handlebarsHelpers.workspace', function() {
         function itIncludesTheFoundInWorkspaceInformation() {
             it("includes the 'found in workspace' information", function () {
                 var workspace = this.workspaceList.at(0);
-                expect($(this.result).find("a").attr("href")).toMatchUrl('#/' + workspace.get('id') + '/contextObject');
+                expect($(this.result).find("a").attr("href")).toMatchUrl('#/workspaces/' + workspace.get('id'));
                 expect($(this.result).find("a")).toContainText(workspace.get('name'));
                 expect($(this.result).find("a")).toHaveAttr("title", workspace.get('name'));
             });
         }
 
         var contextObjectClass = chorus.models.Base.extend({
-            showUrlTemplate:"{{workspaceId}}/contextObject",
+            showUrlTemplate:"workspaces/{{workspaceId}}",
+
             setWorkspace:function (workspace) {
                 this.attributes.workspaceId = workspace.get('id');
+                this._workspace = workspace;
+            },
+
+            workspace: function() {
+                return this._workspace;
             }
         });
+
         beforeEach(function () {
             this.contextObject = new contextObjectClass();
         });
@@ -56,7 +63,7 @@ describe('chorus.handlebarsHelpers.workspace', function() {
 
             it("includes the 'found in workspace' information", function () {
                 var workspace = this.workspaceList[0];
-                expect($(this.result).find("a").attr("href")).toMatchUrl('#/' + workspace.id + '/contextObject');
+                expect($(this.result).find("a").attr("href")).toMatchUrl('#/workspaces/' + workspace.id);
                 expect($(this.result).find("a")).toContainText(workspace.name);
                 expect($(this.result).find("a")).toHaveAttr("title", workspace.name);
             });
@@ -133,7 +140,7 @@ describe('chorus.handlebarsHelpers.workspace', function() {
                 expect($(this.result).find("a.open_other_menu")).toExist();
                 expect($(this.result).find(".other_menu li").length).toBe(2);
                 var workspace = this.workspaceList.at(1);
-                expect($(this.result).find(".other_menu li a:eq(0)")).toHaveAttr('href', '#/' + workspace.get('id') + '/contextObject');
+                expect($(this.result).find(".other_menu li a:eq(0)")).toHaveAttr('href', '#/workspaces/' + workspace.get('id'));
                 expect($(this.result).find(".other_menu li a:eq(0)")).toContainText(workspace.get('name'));
             });
         });

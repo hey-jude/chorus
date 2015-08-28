@@ -28,6 +28,13 @@ describe Dashboard::RecentWorkfiles do
     result.map { |o| o.workfile.id }.should == @ids.reverse.first(5)
   end
 
+  it 'fetches unique workfiles (the same workfile does not appear more than once)' do
+    # Simulate the same workfile being opened twice in a row:
+    last_workfile_opened = Workfile.find(@ids.last)
+    OpenWorkfileEvent.create!(user: user, workfile: last_workfile_opened)
+    result.map { |o| o.workfile.id }.should == @ids.reverse.first(5)
+  end
+
   describe 'when the limit value changes' do
 
     before do

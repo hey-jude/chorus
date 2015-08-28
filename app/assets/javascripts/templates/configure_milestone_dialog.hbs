@@ -1,18 +1,24 @@
 <form action="#">
     <div class="girdle">
-        <label class="required">{{t "milestone.dialog.name"}}</label>
-        <input class='name' type='text' value="{{name}}" />
-        <div class="target_date_container">
-            <label class="">{{t "milestone.dialog.target_date"}}</label>
-            <div class="target_date_widget">
-                <div class='target_date'></div>
+    
+        <div class="form_pair">
+            <label class="required" for="milestone-{{name}}">{{t "milestone.dialog.name"}}</label>
+            <input class="name" id="milestone-{{name}}" type="text" value="{{name}}" />
+        </div>
+           
+        <div id="target_date_container">
+            <div class="form_pair"> 
+                <label>{{t "milestone.dialog.target_date"}}</label>
+                <div class="target_date_widget">
+                    <div class="target_date"></div>
+                </div>
             </div>
         </div>
 
     {{> legendRequired}}
 
     </div>
-    <!-- END girdle -->
+    {{!-- END girdle --}}
     
     {{formControlsWithDisabledSubmit submitTranslation}}
 </form>

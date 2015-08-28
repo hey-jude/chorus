@@ -72,6 +72,7 @@ describe("chorus.presenters.Activity", function() {
                     expect(this.presenter.headerHtml().toString()).toContainTranslation(
                         "activity.header.WorkfileCreated.without_workspace", {
                             actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
+                            workfileType: this.presenter.helpers().workfileType(this),
                             workfileLink: linkTo(this.workfile.showUrl(), this.workfile.name())
                         }
                     );
@@ -84,6 +85,7 @@ describe("chorus.presenters.Activity", function() {
                         "activity.header.WorkfileCreated.default", {
                             actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
                             workfileLink: linkTo(this.workfile.showUrl(), this.workfile.name()),
+                            workfileType: this.presenter.helpers().workfileType(this),
                             workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name())
                         }
                     );
@@ -328,7 +330,7 @@ describe("chorus.presenters.Activity", function() {
             expect(this.presenter.headerHtml().toString()).toContainTranslation(
                 "activity.header.DataSourceDeleted.default", {
                     actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
-                    dataSourceLink: linkTo(null, this.dataSource.name())
+                    dataSourceLink: this.dataSource.name()
                 }
             );
         });
@@ -572,7 +574,7 @@ describe("chorus.presenters.Activity", function() {
             expect(this.presenter.headerHtml().toString()).toMatchTranslation(
                 "activity.header.WorkspaceDeleted.default", {
                     actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
-                    workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name())
+                    workspaceLink: this.workspace.name()
                 }
             );
         });
@@ -618,6 +620,7 @@ describe("chorus.presenters.Activity", function() {
                 "activity.header.WorkfileCreated.default", {
                     actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
                     workfileLink: linkTo(this.workfile.showUrl(), this.workfile.name()),
+                    workfileType: this.presenter.helpers().workfileType(this),
                     workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name())
                 }
             );
@@ -663,7 +666,7 @@ describe("chorus.presenters.Activity", function() {
                 expect(this.presenter.headerHtml().toString()).toMatchTranslation(
                     "activity.header.WorkfileUpgradedVersion.default", {
                         actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
-                        workfileLink: linkTo(this.workfile.showUrl(), this.workfile.name()),
+                        workfileLink: this.workfile.name(),
                         workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name()),
                         versionLink: linkTo(null, t("workfile.version_title", {versionNum: this.model.get('versionNum') }))
                     }
@@ -2361,7 +2364,8 @@ describe("chorus.presenters.Activity", function() {
         it("has the right header html", function() {
             expect(this.presenter.headerHtml().toString()).toMatchTranslation(
                 "activity.header.WorkfileResult.default", {
-                    workfileLink: linkTo(this.model.workfile().showUrl(), this.model.workfile().name())
+                    workfileLink: linkTo(this.model.workfile().showUrl(), this.model.workfile().name()),
+                    workfileTypeCaps: this.presenter.helpers().workfileTypeCaps(this)
                 }
             );
         });
@@ -2409,7 +2413,7 @@ describe("chorus.presenters.Activity", function() {
             this.actor = this.model.actor();
             this.workspace = this.model.workspace();
             this.milestone = this.model.milestone();
-            milestoneState =  t("milestone.state." + this.milestone.get("state").toString());
+            var milestoneState =  t("milestone.state." + this.milestone.get("state").toString());
 
             this.translation_params = {
                 actorLink: linkTo(this.actor.showUrl(), this.actor.name()),

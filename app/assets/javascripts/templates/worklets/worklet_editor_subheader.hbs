@@ -1,0 +1,16 @@
+<div id="workletSteps">
+    {{#each workletStepsItems}}
+    <a href="#" class="workletSteps_item {{this.class}}" data-mode="{{this.edit_mode}}">
+        {{this.label}}
+        <div class="status_mark">
+            {{#if hasErrors}}
+                <span class="fa invalid"></span>
+            {{else}}
+                {{#if unsaved}}
+                    <span class="mark_of_change"></span>
+                {{/if}}
+            {{/if}}
+        </div>
+    </a>
+    {{/each}}
+</div>

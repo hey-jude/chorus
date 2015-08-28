@@ -1,0 +1,37 @@
+<!-- <form> -->
+<div class="girdle">
+
+    <div class='sub_header'>
+        <div>{{t "worklet.dialog.workflow_worklets_using.title"}}</div>
+    </div>
+
+    <div id="content">
+            {{#each associatedWorklets}}
+
+                <div class="worklet_catalog_card">
+                    <div class="worklet_card_avatar">
+                        <a href="/#workspaces/{{workspace.id}}/touchpoints/{{id}}/"><img src="/workspaces/{{workspace.id}}/touchpoints/{{id}}/image/" alt=""/></a>
+                    </div>
+        
+                    <div class="worklet_card_content">
+                        <div class="worklet_title">
+                            <h3>{{fileName}}</h3>
+                        </div>
+                        {{#if description}}
+                        <div class="worklet_description">
+                            {{description}}
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+
+            {{/each}}
+
+    </div>
+
+</div>
+{{!-- END girdle --}}
+
+{{> closeWindowFormControls }}
+
+<!-- </form> -->

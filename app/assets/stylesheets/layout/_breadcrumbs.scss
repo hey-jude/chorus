@@ -1,11 +1,14 @@
 .breadcrumbs {
     ol {
-        padding: $padding-y ($padding-x + $guts-padding + 1px);
+        // padding: $padding-y ($padding-x + $guts-padding + 1px);
+        padding: $padding-y $padding-x;
     }
 
     li {
         display: inline;
-        @include font-normal-beta;
+        font-size: $list-breadcrumb-size;
+        font-weight: normal;
+        color: $color-text2;
         word-break: break-all;
         word-wrap: break-word;
         max-width: 245px;
@@ -15,9 +18,11 @@
     a {
         color: $color-text1;
         margin-right: $padding-x;
+        font-size: $list-breadcrumb-size;
     }
 
     .slug {
-        @include font-normal-delta;
+        font-weight: $semibold;
+    
     }
 }

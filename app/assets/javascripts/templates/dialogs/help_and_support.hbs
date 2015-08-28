@@ -5,23 +5,20 @@
     <div><p>{{t "help.help_and_support.tech_support.message_A"}}</p></div>
     <div><p>{{t "help.help_and_support.tech_support.message_B"}}</p></div>
 
-  <div class="table_like_container support_information"">
+  <div class="table_like_container support_information">
     <div class="table_like_row">
       <div>{{t "help.help_and_support.tech_support.web"}}</div>
       <div><a href='{{t "help.help_and_support.tech_support.web_address"}}'>{{t "help.help_and_support.tech_support.web_label"}}</a></div>
-      <!-- <div> </div> -->
     </div>
 
     <div class="table_like_row">
       <div>{{t "help.help_and_support.tech_support.email"}}</div>
       <div><a href='mailto:{{t "help.help_and_support.tech_support.email_address"}}'>{{t "help.help_and_support.tech_support.email_address"}}</a></div>
-      <!-- <div> </div> -->
     </div>
 
     <div class="table_like_row">
       <div>{{t "help.help_and_support.tech_support.phone"}}</div>
       <div><a href='tel:{{t "help.help_and_support.tech_support.phone_address"}}'>{{t "help.help_and_support.tech_support.phone_address_friendly"}}</a></div>
-      <!-- <div> </div> -->
     </div>
   </div>
 
@@ -33,11 +30,14 @@
     </p>
   </div>
 
-  <div class="messaging_block">
-    <h5>{{t "help.help_and_support.sub_title_2"}}</h5>
-    <p>{{{t "help.help_and_support.logs_download_message"}}}</p>
-    <button class="download_logs button_modalish">{{t "help.help_and_support.button.download_logs"}}</button>
-  </div>
+  {{#ifAdmin}}
+    <div class="messaging_block">
+      <h5>{{t "help.help_and_support.sub_title_2"}}</h5>
+
+      <p>{{{t "help.help_and_support.logs_download_message"}}}</p>
+      <button class="download_logs button_modalish">{{t "help.help_and_support.button.download_logs"}}</button>
+    </div>
+  {{/ifAdmin}}
 
 </div>
 

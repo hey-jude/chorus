@@ -1,0 +1,118 @@
+{{!-- TEMPLATE --}}
+{{!-- THIS PAGE IS NOT IS ACTIVE USE --}}
+{{!-- as of mid august 2015 --}}
+{{!-- it only remains here as a memorial to the many hours that were sacrificed so that worklets could be built --}}
+
+
+    <form action="/workspaces/1/worklet" method="post">
+
+        <div class="fields">
+            <fieldset>
+                <legend>"Worklet Info"</legend>
+
+                <div class="row">
+                    <span class="left">
+                        <label class="required">Workflow ID</label>
+                        <input type="text" name="workflowID" maxlength="256"/>
+                    </span>
+                </div>
+                <div class="row">
+                    <span class="right">
+                        <label class="required">Worklet Name</label>
+                        <input type="text" name="fileName" maxlength="256"/>
+                    </span>
+                </div>
+                <div class="row">
+                    <span class="right">
+                        <label class="required">Worklet Description</label>
+                        <input type="text" name="description" maxlength="256"/>
+                    </span>
+                </div>
+                <div class="row">
+                    <span class="right">
+                        <label class="required">Parameters</label>
+                        <input type="text" name="parameters" maxlength="9999"/>
+                    </span>
+                </div>
+                <div class="row">
+                    <label class="required">Run worklow as</label>
+                    <div>
+                        <input type="radio" id="runAsCreator" name="settings" value="creator" checked/>&nbsp;
+                        <label for="runAsCreator">Run as worklet creator</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="runAsPerson" name="settings" value="person"/>&nbsp;
+                        <label for="runAsPerson">Run as the person running the worklet</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="required">Workflow output to display</label>
+                    <div>
+                        <input type="checkbox" id="output_table" name="output" value="credit"/>
+                        <label for="output_table">credit</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" id="output_boxplot" name="output" value="Row Filter Age"/>
+                        <label for="output_boxplot">Row Filter Age</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Row Filter Edu"/>
+                        <label for="output_barchart">Row Filter Edu</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Row Filter Play"/>
+                        <label for="output_barchart">Row Filter Play</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Row Filter Outlook"/>
+                        <label for="output_barchart">Row Filter Outlook</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Bar Chart"/>
+                        <label for="output_barchart">Bar Chart</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Neural Network"/>
+                        <label for="output_barchart">Neural Network</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Logistic Regression"/>
+                        <label for="output_barchart">Logistic Regression</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Scatter Plot Matrix"/>
+                        <label for="output_barchart">Scatter Plot Matrix</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Box Plot"/>
+                        <label for="output_barchart">Box Plot</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Alpine Forest"/>
+                        <label for="output_barchart">Alpine Forest</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="K-Means"/>
+                        <label for="output_barchart">K-Means</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Row Filter"/>
+                        <label for="output_barchart">Row Filter</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="output_barchart" name="output" value="Confusion Matrix"/>
+                        <label for="output_barchart">Confusion Matrix</label>
+                    </div>
+                </div>
+
+
+            </fieldset>
+
+            <div class="row form_controls">
+                <button type="submit" class="submit modalish">Make Worklet</button>
+                <button type="button" class="cancel modalish">{{t "actions.cancel"}}</button>
+            </div>
+        </div>
+    </form>

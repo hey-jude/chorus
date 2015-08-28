@@ -1,12 +1,19 @@
 chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     constructorName: "HdfsDataSource",
     urlTemplate: "hdfs_data_sources/{{id}}",
-    showUrlTemplate: "hdfs_data_sources/{{id}}/browse/",
     shared: true,
     entityType: "hdfs_data_source",
 
     isShared: function() {
         return true;
+    },
+
+    showUrlTemplate: function() {
+      if(this.isHdfsHive()) {
+        return null;
+      } else {
+        return "hdfs_data_sources/{{id}}/browse/";
+      }
     },
 
     providerIconUrl: function() {
@@ -61,6 +68,17 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
 
     version: function() {
         return this.get("hdfsVersion");
+    },
+
+    attrToLabel: {
+      "hiveMetastoreLocation":"data_sources.dialog.hive_metastore_location",
+      "name":"data_sources.dialog.data_source_name",
+      "host":"data_sources.dialog.hadoop_host",
+      "username":"data_sources.dialog.hadoop_account",
+      "groupList":"data_sources.dialog.hadoop_group_list",
+      "port":"data_sources.dialog.port",
+      "jobTrackerHost":"data_sources.dialog.hadoop_job_tracker_host",
+      "jobTrackerPort":"data_sources.dialog.port"
     }
 
 });

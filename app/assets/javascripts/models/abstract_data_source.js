@@ -70,6 +70,10 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
         return false;
     },
 
+    isJdbcHive: function() {
+        return false;
+    },
+
     isSingleLevelSource: function () {
         return false;
     },
@@ -99,7 +103,7 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
       var pairs = this.get('connectionParameters');
 
       pairs = _.map(pairs, function (pair) {
-        if(pair['key'] != 'is_hive' && pair['key'] != 'hive.metastore.uris') {
+        if(pair['key'] !== 'is_hive' && pair['key'] !== 'hive.metastore.uris') {
           return pair;
         }
       });

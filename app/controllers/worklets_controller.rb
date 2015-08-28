@@ -31,7 +31,7 @@ class WorkletsController < ApplicationController
     workfile.update_from_params!(merged_params)
     if !params[:workfile][:parameters].nil?
       JSON.parse(params[:workfile][:parameters]).each do |parameters|
-        worklet_variable = WorkletVariable.new(parameters.merge('workfile_id' => workfile.id))
+        worklet_variable = WorkletParameter.new(parameters.merge('workfile_id' => workfile.id))
         worklet_variable.save!
       end
     end
@@ -45,12 +45,33 @@ class WorkletsController < ApplicationController
     worklet.assign_attributes(params[:workfile])
     worklet.update_from_params!(params[:workfile])
 
+    if existing_published_worklets.any?
+      update_publish_params = {}
+      update_publish_params[:file_name] = params[:workfile][:file_name] if !params[:workfile][:file_name].nil?
+      update_publish_params[:description] = params[:workfile][:description] if !params[:workfile][:description].nil?
+      update_publish_params[:run_persona] = params[:workfile][:run_persona] if !params[:workfile][:run_persona].nil?
+      update_publish_params[:output_table] = params[:workfile][:output_table] if !params[:workfile][:output_table].nil?
+      existing_published_worklets[0].assign_attributes(update_publish_params)
+      existing_published_worklets[0].update_from_params!(update_publish_params)
+    end
+
     present worklet,
             :presenter_options => {:workfile_as_latest_version => true}
   end
 
   def image
-    send_data GeoPattern.generate(worklet.id, generator: GeoPattern::HexagonPattern), type: 'image/svg+xml', disposition: 'inline'
+    worklet_image = worklet.worklet_image
+    if worklet_image.present?
+      send_file worklet_image.path(:display), disposition: 'inline'
+    else
+      send_data GeoPattern.generate(worklet.id, generator: GeoPattern::HexagonPattern), type: 'image/svg+xml', disposition: 'inline'
+    end
+  end
+
+  def upload_image
+    worklet.image = params[:contents]
+    worklet.save!
+    present worklet.worklet_image
   end
 
   def destroy
@@ -82,31 +103,73 @@ class WorkletsController < ApplicationController
   end
 
   def unpublish
-    unpublished_param = {:state => 'completed'}
-    worklet.assign_attributes(unpublished_param)
-    worklet.update_from_params!(unpublished_param)
+    if existing_published_worklets.any? && RunningWorkfile.where(:workfile_id => existing_published_worklets[0].id).any?
+        render_cannot_unpublish
+    else
 
-    if existing_published_worklets.any?
-      existing_published_worklets[0].assign_attributes(unpublished_param)
-      existing_published_worklets[0].update_from_params!(unpublished_param)
-      Events::WorkletUnpublished.by(current_user).add(:workfile => worklet, :workspace => Workspace.find(worklet.workspace_id))
+      unpublished_param = {:state => 'completed'}
+      worklet.assign_attributes(unpublished_param)
+      worklet.update_from_params!(unpublished_param)
+
+      if existing_published_worklets.any?
+        existing_published_worklets[0].assign_attributes(unpublished_param)
+        existing_published_worklets[0].update_from_params!(unpublished_param)
+        Events::WorkletUnpublished.by(current_user).add(:workfile => worklet, :workspace => Workspace.find(worklet.workspace_id))
+      end
+
+      present worklet, :status => :accepted
     end
-
-    present worklet, :status => :accepted
   end
 
   def run
-    variables = params[:workfile][:worklet_parameters][:string].inspect
-    process_id = worklet.run_now(current_user, variables)
-    running_workfile = RunningWorkfile.new({:workfile_id => params[:id], :owner_id => current_user.id, :killable_id => process_id})
-    running_workfile.save!
-    if params[:workfile][:worklet_parameters][:fields]
-      params[:workfile][:worklet_parameters][:fields].each do |field|
-        worklet_variable_version = WorkletVariableVersion.new({:worklet_variable_id => field['id'], :value => field['value'], :owner_id => current_user.id, :result_id => process_id})
-        worklet_variable_version.save!
+    begin
+      worklet_params = params[:workfile][:worklet_parameters][:string].inspect
+
+      temp_accounts = []
+
+      worklet.execution_locations.each do |execution_location|
+        if execution_location.is_a?(Database)
+          data_source = execution_location.data_source
+          if !(data_source.shared? || DataSourceAccount.where(:data_source_id => data_source.id, :owner_id => current_user.id).any?)
+            data_source_account = DataSourceAccount.where(:data_source_id => execution_location.data_source.id, :owner_id => worklet.owner_id)
+            if worklet.run_persona == 'creator' && data_source_account.any?
+              temp_data_source_account = data_source_account[0].dup
+              temp_data_source_account.owner_id = current_user.id
+              temp_data_source_account.save!
+              temp_accounts.push(temp_data_source_account)
+            else
+              Authority.raise_access_denied(:run, execution_location)
+            end
+          end
+        end
+      end
+
+      process_id = worklet.run_now(current_user, worklet_params)
+      test_run = params[:workfile][:test_run]
+      running_workfile = RunningWorkfile.new({:workfile_id => params[:id], :owner_id => current_user.id, :killable_id => process_id, :status => test_run ? 'test_run' : ''})
+      running_workfile.save!
+      if params[:workfile][:worklet_parameters][:fields] && !test_run
+        params[:workfile][:worklet_parameters][:fields].each do |field|
+          worklet_parameter_version = WorkletParameterVersion.new({:worklet_parameter_id => field['id'], :value => field['value'], :owner_id => current_user.id, :result_id => process_id})
+          worklet_parameter_version.save!
+        end
+      end
+
+      present worklet, :status => :accepted
+    rescue Authority::AccessDenied
+      render_no_db_access
+    rescue Alpine::API::RunError
+      render_run_failed
+    ensure
+      temp_accounts.each do |temp_account|
+        temp_account.destroy
       end
     end
+  end
 
+  def stop
+    response = worklet.stop_now(current_user)
+    RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => params[:workfile][:id]).destroy_all if response.code == '200'
     present worklet, :status => :accepted
   end
 
@@ -115,10 +178,23 @@ class WorkletsController < ApplicationController
   end
 
   def existing_published_worklets
-    @existing_published_worklets ||= PublishedWorklet.where("additional_data LIKE '%\"source_worklet_id\":" + worklet.id.to_s + "%'")
+    @existing_published_worklets ||= PublishedWorklet.where("additional_data SIMILAR TO '%(,|{)\"source_worklet_id\":#{ worklet.id.to_s }(,|})%'")
   end
 
   def workspace
     @workspace ||= Workspace.find(params[:workspace_id])
   end
+
+  def render_no_db_access
+    present_errors({:record => :RUN_NO_DB_ACCESS}, :status => :unprocessable_entity)
+  end
+
+  def render_run_failed
+    present_errors({:record => :RUN_FAILED}, :status => :unprocessable_entity)
+  end
+
+  def render_cannot_unpublish
+    present_errors({:record => :CANNOT_UNPUBLISH}, :status => :unprocessable_entity)
+  end
+
 end

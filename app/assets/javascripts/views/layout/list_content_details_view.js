@@ -11,12 +11,14 @@ chorus.views.ListContentDetails = chorus.views.Base.include(
     },
 
     subviews: {
-        "div.button_holder" : "buttonView"
+        "div.button_holder": "buttonView"
     },
 
     setup: function(){
-        this.buttonView = this.options.buttonView || new chorus.views.ListContentDetailsButtonView(this.options);
         this.listenTo(this.collection, "remove", this.render);
+        if(this.options.layout !== 'card') {
+            this.buttonView = this.options.buttonView || new chorus.views.ListContentDetailsButtonView(this.options);
+        }
         if (this.options.multiSelect) {
             this.unselectOnFetch();
         }
@@ -64,7 +66,7 @@ chorus.views.ListContentDetails = chorus.views.Base.include(
     },
 
     startLoading: function(selector) {
-        this.$(selector).text(t("loading"));
+        this.$(selector).text(t("general.loading"));
     },
 
     updateFilterCount: function() {
@@ -106,7 +108,8 @@ chorus.views.ListContentDetails = chorus.views.Base.include(
             search: this.options.search,
             searchTerm: this.collection && this.collection.attributes && this.collection.attributes[this.collection.searchAttr],
             workspaceId: this.collection && this.collection.attributes && this.collection.attributes.workspaceId,
-            multiSelect: this.options.multiSelect
+            multiSelect: this.options.multiSelect,
+            cardLayout: this.options.layout === 'card'
         };
 
         if (this.collection.loaded && this.collection.pagination) {

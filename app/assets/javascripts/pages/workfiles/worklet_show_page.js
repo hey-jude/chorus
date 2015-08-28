@@ -1,8 +1,8 @@
 chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
-    helpId: "workfile",
+    helpId: "touchpoint",
 
     setup: function (workspaceId, workletId) {
-        this.subNav = new chorus.views.SubNav({workspace: this.workspace, tab: "workfiles"});
+        // this.subNav = new chorus.views.SubNav({workspace: this.workspace, tab: "workfiles"});
         this.requiredResources.add(this.workspace);
 
         this.subscribePageEvent("menu:worklet", this.menuEventHandler);
@@ -10,169 +10,276 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
         this.worklet = new chorus.models.Worklet({id: workletId, workspace: this.workspace});
         this.worklet.fetch();
 
+        this.subscribePageEvent("worklet:run", this.runEventHandler);
+        this.pollForRunStatus = _.bind(function() {
+            this.worklet.fetch({
+                success: _.bind(function(model) {
+                    if(!model.get('running')) {
+                        chorus.PageEvents.trigger("worklet:run", "runStopped");
+                    }
+                }, this)
+            });
+        }, this);
+
         this.onceLoaded(this.worklet, this.buildPage);
+    },
+
+    menuEventHandler: function(menu_item) {
+        if (menu_item === 'close') {
+            this.closePage();
+        }
+    },
+
+    runEventHandler: function(event) {
+        if (event === 'runStarted') {
+            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+        }
+        else if (event === 'runStopped') {
+            if (!_.isNull(this.pollerID)) {
+                clearInterval(this.pollerID);
+                this.pollerID = null;
+            }
+        }
+    },
+
+    closePage: function() {
+        chorus.router.navigate(this.worklet.workspace().workfilesUrl());
     },
 
     makeModel: function(workspaceId) {
         this.loadWorkspace(workspaceId);
-    },
-
-    menuEventHandler: function(menu_item) {
-        if (menu_item === 'edit_mode') {
-            chorus.router.navigate(this.worklet.showUrl());
-        }
-
-        if (menu_item === 'preview_mode') {
-            chorus.router.navigate(this.worklet.showUrl() + '/preview');
-        }
-    },
-
-    updateMiddleContent: function(newView) {
-        if (this.mainContent.content.workletOutput) {
-            this.mainContent.content.workletOutput.teardown(true);
-        }
-
-        this.mainContent.content.workletOutput = newView;
-        this.mainContent.content.renderSubview('workletOutput');
-
-        this.trigger('resized');
-    },
-
-    hideHistory: function() {
-        $(this.mainContent.content.workletHistory.el).toggle(false);
-        $('.published_worklet_content').addClass('no_history');
-    },
-
-    showHistory: function() {
-        var history_options = {
-            model: this.model,
-            collection: this.history,
-            mainPage: this
-        };
-
-        var newView = new chorus.views.PublishedWorkletHistory(history_options);
-
-        // Refactor updateMiddleContent to be updateContent(which_pane, new_content) instead of this redundant code:
-        if (this.mainContent.content.workletHistory) {
-            this.mainContent.content.workletHistory.teardown(true);
-        }
-        this.mainContent.content.workletHistory = newView;
-        this.mainContent.content.workletSubmit.historyView = newView;
-        this.mainContent.content.renderSubview('workletHistory');
-
-        $('.published_worklet_content').removeClass('no_history');
-        this.trigger('resized');
-    }
-});
-
-chorus.pages.WorkletPreviewPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
-    //menuEventHandler: function(menu_item) {
-    //    this._super("menuEventHandler", [menu_item]);
-    //},
-
-    buildPage: function() {
-        this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
-        this.history.fetchAll();
-        this.onceLoaded(this.history, this.showHistory);
-
-        this.headerView = new chorus.views.WorkletHeader({
-            model: this.worklet,
-            menuOptions: [],
-            mode: 'preview'
-        });
-
-        this.contentView = new chorus.views.PublishedWorkletContent({
-            model: this.worklet,
-            collection: this.history
-        });
-
-        this.mainContent = new chorus.views.MainContentView({
-            model: this.model,
-            contentHeader: this.headerView,
-            content: this.contentView
-        });
-
-        this.render();
-
-        // Show history
-        // $(this.mainContent.content.workletSubmit.el).find('.form_controls').toggle(true);
-        // this.showHistory();
     }
 });
 
 chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
+    setup: function (workspaceId, workletId) {
+        this._super("setup", [workspaceId, workletId]);
+
+        this.subscribePageEvent("submenu:worklet", this.workletStepsMenuEventHandler);
+
+        this.listenTo(this.worklet, "saved", this.workletSaved);
+        this.listenTo(this.worklet, "saveFailed", this.workletSaveFailed);
+
+        // Show input editor if scrollto on a parameter is clicked.
+        this.subscribePageEvent("parameter:scrollTo", _.bind(function(e) {
+            if (this._edit_mode !== 'inputs') {
+                this.showEditorMode('inputs');
+                chorus.PageEvents.trigger("parameter:scrollTo", e);
+            }
+        }, this));
+    },
+
     menuEventHandler: function(menu_item) {
-        this._super("menuEventHandler", [menu_item]);
-
-        if (menu_item === 'details') {
-            this.showDetailsConfiguration();
-        }
-
-        if (menu_item === 'inputs') {
-            this.showInputsConfiguration();
+        if (menu_item === 'close') {
+            if (this.hasUnsavedChanges()) {
+                new chorus.alerts.WorkletUnsavedAlert({
+                    model: this.worklet
+                }).launchModal();
+            } else {
+                this.closePage();
+            }
+        } else if (menu_item === 'save') {
+            this.saveAll();
+        } else if (menu_item === 'close_with_save') {
+            if (this.saveAll()) {
+                this.closePage();
+            }
+        } else if (menu_item === 'close_without_save') {
+            this.closePage();
         }
     },
 
-    showDetailsConfiguration: function() {
-        var details_configuration = new chorus.views.WorkletDetailsConfiguration({
-            model: this.worklet,
-            workflowOperators: this.workflowOperators
+    hasUnsavedChanges: function() {
+        var views = _.pairs(this.editorViews);
+        var unsaved_views = _.filter(views, function (view_pair) {
+            return view_pair[1].content.hasUnsavedChanges();
         });
 
-        this.updateMiddleContent(details_configuration);
-    },
-
-    showInputsConfiguration: function() {
-        var inputs_configuration = new chorus.views.WorkletInputsConfiguration({
-            model: this.worklet,
-            previewPane: this.mainContent.content.workletSubmit,
-            workflowVariables: this.workflowVariables && this.workflowVariables.get('variableMap'),
+        var error_having_views = _.filter(views, function (view_pair) {
+            return view_pair[1].content.hasErrors();
         });
 
-        this.updateMiddleContent(inputs_configuration);
+        return error_having_views.length > 0 || unsaved_views.length > 0;
     },
 
-    hidePreviewControls: function() {
-        this.hideHistory();
-        $(this.mainContent.content.workletSubmit.el).find('.form_controls').toggle(false);
+    workletSaved: function(e) {
+        var lsp = e._last_save_params;
+        if (lsp && (lsp.workflow_action === 'run' || lsp.workflow_action === 'stop')) {
+            return;
+        }
+        chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
+        chorus.PageEvents.trigger("worklet:editor:save", "saved");
+    },
+
+    workletSaveFailed: function(e) {
+        chorus.PageEvents.trigger("worklet:editor:save", "failed");
+    },
+
+    saveAll: function() {
+        // For each editor view, check if it's unsaved or has errors.
+        // For error-having views, indicate the error and short-circuit save
+        var error_having_views = _.filter(_.pairs(this.editorViews), function (view_pair) {
+            return view_pair[1].content.hasErrors();
+        });
+
+        if (error_having_views.length > 0) {
+            this.showEditorMode(error_having_views[0][0]);
+            return;
+        }
+
+        chorus.PageEvents.trigger("worklet:editor:save", "saving");
+
+        if (this.editorViews['inputs'].content.saveParameters() && // Inputs view
+            this.worklet.saveImageFile() && // Details view's image
+            this.worklet.save(this.worklet.attributes, { wait: true })) { // Other views
+            return true;
+        } else {
+            chorus.PageEvents.trigger("worklet:editor:save", "failed");
+            return false;
+        }
+    },
+
+    workletStepsMenuEventHandler: function(menu_item) {
+        var valid_modes = _.keys(this.editorViews);
+        if (valid_modes.indexOf(menu_item) !== -1) {
+            this.showEditorMode(menu_item);
+        }
+    },
+
+    showEditorMode: function(edit_mode) {
+        this._edit_mode = edit_mode;
+        var editorView = this.editorViews[edit_mode];
+        this.subNav = editorView.subNav;
+        this.sidebar = editorView.sidebar;
+        this.mainContent.contentHeader = editorView.contentHeader;
+        this.mainContent.content = editorView.content;
+
+        this.render();
+    },
+
+    buildEditorView: function(mode, settings) {
+        // Each worklet edit page has these view components:
+        return {
+            subNav: new chorus.views.WorkletHeader({
+                model: this.worklet,
+                mode: mode,
+                state: 'editing',
+                menuOptions: settings.menuOptions
+            }),
+            sidebar: new chorus.views.WorkletParameterSidebar({
+                worklet: this.worklet,
+                state: 'editing',
+                editorMode: mode
+            }),
+            contentHeader: new chorus.views.WorkletEditorSubheader({
+                mode: mode
+            }),
+            content: new (settings.viewClass)({
+                model: this.worklet
+            })
+        };
     },
 
     buildPage: function() {
-        this.workflowVariables = new chorus.models.WorkFlowVariables({workfile_id: this.worklet.get('workflowId')});
-        this.workflowVariables.fetch();
-        //this.onceLoaded(this.workflowVariables, this.showInputsConfiguration);
+        // Initial (default) view for the editor steps when opening worklet
+        // possible values: from WorkletEditorSubheader. 
+        // 'workflow', 'details', 'outputs', 'inputs'
+        var initial_mode = 'inputs';
 
-        this.workflowOperators = new chorus.models.WorkFlowOperators({workfile_id: this.worklet.get('workflowId')});
-        this.workflowOperators.fetch();
-        this.onceLoaded(this.workflowOperators, this.showDetailsConfiguration);
+        // Build the editor views:
+        this.editorViews = {};
 
-        //this.workflow = new chorus.models.AlpineWorkfile({id: this.worklet.workflow_id, workspace: this.workspace});
-        //this.workflow.fetch();
-        //this.onceLoaded(this.workflow, function (e) {
-        //    debugger;
-        //});
+        this.editorViews['inputs'] = this.buildEditorView('inputs', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletInputsConfiguration
+        });
+
+        this.editorViews['outputs'] = this.buildEditorView('outputs', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletOutputsConfiguration
+        });
+
+        this.editorViews['details'] = this.buildEditorView('details', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletDetailsConfiguration
+        });
+
+        this.editorViews['workflow'] = this.buildEditorView('workflow', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletWorkflowConfiguration
+        });
+
+        // Render initial view
+        this.subNav = this.editorViews[initial_mode].subNav;
+        this.sidebar = this.editorViews[initial_mode].sidebar;
+        this.mainContent = new chorus.views.MainContentView({
+            worklet: this.worklet,
+            contentHeader: this.editorViews[initial_mode].contentHeader,
+            content: this.editorViews[initial_mode].content
+        });
+        this.render();
+    }
+});
+
+
+chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
+    setup: function (workspaceId, workletId) {
+        this._super("setup", [workspaceId, workletId]);
+    },
+
+    menuEventHandler: function(menu_item) {
+        this._super("menuEventHandler", [menu_item]);
+    },
+
+    runEventHandler: function(event) {
+        this._super("runEventHandler", [event]);
+
+        if (event === 'runStopped') {
+            if (this.clickedStop) {
+                this.clickedStop = false;
+            } else {
+                var activities = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
+                activities.loaded = false;
+                activities.fetchAll();
+                this.mainContent.content.workletHistory._showLatestEntry = true;
+            }
+        }
+        else if (event === 'clickedStop') {
+            this.clickedStop = true;
+        }
+    },
+
+    buildPage: function() {
+        this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
+        this.history.fetchAll();
 
         this.headerView = new chorus.views.WorkletHeader({
             model: this.worklet,
-            menuOptions: [
-                {data: "details", text: "Configure Details"}, //t("workfiles.header.menu.sort.by_date")
-                {data: "inputs", text: "Configure Inputs"}
-            ],
-            mode: 'edit'
+            menuOptions: [],
+            state: 'workspaceRun'
+        });
+
+        this.subNav = this.headerView;
+        this.sidebar = new chorus.views.WorkletParameterSidebar({
+            worklet: this.worklet,
+            state: 'running'
         });
 
         this.contentView = new chorus.views.PublishedWorkletContent({
-            model: this.worklet,
-            collection: this.history
+            worklet: this.worklet,
+            collection: this.history,
+            mainPage: this
         });
 
         this.mainContent = new chorus.views.MainContentView({
-            model: this.model,
-            contentHeader: this.headerView,
+            worklet: this.worklet,
             content: this.contentView
         });
 
         this.render();
-        this.hidePreviewControls();
+
+        if (this.worklet.get('running')) {
+            chorus.PageEvents.trigger("worklet:run", "runStarted");
+        }
     }
 });

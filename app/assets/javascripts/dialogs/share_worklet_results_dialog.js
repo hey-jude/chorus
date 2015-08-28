@@ -19,13 +19,13 @@ chorus.dialogs.ShareWorkletResultsDialog = chorus.dialogs.PickWorkspace.extend({
         };
 
         $.ajax({
-            url: "/worklets/" + this.worklet.get("id") + "/share",
+            url: "/touchpoints/" + this.worklet.get("id") + "/share",
             type: "POST",
             dataType: "json",
             data: params,
             success: function(data) {
                 self.closeModal(true);
-                chorus.toast("worklet.share_success.toast", {workspaceName: data.response.workspace.name});
+                chorus.toast("worklet.share_success.toast", {workspaceName: data.response.name});
             },
 
             error: function(xhr) {

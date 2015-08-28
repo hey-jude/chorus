@@ -2,19 +2,19 @@ class WorkletPresenter < AlpineWorkfilePresenter
   def to_hash
     workfile = super
 
-    variables_array = []
-    variables.each do |variable|
-      variables_array.push({
-        :id => variable.id,
-        :variable_name => variable.variable_name,
-        :label => variable.label,
-        :description => variable.description,
-        :data_type => variable.data_type,
-        :required => variable.required,
-        :use_default => variable.use_default,
-        :workfile_id => variable.workfile_id,
-        :options => variable.options,
-        :validations => variable.validations
+    parameters_array = []
+    parameters.each do |parameter|
+      parameters_array.push({
+        :id => parameter.id,
+        :variable_name => parameter.variable_name,
+        :label => parameter.label,
+        :description => parameter.description,
+        :data_type => parameter.data_type,
+        :required => parameter.required,
+        :use_default => parameter.use_default,
+        :workfile_id => parameter.workfile_id,
+        :options => parameter.options,
+        :validations => parameter.validations
       })
     end
 
@@ -24,17 +24,25 @@ class WorkletPresenter < AlpineWorkfilePresenter
         :output_table => model.output_table,
         :state => model.state,
         :description => model.description,
-        :variables => variables_array
+        :parameters => parameters_array
     })
 
+    running_workfile = RunningWorkfile.where(:workfile_id => model.id, :owner_id => current_user.id)
+
     workfile.merge!({
-        :running => RunningWorkfile.where(:workfile_id => model.id, :owner_id => current_user.id).any?
+        :running => running_workfile.any?
     })
+
+    if running_workfile.any?
+      workfile.merge!({
+        :killable_id => running_workfile[0].killable_id
+      })
+    end
 
     workfile
   end
 
-  def variables
-    model.variables
+  def parameters
+    model.parameters
   end
 end

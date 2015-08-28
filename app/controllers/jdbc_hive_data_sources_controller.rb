@@ -1,5 +1,7 @@
 class JdbcHiveDataSourcesController < ApplicationController
 
+  wrap_parameters :jdbc_hive_data_source, :exclude => []
+
   before_filter :demo_mode_filter, :only => [:create, :update, :destroy]
   before_filter :require_data_source_create, :only => [:create]
 

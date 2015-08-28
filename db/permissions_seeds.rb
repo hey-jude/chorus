@@ -40,10 +40,7 @@ application_realm = ChorusScope.find_or_create_by_name(:name => 'application_rea
 # add application_realm to default group
 default_group.chorus_scope = application_realm
 
-site_admin_role.groups << default_group unless site_admin_role.groups.include? default_group
-app_manager_role.groups << default_group unless app_manager_role.groups.include? default_group
-
-admin_role.groups << default_group unless admin_role.groups.include? default_group
+collaborator_role.groups << default_group unless collaborator_role.groups.include? default_group
 
 #Role.all.each do |role|
 #    role.groups << default_group
@@ -378,6 +375,32 @@ role_permissions = {
     'CsvFile' =>      %w()
 
   },
+
+  'User' => {
+      'Events::Base' => %w(create_comment_on create_attachment_on),
+      'ChorusScope' =>  %w(),
+      'Role' =>         %w(),
+      'User' =>         %w(),
+      'Account' =>      %w(),
+      'Group' =>        %w(),
+      'Workspace' =>    %w(),
+      'DataSource' =>   %w(show),
+      'Note' =>         %w(create show),
+      'Schema' =>       %w(),
+      'Sandbox' =>      %w(),
+      'Comment' =>      %w(create show promote_to_insight),
+      'Workfile' =>     %w(),
+      'Workflow' =>     %w(),
+      'Job' =>          %w(),
+      'Task' =>         %w(),
+      'Milestone' =>    %w(),
+      'Tag' =>          %w(create show apply remove),
+      'Upload' =>       %w(),
+      'Import' =>       %w(),
+      'Notification' => %w(),
+      'CsvFile' =>      %w()
+
+  },
   
 
   'SiteAdministrator' => {
@@ -603,6 +626,7 @@ User.find_in_batches({:batch_size => 100}) do |users|
       user.roles << workflow_developer_role unless user.roles.include? workflow_developer_role
     end
     user.roles << collaborator_role unless user.roles.include? collaborator_role
+    user.roles << user_role unless user.roles.include? user_role
   end
 end
 

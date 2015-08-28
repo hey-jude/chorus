@@ -82,7 +82,7 @@ describe("chorus.pages.WorkfileIndexPage", function() {
         });
 
         it("shows the Loading text in the count span", function() {
-            expect($(this.page.$(".count"))).toContainTranslation("loading");
+            expect($(this.page.$(".count"))).toContainTranslation("general.loading");
         });
 
         it("throttles the number of search requests", function() {
@@ -114,7 +114,7 @@ describe("chorus.pages.WorkfileIndexPage", function() {
                 expect(this.page.mainContent.contentDetails.render).not.toHaveBeenCalled();
             });
             it("shows the Loading text in the count span", function() {
-                expect($(this.page.$(".count"))).not.toMatchTranslation("loading");
+                expect($(this.page.$(".count"))).not.toMatchTranslation("general.loading");
             });
         });
     });
@@ -149,8 +149,9 @@ describe("chorus.pages.WorkfileIndexPage", function() {
             itBehavesLike.aPageWithPrimaryActions([
                 {name: 'import_workfile', target: chorus.dialogs.WorkfilesImport},
                 {name: 'create_sql_workfile', target: chorus.dialogs.WorkfilesSqlNew},
-                {name: 'create_workflow', target: chorus.dialogs.WorkFlowNew},
-                {name: 'create_worklet', target: chorus.dialogs.WorkletNew}
+                {name: 'create_workflow', target: chorus.dialogs.WorkFlowNew}
+                // TODO: Once/if there is worklet creation not from a selected workfile, this should be added.
+                //{name: 'create_worklet', target: chorus.dialogs.WorkletNew}
             ]);
         });
 

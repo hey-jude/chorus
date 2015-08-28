@@ -1,0 +1,77 @@
+{{!-- worklet: run settings & outputs to display --}}
+
+<div class="worklet_configuration_panel worklet_outputs_configuration">
+    {{#if isNewWorklet}}
+    <div class="main_header"><h2>{{t "worklet.main.make_new_worklet.heading"}}</h2></div>    
+    {{else}}
+    <div class="main_header"><h2>{{t "worklet.main.configure_worklet.heading"}}</h2></div>
+    {{/if}}
+    
+
+    <div class="step_header">
+        <h3>{{t "worklet.configure.settings.run_settings.heading"}}</h3>
+        <div class="description">
+          {{t "worklet.configure.settings.run_settings.description"}}
+        </div>
+    </div>
+    
+
+    <div>
+    
+        <div class="section_header">{{t "worklet.main.worklet_outputs.section_credentials.title"}}</div>
+   
+        <!-- <h4>{{t "worklet.configure.settings.run_as.label"}}</h4> -->
+
+        <div class="description">
+            {{t "worklet.configure.settings.run_as.description"}}
+        </div>
+        
+        <div class="form_group">
+            {{#each runPersonas}}
+            <div class="form_pair">
+                <input type="radio" name="run_persona" id="run_as_{{this.run_persona}}" value="{{this.run_persona}}"{{#if this.selected}} checked{{/if}}/>
+                <label class="adjacent" for="run_as_{{this.run_persona}}">{{this.persona_run_statement}}</label>
+            </div>
+            {{/each}}
+        </div>
+
+        {{!-- commented out until feature is ready at which point it should be included in the list above --}
+        {{!--<input type="radio" name="run_persona" id="run_as_other" value="run_as_other"> --}}
+        {{!--<label for="run_as_other">Run as...</label> --}}
+
+        <div class="section_header">{{t "worklet.main.worklet_outputs.section_output.title"}}</div>   
+
+        <b>{{t "worklet.configure.settings.output.label"}}</b>
+
+        <div class="description">
+            {{t "worklet.configure.settings.output.description"}}
+        </div>
+        
+        <div id="worklet_outputs_selector_tool">
+            <div id="workfile_image_container">
+                {{#each operators}}
+                    <a href="#" class="visual_operator">
+                        <div id="{{this.id}}" data-index="{{this.index}}" class="image_operator" style="left: {{this.left}}px; top: {{this.top}}px;"></div>
+                    </a>
+                {{/each}}
+                <img class="workfile_image" src="{{workflowImageUrl}}" alt=""/>
+                {{!-- repeat under the image --}}
+                {{#each operators}}
+                    <a href="#" class="visual_operator_bottom">
+                        <div id="{{this.id}}B" class="image_operator_bottom {{#if this.selected}}marked{{/if}}" style="left: {{this.bg_left}}px; top: {{this.bg_top}}px;"></div>
+                    </a>
+                {{/each}}
+                
+            </div>
+        </div>
+        
+        <div class="form_group">
+            {{#each operators}}
+            <div class="form_pair">
+                <input type="checkbox" class="checkbox_operator" id="{{this.id}}_checkbox" data-index="{{this.index}}"{{#if this.selected}} checked{{/if}}/>
+                <label class="adjacent" for="{{this.id}}_checkbox">{{this.name}}</label>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

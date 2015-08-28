@@ -1,0 +1,32 @@
+{{#if editing}}
+    <div class="title_bar">
+        <div class="title_text">
+            {{t "worklet.configure.title_of_parameter_in_sidebar"}} {{displayIndexPlusOne}}
+        </div>
+        {{> workletInputpanelTaskButtons}}
+    </div>
+{{/if}}
+
+<div class="input_content">
+    <div class="errors"></div>
+    <div class="input_section">
+        <label class="label{{#if required}} required{{/if}}">{{label}}</label>
+
+        {{#if description}}
+        <div class="description">
+            {{description}}
+        </div>
+        {{/if}}
+
+        <div class="multiple_select_container">
+            {{#each options}}
+                <div class="multiple_select_input">
+                    <input type="checkbox" id="{{../variableName}}_{{@index}}" name="{{../variableName}}_{{@index}}" value="{{#if this.value}}{{this.value}}{{else}}{{this.option}}{{/if}}"/>
+                    <label for="{{../variableName}}_{{@index}}">{{this.option}}</label>
+                </div>
+            {{/each}}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+</div>

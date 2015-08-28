@@ -302,6 +302,11 @@ $menu-item-height-default: 40px;
             }
         }
 
+
+        // primary navigation menu
+        
+$primary-nav-separation-height: 30px;
+
         .menu.popup_drawer {
             $drawer-width: 165px + $header-height;
             @include transition-duration(0.5s);
@@ -330,12 +335,25 @@ $menu-item-height-default: 40px;
                 &.remainder { height: 100vh; }
             }
             
-            //  color for svg glyphs in the primary nav bar
+            //  color for svg glyphs in the primary nav
             #primary {
                 svg {
                     fill: #FFF;
                 }
             }
+            .primary-spacer {
+                &#spacer-admin .knob {
+                    height: 50px;
+                }
+            }
+            
+//             #primarynav-home-row {
+//                 height: $header-height + $primary-nav-separation-height;
+//                 > div {
+//                     margin-bottom: $primary-nav-separation-height;
+//                 }
+//                 
+//             }
             
             // individual sections of the primary nav
             #primary-home { 
@@ -349,6 +367,8 @@ $menu-item-height-default: 40px;
                 font-size: 20px;
             }
             #primary-workspaces {
+                position: relative;
+                top: 1px;
                 font-size: 18px;
             }
             #primary-data {
@@ -363,6 +383,13 @@ $menu-item-height-default: 40px;
             }
             #primary-tags {
                 font-size: 18px;
+            }
+            #primary-admin {
+                font-size: 19px;
+            }
+            
+            .disabled {
+                @include disabled-text;
             }
         }
 

@@ -133,7 +133,16 @@ class EventPresenter < Presenter
 
         model_hash.merge!(:workfile_id => model.workfile.id) if model.respond_to?(:workfile)
 
-        model_hash.merge!(:output_vars => model.workfile.output_table) if (model.workfile.is_a?(Worklet) || model.workfile.is_a?(PublishedWorklet))
+        if (model.workfile.is_a?(Worklet) || model.workfile.is_a?(PublishedWorklet))
+          if (model.is_a?(Events::WorkfileResult))
+            output_table = model.output_table.nil? ? model.workfile.output_table : model.output_table
+          elsif (model.is_a?(Events::WorkletResultShared))
+            result_event = Events::Base.find(model.result_note_id)
+            output_table = result_event.output_table.nil? ? model.workfile.output_table : result_event.output_table
+          end
+
+          model_hash.merge!(:output_vars => output_table)
+        end
         attachments << model_hash
       end
     end

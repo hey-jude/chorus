@@ -1,0 +1,28 @@
+{{#if editing}}
+    <div class="title_bar">
+        <div class="title_text">
+            {{t "worklet.configure.title_of_parameter_in_sidebar"}} {{displayIndexPlusOne}}
+        </div>
+        {{> workletInputpanelTaskButtons}}
+    </div>
+{{/if}}
+
+<div class="input_content">
+    <div class="errors"></div>
+    <div class="input_section">
+        <label for="{{variableName}}" class="label{{#if required}} required{{/if}}">{{label}}</label>
+
+        <select class="single_select_input" name="{{variableName}}">
+            <option value="">{{t "general.select_one"}}</option>
+            {{#each options}}
+            <option value="{{#if this.value}}{{this.value}}{{else}}{{this.option}}{{/if}}" data-option-label="{{this.option}}">{{this.option}}</option>
+            {{/each}}
+        </select>
+
+        {{#if description}}
+        <div class="description">
+            {{description}}
+        </div>
+        {{/if}}
+    </div>
+</div>

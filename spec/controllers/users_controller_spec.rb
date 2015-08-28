@@ -143,6 +143,13 @@ describe UsersController do
         event.actor.should == user
       end
 
+      it "should set the admin role if the admin flag is a string" do
+        params[:admin] = "true"
+        post :create, params
+
+        Role.find_by_name("Admin").users.should include(User.find_by_username(params[:username]))
+      end
+
       generate_fixture "userWithErrors.json" do
         post :create
       end

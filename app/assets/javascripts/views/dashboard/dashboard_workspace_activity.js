@@ -233,7 +233,7 @@ chorus.views.DashboardWorkspaceActivity = chorus.views.Base.extend({
                 var hovercard_name_html = '<div class="name_row">' + workspace_name + '</div>';
 
 				// workspace description, if there is one
-                var summary = $(document.createElement("div")).html(workspaces[wid].summary).text();
+                var summary = $.stripHtml(workspaces[wid].summary);
                 if (summary && summary.length > 512) {
                     summary = summary.substring(0, 512) + "\n...";
                 }

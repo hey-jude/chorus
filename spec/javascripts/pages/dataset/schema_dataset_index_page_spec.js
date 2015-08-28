@@ -161,7 +161,7 @@ describe("chorus.pages.SchemaDatasetIndexPage", function() {
             });
 
             it("shows the Loading text in the count span", function() {
-                expect($(this.page.$(".count"))).toContainTranslation("loading");
+                expect($(this.page.$(".count"))).toContainTranslation("general.loading");
             });
 
             it("re-fetches the collection with the search parameters", function() {
@@ -190,7 +190,7 @@ describe("chorus.pages.SchemaDatasetIndexPage", function() {
                 });
 
                 it("shows the Loading text in the count span", function() {
-                    expect($(this.page.$(".count"))).not.toContainTranslation("loading");
+                    expect($(this.page.$(".count"))).not.toContainTranslation("general.loading");
                 });
             });
         });

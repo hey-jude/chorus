@@ -192,7 +192,7 @@ describe('chorus.handlebarsHelpers.dataset', function() {
         context("when statistics is not present", function() {
             it("returns a loading message when dataset has not loaded", function () {
                 Handlebars.helpers.humanizedDatasetType({});
-                expect(window.t).toHaveBeenCalledWith("loading");
+                expect(window.t).toHaveBeenCalledWith("general.loading");
             });
 
             it("returns Chorus view if dataset is Chorus_view", function () {
@@ -229,7 +229,7 @@ describe('chorus.handlebarsHelpers.dataset', function() {
         context("when the statistics object is present", function() {
             it("should return a loading message if statistics has no objectType", function() {
                 Handlebars.helpers.humanizedDatasetType({ type: "type" }, { otherStuff: "hi" });
-                expect(window.t).toHaveBeenCalledWith("loading");
+                expect(window.t).toHaveBeenCalledWith("general.loading");
             });
 
             it("returns the correct dataset type translation", function() {
