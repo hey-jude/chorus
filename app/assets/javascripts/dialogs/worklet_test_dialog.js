@@ -11,6 +11,10 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
         this.listenTo(this.worklet, "saved", this.startRun);
         this.subscribePageEvent("worklet:run", this.runEventHandler);
 
+        // DEV-12572
+        // used to avoid weird situations where test run worklet isn't concluded but dialog closes for some reason
+        $(window).on("beforeunload", this.closeModal);
+
         this.worklet.run(this.workletParameters, true);
         this.listenToOnce(this.worklet, "saved", this.runStarted);
         this.listenToOnce(this.worklet, "saveFailed", this.runFailed);
@@ -73,6 +77,8 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     },
 
     modalClosed: function() {
+        // see above, unbind event if the modal is closed
+        $(window).off("beforeunload", this.closeModal);
         if (this.worklet.get('running')) {
             this.worklet.stop();
         }
