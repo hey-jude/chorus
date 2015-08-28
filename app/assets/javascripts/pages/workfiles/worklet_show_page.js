@@ -103,10 +103,10 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     workletSaved: function(e) {
-        if (e.changed && e.changed.status && e.changed.status === "running") {
+        var lsp = e._last_save_params;
+        if (lsp && (lsp.workflow_action === 'run' || lsp.workflow_action === 'stop')) {
             return;
         }
-        
         chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
         chorus.PageEvents.trigger("worklet:editor:save", "saved");
     },

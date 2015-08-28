@@ -180,6 +180,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
 
     save: function(attrs, options) {
         var overrides = {};
+        this._last_save_params = options;
         return this._super("save", [attrs, _.extend(options, overrides)]);
     },
 
