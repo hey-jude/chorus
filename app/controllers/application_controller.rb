@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_collection_defaults, :only => :index
   before_filter :extend_expiration
   rescue_from 'ActionController::MissingFile', :with => :render_not_found
+  rescue_from 'ActionController::InvalidAuthenticityToken', :with => :invalid_authenticity_token
   rescue_from 'ActiveRecord::RecordNotFound', :with => :render_not_found
   rescue_from 'ActiveRecord::RecordInvalid', :with => :render_not_valid
   rescue_from 'ApiValidationError', :with => :render_not_valid
@@ -53,6 +54,10 @@ class ApplicationController < ActionController::Base
 
   def verified_request?
     super || params[:session_id]
+  end
+
+  def handle_unverified_request
+    raise ActionController::InvalidAuthenticityToken
   end
 
   def set_current_user
@@ -152,6 +157,10 @@ class ApplicationController < ActionController::Base
 
   def require_login
     head :unauthorized if !logged_in? || current_session.expired?
+  end
+
+  def invalid_authenticity_token
+    head :forbidden
   end
 
   def require_admin
