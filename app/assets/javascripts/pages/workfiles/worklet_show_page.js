@@ -238,10 +238,10 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
             if (this.clickedStop) {
                 this.clickedStop = false;
             } else {
-                var activities = this.worklet.activities();
+                var activities = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
                 activities.loaded = false;
                 activities.fetchAll();
-                this.onceLoaded(activities, this.reloadHistory);
+                this.mainContent.content.workletHistory._showLatestEntry = true;
             }
         }
         else if (event === 'clickedStop') {
@@ -249,32 +249,9 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         }
     },
 
-    reloadHistory: function() {
-        this.mainContent.content.workletHistory.collection = this.worklet.activities();
-        this.mainContent.content.workletHistory._showLatestEntry = true;
-        this.mainContent.content.workletHistory.render();
-    },
-
-    showHistory: function() {
-        var newView = new chorus.views.PublishedWorkletHistory({
-            worklet: this.worklet,
-            collection: this.history,
-            mainPage: this
-        });
-
-        if (this.mainContent.content.workletHistory) {
-            this.mainContent.content.workletHistory.teardown(true);
-        }
-        this.mainContent.content.workletHistory = newView;
-        this.mainContent.content.renderSubview('workletHistory');
-
-        this.trigger('resized');
-    },
-
     buildPage: function() {
         this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
         this.history.fetchAll();
-        this.onceLoaded(this.history, this.showHistory);
 
         this.headerView = new chorus.views.WorkletHeader({
             model: this.worklet,

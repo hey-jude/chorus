@@ -3,11 +3,14 @@ chorus.views.PublishedWorkletHistoryEntry = chorus.views.Base.extend({
     templateName: 'worklets/published_worklet_history_entry',
 
     events: {
-        'click div.history_entry': 'showResults'
+        'click div.history_entry': 'historyEntryClicked'
     },
 
-    setup: function() {
+    historyEntryClicked: function(e) {
+        e && e.preventDefault();
 
+        chorus.PageEvents.trigger("worklet:history_entry_clicked", this);
+        this.showResults();
     },
 
     showResults: function() {

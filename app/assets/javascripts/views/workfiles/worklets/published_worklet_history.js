@@ -4,8 +4,8 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
 
     setup: function() {
         this.worklet = this.options.worklet;
-        this.collection = this.options.collection;
         this.mainPage = this.options.mainPage;
+        this.subscribePageEvent("worklet:history_entry_clicked", this.historyEntryClicked);
     },
 
     preRender: function() {
@@ -35,8 +35,11 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
 
         if (this._showLatestEntry === true) {
             this.historyItems[0].showResults();
-            this._showLatestEntry = false;
         }
+    },
+
+    historyEntryClicked: function(entry) {
+        this._showLatestEntry = false;
     },
 
     additionalContext: function() {
@@ -44,5 +47,4 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
             isEmpty: !this.collection || this.collection.length === 0
         };
     }
-
 });
