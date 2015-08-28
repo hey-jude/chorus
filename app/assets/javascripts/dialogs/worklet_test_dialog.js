@@ -8,6 +8,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
         this.workletParameters = this.options.workletParameters;
 
         this.listenTo(this.model, "saved", this.startRun);
+        $(window).on("beforeunload", this.closeModal);
         this.subscribePageEvent("worklet:run", this.runEventHandler);
 
         this.model.run(this.workletParameters, true);
