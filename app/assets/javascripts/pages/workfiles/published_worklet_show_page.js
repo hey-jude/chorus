@@ -11,20 +11,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
             this.worklet.fetch({
                 success: _.bind(function(model) {
                     if(!model.get('running')) {
-                        clearInterval(this.pollerID);
                         chorus.PageEvents.trigger("worklet:run", "runStopped");
-                        if(this.clickedStop) {
-                            this.clickedStop = false;
-                        }
-                        else {
-                            var activities = model.activities({resultsOnly: true, currentUserOnly: true});
-                            activities.loaded = false;
-                            activities.fetchAll();
-                            this.mainContent.content.workletHistory._showLatestEntry = true;
-                        }
-                    }
-                    else {
-                        this.sidebar.runEventHandler('runStarted');
                     }
                 }, this)
             });
@@ -45,15 +32,38 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
 
     runEventHandler: function(event) {
         if (event === 'runStarted') {
-            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            if (_.isUndefined(this.pollerID)) {
+                this._last_hist_len = this.history.length;
+                this.sidebar.runEventHandler('runStarted');
+                this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            }
         }
-        else if( event === 'clickedStop') {
+        else if (event === 'runStopped') {
+            // We want to continue polling until we have a history; running stop and history are asynchronously updated.
+            // Unless we "clicked stop"; in which case we don't expect an update in the history.
+            this.history.fetchAll({ wait: true });
+            if (this.clickedStop !== true && this._last_hist_len === this.history.length) {
+                return;
+            }
+
+            if (this.clickedStop !== true) {
+                this.mainContent.content.workletHistory._showLatestEntry = true;
+            }
+            this.clickedStop = false;
+
+            clearInterval(this.pollerID);
+            this.pollerID = void 0;
+        }
+        else if (event === 'clickedStop') {
             this.clickedStop = true;
         }
     },
 
     buildPage: function() {
-        this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
+        this.history = this.worklet.activities({
+            resultsOnly: true,
+            currentUserOnly: true
+        });
         this.history.fetchAll();
 
         this.headerView = new chorus.views.WorkletHeader({
