@@ -39,7 +39,7 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
         else if (event === 'runStopped') {
             if (!_.isUndefined(this.pollerID)) {
                 clearInterval(this.pollerID);
-                this.pollerID = null;
+                this.pollerID = void 0;
             }
         }
     },
