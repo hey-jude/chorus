@@ -178,6 +178,15 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         });
     },
 
+    wasRunRelatedSave: function() {
+        var lsp = this._last_save_params;
+        if (lsp && (lsp.workflow_action === 'run' || lsp.workflow_action === 'stop')) {
+            return true;
+        }
+
+        return false;
+    },
+
     save: function(attrs, options) {
         var overrides = {};
         this._last_save_params = options;

@@ -105,10 +105,10 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     workletSaved: function(e) {
-        var lsp = e._last_save_params;
-        if (lsp && (lsp.workflow_action === 'run' || lsp.workflow_action === 'stop')) {
+        if (this.worklet.wasRunRelatedSave()) {
             return;
         }
+
         chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
         chorus.PageEvents.trigger("worklet:editor:save", "saved");
     },
@@ -163,7 +163,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         // Each worklet edit page has these view components:
         return {
             subNav: new chorus.views.WorkletHeader({
-                model: this.worklet,
+                worklet: this.worklet,
                 mode: mode,
                 state: 'editing',
                 menuOptions: settings.menuOptions
@@ -177,7 +177,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
                 mode: mode
             }),
             content: new (settings.viewClass)({
-                model: this.worklet
+                worklet: this.worklet
             })
         };
     },
@@ -268,7 +268,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.history.fetchAll();
 
         this.headerView = new chorus.views.WorkletHeader({
-            model: this.worklet,
+            worklet: this.worklet,
             menuOptions: [],
             state: 'workspaceRun'
         });
