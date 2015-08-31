@@ -6,7 +6,7 @@ class ChorusObject < ActiveRecord::Base
   belongs_to :chorus_class
   belongs_to :chorus_scope
   belongs_to :owner, :class_name => "User"
-  has_many :chorus_object_roles, :dependent => :destroy, :uniq => true
+  has_many :chorus_object_roles, -> { uniq }, :dependent => :destroy
   #has_many :roles, :through => :chorus_object_roles
   #has_many :permissions, :through => :roles
 
