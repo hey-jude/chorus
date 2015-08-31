@@ -80,7 +80,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
 
         this.contentView = new chorus.views.PublishedWorkletContent({
             worklet: this.worklet,
-            collection: this.history,
+            history: this.history,
             mainPage: this
         });
 

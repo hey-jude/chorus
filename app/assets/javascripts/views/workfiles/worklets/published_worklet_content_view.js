@@ -8,6 +8,7 @@ chorus.views.PublishedWorkletContent = chorus.views.Base.extend({
 
     setup: function() {
         this.worklet = this.options.worklet;
+        this.history = this.options.history;
 
         this.workletOutput = new chorus.views.PublishedWorkletOutput({
             worklet: this.worklet
@@ -15,7 +16,7 @@ chorus.views.PublishedWorkletContent = chorus.views.Base.extend({
 
         this.workletHistory = new chorus.views.PublishedWorkletHistory({
             worklet: this.worklet,
-            collection: this.collection,
+            history: this.history,
             mainPage: this.options.mainPage
         });
     },
