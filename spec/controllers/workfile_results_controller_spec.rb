@@ -6,7 +6,8 @@ describe WorkfileResultsController do
     let(:workfile) { workfiles(:alpine_flow) }
     let(:params) do
       {
-        :workfile_id => workfile.id
+        :workfile_id => workfile.id,
+        :results_written => 'true'
       }
     end
 
@@ -29,6 +30,7 @@ describe WorkfileResultsController do
       let(:params) do
         {
           :workfile_id => workfile.id,
+          :results_written => 'true',
           :result_id => "123"
         }
       end
