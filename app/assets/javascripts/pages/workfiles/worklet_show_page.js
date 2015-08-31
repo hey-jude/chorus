@@ -186,40 +186,49 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         // Initial (default) view for the editor steps when opening worklet
         // possible values: from WorkletEditorSubheader. 
         // 'workflow', 'details', 'outputs', 'inputs'
-        var initial_mode = 'inputs';
 
-        // Build the editor views:
-        this.editorViews = {};
+        // DEV-12645: re-route user to run page if user does not have permission to update (i.e., not admin and not member of workspace)
+        // TODO: make this better
 
-        this.editorViews['inputs'] = this.buildEditorView('inputs', {
-            menuOptions: [],
-            viewClass: chorus.views.WorkletInputsConfiguration
-        });
+        if(!(this.worklet.workspace().canUpdate())) {
+            chorus.router.navigate(this.worklet.showRunUrl(), { trigger: true, replace: true });
+        }
+        else {
+            var initial_mode = 'inputs';
 
-        this.editorViews['outputs'] = this.buildEditorView('outputs', {
-            menuOptions: [],
-            viewClass: chorus.views.WorkletOutputsConfiguration
-        });
+            // Build the editor views:
+            this.editorViews = {};
 
-        this.editorViews['details'] = this.buildEditorView('details', {
-            menuOptions: [],
-            viewClass: chorus.views.WorkletDetailsConfiguration
-        });
+            this.editorViews['inputs'] = this.buildEditorView('inputs', {
+                menuOptions: [],
+                viewClass: chorus.views.WorkletInputsConfiguration
+            });
 
-        this.editorViews['workflow'] = this.buildEditorView('workflow', {
-            menuOptions: [],
-            viewClass: chorus.views.WorkletWorkflowConfiguration
-        });
+            this.editorViews['outputs'] = this.buildEditorView('outputs', {
+                menuOptions: [],
+                viewClass: chorus.views.WorkletOutputsConfiguration
+            });
 
-        // Render initial view
-        this.subNav = this.editorViews[initial_mode].subNav;
-        this.sidebar = this.editorViews[initial_mode].sidebar;
-        this.mainContent = new chorus.views.MainContentView({
-            worklet: this.worklet,
-            contentHeader: this.editorViews[initial_mode].contentHeader,
-            content: this.editorViews[initial_mode].content
-        });
-        this.render();
+            this.editorViews['details'] = this.buildEditorView('details', {
+                menuOptions: [],
+                viewClass: chorus.views.WorkletDetailsConfiguration
+            });
+
+            this.editorViews['workflow'] = this.buildEditorView('workflow', {
+                menuOptions: [],
+                viewClass: chorus.views.WorkletWorkflowConfiguration
+            });
+
+            // Render initial view
+            this.subNav = this.editorViews[initial_mode].subNav;
+            this.sidebar = this.editorViews[initial_mode].sidebar;
+            this.mainContent = new chorus.views.MainContentView({
+                worklet: this.worklet,
+                contentHeader: this.editorViews[initial_mode].contentHeader,
+                content: this.editorViews[initial_mode].content
+            });
+            this.render();
+        }
     }
 });
 
