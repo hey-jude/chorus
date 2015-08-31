@@ -186,6 +186,14 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         // Initial (default) view for the editor steps when opening worklet
         // possible values: from WorkletEditorSubheader. 
         // 'workflow', 'details', 'outputs', 'inputs'
+
+        // DEV-12645: re-route user to run page if user does not have permission to update (i.e., not admin and not member of workspace)
+        // TODO: make this better
+        if (!(this.worklet.workspace().canUpdate())) {
+            chorus.router.navigate(this.worklet.showRunUrl(), { trigger: true, replace: true });
+            return;
+        }
+
         var initial_mode = 'inputs';
 
         // Build the editor views:
