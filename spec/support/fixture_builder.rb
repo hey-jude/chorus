@@ -270,8 +270,8 @@ FixtureBuilder.configure do |fbuilder|
     image_workspace.save!
     workspaces.each do |workspace|
       workspace.members << the_collaborator
-      workspace.add_user_to_object_role(the_collaborator, Role.find_by_name("Contributor")) # temporary measure until ws.members<< works as intended
-      workspace.add_user_to_object_role(workspace.owner, Role.find_by_name("Contributor")) # temporary measure until ws.members<< works as intended
+      workspace.add_user_to_object_role(the_collaborator, Role.find_by_name("ProjectManager")) # temporary measure until ws.members<< works as intended
+      workspace.add_user_to_object_role(workspace.owner, Role.find_by_name("ProjectManager")) # temporary measure until ws.members<< works as intended
     end
 
     # Workspace / Dataset associations

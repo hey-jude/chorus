@@ -32,9 +32,9 @@ class WorkspaceMembersManager
   private
 
   def remove_members_with_roles(removed_members)
-    contributor_role = Role.find_by_name("Contributor") # This is temporary until 5.7
+    member_role = Role.find_by_name("ProjectManager") # This is temporary until 5.7
     removed_members.each do |member|
-      @workspace.remove_user_from_object_role(member, contributor_role)
+      @workspace.remove_user_from_object_role(member, member_role)
     end
     @workspace.members.delete(removed_members)
   end
