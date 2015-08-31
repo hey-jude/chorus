@@ -32,12 +32,14 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
 
     runEventHandler: function(event) {
         if (event === 'runStarted') {
-            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            if (_.isUndefined(this.pollerID)) {
+                this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            }
         }
         else if (event === 'runStopped') {
-            if (!_.isNull(this.pollerID)) {
+            if (!_.isUndefined(this.pollerID)) {
                 clearInterval(this.pollerID);
-                this.pollerID = null;
+                this.pollerID = void 0;
             }
         }
     },
@@ -103,10 +105,10 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     workletSaved: function(e) {
-        var lsp = e._last_save_params;
-        if (lsp && (lsp.workflow_action === 'run' || lsp.workflow_action === 'stop')) {
+        if (this.worklet.wasRunRelatedSave()) {
             return;
         }
+
         chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
         chorus.PageEvents.trigger("worklet:editor:save", "saved");
     },
@@ -161,7 +163,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         // Each worklet edit page has these view components:
         return {
             subNav: new chorus.views.WorkletHeader({
-                model: this.worklet,
+                worklet: this.worklet,
                 mode: mode,
                 state: 'editing',
                 menuOptions: settings.menuOptions
@@ -175,7 +177,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
                 mode: mode
             }),
             content: new (settings.viewClass)({
-                model: this.worklet
+                worklet: this.worklet
             })
         };
     },
@@ -232,17 +234,29 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     runEventHandler: function(event) {
-        this._super("runEventHandler", [event]);
+        if (event === 'runStarted') {
+            if (_.isUndefined(this.pollerID)) {
+                this._last_hist_len = this.history.length;
+                this.sidebar.runEventHandler('runStarted');
+                this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            }
+        }
+        else if (event === 'runStopped') {
+            // We want to continue polling until we have a history; running stop and history are asynchronously updated.
+            // Unless we "clicked stop"; in which case we don't expect an update in the history.
+            this.history.fetchAll({ wait: true });
+            if (this.clickedStop !== true && this._last_hist_len === this.history.length) {
+                return;
+            }
 
-        if (event === 'runStopped') {
-            if (this.clickedStop) {
-                this.clickedStop = false;
-            } else {
-                var activities = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
-                activities.loaded = false;
-                activities.fetchAll();
+            if (this.clickedStop !== true) {
                 this.mainContent.content.workletHistory._showLatestEntry = true;
             }
+            this.clickedStop = false;
+            this.sidebar.runEventHandler('runStopped');
+
+            clearInterval(this.pollerID);
+            this.pollerID = void 0;
         }
         else if (event === 'clickedStop') {
             this.clickedStop = true;
@@ -254,7 +268,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.history.fetchAll();
 
         this.headerView = new chorus.views.WorkletHeader({
-            model: this.worklet,
+            worklet: this.worklet,
             menuOptions: [],
             state: 'workspaceRun'
         });

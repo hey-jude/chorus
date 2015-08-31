@@ -88,7 +88,8 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         if (this.workletParametersView.validateParameterInputs()) {
             var dialog = new chorus.dialogs.WorkletTest({
                 worklet: this.worklet,
-                workletParameters: this.createAlpinePayload()
+                workletParameters: this.createAlpinePayload(),
+                outputTable: this.worklet.get('outputTable')
             });
             dialog.launchModal();
         }

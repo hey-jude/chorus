@@ -7,6 +7,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     setup: function() {
         this.workletParameters = this.options.workletParameters;
         this.worklet = this.options.worklet;
+        this.outputTable = this.options.outputTable;
 
         this.listenTo(this.worklet, "saved", this.startRun);
         this.subscribePageEvent("worklet:run", this.runEventHandler);
@@ -86,7 +87,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     },
 
     testResultUrl: function() {
-        var outputVars = this.worklet.get('outputTable') || [];
+        var outputVars = this.outputTable || this.worklet.get('outputTable') || [];
         return "/alpinedatalabs/main/chorus.do?method=showWorkletResults&session_id=" + chorus.session.get("sessionId") + "&workfile_id=" + this.worklet.id + "&result_id=" + this.resultId + "&output_names=" +  outputVars.join(';;;') + "&iebuster=" + chorus.cachebuster();
     },
 

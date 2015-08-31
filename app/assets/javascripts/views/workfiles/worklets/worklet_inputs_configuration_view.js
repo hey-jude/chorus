@@ -14,10 +14,10 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
     setup: function() {
         // Containing worklet
-        this.model = this.options.model;
+        this.worklet = this.options.worklet;
 
         // Mapped variables (parameters)
-        this.parameters = this.model.parameters();
+        this.parameters = this.worklet.parameters();
 
         // The state of the parameter models; either current or not.
         this._hasUnsavedChanges = false;
@@ -38,7 +38,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         });
 
         // Alpine-passed workflow variables
-        this.model.fetchWorkflowVariables();
+        this.worklet.fetchWorkflowVariables();
         this.subscribePageEvent('worklet:workflow_variables_loaded', this.workflowVariablesLoaded);
 
         this.broadcastEditorState();
@@ -238,7 +238,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         this.broadcastEditorState();
 
         // Update preview pane
-        this.model.parameters().trigger('update');
+        this.worklet.parameters().trigger('update');
 
         if (rerender === true) {
             this.render();
@@ -247,7 +247,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
     paramSaved: function() {
         // Update preview pane
-        this.model.parameters().trigger('update');
+        this.worklet.parameters().trigger('update');
     },
 
     paramSaveFailed: function(e,f,g) {
@@ -275,8 +275,8 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         e && e.preventDefault();
 
         var new_var = new chorus.models.WorkletParameter({
-            workfileId: this.model.id,
-            workspaceId: this.model.workspace().id
+            workfileId: this.worklet.id,
+            workspaceId: this.worklet.workspace().id
         });
         this.listenTo(new_var, "saved", this.paramChanged);
         this.listenTo(new_var, "changed", this.paramChanged);
@@ -291,7 +291,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         e && e.preventDefault();
 
         this.clearErrors();
-        var save_attempts = _.map(this.model.parameters().models, function(param_model, index) {
+        var save_attempts = _.map(this.worklet.parameters().models, function(param_model, index) {
             return this.updateParameter(null, index, true, { wait: true });
         }, this);
 

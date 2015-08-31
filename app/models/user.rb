@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
     app_manager_role = Role.find_by_name("ApplicationManager")
     site_admin_role = Role.find_by_name("SiteAdministrator")
 
-    if value == true || value == "true"
+    if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
 
       admin_role.users << self unless admin_role.users.include? self
       app_manager_role.users << self unless app_manager_role.users.include? self
@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
       end
       write_attribute(:admin, value)
 
-    elsif value == false || value == "false"
+    else
       unless self.class.admin_count == 1 # don't unset last admin
 
         admin_role.users.delete(self) if admin_role.users.include? self
