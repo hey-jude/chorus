@@ -11,8 +11,12 @@
                     <option name="register_existing_oracle" value="register_existing_oracle">{{t "datasource.oracle"}}</option>
                 {{/if}}
                 <option name="register_existing_hdfs" value="register_existing_hdfs">{{t "datasource.hdfs"}}</option>
+
+                <!-- DEV-12709: Hide "Hadoop Hive" option for 5.6 release.
                 <option name="register_existing_hdfs_hive" value="register_existing_hdfs_hive"
                         hdfs_hive="true">{{t "datasource.hdfs_hive"}}</option>
+                        -->
+
                 <option name="register_existing_hawq" value="register_existing_hawq" hawq="true">{{t "datasource.hawq"}}</option>
                 <option name="register_existing_jdbc" value="register_existing_jdbc">{{t "datasource.jdbc"}}</option>
                 <option name="register_existing_jdbc_hive" value="register_existing_jdbc_hive">{{t "datasource.jdbc_hive"}}</option>
