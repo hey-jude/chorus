@@ -121,6 +121,10 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     workletSaveFailed: function(e) {
+        if (this.worklet.wasRunRelatedSave()) {
+            this.worklet.restorePreRunAttributes();
+        }
+
         chorus.PageEvents.trigger("worklet:editor:save", "failed");
     },
 
