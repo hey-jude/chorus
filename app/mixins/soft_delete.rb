@@ -27,8 +27,8 @@ module SoftDelete
       self.unscoped { find(*args) }
     end
 
-    def where_with_destroyed *args
-      self.with_exclusive_scope { where(*args) }
+    def where_with_destroyed(*args)
+      self.unscoped.where(*args)
     end
   end
 end
