@@ -4,14 +4,10 @@ class WorkletsController < ApplicationController
   wrap_parameters :workfile
   include DataSourceAuth
 
-  before_filter :authorize_edit_worklet, :only => [:update, :destroy]
+  before_filter :authorize_show_worklet, :only => [:show, :image]
+  before_filter :authorize_edit_worklet, :only => [:update, :destroy, :upload_image]
 
   def show
-    Authority.authorize! :show,
-                         worklet.workspace,
-                         current_user,
-                         { :or => [ :current_user_is_in_workspace,
-                                    :workspace_is_public] }
 
     if params[:connect].present?
       authorize_data_sources_access worklet
@@ -83,6 +79,14 @@ class WorkletsController < ApplicationController
   def destroy
     worklet.destroy
     render :json => {}
+  end
+
+  def authorize_show_worklet
+    Authority.authorize! :show,
+                         worklet.workspace,
+                         current_user,
+                         { :or => [ :current_user_is_in_workspace,
+                                    :workspace_is_public] }
   end
 
   def authorize_edit_worklet
