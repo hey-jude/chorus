@@ -7,6 +7,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     setup: function() {
         this.workletParameters = this.options.workletParameters;
         this.worklet = this.options.worklet;
+        this.worklet._testOpen = true;
         this.outputTable = this.options.outputTable;
 
         this.listenTo(this.worklet, "saved", this.startRun);
@@ -84,6 +85,8 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
             this.worklet.stop();
         }
         this.worklet.restorePreRunAttributes();
+        this.worklet._testOpen = false;
+
         this._super("modalClosed");
     },
 

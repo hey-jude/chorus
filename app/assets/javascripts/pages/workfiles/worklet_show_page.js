@@ -40,6 +40,10 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
             if (!_.isUndefined(this.pollerID)) {
                 clearInterval(this.pollerID);
                 this.pollerID = void 0;
+
+                if (this.worklet._testOpen === false) {
+                    this.worklet.restorePreRunAttributes();
+                }
             }
         }
     },
@@ -106,7 +110,9 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     workletSaved: function(e) {
         if (this.worklet.wasRunRelatedSave()) {
-            this.worklet.restorePreRunAttributes();
+            if (this.worklet._last_save_params.workflow_action === 'stop') {
+                this.worklet.restorePreRunAttributes();
+            }
             return;
         }
 

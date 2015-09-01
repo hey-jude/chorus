@@ -176,7 +176,6 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         this.save({}, {
             workflow_action: 'stop',
             method: 'create',
-            wait: true,
             silent: true
         });
     },
