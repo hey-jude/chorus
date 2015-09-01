@@ -106,6 +106,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     workletSaved: function(e) {
         if (this.worklet.wasRunRelatedSave()) {
+            this.worklet.restorePreRunAttributes();
             return;
         }
 
@@ -156,7 +157,8 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.mainContent.contentHeader = editorView.contentHeader;
         this.mainContent.content = editorView.content;
 
-        this.render();
+        this.renderSubview('subNav');
+        this.mainContent.renderSubviews();
     },
 
     buildEditorView: function(mode, settings) {

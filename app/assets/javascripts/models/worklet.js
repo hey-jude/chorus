@@ -156,6 +156,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
     },
 
     run: function(worklet_parameters, test_run) {
+        this._attr_pre_run = _.clone(this.attributes);
         this.save({worklet_parameters: worklet_parameters, test_run: test_run}, {
             workflow_action: 'run',
             silent: true,
@@ -174,8 +175,16 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
     stop: function() {
         this.save({}, {
             workflow_action: 'stop',
-            method: 'create'
+            method: 'create',
+            wait: true,
+            silent: true
         });
+    },
+
+    restorePreRunAttributes: function() {
+        if (!_.isUndefined(this._attr_pre_run)) {
+            this.set(this._attr_pre_run, { silent: true });
+        }
     },
 
     wasRunRelatedSave: function() {

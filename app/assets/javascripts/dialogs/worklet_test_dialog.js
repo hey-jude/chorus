@@ -83,6 +83,7 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
         if (this.worklet.get('running')) {
             this.worklet.stop();
         }
+        this.worklet.restorePreRunAttributes();
         this._super("modalClosed");
     },
 
