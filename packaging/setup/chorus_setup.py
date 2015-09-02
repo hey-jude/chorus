@@ -374,9 +374,9 @@ class ChorusSetup:
                 #if not os.path.exists(os.path.join(alpine_data_repo, "configuration/hadoop_version.properties")):
                 self._cp_f(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/configuration/hadoop_version.properties"),\
                            os.path.join(alpine_data_repo, "configuration/hadoop_version.properties"))
-                self._mkdir_p(os.path.join(alpine_data_repo, "plugins10"))
-                self._cp_f(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/plugins10/plugins-alpine.jar"),\
-                           os.path.join(alpine_data_repo, "plugins10/plugins-alpine.jar"))
+                #self._mkdir_p(os.path.join(alpine_data_repo, "plugins10"))
+                #self._cp_f(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/plugins10/plugins-alpine.jar"),\
+                #           os.path.join(alpine_data_repo, "plugins10/plugins-alpine.jar"))
                 migrate_alpine_conf(os.path.join(alpine_data_repo, "configuration/alpine.conf"), \
                                     os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/configuration/alpine.conf"))
 
