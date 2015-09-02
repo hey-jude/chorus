@@ -1,3 +1,6 @@
+platform = `uname`.strip == "Darwin" ? 'osx' : 'centos'
+Paperclip.options[:command_path] = Rails.root.join('vendor', 'imagemagick', platform)
+
 # https://github.com/thoughtbot/paperclip/issues/1677#issuecomment-102159964
 Paperclip::UploadedFileAdapter.content_type_detector = Paperclip::ContentTypeDetector
 
