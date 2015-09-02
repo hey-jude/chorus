@@ -60,7 +60,7 @@ end
 # assets
 gem 'sass-rails'
 gem 'compass-rails'
-gem 'handlebars_assets'
+gem 'handlebars_assets', '0.14.1'
 gem 'therubyrhino'
 gem 'uglifier'
 gem 'yui-compressor', '0.12.0'
