@@ -15,15 +15,15 @@ class Job < ActiveRecord::Base
   belongs_to :workspace, :touch => true  #:counter_cache =>  true
   belongs_to :owner, :class_name => 'User', :touch => true  #:counter_cache =>  true
 
-  has_many :job_tasks, :order => :index
-  has_many :job_results, :order => :finished_at
+  has_many :job_tasks, -> { order :index }
+  has_many :job_results, -> { order :finished_at }
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
   has_many :comments, :through => :events
-  has_many :most_recent_comments, :through => :events, :source => :comments, :class_name => "Comment", :order => "id DESC", :limit => 1
+  has_many :most_recent_comments, -> { order("id DESC").limit(1) }, :through => :events, :source => :comments, :class_name => "Comment"
   has_many :job_subscriptions
-  has_many :success_recipients, :through => :job_subscriptions, :source => :user, :conditions => ['job_subscriptions.condition = ?', 'success']
-  has_many :failure_recipients, :through => :job_subscriptions, :source => :user, :conditions => ['job_subscriptions.condition = ?', 'failure']
+  has_many :success_recipients, -> { where 'job_subscriptions.condition = ?', 'success' }, :through => :job_subscriptions, :source => :user
+  has_many :failure_recipients, -> { where 'job_subscriptions.condition = ?', 'failure' }, :through => :job_subscriptions, :source => :user
 
   validates :interval_unit, :presence => true, :inclusion => {:in => VALID_INTERVAL_UNITS }
   validates :status, :presence => true, :inclusion => {:in => STATUSES }
@@ -108,7 +108,7 @@ class Job < ActiveRecord::Base
   def reorder_tasks(ids)
     index = 1
     ids.each do |id|
-      task = job_tasks.all.find { |task| task.id == id }
+      task = job_tasks.find { |task| task.id == id }
       if task
         task.update_attribute(:index, index)
         index += 1
@@ -117,18 +117,18 @@ class Job < ActiveRecord::Base
   end
 
   def kill
-    job_tasks.map(&:kill)
+    job_tasks.each{ |jt| jt.kill if jt.respond_to?(:kill)}
     update_attribute(:status, STOPPING)
   end
 
   def notify_on(condition, user)
-    subscription = job_subscriptions.find_or_create_by_user_id_and_condition(user.id, condition)
+    subscription = job_subscriptions.find_or_initialize_by(user_id: user.id, condition: condition)
     subscription.update_attributes!(:condition => condition, :user => user)
     reload
   end
 
   def dont_notify_on(condition, user)
-    subscription = job_subscriptions.find_by_user_id_and_condition(user.id, condition)
+    subscription = job_subscriptions.where(user_id: user.id, condition: condition).first
     subscription.delete
     reload
   end

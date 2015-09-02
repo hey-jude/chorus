@@ -26,7 +26,8 @@ class Workfile < ActiveRecord::Base
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
   has_many :comments, :through => :events
-  has_many :most_recent_comments, :through => :events, :source => :comments, :class_name => "Comment", :order => "id DESC", :limit => 1
+  has_many :most_recent_comments, -> { order("id DESC").limit(1) }, :through => :events, :source => :comments,
+           :class_name => "Comment"
   has_many :versions, :class_name => 'WorkfileVersion', :dependent => :destroy
   has_many :open_workfile_events
   belongs_to :latest_workfile_version, :class_name => 'WorkfileVersion'
@@ -36,7 +37,7 @@ class Workfile < ActiveRecord::Base
   validates_presence_of :file_name
   validates_with WorkfileUniqueNameValidator
   #validates_uniqueness_of :file_name, :scope => [:workspace_id, :deleted_at]
-  validates_format_of :file_name, :with => /^[a-zA-Z0-9_ \.\(\)\-]+$/
+  validates_format_of :file_name, :with => /\A[a-zA-Z0-9_ \.\(\)\-]+\z/
 
   before_validation :init_file_name, :on => :create
 
@@ -134,7 +135,7 @@ class Workfile < ActiveRecord::Base
     if column_name.blank? || column_name == "file_name"
       order("lower(workfiles.file_name), workfiles.id")
     else
-      order("user_modified_at desc")
+      order("workfiles.user_modified_at desc")
     end
   end
 

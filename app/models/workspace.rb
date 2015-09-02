@@ -16,6 +16,7 @@ class Workspace < ActiveRecord::Base
   has_attached_file :image, :path => ":rails_root/system/:class/:id/:style/:basename.:extension",
                     :url => "/:class/:id/image?style=:style",
                     :default_url => "", :styles => {:icon => "50x50>"}
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   belongs_to :archiver, :class_name => 'User', :touch => true
   belongs_to :owner, :class_name => 'User', :touch => true
@@ -26,11 +27,11 @@ class Workspace < ActiveRecord::Base
   has_many :workfiles, :dependent => :destroy
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
-  has_many :owned_notes, :class_name => 'Events::Base', :conditions => "events.action ILIKE 'Events::Note%'"
+  has_many :owned_notes, -> { where "events.action ILIKE 'Events::Note%'" }, :class_name => 'Events::Base'
   has_many :owned_events, :class_name => 'Events::Base'
   has_many :comments, :through => :owned_events
   has_many :chorus_views, :dependent => :destroy
-  belongs_to :sandbox, :class_name => 'Schema', :conditions => { :type => %w(GpdbSchema PgSchema) }
+  belongs_to :sandbox, -> { where :type => %w(GpdbSchema PgSchema) }, :class_name => 'Schema'
 
   has_many :csv_files
 
@@ -59,7 +60,7 @@ class Workspace < ActiveRecord::Base
   after_create :add_owner_as_member
   after_create :add_owner_to_workspace_roles
 
-  scope :active, where(:archived_at => nil)
+  scope :active, -> { where(:archived_at => nil) }
 
   after_update :solr_reindex_later, :if => :public_changed?
   # PT 12/19/14 This will auto-refresh the JSON data object for workspace
@@ -154,7 +155,7 @@ class Workspace < ActiveRecord::Base
     filtered_workfiles = filtered_workfiles.with_file_type(params[:file_type]) if params[:file_type].present?
     filtered_workfiles = filtered_workfiles.where("workfiles.file_name LIKE ?", "%#{params[:name_pattern]}%") if params[:name_pattern]
     filtered_workfiles = filtered_workfiles.where("type!='PublishedWorklet'") if params[:no_published_worklets]
-    filtered_workfiles.includes(Workfile.eager_load_associations)
+    filtered_workfiles.includes(Workfile.eager_load_associations).references(Workfile.eager_load_associations)
   end
 
   def filtered_datasets(options = {})
@@ -245,7 +246,7 @@ class Workspace < ActiveRecord::Base
 
   def self.workspaces_for(user)
     if user.admin?
-      scoped
+      all
     else
       accessible_to(user)
     end

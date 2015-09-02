@@ -1,9 +1,15 @@
 require 'spec_helper'
 
 describe DataSourcesController do
+  # Prakash. Mock current_user to avoid accessing private method in application_controller
+  let(:context) { Object.new }
   let(:user) { users(:owner) }
 
-  before { log_in user }
+  before do
+    log_in user
+    # Prakash. Mock current_user to avoid accessing private method in application_controller
+    stub(context).current_user { user }
+  end
 
   # ignore authorization unless we're specifically testing for it
   before :each do

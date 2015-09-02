@@ -90,7 +90,7 @@ page.onResourceReceived = function() {
                     },
 
                     specStarted: function (spec) {
-                    	console.log("start> "+chorus.currentSpec);
+                        console.log("start> "+spec.fullName);
                         this.specStartTime = (new Date()).getTime();
                     },
 
@@ -106,7 +106,7 @@ page.onResourceReceived = function() {
                                 return expectation.message;
                             });
                             this.failures.push({ name: name, messages: messages });
-                            console.log("\nFAILED", chorus.currentSpec, "\n");
+                             console.log("\nFAILED", result.fullName, "\n");
                         } else if (result.status == 'passed') {
                             this.numPassed++;
                             var timeTaken = (new Date()).getTime() - this.specStartTime;

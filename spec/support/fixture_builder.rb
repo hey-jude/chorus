@@ -7,10 +7,6 @@ require_relative './database_integration/postgres_integration'
 require_relative './current_user'
 require 'rr'
 
-def FixtureBuilder.password
-  'password'
-end
-
 FixtureBuilder.configure do |fbuilder|
   # rebuild fixtures automatically when these files change:
   fbuilder.files_to_check += Dir[*%w{
@@ -34,12 +30,6 @@ FixtureBuilder.configure do |fbuilder|
 
   # now declare objects
   fbuilder.factory do
-
-    # Sometimes
-    #ActiveRecord::Base.connection.tables.each do |t|
-    #  ActiveRecord::Base.connection.reset_pk_sequence!(t)
-    #end
-
     extend CurrentUserHelpers
     extend RR::Adapters::RRMethods
     Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)
@@ -57,8 +47,9 @@ FixtureBuilder.configure do |fbuilder|
 
     stub(License.instance).[](:vendor) { License::OPEN_CHORUS }
 
-    (ActiveRecord::Base.direct_descendants).each do |klass|
-      ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{klass.table_name}_id_seq RESTART WITH 1000000;")
+    (ActiveRecord::Base.connection.tables).each do |table_name|
+      next if ["schema_migrations", "groups_roles", "groups_users", "roles_users"].include? table_name
+      ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{table_name}_id_seq RESTART WITH 1000000;")
     end
 
     load "#{Rails.root}/db/permissions_seeds.rb"
@@ -98,7 +89,6 @@ FixtureBuilder.configure do |fbuilder|
 
     user_with_restricted_access = FactoryGirl.create(:user, :username => 'restricted_user')
     Events::UserAdded.by(user_with_restricted_access).add(:new_user => user_with_restricted_access)
-
 
     #Data Sources
     gpdb_data_source = FactoryGirl.create(:gpdb_data_source, :name => "searchquery", :description => "Just for searchquery and greenplumsearch", :host => "non.legit.example.com", :port => "5432", :db_name => "postgres", :owner => admin)

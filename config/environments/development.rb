@@ -1,6 +1,24 @@
 require_relative '../../app/models/chorus_config'
 
 Chorus::Application.configure do
+
+  # Custom config options up top:
+
+  # See: https://github.com/Chorus/chorus/commit/79fedf38c1ba72578084786e15b41b233fa417a1
+  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus"
+
+  # See: https://github.com/Chorus/chorus/commit/267732274571bd77f3a66ab197de20751992694e
+  if ChorusConfig.instance['mail.enabled']
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+    ActionMailer::Base.default ChorusConfig.instance.mail_configuration
+  else
+    config.action_mailer.perform_deliveries = false
+  end
+
+
+  # DEFAULT RAILS CONFIG OPTIONS below
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -8,40 +26,30 @@ Chorus::Application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+  # Do not eager load code on boot.
+  config.eager_load = false
 
-  config.log_level = :debug
-
-  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus"
-
-  # Show full error reports and disable caching
-  config.consider_all_requests_local = false
+  # Show full error reports and disable caching.
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Print deprecation notices to the Rails logger
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = false
+
+  # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
+  # Raise an error on page load if there are pending migrations
+  config.active_record.migration_error = :page_load
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  #config.active_record.auto_explain_threshold_in_seconds = 0.5
-
-  # Do not compress assets
-  #  config.assets.compress = false
-  config.assets.compress = false
-
-  # Expands the lines which load the assets
-  config.assets.debug = true
-
-  # Give paperclip path to ImageMagick tools
-  Paperclip.options[:command_path] = "/usr/local/bin/"
+  # Debug mode disables concatenation and preprocessing of assets.
+  # This option may cause significant delays in view rendering with a large
+  # number of complex assets.
+  config.assets.debug = false
 
   # Only turn it on if you really need concurrent requests
-  config.allow_concurrency = true
-  config.threadsafe! unless defined?($rails_rake_task) && $rails_rake_task
+  #config.allow_concurrency = true
+  #config.threadsafe!
 
   if ChorusConfig.instance['mail.enabled']
     config.action_mailer.delivery_method = :smtp
