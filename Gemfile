@@ -90,6 +90,7 @@ group :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :ci_next do
 end
 
 group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :ci_next do
+  gem 'simplecov', :require => false
   gem 'foreman', '>= 0.62',      :require => false
   gem 'rake',                    :require => false
   gem 'rspec', '2.14.1',                :require => 'rspec/core/rake_task'
