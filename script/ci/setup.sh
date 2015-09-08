@@ -18,6 +18,7 @@ mkdir -p tmp/pids
 rm -f tmp/fixture_builder*.yml tmp/instance_integration_file_versions*.yml tmp/GPDB_HOST_STALE
 
 cp config/chorus.properties.example config/chorus.properties
+chmod 0600 config/chorus.properties
 
 rm -f postgres && ln -s $POSTGRES_HOME postgres
 

@@ -7,6 +7,7 @@ namespace :development do
   task :generate_secret_token do
     secret_token_file = Pathname.new(__FILE__).dirname.join("../../config/secret.token")
     secret_token_file.open("w") { |f| f << SecureRandom.hex(64) } unless secret_token_file.exist?
+    secret_token_file.chmod(0600)
   end
 
   desc "Generate config/secret.key which is used for encrypting saved database passwords"
@@ -17,6 +18,7 @@ namespace :development do
     passphrase = Random.new.bytes(32)
     secret_key = Base64.strict_encode64(OpenSSL::Digest.new("SHA-256", passphrase).digest)
     secret_key_file.open("w") { |f| f << secret_key }
+    secret_key_file.chmod(0600)
   end
 
   desc "Copy database.yml.example to database.yml"
