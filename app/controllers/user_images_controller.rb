@@ -1,5 +1,4 @@
 class UserImagesController < ImagesController
-  before_filter :require_referenced_user, :only => :create
   protected
 
   def load_entity
@@ -8,8 +7,7 @@ class UserImagesController < ImagesController
   end
 
   def authorize_create!
-    # Remove this method when 'authorize_create!' is taken out of
-    # ImagesController
+    Authority.authorize! :update, @user, current_user, { :or => :current_user_is_referenced_user }
   end
 
   def authorize_show!
