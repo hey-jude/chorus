@@ -49,6 +49,11 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
     },
 
     closePage: function() {
+        if (!_.isUndefined(this.pollerID)) {
+            clearInterval(this.pollerID);
+            this.pollerID = void 0;
+        }
+
         chorus.router.navigate(this.worklet.workspace().workfilesUrl());
     },
 
