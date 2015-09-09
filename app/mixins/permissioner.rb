@@ -25,7 +25,7 @@ module Permissioner
 
     if user_class.nil? || workspace_class.nil? || datasource_class.nil?
       puts "Error: rake db:seed_permissions must be run before rake db:migrate_permissions"
-      return false
+      return true
     end
 
     user_co_count = ChorusObject.where(:chorus_class_id => user_class.id).count
