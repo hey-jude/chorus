@@ -113,17 +113,6 @@ function migrate() {
   popd > /dev/null
 }
 
-function check_migration_status() {
-    EXIT_STATUS=0
-    pushd $CHORUS_HOME > /dev/null
-    $bin/start-postgres.sh;
-    EXIT_STATUS=`expr $EXIT_STATUS + $?`;
-    EXIT_STATUS=0
-    RAILS_ENV=$RAILS_ENV $RUBY -S $RAKE db:check_migration_status
-    EXIT_STATUS=`expr $EXIT_STATUS + $?`
-    popd > /dev/null
-}
-
 function stop () {
   while getopts "t:" OPTION; do
        case $OPTION in
