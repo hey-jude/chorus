@@ -83,10 +83,8 @@ function start () {
     EXIT_STATUS=`expr $EXIT_STATUS + $?`;
   fi
   if should_handle webserver; then
-    if check_migration_status; then
-      $bin/start-webserver.sh;
-      EXIT_STATUS=`expr $EXIT_STATUS + $?`;
-    fi
+    $bin/start-webserver.sh;
+    EXIT_STATUS=`expr $EXIT_STATUS + $?`;
   fi
   if should_handle alpine; then
     if [ "$ALPINE_HOME" != "" ]; then
@@ -118,9 +116,10 @@ function migrate() {
 function check_migration_status() {
     EXIT_STATUS=0
     pushd $CHORUS_HOME > /dev/null
+    $bin/start-postgres.sh;
     EXIT_STATUS=`expr $EXIT_STATUS + $?`;
     EXIT_STATUS=0
-    RAILS_ENV=$RAILS_ENV $RUBY -S bundle exec $RAKE db:check_permission_migration_status
+    RAILS_ENV=$RAILS_ENV $RUBY -S $RAKE db:check_migration_status
     EXIT_STATUS=`expr $EXIT_STATUS + $?`
     popd > /dev/null
 }
