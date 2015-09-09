@@ -23,11 +23,17 @@ module Permissioner
     workspace_class = ChorusClass.where(:name => 'workspace'.camelize).first
     datasource_class = ChorusClass.where(:name => 'data_source'.camelize).first
 
+    if user_class.nil? || workspace_class.nil? || datasource_class.nil?
+      puts "Error: rake db:seed_permissions must be run before rake db:migrate_permissions"
+      return false
+    end
+
     user_co_count = ChorusObject.where(:chorus_class_id => user_class.id).count
     ws_co_count = ChorusObject.where(:chorus_class_id =>  workspace_class.id).count
     datasource_co_count = ChorusObject.where(:chorus_class_id => datasource_class.id).count
 
-    user_co_count == User.count && ws_co_count == Workspace.count && datasource_co_count == DataSource.count
+
+    user_co_count != User.count || ws_co_count != Workspace.count || datasource_co_count != DataSource.count
   end
 
   # Returns true if current user has assigned scope. False otherwise
