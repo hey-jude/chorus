@@ -91,13 +91,13 @@ puts ''
 
 # Groups
 puts '---- Adding Default Group  ----'
-default_group = Group.find_or_create_by_name(:name => 'default_group')
+default_group = Group.find_or_create_by(:name => 'default_group')
 
 
 # Scope
 puts ''
 puts '---- Adding application_realm as Default Scope ----'
-application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
+application_realm = ChorusScope.find_or_create_by(:name => 'application_realm')
 
 puts ''
 puts "===================== Adding Chorus Object =========================="
