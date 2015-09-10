@@ -33,12 +33,6 @@ namespace :db do
     ENV['SKIP_SOLR'] = nil
   end
 
-  task :check_permission_migration_status => :environment do
-    if Permissioner.should_migrate_permissions?
-      fail("Error: 'packaging/chorus_control.sh migrate' must be run before starting Chorus")
-    end
-  end
-
 
   def create_database_tasks(database_name)
     namespace database_name.to_sym do
