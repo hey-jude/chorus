@@ -26,7 +26,7 @@ module Chorus
     end
 
     config.after_initialize do
-      require "#{Rails.root}/lib/task_helpers/permission_utils"
+      require "#{Rails.root}/lib/task_helpers/permissions_utils"
       PermissionsUtils.check_permissions_migration_status
     end
 
