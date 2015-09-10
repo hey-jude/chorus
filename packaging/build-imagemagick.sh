@@ -5,6 +5,7 @@ if [[ "$unamestr" == 'Darwin' ]]; then
   os_friendly_name='osx'
 else
   os_friendly_name='centos'
+  yum --assumeyes install xz zlib zlib-devel
 fi
 
 set -e
@@ -12,8 +13,11 @@ set -e
 mkdir -p build
 pushd build
 
-  wget http://www.imagemagick.org/download/ImageMagick-6.9.1-10.tar.gz
-  tar xzf ImageMagick-6.9.1-10.tar.gz
+  wget http://www.imagemagick.org/download/releases/ImageMagick-6.9.1-10.tar.xz
+
+  # yum install xz
+  unxz ImageMagick-6.9.1-10.tar.xz
+  tar -xf ImageMagick-6.9.1-10.tar
 
   pushd ImageMagick-6.9.1-10
 
@@ -27,7 +31,6 @@ pushd build
 
     # zlib & zlib-devel required to compile on centos
     # yum install zlib zlib-devel
-
     wget http://www.imagemagick.org/download/delegates/libpng-1.6.18.tar.gz
     tar xzf libpng-1.6.18.tar.gz
     mv libpng-1.6.18 png
@@ -38,7 +41,7 @@ pushd build
 
     ./configure PKG_CONFIG_PATH=`pwd`/png \
                 --with-jpeg=yes --with-png=yes \
-                --disable-shared --enable-delegate-build --disable-dependency-tracking --disable-installed \
+                --enable-static=yes --disable-shared --enable-delegate-build --disable-dependency-tracking --disable-installed --disable-openmp --without-threads \
                 --with-jp2=no --with-tiff=no --with-magick-plus-plus=no --with-bzlib=no --with-freetype=no --without-perl --without-x
 
     make
