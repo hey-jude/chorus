@@ -15,16 +15,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-def running_webserver?
-  ['mizuno', 'jetty'].include? File.split($0).last
-end
 
-def check_permissions_migration_status
-  require "Permissioner"
-  if running_webserver? && Permissioner.should_migrate_permissions?
-    abort("\nError: 'packaging/chorus_control.sh migrate' must be run before starting Chorus. Press ctrl+c to exit\n")
-  end
-end
 
 
 module Chorus
@@ -35,7 +26,8 @@ module Chorus
     end
 
     config.after_initialize do
-      check_permissions_migration_status
+      require "#{Rails.root}/lib/task_helpers/permission_utils"
+      PermissionsUtils.check_permissions_migration_status
     end
 
     # Settings in config/environments/* take precedence over those specified here.

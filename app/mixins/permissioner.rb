@@ -18,24 +18,6 @@ module Permissioner
            :show_roles_and_users,
            to: :chorus_object
 
-  def self.should_migrate_permissions?
-    user_class = ChorusClass.where(:name => 'user'.camelize).first
-    workspace_class = ChorusClass.where(:name => 'workspace'.camelize).first
-    datasource_class = ChorusClass.where(:name => 'data_source'.camelize).first
-
-    if user_class.nil? || workspace_class.nil? || datasource_class.nil?
-      puts "Error: rake db:seed_permissions must be run before rake db:migrate_permissions"
-      return true
-    end
-
-    user_co_count = ChorusObject.where(:chorus_class_id => user_class.id).count
-    ws_co_count = ChorusObject.where(:chorus_class_id =>  workspace_class.id).count
-    datasource_co_count = ChorusObject.where(:chorus_class_id => datasource_class.id).count
-
-
-    user_co_count != User.count || ws_co_count != Workspace.count || datasource_co_count != DataSource.count
-  end
-
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
     if self.is_admin?(user)
