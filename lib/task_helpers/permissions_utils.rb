@@ -30,10 +30,10 @@ module PermissionsUtils
 
     if running_webserver?
       if should_seed_permissions?
-        $stderr.puts ''
-        $stderr.puts '====================================================================================================================='
-        abort("Error: rake db:seed_permissions must be run before starting Chorus. Press ctrl+c to exit\n")
-      end
+         $stderr.puts ''
+         $stderr.puts '====================================================================================================================='
+         abort("Error: 'packaging/chorus_control.sh migrate' must be run before starting Chorus. Press ctrl+c to exit\n")
+       end
 
       if should_migrate_permissions?
         $stderr.puts ''

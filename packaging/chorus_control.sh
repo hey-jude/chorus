@@ -108,6 +108,9 @@ function migrate() {
   $bin/start-postgres.sh;
   EXIT_STATUS=`expr $EXIT_STATUS + $?`;
   EXIT_STATUS=0
+  echo "-- Running seed permissions task --"
+  RAILS_ENV=$RAILS_ENV $RUBY -S $RAKE db:seed_permissions
+  echo "-- Running migrate permissions task --"
   RAILS_ENV=$RAILS_ENV $RUBY -S $RAKE db:migrate_permissions force=$flag
   EXIT_STATUS=`expr $EXIT_STATUS + $?`
   popd > /dev/null
