@@ -19,7 +19,7 @@ chorus.dialogs.ShareWorkletResultsDialog = chorus.dialogs.PickWorkspace.extend({
         };
 
         $.ajax({
-            url: "/worklets/" + this.worklet.get("id") + "/share",
+            url: "/touchpoints/" + this.worklet.get("id") + "/share",
             type: "POST",
             dataType: "json",
             data: params,

@@ -3,7 +3,7 @@ chorus.collections.PublishedWorkletSet = chorus.collections.LastFetchWins.includ
 ).extend({
         constructorName: "PublishedWorkletSet",
         model: chorus.models.PublishedWorklet,
-        urlTemplate: "worklets/",
+        urlTemplate: "touchpoints/",
         searchAttr: "namePattern",
         per_page: 20,
 

@@ -184,14 +184,14 @@ module Authority
     account = data_source.account_for_user(current_user) || data_source.accounts.build(:owner => current_user)
     account.owner
   end
-  
+
   def self.retrieve_roles(user)
     roles = user.roles.clone
+
     user.groups.each do |group|
       roles << group.roles if group.roles.empty? == false
     end
-    # PT: Andrew, why do we need this?
-    roles.reject!{|r| r.class.name == 'Array'}
+
     roles
   end
 

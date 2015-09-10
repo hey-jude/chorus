@@ -38,7 +38,7 @@ chorus.handlebarsHelpers.workspace = {
 
             //TODO: better solution for this, hard-coding for published worklets for now
             if(contextObject.get('entitySubtype') === 'published_worklet') {
-                return Handlebars.helpers.linkTo('#/worklets', 'Touchpoints', {
+                return Handlebars.helpers.linkTo('#/touchpoints', 'Touchpoints', {
                     title: 'Touchpoints'
                 }).toString();
             }

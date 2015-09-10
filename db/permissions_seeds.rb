@@ -3,18 +3,18 @@
 # roles
 puts ''
 puts '---- Adding Roles ----'
-admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
-owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
-user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
-collaborator_role = Role.find_or_create_by_name(:name => 'collaborator'.camelize)
-site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
-app_admin_role = Role.find_or_create_by_name(:name => 'application_administrator'.camelize)
-app_manager_role = Role.find_or_create_by_name(:name => 'application_manager'.camelize)
-workflow_developer_role = Role.find_or_create_by_name(:name => 'workflow_developer'.camelize)
-project_manager_role = Role.find_or_create_by_name(:name => 'project_manager'.camelize)
-project_developer_role = Role.find_or_create_by_name(:name => 'project_developer'.camelize)
-contributor_role = Role.find_or_create_by_name(:name => 'contributor'.camelize)
-data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.camelize)
+admin_role = Role.find_or_create_by(:name => 'admin'.camelize)
+owner_role = Role.find_or_create_by(:name => 'owner'.camelize)
+user_role = Role.find_or_create_by(:name => 'user'.camelize)
+collaborator_role = Role.find_or_create_by(:name => 'collaborator'.camelize)
+site_admin_role = Role.find_or_create_by(:name => 'site_administrator'.camelize)
+app_admin_role = Role.find_or_create_by(:name => 'application_administrator'.camelize)
+app_manager_role = Role.find_or_create_by(:name => 'application_manager'.camelize)
+workflow_developer_role = Role.find_or_create_by(:name => 'workflow_developer'.camelize)
+project_manager_role = Role.find_or_create_by(:name => 'project_manager'.camelize)
+project_developer_role = Role.find_or_create_by(:name => 'project_developer'.camelize)
+contributor_role = Role.find_or_create_by(:name => 'contributor'.camelize)
+data_scientist_role = Role.find_or_create_by(:name => 'data_scientist'.camelize)
 
 admins = User.where(:admin => true).all
 
@@ -32,11 +32,11 @@ admin_role.users << chorusadmin if chorusadmin && !admin_role.users.include?(cho
 
 # Groups
 puts '---- Adding Default Group  ----'
-default_group = Group.find_or_create_by_name(:name => 'default_group')
+default_group = Group.find_or_create_by(:name => 'default_group')
 # Scope
 puts ''
 puts '---- Adding application_realm as Default Scope ----'
-application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
+application_realm = ChorusScope.find_or_create_by(:name => 'application_realm')
 # add application_realm to default group
 default_group.chorus_scopes << application_realm
 
@@ -192,7 +192,7 @@ chorus_classes =  [
     ]
 
 chorus_classes.each do |chorus_class|
-    ChorusClass.find_or_create_by_name(chorus_class)
+    ChorusClass.find_or_create_by(:name => chorus_class[:name])
 end
 
 
@@ -401,7 +401,6 @@ role_permissions = {
       'CsvFile' =>      %w()
 
   },
-  
 
   'SiteAdministrator' => {
     'Events::Base' =>  %w(create show update destroy create_comment_on create_attachment_on),
@@ -427,7 +426,7 @@ role_permissions = {
     'Notification' =>  %w(create show update destroy),
     'CsvFile' =>       %w(create show update destroy)
   },
-  
+
 
   'ApplicationAdministrator' => {
     'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
@@ -453,7 +452,7 @@ role_permissions = {
     'Notification' => %w(create show update destroy),
     'CsvFile' =>      %w(create show update destroy)
   },
-  
+
 
   'ApplicationManager' => {
     'Events::Base' => %w(create_comment_on create_attachment_on),
@@ -479,7 +478,7 @@ role_permissions = {
     'Notification' => %w(create show update destroy),
     'CsvFile' =>      %w(create show update destroy)
   },
-  
+
   'WorkflowDeveloper' => {
     'Events::Base' =>  %w(),
     'ChorusScope' =>   %w(),
@@ -529,7 +528,7 @@ role_permissions = {
     'Notification' => %w(create show update destroy),
     'CsvFile' =>      %w(create show update destroy)
   },
-  
+
   'Contributor' => {
     'Events::Base' =>  %w(create show create_comment_on create_attachment_on),
     'ChorusScope' =>   %w(),
@@ -554,7 +553,7 @@ role_permissions = {
     'Notification' =>  %w(create show update destroy),
     'CsvFile' =>       %w(create show update destroy)
   },
-  
+
   'ProjectDeveloper' => {
     'Events::Base' => %w(create show create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(),
@@ -606,7 +605,7 @@ role_permissions.each do |role_name, permissions_hash|
         chorus_class = ChorusClass.find_by_name(class_name)
         #puts "---- Adding permissions for #{role_name} role and #{class_name} ----"
         role.permissions << Permission.create(:role_id => role.id,
-                                              :chorus_class_id => chorus_class.id, 
+                                              :chorus_class_id => chorus_class.id,
                                               :permissions_mask => create_permission_mask_for(permission_names, chorus_class.class_operations))
     end
 end

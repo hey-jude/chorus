@@ -19,7 +19,6 @@ $worklet-history-item-normal-color: #CCC;
 $worklet-history-item-selected-color: #DEF2DD;
 
 $worklet-edit-avatar-size: 150px;
-
 $worklet-panel-header-color: #E0F0FF;
 
 
@@ -31,12 +30,9 @@ $parameter-background-color: #F4F6FA;
 
 @mixin section-bar($bgcolor) {
     height: 25px;
-
     background-color: $bgcolor;
-
     line-height: 24px;
     padding: 0 $default-padding-horizontal;
-
     font-size: $medium-font;
     font-weight: $semibold;
     color: $color-text3;
@@ -49,6 +45,12 @@ $parameter-background-color: #F4F6FA;
     color: $color-text4;
 }
 
+@mixin centered-div {
+    position: relative;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 // ********************
 // BROAD PAGE LAYOUT
@@ -105,12 +107,34 @@ div[data-page="PublishedWorkletIndex"] {
 
     #sidebar {
       width: 0;
-      padding-left: 0;
-      padding-top: 0;
+      padding: 0;
       top: 0;
       bottom: 0;
     }
   }
+  
+  // when the catalog has no touchpoints
+    #catalog_empty {
+        position: relative;
+        > div {
+            @include centered-div;
+            width: 600px;
+        }
+
+        #empty_message {
+            position: relative;
+            top: 50px;
+            background-color: #EBECDF;
+            border: 1px solid #DBDDD2;
+            @include border-radius($default-border-radius);
+
+            padding: 10px 20px 20px 20px;
+
+            h3 {
+                font-size: 1.17em;
+            }
+        }
+    }
 }
 
 div[data-page="WorkletEdit"],
@@ -746,7 +770,6 @@ $workletSteps-container-height: 50px;
 .worklet_outputs_configuration,
 .worklet_inputs_configuration {
 
-
     .main_header {
         font-size: $page_header-fontsize;
         height: 40px;
@@ -761,7 +784,6 @@ $workletSteps-container-height: 50px;
         @include section-bar(#DDDDD8);
         margin: 3px 0 5px 0;
     }
-
 }
 
 
@@ -818,7 +840,7 @@ $workletSteps-container-height: 50px;
     right: 10px;
     top: 45px;
 
-    font-size: 12px;
+    font-size: $small-font;
     background-color: scale-color($parameter-background-color, $lightness: -2.5%);
     color: $color-text3;
     width: 200px;
@@ -826,13 +848,12 @@ $workletSteps-container-height: 50px;
 
     .subsection_header {
         @include section-bar(scale-color($dialog-header-background, $lightness: -2.5%));
-        font-size: 12px;
+        font-size: $small-font;
         margin-top: 0;
     }
 
     .variable_detail_content {
       padding: 5px;
-
       .label_header {}
     }
   }
@@ -840,7 +861,7 @@ $workletSteps-container-height: 50px;
   .spinner_div {
     display: none;
     color: $color-text4;
-    font-size: 12px;
+    font-size: $small-font;
     position:absolute;
     right: 15px;
 
@@ -873,7 +894,6 @@ $workletSteps-container-height: 50px;
 
     table {
         th {
-            // width: 40%;
             font-weight: $semibold;
             min-width: 100px;
             text-align: left;
@@ -1069,26 +1089,10 @@ $workletSteps-container-height: 50px;
             padding-top: 25px;
 
             > div {
-                    position: relative;
-                    width: 70%;
-                    margin-left: auto;
-                    margin-right: auto;
-                    // margin-bottom: 20px;
+                    @include centered-div;
             }
 
-            #hasNoResults {
-                background-color: #EBECD5;
-                border: 1px solid #DBDDD2;
-                @include border-radius($default-border-radius);
-
-                padding: 10px 20px 20px 50px;
-
-                h3, p {
-                    font-size: 1.17em;
-                }
-                p {}
-            }
-
+            // hasNoHistory = user has not run before
             #hasNoHistory {
                 padding: 10px 20px 20px 50px;
                 background-color: $informational-background-color;
@@ -1103,14 +1107,14 @@ $workletSteps-container-height: 50px;
                 }
                 h3 {
                     font-weight: $semibold;
-                    font-size: 1.1em;
+                    font-size: 1.17em;
                 }
             }
 
         }
 
         .iframe_wrapper {
-            padding: 5px 0 0 0;
+            padding: 0 0 0 0;
             // height: 100%;
 
             .form_controls {
@@ -1135,6 +1139,21 @@ $workletSteps-container-height: 50px;
         }
     }
 }
+
+// hasNoResults = no results displaying
+#hasNoResults {
+    background-color: #EBECD7;
+    border: 1px solid #DBDDD2;
+    @include border-radius($default-border-radius);
+
+    padding: 10px 20px 20px 50px;
+
+    h3 {
+        font-size: 1.17em;
+    }
+    p {}
+}
+
 // END: WORKLET RUN results & output
 
 
@@ -1177,12 +1196,10 @@ $workletSteps-container-height: 50px;
     $worklet-testResults-loader-width: 170px;
 
     width: 700px;
-    // height: 1000px;
     height: 100%;
 
     margin-left: auto;
     margin-right: auto;
-
     text-align: center;
 
     #spinner_container {

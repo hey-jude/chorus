@@ -32,12 +32,18 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
 
     runEventHandler: function(event) {
         if (event === 'runStarted') {
-            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            if (_.isUndefined(this.pollerID)) {
+                this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            }
         }
         else if (event === 'runStopped') {
-            if (!_.isNull(this.pollerID)) {
+            if (!_.isUndefined(this.pollerID)) {
                 clearInterval(this.pollerID);
-                this.pollerID = null;
+                this.pollerID = void 0;
+
+                if (this.worklet._testOpen === false) {
+                    this.worklet.restorePreRunAttributes();
+                }
             }
         }
     },
@@ -103,10 +109,22 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     workletSaved: function(e) {
+        if (this.worklet.wasRunRelatedSave()) {
+            if (this.worklet._last_save_params.workflow_action === 'stop') {
+                this.worklet.restorePreRunAttributes();
+            }
+            return;
+        }
+
+        chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
         chorus.PageEvents.trigger("worklet:editor:save", "saved");
     },
 
     workletSaveFailed: function(e) {
+        if (this.worklet.wasRunRelatedSave()) {
+            this.worklet.restorePreRunAttributes();
+        }
+
         chorus.PageEvents.trigger("worklet:editor:save", "failed");
     },
 
@@ -124,9 +142,9 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
         chorus.PageEvents.trigger("worklet:editor:save", "saving");
 
-        if (this.editorViews['inputs'].content.saveParameters() && this.worklet.save(this.worklet.attributes, { wait: true })) {
-            this.worklet.saveImageFile();
-            chorus.toast('worklet.updated.success.toast', {name: this.worklet.get('fileName'), toastOpts: {type: "success"}});
+        if (this.editorViews['inputs'].content.saveParameters() && // Inputs view
+            this.worklet.saveImageFile() && // Details view's image
+            this.worklet.save(this.worklet.attributes, { wait: true })) { // Other views
             return true;
         } else {
             chorus.PageEvents.trigger("worklet:editor:save", "failed");
@@ -149,20 +167,21 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.mainContent.contentHeader = editorView.contentHeader;
         this.mainContent.content = editorView.content;
 
-        this.render();
+        this.renderSubview('subNav');
+        this.mainContent.renderSubviews();
     },
 
     buildEditorView: function(mode, settings) {
         // Each worklet edit page has these view components:
         return {
             subNav: new chorus.views.WorkletHeader({
-                model: this.worklet,
+                worklet: this.worklet,
                 mode: mode,
                 state: 'editing',
                 menuOptions: settings.menuOptions
             }),
             sidebar: new chorus.views.WorkletParameterSidebar({
-                model: this.worklet,
+                worklet: this.worklet,
                 state: 'editing',
                 editorMode: mode
             }),
@@ -170,13 +189,23 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
                 mode: mode
             }),
             content: new (settings.viewClass)({
-                model: this.worklet
+                worklet: this.worklet
             })
         };
     },
 
     buildPage: function() {
-        // Initial (default) view for the editor:
+        // Initial (default) view for the editor steps when opening worklet
+        // possible values: from WorkletEditorSubheader. 
+        // 'workflow', 'details', 'outputs', 'inputs'
+
+        // DEV-12645: re-route user to run page if user does not have permission to update (i.e., not admin and not member of workspace)
+        // TODO: make this better
+        if (!(this.worklet.workspace().canUpdate())) {
+            chorus.router.navigate(this.worklet.showRunUrl(), { trigger: true, replace: true });
+            return;
+        }
+
         var initial_mode = 'inputs';
 
         // Build the editor views:
@@ -185,6 +214,11 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this.editorViews['inputs'] = this.buildEditorView('inputs', {
             menuOptions: [],
             viewClass: chorus.views.WorkletInputsConfiguration
+        });
+
+        this.editorViews['outputs'] = this.buildEditorView('outputs', {
+            menuOptions: [],
+            viewClass: chorus.views.WorkletOutputsConfiguration
         });
 
         this.editorViews['details'] = this.buildEditorView('details', {
@@ -197,16 +231,11 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
             viewClass: chorus.views.WorkletWorkflowConfiguration
         });
 
-        this.editorViews['outputs'] = this.buildEditorView('outputs', {
-            menuOptions: [],
-            viewClass: chorus.views.WorkletOutputsConfiguration
-        });
-
         // Render initial view
         this.subNav = this.editorViews[initial_mode].subNav;
         this.sidebar = this.editorViews[initial_mode].sidebar;
         this.mainContent = new chorus.views.MainContentView({
-            model: this.worklet,
+            worklet: this.worklet,
             contentHeader: this.editorViews[initial_mode].contentHeader,
             content: this.editorViews[initial_mode].content
         });
@@ -225,72 +254,59 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
     },
 
     runEventHandler: function(event) {
-        this._super("runEventHandler", [event]);
-
-        if (event === 'runStopped') {
-            if (this.clickedStop) {
-                this.clickedStop = false;
-            } else {
-                var activities = this.worklet.activities();
-                activities.loaded = false;
-                activities.fetchAll();
-                this.onceLoaded(activities, this.reloadHistory);
+        if (event === 'runStarted') {
+            if (_.isUndefined(this.pollerID)) {
+                this._last_hist_len = this.history.length;
+                this.sidebar.runEventHandler('runStarted');
+                this.pollerID = setInterval(this.pollForRunStatus, 1000);
             }
+        }
+        else if (event === 'runStopped') {
+            // We want to continue polling until we have a history; running stop and history are asynchronously updated.
+            // Unless we "clicked stop"; in which case we don't expect an update in the history.
+            this.history.fetchAll({ wait: true });
+            if (this.clickedStop !== true && this._last_hist_len === this.history.length) {
+                return;
+            }
+
+            if (this.clickedStop !== true) {
+                this.mainContent.content.workletHistory._showLatestEntry = true;
+            }
+            this.clickedStop = false;
+            this.sidebar.runEventHandler('runStopped');
+
+            clearInterval(this.pollerID);
+            this.pollerID = void 0;
         }
         else if (event === 'clickedStop') {
             this.clickedStop = true;
         }
     },
 
-    reloadHistory: function() {
-        this.mainContent.content.workletHistory.collection = this.worklet.activities();
-        this.mainContent.content.workletHistory.render();
-        this.mainContent.content.workletHistory.$('.history_entry')[0].click();
-    },
-
-    showHistory: function() {
-        var history_options = {
-            model: this.worklet,
-            collection: this.history,
-            mainPage: this
-        };
-
-        var newView = new chorus.views.PublishedWorkletHistory(history_options);
-
-        if (this.mainContent.content.workletHistory) {
-            this.mainContent.content.workletHistory.teardown(true);
-        }
-        this.mainContent.content.workletHistory = newView;
-        this.mainContent.content.renderSubview('workletHistory');
-
-        this.trigger('resized');
-    },
-
     buildPage: function() {
         this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
         this.history.fetchAll();
-        this.onceLoaded(this.history, this.showHistory);
 
         this.headerView = new chorus.views.WorkletHeader({
-            model: this.worklet,
+            worklet: this.worklet,
             menuOptions: [],
             state: 'workspaceRun'
         });
 
         this.subNav = this.headerView;
         this.sidebar = new chorus.views.WorkletParameterSidebar({
-            model: this.worklet,
+            worklet: this.worklet,
             state: 'running'
         });
 
         this.contentView = new chorus.views.PublishedWorkletContent({
-            model: this.worklet,
-            collection: this.history,
+            worklet: this.worklet,
+            history: this.history,
             mainPage: this
         });
 
         this.mainContent = new chorus.views.MainContentView({
-            model: this.worklet,
+            worklet: this.worklet,
             content: this.contentView
         });
 

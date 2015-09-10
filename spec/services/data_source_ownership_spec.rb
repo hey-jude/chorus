@@ -49,7 +49,7 @@ describe DataSourceOwnership do
         it "complains" do
           expect {
             request_ownership_update
-          }.to raise_error(ActiveRecord::RecordNotFound)
+          }.to raise_error(Authority::AccessDenied)
         end
       end
     end

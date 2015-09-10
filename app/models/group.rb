@@ -3,14 +3,13 @@ class Group < ActiveRecord::Base
 
   validates :name, :presence => true, uniqueness: true
 
-  has_and_belongs_to_many :chorus_scopes, :uniq => true
-  has_and_belongs_to_many :users, :uniq => true
-  has_and_belongs_to_many :roles, :uniq => true
+  has_and_belongs_to_many :chorus_scopes, -> { uniq }
+  has_and_belongs_to_many :users, -> { uniq }
+  has_and_belongs_to_many :roles, -> { uniq }
 
   # Delete HABTM association objects
   before_destroy {users.clear}
   before_destroy {roles.clear}
-  
 
   has_attached_file :avatar, :path => ":rails_root/system/:class/:id/:style/:basename.:extension",
                     :url => "/:class/:id/image?style=:style",

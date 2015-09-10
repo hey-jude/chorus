@@ -173,15 +173,10 @@ module LogArchiver
     path = "#{ASSEMBLE_ZIP_DIR}/registered_hdfs_data_sources/"
     log_cmd "mkdir -p #{path}"
 
-    # KT TODO: make this less hacky ...
-    api = request.protocol.to_s + request.host.to_s + ":"+ ChorusConfig.instance.server_port.to_s + "/hdfs_data_sources"
+    filename = path + 'hdfs_data_sources.json'
 
-    archive_path_file = path + "hdfs_data_sources.json"
-    download_api_list(api, archive_path_file)
-  end
-
-  def download_api_list(api, archive_path)
-    log_cmd("curl --insecure -o #{archive_path} #{api}")
+    json = HdfsDataSource.all.to_json
+    File.open(filename, 'w') { |f| f.write(json) }
   end
 
   def copy_file(from, to)

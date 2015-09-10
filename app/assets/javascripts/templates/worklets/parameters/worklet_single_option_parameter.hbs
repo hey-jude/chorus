@@ -15,7 +15,7 @@
         <select class="single_select_input" name="{{variableName}}">
             <option value="">{{t "general.select_one"}}</option>
             {{#each options}}
-                <option value="{{this.value}}" data-option-label="{{this.option}}">{{this.option}}</option>
+            <option value="{{#if this.value}}{{this.value}}{{else}}{{this.option}}{{/if}}" data-option-label="{{this.option}}">{{this.option}}</option>
             {{/each}}
         </select>
 
@@ -24,7 +24,5 @@
             {{description}}
         </div>
         {{/if}}
-        
     </div>
-
 </div>

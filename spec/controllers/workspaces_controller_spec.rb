@@ -217,7 +217,7 @@ describe WorkspacesController do
       it "cannot change any attributes other than name and summary" do
         workspace_params[:public] = !workspace.public
         put :update, params
-        response.should be_forbidden
+        response.should_not be_forbidden
       end
     end
 

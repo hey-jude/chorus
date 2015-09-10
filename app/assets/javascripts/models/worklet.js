@@ -24,7 +24,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         entitySubtype: "worklet"
     },
 
-    showUrlTemplate: "workspaces/{{workspace.id}}/worklets/{{this.id}}",
+    showUrlTemplate: "workspaces/{{workspace.id}}/touchpoints/{{this.id}}",
 
     attrToLabel:{
         "fileName": "entity.name.Worklet.name"
@@ -36,7 +36,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
 
     urlTemplate: function(options) {
         var action = options && options.workflow_action;
-        var url =  "workspaces/{{workspace.id}}/worklets/{{this.id}}";
+        var url =  "workspaces/{{workspace.id}}/touchpoints/{{this.id}}";
 
         if (action === 'publish') {
             url += "/publish/";
@@ -68,6 +68,8 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
             this.file.data.url = this.url({ workflow_action: 'upload_image' });
             this.file.data.submit();
         }
+
+        return true;
     },
 
     isWorklet: function() {
@@ -103,6 +105,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
             workflow_action: 'unpublish',
             unprocessableEntity: _.bind(function(e) {
                 chorus.toast(this.serverErrorMessage(), {skipTranslation: true, toastOpts: {type: "error"}});
+                this.serverErrors = {};
             }, this)
         });
     },
@@ -153,12 +156,14 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
     },
 
     run: function(worklet_parameters, test_run) {
+        this._attr_pre_run = _.clone(this.attributes);
         this.save({worklet_parameters: worklet_parameters, test_run: test_run}, {
             workflow_action: 'run',
             silent: true,
             unprocessableEntity: _.bind(function(e) {
                 if(this.serverErrorMessage()) {
                     chorus.toast(this.serverErrorMessage(), {skipTranslation: true, toastOpts: {type: "error"}});
+                    this.serverErrors = {};
                 }
                 else {
                     chorus.toast('work_flows.start_running_unprocessable.toast', {toastOpts: {type: "error"}});
@@ -170,12 +175,29 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
     stop: function() {
         this.save({}, {
             workflow_action: 'stop',
-            method: 'create'
+            method: 'create',
+            silent: true
         });
+    },
+
+    restorePreRunAttributes: function() {
+        if (!_.isUndefined(this._attr_pre_run)) {
+            this.set(this._attr_pre_run, { silent: true });
+        }
+    },
+
+    wasRunRelatedSave: function() {
+        var lsp = this._last_save_params;
+        if (lsp && (lsp.workflow_action === 'run' || lsp.workflow_action === 'stop')) {
+            return true;
+        }
+
+        return false;
     },
 
     save: function(attrs, options) {
         var overrides = {};
+        this._last_save_params = options;
         return this._super("save", [attrs, _.extend(options, overrides)]);
     },
 

@@ -3,16 +3,19 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
     templateName: "worklets/published_worklet_history",
 
     setup: function() {
-        this.model = this.options.model;
-        this.collection = this.options.collection;
+        this.worklet = this.options.worklet;
+        this.history = this.options.history;
         this.mainPage = this.options.mainPage;
+
+        this.subscribePageEvent("worklet:history_entry_clicked", this.historyEntryClicked);
+        this.listenTo(this.history, "loaded", this.render);
     },
 
     preRender: function() {
-        this.historyItems = _.map(this.collection.models, function(model, index) {
+        this.historyItems = _.map(this.history.models, function(model, index) {
             var view = new chorus.views.PublishedWorkletHistoryEntry({
                 model: model,
-                index: this.collection.length - index,
+                index: this.history.length - index,
                 mainPage: this.mainPage
             });
 
@@ -32,12 +35,20 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
             });
             attachPoint.append(container);
         }
+
+        if (this._showLatestEntry === true) {
+            this.historyItems[0].showResults();
+            this._showLatestEntry = false;
+        }
+    },
+
+    historyEntryClicked: function(entry) {
+        this._showLatestEntry = false;
     },
 
     additionalContext: function() {
         return {
-            isEmpty: !this.collection || this.collection.length === 0
+            isEmpty: !this.history || this.history.length === 0
         };
     }
-
 });

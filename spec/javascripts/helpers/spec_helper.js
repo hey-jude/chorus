@@ -147,7 +147,6 @@
     };
 
     beforeEach(function(done) {
-        chorus.currentSpec = jasmine.getEnv().currentSpec.getFullName();
         window.afterSpecFunctions = [];
         dealWithChromeBackgrounding();
         stubDelay();

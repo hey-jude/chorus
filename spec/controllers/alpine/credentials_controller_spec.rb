@@ -41,9 +41,9 @@ describe Alpine::CredentialsController do
       context 'when the user does not have an account' do
         let(:user) { users(:not_a_member) }
 
-        it 'returns 404 when the user does not have an account' do
+        it 'returns 403 Forbidden when the user does not have an account' do
           get :show, :data_source_id => data_source.id
-          response.should be_not_found
+          response.should be_forbidden
         end
       end
 

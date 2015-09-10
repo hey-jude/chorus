@@ -7,17 +7,19 @@ chorus.views.WorkletWorkflowConfiguration = chorus.views.Base.extend({
     //},
 
     setup: function() {
-        this.model = this.options.model;
+        this.worklet = this.options.worklet;
 
         this._hasUnsavedChanges = false;
         this._hasErrors = false;
 
-        this.workflow = this.model.basisWorkflow();
+        this.workflow = this.worklet.basisWorkflow();
         this.workflow.fetch();
         this.onceLoaded(this.workflow, this.render);
 
-        this.listenTo(this.model, "saved", this.workletSaved);
-        this.listenTo(this.model, "saveFailed", this.workletSaveFailed);
+        this.listenTo(this.worklet, "saved", this.workletSaved);
+        this.listenTo(this.worklet, "saveFailed", this.workletSaveFailed);
+
+        this.broadcastEditorState();
     },
 
     postRender: function() {
@@ -53,10 +55,14 @@ chorus.views.WorkletWorkflowConfiguration = chorus.views.Base.extend({
             updates[input.attr("name")] = val;
         });
 
-        this.model.save(updates);
+        this.worklet.save(updates);
     },
 
     workletSaved: function(e) {
+        if (this.worklet.wasRunRelatedSave()) {
+            return;
+        }
+
         this._hasUnsavedChanges = false;
     },
 
@@ -69,7 +75,7 @@ chorus.views.WorkletWorkflowConfiguration = chorus.views.Base.extend({
         return {
             workflow: this.workflow.attributes,
             workflowIconUrl: this.workflow.iconUrl(),
-            workflowWorkfileUrl: this.model.workspace().showUrl() + this.workflow.url(),
+            workflowWorkfileUrl: this.worklet.workspace().showUrl() + this.workflow.url(),
             //workflowEditUrl: this.workflow.workFlowShowUrl(),
             modifiedTime: new Date(this.workflow.get('userModifiedAt')).toString('MM-dd-yyyy HH:mm:ss'),
             hasComments: hasComments,

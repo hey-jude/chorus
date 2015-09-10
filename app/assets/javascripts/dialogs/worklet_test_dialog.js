@@ -5,16 +5,21 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     title: t("worklet.test.title"),
 
     setup: function() {
-        this.model = this.options.model;
         this.workletParameters = this.options.workletParameters;
-        this.model.serverErrors = {};
+        this.worklet = this.options.worklet;
+        this.worklet._testOpen = true;
+        this.outputTable = this.options.outputTable;
 
-        this.listenTo(this.model, "saved", this.startRun);
+        this.listenTo(this.worklet, "saved", this.startRun);
         this.subscribePageEvent("worklet:run", this.runEventHandler);
 
-        this.model.run(this.workletParameters, true);
-        this.listenToOnce(this.model, "saved", this.runStarted);
-        this.listenToOnce(this.model, "saveFailed", this.runFailed);
+        // DEV-12572
+        // used to avoid weird situations where test run worklet isn't concluded but dialog closes for some reason
+        $(window).on("beforeunload", this.closeModal);
+
+        this.worklet.run(this.workletParameters, true);
+        this.listenToOnce(this.worklet, "saved", this.runStarted);
+        this.listenToOnce(this.worklet, "saveFailed", this.runFailed);
     },
 
     runStarted: function() {
@@ -46,12 +51,11 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     updateElapsedTime: function() {
         var cur_time = new Date().getTime() / 1000;
         var elapsed_time = Math.floor(cur_time - this.startTime);
-
-        this.$('#elapsed_time').html(elapsed_time + ' sec.');
+        this.$('#elapsed_time').html(elapsed_time + ' ' + t("time.abbrv.second") );
     },
 
     startRun: function() {
-        this.resultId = this.model.get('killableId');
+        this.resultId = this.worklet.get('killableId');
         this.startTime = new Date().getTime() / 1000;
         this.elapsedTimeCounter = setInterval(this.updateElapsedTime.bind(this), 1000);
     },
@@ -75,18 +79,25 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
     },
 
     modalClosed: function() {
-        if(this.model.get('running')) {
-            this.model.stop();
+        // see above, unbind event if the modal is closed
+        $(window).off("beforeunload", this.closeModal);
+        if (this.worklet.get('running')) {
+            this.worklet.stop();
         }
+        this.worklet.restorePreRunAttributes();
+        this.worklet._testOpen = false;
+
         this._super("modalClosed");
     },
 
     testResultUrl: function() {
-        var outputVars = this.model.get('outputTable') || [];
-        return "/alpinedatalabs/main/chorus.do?method=showWorkletResults&session_id=" + chorus.session.get("sessionId") + "&workfile_id=" + this.model.id + "&result_id=" + this.resultId + "&output_names=" +  outputVars.join(';;;') + "&iebuster=" + chorus.cachebuster();
+        var outputVars = this.outputTable || this.worklet.get('outputTable') || [];
+        return "/alpinedatalabs/main/chorus.do?method=showWorkletResults&session_id=" + chorus.session.get("sessionId") + "&workfile_id=" + this.worklet.id + "&result_id=" + this.resultId + "&output_names=" +  outputVars.join(';;;') + "&iebuster=" + chorus.cachebuster();
     },
 
     additionalContext: function(context) {
-
+        // If there's no this.model, additionalContext must return an object.
+        return {
+        };
     }
 });

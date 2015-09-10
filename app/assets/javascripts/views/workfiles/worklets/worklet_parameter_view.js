@@ -5,14 +5,15 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
     setup: function() {
         // this.parameters becomes the filtered set of variable views
         this.parameters = [];
-        this.collection = this.model.parameters();
+        this.worklet = this.options.worklet;
+        this.collection = this.worklet.parameters();
 
         this.state = this.options.state || 'running';
 
         if (!this.collection) {
             this.collection = new chorus.collections.WorkletParameterSet([], {
-                workspaceId: this.model.workspace().id,
-                workletId: this.model.id
+                workspaceId: this.worklet.workspace().id,
+                workletId: this.worklet.id
             });
 
             this.collection.fetchAll();
@@ -20,7 +21,7 @@ chorus.views.WorkletParameterList = chorus.views.Base.extend({
 
         this.noFilter = true;
 
-        this.model.fetchWorkflowVariables();
+        this.worklet.fetchWorkflowVariables();
         this.subscribePageEvent('worklet:workflow_variables_loaded', this.workflowVariablesLoaded);
     },
 
@@ -232,7 +233,7 @@ chorus.views.WorkletCalendarParameter = chorus.views.WorkletParameter.include(ch
 
     getUserInput: function() {
         var v = {};
-        v[this.model.get('variableName')] = "'" + this.startDatePicker.getDate().format('YYYY-MM-DD') + "'";
+        v[this.model.get('variableName')] = this.startDatePicker.getDate().format('YYYY-MM-DD');
 
         return v;
     }

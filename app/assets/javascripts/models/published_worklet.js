@@ -9,10 +9,10 @@ chorus.models.PublishedWorklet = chorus.models.Worklet.include(
 
         // KT TODO: This is temporary.  Will fixup when I take care of https://alpine.atlassian.net/browse/DEV-11828
         if (action === 'image') {
-            return "workspaces/{{workspace.id}}/worklets/{{this.id}}/image";
+            return "workspaces/{{workspace.id}}/touchpoints/{{this.id}}/image";
         }
 
-        var url =  "worklets/{{id}}";
+        var url =  "touchpoints/{{id}}";
         if (action === 'run') {
             url += "/run/";
         }
@@ -22,7 +22,7 @@ chorus.models.PublishedWorklet = chorus.models.Worklet.include(
 
         return url;
     },
-    showUrlTemplate: "worklets/{{id}}",
+    showUrlTemplate: "touchpoints/{{id}}",
 
     defaults: {
         entitySubtype: "published_worklet"

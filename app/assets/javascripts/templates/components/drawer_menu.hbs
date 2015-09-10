@@ -16,16 +16,9 @@
     </li>
     {{#ifTouchpoints}}
         <li>
-            <a href="#/worklets">
+            <a href="#/touchpoints">
                 <div class="knob"><span class="fa fa-bolt" id="primary-worklets"></span></div>
                 <div>{{t "header.worklets"}}</div>
-            </a>
-        </li>
-    {{else}}
-        <li>
-            <a id="workletsNavItem" title="{{t 'worklet.feature_disabled.tooltip'}}">
-                <div class="knob"><span class="fa fa-bolt" id="primary-worklets"></span></div>
-                <div class="disabled">{{t "header.worklets"}}</div>
             </a>
         </li>
     {{/ifTouchpoints}}

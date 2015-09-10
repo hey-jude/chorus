@@ -92,7 +92,7 @@ Chorus::Application.routes.draw do
 
   resource :imports, :only => :update, :controller => 'dataset_imports'
 
-  resources :worklets, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
+  resources :touchpoints, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
     member do
       put 'run'
       post 'stop'
@@ -111,7 +111,7 @@ Chorus::Application.routes.draw do
         delete :index, action: :destroy_multiple
       end
     end
-    resources :worklets, :only => [:create, :show, :update, :destroy] do
+    resources :touchpoints, :only => [:create, :show, :update, :destroy], :controller => :worklets do
       member do
         put 'run'
         post 'stop'
@@ -227,7 +227,7 @@ Chorus::Application.routes.draw do
   end
 
   namespace :import_console do
-    match '/' => 'imports#index'
+    get '/' => 'imports#index'
     resources :imports, :only => :index
   end
 
@@ -237,7 +237,7 @@ Chorus::Application.routes.draw do
 
   resource :log_archiver, :only => :show
 
-  match '/' => 'root#index'
-  match 'VERSION' => 'configurations#version'
+  get '/' => 'root#index'
+  get 'VERSION' => 'configurations#version'
 
 end

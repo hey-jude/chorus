@@ -44,7 +44,7 @@ chorus.dialogs.WorkletNew = chorus.dialogs.Base.include(
 
         workletSaved:function () {
             this.closeModal();
-            chorus.router.navigate("/workspaces/" + this.workspace.get('id') + "/worklets/" + this.model.get("id"));
+            chorus.router.navigate("/workspaces/" + this.workspace.get('id') + "/touchpoints/" + this.model.get("id"));
         },
 
         additionalContext: function() {

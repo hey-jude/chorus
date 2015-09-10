@@ -11,20 +11,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
             this.worklet.fetch({
                 success: _.bind(function(model) {
                     if(!model.get('running')) {
-                        clearInterval(this.pollerID);
                         chorus.PageEvents.trigger("worklet:run", "runStopped");
-                        if(this.clickedStop) {
-                            this.clickedStop = false;
-                        }
-                        else {
-                            var activities = model.activities();
-                            activities.loaded = false;
-                            activities.fetchAll();
-                            this.onceLoaded(activities, this.reloadHistory);
-                        }
-                    }
-                    else {
-                        this.sidebar.runEventHandler('runStarted');
                     }
                 }, this)
             });
@@ -40,68 +27,65 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
     },
 
     closePage: function() {
-        chorus.router.navigate('#/worklets');
+        chorus.router.navigate('#/touchpoints');
     },
 
     runEventHandler: function(event) {
         if (event === 'runStarted') {
-            this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            if (_.isUndefined(this.pollerID)) {
+                this._last_hist_len = this.history.length;
+                this.sidebar.runEventHandler('runStarted');
+                this.pollerID = setInterval(this.pollForRunStatus, 1000);
+            }
         }
-        else if( event === 'clickedStop') {
+        else if (event === 'runStopped') {
+            // We want to continue polling until we have a history; running stop and history are asynchronously updated.
+            // Unless we "clicked stop"; in which case we don't expect an update in the history.
+            this.history.fetchAll({ wait: true });
+            if (this.clickedStop !== true && this._last_hist_len === this.history.length) {
+                return;
+            }
+
+            if (this.clickedStop !== true) {
+                this.mainContent.content.workletHistory._showLatestEntry = true;
+            }
+            this.clickedStop = false;
+
+            clearInterval(this.pollerID);
+            this.pollerID = void 0;
+        }
+        else if (event === 'clickedStop') {
             this.clickedStop = true;
         }
     },
 
-    reloadHistory: function() {
-        this.mainContent.content.workletHistory.collection = this.worklet.activities();
-        this.mainContent.content.workletHistory.render();
-        this.mainContent.content.workletHistory.historyItems[0].showResults();
-    },
-
-    showHistory: function() {
-        var history_options = {
-            model: this.model,
-            collection: this.history,
-            mainPage: this
-        };
-        
-        var newView = new chorus.views.PublishedWorkletHistory(history_options);
-
-        if (this.mainContent.content.workletHistory) {
-            this.mainContent.content.workletHistory.teardown(true);
-        }
-        this.mainContent.content.workletHistory = newView;
-        //this.mainContent.content.historyView = newView;
-        this.mainContent.content.renderSubview('workletHistory');
-
-        this.trigger('resized');
-    },
-
     buildPage: function() {
-        this.history = this.worklet.activities({resultsOnly: true, currentUserOnly: true});
+        this.history = this.worklet.activities({
+            resultsOnly: true,
+            currentUserOnly: true
+        });
         this.history.fetchAll();
-        this.onceLoaded(this.history, this.showHistory);
 
         this.headerView = new chorus.views.WorkletHeader({
-            model: this.worklet,
+            worklet: this.worklet,
             menuOptions: [],
             state: 'publishedRun'
         });
 
         this.subNav = this.headerView;
         this.sidebar = new chorus.views.WorkletParameterSidebar({
-            model: this.worklet,
+            worklet: this.worklet,
             state: 'running'
         });
 
         this.contentView = new chorus.views.PublishedWorkletContent({
-            model: this.worklet,
-            collection: this.history,
+            worklet: this.worklet,
+            history: this.history,
             mainPage: this
         });
 
         this.mainContent = new chorus.views.MainContentView({
-            model: this.model,
+            worklet: this.worklet,
             content: this.contentView
         });
 
@@ -113,4 +97,3 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
 
     }
 });
-

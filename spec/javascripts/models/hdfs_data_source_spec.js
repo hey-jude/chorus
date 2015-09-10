@@ -35,7 +35,7 @@ describe("chorus.models.HdfsDataSource", function() {
     it("requires name with valid length", function() {
         this.attrs.name = "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest";
         expect(this.model.performValidation(this.attrs)).toBeFalsy();
-        expect(this.model.errors.name).toMatchTranslation("validation.required_pattern", {fieldName: "name"});
+        expect(this.model.errors.name).toMatchTranslation("validation.required_pattern", {fieldName: t(this.model.attrToLabel["name"])});
     });
 
     it("requires a job tracker port, if a job tracker host is present", function() {
@@ -48,7 +48,7 @@ describe("chorus.models.HdfsDataSource", function() {
         expect(this.model.errors.jobTrackerPort).toBeTruthy();
         this.attrs.jobTrackerPort = "foobar";
         expect(this.model.performValidation(this.attrs)).toBeFalsy();
-        expect(this.model.errors.jobTrackerPort).toMatchTranslation("validation.required_pattern", {fieldName: "jobTrackerPort"});
+        expect(this.model.errors.jobTrackerPort).toMatchTranslation("validation.required_pattern", {fieldName: t(this.model.attrToLabel["jobTrackerPort"])});
         this.attrs.jobTrackerPort = "4321";
         expect(this.model.performValidation(this.attrs)).toBeTruthy();
     });

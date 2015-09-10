@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_collection_defaults, :only => :index
   before_filter :extend_expiration
   rescue_from 'ActionController::MissingFile', :with => :render_not_found
+  rescue_from 'ActionController::InvalidAuthenticityToken', :with => :invalid_authenticity_token
   rescue_from 'ActiveRecord::RecordNotFound', :with => :render_not_found
   rescue_from 'ActiveRecord::RecordInvalid', :with => :render_not_valid
   rescue_from 'ApiValidationError', :with => :render_not_valid
@@ -49,10 +50,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user
+    Thread.current[:user]
+  end
+
   private
 
   def verified_request?
     super || params[:session_id]
+  end
+
+  def handle_unverified_request
+    raise ActionController::InvalidAuthenticityToken
   end
 
   def set_current_user
@@ -129,10 +138,6 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-  def current_user
-    Thread.current[:user]
-  end
-
   #PT Method to check if current user is in scope
   def current_user_in_scope?
     if Permissioner.is_admin?(current_user)
@@ -154,6 +159,10 @@ class ApplicationController < ActionController::Base
     head :unauthorized if !logged_in? || current_session.expired?
   end
 
+  def invalid_authenticity_token
+    head :forbidden
+  end
+
   def require_admin
     render_forbidden unless logged_in? && (current_user.admin? || current_user.roles.include?(Role.find_by_name("Admin")))
   end
@@ -169,7 +178,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_collection_defaults
+    # PT: Need to fully qualify request.params in Rails 4.0
+    #TODO:Prakash Not sure why I have to add this twice. params and request.params have different storage.
+    #Some Rspec test cases are failing since request.parameteres do not get the :page and :per_page parameters.
     params.reverse_merge!(Chorus::Application.config.collection_defaults)
+    request.params.reverse_merge!(Chorus::Application.config.collection_defaults)
   end
 
   def present(model_or_collection, options={})

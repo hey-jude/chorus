@@ -1,7 +1,7 @@
 chorus.models.WorkletParameter = chorus.models.Base.extend({
     constructorName: "WorkletParameter",
     parameterWrapper: "worklet_parameter",
-    urlTemplate: "workspaces/{{workspaceId}}/worklets/{{workfileId}}/parameters/{{id}}",
+    urlTemplate: "workspaces/{{workspaceId}}/touchpoints/{{workfileId}}/parameters/{{id}}",
     viewClass: chorus.views.WorkletParameter,
 
     initialize: function(options) {
@@ -19,13 +19,6 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
     castByDataType: function() {
         var type = this.get('dataType');
         var modelClass = null;
-
-        //worklet.parameter.datatype.number=Number
-        //worklet.parameter.datatype.text=Text
-        //worklet.parameter.datatype.single_option_select=Select Single Option
-        //worklet.parameter.datatype.multiple_option_select=Select Multiple Options
-        //worklet.parameter.datatype.datetime_calendar=Date/time - Calendar
-        //worklet.parameter.datatype.datetime_relative=Date/time - Relative
 
         if (type === t('worklet.parameter.datatype.number') || type === 'integer') {
             modelClass = chorus.models.WorkletNumericParameter;
