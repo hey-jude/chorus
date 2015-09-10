@@ -15,11 +15,19 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+
+
+
 module Chorus
   class Application < Rails::Application
 
     config.before_initialize do
       abort("No database.yml file found.  Run rake development:init or rake development:generate_database_yml") unless File.exists?(File.expand_path('../database.yml', __FILE__))
+    end
+
+    config.after_initialize do
+      require "#{Rails.root}/lib/task_helpers/permissions_utils"
+      PermissionsUtils.check_permissions_migration_status
     end
 
     # Settings in config/environments/* take precedence over those specified here.
