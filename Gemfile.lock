@@ -63,6 +63,15 @@ GIT
   specs:
     jasmine-core (2.3.4)
 
+PATH
+  remote: components/admin
+  specs:
+    admin (0.0.1)
+      gretel (= 3.0.8)
+      jquery-rails (= 2.1.4)
+      jquery-ui-rails
+      rails (= 4.1.10)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -198,6 +207,8 @@ GEM
       ruby-progressbar (~> 1.0)
     geo_pattern (1.3.2)
       color (~> 1.5)
+    gretel (3.0.8)
+      rails (>= 3.2.0)
     handlebars_assets (0.14.1)
       execjs (>= 1.2.9)
       sprockets (>= 2.0.3)
@@ -224,6 +235,8 @@ GEM
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (5.0.5)
+      railties (>= 3.2.16)
     jruby-openssl (0.9.11-java)
     json (1.8.2)
     json (1.8.2-java)
@@ -420,6 +433,7 @@ DEPENDENCIES
   activerecord-import (= 0.10.0)
   activerecord-jdbcpostgresql-adapter
   activeresource
+  admin!
   attr_encrypted
   backbone_fixtures_rails!
   bullet
@@ -493,6 +507,3 @@ DEPENDENCIES
   vcr (~> 2.3.0)
   will_paginate (= 3.0.4)
   yui-compressor (= 0.12.0)
-
-BUNDLED WITH
-   1.10.6

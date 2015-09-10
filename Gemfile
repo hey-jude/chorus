@@ -43,6 +43,7 @@ gem 'mustache', '0.99.4'
 gem 'geo_pattern', '1.3.2'
 
 gem 'rubyzip', '0.9.9'
+gem 'admin', :path => 'components/admin'
 
 # KT: Group all Solr related together ..
 gem 'sunspot_rails', '2.1.0'
