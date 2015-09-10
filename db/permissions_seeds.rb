@@ -1,15 +1,3 @@
-# Check if we need to run these migrations.
-
-if ENV['force'] !=  'true'
-  unless PermissionsUtils.should_seed_permissions?
-    puts ''
-    puts "---- Skipping seed permissions. If you need to run permissions migration again use 'rake db:seed_permissions force=true' from command line. ----"
-    puts ''
-    exit(0)
-  end
-end
-
-
 #
 # Seed roles groups and permissions
 # roles

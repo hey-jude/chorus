@@ -62,7 +62,10 @@ upload_class = ChorusClass.where(:name => 'upload'.camelize).first
 # Check if we need to run these migrations. compare the count of users, workspaces and datasources againts the corresponding object count in chorus_objects table. If they match, the migration has been run and we can skip it.
 
 if ENV['force'] !=  'true'
-  unless PermissionsUtils.should_migrate_permissions?
+  user_co_count = ChorusObject.where(:chorus_class_id => user_class.id).count
+  ws_co_count = ChorusObject.where(:chorus_class_id =>  workspace_class.id).count
+  datasource_co_count = ChorusObject.where(:chorus_class_id => datasource_class.id).count
+  if user_co_count == User.count && ws_co_count == Workspace.count && datasource_co_count == DataSource.count
     puts ''
     puts "---- Skipping permissions migration. If you need to run permissions migration again use 'rake db:migrate_permissions force=true' from command line. ----"
     puts ''
