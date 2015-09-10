@@ -19,11 +19,11 @@ shared_examples "a permissioned model" do
       user_b.save!(:validate => false)
 
       group_a.users << user_a
-      group_a.chorus_scope = scope_a
+      group_a.chorus_scopes << scope_a
       group_a.save!
 
       group_b.users << user_b
-      group_b.chorus_scope = scope_b
+      group_b.chorus_scopes << scope_b
       group_b.save!
 
       co_a = model_a.chorus_object
