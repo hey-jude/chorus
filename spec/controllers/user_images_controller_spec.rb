@@ -41,6 +41,12 @@ describe UserImagesController do
         response.should be_forbidden
       end
 
+      it "allows an admin to update a users's picture" do
+        log_in users(:admin)
+        post :create, :user_id => user.id, :files => files
+        response.should be_success
+      end
+
       generate_fixture "image.json" do
         post :create, :user_id => user.id, :files => files
       end
