@@ -1,6 +1,6 @@
 Chorus::Application.routes.draw do
 
-  mount Admin::Engine, at: '/'
+  mount Admin::Engine, at: '/admin'
 
   resource :sessions, :only => [:create, :destroy, :show]
   resource :config, :only => [:show], :controller => 'configurations'

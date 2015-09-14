@@ -2,7 +2,7 @@ Admin::Engine.routes.draw do
 
 #  root to: 'admin#index'
 
-  resources :admin do
+  resources :config do
     get 'index', on: :collection
     get 'dashboard', on: :collection
     get 'licence_info' , on: :collection
