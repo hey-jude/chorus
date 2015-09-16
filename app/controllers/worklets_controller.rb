@@ -4,7 +4,7 @@ class WorkletsController < ApplicationController
   wrap_parameters :workfile
   include DataSourceAuth
 
-  before_filter :authorize_show_worklet, :only => [:show, :image]
+  before_filter :authorize_show_worklet, :only => [:show]
   before_filter :authorize_edit_worklet, :only => [:update, :destroy, :upload_image]
 
   def show
