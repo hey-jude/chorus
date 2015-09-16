@@ -10,6 +10,8 @@ class PermissionsMigrator
       'Workspace',
       'DataSource',
       'HdfsDataSource',
+      'GnipDataSource',
+      'JdbcHiveDataSource',
       'Schema',
       'Comment',
       'Workfile',
@@ -19,7 +21,9 @@ class PermissionsMigrator
       'Upload',
       'Import',
       'Notification',
-      'CsvFile'
+      'CsvFile',
+      'Database',
+      'Dataset'
   ]
 
   def self.migrate_5_7
@@ -32,7 +36,8 @@ class PermissionsMigrator
   def self.insert_chorus_object_rows
     CLASSES.map(&:constantize).each do |klass|
       rows = create_rows(klass)
-      ChorusObject.connection.execute "INSERT INTO chorus_objects #{attribute_columns_string} VALUES #{rows.join(", ")}"
+
+      ChorusObject.connection.execute "INSERT INTO chorus_objects #{attribute_columns_string} VALUES #{rows.join(", ")}" if rows.any?
     end
   end
 

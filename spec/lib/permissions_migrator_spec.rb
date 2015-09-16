@@ -24,6 +24,8 @@ describe 'migrate_permissions' do
         'Workspace',
         'DataSource',
         'HdfsDataSource',
+        'GnipDataSource',
+        'JdbcHiveDataSource',
         'Schema',
         'Comment',
         'Workfile',
@@ -33,7 +35,9 @@ describe 'migrate_permissions' do
         'Upload',
         'Import',
         'Notification',
-        'CsvFile'
+        'CsvFile',
+        'Database',
+        'Dataset'
     ]
 
     # ChorusObject assertions
