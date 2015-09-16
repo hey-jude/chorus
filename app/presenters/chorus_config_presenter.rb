@@ -22,7 +22,8 @@ class ChorusConfigPresenter < Presenter
         :time_zones => model.time_zones,
         :license => present(License.instance, options),
         :restrict_data_source_creation => model.restrict_data_source_creation?,
-        :touchpoints_enabled => model.touchpoints_enabled?
+        :touchpoints_enabled => model.touchpoints_enabled?,
+        :chiasm_enabled => model['chiasm_enabled']
     }
 
     begin

@@ -22,11 +22,13 @@
     {{/each}}
 </div>
 
-<div class="button_wrapper controls">
-    <button class="create"
-        {{#if noColumnsAvailable}}
-        disabled="disabled"
-        {{/if}}
-        >{{t "dataset.visualization.sidebar.create_chart"}}</button>
-    <button class="cancel hidden">{{t "actions.cancel"}}</button>
-</div>
+{{#if showCreateChartButton}}
+  <div class="button_wrapper controls">
+      <button class="create"
+          {{#if noColumnsAvailable}}
+          disabled="disabled"
+          {{/if}}
+          >{{t "dataset.visualization.sidebar.create_chart"}}</button>
+      <button class="cancel hidden">{{t "actions.cancel"}}</button>
+  </div>
+{{/if}}

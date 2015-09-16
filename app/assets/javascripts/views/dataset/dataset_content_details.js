@@ -100,6 +100,14 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     startVisualizationWizard: function() {
         this.resultsConsole.clickClose();
+
+        // This flag comes from the file chorus/config/chorus.properties
+        if(instance.attributes.chiasmEnabled){
+
+          // Show the Chiasm visualization container.
+          $("#chiasm-container").removeClass("hidden");
+        }
+
         this.$('.chart_icon:eq(0)').click();
         this.$('.column_count').addClass('hidden');
         this.$('.info_bar').removeClass('hidden');
@@ -108,11 +116,15 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         this.$(".filters").removeClass("hidden");
         this.filterWizardView.options.showAliasedName = false;
         this.filterWizardView.resetFilters();
+
         chorus.PageEvents.trigger("start:visualization");
     },
 
     selectVisualization: function(e) {
+
+        // Extract the selected chart type.
         var type = $(e.target).data('chart_type');
+
         this.$(".create_chart .cancel").data("type", type);
         this.$('.chart_icon').removeClass('selected');
         $(e.target).addClass('selected');
@@ -122,6 +134,12 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     cancelVisualization: function(e) {
         e.preventDefault();
+
+        // Hide the Chiasm visualization container.
+        if(instance.attributes.chiasmEnabled){
+          $("#chiasm-container").addClass("hidden");
+        }
+
         this.$('.definition').removeClass("hidden");
         this.$('.create_chart').addClass("hidden");
         this.$(".filters").addClass("hidden");
@@ -223,9 +241,168 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         var options = { model: this.dataset, collection: this.collection, errorContainer: this };
         this.chartConfig = chorus.views.ChartConfiguration.buildForType(chartType, options);
         this.chartConfig.filters = this.filterWizardView.collection;
+        this.chartConfig.chartType = chartType;
 
         this.$(".chart_config").removeClass("hidden");
         this.renderSubview("chartConfig");
+
+        // This flag comes from the file chorus/config/chorus.properties
+        if(instance.attributes.chiasmEnabled){
+
+            // Update the Chiasm visualization to initialize.
+            this.updateChiasmVisualization();
+
+            // Update the Chiasm visualization when configuration changes.
+            // The "configChanged" event is triggered whenever any part of the
+            // visualization configuration changes.
+            this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
+        }
+    },
+
+    // Starts the Chiasm runtime if it has not been started already.
+    // This is asynchronous (requiring a callback) because AMD require() is used for
+    // loading the Chiasm module.
+    chiasmInit: function (callback) {
+      var chiasm;
+      return function (callback) {
+        if (!chiasm) {
+          require(["chiasmBundle", "model"], function (ChiasmBundle, Model) {
+            chiasm = ChiasmBundle($("#chiasm-container")[0]);
+
+            this.chiasm.plugins.alpineDataLoader = function () {
+              var model = Model({
+                publicProperties: ["dataset_id"],
+                dataset_id: Model.None
+              });
+              model.when("dataset_id", function (dataset_id) {
+                $.get("/vis_engine/reduce_data", function (data) {
+                  console.log(data);
+                });
+                if (dataset_id !== Model.None) {
+                  console.log(dataset_id);
+                }
+              });
+              return model;
+            };
+          })
+        }
+      }()
+    },
+
+    // Queries the server for data, depending on the current chart type and configuration.
+    //chiasmFetchData: function (chartOptions, callback){
+    //    var chartType = chartOptions.type;
+    //    var datasetId = this.chartConfig.model.id;
+    //    var checkId =  Math.floor((Math.random()*1e8)+1).toString();
+    //    var url = "datasets/" + datasetId + "/visualizations";
+
+    //    // This code fetches the data via a "task" abstraction.
+    //    // Copied from chart_configuration_view.js
+    //    var func = "make" + _.capitalize(chartType) + "Task";
+    //    var task = this.chartConfig.model[func](chartOptions);
+    //    task.set({filters: chartOptions.filters && chartOptions.filters.sqlStrings()});
+
+    //    // This callback gets invoked once the data is loaded.
+    //    task.bindOnce("saved", function (model, data){
+
+    //        // Extract the tabular data format that Chiasm visualizations expect (array of objects)
+    //        callback(data.response.rows);
+    //    });
+    //    task.bindOnce("saveFailed", function (){
+    //        // TODO bubble errors to the UI
+    //        console.log("save failed");
+    //    });
+
+    //    var x = task.save();
+    //},
+
+    updateChiasmVisualization: function(){
+
+      var chartOptions = this.chartConfig.chartOptions();
+      var alpineBlue = "#00a0e5";
+
+      this.chiasmInit(_.bind(function (chiasm){
+        this.chiasmFetchData(chartOptions, function (data){
+
+          var visualizationPlugin;
+
+          if(chartOptions.type === "frequency"){
+            visualizationPlugin = "barChart";
+          }
+
+          var config = {
+            "layout": {
+              "plugin": "layout",
+              "state": {
+                "layout": "visualization"
+              }
+            },
+            "visualization": {
+              "plugin": visualizationPlugin,
+              "state": {
+                "xColumn": chartOptions.yAxis,
+                "xAxisLabel": chartOptions.yAxis,
+                "yColumn": "count",
+                "yAxisLabel": "Count",
+                "xAxisLabelOffset": 1.9,
+                "yAxisLabelOffset": 1.4,
+                "colorDefault": alpineBlue,
+                "yDomainMin": 0,
+                "margin": {
+                  "top": 15,
+                  "right": 0,
+                  "bottom": 60,
+                  "left": 50
+                }
+              }
+            },
+            "dataLoader": {
+              "plugin": "visEngineDataLoader",
+              "state": {
+                "dataset_id": this.chartConfig.model.id
+              }
+            },
+            "dataReduction": {
+              "plugin": "dataReduction",
+              "state": {
+                "aggregate": {
+                  "dimensions": [{
+                    "column": chartOptions.yAxis
+                  }],
+                  "measures": [{
+                    "outColumn": "count",
+                    "operator": "count"
+                  }]
+                }
+              }
+            },
+            "links": {
+              "plugin": "links",
+              "state": {
+                "bindings": [
+                  "dataLoader.data -> dataReduction.dataIn",
+                  "dataReduction.dataOut -> visualization.data"
+                ]
+              }
+            }
+          };
+          console.log(chartOptions);
+
+          //var state = {
+          //    xColumn: "bucket",
+          //    xAxisLabel: "Category",
+          //    yColumn: "count",
+          //    yAxisLabel: chartOptions.yAxis
+          //};
+
+          chiasm.setConfig(config);
+
+          chiasm.getComponent("visualization").then(function(visualization){
+            visualization.data = data;
+          });
+
+        });
+      }, this));
     },
 
     showSelectedTitle: function(e) {
