@@ -1,18 +1,27 @@
 
+admin_role = Role.find_or_create_by(:name => 'admin'.camelize)
+owner_role = Role.find_or_create_by(:name => 'owner'.camelize)
+user_role = Role.find_or_create_by(:name => 'user'.camelize)
+developer_role = Role.find_or_create_by(:name => 'developer'.camelize)
+collaborator_role = Role.find_or_create_by(:name => 'collaborator'.camelize)
+site_admin_role = Role.find_or_create_by(:name => 'site_administrator'.camelize)
+app_admin_role = Role.find_or_create_by(:name => 'application_administrator'.camelize)
+app_manager_role = Role.find_or_create_by(:name => 'application_manager'.camelize)
+workflow_developer_role = Role.find_or_create_by(:name => 'workflow_developer'.camelize)
+project_manager_role = Role.find_or_create_by(:name => 'project_manager'.camelize)
+project_developer_role = Role.find_or_create_by(:name => 'project_developer'.camelize)
+contributor_role = Role.find_or_create_by(:name => 'contributor'.camelize)
+data_scientist_role = Role.find_or_create_by(:name => 'data_scientist'.camelize)
 
-admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
-owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
-user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
-developer_role = Role.find_or_create_by_name(:name => 'developer'.camelize)
-collaborator_role = Role.find_or_create_by_name(:name => 'collaborator'.camelize)
-site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
-app_admin_role = Role.find_or_create_by_name(:name => 'application_administrator'.camelize)
-app_manager_role = Role.find_or_create_by_name(:name => 'application_manager'.camelize)
-workflow_developer_role = Role.find_or_create_by_name(:name => 'workflow_developer'.camelize)
-project_manager_role = Role.find_or_create_by_name(:name => 'project_manager'.camelize)
-project_developer_role = Role.find_or_create_by_name(:name => 'project_developer'.camelize)
-contributor_role = Role.find_or_create_by_name(:name => 'contributor'.camelize)
-data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.camelize)
+# Groups
+puts '---- Adding Default Group  ----'
+default_group = Group.find_or_create_by(:name => 'default_group')
+
+
+# Scope
+puts ''
+puts '---- Adding application_realm as Default Scope ----'
+application_realm = ChorusScope.find_or_create_by(:name => 'application_realm')
 
 role_class = ChorusClass.where(:name => 'role'.camelize).first
 chorus_scope_class = ChorusClass.where(:name => 'chorus_scope'.camelize).first
@@ -82,13 +91,13 @@ puts ''
 
 # Groups
 puts '---- Adding Default Group  ----'
-default_group = Group.find_or_create_by_name(:name => 'default_group')
+default_group = Group.find_or_create_by(:name => 'default_group')
 
 
 # Scope
 puts ''
 puts '---- Adding application_realm as Default Scope ----'
-application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
+application_realm = ChorusScope.find_or_create_by(:name => 'application_realm')
 
 puts ''
 puts "===================== Adding Chorus Object =========================="

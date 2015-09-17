@@ -8,18 +8,20 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
     },
 
     setup: function() {
-        this.model = this.options.model;
+        this.worklet = this.options.worklet;
 
         this._hasUnsavedChanges = false;
         this._hasErrors = false;
 
-        this.listenTo(this.model, "saved", this.workletSaved);
-        this.listenTo(this.model, "saveFailed", this.workletSaveFailed);
+        this.listenTo(this.worklet, "saved", this.workletSaved);
+        this.listenTo(this.worklet, "saveFailed", this.workletSaveFailed);
+
+        this.broadcastEditorState();
     },
 
     desktopFileChosen: function(e, data) {
         var uploadModel = new chorus.models.CommentFileUpload(data);
-        this.model.addFileUpload(uploadModel);
+        this.worklet.addFileUpload(uploadModel);
         var file = data.files[0];
         this.loadNewImage(file);
 
@@ -52,8 +54,8 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
             dropZone: this.$("input[type=file]")
         });
 
-        if (!_.isNull(this.model.file)) {
-          this.loadNewImage(this.model.file.get('files')[0]);
+        if (!_.isNull(this.worklet.file)) {
+          this.loadNewImage(this.worklet.file.get('files')[0]);
         }
     },
 
@@ -67,11 +69,11 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
 
     hasServerErrors: function() {
         // Use jquery to test whether this view has an input matching the server error field
-        if (!this.model.serverErrors) {
+        if (!this.worklet.serverErrors) {
             return false;
         }
 
-        var matching_fields = _.filter(this.model.serverErrors.fields, function(errors, field) {
+        var matching_fields = _.filter(this.worklet.serverErrors.fields, function(errors, field) {
             var bb_field = _.camelize(field);
             var find_field = this.$("input[name=\"" + bb_field + "\"], form textarea[name=\"" + bb_field + "\"]");
             return (find_field.length > 0);
@@ -100,14 +102,14 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
         });
 
         // Store changes into client side model, and run validation on the updates.
-        this.model.set(updates, { silent: true });
+        this.worklet.set(updates, { silent: true });
         this._hasUnsavedChanges = true;
         this._hasErrors = false;
-        this.model.serverErrors = {};
+        this.worklet.serverErrors = {};
         this.clearErrors();
         this.broadcastEditorState();
 
-        if (!this.model.performValidation(updates)) {
+        if (!this.worklet.performValidation(updates)) {
             this._hasErrors = true;
             this.broadcastEditorState();
             this.showErrors();
@@ -115,11 +117,15 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
         }
 
         if (perform_save === true) {
-            this.model.save(updates);
+            this.worklet.save(updates);
         }
     },
 
     workletSaved: function(e) {
+        if (this.worklet.wasRunRelatedSave()) {
+            return;
+        }
+
         this._hasUnsavedChanges = false;
         this.broadcastEditorState();
     },
@@ -132,10 +138,15 @@ chorus.views.WorkletDetailsConfiguration = chorus.views.Base.extend({
     },
 
     additionalContext: function () {
-        var context = {description: this.model.get('description')};
-        if (_.isNull(this.model.file)) {
-            context['avatarUrl'] = this.model.url({workflow_action: 'image'});
+        var context = {
+            description: this.worklet.get('description'),
+            fileName: this.worklet.get('fileName')
+        };
+
+        if (_.isNull(this.worklet.file)) {
+            context['avatarUrl'] = this.worklet.url({ workflow_action: 'image' });
         }
+
         return context;
     }
 });

@@ -14,10 +14,10 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
     setup: function() {
         // Containing worklet
-        this.model = this.options.model;
+        this.worklet = this.options.worklet;
 
         // Mapped variables (parameters)
-        this.parameters = this.model.parameters();
+        this.parameters = this.worklet.parameters();
 
         // The state of the parameter models; either current or not.
         this._hasUnsavedChanges = false;
@@ -38,8 +38,10 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
         });
 
         // Alpine-passed workflow variables
-        this.model.fetchWorkflowVariables();
+        this.worklet.fetchWorkflowVariables();
         this.subscribePageEvent('worklet:workflow_variables_loaded', this.workflowVariablesLoaded);
+
+        this.broadcastEditorState();
     },
 
     workflowVariablesLoaded: function(workflowVariables) {
@@ -224,26 +226,28 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         if (perform_save === true) {
             var save_state = false !== param_model.save(updates, save_options);
-            this.paramChanged();
+            this.paramChanged(true);
             return save_state;
         } else {
-            this.paramChanged();
+            this.paramChanged(true);
         }
     },
 
-    paramChanged: function() {
+    paramChanged: function(rerender) {
         this._hasUnsavedChanges = true;
         this.broadcastEditorState();
 
         // Update preview pane
-        this.model.parameters().trigger('update');
+        this.worklet.parameters().trigger('update');
 
-        this.render();
+        if (rerender === true) {
+            this.render();
+        }
     },
 
     paramSaved: function() {
         // Update preview pane
-        this.model.parameters().trigger('update');
+        this.worklet.parameters().trigger('update');
     },
 
     paramSaveFailed: function(e,f,g) {
@@ -264,15 +268,15 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
     paramDeleted: function(param_options) {
         // Remove from collection
         this.parameters.remove(param_options.model.cid);
-        this.paramChanged();
+        this.paramChanged(true);
     },
 
     newParameter: function(e) {
         e && e.preventDefault();
 
         var new_var = new chorus.models.WorkletParameter({
-            workfileId: this.model.id,
-            workspaceId: this.model.workspace().id
+            workfileId: this.worklet.id,
+            workspaceId: this.worklet.workspace().id
         });
         this.listenTo(new_var, "saved", this.paramChanged);
         this.listenTo(new_var, "changed", this.paramChanged);
@@ -280,14 +284,14 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         //new_var.save();
         this.parameters.add(new_var);
-        this.paramChanged();
+        this.paramChanged(true);
     },
 
     saveParameters: function(e) {
         e && e.preventDefault();
 
         this.clearErrors();
-        var save_attempts = _.map(this.model.parameters().models, function(param_model, index) {
+        var save_attempts = _.map(this.worklet.parameters().models, function(param_model, index) {
             return this.updateParameter(null, index, true, { wait: true });
         }, this);
 
@@ -316,7 +320,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         m.set('options', options);
 
-        this.paramChanged();
+        this.paramChanged(true);
     },
 
     deleteParameterOptionInput: function(e) {
@@ -332,7 +336,7 @@ chorus.views.WorkletInputsConfiguration = chorus.views.Base.extend({
 
         m.options = options.splice(del_at, 1);
 
-        this.paramChanged();
+        this.paramChanged(true);
     },
 
     workletParams: function() {

@@ -4,8 +4,8 @@ class Role < ActiveRecord::Base
 
   validates :name, :presence => true, :uniqueness => true
 
-  has_and_belongs_to_many :users, :uniq => true
-  has_and_belongs_to_many :groups, :uniq => true
+  has_and_belongs_to_many :users, -> { uniq }
+  has_and_belongs_to_many :groups, -> { uniq }
   has_many :permissions, :dependent => :destroy
   has_many :chorus_object_roles,  :dependent => :destroy
   has_many :chorus_objects, :through => :chorus_object_roles

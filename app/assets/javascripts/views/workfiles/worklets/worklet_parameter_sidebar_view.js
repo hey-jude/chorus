@@ -68,8 +68,10 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
 
         // If all parameters validate, gather up the inputs and invoke alpine run with them
         if (this.workletParametersView.validateParameterInputs()) {
+            this.runEventHandler('runStarted');
             this.worklet.run(this.createAlpinePayload());
             this.listenToOnce(this.worklet, "saved", this.runStarted);
+            this.listenToOnce(this.worklet, "saveFailed", this.runStartFailed);
         }
     },
 
@@ -77,12 +79,17 @@ chorus.views.WorkletParameterSidebar = chorus.views.Sidebar.extend({
         chorus.PageEvents.trigger("worklet:run", "runStarted");
     },
 
+    runStartFailed: function() {
+        this.runEventHandler('runStopped');
+    },
+
     testRunClicked: function(e) {
         e && e.preventDefault();
         if (this.workletParametersView.validateParameterInputs()) {
             var dialog = new chorus.dialogs.WorkletTest({
-                model: this.worklet,
-                workletParameters: this.createAlpinePayload()
+                worklet: this.worklet,
+                workletParameters: this.createAlpinePayload(),
+                outputTable: this.worklet.get('outputTable')
             });
             dialog.launchModal();
         }

@@ -174,7 +174,7 @@ describe DataSource do
       let(:data_source) { data_sources(:owners) }
 
       it 'raises an exception' do
-        expect { data_source.account_for_user!(users(:no_collaborators)) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { data_source.account_for_user!(users(:no_collaborators)) }.to raise_error(Authority::AccessDenied)
       end
     end
   end

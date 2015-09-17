@@ -29,7 +29,7 @@ CHORUS_RAILS_CONSOLE = "\
 if [ \"$CHORUS_HOME\" = \"\" ]; then\n\
     echo \"CHORUS_HOME is not set.  Exiting...\"\n\
 else\n\
-    RAILS_ENV=production $CHORUS_HOME/current/bin/ruby $CHORUS_HOME/current/script/rails console\n\
+    RAILS_ENV=production $CHORUS_HOME/current/bin/ruby $CHORUS_HOME/current/bin/rails console\n\
 fi\n"
 
 class ChorusSetup:

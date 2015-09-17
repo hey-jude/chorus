@@ -154,6 +154,12 @@ describe MembersController do
         }.should change(Membership, :count).by(-1)
       end
 
+      it "shold remove the member from the ProjectManager role" do
+        expect {
+          post :create, parameters
+        }.to change{workspace.users_for_role(Role.find_by_name("ProjectManager")).length}.by(-1)
+      end
+
       it "does not create any events" do
         expect {
           post :create, parameters

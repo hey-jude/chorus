@@ -10,17 +10,19 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
     },
 
     setup: function() {
-        this.model = this.options.model;
+        this.worklet = this.options.worklet;
 
         this._hasUnsavedChanges = false;
         this._hasErrors = false;
 
-        this.workflowOperators = new chorus.models.WorkFlowOperators({workfile_id: this.model.get('workflowId')});
+        this.workflowOperators = new chorus.models.WorkFlowOperators({ workfile_id: this.worklet.get('workflowId') });
         this.workflowOperators.fetch();
         this.onceLoaded(this.workflowOperators, this.render);
 
-        this.listenTo(this.model, "saved", this.workletSaved);
-        this.listenTo(this.model, "saveFailed", this.workletSaveFailed);
+        this.listenTo(this.worklet, "saved", this.workletSaved);
+        this.listenTo(this.worklet, "saveFailed", this.workletSaveFailed);
+
+        this.broadcastEditorState();
     },
 
     hasUnsavedChanges: function(broadcast) {
@@ -119,14 +121,14 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
         updates['runPersona'] = run_persona;
 
         // Store changes into client side model, and run validation on the updates
-        this.model.set(updates, { silent: true });
+        this.worklet.set(updates, { silent: true });
 
         this._hasUnsavedChanges = true;
         this._hasErrors = false;
         this.clearErrors();
         this.broadcastEditorState();
 
-        if (!this.model.performValidation(updates)) {
+        if (!this.worklet.performValidation(updates)) {
             this._hasErrors = true;
             this.showErrors();
             this.broadcastEditorState();
@@ -134,11 +136,15 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
         }
 
         if (perform_save === true) {
-            this.model.save(updates);
+            this.worklet.save(updates);
         }
     },
 
     workletSaved: function(e) {
+        if (this.worklet.wasRunRelatedSave()) {
+            return;
+        }
+
         this._hasUnsavedChanges = false;
         this.broadcastEditorState();
     },
@@ -151,7 +157,7 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
     annotatedOperators: function() {
         var icon_size = 50;
         var icon_offset = 6;  // offset to adjust for the border/marker sizes. dependent on the css
-        var output_table = this.model.get('outputTable');
+        var output_table = this.worklet.get('outputTable');
 
         return _.map(this.workflowOperators.getOperators(), function (op, index) {
                 return {
@@ -172,7 +178,7 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
     },
 
     additionalContext: function () {
-        var run_persona = this.model.get('runPersona');
+        var run_persona = this.worklet.get('runPersona');
         return {
             // View details for "Run as" options
             runPersonas: [
@@ -189,7 +195,7 @@ chorus.views.WorkletOutputsConfiguration = chorus.views.Base.extend({
             ],
 
             // Workflow image URL
-            workflowImageUrl: this.model.basisWorkflow().imageUrl(),
+            workflowImageUrl: this.worklet.basisWorkflow().imageUrl(),
 
             // View details for the operators to select as outputs
             operators: this.annotatedOperators()

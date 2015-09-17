@@ -233,7 +233,7 @@ chorus.views.WorkletCalendarParameter = chorus.views.WorkletParameter.include(ch
 
     getUserInput: function() {
         var v = {};
-        v[this.model.get('variableName')] = "'" + this.startDatePicker.getDate().format('YYYY-MM-DD') + "'";
+        v[this.model.get('variableName')] = this.startDatePicker.getDate().format('YYYY-MM-DD');
 
         return v;
     }

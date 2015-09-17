@@ -58,16 +58,13 @@ describe("chorus.models.TypeAheadSearchResult", function() {
             expectToContainClass(this.searchResults, chorus.models.Workfile);
         });
 
-        it("expects all result objects to have a name and downloadUrl/showUrl method", function() {
+        it("expects all result objects to have a name and downloadUrl/showUrl method, or to be null", function() {
             _.each(this.searchResults, function(result) {
                 expect(result.name()).toBeA('string');
 
                 var type = result && result.attributes.entityType;
-                if(type === "attachment") {
-                    expect(typeof result.downloadUrl()).toBe('string');
-                } else {
-                    expect(typeof result.showUrl()).toBe('string');
-                }
+                var u = (type === "attachment")? result.downloadUrl() : result.showUrl();
+                expect(_.isNull(u) === true) || expect(typeof u).toBe('string');
             });
         });
     });

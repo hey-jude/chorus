@@ -27,7 +27,7 @@ class SvgToPng
   def fake_uploaded_file(desired_file_name)
     file = FakeFileUpload.new(binary_data)
     file.content_type = 'image/png'
-    file.original_filename = desired_file_name
+    file.original_filename = desired_file_name.present? ? desired_file_name : "my-visualization.png"
     file
   end
 end

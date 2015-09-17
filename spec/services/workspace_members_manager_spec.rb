@@ -5,9 +5,9 @@ describe WorkspaceMembersManager do
   let(:owner) { workspace.owner }
   let(:other_user) { users(:admin) }
   let(:member) { users(:the_collaborator) }
-  let(:manager) { WorkspaceMembersManager.new(workspace, { "Contributor" => [owner.id] }, owner) }
-  let(:new_member_manager) { WorkspaceMembersManager.new(workspace, { "Contributor" => [other_user.id, owner.id] }, owner) }
-  let(:contributor_role) { Role.find_by_name("Contributor") }
+  let(:manager) { WorkspaceMembersManager.new(workspace, { "ProjectManager" => [owner.id] }, owner) }
+  let(:new_member_manager) { WorkspaceMembersManager.new(workspace, { "ProjectManager" => [other_user.id, owner.id] }, owner) }
+  let(:contributor_role) { Role.find_by_name("ProjectManager") }
 
   describe '#update_membership' do
     it 'updates the membership' do

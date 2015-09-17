@@ -86,14 +86,16 @@ module Permissioner
 
   # Called after model object is created. Created corresponding entry in chorus_objects table
   def create_chorus_object
-    chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
+    chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
     scope_id = ChorusScope.find_by_name('application_realm').id
-    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id_and_chorus_scope_id(chorus_class.id, self.id, scope_id)
+    ChorusObject.find_or_create_by(:chorus_class_id => chorus_class.id,
+                                   :instance_id => self.id,
+                                   :chorus_scope_id => scope_id)
   end
 
   # Called after a model object is destroyed. Removes corresponding entry from chorus_objects table
   def destroy_chorus_object
-    chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
+    chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
     chorus_object = ChorusObject.where(:instance_id => self.id, :chorus_class_id => chorus_class.id).first
     chorus_object.destroy if chorus_object.nil? == false
   end
@@ -112,8 +114,9 @@ module Permissioner
   end
 
   def chorus_object
-    chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
-    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
+    chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
+    ChorusObject.find_or_create_by(:chorus_class_id => chorus_class.id,
+                                   :instance_id => self.id)
   end
 
   # returns a parent object if exists. Nil otherwise
@@ -218,7 +221,7 @@ module Permissioner
     def generate_permissions_for(roles, activity_symbol_array)
       klass = self
       roles, activities = Array.wrap(roles), Array.wrap(activity_symbol_array)
-      chorus_class = ChorusClass.find_or_create_by_name(self.name)
+      chorus_class = ChorusClass.find_or_create_by(:name => self.name)
 
       permissions = roles.map do |role|
         permission = Permission.find_or_initialize_by_role_id_and_chorus_class_id(role.id, chorus_class.id)
@@ -234,7 +237,7 @@ module Permissioner
     end
 
     def set_permissions_for(roles, activity_symbol_array)
-      chorus_class = ChorusClass.find_or_create_by_name(self.name)
+      chorus_class = ChorusClass.find_or_create_by(:name => self.name)
       chorus_class.permissions << generate_permissions_for(roles, activity_symbol_array)
     end
 
