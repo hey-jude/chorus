@@ -757,6 +757,8 @@ FixtureBuilder.configure do |fbuilder|
       co.save!
     end
 
+    PermissionsMigrator.assign_users_to_default_group
+
     Sunspot.session = Sunspot.session.original_session if Sunspot.session.is_a? SunspotMatchers::SunspotSessionSpy
     #Nothing should go ↓ here.  Resetting the sunspot session should be the last thing in this file.
   end
