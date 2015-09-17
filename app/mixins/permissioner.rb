@@ -20,6 +20,7 @@ module Permissioner
 
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
+    return true
     if self.is_admin?(user)
       return false
     end
@@ -135,9 +136,10 @@ module Permissioner
       object_class_names = objects.group_by(&:class).keys.map(&:to_s)
       chorus_class_ids = ChorusClass.where(:name => object_class_names).map(&:id)
       scoped_object_ids = ChorusObject.where(:chorus_class_id => chorus_class_ids, :chorus_scope_id => scope_ids).pluck(:instance_id)
-      object_ids = scoped_object_ids & objects.map(&:id)
 
-      return self.where(:id => object_ids)
+      filtered_objects = objects.select{ |o| scoped_object_ids.include?(o.id)}
+
+      return filtered_objects
     end
 
     # returns total # of objects of current class type in scope for current_user
