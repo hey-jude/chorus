@@ -133,7 +133,8 @@ module Permissioner
       groups = user.groups
       scope_ids = ChorusScope.where(:group_id => groups.map(&:id)).pluck(:id)
       chorus_class_id = ChorusClass.find_by_name(self.name).id
-      object_ids = ChorusObject.where(:chorus_class_id => chorus_class_id, :chorus_scope_id => scope_ids).pluck(:instance_id)
+      scoped_object_ids = ChorusObject.where(:chorus_class_id => chorus_class_id, :chorus_scope_id => scope_ids).pluck(:instance_id)
+      object_ids = scoped_object_ids & objects.map(&:id)
 
       return self.where(:id => object_ids)
     end
