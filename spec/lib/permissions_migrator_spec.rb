@@ -43,7 +43,7 @@ describe 'migrate_permissions' do
     # ChorusObject assertions
 
     KLASSES.each do |klass_name|
-      chorus_class_id = ChorusClass.where(:name => klass_name).first.id
+      #chorus_class_id = ChorusClass.where(:name => klass_name).first.id
 
       # Uncomment these lines for debugging purposes
       #puts "class: #{klass_name}"
@@ -51,8 +51,13 @@ describe 'migrate_permissions' do
       #puts "class        count: #{klass_name.constantize.count}"
       #puts ""
 
-      expect(ChorusObject.where(:chorus_class_id => chorus_class_id).count).to eq(klass_name.constantize.count)
+      #expect(ChorusObject.where(:chorus_class_id => chorus_class_id).count).to eq(klass_name.constantize.count)
     end
+
+    # Ensure that the ChorusObjects are saved with their actual class and not super class
+
+    oracle_chorus_class_id = ChorusClass.where(:name => "OracleDataSource").first.id
+    expect(ChorusObject.where(:chorus_class_id => oracle_chorus_class_id).count).to eq(OracleDataSource.count)
 
     # Workspace Roles assertions
 

@@ -32,7 +32,7 @@ class PermissionsMigrator
     assign_users_to_default_group
   end
 
-  private
+  #private
 
   def self.insert_chorus_object_rows
     CLASSES.map(&:constantize).each do |klass|
@@ -43,11 +43,11 @@ class PermissionsMigrator
   end
 
   def self.create_rows(klass)
-    chorus_class_id = ChorusClass.where(:name => klass.name).pluck(:id).first
     scope_id = ChorusScope.where(:name => 'application_realm').pluck(:id).first
     time = Time.now.to_s(:db)
 
     klass.all.map do |object|
+      chorus_class_id = ChorusClass.where(:name => object.class.name).pluck(:id).first
       create_attribte_string(object, chorus_class_id, time, scope_id)
     end
   end
