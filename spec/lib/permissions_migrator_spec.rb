@@ -64,8 +64,10 @@ describe 'migrate_permissions' do
       expect(ws.users_for_role(project_manager_role)).to include(*ws.members)
     end
 
-
     # Scope assertions
     expect(ChorusObject.where(:chorus_scope_id => nil).count).to eq(0)
+
+    # Group assertions
+    expect(User.all.map(&:groups).map(&:any?).any?).to be_true # Each user must have a group
   end
 end

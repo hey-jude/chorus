@@ -27,8 +27,9 @@ class PermissionsMigrator
   ]
 
   def self.migrate_5_7
-   insert_chorus_object_rows
-   assign_workspace_roles
+    insert_chorus_object_rows
+    assign_workspace_roles
+    assign_users_to_default_group
   end
 
   private
@@ -40,8 +41,6 @@ class PermissionsMigrator
       ChorusObject.connection.execute "INSERT INTO chorus_objects #{attribute_columns_string} VALUES #{rows.join(", ")}" if rows.any?
     end
   end
-
-
 
   def self.create_rows(klass)
     chorus_class_id = ChorusClass.where(:name => klass.name).pluck(:id).first
@@ -79,5 +78,11 @@ class PermissionsMigrator
 
   def self.attribute_columns_string
     "(chorus_class_id, instance_id, owner_id, created_at, updated_at, chorus_scope_id)"
+  end
+
+  def self.assign_users_to_default_group
+    default_group = Group.find_or_create_by_name(:name => 'default_group')
+
+    User.all.each{ |user| user.groups << default_group }
   end
 end
