@@ -747,6 +747,8 @@ FixtureBuilder.configure do |fbuilder|
       co.save!
     end
 
+
+    load 'lib/permissions_migrator.rb'
     PermissionsMigrator.assign_users_to_default_group
 
     Sunspot.session = Sunspot.session.original_session if Sunspot.session.is_a? SunspotMatchers::SunspotSessionSpy

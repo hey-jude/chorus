@@ -1,4 +1,5 @@
 require 'spec_helper'
+load 'lib/permissions_migrator.rb'
 
 describe 'migrate_permissions' do
 
