@@ -1,5 +1,4 @@
 require 'digest'
-require 'soft_delete'
 
 class User < ActiveRecord::Base
   include SoftDelete
