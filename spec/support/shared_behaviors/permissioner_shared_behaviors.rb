@@ -14,7 +14,7 @@ shared_examples "a permissioned model" do
       model.dup.tap do |model|
         # try to avoid PG constraints as they aren't important for this test
         model.name = model.name + "_different" if model.respond_to?(:name) && model.class != HdfsEntry && model.class != CsvFile
-        model.username = model.username + "_diferent" if model.respond_to?(:username) && model.class != HdfsEntry
+        model.username = model.username + "_diferent" if model.respond_to?(:username) && model.class != HdfsEntry && model.class != HdfsDataSource
         model.path = model.path + "_different" if model.class == HdfsEntry && model.class != CsvFile
         model.save!(:validate => false)
       end
