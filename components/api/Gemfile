@@ -1,0 +1,26 @@
+source "https://rubygems.org"
+
+# Declare your gem's dependencies in core.gemspec.
+# Bundler will treat runtime dependencies like base dependencies, and
+# development dependencies will be added by default to the :development group.
+gemspec
+
+path '..' do
+  gem 'core'
+end
+
+# Declare any dependencies that are still in development here instead of in
+# your gemspec. These might include edge Rails or gems from your path or
+# Git. Remember to move these dependencies to your gemspec before releasing
+# your gem to rubygems.org.
+
+# KT TODO: these are brought manually over from the Core component, because I don't believe we have these fancy
+# custom options for Gemspec files:
+gem 'queue_classic', :github => 'Chorus/queue_classic'
+gem 'chorusgnip', :github => 'Chorus/gnip'
+# gem 'jetpack', :github => 'Chorus/jetpack', :branch => '6c9253195b+chorus', :require => false
+
+group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :ci_next do
+  # Needed for api-controller testing
+  gem 'backbone_fixtures_rails', :github => 'charleshansen/backbone_fixtures_rails'
+end

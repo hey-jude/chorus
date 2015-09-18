@@ -1,11 +1,13 @@
 require File.expand_path('../boot', __FILE__)
-require_relative '../app/models/chorus_config'
 
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+# KT TODO this seems wrong:
+require_relative "initializers/chorus_config"
 
 module Chorus
   class Application < Rails::Application

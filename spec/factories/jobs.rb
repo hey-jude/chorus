@@ -33,7 +33,7 @@ FactoryGirl.define do
     types ['text', 'text']
     delimiter ','
     has_header true
-    contents { Rack::Test::UploadedFile.new(File.expand_path("spec/fixtures/test.csv", Rails.root), "text/csv") }
+    contents { Rack::Test::UploadedFile.new(File.expand_path("spec/fixtures/test.csv", CBRA_ROOT), "text/csv") }
   end
 
   factory :csv_import do

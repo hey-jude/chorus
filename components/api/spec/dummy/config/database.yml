@@ -1,0 +1,9 @@
+development: &development
+  # POSTGRESQL
+  adapter: jdbcpostgresql
+  database: chorus_development
+  host: localhost
+
+test: &TEST
+  <<: *development
+  database: chorus_test

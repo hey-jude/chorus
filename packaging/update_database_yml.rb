@@ -2,10 +2,13 @@ require 'yaml'
 
 environment = ENV['RAILS_ENV']
 
-chorus_home = File.expand_path(File.dirname(__FILE__) + '/../')
-require File.join(chorus_home, 'app/models/chorus_config')
+component_home = File.expand_path(File.dirname(__FILE__) + '../')
+require File.join(component_home, 'app', 'config', 'initializers', 'chorus_config')
 
-chorus_config = ChorusConfig.new(chorus_home)
+# KT TODO: this is a hack, until these script specs get extracted to the `cmd` component
+app_root = File.expand_path(File.dirname(__FILE__) + '../')
+
+chorus_config = ChorusConfig.new(app_root)
 
 database_yml = File.join(chorus_home, 'config', 'database.yml')
 db_config = YAML.load_file database_yml

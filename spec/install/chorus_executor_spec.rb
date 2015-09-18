@@ -1,5 +1,5 @@
 require 'minimal_spec_helper'
-require_relative "../../packaging/install/chorus_executor"
+require_relative "../../../../packaging/install/chorus_executor"
 require 'fakefs/spec_helpers'
 
 describe ChorusExecutor do

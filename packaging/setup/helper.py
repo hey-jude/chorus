@@ -1,5 +1,4 @@
 import os
-import shutil
 import re
 from log import logger
 def get_version(chorus_path):
@@ -46,11 +45,6 @@ def get_agents(alpine_conf):
     return sorted(agent_dic, key=lambda x: x[0])
 
 def migrate_alpine_conf(alpine_conf, alpine_new_conf):
-    if not os.path.exists(alpine_conf):
-        logger.warning("no %s exists. Copying alpine conf directly" % alpine_conf)
-        shutil.copyfile(alpine_new_conf, alpine_conf)
-        return
-
     with open(alpine_conf, "r") as f:
         contents = f.read()
     agent_dic = get_agents(alpine_new_conf)

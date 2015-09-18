@@ -1,6 +1,5 @@
-require 'pry'
 require 'minimal_spec_helper'
-require_relative '../../packaging/install/chorus_installer'
+require_relative '../../../../packaging/install/chorus_installer'
 require_relative 'stub_executor'
 require 'fakefs/spec_helpers'
 

@@ -1,6 +1,7 @@
-require_relative '../../app/models/chorus_config'
+# KT TODO this seems wrong:
+require_relative '../components/core/config/initializers/chorus_config'
 
-Chorus::Application.configure do
+Rails.application.configure do
 
   # Custom config options up top:
 
@@ -13,6 +14,11 @@ Chorus::Application.configure do
 
   # See: https://github.com/Chorus/chorus/commit/6680e8d9d401e9f679a55842b5a274e764c23001
   config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus"
+
+  # See: https://github.com/Chorus/chorus/commit/f7fbd62bec637d74d68a22c61f7bd905ec0c732e
+  if !(defined?($rails_rake_task) && $rails_rake_task)
+    config.threadsafe!
+  end
 
   # See: https://github.com/Chorus/chorus/commit/a2d1effecdb7fca9270ce681ef347fe648063803
   config.eager_load_paths += config.autoload_paths
@@ -74,6 +80,9 @@ Chorus::Application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
+
+  # Set to :debug to see everything in the log.
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
