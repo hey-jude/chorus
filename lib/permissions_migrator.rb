@@ -81,7 +81,7 @@ class PermissionsMigrator
   end
 
   def self.assign_users_to_default_group
-    default_group = Group.find_or_create_by_name(:name => 'default_group')
+    default_group = Group.where(:name => 'default_group').first_or_create
 
     User.all.each{ |user| user.groups << default_group }
   end
