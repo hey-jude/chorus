@@ -1,29 +1,29 @@
 class PermissionsMigrator
 
   CLASSES = [
-      'Events::Base',
-      'ChorusScope',
-      'Role',
-      'User',
-      'DataSourceAccount',
-      'Group',
-      'Workspace',
-      'DataSource',
-      'HdfsDataSource',
-      'GnipDataSource',
-      'JdbcHiveDataSource',
-      'Schema',
-      'Comment',
-      'Workfile',
-      'Job',
-      'Milestone',
-      'Tag',
-      'Upload',
-      'Import',
-      'Notification',
-      'CsvFile',
-      'Database',
-      'Dataset'
+      Events::Base,
+      ChorusScope,
+      Role,
+      User,
+      DataSourceAccount,
+      Group,
+      Workspace,
+      DataSource,
+      HdfsDataSource,
+      GnipDataSource,
+      JdbcHiveDataSource,
+      Schema,
+      Comment,
+      Workfile,
+      Job,
+      Milestone,
+      Tag,
+      Upload,
+      Import,
+      Notification,
+      CsvFile,
+      Database,
+      Dataset
   ]
 
   def self.migrate_5_7
@@ -35,7 +35,7 @@ class PermissionsMigrator
   #private
 
   def self.insert_chorus_object_rows
-    CLASSES.map(&:constantize).each do |klass|
+    CLASSES.each do |klass|
       rows = create_rows(klass)
 
       ChorusObject.connection.execute "INSERT INTO chorus_objects #{attribute_columns_string} VALUES #{rows.join(", ")}" if rows.any?
@@ -83,6 +83,6 @@ class PermissionsMigrator
   def self.assign_users_to_default_group
     default_group = Group.where(:name => 'default_group').first_or_create
 
-    User.all.each{ |user| user.groups << default_group }
+    User.all.each{ |user| user.groups << default_group unless user.groups.include?(default_group) }
   end
 end
