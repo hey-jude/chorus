@@ -49,6 +49,11 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
     },
 
     closePage: function() {
+        if (!_.isUndefined(this.pollerID)) {
+            clearInterval(this.pollerID);
+            this.pollerID = void 0;
+        }
+
         chorus.router.navigate(this.worklet.workspace().workfilesUrl());
     },
 
@@ -262,21 +267,23 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
             }
         }
         else if (event === 'runStopped') {
-            // We want to continue polling until we have a history; running stop and history are asynchronously updated.
-            // Unless we "clicked stop"; in which case we don't expect an update in the history.
-            this.history.fetchAll({ wait: true });
-            if (this.clickedStop !== true && this._last_hist_len === this.history.length) {
-                return;
-            }
+            if (!_.isUndefined(this.pollerID)) {
+                // We want to continue polling until we have a history; running stop and history are asynchronously updated.
+                // Unless we "clicked stop"; in which case we don't expect an update in the history.
+                this.history.fetchAll({ wait: true });
+                if (this.clickedStop !== true && this._last_hist_len === this.history.length) {
+                    return;
+                }
 
-            if (this.clickedStop !== true) {
-                this.mainContent.content.workletHistory._showLatestEntry = true;
-            }
-            this.clickedStop = false;
-            this.sidebar.runEventHandler('runStopped');
+                if (this.clickedStop !== true) {
+                    this.mainContent.content.workletHistory._showLatestEntry = true;
+                }
+                this.clickedStop = false;
+                this.sidebar.runEventHandler('runStopped');
 
-            clearInterval(this.pollerID);
-            this.pollerID = void 0;
+                clearInterval(this.pollerID);
+                this.pollerID = void 0;
+            }
         }
         else if (event === 'clickedStop') {
             this.clickedStop = true;

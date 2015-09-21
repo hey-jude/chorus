@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.10'
+gem 'rack', '1.5.2'
 gem 'activeresource'
 
 # KT TODO: "Rails 4.0 has removed attr_accessible and attr_protected feature in favor of Strong Parameters. You can use the
