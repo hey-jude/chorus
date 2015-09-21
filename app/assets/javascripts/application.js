@@ -39,8 +39,6 @@
 //= require_tree ./vendor
 //= require messenger
 
-//= require vis_engine/application
-
 //= require environment
 //= require csrf
 //= require application_misc

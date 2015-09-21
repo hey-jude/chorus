@@ -21,13 +21,6 @@
         }
     };
 
-    // This call was added to make the Chiasm bundle work. -- Curran June 2015
-    // This is because the Chiasm bundle included Lodash, because I couldn't get the
-    // amdOptimize bundler to exclude it, so here, calling noConflict on Lodash
-    // causes the _ global to be replaced with the original Underscore global,
-    // which the Chorus codebase depends on.
-    _.noConflict();
-
     _.mixin(_.str.exports());
 
     // make _.include use the method from underscore_string if its argument is a string

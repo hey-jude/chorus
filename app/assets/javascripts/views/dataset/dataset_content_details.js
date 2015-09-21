@@ -2,7 +2,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         chorus.Mixins.StickyHeader
     ).extend({
     templateName: "dataset_content_details",
-    constructorName: 'DatasetContentDetails',
+    constructorName: "DatasetContentDetails",
     persistent: true,
 
     subviews: {
@@ -108,11 +108,11 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
           $("#chiasm-container").removeClass("hidden");
         }
 
-        this.$('.chart_icon:eq(0)').click();
-        this.$('.column_count').addClass('hidden');
-        this.$('.info_bar').removeClass('hidden');
-        this.$('.definition').addClass("hidden");
-        this.$('.create_chart').removeClass("hidden");
+        this.$(".chart_icon:eq(0)").click();
+        this.$(".column_count").addClass("hidden");
+        this.$(".info_bar").removeClass("hidden");
+        this.$(".definition").addClass("hidden");
+        this.$(".create_chart").removeClass("hidden");
         this.$(".filters").removeClass("hidden");
         this.filterWizardView.options.showAliasedName = false;
         this.filterWizardView.resetFilters();
@@ -123,11 +123,11 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     selectVisualization: function(e) {
 
         // Extract the selected chart type.
-        var type = $(e.target).data('chart_type');
+        var type = $(e.target).data("chart_type");
 
         this.$(".create_chart .cancel").data("type", type);
-        this.$('.chart_icon').removeClass('selected');
-        $(e.target).addClass('selected');
+        this.$(".chart_icon").removeClass("selected");
+        $(e.target).addClass("selected");
         this.showTitle(e);
         this.showVisualizationConfig(type);
     },
@@ -137,16 +137,16 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
         // Hide the Chiasm visualization container.
         if(instance.attributes.chiasmEnabled){
-          $("#chiasm-container").addClass("hidden");
+            $("#chiasm-container").addClass("hidden");
         }
 
-        this.$('.definition').removeClass("hidden");
-        this.$('.create_chart').addClass("hidden");
+        this.$(".definition").removeClass("hidden");
+        this.$(".create_chart").addClass("hidden");
         this.$(".filters").addClass("hidden");
-        this.$('.column_count').removeClass("hidden");
-        this.$('.info_bar').addClass('hidden');
-        this.$(".chart_config").addClass('hidden');
-        chorus.PageEvents.trigger('cancel:visualization');
+        this.$(".column_count").removeClass("hidden");
+        this.$(".info_bar").addClass("hidden");
+        this.$(".chart_config").addClass("hidden");
+        chorus.PageEvents.trigger("cancel:visualization");
         if(this.chartConfig) {
             this.chartConfig.teardown(true);
             delete this.chartConfig;
@@ -156,13 +156,13 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     startCreateChorusViewWizard: function() {
         this.trigger("transform:sidebar", "chorus_view");
-        this.$('.chorusview').addClass("selected");
-        this.$('.definition').addClass("hidden");
-        this.$('.create_chart').addClass("hidden");
-        this.$('.create_chorus_view').removeClass("hidden");
-        this.$('.chorus_view_info').removeClass("hidden");
-        this.$('.column_count').addClass("hidden");
-        this.$('.filters').removeClass("hidden");
+        this.$(".chorusview").addClass("selected");
+        this.$(".definition").addClass("hidden");
+        this.$(".create_chart").addClass("hidden");
+        this.$(".create_chorus_view").removeClass("hidden");
+        this.$(".chorus_view_info").removeClass("hidden");
+        this.$(".column_count").addClass("hidden");
+        this.$(".filters").removeClass("hidden");
         this.filterWizardView.options.showAliasedName = true;
         this.filterWizardView.resetFilters();
         this.inDeriveChorusView = true;
@@ -172,12 +172,12 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     cancelCreateChorusView: function(e) {
         e.preventDefault();
-        chorus.PageEvents.trigger('cancel:sidebar', 'chorus_view');
-        this.$('.definition').removeClass("hidden");
-        this.$('.create_chorus_view').addClass("hidden");
+        chorus.PageEvents.trigger("cancel:sidebar", "chorus_view");
+        this.$(".definition").removeClass("hidden");
+        this.$(".create_chorus_view").addClass("hidden");
         this.$(".filters").addClass("hidden");
-        this.$('.column_count').removeClass("hidden");
-        this.$('.chorus_view_info').addClass('hidden');
+        this.$(".column_count").removeClass("hidden");
+        this.$(".chorus_view_info").addClass("hidden");
 
         this.$(".column_count input.search").trigger("textchange");
         this.subscribePageEvent("action:closePreview", this.closeDataPreview);
@@ -207,8 +207,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         this.$(".column_count").removeClass("hidden");
         this.$(".definition").removeClass("hidden");
         this.dataset.set({query: this.dataset.initialQuery});
-        chorus.PageEvents.trigger('cancel:sidebar', 'chorus_view');
-        chorus.PageEvents.trigger('dataset:cancelEdit');
+        chorus.PageEvents.trigger("cancel:sidebar", "chorus_view");
+        chorus.PageEvents.trigger("dataset:cancelEdit");
     },
 
     saveChorusView: function() {
@@ -218,8 +218,8 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     closeErrorWithDetailsLink: function(e) {
         e && e.preventDefault();
         this.$(".dataset_errors").addClass("hidden");
-        this.$('.standard_error').addClass('hidden');
-        this.$('.non_implementation_error').addClass('hidden');
+        this.$(".standard_error").addClass("hidden");
+        this.$(".non_implementation_error").addClass("hidden");
     },
 
     viewErrorDetails: function(e) {
@@ -231,11 +231,12 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     },
 
     showTitle: function(e) {
-        this.$(".chart_type_title").addClass('hidden');
-        this.$('.chart_type_title.' + $(e.target).data('chart_type')).removeClass('hidden');
+        this.$(".chart_type_title").addClass("hidden");
+        this.$(".chart_type_title." + $(e.target).data("chart_type")).removeClass("hidden");
     },
 
     showVisualizationConfig: function(chartType) {
+
         if(this.chartConfig) { this.chartConfig.teardown(true);}
 
         var options = { model: this.dataset, collection: this.collection, errorContainer: this };
@@ -257,36 +258,6 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
             // visualization configuration changes.
             this.chartConfig.on("configChanged", _.bind(this.updateChiasmVisualization, this));
         }
-    },
-
-    // Starts the Chiasm runtime if it has not been started already.
-    // This is asynchronous (requiring a callback) because AMD require() is used for
-    // loading the Chiasm module.
-    chiasmInit: function (callback) {
-      var chiasm;
-      return function (callback) {
-        if (!chiasm) {
-          require(["chiasmBundle", "model"], function (ChiasmBundle, Model) {
-            chiasm = ChiasmBundle($("#chiasm-container")[0]);
-
-            this.chiasm.plugins.alpineDataLoader = function () {
-              var model = Model({
-                publicProperties: ["dataset_id"],
-                dataset_id: Model.None
-              });
-              model.when("dataset_id", function (dataset_id) {
-                $.get("/vis_engine/reduce_data", function (data) {
-                  console.log(data);
-                });
-                if (dataset_id !== Model.None) {
-                  console.log(dataset_id);
-                }
-              });
-              return model;
-            };
-          })
-        }
-      }()
     },
 
     // Queries the server for data, depending on the current chart type and configuration.
@@ -315,66 +286,64 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     //    var x = task.save();
     //},
-
     updateChiasmVisualization: function(){
 
-      var chartOptions = this.chartConfig.chartOptions();
-      var alpineBlue = "#00a0e5";
+        var chartOptions = this.chartConfig.chartOptions();
+        var alpineBlue = "#00a0e5";
 
-      this.chiasmInit(_.bind(function (chiasm){
-        this.chiasmFetchData(chartOptions, function (data){
+        var chiasm = VisEngine.chiasmInit($("#chiasm-container")[0]);
 
-          var visualizationPlugin;
+        var visualizationPlugin;
+        
+        if(chartOptions.type === "frequency"){
+          visualizationPlugin = "barChart";
+        }
 
-          if(chartOptions.type === "frequency"){
-            visualizationPlugin = "barChart";
-          }
-
-          var config = {
+        var config = {
             "layout": {
-              "plugin": "layout",
-              "state": {
-                "layout": "visualization"
-              }
+                "plugin": "layout",
+                "state": {
+                    "layout": "visualization"
+                }
             },
             "visualization": {
-              "plugin": visualizationPlugin,
-              "state": {
-                "xColumn": chartOptions.yAxis,
-                "xAxisLabel": chartOptions.yAxis,
-                "yColumn": "count",
-                "yAxisLabel": "Count",
-                "xAxisLabelOffset": 1.9,
-                "yAxisLabelOffset": 1.4,
-                "colorDefault": alpineBlue,
-                "yDomainMin": 0,
-                "margin": {
-                  "top": 15,
-                  "right": 0,
-                  "bottom": 60,
-                  "left": 50
+                "plugin": visualizationPlugin,
+                "state": {
+                    "xColumn": chartOptions.yAxis,
+                    "xAxisLabel": chartOptions.yAxis,
+                    "yColumn": "count",
+                    "yAxisLabel": "Count",
+                    "xAxisLabelOffset": 1.9,
+                    "yAxisLabelOffset": 1.4,
+                    "colorDefault": alpineBlue,
+                    "yDomainMin": 0,
+                    "margin": {
+                        "top": 15,
+                        "right": 0,
+                        "bottom": 60,
+                        "left": 50
+                    }
                 }
-              }
             },
             "dataLoader": {
-              "plugin": "visEngineDataLoader",
-              "state": {
-                "dataset_id": this.chartConfig.model.id
-              }
+                "plugin": "visEngineDataLoader",
+                "state": {
+                    "dataset_id": this.chartConfig.model.id
+                }
             },
             "dataReduction": {
-              "plugin": "dataReduction",
-              "state": {
-                "aggregate": {
-                  "dimensions": [{
-                    "column": chartOptions.yAxis
-                  }],
-                  "measures": [{
-                    "outColumn": "count",
-                    "operator": "count"
-                  }]
+                "plugin": "dataReduction",
+                "state": {
+                    "aggregate": {
+                        "dimensions": [{
+                            "column": chartOptions.yAxis
+                        }],
+                        "measures": [{
+                            "outColumn": "count",
+                            "operator": "count"
+                        }]
+                    }
                 }
-              }
             },
             "links": {
               "plugin": "links",
@@ -385,30 +354,27 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
                 ]
               }
             }
-          };
-          console.log(chartOptions);
+        };
+        console.log(chartOptions);
 
-          //var state = {
-          //    xColumn: "bucket",
-          //    xAxisLabel: "Category",
-          //    yColumn: "count",
-          //    yAxisLabel: chartOptions.yAxis
-          //};
-
-          chiasm.setConfig(config);
-
-          chiasm.getComponent("visualization").then(function(visualization){
-            visualization.data = data;
+        chiasm.setConfig(config);
+        chiasm.getComponent("dataReduction").then(function(dataReduction){
+          dataReduction.when("dataOut", function(data){
+            console.log(data);
           });
-
         });
-      }, this));
+
+        //this.chiasmFetchData(chartOptions, function (data){
+        //    chiasm.getComponent("visualization").then(function(visualization){
+        //        visualization.data = data;
+        //    });
+        //});
     },
 
     showSelectedTitle: function(e) {
-        this.$('.chart_type_title').addClass('hidden');
-        var type = this.$('.selected').data('chart_type');
-        this.$('.chart_type_title.' + type).removeClass('hidden');
+        this.$(".chart_type_title").addClass("hidden");
+        var type = this.$(".selected").data("chart_type");
+        this.$(".chart_type_title." + type).removeClass("hidden");
     },
 
     additionalContext: function() {
@@ -425,17 +391,17 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     showErrorWithDetailsLink: function(taskOrColumnSet, alertClass) {
         this.$(".dataset_errors").removeClass("hidden");
         if(taskOrColumnSet.serverErrorMessage() === t("field_error.visualization.NOT_IMPLEMENTED")) {
-            this.$('.non_implementation_error').removeClass('hidden');
+            this.$(".non_implementation_error").removeClass("hidden");
         }
         else {
-            this.$('.standard_error').removeClass('hidden');
+            this.$(".standard_error").removeClass("hidden");
         }
         this.alertClass = alertClass;
         this.errorSource = taskOrColumnSet;
     },
 
     updateColumnCount: function() {
-        this.$('.count').text(t("dataset.column_count", {count: this.collection.length}));
+        this.$(".count").text(t("dataset.column_count", {count: this.collection.length}));
     },
 
     displayPublishDialog: function() {
@@ -453,7 +419,7 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     showPublish: function (workspaceArchived) {
         var canUpdate = this.dataset.workspace() && this.dataset.workspace().canUpdate();
-        return !!(chorus.models.Config.instance().get('tableauConfigured') && !this.dataset.isOracle() && !this.dataset.isJdbc() && !this.options.isDataSourceBrowser && !workspaceArchived && canUpdate);
+        return !!(chorus.models.Config.instance().get("tableauConfigured") && !this.dataset.isOracle() && !this.dataset.isJdbc() && !this.options.isDataSourceBrowser && !workspaceArchived && canUpdate);
     },
 
     teardown: function() {
