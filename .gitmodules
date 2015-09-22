@@ -2,4 +2,6 @@
 	path = chorushdfs
 	url = https://github.com/Chorus/chorushdfs.git
 
-
+[submodule "components/visEngine"]
+	path = components/visEngine
+	url = git@github.com:curran/visEngine.git

@@ -10,6 +10,9 @@ gem 'activeresource'
 # models.  This gem should be removed via refactoring after the Rails 4 upgrades are merged into master.
 gem 'protected_attributes'
 
+# See https://github.com/curran/visEngine
+gem 'vis_engine', path: "components/visEngine"
+
 gem 'will_paginate', '3.0.4'
 gem 'net-ldap', '0.11', :require => false
 gem 'paperclip', '4.2.0'

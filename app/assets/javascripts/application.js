@@ -103,3 +103,5 @@
 //= require pages/search_index_page
 //= require pages/workspaces/workspace_show_page
 //= require_tree .
+
+//= require vis_engine/application

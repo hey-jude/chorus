@@ -1,4 +1,7 @@
 Chorus::Application.routes.draw do
+
+  mount VisEngine::Engine, at: '/vis_engine'
+
   resource :sessions, :only => [:create, :destroy, :show]
   resource :config, :only => [:show], :controller => 'configurations'
   resource :license, :only => [:show]
