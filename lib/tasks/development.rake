@@ -32,12 +32,21 @@ namespace :development do
   desc "Initialize the database and create the database user used by Chorus"
   task :init_database => [:generate_database_yml] do
     root = Pathname.new(__FILE__).dirname.join("../..")
-    postgres_port = `ruby #{File.join(root, 'packaging', 'get_postgres_port.rb')}`.chomp
-    next if root.join("postgres-db").exist?
 
-    `DYLD_LIBRARY_PATH=#{root}/postgres/lib LD_LIBRARY_PATH=#{root}/postgres/lib #{root}/postgres/bin/initdb -D #{root}/postgres-db -E utf8`
-    `CHORUS_HOME=#{root} #{root}/packaging/chorus_control.sh start postgres`
-    `DYLD_LIBRARY_PATH=#{root}/postgres/lib LD_LIBRARY_PATH=#{root}/postgres/lib #{root}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
+    postgres_port = `ruby #{File.join(root, 'packaging', 'get_postgres_port.rb')}`.chomp
+
+    # Give the poor developer a clue as to what is wrong!
+    if root.join("postgres-db").exist?
+      p "The postgres-db directory already exists, so exiting."
+      next
+    end
+
+    ENV['DYLD_LIBRARY_PATH'] = "#{root}/postgres/lib"
+    ENV['LD_LIBRARY_PATH'] = "#{root}/postgres/lib"
+    ENV['CHORUS_HOME'] = "#{root}"
+    `#{root}/postgres/bin/initdb -D #{root}/postgres-db -E utf8`
+    `#{root}/packaging/chorus_control.sh start postgres`
+    `#{root}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
 
     Rake::Task["db:create"].invoke
     Rake::Task["db:migrate"].invoke
