@@ -14,7 +14,7 @@ ALPINE_PID_FILE="$ALPINE_HOME"/alpine.pid
 if [ -f $ALPINE_PID_FILE ]; then
   if kill -0 `cat $ALPINE_PID_FILE` > /dev/null 2>&1; then
     log "stopping alpine "
-    CATALINA_PID=$ALPINE_PID_FILE $ALPINE_HOME/alpine_control.sh stop >/dev/null
+    JETTY_PID=$ALPINE_PID_FILE $ALPINE_HOME/alpine_control.sh stop >/dev/null
     wait_for_stop_or_force $ALPINE_PID_FILE $MAX_WAIT_TIME
     rm -f $ALPINE_PID_FILE
   else
