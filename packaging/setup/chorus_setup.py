@@ -337,6 +337,11 @@ class ChorusSetup:
         self.executor.rake(db_commands)
         self.executor.stop_postgres()
 
+    @processify(msg="->Clearing tmp directory", interval=1.5)
+    def clear_tmp_directory(self):
+        logger.debug("->Clearing tmp directory ...")
+        self.executor.rake("tmp:clear")
+
     @processify(msg=text.get("step_msg", "db_validation"), interval=1.5)
     def validate_data_sources(self, msg="", interval=1.5):
         logger.debug("->Running data validation...")
@@ -431,6 +436,7 @@ class ChorusSetup:
             self.validate_data_sources()
             self.stop_previous_release()
             self.upgrade_database()
+            self.clear_tmp_directory()
         else:
             self.create_database_config()
             self.generate_chorus_psql_files()

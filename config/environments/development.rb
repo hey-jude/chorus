@@ -5,7 +5,8 @@ Chorus::Application.configure do
   # Custom config options up top:
 
   # See: https://github.com/Chorus/chorus/commit/79fedf38c1ba72578084786e15b41b233fa417a1
-  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus"
+  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus", { expires_in: 7.days }
+  config.action_controller.perform_caching = false
 
   # See: https://github.com/Chorus/chorus/commit/267732274571bd77f3a66ab197de20751992694e
   if ChorusConfig.instance['mail.enabled']
@@ -29,9 +30,7 @@ Chorus::Application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
