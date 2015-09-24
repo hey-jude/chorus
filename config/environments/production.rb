@@ -12,7 +12,7 @@ Chorus::Application.configure do
   end
 
   # See: https://github.com/Chorus/chorus/commit/6680e8d9d401e9f679a55842b5a274e764c23001
-  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus"
+  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus", { expires_in: 7.days }
 
   # See: https://github.com/Chorus/chorus/commit/a2d1effecdb7fca9270ce681ef347fe648063803
   config.eager_load_paths += config.autoload_paths

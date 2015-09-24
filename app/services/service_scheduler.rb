@@ -48,6 +48,8 @@ class ServiceScheduler
 
     every(24.hours, 'SystemStatusService.refresh') { SystemStatusService.refresh }
 
+    every(1.day, 'Rails.cache.cleanup') { Rails.cache.cleanup }
+
     every(5.minutes, 'RunningWorkfileChecker.check_running_workfiles') do
       RunningWorkfileChecker.check_running_workfiles
     end
