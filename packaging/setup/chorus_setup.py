@@ -63,11 +63,11 @@ class ChorusSetup:
         self._mkdir_p(os.path.join(self.shared, "tmp"))
         self._cp_if_not_exist(os.path.join(self.release_path, "packaging/database.yml.example"), \
                               os.path.join(self.shared, "database.yml"))
-        self._cp_if_not_exist(os.path.join(self.release_path, "packaging/sunspot.yml.example"), \
-                              os.path.join(self.shared, "sunspot.yml"))
         self._cp_if_not_exist(os.path.join(self.release_path, "config/chorus.defaults.properties"), \
                               os.path.join(self.shared, "chorus.properties"))
         os.chmod(os.path.join(self.shared, "chorus.properties"), 0600)
+        self._cp_f(os.path.join(self.release_path, "packaging/sunspot.yml.example"), \
+                              os.path.join(self.shared, "sunspot.yml"))
         self._cp_f(os.path.join(self.release_path, "config/chorus.properties.example"), \
                    os.path.join(self.shared, "chorus.properties.example"))
         self._cp_f(os.path.join(self.release_path, "config/chorus.license.default"), \
@@ -108,6 +108,7 @@ class ChorusSetup:
                    os.path.join(self.release_path, "demo_data"))
         self._ln_sf(os.path.join(self.shared, "libraries"), \
                    os.path.join(self.release_path, "lib/libraries"))
+
     def link_data_folder(self):
         logger.debug("Linking data folders to %s" % self.options.data_path)
         os.chmod(os.path.join(self.options.data_path, "db"), 0700)
@@ -277,11 +278,10 @@ class ChorusSetup:
     def generate_chorus_rails_console_file(self):
         file_path = os.path.join(self.options.chorus_path, "chorus_rails_console.sh")
         logger.debug("generating chorus_rails_console file")
-        if os.path.exists(file_path):
-            logger.debug(file_path + " existed, skipped")
-            return
+
         with open(file_path, "w") as f:
             f.write(CHORUS_RAILS_CONSOLE)
+
         os.chmod(file_path,0700)
 
     def create_database_config(self):
@@ -434,9 +434,11 @@ class ChorusSetup:
         else:
             self.create_database_config()
             self.generate_chorus_psql_files()
-            self.generate_chorus_rails_console_file()
             self.setup_database()
             #self.enqueue_solr_reindex()
+
+        self.generate_chorus_rails_console_file()
+
         #self.clean_up_old_releases()
         self.link_current_to_release("current", self.release_path)
 
