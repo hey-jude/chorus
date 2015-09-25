@@ -43,12 +43,12 @@ class PermissionsMigrator
   end
 
   def self.create_rows(klass)
-    scope_id = ChorusScope.where(:name => 'application_realm').pluck(:id).first
+    scope_id = ChorusScope.where(:name => 'application_realm').first.try(:id)
     time = Time.now.to_s(:db)
 
     klass.all.map do |object|
       chorus_class_id = ChorusClass.where(:name => object.class.name).pluck(:id).first
-      create_attribte_string(object, chorus_class_id, time, scope_id)
+      create_attribute_string(object, chorus_class_id, time, scope_id)
     end
   end
 
@@ -65,7 +65,7 @@ class PermissionsMigrator
     end
   end
 
-  def self.create_attribte_string(object, chorus_class_id, time, scope_id)
+  def self.create_attribute_string(object, chorus_class_id, time, scope_id)
 
     if object.respond_to? :owner_id
       object_owner = object.owner_id
