@@ -9,7 +9,8 @@ class HdfsEntryPresenter < Presenter
         :last_updated_stamp => model.modified_at.nil? ? "" : model.modified_at.strftime("%Y-%m-%dT%H:%M:%SZ"),
         :entity_type => model.entity_type_name,
         :hdfs_data_source => present(model.hdfs_data_source, options),
-        :is_deleted => model.deleted?
+        :is_deleted => model.deleted?,
+        :metadata => model.metadata
     }
 
     unless succinct?
