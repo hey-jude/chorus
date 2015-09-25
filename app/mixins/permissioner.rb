@@ -21,21 +21,24 @@ module Permissioner
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
     return true
-    if self.is_admin?(user)
-      return false
-    end
-    if user == nil
-      # log error and raise exception TBD
-      return nil
-    else
-      groups = user.groups
-      groups.each do |group|
-        if group.chorus_scope != nil
-          return true
-        end
-      end
-    end
-    return false
+
+    # AL: This method is short-circuited until 5.8.
+    #
+    # if self.is_admin?(user)
+    #   return false
+    # end
+    # if user == nil
+    #   # log error and raise exception TBD
+    #   return nil
+    # else
+    #   groups = user.groups
+    #   groups.each do |group|
+    #     if group.chorus_scope != nil
+    #       return true
+    #     end
+    #   end
+    # end
+    # return false
   end
 
   # Returns true if user has site wide admin role.
@@ -132,7 +135,7 @@ module Permissioner
   module ClassMethods
 
 
-    # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
+    # Given an collection of objects, returns a collection filtered by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
       groups_ids = user.groups.map(&:id)
       scope_ids = ChorusScope.where(:group_id => groups_ids).pluck(:id)
