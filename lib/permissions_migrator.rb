@@ -48,6 +48,11 @@ class PermissionsMigrator
 
     klass.all.map do |object|
       chorus_class_id = ChorusClass.where(:name => object.class.name).pluck(:id).first
+
+      unless chorus_class_id
+        raise "seed_permissions.rb didn't create all the necessary classes. Re-run rake db:seed_permissions."
+      end
+
       create_attribute_string(object, chorus_class_id, time, scope_id)
     end
   end
