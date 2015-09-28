@@ -52,7 +52,7 @@ namespace :development do
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed_permissions"].invoke
     Rake::Task["db:seed_development"].invoke
-    `CHORUS_HOME=#{root} #{root}/packaging/chorus_control.sh stop postgres`
+    `#{root}/packaging/chorus_control.sh stop postgres`
   end
 
   desc "Initialize development environment.  Includes initializing the database and creating secret tokens"
