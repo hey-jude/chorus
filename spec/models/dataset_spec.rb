@@ -18,6 +18,10 @@ describe Dataset do
   end
   it_should_behave_like "taggable models", [:datasets, :default_table]
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { datasets(:default_table) }
+  end
+
   describe "associations" do
     it { should belong_to(:scoped_schema).class_name('Schema') }
     it { should have_many :activities }

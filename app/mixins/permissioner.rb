@@ -20,21 +20,25 @@ module Permissioner
 
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
-    if self.is_admin?(user)
-      return false
-    end
-    if user == nil
-      # log error and raise exception TBD
-      return nil
-    else
-      groups = user.groups
-      groups.each do |group|
-        if group.chorus_scope != nil
-          return true
-        end
-      end
-    end
-    return false
+    return true
+
+    # AL: This method is short-circuited until 5.8.
+    #
+    # if self.is_admin?(user)
+    #   return false
+    # end
+    # if user == nil
+    #   # log error and raise exception TBD
+    #   return nil
+    # else
+    #   groups = user.groups
+    #   groups.each do |group|
+    #     if group.chorus_scope != nil
+    #       return true
+    #     end
+    #   end
+    # end
+    # return false
   end
 
   # Returns true if user has site wide admin role.
@@ -131,26 +135,17 @@ module Permissioner
   module ClassMethods
 
 
-    # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
+    # Given an collection of objects, returns a collection filtered by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
-      return objects
-      #ret = []
-      #groups = user.groups
-      #groups.each do |group|
-      #  chorus_scope = group.chorus_scope
-      #  if chorus_scope == nil
-      #    continue
-      #  end
-      #  #TODO Prakash : Can user belong to more than one scope?
-      #  objects.each do |objectz|
-      #    if objectz.chorus_scope == chorus_scope
-      #      puts "Adding object id = #{objectz.id} to filtered list"
-      #      ret << objectz
-      #    end
-      #  end
-      #end
-      #
-      #ret
+      groups_ids = user.groups.map(&:id)
+      scope_ids = ChorusScope.where(:group_id => groups_ids).pluck(:id)
+      object_class_names = objects.group_by(&:class).keys.map(&:to_s)
+      chorus_class_ids = ChorusClass.where(:name => object_class_names).map(&:id)
+      scoped_object_ids = ChorusObject.where(:chorus_class_id => chorus_class_ids, :chorus_scope_id => scope_ids).pluck(:instance_id)
+
+      filtered_objects = objects.select{ |o| scoped_object_ids.include?(o.id)}
+
+      return filtered_objects
     end
 
     # returns total # of objects of current class type in scope for current_user

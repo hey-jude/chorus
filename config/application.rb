@@ -57,6 +57,7 @@ module Chorus
     # See: https://github.com/Chorus/chorus/commit/5d60300984f318f829d71b4283344360bf9195e1
     I18n.config.enforce_available_locales = false
 
+    config.autoload_paths << Rails.root.join('lib')
 
     # DEFAULT RAILS CONFIG OPTIONS below
 

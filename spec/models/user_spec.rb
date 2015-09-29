@@ -484,4 +484,8 @@ describe User do
   it_behaves_like 'a soft deletable model' do
     let(:model) { users(:default) }
   end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { users(:default) }
+  end
 end

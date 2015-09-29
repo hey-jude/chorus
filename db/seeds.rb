@@ -18,6 +18,7 @@ end
 
 Sunspot.session = BlackholeSession.new
 
+load 'db/permissions_seeds.rb'
 # --- USERS ---
 
 unless User.where(:username => "chorusadmin").present?

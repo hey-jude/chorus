@@ -15,6 +15,10 @@ describe HdfsDataSource do
     let!(:model) { FactoryGirl.create(:hdfs_data_source) }
   end
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { hdfs_data_sources(:hadoop) }
+  end
+
   describe "associations" do
     it { should belong_to :owner }
     its(:owner) { should be_a User }
