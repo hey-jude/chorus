@@ -43,17 +43,15 @@ class PermissionsMigrator
   end
 
   def self.create_rows(klass)
-    scope_id = ChorusScope.where(:name => 'application_realm').first.try(:id)
-    time = Time.now.to_s(:db)
+    scope_id = ChorusScope.where(:name => 'application_realm').first.id
+    modified_at = Time.now.to_s(:db)
 
     klass.all.map do |object|
-      chorus_class_id = ChorusClass.where(:name => object.class.name).pluck(:id).first
-
+      chorus_class_id = ChorusClass.where(:name => object.class.name).first.try(:id)
       unless chorus_class_id
-        raise "seed_permissions.rb didn't create all the necessary classes. Re-run rake db:seed_permissions."
+        raise "Whoops! #{object} has no ChorusClass.  seed_permissions.rb didn't create all the necessary classes. Please re-run rake db:seed_permissions"
       end
-
-      create_attribute_string(object, chorus_class_id, time, scope_id)
+      create_attribute_string(object, chorus_class_id, modified_at, scope_id)
     end
   end
 
@@ -70,7 +68,7 @@ class PermissionsMigrator
     end
   end
 
-  def self.create_attribute_string(object, chorus_class_id, time, scope_id)
+  def self.create_attribute_string(object, chorus_class_id, modified_at, scope_id)
 
     if object.respond_to? :owner_id
       object_owner = object.owner_id
@@ -78,7 +76,7 @@ class PermissionsMigrator
       object_owner = "NULL"
     end
 
-    "(#{chorus_class_id}, #{object.id}, #{object_owner}, '#{time}', '#{time}', #{scope_id})"
+    "(#{chorus_class_id}, #{object.id}, #{object_owner}, '#{modified_at}', '#{modified_at}', #{scope_id})"
   end
 
   def self.attribute_columns_string
