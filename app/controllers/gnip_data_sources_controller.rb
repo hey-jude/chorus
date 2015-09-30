@@ -12,7 +12,9 @@ class GnipDataSourcesController < ApplicationController
     succinct = params[:succinct] == 'true'
     includes = succinct ? [] : [{:owner => :tags}, :tags]
 
-    gnip_data_sources = GnipDataSource.all.includes(includes)
+    gnip_data_sources = GnipDataSource.includes(includes)
+    gnip_data_sources = gnip_data_sources.where.not(:state => 'disabled') unless Permissioner.is_admin?(current_user)
+
     #PT. Apply scope filter for current_user
     gnip_data_sources =GnipDataSource.filter_by_scope(current_user, gnip_data_sources) if current_user_in_scope?
 
