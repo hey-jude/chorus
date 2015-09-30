@@ -320,7 +320,7 @@ class ChorusSetup:
         self.executor.initdb(self.options.data_path, self.database_username)
         self.executor.start_postgres()
         db_commands = "db:create db:migrate"
-        db_commands += " db:seed_permissions"
+        #db_commands += " db:seed_permissions"
         db_commands += " db:seed"
         db_commands += " enqueue:refresh_and_reindex"
         self.executor.rake(db_commands)
@@ -331,7 +331,7 @@ class ChorusSetup:
         self.executor.start_postgres()
         logger.debug("->Running database migrations...")
         db_commands = "db:migrate"
-        db_commands += " db:seed_permissions"
+        #db_commands += " db:seed_permissions"
         db_commands += " enqueue:refresh_and_reindex"
         logger.debug("Running rake " + db_commands)
         self.executor.rake(db_commands)
