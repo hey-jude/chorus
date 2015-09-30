@@ -93,6 +93,16 @@ describe HdfsDataSource do
   describe "#check_status!" do
     let(:data_source) { hdfs_data_sources(:hadoop) }
 
+    context "when the data source is disabled" do
+      it "does not check the status" do
+        data_source.update_attributes(:state => 'disabled')
+        any_instance_of(HdfsDataSource) do |ds|
+          mock(ds).disabled?
+        end
+        HdfsDataSource.check_status(data_source.id)
+      end
+    end
+
     context "when the data source is offline" do
 
       before do

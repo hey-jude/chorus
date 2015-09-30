@@ -27,6 +27,10 @@ module CommonDataSourceBehavior
     type
   end
 
+  def disabled?
+    state == 'disabled'
+  end
+
   def online?
     state == 'online'
   end

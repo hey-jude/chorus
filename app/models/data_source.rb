@@ -144,7 +144,7 @@ class DataSource < ActiveRecord::Base
 
   def self.check_status(id)
     data_source = DataSource.find(id)
-    data_source.check_status!
+    data_source.check_status! unless data_source.disabled?
   rescue => e
     Rails.logger.error "Unable to check status of DataSource: #{data_source.inspect}"
     Rails.logger.error "#{e.message} :  #{e.backtrace}"
