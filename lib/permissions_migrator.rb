@@ -43,11 +43,11 @@ class PermissionsMigrator
   end
 
   def self.create_rows(klass)
-    scope_id = ChorusScope.where(:name => 'application_realm').first.id
+    scope_id = ChorusScope.where(:name => 'application_realm').first_or_create.id
     modified_at = Time.now.to_s(:db)
 
     klass.all.map do |object|
-      chorus_class_id = ChorusClass.where(:name => object.class.name).first.try(:id)
+      chorus_class_id = ChorusClass.where(:name => object.class.name).first_or_create.id
       unless chorus_class_id
         raise "Whoops! #{object} has no ChorusClass.  seed_permissions.rb didn't create all the necessary classes. Please re-run rake db:seed_permissions"
       end
@@ -56,8 +56,8 @@ class PermissionsMigrator
   end
 
   def self.assign_workspace_roles
-    project_manager_role = Role.where(:name => 'ProjectManager').first
-    owner_role = Role.where(:name => 'Owner').first
+    project_manager_role = Role.where(:name => 'ProjectManager').first_or_create
+    owner_role = Role.where(:name => 'Owner').first_or_create
 
     Workspace.all.each do |ws|
       ws.add_user_to_object_role(ws.owner, owner_role)
