@@ -65,10 +65,13 @@ class DataSource < ActiveRecord::Base
   end
 
   def self.accessible_to(user)
-    where('data_sources.shared OR data_sources.owner_id = :owned OR data_sources.id IN (:with_membership)',
+    query_string = 'data_sources.shared OR data_sources.owner_id = :owned OR data_sources.id IN (:with_membership)'
+    query = where(query_string,
           owned: user.id,
           with_membership: user.data_source_accounts.pluck(:data_source_id)
     )
+    query = query.where.not(state: 'disabled') unless Permissioner.is_admin?(user)
+    query
   end
 
   def accessible_to(user)

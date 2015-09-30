@@ -7,6 +7,7 @@ describe DataSource do
       let(:prohibited_data_source) { data_sources(:admins) }
       let(:online_data_source) { data_sources(:online) }
       let(:offline_data_source) { data_sources(:offline) }
+      let(:disabled_data_source) { data_sources(:disabled) }
 
       let(:user) { users(:owner) }
 
@@ -15,6 +16,7 @@ describe DataSource do
         DataSource.accessible_to(user).should include(offline_data_source)
         DataSource.accessible_to(user).should include(permitted_data_source)
         DataSource.accessible_to(user).should_not include(prohibited_data_source)
+        DataSource.accessible_to(user).should_not include(disabled_data_source)
       end
     end
   end
