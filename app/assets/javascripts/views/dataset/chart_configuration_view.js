@@ -52,9 +52,9 @@
                 return _.isEmpty(group.columnNames);
             });
 
-          // Don't show the "Create Chart" button if Chiasm is enabled,
-          // because when Chiasm is enabled, the chart has already been created.
-          ctx.showCreateChartButton = !instance.attributes.chiasmEnabled;
+            // Don't show the "Create Chart" button if Chiasm is enabled,
+            // because when Chiasm is enabled, the chart has already been created.
+            ctx.showCreateChartButton = !instance.attributes.chiasmEnabled;
 
             return ctx;
         },

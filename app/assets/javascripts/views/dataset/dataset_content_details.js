@@ -287,7 +287,6 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     //    var x = task.save();
     //},
     updateChiasmVisualization: function(){
-
         var chartOptions = this.chartConfig.chartOptions();
         var alpineBlue = "#00a0e5";
 
@@ -355,14 +354,9 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
               }
             }
         };
-        console.log(chartOptions);
 
         chiasm.setConfig(config);
-        chiasm.getComponent("dataReduction").then(function(dataReduction){
-          dataReduction.when("dataOut", function(data){
-            console.log(data);
-          });
-        });
+
 
         //this.chiasmFetchData(chartOptions, function (data){
         //    chiasm.getComponent("visualization").then(function(visualization){
