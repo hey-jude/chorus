@@ -265,6 +265,8 @@ describe DataSource do
       end
     end
 
+  end
+
   describe "search fields" do
     it "indexes text fields" do
       DataSource.should have_searchable_field :name
