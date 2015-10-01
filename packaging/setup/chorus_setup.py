@@ -182,6 +182,12 @@ class ChorusSetup:
            os.remove(dst)
         shutil.copyfile(src, dst)
 
+    def _cp_rf(self, src, dst):
+        logger.debug("cp -rf %s to %s" % (src, dst))
+        if os.path.exists(dst):
+            shutil.rmtree(dst)
+        shutil.copytree(src, dst)
+
     def _eula_by_brand(self):
         filename = ""
         if os.getenv('PIVOTALLABEL') is None:
@@ -382,6 +388,9 @@ class ChorusSetup:
                 self._mkdir_p(os.path.join(alpine_data_repo, "plugins10"))
                 self._cp_f(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/plugins10/plugins-alpine.jar"),\
                            os.path.join(alpine_data_repo, "plugins10/plugins-alpine.jar"))
+                if os.path.exists(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/libjars")):
+                    self._cp_rf(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/libjars"), \
+                                os.path.join(alpine_data_repo, "libjars"))
                 migrate_alpine_conf(os.path.join(alpine_data_repo, "configuration/alpine.conf"), \
                                     os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/configuration/alpine.conf"))
 
