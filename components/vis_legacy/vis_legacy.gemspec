@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["kevin@alpinenow.com"]
   s.homepage    = ""
   s.summary     = "Legacy visualization system for Chorus."
-  # s.description = "Description of VisEngine."
+  # s.description = "Description of VisLegacy."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
