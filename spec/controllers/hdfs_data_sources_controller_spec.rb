@@ -78,6 +78,14 @@ describe HdfsDataSourcesController do
     let(:params) { attributes.merge :id => hdfs_data_source }
     let(:fake_data_source) { Object.new }
 
+    it "allows the user to update the status" do
+      stub(Hdfs::QueryService).version_of { hdfs_data_source }
+      stub(Hdfs::QueryService).accessible? { true }
+      attributes["state"] = 'disabled'
+      put :update, params
+      expect(HdfsDataSource.find(params[:id]).disabled?).to be_true
+    end
+
     it "checks authorization and presents the updated hadoop data source" do
       mock(Hdfs::DataSourceRegistrar).update!(hdfs_data_source.id, attributes, @user) { fake_data_source }
       mock(Authority).authorize!.with_any_args

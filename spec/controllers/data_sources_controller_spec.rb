@@ -184,6 +184,12 @@ describe DataSourcesController do
       put :update, params
       response.code.should == "422"
     end
+
+    it "allows the user to disable the data source" do
+      params[:state] = 'disabled'
+      put :update, params
+      expect(DataSource.find(params[:id]).disabled?).to be_true
+    end
   end
 
   describe "create" do

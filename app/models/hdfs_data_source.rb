@@ -5,7 +5,7 @@ class HdfsDataSource < ActiveRecord::Base
   include CommonDataSourceBehavior
   include Permissioner
 
-  attr_accessible :name, :host, :port, :description, :username, :group_list, :job_tracker_host, :job_tracker_port, :hdfs_version, :high_availability, :connection_parameters, :hive_metastore_location, :is_hdfs_hive
+  attr_accessible :name, :host, :port, :description, :username, :group_list, :job_tracker_host, :job_tracker_port, :hdfs_version, :high_availability, :connection_parameters, :hive_metastore_location, :is_hdfs_hive, :state
 
   belongs_to :owner, :class_name => 'User'
   has_many :activities, :as => :entity
