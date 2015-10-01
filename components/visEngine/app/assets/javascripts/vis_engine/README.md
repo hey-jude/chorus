@@ -1,4 +1,4 @@
-This directory contains logic for a JavaScript bundle that bridges the gap between Node modules and the Rails asset pipeline.
+This directory contains logic for a JavaScript bundle that bridges the gap between Chiasm NodeJS modules and the Rails asset pipeline.
 
 To generate the bundle, run
 

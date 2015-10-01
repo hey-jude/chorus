@@ -1,11 +1,23 @@
 {
   "name": "vis_engine",
   "scripts": {
-    "bundle": "browserify -s VisEngine visEngine.js -o visEngineBundle.js"
+    "bundle": "browserify -g browserify-shim -s VisEngine visEngine.js -o visEngineBundle.js"
   },
   "dependencies": {
-    "chiasm": "^0.1.9",
-    "dsv-dataset": "^0.1.1",
+    "chiasm": "^0.2.1",
+    "chiasm-component": "^0.2.1",
+    "chiasm-data-reduction": "^0.2.0",
+    "chiasm-layout": "^0.2.2",
+    "chiasm-links": "^0.2.1",
+    "dsv-dataset": "^0.1.2",
     "model-js": "^0.2.4"
+  },
+  "devDependencies": {
+    "browserify": "^11.2.0",
+    "browserify-shim": "^3.8.10",
+    "browserify-versionify": "^1.0.6"
+  },
+  "browserify-shim": {
+    "d3": "global:d3"
   }
 }

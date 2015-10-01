@@ -2,9 +2,6 @@
 // includes core Chiasm plugins.
 var Chiasm = require("chiasm");
 
-// This is the Chiasm plugin that loads the data from the VisEngine API.
-var visEngineDataLoader = require("./visEngineDataLoader");
-
 // This is the Chiasm instance that will be constructed,
 // and will have the VisEngine--specific data loading plugin available.
 var chiasm;
@@ -16,8 +13,17 @@ module.exports = {
     if (!chiasm) {
       chiasm = Chiasm(container);
 
-      // Expose the plugin to configurations on this Chiasm instance.
-      chiasm.plugins.visEngineDataLoader = visEngineDataLoader;
+      // Pull in Chiasm modules from
+      // https://github.com/chiasm-project/
+      chiasm.plugins.layout = require("chiasm-layout"),
+      chiasm.plugins.links = require("chiasm-links"),
+      chiasm.plugins.dataReduction = require("chiasm-data-reduction"),
+
+      // This is the Chiasm plugin that loads the data from the VisEngine API.
+      chiasm.plugins.visEngineDataLoader = require("./visEngineDataLoader"),
+
+      // This is the customized Bar Chart module for Chorus.
+      chiasm.plugins.barChart = require("./barChart")
     }
     return chiasm;
   }
