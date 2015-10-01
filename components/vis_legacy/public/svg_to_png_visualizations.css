@@ -1,3 +1,5 @@
+/* KT: This file is used by server-side rendering: svg_to_png.rb ... */
+
 svg.chart {
     background: #FFFFFF;
     height: 340px;
