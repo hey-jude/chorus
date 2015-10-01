@@ -44,5 +44,6 @@ class DataSourcesController < ApplicationController
 
   def find_data_source
     @data_source = DataSource.find(params[:id])
+    raise ActiveRecord::RecordNotFound if !Permissioner.is_admin?(current_user) && @data_source.disabled?
   end
 end

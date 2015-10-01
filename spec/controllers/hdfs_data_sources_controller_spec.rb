@@ -142,6 +142,25 @@ describe HdfsDataSourcesController do
       decoded_response.name.should == hdfs_data_source.name
     end
 
+    context "when the user is not an admin" do
+      it "hides disabled data sources" do
+        hdfs_data_source.state = "disabled"
+        hdfs_data_source.save!
+        get :show, :id => hdfs_data_source.id
+        response.should be_not_found
+      end
+    end
+
+    context "when the user is an admin" do
+      it "shows the disabled data sources" do
+        log_in users(:admin)
+        hdfs_data_source.state = "disabled"
+        hdfs_data_source.save!
+        get :show, :id => hdfs_data_source.id
+        response.should be_success
+      end
+    end
+
     generate_fixture "hdfsDataSource.json" do
       get :show, :id => hdfs_data_source.id
     end

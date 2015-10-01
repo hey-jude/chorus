@@ -2,6 +2,7 @@ class HdfsDataSourcesController < ApplicationController
 
   before_filter :demo_mode_filter, :only => [:create, :update, :destroy]
   before_filter :require_data_source_create, :only => [:create]
+  before_filter :find_data_source, :except => [:index, :create]
 
   def create
     data_source = Hdfs::DataSourceRegistrar.create!(params[:hdfs_data_source], current_user)
@@ -21,21 +22,26 @@ class HdfsDataSourcesController < ApplicationController
   end
 
   def show
-    present HdfsDataSource.find(params[:id])
+    present @hdfs_data_source
   end
 
   def update
-    hdfs_data_source = HdfsDataSource.find(params[:id])
-    Authority.authorize! :update, hdfs_data_source, current_user, { :or => :current_user_is_object_owner }
+    Authority.authorize! :update, @hdfs_data_source, current_user, { :or => :current_user_is_object_owner }
 
-    hdfs_data_source = Hdfs::DataSourceRegistrar.update!(hdfs_data_source.id, params[:hdfs_data_source], current_user)
+    hdfs_data_source = Hdfs::DataSourceRegistrar.update!(@hdfs_data_source.id, params[:hdfs_data_source], current_user)
     present hdfs_data_source
   end
 
   def destroy
-    hdfs_data_source = HdfsDataSource.find(params[:id])
-    Authority.authorize! :update, hdfs_data_source, current_user, { :or => :current_user_is_object_owner }
-    hdfs_data_source.destroy
+    Authority.authorize! :update, @hdfs_data_source, current_user, { :or => :current_user_is_object_owner }
+    @hdfs_data_source.destroy
     head :ok
+  end
+
+  private
+
+  def find_data_source
+    @hdfs_data_source = HdfsDataSource.find(params[:id])
+    raise ActiveRecord::RecordNotFound if !Permissioner.is_admin?(current_user) && @hdfs_data_source.disabled?
   end
 end
