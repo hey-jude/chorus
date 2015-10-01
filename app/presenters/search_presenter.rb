@@ -9,7 +9,7 @@ class SearchPresenter < SearchPresenterBase
         },
 
         :data_sources => {
-            :results => present_models_with_highlights(model.data_sources),
+            :results => present_models_with_highlights(filter_disabled(model.data_sources)),
             :numFound => model.num_found[:data_sources]
         },
 
@@ -38,6 +38,11 @@ class SearchPresenter < SearchPresenterBase
             :numFound => model.num_found[:attachments]
         }
     }.merge(workspace_specific_results)
+  end
+
+
+  def self.filter_disabled(data_source_results)
+    data_source_results.select{|ds|ds.state != 'disabled'} unless Permissioner.is_admin?(current_user)
   end
 
   private

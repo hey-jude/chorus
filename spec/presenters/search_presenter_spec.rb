@@ -9,7 +9,18 @@ describe SearchPresenter, :type => :view do
     set_current_user(user)
   end
 
+
+
   describe "#to_hash" do
+
+    # I couldn't figure out how the search fixtures work so I'm attempting
+    # to test the changes here. If you figure it out let me know -AL
+    describe "filter disabled" do
+      it "should removed disabled data sources from the search" do
+        SearchPresenter.filter_disabled(DataSource.all).should_not include(*DataSource.where(:state => 'disabled'))
+      end
+    end
+
     context "searching without workspace" do
       before do
         search = Search.new(user, :query => 'searchquery')
@@ -31,6 +42,7 @@ describe SearchPresenter, :type => :view do
       end
 
       it 'includes matching data sources' do
+        binding.pry
         @hash.should have_key(:data_sources)
         data_source_hash = @hash[:data_sources]
         data_source_hash.should have_key(:numFound)
