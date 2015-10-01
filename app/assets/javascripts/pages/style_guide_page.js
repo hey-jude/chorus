@@ -645,6 +645,8 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
                 modelClass: "KaggleUser"
             }),
 
+            // KT TODO: all these 'Visualization: x' should somehow be moved into the Visualization component
+
             "Visualization: BoxPlot": new chorus.views.visualizations.Boxplot({
                 model: new chorus.models.BoxplotTask({
                     xAxis: "test_coverage",

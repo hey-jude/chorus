@@ -22,18 +22,22 @@ chorus.translation = {
         });
 
         return result;
-    },
-
-    getMessageFileUrl: function() {
-        return "/messages/Messages_en.properties?iebuster=" + $.now();
     }
 };
 
-$.ajax({
-    url:chorus.translation.getMessageFileUrl(),
-    async:false,
-    dataType:'text'
-}).done(function (data, status) {
+$.when.apply($, window.chorus.translation_files.map(function(url) {
+    return $.ajax({
+        url:url,
+        async:false,
+        dataType:'text'
+    });
+})).done(function() {
+
+    var concatenatedTranslationsFiles = '';
+    for (var i = 0; i < arguments.length; i++) {
+        concatenatedTranslationsFiles += arguments[i][0];
+    }
+
     I18n.translations = {};
-    I18n.translations[chorus.locale] = chorus.translation.parseProperties(data);
+    I18n.translations[chorus.locale] = chorus.translation.parseProperties(concatenatedTranslationsFiles);
 });

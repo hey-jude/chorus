@@ -43,11 +43,18 @@
 //= require csrf
 //= require application_misc
 //= require chorus
+
+// KT: Some 'componentized' javascript needs to be loaded before other files (mixins & translations, for example) ...
+// put these in '<component name>_boot' and require it up top in the manifest file:
+//= require vis_legacy_boot
+
 //= require_tree ./utilities
 //= require_tree ./mixins
+
 //= require router
 //= require models
 //= require collections
+
 //= require views/core/bare_view
 //= require views/core/base_view
 //= require views/core/main_content_view
@@ -102,6 +109,7 @@
 //= require pages/dataset/workspace_dataset_show_page
 //= require pages/search_index_page
 //= require pages/workspaces/workspace_show_page
+
 //= require_tree .
 
-//= require vis_engine/application
+//= require vis_legacy

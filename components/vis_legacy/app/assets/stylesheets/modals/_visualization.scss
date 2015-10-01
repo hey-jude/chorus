@@ -1,8 +1,12 @@
+@import "_common";
+@import "compass/css3/border-radius";
+@import "compass/css3/opacity";
+
 @mixin chart_icon($name){
     .#{$name}.chart_icon {
-        background-image: url("/images/visualizations/dialog/#{$name}_off.png");
+        background-image: url("/assets/visualizations/dialog/#{$name}_off.png");
         &.selected {
-            background-image: url("/images/visualizations/dialog/#{$name}_on.png");
+            background-image: url("/assets/visualizations/dialog/#{$name}_on.png");
         }
     }
 }

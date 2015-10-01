@@ -1,5 +1,5 @@
-require Rails.root + 'vendor/batik-all-1.7.jar'
-require Rails.root + 'vendor/xml-apis-ext-1.3.04.jar'
+require VisLegacy::Engine.root + 'vendor/batik-all-1.7.jar'
+require VisLegacy::Engine.root + 'vendor/xml-apis-ext-1.3.04.jar'
 
 class SvgToPng
   InvalidSvgData = Class.new(StandardError)
@@ -17,7 +17,7 @@ class SvgToPng
 
     transcoder = transcoder_class.new
     transcoder.addTranscodingHint(transcoder_class::KEY_BACKGROUND_COLOR, java.awt.Color::WHITE)
-    transcoder.addTranscodingHint(transcoder_class::KEY_USER_STYLESHEET_URI, "file://" + Rails.root.join("public/assets/visualizations.css").to_s)
+    transcoder.addTranscodingHint(transcoder_class::KEY_USER_STYLESHEET_URI, "file://" + VisLegacy::Engine.root.join("public/svg_to_png_visualizations.css").to_s)
     transcoder.transcode(input, output)
     @binary_data = String.from_java_bytes(ostream.to_byte_array)
   rescue TypeError, org.apache.batik.transcoder.TranscoderException => e
