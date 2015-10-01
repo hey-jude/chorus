@@ -1,0 +1,8 @@
+@mixin action_bar_icon($name) {
+    .#{$name}.action_bar_icon {
+        background-image: url("/assets/visualizations/create_icons/#{$name}_off.png");
+        &.selected {
+            background-image: url("/assets/visualizations/create_icons/#{$name}_on.png");
+        }
+    }
+}
