@@ -125,6 +125,11 @@ describe DataSource do
   describe '#refresh' do
     let(:data_source) { data_sources(:owners) }
 
+    it 'checks if the data source is disabled' do
+      any_instance_of(DataSource){ |ds| mock(ds).disabled? }
+      DataSource.refresh(data_source.id)
+    end
+
     it 'refreshes databases for the data source' do
       mock(data_source).refresh_databases({})
       data_source.refresh

@@ -162,6 +162,12 @@ describe HdfsDataSource do
     let(:root_dir) { HdfsEntry.new({:path => '/bar', :is_directory => true}, :without_protection => true) }
     let(:deep_dir) { HdfsEntry.new({:path => '/bar/baz', :is_directory => true}, :without_protection => true) }
 
+    it 'checks if the data source is disabled' do
+      subject.update_attributes(:state => 'disabled')
+      any_instance_of(HdfsDataSource){ |ds| mock(ds).disabled? { true } }
+      subject.refresh
+    end
+
     it "lists the root directory for the data source" do
       mock(HdfsEntry).list('/', subject) { [root_file, root_dir] }
       mock(HdfsEntry).list(root_dir.path, subject) { [] }

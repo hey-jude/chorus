@@ -157,6 +157,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh(options={})
+    return if disabled?
     options[:skip_dataset_solr_index] = true if options[:new]
     refresh_databases options
 

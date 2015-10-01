@@ -54,6 +54,7 @@ class HdfsDataSource < ActiveRecord::Base
   end
 
   def refresh(path = "/")
+    return if disabled?
     entries = HdfsEntry.list(path, self)
     entries.each { |entry| refresh(entry.path) if entry.is_directory? }
   rescue Hdfs::DirectoryNotFoundError => e
