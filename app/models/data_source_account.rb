@@ -23,7 +23,7 @@ class DataSourceAccount < ActiveRecord::Base
   after_destroy { data_source_account_permissions.clear }
 
   def reindex_data_source
-    data_source.refresh_databases_later
+    data_source.refresh_databases_later unless data_source.disabled?
   end
 
   def invalid_credentials!

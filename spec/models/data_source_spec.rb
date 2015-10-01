@@ -303,6 +303,12 @@ describe DataSource do
       mock(SolrIndexer.SolrQC).enqueue_if_not_queued("DataSource.reindex_data_source", data_source.id)
       data_source.solr_reindex_later
     end
+
+    it "should not enqueue a job if the data source is disabled" do
+      data_source.update_attributes(:state => 'disabled')
+      any_instance_of(DataSource){ |ds| mock(ds).disabled? }
+      data_source.solr_reindex_later
+    end
   end
 
   describe ".owned_by" do

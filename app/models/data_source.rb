@@ -172,7 +172,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def solr_reindex_later
-    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id)
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id) unless disabled?
   end
 
   def update_state_and_version

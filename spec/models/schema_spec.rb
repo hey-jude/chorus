@@ -320,6 +320,12 @@ describe Schema do
 
       Schema.reindex_datasets(schema.id)
     end
+
+    it "doesn't reindex if the parent is disabled" do
+      any_instance_of(DataSource) do |ds|
+        mock(ds).disabled? { true }
+      end
+    end
   end
 
   it_behaves_like 'a soft deletable model' do
