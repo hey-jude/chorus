@@ -322,9 +322,11 @@ describe Schema do
     end
 
     it "doesn't reindex if the parent is disabled" do
-      any_instance_of(DataSource) do |ds|
-        mock(ds).disabled? { true }
-      end
+      stub(schema.parent).disabled? { true }
+      stub(schema).refresh_datasets { raise "should not be called "}
+      expect{
+        Schema.reindex_datasets(schema.id)
+      }.not_to raise_error
     end
   end
 
