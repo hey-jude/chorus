@@ -21,7 +21,6 @@ describe DataSourcesController do
     let(:prohibited_data_source) { data_sources(:admins) }
     let(:online_data_source) { data_sources(:online) }
     let(:offline_data_source) { data_sources(:offline) }
-    let(:disabled_data_source) { data_sources(:disabled) }
 
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
@@ -40,25 +39,17 @@ describe DataSourcesController do
       decoded_response.map(&:id).should include(offline_data_source.id)
       decoded_response.map(&:id).should include(permitted_data_source.id)
       decoded_response.map(&:id).should_not include(prohibited_data_source.id)
-      decoded_response.map(&:id).should_not include(disabled_data_source.id)
     end
 
     context 'when all => "true" is passed' do
-      before do
-        log_in users(:admin)
-      end
-
-      context "if the user is an admin" do
-        it "returns all data sources" do
-          get :index, :all => true
-          response.code.should == "200"
-          decoded_response.size.should == DataSource.count
-          decoded_response.map(&:id).should include(online_data_source.id)
-          decoded_response.map(&:id).should include(offline_data_source.id)
-          decoded_response.map(&:id).should include(permitted_data_source.id)
-          decoded_response.map(&:id).should include(prohibited_data_source.id)
-          decoded_response.map(&:id).should include(disabled_data_source.id)
-        end
+      it "returns all data sources" do
+        get :index, :all => true
+        response.code.should == "200"
+        decoded_response.size.should == DataSource.count
+        decoded_response.map(&:id).should include(online_data_source.id)
+        decoded_response.map(&:id).should include(offline_data_source.id)
+        decoded_response.map(&:id).should include(permitted_data_source.id)
+        decoded_response.map(&:id).should include(prohibited_data_source.id)
       end
     end
 

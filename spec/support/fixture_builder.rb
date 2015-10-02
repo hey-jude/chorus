@@ -106,7 +106,6 @@ FixtureBuilder.configure do |fbuilder|
 
     FactoryGirl.create(:gpdb_data_source, :name => "Offline", :owner => owner, :state => "offline")
     FactoryGirl.create(:gpdb_data_source, :name => "Online", :owner => owner, :state => "online")
-    FactoryGirl.create(:gpdb_data_source, :name => "disabled", :owner => owner, :state => "disabled")
 
     @owner_creates_gpdb_data_source = Events::DataSourceCreated.by(owner).add(:data_source => owners_data_source)
 
