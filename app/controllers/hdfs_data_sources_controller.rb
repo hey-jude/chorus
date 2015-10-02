@@ -14,8 +14,8 @@ class HdfsDataSourcesController < ApplicationController
     succinct = params[:succinct] == 'true'
     includes = succinct ? [] : [{:owner => :tags}, :tags]
     hdfs_data_sources = HdfsDataSource.all.includes(includes)
-    hdfs_data_sources = hdfs_data_sources.accessible_to(current_user)
     hdfs_data_sources = hdfs_data_sources.with_job_tracker if params[:job_tracker]
+    #PT. Apply scope filter for current_user
     hdfs_data_sources = HdfsDataSource.filter_by_scope(current_user, hdfs_data_sources) if current_user_in_scope?
 
     present paginate(hdfs_data_sources), :presenter_options => {:succinct => succinct}

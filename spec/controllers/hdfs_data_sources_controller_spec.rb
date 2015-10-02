@@ -111,7 +111,6 @@ describe HdfsDataSourcesController do
 
   describe "#index" do
     it "presents all hadoop data sources" do
-      log_in users(:admin)
       mock_present { |models| models.to_a.should =~ HdfsDataSource.all.to_a }
       get :index
     end
@@ -132,14 +131,6 @@ describe HdfsDataSourcesController do
           data_source.job_tracker_host.should be_present
           data_source.job_tracker_port.should be_present
         end
-      end
-    end
-
-    context "when the user is not an admin" do
-      it "hides the disabled data sources" do
-        hdfs_data_source.update_attributes(:state => 'disabled')
-        get :index
-        decoded_response.map(&:id).should_not include(hdfs_data_source.id)
       end
     end
   end

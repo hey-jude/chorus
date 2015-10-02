@@ -48,21 +48,6 @@ describe HdfsDataSource do
     its(:license_type) { should == 'hdfs_version+the_version'}
   end
 
-  describe '#accessible_to' do
-    let(:user) { users(:owner) }
-    let(:data_source) { FactoryGirl.create(:hdfs_data_source) }
-    it "should filter out disabled sources" do
-      data_source.update_attributes(:state => 'disabled')
-      HdfsDataSource.accessible_to(user).should_not include(data_source)
-    end
-    it "should show the data source if the user is admin" do
-      user.admin = true
-      user.save!
-      data_source.update_attributes(:state => 'disabled')
-      HdfsDataSource.accessible_to(user).should include(data_source)
-    end
-  end
-
   describe '#destroy' do
     it 'enqueues a destroy_entries job' do
       mock(QC.default_queue).enqueue_if_not_queued('HdfsEntry.destroy_entries', subject.id)
