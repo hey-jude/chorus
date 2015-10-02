@@ -10,12 +10,18 @@ class ChiasmApiDatasetsController < ApplicationController
 
     column_types_map = [
         {:chorus_type => /integer/, :chiasm_type => 'number'},
+        {:chorus_type => /double/, :chiasm_type => 'number'},
         {:chorus_type => /varying/, :chiasm_type => 'string'}
     ]
 
     column_data = dataset.column_data.sort_by { |col| col.name }.collect { |col|
       convert_chorus_to_chiasm_type = column_types_map.find { |h| h[:chorus_type].match col.data_type }
-      chiasm_type = convert_chorus_to_chiasm_type[:chiasm_type]
+
+      if convert_chorus_to_chiasm_type
+        chiasm_type = convert_chorus_to_chiasm_type[:chiasm_type]
+      else
+        chiasm_type = "string"
+      end
 
       {name: col.name, type: chiasm_type}
     }
@@ -29,6 +35,7 @@ class ChiasmApiDatasetsController < ApplicationController
   # 4.9,3.0,1.4,0.2,setosa
   def show_data
     dataset = Dataset.find(params[:dataset_id])
+    percentage = params[:percentage]
 
     # TODO Curran / Mike Souza: pass 'check_id' in from Backbone ...
     check_id = rand(0..1000000)
@@ -38,7 +45,7 @@ class ChiasmApiDatasetsController < ApplicationController
 
     # TODO Curran / Michael Thyen -- passing in :foo so we have the option to pass multiple named options,
     # otherwise we can clean it up (just pass dataset)
-    row_sql = @sql_generator.random_sampling_sql(:dataset => dataset, :foo => 'bar')
+    row_sql = @sql_generator.random_sampling_sql(:dataset => dataset, :percentage => percentage)
 
     # TODO Curran / Mike Souza see VisLegacy -> VisualizationsController#destroy -- the query must be cancellable for
     # a reason, we will probably need to wire up something equivalent, passing the 'check_id' along

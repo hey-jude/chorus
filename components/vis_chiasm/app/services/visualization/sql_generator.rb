@@ -46,15 +46,15 @@ module Visualization
     # TODO Curran / Michael Thyen -- sanity check this
     def random_sampling_sql(o)
 
-      dataset, foo = fetch_opts(o, :dataset, :foo)
+      dataset, percentage = fetch_opts(o, :dataset, :percentage)
 
       columns = dataset.column_names.sort.join(',')
       randomFunctionNoSeed = "random()"
       sourceTable = dataset.scoped_name
-      randomValue = 0.1
+      percentageQuery = percentage
       limit = 10
 
-      "SELECT #{columns} FROM (SELECT #{columns}, #{randomFunctionNoSeed} AS rand_order FROM #{sourceTable}) alpfoo WHERE alpfoo.rand_order <= #{randomValue} LIMIT #{limit}"
+      "SELECT #{columns} FROM (SELECT #{columns}, #{randomFunctionNoSeed} AS rand_order FROM #{sourceTable}) alpfoo WHERE alpfoo.rand_order <= #{percentageQuery} LIMIT #{limit}"
     end
 
     private
