@@ -1,3 +1,6 @@
+// TODO Curran / Mike Souza to do: this is currently busted, in VisChiasm right now Chiasm doesn't pop up in a
+// modal at all.  So, we prob need to adapt some of the functionality in here to the new UI paradigm.
+
 chorus.dialogs.Visualization = chorus.dialogs.Base.extend({
     constructorName: "Visualization",
     templateName: "visualization",

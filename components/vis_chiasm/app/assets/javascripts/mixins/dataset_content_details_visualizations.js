@@ -43,6 +43,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         this.showVisualizationConfig(type);
     },
 
+    // TODO Mike Souza: perhaps this is where we would pass the 'check_id' to the controller and cancel the query?
     cancelVisualization: function(e) {
         e.preventDefault();
 
@@ -62,7 +63,6 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
             this.chartConfig.teardown(true);
             delete this.chartConfig;
         }
-
     },
 
     showVisualizationConfig: function(chartType) {

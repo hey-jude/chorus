@@ -1,3 +1,6 @@
+// TODO Curran / Mike Souza to do: this is currently busted, there's no place in the new UI for writing a note about
+// a visualization.  So, we'll prob have to adapt this to the new UI.
+
 chorus.dialogs.VisualizationNotesNew = chorus.dialogs.MemoNew.extend({
     constructorName: "VisualizationNotesNew",
 

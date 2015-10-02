@@ -1,3 +1,6 @@
+// TODO Curran / Mike Souza: I think these just need to be deleted, they actually generate the old graphs using D3 --
+// now Chiasm is doing this.
+
 chorus.views.visualizations.Boxplot = chorus.views.Base.include(
     chorus.Mixins.VisHelpers
 ).extend({

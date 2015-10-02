@@ -1,3 +1,5 @@
+// TODO Mike Souza / Curran -- how do we make this work with Chiasm?
+
 chorus.models.TimeseriesTask = chorus.models.ChartTask.extend({
     chartType: "timeseries",
     columnLabels: {

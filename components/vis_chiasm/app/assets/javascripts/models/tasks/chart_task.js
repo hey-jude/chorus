@@ -1,3 +1,5 @@
+// TODO Mike Souza / Curran -- how do we make this work with Chiasm?
+
 chorus.models.ChartTask = chorus.models.Task.extend({
     constructorName: "ChartTask",
     urlTemplateBase: 'datasets/{{datasetId}}/visualizations',

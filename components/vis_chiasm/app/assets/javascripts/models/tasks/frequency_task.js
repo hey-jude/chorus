@@ -1,3 +1,5 @@
+// TODO Mike Souza / Curran -- how do we make this work with Chiasm?
+
 chorus.models.FrequencyTask = chorus.models.ChartTask.extend({
     chartType: 'frequency',
     columnLabels : {
