@@ -6,42 +6,25 @@ module Visualization
       obj.numeric_cast = 'numeric(32)'
     end
 
-    def boxplot_row_sql(o)
-      dataset, values, category, buckets, filters = fetch_opts(o, :dataset, :values, :category, :buckets, :filters)
+    # def random_sample
+    #   -- Random sample basic selection where a random value is generated for each row and then compared against another random value.
+    #   --
+    #   -- Single line comments like these will be removed at runtime.
+    #   -- Multi line comments using /* */ will not be removed.
+    #   --
+    #   -- ${columns}: Will be a * (if sensible) or a comma-separated list of columns inserted into string
+    #   -- ${sourceTable}: Will use the source table to insert into string below
+    #   -- ${randomFunctionNoSeed}: random function that does not need a seed (see randomFunctionNoSeed.sql)
+    #   -- ${limit}: Limit the number of rows
+    #   -- ${randomValue}: A system generated random value to compare against
+    #
+    #   SELECT TOP ${limit} ${columns} FROM (SELECT ${columns}, (${randomFunctionNoSeed}) AS rand_order FROM ${sourceTable}) alpfoo WHERE alpfoo.rand_order <= ${randomValue}
+    # end
 
-      filters = filters.present? ? "#{filters.join(' AND ')} AND" : ''
-
-      # td does not support ntile, so approximate with
-      # (RANK() OVER(...) - 1) * n / (COUNT(*) OVER (...))
-      ntiles_for_each_datapoint = <<-SQL
-      SELECT "#{category}", "#{values}", (RANK() OVER (
-        PARTITION BY "#{category}"
-        ORDER BY "#{values}"
-      ) - 1) * 4 / (COUNT(*) OVER (
-        PARTITION BY "#{category}"
-        ORDER BY "#{values}"
-      )) AS ntile
-        FROM #{dataset.scoped_name}
-          WHERE #{filters} "#{category}" IS NOT NULL AND "#{values}" IS NOT NULL
-      SQL
-
-      ntiles_for_each_bucket = <<-SQL
-      SELECT "#{category}", ntile, MIN("#{values}") "min", MAX("#{values}") "max", COUNT(*) cnt
-        FROM (#{ntiles_for_each_datapoint}) AS ntilesForEachDataPoint
-          GROUP BY "#{category}", ntile
-      SQL
-
-      limits = limit_clause((buckets * 4).to_s)
-
-      # td does not allow nested ordered analytic functions, so we cannot order by
-      # total using this syntax as before...
-      ntiles_for_each_bin_with_total = <<-SQL
-      SELECT #{limits[:top]} "#{category}", ntile, "min", "max", cnt
-        FROM (#{ntiles_for_each_bucket}) AS ntilesForEachBin
-        ORDER BY "#{category}", ntile #{limits[:limit]};
-      SQL
-
-      ntiles_for_each_bin_with_total
+    def random_sampling_sql(o)
+      # Michael Thyen TODO -- fill in
+      raise NotImplemented
     end
+
   end
 end

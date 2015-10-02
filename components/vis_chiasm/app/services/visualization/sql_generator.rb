@@ -14,168 +14,50 @@ module Visualization
       @date_trunc_method = params.fetch(:date_trunc_method, :trunc)
     end
 
-    def frequency_row_sql(o)
-      dataset, bins, category, filters = fetch_opts(o, :dataset, :bins, :category, :filters)
+    # def random_sample_order_by_random_query
+    #   -- Random sample basic selection where data is sorted by a random value generated for each row and then we take TOP/LIMIT to restrict the number of results
+    #   --
+    #   -- Single line comments like these will be removed at runtime.
+    #   -- Multi line comments using /* */ will not be removed.
+    #   --
+    #   -- ${columns}: Will be a * (if sensible) or a comma-separated list of columns inserted into string
+    #   -- ${sourceTable}: Will use the source table to insert into string below
+    #   -- ${randomFunctionNoSeed}: random function that does not need a seed (see randomFunctionNoSeed.sql)
+    #   -- ${limit}: Limit the number of rows
+    #
+    #   SELECT ${columns}, ${randomFunctionNoSeed} AS rand_order FROM ${sourceTable} ORDER BY rand_order LIMIT ${limit}
+    # end
 
-      limits = limit_clause(bins)
+    # def random_sample
+    #   -- Random sample basic selection where a random value is generated for each row and then compared against another random value.
+    #   --
+    #   -- Single line comments like these will be removed at runtime.
+    #   -- Multi line comments using /* */ will not be removed.
+    #   --
+    #   -- ${columns}: Will be a * (if sensible) or a comma-separated list of columns inserted into string
+    #   -- ${sourceTable}: Will use the source table to insert into string below
+    #   -- ${randomFunctionNoSeed}: random function that does not need a seed (see randomFunctionNoSeed.sql)
+    #   -- ${limit}: Limit the number of rows
+    #   -- ${randomValue}: A system generated random value to compare against
+    #
+    #   SELECT ${columns} FROM (SELECT ${columns}, ${randomFunctionNoSeed} AS rand_order FROM ${sourceTable}) alpfoo WHERE alpfoo.rand_order <= ${randomValue} LIMIT ${limit}
+    # end
 
-      query = <<-SQL
-        SELECT #{limits[:top]} #{category} AS bucket, count(1) AS counted
-          FROM #{dataset.scoped_name}
-      SQL
-      query << " WHERE #{filters.join(' AND ')}" if filters.present?
-      query << " GROUP BY #{category}"
-      query << ' ORDER BY counted DESC'
-      query << " #{limits[:limit]}" if limits[:limit]
-      query
-    end
+    # TODO Curran / Michael Thyen -- sanity check this
+    def random_sampling_sql(o)
 
-    def boxplot_row_sql(o)
-      dataset, values, category, buckets, filters = fetch_opts(o, :dataset, :values, :category, :buckets, :filters)
+      dataset, foo = fetch_opts(o, :dataset, :foo)
 
-      filters = filters.present? ? "#{filters.join(' AND ')} AND" : ''
+      columns = dataset.column_names.sort.join(',')
+      randomFunctionNoSeed = "random()"
+      sourceTable = dataset.scoped_name
+      randomValue = 0.1
+      limit = 10
 
-      ntiles_for_each_datapoint = <<-SQL
-      SELECT "#{category}", "#{values}", ntile(4) OVER (
-        PARTITION BY "#{category}"
-        ORDER BY "#{values}"
-      ) AS ntile
-        FROM #{dataset.scoped_name}
-          WHERE #{filters} "#{category}" IS NOT NULL AND "#{values}" IS NOT NULL
-      SQL
-
-      ntiles_for_each_bucket = <<-SQL
-      SELECT "#{category}", ntile, MIN("#{values}") "min", MAX("#{values}") "max", COUNT(*) cnt
-        FROM (#{ntiles_for_each_datapoint}) AS ntilesForEachDataPoint
-          GROUP BY "#{category}", ntile
-      SQL
-
-      limits = limit_clause((buckets * 4).to_s)
-
-      # this was removed previously, but is a key performance optimization and must remain in place.
-      # The query needs to limit the number of buckets, there could be a large number of rows
-      ntiles_for_each_bin_with_total = <<-SQL
-      SELECT #{limits[:top]} "#{category}", ntile, "min", "max", cnt, SUM(cnt) OVER(
-        PARTITION BY "#{category}"
-      ) AS total
-        FROM (#{ntiles_for_each_bucket}) AS ntilesForEachBin
-        ORDER BY total desc, "#{category}", ntile #{limits[:limit]};
-      SQL
-
-      ntiles_for_each_bin_with_total
-    end
-
-    def heatmap_min_max_sql(o)
-      dataset, x_axis, y_axis = fetch_opts(o, :dataset, :x_axis, :y_axis)
-      relation = relation(dataset)
-
-      query = relation.project(
-          relation[x_axis].minimum.as('xmin'), relation[x_axis].maximum.as('xmax'),
-          relation[y_axis].minimum.as('ymin'), relation[y_axis].maximum.as('ymax')
-      )
-
-      query.to_sql
-    end
-
-    def heatmap_row_sql(o)
-      x_axis, x_bins, min_x, max_x = fetch_opts(o, :x_axis, :x_bins, :min_x, :max_x)
-      y_axis, y_bins, min_y, max_y = fetch_opts(o, :y_axis, :y_bins, :min_y, :max_y)
-      dataset, filters = fetch_opts(o, :dataset, :filters)
-
-      query = <<-SQL
-        SELECT x, y, COUNT(*) AS "value" FROM (
-          SELECT width_bucket(
-            CAST("#{x_axis}" AS #{numeric_cast}),
-            CAST(#{min_x} AS #{numeric_cast}),
-            CAST(#{max_x} AS #{numeric_cast}),
-            #{x_bins}
-          ) AS x,
-          width_bucket( CAST("#{y_axis}" AS #{numeric_cast}),
-            CAST(#{min_y} AS #{numeric_cast}),
-            CAST(#{max_y} AS #{numeric_cast}),
-            #{y_bins}
-          ) AS y FROM ( SELECT * FROM #{dataset.scoped_name}
-      SQL
-
-      query +=  ' WHERE ' + filters.join(' AND ') if filters.present?
-
-      query += <<-SQL
-        ) subquery
-          WHERE "#{x_axis}" IS NOT NULL
-          AND "#{y_axis}" IS NOT NULL) foo
-          GROUP BY x, y
-      SQL
-
-      query
-    end
-
-    def histogram_min_max_sql(o)
-      relation = relation(o[:dataset])
-      category = o[:category]
-
-      query = relation.
-          project(relation[category].minimum.as('"min"'), relation[category].maximum.as('"max"'))
-
-      query.to_sql
-    end
-
-    def histogram_row_sql(o)
-      dataset, min, max, bins, filters, category = fetch_opts(o, :dataset, :min, :max, :bins, :filters, :category)
-      relation = relation(dataset)
-      scoped_category = %(#{dataset.scoped_name}."#{category}")
-
-      width_bucket = "width_bucket(CAST(#{scoped_category} as #{numeric_cast}), CAST(#{min} as #{numeric_cast}), CAST(#{max} as #{numeric_cast}), #{bins})"
-
-      query = relation.
-          group(width_bucket).
-          project(Arel.sql(width_bucket).as('bucket'), Arel.sql("COUNT(#{width_bucket})").as('frequency')).
-          where(relation[category].not_eq(nil))
-
-      query = query.where(Arel.sql(filters.join(' AND '))) if filters.present?
-
-      query.to_sql
-    end
-
-    def timeseries_row_sql(o)
-      time, time_interval, aggregation = fetch_opts(o, :time, :time_interval, :aggregation)
-      value, filters, pattern = fetch_opts(o, :value, :filters, :pattern)
-      dataset = o[:dataset]
-
-      date_trunc = date_trunc_expression(time, time_interval)
-
-      query = <<-SQL
-        SELECT #{aggregation}("#{value}"), to_char(#{date_trunc}, '#{pattern}')
-          FROM #{dataset.scoped_name}
-      SQL
-      query << " WHERE #{filters.join(' AND ')}" if filters.present?
-      query << <<-SQL
-        GROUP BY #{date_trunc}
-        ORDER BY #{date_trunc} ASC
-      SQL
-
-      query
+      "SELECT #{columns} FROM (SELECT #{columns}, #{randomFunctionNoSeed} AS rand_order FROM #{sourceTable}) alpfoo WHERE alpfoo.rand_order <= #{randomValue} LIMIT #{limit}"
     end
 
     private
-
-    def limit_clause(limit)
-      {
-          :top => limit_type == :top ? "TOP #{limit}" : '',
-          :limit => limit_type == :limit ? "LIMIT #{limit}" : ''
-      }
-    end
-
-    def date_trunc_expression(column, time_interval)
-      if date_trunc_method == :date_trunc
-        %(date_trunc('#{time_interval}', "#{column}"))
-      else
-        %(TRUNC("#{column}", '#{time_interval}'))
-      end
-    end
-
-    def relation(dataset)
-      @relation ||= Arel::Table.new(dataset.scoped_name)
-    end
 
     def fetch_opts(opts, *keys)
       keys.map { |key| opts.fetch key }
