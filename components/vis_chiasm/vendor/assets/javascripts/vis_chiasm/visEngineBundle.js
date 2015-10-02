@@ -28431,15 +28431,33 @@ module.exports = function (){
   model.when("dataset_id", function (dataset_id){
     if(dataset_id !== Model.None){
 
-      // TODO include dataset id in the API call
-      //console.log(dataset_id);
+      var urls = ['datasets/' + dataset_id + '/chiasm_api_datasets/show_column_data',
+          'datasets/' + dataset_id + '/chiasm_api_datasets/show_data'];
 
-      $.get("/vis_engine/reduce_data", function (response){
-        var dataset = dsvDataset.parse(response);
-        model.data = dataset.data;
-        console.log("Fdsafdsafdsa");
-        console.log(dataset.data);
+      $.when.apply($, urls.map(function(url) {
+          return $.ajax({
+              url: url,
+              async: false,
+              dataType: 'text'
+          });
+      })).done(function() {
+
+          var column_data = eval(arguments[0][0]);
+          var data = arguments[1][0];
+
+          var dsvDatasetConfig = {
+              "dsvString": data,
+              "metadata": {
+                  "delimiter": ",",
+                  "columns": column_data
+              }
+          }
+
+          var dataset = dsvDataset.parse(dsvDatasetConfig);
+          model.data = dataset.data;
+
       });
+
     }
   });
   return model;
