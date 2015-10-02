@@ -9,7 +9,7 @@ class SearchPresenter < SearchPresenterBase
         },
 
         :data_sources => {
-            :results => present_models_with_highlights(filter_disabled(model.data_sources)),
+            :results => present_models_with_highlights(SearchPresenter.filter_disabled(model.data_sources)),
             :numFound => model.num_found[:data_sources]
         },
 
