@@ -18,7 +18,8 @@ class DataSourcePresenter < Presenter
           :online => model.state == "online",
           :db_name => model.db_name,
           :description => model.description,
-          :schema_blacklist => model.connect_as_owner.schema_blacklist
+          :schema_blacklist => model.connect_as_owner.schema_blacklist,
+          :state => model.state
       }.merge(owner_hash).
       merge(tags_hash))
     end
