@@ -1,13 +1,5 @@
 #!/bin/bash
 
-unamestr=`uname`
-if [[ "$unamestr" == 'Darwin' ]]; then
-  os_friendly_name='osx'
-else
-  os_friendly_name='centos'
-  yum --assumeyes install xz zlib zlib-devel
-fi
-
 set -e
 
 mkdir -p build
@@ -46,13 +38,13 @@ pushd build
 
     make
 
-    mkdir -p ../../../vendor/imagemagick/$os_friendly_name
-    cp utilities/convert ../../../vendor/imagemagick/$os_friendly_name
-    cp utilities/identify ../../../vendor/imagemagick/$os_friendly_name
+    mkdir -p ../../../vendor/imagemagick/centos
+    cp utilities/convert ../../../vendor/imagemagick/centos
+    cp utilities/identify ../../../vendor/imagemagick/centos
 
   popd
 popd
 
 rm -rf build
 
-echo "Imagemagick built for $os_friendly_name."
+echo "Imagemagick built for CentOS."

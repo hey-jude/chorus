@@ -1,5 +1,19 @@
+def exception_if_no_imagemagick
+  system('identify --version')
+  result=$?
+  exit_code=result.exitstatus
+  if exit_code.eql?(127) # 127 = File Not Found
+    raise "Developers must install ImageMagick: brew install imagemagick"
+  end
+end
+
+# KT: We provide a statically compiled verison of ImageMagick for CentOS, but not for developers in OSX.
 platform = `uname`.strip == "Darwin" ? 'osx' : 'centos'
-Paperclip.options[:command_path] = Rails.root.join('vendor', 'imagemagick', platform)
+if platform == 'centos'
+  Paperclip.options[:command_path] = Rails.root.join('vendor', 'imagemagick', platform)
+elsif platform == 'osx'
+  exception_if_no_imagemagick
+end
 
 # https://github.com/thoughtbot/paperclip/issues/1677#issuecomment-102159964
 Paperclip::UploadedFileAdapter.content_type_detector = Paperclip::ContentTypeDetector
@@ -8,8 +22,8 @@ Paperclip::UploadedFileAdapter.content_type_detector = Paperclip::ContentTypeDet
 # otherwise a "spoofed_media_type" exception is thrown, which cannot be turned off.
 # See: https://github.com/thoughtbot/paperclip#security-validations
 Paperclip.options[:content_type_mappings] = {
-  sql: 'text/plain',
-  pmml: 'application/xml'
+    sql: 'text/plain',
+    pmml: 'application/xml'
 }
 
 module Paperclip
