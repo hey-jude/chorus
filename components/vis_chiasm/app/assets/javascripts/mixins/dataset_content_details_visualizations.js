@@ -116,12 +116,19 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
 
     //    var x = task.save();
     //},
+    chiasmInit: function (){
+        if(!this.chiasm){
+            this.chiasm = new ChiasmBundle();
+        }
+        return this.chiasm;
+    },
     updateChiasmVisualization: function(){
         var chartOptions = this.chartConfig.chartOptions();
         var alpineBlue = "#00a0e5";
+        var chiasm = this.chiasmInit();
 
-        var chiasm = VisEngine.chiasmInit($("#chiasm-container")[0]);
-
+        //$("#chiasm-container")[0]
+        /*
         var visualizationPlugin;
 
         if(chartOptions.type === "frequency"){
@@ -184,8 +191,24 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
               }
             }
         };
+*/
+        var params = {
+            orientation: chartOptions.orientation,
+            selectedColumn: {
+                name: chartOptions.yAxis,
 
-        chiasm.setConfig(config);
+                // In the future, this is where we can put the
+                // human-readable label for the column
+                label: chartOptions.yAxis,
+
+                type: "number"// TODO get this working
+            },
+            barColor: alpineBlue,
+            dataset_id: this.chartConfig.model.id,
+            numBins: chartOptions.bins
+        };
+
+        chiasm.setConfig(this.generateConfig(params));
 
 
         //this.chiasmFetchData(chartOptions, function (data){
@@ -193,6 +216,59 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         //        visualization.data = data;
         //    });
         //});
+    },
+    generateConfig: function(params){
+        return {
+            "layout": {
+                "plugin": "layout",
+                "state": {
+                    "containerSelector": "#chiasm-container",
+                    "layout": "visualization"
+                }
+            },
+            "visualization": {
+                "plugin": "barChart",
+                "state": {
+                    "sizeColumn": "count",
+                    "sizeLabel": "Count",
+                    "idColumn": params.selectedColumn.name,
+                    "idLabel": params.selectedColumn.label,
+                    "orientation": params.orientation,
+                    "fill": params.barColor
+                }
+            },
+            "loader": {
+                "plugin": "visEngineDataLoader",
+                "state": {
+                    "dataset_id": params.dataset_id
+                }
+            },
+            "reduction": {
+                "plugin": "dataReduction",
+                "state": {
+                    "aggregate": {
+                        "dimensions": [{
+                            "column": params.selectedColumn.name,
+                            "histogram": params.selectedColumn.type !== "string",
+                            "numBins": parseFloat(params.numBins)
+                        }],
+                        "measures": [{
+                            "outColumn": "count",
+                            "operator": "count"
+                        }]
+                    }
+                }
+            },
+            "links": {
+                "plugin": "links",
+                "state": {
+                    "bindings": [
+                        "loader.dataset -> reduction.datasetIn",
+                        "reduction.datasetOut -> visualization.dataset"
+                    ]
+                }
+            }
+        };
     },
 
     additionalContextForVisualizations: function() {

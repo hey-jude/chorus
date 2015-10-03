@@ -52,7 +52,7 @@ module Visualization
       randomFunctionNoSeed = "random()"
       sourceTable = dataset.scoped_name
       percentageQuery = percentage
-      limit = 10
+      limit = 100
 
       "SELECT #{columns} FROM (SELECT #{columns}, #{randomFunctionNoSeed} AS rand_order FROM #{sourceTable}) alpfoo WHERE alpfoo.rand_order <= #{percentageQuery} LIMIT #{limit}"
     end
