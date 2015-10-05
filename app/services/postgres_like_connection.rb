@@ -108,10 +108,6 @@ class PostgresLikeConnection < DataSourceConnection
     PostgresLikeConnection::DatabaseError
   end
 
-  def visualization_sql_generator
-    Visualization::SqlGenerator.new(:date_trunc_method => :date_trunc).extend(Visualization::PgLikeSql)
-  end
-
   private
 
   def quote_identifier(identifier)

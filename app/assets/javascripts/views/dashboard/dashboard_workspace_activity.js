@@ -36,6 +36,7 @@ chorus.views.DashboardWorkspaceActivity = chorus.views.Base.extend({
         this.tickFcn = d3.time.days;
         this.model.fetch();
 
+        // KT TODO: When we use Chiasm for the dashboard visualization, this should be moved into the VisChiasm component.
         this.vis = {
             // Properties about data provided by server
             dataSettings: {
