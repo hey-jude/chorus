@@ -33,6 +33,14 @@ chorus.models.DataSource = chorus.models.AbstractDataSource.extend({
         return this.get('entityType') === 'jdbc_hive_data_source';
     },
 
+    isDisabled: function() {
+        return this.get('state') === 'disabled';
+    },
+
+    isIncomplete: function() {
+        return this.get('state') === 'incomplete';
+    },
+
     accounts: function() {
         this._accounts || (this._accounts = new chorus.collections.DataSourceAccountSet([], {dataSourceId: this.get("id")}));
         return this._accounts;
