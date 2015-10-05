@@ -11,7 +11,10 @@ module.exports = function (){
   chiasm.plugins.dsvDataset = require("chiasm-dsv-dataset");
   chiasm.plugins.visEngineDataLoader = require("./visEngineDataLoader");
   chiasm.plugins.dataReduction = require("chiasm-data-reduction");
+
   chiasm.plugins.barChart = require("./barChart.js");
+  chiasm.plugins.heatMap = require("./heatMap.js");
+  chiasm.plugins.dummyVis = require("./dummyVis.js");
 
   return chiasm;
 };

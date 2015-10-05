@@ -7,16 +7,17 @@ var dsvDataset = require("dsv-dataset");
 module.exports = function (){
 
   var my = ChiasmComponent({
-    dataset_id: Model.None
+    dataset_id: Model.None,
+    numRows: 1000
   });
 
-  my.when("dataset_id", function (dataset_id){
+  my.when(["dataset_id", "numRows"], function (dataset_id, numRows){
     if(dataset_id !== Model.None){
 
       var columnsPath = "datasets/" + dataset_id + "/chiasm_api_datasets/show_column_data";
       var dataPath = "datasets/" + dataset_id + "/chiasm_api_datasets/show_data";
 
-      dataPath += "?numRows=1000";// TODO work with this.
+      dataPath += "?numRows=" + numRows;
 
       d3.json(columnsPath, function(error, columns) {
         if(error){ throw error; }
@@ -36,7 +37,6 @@ module.exports = function (){
       metadata: metadata
     });
     my.data = my.dataset.data;
-    console.log(my.dataset);
   });
 
   return my;

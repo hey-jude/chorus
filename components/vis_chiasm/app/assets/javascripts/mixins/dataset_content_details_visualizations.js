@@ -90,125 +90,58 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         }
     },
 
-    // Queries the server for data, depending on the current chart type and configuration.
-    //chiasmFetchData: function (chartOptions, callback){
-    //    var chartType = chartOptions.type;
-    //    var datasetId = this.chartConfig.model.id;
-    //    var checkId =  Math.floor((Math.random()*1e8)+1).toString();
-    //    var url = "datasets/" + datasetId + "/visualizations";
-
-    //    // This code fetches the data via a "task" abstraction.
-    //    // Copied from chart_configuration_view.js
-    //    var func = "make" + _.capitalize(chartType) + "Task";
-    //    var task = this.chartConfig.model[func](chartOptions);
-    //    task.set({filters: chartOptions.filters && chartOptions.filters.sqlStrings()});
-
-    //    // This callback gets invoked once the data is loaded.
-    //    task.bindOnce("saved", function (model, data){
-
-    //        // Extract the tabular data format that Chiasm visualizations expect (array of objects)
-    //        callback(data.response.rows);
-    //    });
-    //    task.bindOnce("saveFailed", function (){
-    //        // TODO bubble errors to the UI
-    //        console.log("save failed");
-    //    });
-
-    //    var x = task.save();
-    //},
-    chiasmInit: function (){
+    // Initializes the Chiasm runtime.
+    // Calls the given callback with the Chiasm instance and fetched column type information.
+    // This is an ugly hack done under time pressure for knowing the column types
+    // at the time the full configuration is generated, so the category selector UI
+    // will work for both numeric and categorical columns. -- CK 10/5/15
+    chiasmInit: function (dataset_id, callback){
         if(!this.chiasm){
             this.chiasm = new ChiasmBundle();
+            this.chiasm.setConfig({
+                "loader": this.generateLoaderConfig(dataset_id)
+            });
         }
-        return this.chiasm;
+        var chiasm = this.chiasm;
+        this.chiasm.getComponent("loader").then(function (loader){
+            loader.when("dataset", function (dataset){
+                callback(chiasm, dataset.metadata.columns);
+            });
+        });
     },
     updateChiasmVisualization: function(){
         var chartOptions = this.chartConfig.chartOptions();
+        var dataset_id = this.chartConfig.model.id;
+        //console.log(chartOptions);
+
         var alpineBlue = "#00a0e5";
-        var chiasm = this.chiasmInit();
+        var generateConfig = _.bind(this.generateConfig, this);
+        this.chiasmInit(dataset_id, function (chiasm, columns){
+            var params = {
+                orientation: chartOptions.orientation,
+                selectedColumn: {
+                    name: chartOptions.yAxis,
 
-        //$("#chiasm-container")[0]
-        /*
-        var visualizationPlugin;
+                    // In the future, this is where we can put the
+                    // human-readable label for the column
+                    label: chartOptions.yAxis,
 
-        if(chartOptions.type === "frequency"){
-          visualizationPlugin = "barChart";
-        }
+                    // Use the fetched column metadata to determine the
+                    // type of the selected column.
+                    // TODO refactor this ugly hack.
+                    type: columns.find(function (column){
+                        return column.name === chartOptions.yAxis;
+                    }).type
+                },
+                barColor: alpineBlue,
+                dataset_id: dataset_id,
+                numBins: chartOptions.bins
+            };
 
-        var config = {
-            "layout": {
-                "plugin": "layout",
-                "state": {
-                    "layout": "visualization"
-                }
-            },
-            "visualization": {
-                "plugin": visualizationPlugin,
-                "state": {
-                    "xColumn": chartOptions.yAxis,
-                    "xAxisLabel": chartOptions.yAxis,
-                    "yColumn": "count",
-                    "yAxisLabel": "Count",
-                    "xAxisLabelOffset": 1.9,
-                    "yAxisLabelOffset": 1.4,
-                    "colorDefault": alpineBlue,
-                    "yDomainMin": 0,
-                    "margin": {
-                        "top": 15,
-                        "right": 0,
-                        "bottom": 60,
-                        "left": 50
-                    }
-                }
-            },
-            "dataLoader": {
-                "plugin": "visEngineDataLoader",
-                "state": {
-                    "dataset_id": this.chartConfig.model.id
-                }
-            },
-            "dataReduction": {
-                "plugin": "dataReduction",
-                "state": {
-                    "aggregate": {
-                        "dimensions": [{
-                            "column": chartOptions.yAxis
-                        }],
-                        "measures": [{
-                            "outColumn": "count",
-                            "operator": "count"
-                        }]
-                    }
-                }
-            },
-            "links": {
-              "plugin": "links",
-              "state": {
-                "bindings": [
-                  "dataLoader.data -> dataReduction.dataIn",
-                  "dataReduction.dataOut -> visualization.data"
-                ]
-              }
-            }
-        };
-*/
-        var params = {
-            orientation: chartOptions.orientation,
-            selectedColumn: {
-                name: chartOptions.yAxis,
+            chiasm.setConfig(generateConfig(params));
+        });
 
-                // In the future, this is where we can put the
-                // human-readable label for the column
-                label: chartOptions.yAxis,
 
-                type: "number"// TODO get this working
-            },
-            barColor: alpineBlue,
-            dataset_id: this.chartConfig.model.id,
-            numBins: chartOptions.bins
-        };
-
-        chiasm.setConfig(this.generateConfig(params));
 
 
         //this.chiasmFetchData(chartOptions, function (data){
@@ -218,6 +151,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         //});
     },
     generateConfig: function(params){
+
         return {
             "layout": {
                 "plugin": "layout",
@@ -237,12 +171,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                     "fill": params.barColor
                 }
             },
-            "loader": {
-                "plugin": "visEngineDataLoader",
-                "state": {
-                    "dataset_id": params.dataset_id
-                }
-            },
+            "loader": this.generateLoaderConfig(params.dataset_id),
             "reduction": {
                 "plugin": "dataReduction",
                 "state": {
@@ -269,6 +198,16 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                 }
             }
         };
+    },
+
+    generateLoaderConfig: function (dataset_id){
+        return {
+            "plugin": "visEngineDataLoader",
+            "state": {
+                "dataset_id": dataset_id,
+                "numRows": 1000 // TODO move this default into chorus.properties
+            }
+        }
     },
 
     additionalContextForVisualizations: function() {

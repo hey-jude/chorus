@@ -4,5 +4,5 @@ To generate the bundle, run
 
 ```
 npm install
-npm run bundle
+npm run build
 ```
