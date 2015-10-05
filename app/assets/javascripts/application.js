@@ -46,7 +46,7 @@
 
 // KT: Some 'componentized' javascript needs to be loaded before other files (mixins & translations, for example) ...
 // put these in '<component name>_boot' and require it up top in the manifest file:
-//= require vis_legacy_boot
+//= require vis_chiasm_boot
 
 //= require_tree ./utilities
 //= require_tree ./mixins
@@ -112,4 +112,4 @@
 
 //= require_tree .
 
-//= require vis_legacy
+//= require vis_chiasm

@@ -11,7 +11,7 @@ gem 'activeresource'
 gem 'protected_attributes'
 
 path 'components' do
-  gem 'vis_legacy'
+  gem 'vis_chiasm'
 end
 
 gem 'will_paginate', '3.0.4'
