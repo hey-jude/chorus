@@ -73,6 +73,11 @@ GIT
   specs:
     jasmine-core (2.3.4)
 
+PATH
+  remote: components
+  specs:
+    vis_chiasm (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -511,7 +516,7 @@ DEPENDENCIES
   timecop
   uglifier
   vcr (~> 2.3.0)
-  vis_engine!
+  vis_chiasm!
   will_paginate (= 3.0.4)
   yui-compressor (= 0.12.0)
 
