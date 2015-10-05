@@ -23,7 +23,8 @@ Paperclip::UploadedFileAdapter.content_type_detector = Paperclip::ContentTypeDet
 # See: https://github.com/thoughtbot/paperclip#security-validations
 Paperclip.options[:content_type_mappings] = {
     sql: 'text/plain',
-    pmml: 'application/xml'
+    pmml: 'application/xml',
+    am: 'text/plain' # is actually JSON, but we say plain here because it has to match what Paperclip thinks.
 }
 
 module Paperclip
