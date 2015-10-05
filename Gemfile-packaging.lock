@@ -73,12 +73,6 @@ GIT
   specs:
     jasmine-core (2.3.4)
 
-PATH
-  remote: components/visEngine
-  specs:
-    vis_engine (0.0.1)
-      rails (= 4.1.10)
-
 GEM
   remote: https://rubygems.org/
   specs:

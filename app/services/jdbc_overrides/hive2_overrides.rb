@@ -211,9 +211,5 @@ module JdbcOverrides
         %(#{schema_name}.#{name})
       end
     end
-
-    def self.VisualizationOverrides
-      return Visualization::Hive2Sql
-    end
   end
 end

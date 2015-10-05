@@ -127,10 +127,6 @@ class OracleConnection < DataSourceConnection
     OracleConnection::DatabaseError
   end
 
-  def visualization_sql_generator
-    Visualization::SqlGenerator.new(:limit_type => :oracle).extend(Visualization::OracleSql)
-  end
-
   private
 
   def datasets_query(options)

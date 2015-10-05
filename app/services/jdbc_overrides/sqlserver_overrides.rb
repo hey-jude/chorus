@@ -8,9 +8,5 @@ module JdbcOverrides
 
     module DatasetOverrides
     end
-
-    def self.VisualizationOverrides
-      return Visualization::SqlServerSql
-    end
   end
 end

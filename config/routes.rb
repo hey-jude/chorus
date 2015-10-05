@@ -1,7 +1,5 @@
 Chorus::Application.routes.draw do
 
-  mount VisEngine::Engine, at: '/vis_engine'
-
   resource :sessions, :only => [:create, :destroy, :show]
   resource :config, :only => [:show], :controller => 'configurations'
   resource :license, :only => [:show]
@@ -230,8 +228,6 @@ Chorus::Application.routes.draw do
     get '/' => 'imports#index'
     resources :imports, :only => :index
   end
-
-  post 'download_chart', :controller => 'image_downloads'
 
   post 'download_data', :controller => 'data_downloads'
 

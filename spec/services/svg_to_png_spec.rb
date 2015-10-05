@@ -68,9 +68,9 @@ describe SvgToPng do
     let(:converter) { SvgToPng.new(svg_content)}
     subject { converter.binary_data }
 
-    it "should apply the stylesheet visualizations.css and set the background to white" do
+    it "should apply the stylesheet svg_to_png_visualizations.css and set the background to white" do
       # In the test environment, if assets are not precompiled,
-      # download_chart will reference committed public/assets/visualizations.css,
+      # download_chart will reference committed public/assets/svg_to_png_visualizations.css,
       # which may not be the same as app/assets/visualizations.scss
 
       png = ChunkyPNG::Image.from_blob(subject)
