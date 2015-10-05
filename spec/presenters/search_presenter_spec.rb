@@ -42,7 +42,6 @@ describe SearchPresenter, :type => :view do
       end
 
       it 'includes matching data sources' do
-        binding.pry
         @hash.should have_key(:data_sources)
         data_source_hash = @hash[:data_sources]
         data_source_hash.should have_key(:numFound)
