@@ -16,7 +16,7 @@ module.exports = function (){
       var columnsPath = "datasets/" + dataset_id + "/chiasm_api_datasets/show_column_data";
       var dataPath = "datasets/" + dataset_id + "/chiasm_api_datasets/show_data";
 
-      dataPath += "?percentage=1.0";// TODO work with this.
+      dataPath += "?numRows=1000";// TODO work with this.
 
       d3.json(columnsPath, function(error, columns) {
         if(error){ throw error; }

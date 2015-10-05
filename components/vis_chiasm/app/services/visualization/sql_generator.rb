@@ -43,18 +43,11 @@ module Visualization
     #   SELECT ${columns} FROM (SELECT ${columns}, ${randomFunctionNoSeed} AS rand_order FROM ${sourceTable}) alpfoo WHERE alpfoo.rand_order <= ${randomValue} LIMIT ${limit}
     # end
 
-    # TODO Curran / Michael Thyen -- sanity check this
     def random_sampling_sql(o)
-
-      dataset, percentage = fetch_opts(o, :dataset, :percentage)
-
+      dataset, numRows = fetch_opts(o, :dataset, :numRows)
       columns = dataset.column_names.sort.join(',')
-      randomFunctionNoSeed = "random()"
       sourceTable = dataset.scoped_name
-      percentageQuery = percentage
-      limit = 100
-
-      "SELECT #{columns} FROM (SELECT #{columns}, #{randomFunctionNoSeed} AS rand_order FROM #{sourceTable}) alpfoo WHERE alpfoo.rand_order <= #{percentageQuery} LIMIT #{limit}"
+      "SELECT #{columns} FROM #{sourceTable} ORDER BY RANDOM() LIMIT #{numRows}"
     end
 
     private
