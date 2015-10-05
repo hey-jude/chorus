@@ -35,7 +35,7 @@ class ChiasmApiDatasetsController < ApplicationController
   # 4.9,3.0,1.4,0.2,setosa
   def show_data
     dataset = Dataset.find(params[:dataset_id])
-    percentage = params[:percentage]
+    numRows = params[:numRows]
 
     # TODO Curran / Mike Souza: pass 'check_id' in from Backbone ...
     check_id = rand(0..1000000)
@@ -45,7 +45,7 @@ class ChiasmApiDatasetsController < ApplicationController
 
     # TODO Curran / Michael Thyen -- passing in :foo so we have the option to pass multiple named options,
     # otherwise we can clean it up (just pass dataset)
-    row_sql = @sql_generator.random_sampling_sql(:dataset => dataset, :percentage => percentage)
+    row_sql = @sql_generator.random_sampling_sql(:dataset => dataset, :numRows => numRows)
 
     # TODO Curran / Mike Souza see VisLegacy -> VisualizationsController#destroy -- the query must be cancellable for
     # a reason, we will probably need to wire up something equivalent, passing the 'check_id' along
