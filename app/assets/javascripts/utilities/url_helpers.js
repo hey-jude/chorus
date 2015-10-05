@@ -40,6 +40,8 @@
         "jpeg":"img",
         "twb":"tableau",
         "pmml":"pmml",
+        "json":"json",
+        "am":"am",
         "xml":"xml",
         "js":"js",
         "md":"md",
