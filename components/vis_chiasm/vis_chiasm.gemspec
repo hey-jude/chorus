@@ -12,5 +12,5 @@ Gem::Specification.new do |s|
   s.homepage    = ""
   s.summary     = "Chiasm visualization system for Chorus."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,lib,public,vendor}/**/*"] + ["Rakefile", "README.rdoc"]
 end

@@ -52,6 +52,10 @@
                 return _.isEmpty(group.columnNames);
             });
 
+            // Don't show the "Create Chart" button if Chiasm is enabled,
+            // because when Chiasm is enabled, the chart has already been created.
+            ctx.showCreateChartButton = !instance.attributes.chiasmEnabled;
+
             return ctx;
         },
 
@@ -82,6 +86,11 @@
         postRender: function() {
             chorus.styleSelect(this.$('select'));
 
+            // Propagate changes from any dropdown menu using the "configChanged" event.
+            this.$("select").on("change", _.bind(function(){
+              this.trigger("configChanged");
+            }, this));
+
             var $a = this.$(".limiter a");
             var $el = $(this.el);
             $.each($a, _.bind(function(index, link) {
@@ -100,6 +109,9 @@
 
         limiterSelected: function(e, api) {
             api.elements.target.find('.selected_value').text($(e.target).text());
+
+            // Propagate changes in bin size ("Category Limit") using the "configChanged" event.
+            this.trigger("configChanged");
         },
 
         allColumnNames: nameGetter("columns"),

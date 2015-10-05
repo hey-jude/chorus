@@ -1,3 +1,6 @@
+// TODO Mike Souza / Curran -- I think this file should prob be deleted cause, it's really intimately
+// concerned with generating the SVG in the old way.
+
 (function(ns) {
     ns.presenters.visualizations = {};
 

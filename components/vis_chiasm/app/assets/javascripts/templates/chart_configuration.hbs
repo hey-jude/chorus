@@ -20,13 +20,25 @@
         {{/if}}
     </div>
     {{/each}}
+    <span>
+        <label>
+            <input type="radio" {{#if isHorizontal}}checked="checked"{{/if}} name="chart_orientation" class="orientation_radio" data-orientation="horizontal">
+            Horizontal
+        </label>
+        <label>
+            <input type="radio" {{#if isHorizontal}}{{else}}checked="checked"{{/if}} name="chart_orientation" class="orientation_radio" data-orientation="vertical">
+            Vertical
+        </label>
+    </span>
 </div>
 
-<div class="button_wrapper controls">
-    <button class="create"
-        {{#if noColumnsAvailable}}
-        disabled="disabled"
-        {{/if}}
-        >{{t "dataset.visualization.sidebar.create_chart"}}</button>
-    <button class="cancel hidden">{{t "actions.cancel"}}</button>
-</div>
+{{#if showCreateChartButton}}
+  <div class="button_wrapper controls">
+      <button class="create"
+          {{#if noColumnsAvailable}}
+          disabled="disabled"
+          {{/if}}
+          >{{t "dataset.visualization.sidebar.create_chart"}}</button>
+      <button class="cancel hidden">{{t "actions.cancel"}}</button>
+  </div>
+{{/if}}
