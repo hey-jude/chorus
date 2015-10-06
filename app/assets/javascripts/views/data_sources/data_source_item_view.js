@@ -10,7 +10,8 @@ chorus.views.DataSourceItem = chorus.views.Base.include(
             stateText: this.model.stateText(),
             url: this.model.showUrl(),
             iconUrl: this.model.providerIconUrl(),
-            isDisabled: this.model.isDisabled()
+            isDisabled: this.model.isDisabled(),
+            isIncomplete: this.model.isIncomplete()
         });
     }
 });

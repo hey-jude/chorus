@@ -41,6 +41,11 @@
                 {{t "data_sources.list.disabled"}}
             </div>
         {{/if}}
+        {{#if isIncomplete}}
+            <div class="description">
+                {{t "data_sources.list.incomplete"}}
+            </div>
+        {{/if}}
         {{#if fileInfo}}
             <div class="description">
                 {{ fileInfo }}
