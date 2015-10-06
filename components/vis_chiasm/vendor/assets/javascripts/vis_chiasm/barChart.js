@@ -52,8 +52,6 @@ function BarChart() {
   // This scale is for the length of the bars.
   var sizeScale = d3.scale.linear();
 
-//  my.el = document.createElement("div");
-//  var svg = d3.select(my.el).append("svg");
   var svg = d3.select(my.initSVG());
   var g = svg.append("g");
 
@@ -232,6 +230,11 @@ function BarChart() {
     yAxis.scale(yScale).ticks(height / density);
     yAxisG.call(yAxis);
   });
+
+  my.destroy = function (){
+    my.el.innerHTML = "";
+    my.el.parentNode.removeChild(my.el);
+  };
 
   return my;
 }

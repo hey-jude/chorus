@@ -92,17 +92,20 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
 
     // Initializes the Chiasm runtime.
     // Calls the given callback with the Chiasm instance and fetched column type information.
-    // This is an ugly hack done under time pressure for knowing the column types
+    // This is an ugly hack done under time pressure.
+    // It is necessary for knowing the column types
     // at the time the full configuration is generated, so the category selector UI
     // will work for both numeric and categorical columns. -- CK 10/5/15
     chiasmInit: function (dataset_id, callback){
         if(!this.chiasm){
             this.chiasm = new ChiasmBundle();
-            this.chiasm.setConfig({
-                "loader": this.generateLoaderConfig(dataset_id)
-            });
         }
         var chiasm = this.chiasm;
+
+        chiasm.setConfig({
+            "loader": this.generateLoaderConfig(dataset_id)
+        });
+
         this.chiasm.getComponent("loader").then(function (loader){
             loader.when("dataset", function (dataset){
                 callback(chiasm, dataset.metadata.columns);
@@ -112,33 +115,66 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
     updateChiasmVisualization: function(){
         var chartOptions = this.chartConfig.chartOptions();
         var dataset_id = this.chartConfig.model.id;
-        //console.log(chartOptions);
+        var chartType = chartOptions.type;
 
         var alpineBlue = "#00a0e5";
-        var generateConfig = _.bind(this.generateConfig, this);
+
+        // TODO go back and refactor to remove this nasty handling of "this"
+        var generateBarChartConfig = _.bind(this.generateBarChartConfig, this);
+        var generateHeatMapConfig = _.bind(this.generateHeatMapConfig, this);
+
         this.chiasmInit(dataset_id, function (chiasm, columns){
-            var params = {
-                orientation: chartOptions.orientation,
-                selectedColumn: {
-                    name: chartOptions.yAxis,
 
-                    // In the future, this is where we can put the
-                    // human-readable label for the column
-                    label: chartOptions.yAxis,
+            if(chartType === "frequency"){
 
-                    // Use the fetched column metadata to determine the
-                    // type of the selected column.
-                    // TODO refactor this ugly hack.
-                    type: columns.find(function (column){
-                        return column.name === chartOptions.yAxis;
-                    }).type
-                },
-                barColor: alpineBlue,
-                dataset_id: dataset_id,
-                numBins: chartOptions.bins
-            };
+                // Use the fetched column metadata to determine the type of the selected column.
+                // TODO refactor this ugly hack.
+                var yAxisType = columns.find(function (column){
+                    return column.name === chartOptions.yAxis;
+                }).type;
 
-            chiasm.setConfig(generateConfig(params));
+                var params = {
+                    orientation: chartOptions.orientation,
+                    selectedColumn: {
+                        name: chartOptions.yAxis,
+
+                        // In the future, this is where we can put the
+                        // human-readable label for the column
+                        label: chartOptions.yAxis,
+
+                        type: yAxisType
+                    },
+                    barColor: alpineBlue,
+                    dataset_id: dataset_id,
+                    numBins: chartOptions.bins
+                };
+                chiasm.setConfig(generateBarChartConfig(params));
+
+            } else if(chartType === "heatmap") {
+                var params = {
+                    xColumn: {
+                        name: chartOptions.xAxis,
+                        label: chartOptions.xAxis,
+                        type: columns.find(function (column){
+                            return column.name === chartOptions.xAxis;
+                        }).type
+                    },
+                    yColumn: {
+                        name: chartOptions.yAxis,
+                        label: chartOptions.yAxis,
+                        type: columns.find(function (column){
+                            return column.name === chartOptions.yAxis;
+                        }).type
+                    },
+                    color: alpineBlue,
+                    dataset_id: dataset_id,
+                    numBinsX: chartOptions.xBins,
+                    numBinsY: chartOptions.yBins
+                };
+                chiasm.setConfig(generateHeatMapConfig(params));
+            } else {
+                chiasm.setConfig({});
+            }
         });
 
 
@@ -150,7 +186,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         //    });
         //});
     },
-    generateConfig: function(params){
+    generateBarChartConfig: function(params){
 
         return {
             "layout": {
@@ -199,7 +235,62 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
             }
         };
     },
-
+    generateHeatMapConfig: function(params){
+        return {
+            "layout": {
+                "plugin": "layout",
+                "state": {
+                    "containerSelector": "#chiasm-container",
+                    "layout": "visualization"
+                }
+            },
+            "visualization": {
+                "plugin": "heatMap",
+                "state": {
+                    "colorColumn": "count",
+                    "xColumn": params.xColumn.name,
+                    "xLabel": params.xColumn.label,
+                    "yColumn": params.yColumn.name,
+                    "yLabel": params.yColumn.label,
+                    "colorRangeMin": "#FFFFFF",
+                    "colorRangeMax": params.color
+                }
+            },
+            "loader": this.generateLoaderConfig(params.dataset_id),
+            "reduction": {
+                "plugin": "dataReduction",
+                "state": {
+                    "aggregate": {
+                        "dimensions": [
+                            {
+                                "column": params.xColumn.name,
+                                "histogram": params.xColumn.type !== "string",
+                                "numBins": parseFloat(params.numBinsX)
+                            },
+                            {
+                                "column": params.yColumn.name,
+                                "histogram": params.yColumn.type !== "string",
+                                "numBins": parseFloat(params.numBinsY)
+                            }
+                        ],
+                        "measures": [{
+                            "outColumn": "count",
+                            "operator": "count"
+                        }]
+                    }
+                }
+            },
+            "links": {
+                "plugin": "links",
+                "state": {
+                    "bindings": [
+                        "loader.dataset -> reduction.datasetIn",
+                        "reduction.datasetOut -> visualization.dataset"
+                    ]
+                }
+            }
+        };
+    },
     generateLoaderConfig: function (dataset_id){
         return {
             "plugin": "visEngineDataLoader",
