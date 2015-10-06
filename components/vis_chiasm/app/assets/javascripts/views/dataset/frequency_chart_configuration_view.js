@@ -41,9 +41,8 @@ chorus.views.FrequencyChartConfiguration = chorus.views.ChartConfiguration.exten
     additionalContext: function() {
         var ctx = this._super("additionalContext");
 
-        _.extend(ctx, {
-            isHorizontal: this.chartOptions().orientation === 'horizontal'
-        });
+        ctx.showOrientationRadioButtons = true;
+        ctx.isHorizontal = (this.chartOptions().orientation === 'horizontal');
 
         return ctx;
     }

@@ -20,16 +20,19 @@
         {{/if}}
     </div>
     {{/each}}
-    <span>
-        <label>
-            <input type="radio" {{#if isHorizontal}}checked="checked"{{/if}} name="chart_orientation" class="orientation_radio" data-orientation="horizontal">
-            Horizontal
-        </label>
-        <label>
-            <input type="radio" {{#if isHorizontal}}{{else}}checked="checked"{{/if}} name="chart_orientation" class="orientation_radio" data-orientation="vertical">
-            Vertical
-        </label>
-    </span>
+
+    {{#if showOrientationRadioButtons}}
+        <span>
+            <label>
+                <input type="radio" {{#if isHorizontal}}checked="checked"{{/if}} name="chart_orientation" class="orientation_radio" data-orientation="horizontal">
+                Horizontal
+            </label>
+            <label>
+                <input type="radio" {{#if isHorizontal}}{{else}}checked="checked"{{/if}} name="chart_orientation" class="orientation_radio" data-orientation="vertical">
+                Vertical
+            </label>
+        </span>
+    {{/if}}
 </div>
 
 {{#if showCreateChartButton}}
