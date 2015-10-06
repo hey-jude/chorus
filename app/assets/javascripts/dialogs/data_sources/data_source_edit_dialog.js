@@ -126,7 +126,6 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     },
 
     saveFailed: function() {
-        this.closeModal();
         new chorus.dialogs.DataSourceInvalid({model: this.model}).launchModal();
     }
 });
