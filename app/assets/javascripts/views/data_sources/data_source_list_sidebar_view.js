@@ -42,7 +42,8 @@ chorus.views.DataSourceListSidebar = chorus.views.Sidebar.extend({
             dataSourceProvider: t("data_sources.provider." + dataSourceType),
             shared: this.model.isShared && this.model.isShared(),
             isGnip: this.model.isGnip(),
-            isDisabled: this.model.isDisabled()
+            isDisabled: this.model.isDisabled(),
+            isIncomplete: this.model.isIncomplete()
         };
     },
 
