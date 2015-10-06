@@ -90,7 +90,7 @@ module Permissioner
   # Called after model object is created. Created corresponding entry in chorus_objects table
   def create_chorus_object
     chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
-    scope_id = ChorusScope.find_by_name('application_realm').id
+    scope_id = ::ChorusScope.find_by_name('application_realm').id
     ChorusObject.find_or_create_by(:chorus_class_id => chorus_class.id,
                                    :instance_id => self.id,
                                    :chorus_scope_id => scope_id)
