@@ -118,6 +118,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         var chartType = chartOptions.type;
 
         var alpineBlue = "#00a0e5";
+        var alpineBlueDark = "#007FB5";
 
         // TODO go back and refactor to remove this nasty handling of "this"
         var generateBarChartConfig = _.bind(this.generateBarChartConfig, this);
@@ -126,12 +127,6 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         this.chiasmInit(dataset_id, function (chiasm, columns){
 
             if(chartType === "frequency"){
-
-                // Use the fetched column metadata to determine the type of the selected column.
-                // TODO refactor this ugly hack.
-                var yAxisType = columns.find(function (column){
-                    return column.name === chartOptions.yAxis;
-                }).type;
 
                 var params = {
                     orientation: chartOptions.orientation,
@@ -142,7 +137,11 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                         // human-readable label for the column
                         label: chartOptions.yAxis,
 
-                        type: yAxisType
+                        // Use the fetched column metadata to determine the type of the selected column.
+                        // TODO refactor this ugly hack.
+                        type: columns.find(function (column){
+                            return column.name === chartOptions.yAxis;
+                        }).type
                     },
                     barColor: alpineBlue,
                     dataset_id: dataset_id,
@@ -166,7 +165,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                             return column.name === chartOptions.yAxis;
                         }).type
                     },
-                    color: alpineBlue,
+                    color: alpineBlueDark,
                     dataset_id: dataset_id,
                     numBinsX: chartOptions.xBins,
                     numBinsY: chartOptions.yBins
