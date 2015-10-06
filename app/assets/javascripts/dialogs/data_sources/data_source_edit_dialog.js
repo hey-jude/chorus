@@ -14,6 +14,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     makeModel: function() {
         this.sourceModel = this.model;
         this.model = this.model.clone();
+        this.model.set({status: null});
         this.listenTo(this.model, 'change', this.rewriteLink);
     },
 
@@ -118,5 +119,14 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         this.sourceModel.set(this.model.attributes);
         chorus.toast("data_sources.edit_dialog.saved.toast", {dataSourceName: this.model.name(), toastOpts: {type:"success"}});
         this.closeModal();
+    },
+
+    validationFailed: function() {
+        this._super("saveFailed", this.model);
+    },
+
+    saveFailed: function() {
+        this.closeModal();
+        new chorus.dialogs.DataSourceInvalid({model: this.model}).launchModal();
     }
 });
