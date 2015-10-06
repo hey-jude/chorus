@@ -181,7 +181,7 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
     },
 
     saveFailed: function() {
-        this.closeModal();
+        this.$("button.submit").stopLoading();
         new chorus.dialogs.DataSourceInvalid({model: this.model}).launchModal();
     }
 });

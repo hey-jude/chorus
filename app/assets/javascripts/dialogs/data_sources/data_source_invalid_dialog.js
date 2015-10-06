@@ -5,7 +5,7 @@ chorus.dialogs.DataSourceInvalid = chorus.dialogs.Base.extend({
 
     events: {
         "click button.submit": "createDataSource",
-        "click button.cancel": "closeModal"
+        "click button.cancel": "close"
     },
 
     setup: function(options){
