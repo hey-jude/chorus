@@ -172,7 +172,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                 };
                 chiasm.setConfig(generateHeatMapConfig(params));
             } else {
-                chiasm.setConfig({});
+                //chiasm.setConfig({});
             }
         });
 
@@ -304,5 +304,9 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         var self = this;
 
         return {showVisualize: this.dataset.schema()};
-    }
+    },
+
+    // This line disables the funky "StickyHeader" behavior that was
+    // causing problems with the orientation radio buttons. -- CK 10/6/2015
+    stickyHeaderElements: function() { return []; }
 };
