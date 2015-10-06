@@ -476,8 +476,6 @@ class ChorusSetup:
         print bold(text.get("status_msg", "setup_complete"))
         if is_upgrade:
             print text.get("status_msg", "upgrade")
-            print
-            print bold(text.get("status_msg", "upgrade_post"))
         print "*" * 60
         print text.get("status_msg", "setup_post_step") % pwd.getpwuid(os.getuid()).pw_name
         print "*" * 60
