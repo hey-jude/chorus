@@ -14,7 +14,6 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     makeModel: function() {
         this.sourceModel = this.model;
         this.model = this.model.clone();
-        this.model.set({status: null});
         this.listenTo(this.model, 'change', this.rewriteLink);
     },
 
@@ -89,7 +88,8 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     save: function(e) {
         e.preventDefault();
         var attrs = {
-            description: this.$("textarea[name=description]").val().trim()
+            description: this.$("textarea[name=description]").val().trim(),
+            state: 'online'
         };
 
         _.each(this.formFields, function(name) {
@@ -112,7 +112,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
 
         this.$("button.submit").startLoading("data_sources.edit_dialog.saving");
         this.$("button.cancel").prop("disabled", true);
-        this.model.save(attrs, {silent: true});
+        this.model.save(attrs);
     },
 
     saveSuccess: function() {
