@@ -4,15 +4,18 @@ module Hdfs
       data_source = HdfsDataSource.new(connection_config)
       data_source.owner = owner
 
-      if connection_config['state'] == 'incomplete'
-        data_source.save!(:validate => false)
-      else
+      if should_connect? connection_config
         verify_accessibility!(data_source)
         data_source.version = Hdfs::QueryService.version_of(data_source)
+      end
+
+      if incomplete? connection_config
+        data_source.save!(:validate => false)
+      else
         data_source.save!
       end
 
-      Events::HdfsDataSourceCreated.by(owner).add(:hdfs_data_source => data_source)
+        Events::HdfsDataSourceCreated.by(owner).add(:hdfs_data_source => data_source)
       data_source
     end
 
@@ -20,7 +23,7 @@ module Hdfs
       data_source = HdfsDataSource.find(data_source_id)
       data_source.attributes = connection_config.except(:version)
 
-      unless (connection_config['state'] == 'incomplete')
+      if should_connect? connection_config
         data_source.version = Hdfs::QueryService.version_of(data_source)
         verify_accessibility!(data_source)
       end
@@ -33,7 +36,7 @@ module Hdfs
         )
       end
 
-      if connection_config['state'] == 'incomplete'
+      if incomplete? connection_config
         data_source.save!(:validate => false)
       else
         data_source.save!
@@ -42,6 +45,13 @@ module Hdfs
       data_source
     end
 
+    def self.should_connect?(connection_config)
+      connection_config['state'] != 'incomplete' && connection_config['state'] != 'disabled'
+    end
+
+    def self.incomplete?(connection_config)
+      connection_config['state'] == 'incomplete'
+    end
 
     def self.verify_accessibility!(data_source)
       unless Hdfs::QueryService.accessible?(data_source)
