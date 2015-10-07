@@ -89,7 +89,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         e.preventDefault();
         var attrs = {
             description: this.$("textarea[name=description]").val().trim(),
-            state: 'online'
+            state: ''
         };
 
         _.each(this.formFields, function(name) {
