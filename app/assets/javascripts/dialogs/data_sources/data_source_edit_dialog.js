@@ -111,7 +111,6 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         attrs.ssl = !!this.$("input[name=ssl]").prop("checked");
 
         this.$("button.submit").startLoading("data_sources.edit_dialog.saving");
-        this.$("button.cancel").prop("disabled", true);
         this.model.save(attrs);
     },
 
@@ -126,6 +125,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     },
 
     saveFailed: function() {
+        this.$("button.submit").stopLoading();
         new chorus.dialogs.DataSourceInvalid({model: this.model}).launchModal();
     }
 });
