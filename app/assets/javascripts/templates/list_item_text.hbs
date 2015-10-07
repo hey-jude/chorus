@@ -12,11 +12,11 @@
           <span class="name" title="Browsing Hive data sources is not supported.">{{name}}</span>
         {{else }}
           {{#if url}}
-              {{#if isDisabled}}
+              {{#ifAny isDisabled isIncomplete}}
                   <span class="name">{{name}}</span>
               {{else}}
                   <a title="{{name}}" class="name" href="{{url}}">{{name}}</a>
-              {{/if}}
+              {{/ifAny}}
           {{else}}
               <span class="name">{{name}}</span>
           {{/if}}
