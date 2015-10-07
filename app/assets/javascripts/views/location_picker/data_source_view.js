@@ -37,16 +37,19 @@ chorus.views.LocationPicker.DataSourceView = chorus.views.LocationPicker.Selecto
     collectHdfsDataSources: function() {
         this.hdfsDataSources = new chorus.collections.HdfsDataSourceSet();
         this.hdfsDataSources.attributes.jobTracker = true;
+        this.hdfsDataSources.attributes.filterDisabled = true;
         this.addDataSourceCollection(this.hdfsDataSources);
     },
 
     collectPgGpDataSources: function() {
         this.pgGpDataSources = new chorus.collections.PgGpDataSourceSet();
+        this.pgGpDataSources.attributes.filterDisabled = true;
         this.addDataSourceCollection(this.pgGpDataSources);
     },
     
     collectDatabaseDataSources: function () {
         this.databaseDataSources = new chorus.collections.DataSourceSet();
+        this.databaseDataSources.attributes.filterDisabled = true;
         this.addDataSourceCollection(this.databaseDataSources);
     },
     
