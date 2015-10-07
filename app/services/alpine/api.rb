@@ -172,6 +172,7 @@ module Alpine
           params.merge!({user_id: work_flow.owner_id})
           params.merge!({user_name: User.find(work_flow.owner_id).username})
         end
+        params.merge!({output_names: work_flow.output_table.join(',')})
       end
       params[:job_task_id] = options[:task].id if options[:task]
 
