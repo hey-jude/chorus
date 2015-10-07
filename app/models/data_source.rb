@@ -9,7 +9,7 @@ class DataSource < ActiveRecord::Base
   # Order: edit, show_contents
 
   attr_accessor :db_username, :db_password
-  attr_accessible :name, :description, :host, :port, :ssl, :db_name, :db_username, :db_password, :is_hawq, :as => [:default, :create]
+  attr_accessible :name, :description, :host, :port, :state, :ssl, :db_name, :db_username, :db_password, :is_hawq, :as => [:default, :create]
   attr_accessible :shared, :as => :create
 
   # Must happen before accounts are destroyed
@@ -141,7 +141,7 @@ class DataSource < ActiveRecord::Base
 
   def self.check_status(id)
     data_source = DataSource.find(id)
-    data_source.check_status!
+    data_source.check_status! unless data_source.disabled?
   rescue => e
     Rails.logger.error "Unable to check status of DataSource: #{data_source.inspect}"
     Rails.logger.error "#{e.message} :  #{e.backtrace}"
@@ -154,6 +154,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh(options={})
+    return if disabled?
     options[:skip_dataset_solr_index] = true if options[:new]
     refresh_databases options
 
@@ -164,11 +165,11 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh_databases_later
-    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed?
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed? || disabled?
   end
 
   def solr_reindex_later
-    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id)
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id) unless disabled?
   end
 
   def update_state_and_version
@@ -197,7 +198,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def enqueue_refresh
-    SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true)
+    SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true) unless disabled?
   end
 
   def account_owned_by(user)

@@ -123,6 +123,11 @@ describe DataSource do
   describe '#refresh' do
     let(:data_source) { data_sources(:owners) }
 
+    it 'checks if the data source is disabled' do
+      any_instance_of(DataSource){ |ds| mock(ds).disabled? }
+      DataSource.refresh(data_source.id)
+    end
+
     it 'refreshes databases for the data source' do
       mock(data_source).refresh_databases({})
       data_source.refresh
@@ -251,6 +256,18 @@ describe DataSource do
         }.to change(data_source, :last_online_at)
       end
     end
+
+
+    context "when the data source is disabled" do
+      it "does not check the status" do
+        data_source.update_attributes(:state => 'disabled')
+        any_instance_of(DataSource) do |ds|
+          mock(ds).disabled?
+        end
+        DataSource.check_status(data_source.id)
+      end
+    end
+
   end
 
   describe "search fields" do
@@ -282,6 +299,12 @@ describe DataSource do
     let(:data_source) { data_sources(:owners) }
     it "should enqueue a job" do
       mock(SolrIndexer.SolrQC).enqueue_if_not_queued("DataSource.reindex_data_source", data_source.id)
+      data_source.solr_reindex_later
+    end
+
+    it "should not enqueue a job if the data source is disabled" do
+      data_source.update_attributes(:state => 'disabled')
+      any_instance_of(DataSource){ |ds| mock(ds).disabled? }
       data_source.solr_reindex_later
     end
   end

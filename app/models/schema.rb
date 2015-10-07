@@ -63,6 +63,7 @@ class Schema < ActiveRecord::Base
   end
 
   def self.reindex_datasets(schema_id)
+    return if parent.respond_to?(:disabled?) && parent.disabled?
     schema = find(schema_id)
     schema.refresh_datasets(schema.data_source.owner_account, {:force_index => true})
   end

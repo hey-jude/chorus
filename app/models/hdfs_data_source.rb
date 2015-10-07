@@ -5,7 +5,7 @@ class HdfsDataSource < ActiveRecord::Base
   include CommonDataSourceBehavior
   include Permissioner
 
-  attr_accessible :name, :host, :port, :description, :username, :group_list, :job_tracker_host, :job_tracker_port, :hdfs_version, :high_availability, :connection_parameters, :hive_metastore_location, :is_hdfs_hive
+  attr_accessible :name, :host, :port, :description, :username, :group_list, :job_tracker_host, :job_tracker_port, :hdfs_version, :high_availability, :connection_parameters, :hive_metastore_location, :is_hdfs_hive, :state
 
   belongs_to :owner, :class_name => 'User'
   has_many :activities, :as => :entity
@@ -35,7 +35,7 @@ class HdfsDataSource < ActiveRecord::Base
 
   def self.check_status(id)
     data_source = HdfsDataSource.find(id)
-    data_source.check_status!
+    data_source.check_status! unless data_source.disabled?
   rescue => e
     Rails.logger.error "Unable to check status of DataSource: #{data_source.inspect}"
     Rails.logger.error "#{e.message} :  #{e.backtrace}"
@@ -46,6 +46,7 @@ class HdfsDataSource < ActiveRecord::Base
   end
 
   def refresh(path = "/")
+    return if disabled?
     entries = HdfsEntry.list(path, self)
     entries.each { |entry| refresh(entry.path) if entry.is_directory? }
   rescue Hdfs::DirectoryNotFoundError => e

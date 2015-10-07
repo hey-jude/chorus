@@ -99,6 +99,22 @@ describe DataSourcesController do
         mock.proxy(controller).present(data_source)
         get :show, :id => data_source.to_param
       end
+
+      it "doesn't show disabled data sources" do
+        data_source.update_attributes(:state => 'disabled')
+
+        get :show, :id => data_source.to_param
+      end
+
+      context "when the user is an admin" do
+        it "shows the disabled data sources" do
+          log_in users(:admin)
+          data_source.state = "disabled"
+          data_source.save!
+          get :show, :id => data_source.id
+          response.should be_success
+        end
+      end
     end
 
     generate_fixture "gpdbDataSource.json" do
@@ -158,6 +174,12 @@ describe DataSourcesController do
       params[:name] = ''
       put :update, params
       response.code.should == "422"
+    end
+
+    it "allows the user to disable the data source" do
+      params[:state] = 'disabled'
+      put :update, params
+      expect(DataSource.find(params[:id]).disabled?).to be_true
     end
   end
 

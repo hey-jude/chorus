@@ -23,6 +23,10 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
         return !this.isOnline();
     },
 
+    isDisabled: function() {
+        return this.get("state") === 'disabled';
+    },
+
     stateText: function() {
         return t("data_sources.state." + (this.isOnline() ? 'online' : 'offline'));
     },

@@ -6,7 +6,7 @@ class DataSourceStatusChecker
   end
 
   def self.check(data_source)
-    data_source.check_status!
+    data_source.check_status! unless data_source.disabled?
   rescue => e
     pa "Unable to check status of DataSource: #{data_source.inspect}"
     pa "Exception: #{e}"

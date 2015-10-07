@@ -4,7 +4,7 @@ class GnipDataSource < ActiveRecord::Base
   include SoftDelete
   include Permissioner
 
-  attr_accessible :name, :stream_url, :description, :username, :password, :owner
+  attr_accessible :name, :stream_url, :description, :username, :password, :owner, :state
   attr_accessor :highlighted_attributes, :search_result_notes
 
   after_destroy :create_deleted_event, :if => :current_user

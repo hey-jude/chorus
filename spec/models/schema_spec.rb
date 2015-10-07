@@ -320,6 +320,14 @@ describe Schema do
 
       Schema.reindex_datasets(schema.id)
     end
+
+    it "doesn't reindex if the parent is disabled" do
+      stub(schema.parent).disabled? { true }
+      stub(schema).refresh_datasets { raise "should not be called "}
+      expect{
+        Schema.reindex_datasets(schema.id)
+      }.not_to raise_error
+    end
   end
 
   it_behaves_like 'a soft deletable model' do
