@@ -25,6 +25,15 @@ describe Hdfs::StatisticsController do
       decoded_response.file_size.should == statistics.size
     end
 
+
+    it "should be forbidden if the data source is disabled" do
+      hdfs_data_source.update_attributes(:state => 'disabled')
+      get :show, :hdfs_data_source_id => hdfs_data_source.id, :file_id => entry.id
+
+
+      response.should be_forbidden
+    end
+
     generate_fixture "hdfsEntryStatistics.json" do
       get :show, :hdfs_data_source_id => hdfs_data_source.id, :file_id => entry.id
     end

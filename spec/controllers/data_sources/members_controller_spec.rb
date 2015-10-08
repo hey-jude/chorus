@@ -36,6 +36,13 @@ describe DataSources::MembersController do
       it_behaves_like "a paginated list" do
         let(:params) { {:data_source_id => data_source.to_param} }
       end
+
+      it "should be forbidden if the data source is disabled" do
+        data_source.update_attributes(:state => 'disabled')
+        get :index, :data_source_id => data_source.to_param
+
+        response.should be_forbidden
+      end
     end
 
     describe "#create" do

@@ -44,6 +44,10 @@ class DataSourcesController < ApplicationController
     head :ok
   end
 
+  def self.render_forbidden_if_disabled(params)
+    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if DataSource.find(params[:data_source_id]).disabled?
+  end
+
   private
 
   def find_data_source
