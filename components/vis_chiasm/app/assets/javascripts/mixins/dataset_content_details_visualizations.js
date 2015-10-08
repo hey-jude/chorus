@@ -195,7 +195,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                             return column.name === chartOptions.yAxis;
                         }).type
                     },
-                    color: alpineBlueDark,
+                    color: alpineBlue,
                     dataset_id: dataset_id,
                     numBinsX: chartOptions.bins
                 };
@@ -386,7 +386,8 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                     "xColumn": params.xColumn.name,
                     "xAxisLabelText": params.xColumn.label,
                     "yColumn": params.yColumn.name,
-                    "yAxisLabelText": params.yColumn.label
+                    "yAxisLabelText": params.yColumn.label,
+                    "fill": params.color
                 }
             },
             "loader": this.generateLoaderConfig(params.dataset_id),

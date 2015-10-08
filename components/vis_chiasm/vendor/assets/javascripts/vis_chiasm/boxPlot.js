@@ -17,16 +17,6 @@ function BoxPlot() {
     xColumn: Model.None,
     yColumn: Model.None,
 
-    // "r" stands for radius.
-    rColumn: Model.None,
-
-    // The circle radius used if rColumn is not specified.
-    rDefault: 3,
-
-    // The range of the radius scale if rColumn is specified.
-    rMin: 0,
-    rMax: 10,
-
     fill: "white",
     stroke: "black",
     strokeWidth: "1px"
