@@ -65,12 +65,6 @@ describe GnipDataSourcesController do
       data_source.owner.id.should == gnip_data_source.owner_id
     end
 
-    it "does not include disabled data sources if the user is not an admin" do
-      gnip_data_source.update_attributes(:state => 'disabled')
-      get :index
-      decoded_response.map(&:id).should_not include(gnip_data_source.id)
-    end
-
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
     it_behaves_like "a scoped endpoint" do
