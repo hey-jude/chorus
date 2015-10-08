@@ -21,6 +21,8 @@ describe DataSourcesController do
     let(:prohibited_data_source) { data_sources(:admins) }
     let(:online_data_source) { data_sources(:online) }
     let(:offline_data_source) { data_sources(:offline) }
+    let(:disabled_data_source) { data_sources(:disabled) }
+    let(:incomplete) { data_sources(:incomplete) }
 
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
@@ -77,6 +79,11 @@ describe DataSourcesController do
       it 'filters by multiple types' do
         get :index, :entity_type => %w(pg_data_source gpdb_data_source), :all => true
         decoded_response.map(&:id).should =~ DataSource.where(:type => %w(PgDataSource GpdbDataSource)).pluck(:id)
+      end
+
+      it 'filters disabled and incomplete' do
+        get :index, :filter_disabled => true
+        decoded_response.map(&:id).should_not include(*DataSource.where(:state => ['incomplete', 'disabled']).pluck(:id))
       end
     end
   end
