@@ -186,6 +186,15 @@ class DataSource < ActiveRecord::Base
     connect_as(user).with_connection {}
   end
 
+  def save_if_incomplete!(params)
+    if params["state"] == "incomplete"
+      save!(:validate => false)
+    else
+      save!
+    end
+    self
+  end
+
   private
 
   def build_data_source_account_for_owner

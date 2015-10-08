@@ -27,6 +27,10 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
         return this.get("state") === 'disabled';
     },
 
+    isIncomplete: function() {
+        return this.get("state") === 'incomplete';
+    },
+
     stateText: function() {
         return t("data_sources.state." + (this.isOnline() ? 'online' : 'offline'));
     },

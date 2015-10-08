@@ -7,9 +7,10 @@ class OracleDataSource < ConcreteDataSource
   has_many :workfile_execution_locations, -> { where :execution_location_type => 'DataSource' }, :foreign_key => :execution_location_id, :dependent => :destroy
 
   def self.create_for_user(user, params)
-    user.oracle_data_sources.create!(params) do |data_source|
+    data_source = user.oracle_data_sources.new(params) do |data_source|
       data_source.shared = params[:shared]
     end
+    data_source.save_if_incomplete!(params)
   end
 
   private

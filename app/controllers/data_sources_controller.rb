@@ -12,6 +12,8 @@ class DataSourcesController < ApplicationController
     includes = succinct ? [] : [{:owner => :tags}, :tags]
     data_sources = DataSource.by_type(params[:entity_type]).includes(includes)
     data_sources = data_sources.accessible_to(current_user) unless params[:all]
+
+    data_sources = data_sources.reject{ |data_source| data_source.disabled? } if params["filter_disabled"] == "true"
     #PT. Apply scope filter for current_user
     data_sources = DataSource.filter_by_scope(current_user, data_sources) if current_user_in_scope?
     present paginate(data_sources), :presenter_options => {:succinct => succinct}
@@ -30,7 +32,8 @@ class DataSourcesController < ApplicationController
 
   def update
     Authority.authorize! :update, @data_source, current_user, { :or => :current_user_is_object_owner }
-    @data_source.update_attributes!(params[:data_source])
+    @data_source.assign_attributes(params[:data_source])
+    @data_source.save_if_incomplete!(params[:data_source])
     present @data_source
   end
 

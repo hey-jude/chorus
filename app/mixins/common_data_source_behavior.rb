@@ -28,7 +28,7 @@ module CommonDataSourceBehavior
   end
 
   def disabled?
-    state == 'disabled'
+    state == 'disabled' || state == 'incomplete'
   end
 
   def online?

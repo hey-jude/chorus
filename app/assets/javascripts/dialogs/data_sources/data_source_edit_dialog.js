@@ -88,7 +88,8 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     save: function(e) {
         e.preventDefault();
         var attrs = {
-            description: this.$("textarea[name=description]").val().trim()
+            description: this.$("textarea[name=description]").val().trim(),
+            state: ''
         };
 
         _.each(this.formFields, function(name) {
@@ -110,13 +111,21 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         attrs.ssl = !!this.$("input[name=ssl]").prop("checked");
 
         this.$("button.submit").startLoading("data_sources.edit_dialog.saving");
-        this.$("button.cancel").prop("disabled", true);
-        this.model.save(attrs, {silent: true});
+        this.model.save(attrs);
     },
 
     saveSuccess: function() {
         this.sourceModel.set(this.model.attributes);
         chorus.toast("data_sources.edit_dialog.saved.toast", {dataSourceName: this.model.name(), toastOpts: {type:"success"}});
         this.closeModal();
+    },
+
+    validationFailed: function() {
+        this._super("saveFailed", this.model);
+    },
+
+    saveFailed: function() {
+        this.$("button.submit").stopLoading();
+        new chorus.dialogs.DataSourceInvalid({model: this.model}).launchModal();
     }
 });
