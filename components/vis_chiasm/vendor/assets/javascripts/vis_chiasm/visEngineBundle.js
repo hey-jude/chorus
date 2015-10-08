@@ -244,7 +244,170 @@ function BarChart() {
 module.exports = BarChart;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"chiasm-component":5,"model-js":24}],2:[function(require,module,exports){
+},{"chiasm-component":6,"model-js":25}],2:[function(require,module,exports){
+var ChiasmComponent = require("chiasm-component");
+var Model = require("model-js");
+// This is an example Chaism plugin that uses D3 to make a box plot. 
+// Draws from this Box Plot example http://bl.ocks.org/mbostock/4061502
+function BoxPlot() {
+
+  var my = ChiasmComponent({
+
+    margin: {
+      left:   30,
+      top:    30,
+      right:  30,
+      bottom: 30
+    },
+    
+    xColumn: Model.None,
+    yColumn: Model.None,
+
+    // "r" stands for radius.
+    rColumn: Model.None,
+
+    // The circle radius used if rColumn is not specified.
+    rDefault: 3,
+
+    // The range of the radius scale if rColumn is specified.
+    rMin: 0,
+    rMax: 10,
+
+    fill: "white",
+    stroke: "black",
+    strokeWidth: "1px"
+
+  });
+
+  var xScale = d3.scale.ordinal();
+  var yScale = d3.scale.linear();
+  var rScale = d3.scale.sqrt();
+
+  var g = d3.select(my.initSVG()).append("g");
+
+  // Respond to changes in size and margin.
+  // Inspired by D3 margin convention from http://bl.ocks.org/mbostock/3019563
+  my.when(["box", "margin"], function(box, margin){
+
+    my.innerBox = {
+      width: box.width - margin.left - margin.right,
+      height: box.height - margin.top - margin.bottom
+    };
+
+    g.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  });
+
+  my.when(["data", "xColumn", "yColumn"], function (data, xColumn, yColumn){
+    if(xColumn !== Model.None && yColumn !== Model.None){
+      var getX = function (d){ return d[xColumn]; };
+      var getY = function (d){ return d[yColumn]; };
+      my.boxPlotData = d3.nest().key(getX).entries(data)
+        .map(function (d){
+          var sorted = d.values.map(getY).sort();
+          d.quartileData = quartiles(sorted);
+          d.whiskerData = [sorted[0], sorted[sorted.length - 1]];
+          return d;
+        });
+    }
+  });
+
+  function quartiles(d) {
+    return [
+      d3.quantile(d, .25),
+      d3.quantile(d, .5),
+      d3.quantile(d, .75)
+    ];
+  }
+
+  my.when(["boxPlotData", "innerBox", "xColumn"], function (boxPlotData, innerBox, xColumn){
+    if(xColumn !== Model.None){
+
+      // The key here corresponds to the unique values in the X column.
+      xScale
+        .domain(boxPlotData.map(function (d){ return d.key; }))
+        .rangeBands([0, innerBox.width], 0.5);
+    }
+  });
+
+  my.when(["data", "innerBox", "yColumn"], function (data, innerBox, yColumn){
+    if(yColumn !== Model.None){
+      yScale
+        .domain(d3.extent(data, function (d){ return d[yColumn]; }))
+        .range([innerBox.height, 0]);
+    }
+  });
+
+  my.when([ "boxPlotData", "fill", "stroke", "strokeWidth" ],
+      function (boxPlotData, fill, stroke, strokeWidth){
+
+    // The center lines that span the whiskers.
+    var center = g.selectAll("line.center").data(boxPlotData);
+    center.enter().append("line").attr("class", "center");
+    center.exit().remove();
+    center
+      .attr("x1", function (d){ return xScale(d.key) + (xScale.rangeBand() / 2); })
+      .attr("x2", function (d){ return xScale(d.key) + (xScale.rangeBand() / 2); })
+      .attr("y1", function (d){ return yScale(d.whiskerData[0]); })
+      .attr("y2", function (d){ return yScale(d.whiskerData[1]); })
+      .style("stroke", stroke)
+      .style("stroke-width", strokeWidth);
+
+    // The top whiskers.
+    var whiskerTop = g.selectAll("line.whisker-top").data(boxPlotData);
+    whiskerTop.enter().append("line").attr("class", "whisker-top");
+    whiskerTop.exit().remove();
+    whiskerTop
+      .attr("x1", function (d){ return xScale(d.key); })
+      .attr("x2", function (d){ return xScale(d.key) + xScale.rangeBand(); })
+      .attr("y1", function (d){ return yScale(d.whiskerData[0]); })
+      .attr("y2", function (d){ return yScale(d.whiskerData[0]); })
+      .style("stroke", stroke)
+      .style("stroke-width", strokeWidth);
+
+    // The bottom whiskers.
+    var whiskerBottom = g.selectAll("line.whisker-bottom").data(boxPlotData);
+    whiskerBottom.enter().append("line").attr("class", "whisker-bottom");
+    whiskerBottom.exit().remove();
+    whiskerBottom
+      .attr("x1", function (d){ return xScale(d.key); })
+      .attr("x2", function (d){ return xScale(d.key) + xScale.rangeBand(); })
+      .attr("y1", function (d){ return yScale(d.whiskerData[1]); })
+      .attr("y2", function (d){ return yScale(d.whiskerData[1]); })
+      .style("stroke", stroke)
+      .style("stroke-width", strokeWidth);
+
+    // The box that shows the upper and lower quartiles.
+    var boxRect = g.selectAll("rect.box").data(boxPlotData);
+    boxRect.enter().append("rect").attr("class", "box");
+    boxRect.exit().remove();
+    boxRect
+      .attr("x", function (d){ return xScale(d.key); })
+      .attr("width", xScale.rangeBand())
+      .attr("y", function (d){ return yScale(d.quartileData[2]); })
+      .attr("height", function (d){ return yScale(d.quartileData[0]) - yScale(d.quartileData[2]); })
+      .style("stroke", stroke)
+      .style("stroke-width", strokeWidth)
+      .style("fill", fill);
+
+    // The horizontal line inside the box that shows the median.
+    var median = g.selectAll("line.median").data(boxPlotData);
+    median.enter().append("line").attr("class", "median");
+    median.exit().remove();
+    median
+      .attr("x1", function (d){ return xScale(d.key) })
+      .attr("x2", function (d){ return xScale(d.key) + xScale.rangeBand(); })
+      .attr("y1", function (d){ return yScale(d.quartileData[1]); })
+      .attr("y2", function (d){ return yScale(d.quartileData[1]); })
+      .style("stroke", stroke)
+      .style("stroke-width", strokeWidth);
+  });
+
+  return my;
+}
+
+module.exports = BoxPlot;
+
+},{"chiasm-component":6,"model-js":25}],3:[function(require,module,exports){
 // This is an example Chaism plugin that uses D3.  A colored rectangle is
 // created with an X in the background and text in the foreground.  The X in the
 // background is interactive. Clicking and dragging it updates `lineWidth`.
@@ -364,7 +527,7 @@ function DummyVis() {
   return my;
 }
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function (global){
 // This is an example Chaism plugin that uses D3 to make a heat map. 
 
@@ -587,7 +750,7 @@ function HeatMap() {
 module.exports = HeatMap;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"chiasm-component":5,"model-js":24}],4:[function(require,module,exports){
+},{"chiasm-component":6,"model-js":25}],5:[function(require,module,exports){
 // This file pulls together the required Chiasm components,
 // including the visEngineDataLoader component that connects to the random sampling API,
 // and outputs a Chiasm constructor with the plugins set up for the Chiasm configuration to access.
@@ -604,12 +767,13 @@ module.exports = function (){
 
   chiasm.plugins.barChart = require("./barChart.js");
   chiasm.plugins.heatMap = require("./heatMap.js");
+  chiasm.plugins.boxPlot = require("./boxPlot.js");
   chiasm.plugins.dummyVis = require("./dummyVis.js");
 
   return chiasm;
 };
 
-},{"./barChart.js":1,"./dummyVis.js":2,"./heatMap.js":3,"./visEngineDataLoader":25,"chiasm":21,"chiasm-data-reduction":6,"chiasm-dsv-dataset":9,"chiasm-layout":11,"chiasm-links":16}],5:[function(require,module,exports){
+},{"./barChart.js":1,"./boxPlot.js":2,"./dummyVis.js":3,"./heatMap.js":4,"./visEngineDataLoader":26,"chiasm":22,"chiasm-data-reduction":7,"chiasm-dsv-dataset":10,"chiasm-layout":12,"chiasm-links":17}],6:[function(require,module,exports){
 // chiasm-component.js
 // github.com/chiasm-project/chiasm-component
 //
@@ -677,7 +841,7 @@ function ChiasmComponent (publicProperties){
 
 module.exports = ChiasmComponent;
 
-},{"model-js":24}],6:[function(require,module,exports){
+},{"model-js":25}],7:[function(require,module,exports){
 // chiasm-data-reduction
 // https://github.com/chiasm-project/chiasm-data-reduction
 
@@ -709,7 +873,7 @@ function ChiasmDataReduction (){
 }
 module.exports = ChiasmDataReduction;
 
-},{"chiasm-component":5,"data-reduction":8,"model-js":24}],7:[function(require,module,exports){
+},{"chiasm-component":6,"data-reduction":9,"model-js":25}],8:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.5.6"
@@ -10214,7 +10378,7 @@ module.exports = ChiasmDataReduction;
   if (typeof define === "function" && define.amd) define(d3); else if (typeof module === "object" && module.exports) module.exports = d3;
   this.d3 = d3;
 }();
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var d3 = require("d3");
 
 function filter(data, predicates){
@@ -10363,7 +10527,7 @@ function accessor(column){
 
 module.exports = dataReduction;
 
-},{"d3":7}],9:[function(require,module,exports){
+},{"d3":8}],10:[function(require,module,exports){
 //chiasm-dsv-dataset.js
 //
 //A Chiasm plugin that loads data files.
@@ -10405,9 +10569,9 @@ function ChiasmDsvDataset (){
 
 module.exports = ChiasmDsvDataset;
 
-},{"chiasm-component":5,"d3":10,"dsv-dataset":23,"model-js":24}],10:[function(require,module,exports){
-arguments[4][7][0].apply(exports,arguments)
-},{"dup":7}],11:[function(require,module,exports){
+},{"chiasm-component":6,"d3":11,"dsv-dataset":24,"model-js":25}],11:[function(require,module,exports){
+arguments[4][8][0].apply(exports,arguments)
+},{"dup":8}],12:[function(require,module,exports){
 // chiasm-layout.js
 // github.com/chiasm-project/chiasm-layout
 //
@@ -10421,9 +10585,9 @@ ChiasmLayout.computeLayout = computeLayout;
 
 module.exports = ChiasmLayout;
 
-},{"./src/computeLayout":14,"./src/layout":15}],12:[function(require,module,exports){
-arguments[4][7][0].apply(exports,arguments)
-},{"dup":7}],13:[function(require,module,exports){
+},{"./src/computeLayout":15,"./src/layout":16}],13:[function(require,module,exports){
+arguments[4][8][0].apply(exports,arguments)
+},{"dup":8}],14:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -22778,7 +22942,7 @@ arguments[4][7][0].apply(exports,arguments)
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 // This function computes the nested box layout from a tree data structure.
 //
 // Takes as input the following arguments:
@@ -22958,7 +23122,7 @@ function quantize(box){
 
 module.exports = computeLayout;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var ChiasmComponent = require("chiasm-component");
 var None = require("model-js").None;
 var computeLayout = require("./computeLayout");
@@ -23122,7 +23286,7 @@ function Layout(chiasm){
 }
 module.exports = Layout;
 
-},{"./computeLayout":14,"chiasm-component":5,"d3":12,"lodash":13,"model-js":24}],16:[function(require,module,exports){
+},{"./computeLayout":15,"chiasm-component":6,"d3":13,"lodash":14,"model-js":25}],17:[function(require,module,exports){
 // chiasm-links.js
 // github.com/chiasm-project/chiasm-links
 //
@@ -23229,9 +23393,9 @@ function ChiasmLinks(chiasm) {
 
 module.exports = ChiasmLinks;
 
-},{"chiasm-component":5}],17:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],18:[function(require,module,exports){
+},{"chiasm-component":6}],18:[function(require,module,exports){
+arguments[4][14][0].apply(exports,arguments)
+},{"dup":14}],19:[function(require,module,exports){
 // Methods for creating and serializing Action objects.  These are used to
 // express differences between configurations.
 //
@@ -23280,7 +23444,7 @@ var Action = {
 
 module.exports = Action;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 // This function computes the difference ("diff") between two configurations.
 // The diff is returned as an array of Action objects.
 
@@ -23345,7 +23509,7 @@ function configDiff(oldConfig, newConfig){
 }
 module.exports = configDiff;
 
-},{"./action":18,"lodash":17}],20:[function(require,module,exports){
+},{"./action":19,"lodash":18}],21:[function(require,module,exports){
 // All error message strings are kept track of here.
 var ErrorMessages = {
 
@@ -23369,7 +23533,7 @@ var ErrorMessages = {
 };
 module.exports = ErrorMessages;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 // chiasm.js
 // github.com/chiasm-project/chiasm
 //
@@ -23764,7 +23928,7 @@ Chiasm.Action = Action;
 // Return the Chiasm constructor function as this AMD module.
 module.exports = Chiasm;
 
-},{"./action":18,"./config-diff":19,"./error-messages":20,"./queue":22,"lodash":17,"model-js":24}],22:[function(require,module,exports){
+},{"./action":19,"./config-diff":20,"./error-messages":21,"./queue":23,"lodash":18,"model-js":25}],23:[function(require,module,exports){
 // An asynchronous batch queue for processing Actions using Promises.
 // Draws from https://www.promisejs.org/patterns/#all
 //
@@ -23792,7 +23956,7 @@ function Queue(process){
 }
 module.exports = Queue;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -23974,7 +24138,7 @@ module.exports = Queue;
   return index;
 
 }));
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 // ModelJS v0.2.1
 //
 // https://github.com/curran/model
@@ -24165,7 +24329,7 @@ module.exports = Queue;
   }
 })();
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 (function (global){
 //A Chiasm plugin that loads data from the vis_chiasm random sampling API.
 var Model = require("model-js");
@@ -24212,5 +24376,5 @@ module.exports = function (){
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"chiasm-component":5,"dsv-dataset":23,"model-js":24}]},{},[4])(4)
+},{"chiasm-component":6,"dsv-dataset":24,"model-js":25}]},{},[5])(5)
 });

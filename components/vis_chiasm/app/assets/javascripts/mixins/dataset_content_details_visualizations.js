@@ -123,9 +123,12 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         // TODO go back and refactor to remove this nasty handling of "this"
         var generateBarChartConfig = _.bind(this.generateBarChartConfig, this);
         var generateHeatMapConfig = _.bind(this.generateHeatMapConfig, this);
+        var generateBoxPlotConfig = _.bind(this.generateBoxPlotConfig, this);
+
 
         this.chiasmInit(dataset_id, function (chiasm, columns){
 
+            // TODO refactor this code to use a more elegant construct than a series of conditionals
             if(chartType === "frequency"){
 
                 var params = {
@@ -171,6 +174,33 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                     numBinsY: chartOptions.yBins
                 };
                 chiasm.setConfig(generateHeatMapConfig(params));
+            } else if(chartType === "boxplot") {
+                console.log("here");
+                console.log(chartOptions);
+                var params = {
+                    xColumn: {
+                        name: chartOptions.xAxis,
+                        label: chartOptions.xAxis,
+
+                        // TODO make the UI for selecting this column
+                        // restrict options to categorical only.
+                        // TODO show an error if a non-categorical column is selected here.
+                        type: columns.find(function (column){
+                            return column.name === chartOptions.xAxis;
+                        }).type
+                    },
+                    yColumn: {
+                        name: chartOptions.yAxis,
+                        label: chartOptions.yAxis,
+                        type: columns.find(function (column){
+                            return column.name === chartOptions.yAxis;
+                        }).type
+                    },
+                    color: alpineBlueDark,
+                    dataset_id: dataset_id,
+                    numBinsX: chartOptions.bins
+                };
+                chiasm.setConfig(generateBoxPlotConfig(params));
             } else {
                 //chiasm.setConfig({});
             }
@@ -285,6 +315,36 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                     "bindings": [
                         "loader.dataset -> reduction.datasetIn",
                         "reduction.datasetOut -> visualization.dataset"
+                    ]
+                }
+            }
+        };
+    },
+    generateBoxPlotConfig: function(params){
+        return {
+            //TODO factor out layout config similar to loader config
+            "layout": {
+                "plugin": "layout",
+                "state": {
+                    "containerSelector": "#chiasm-container",
+                    "layout": "visualization"
+                }
+            },
+            "visualization": {
+                "plugin": "boxPlot",
+                "state": {
+                    "xColumn": params.xColumn.name,
+                    //"xLabel": params.xColumn.label,
+                    "yColumn": params.yColumn.name,
+                    //"yLabel": params.yColumn.label
+                }
+            },
+            "loader": this.generateLoaderConfig(params.dataset_id),
+            "links": {
+                "plugin": "links",
+                "state": {
+                    "bindings": [
+                        "loader.data -> visualization.data"
                     ]
                 }
             }
