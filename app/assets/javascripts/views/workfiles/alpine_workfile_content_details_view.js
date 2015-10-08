@@ -20,13 +20,15 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
             canUpdate: this.canUpdate()
         };
         ctx.locationNames = _.map(this.model.executionLocations(), function (executionLocation) {
+            ctx.stateText = executionLocation.dataSource().stateText();
+            ctx.stateUrl  = executionLocation.dataSource().stateIconUrl();
+
             if (executionLocation.get("entityType") === "gpdb_database") {
                 return executionLocation.dataSource().get("name") + '.' + executionLocation.get("name");
             } else {
                 return executionLocation.get("name");
             }
         }).join(', ');
-
         return ctx;
     },
 

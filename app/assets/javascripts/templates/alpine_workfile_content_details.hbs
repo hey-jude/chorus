@@ -9,9 +9,11 @@
     <li>
         {{#if locationNames}}
             <span class="execution_locations">{{t "work_flows.show.execution_locations" locationNames=locationNames}}</span>
+            <img class="state" src="{{stateUrl}}" title="{{stateText}}"/>
         {{else}}
             <span class="execution_location">{{t "work_flows.show.no_execution_location"}}</span>
         {{/if}}
+
     </li>
     {{#if canUpdate}}<li>
         <a class="change_workfile_database" href="#">Change</a>
