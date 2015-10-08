@@ -1,5 +1,6 @@
 var ChiasmComponent = require("chiasm-component");
 var Model = require("model-js");
+var mixins = require("./mixins");
 // This is an example Chaism plugin that uses D3 to make a box plot. 
 // Draws from this Box Plot example http://bl.ocks.org/mbostock/4061502
 function BoxPlot() {
@@ -36,19 +37,14 @@ function BoxPlot() {
   var yScale = d3.scale.linear();
   var rScale = d3.scale.sqrt();
 
-  var g = d3.select(my.initSVG()).append("g");
+  var svg = d3.select(my.initSVG());
+  var g = mixins.marginConvention(my, svg);
 
-  // Respond to changes in size and margin.
-  // Inspired by D3 margin convention from http://bl.ocks.org/mbostock/3019563
-  my.when(["box", "margin"], function(box, margin){
+  var xAxisG = mixins.xAxis(my, g);
+  mixins.xAxisLabel(my, xAxisG);
 
-    my.innerBox = {
-      width: box.width - margin.left - margin.right,
-      height: box.height - margin.top - margin.bottom
-    };
-
-    g.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  });
+  var yAxisG = mixins.yAxis(my, g);
+  mixins.yAxisLabel(my, yAxisG);
 
   my.when(["data", "xColumn", "yColumn"], function (data, xColumn, yColumn){
     if(xColumn !== Model.None && yColumn !== Model.None){
@@ -72,21 +68,21 @@ function BoxPlot() {
     ];
   }
 
-  my.when(["boxPlotData", "innerBox", "xColumn"], function (boxPlotData, innerBox, xColumn){
+  my.when(["boxPlotData", "width", "xColumn"], function (boxPlotData, width, xColumn){
     if(xColumn !== Model.None){
 
       // The key here corresponds to the unique values in the X column.
-      xScale
+      my.xScale = xScale
         .domain(boxPlotData.map(function (d){ return d.key; }))
-        .rangeBands([0, innerBox.width], 0.5);
+        .rangeBands([0, width], 0.5);
     }
   });
 
-  my.when(["data", "innerBox", "yColumn"], function (data, innerBox, yColumn){
+  my.when(["data", "height", "yColumn"], function (data, height, yColumn){
     if(yColumn !== Model.None){
-      yScale
+      my.yScale = yScale
         .domain(d3.extent(data, function (d){ return d[yColumn]; }))
-        .range([innerBox.height, 0]);
+        .range([height, 0]);
     }
   });
 

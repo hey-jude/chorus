@@ -4,6 +4,7 @@
 var ChiasmComponent = require("chiasm-component");
 var Model = require("model-js");
 var d3 = require("d3");
+var mixins = require("./mixins");
 
 function BarChart() {
 
@@ -35,33 +36,33 @@ function BarChart() {
     stroke: "none",
     strokeWidth: "1px",
 
-    // Desired number of pixels between tick marks.
-    xAxisTickDensity: 50,
-
-    // Translation down from the X axis line (pixels).
-    xAxisLabelOffset: 50,
-
-    // Desired number of pixels between tick marks.
-    yAxisTickDensity: 30,
-
-    // Translation left from the X axis line (pixels).
-    yAxisLabelOffset: 45
-
   });
 
   // This scale is for the length of the bars.
   var sizeScale = d3.scale.linear();
 
   var svg = d3.select(my.initSVG());
-  var g = svg.append("g");
+  var g = mixins.marginConvention(my, svg);
 
   var barsG = g.append("g");
+
+  // Desired number of pixels between tick marks.
+  my.addPublicProperty("xAxisTickDensity", 50);
+
+  // Translation down from the X axis line (pixels).
+  my.addPublicProperty("xAxisLabelOffset", 50);
 
   var xAxis = d3.svg.axis().orient("bottom"); 
   var xAxisG = g.append("g").attr("class", "x axis");
   var xAxisLabel = xAxisG.append("text")
     .style("text-anchor", "middle")
     .attr("class", "label");
+
+  // Desired number of pixels between tick marks.
+  my.addPublicProperty("yAxisTickDensity", 30);
+
+  // Translation left from the Y axis line (pixels).
+  my.addPublicProperty("yAxisLabelOffset", 45);
 
   var yAxis = d3.svg.axis().orient("left"); 
   var yAxisG = g.append("g").attr("class", "y axis");
@@ -88,18 +89,6 @@ function BarChart() {
   });
   my.when("yAxisLabelText", function (yAxisLabelText){
     yAxisLabel.text(yAxisLabelText);
-  });
-
-  // Respond to changes in size and margin.
-  // Inspired by D3 margin convention from http://bl.ocks.org/mbostock/3019563
-  my.when("box", function (box){
-    svg.attr("width", box.width)
-       .attr("height", box.height);
-  });
-  my.when(["box", "margin"], function (box, margin){
-    my.width = box.width - margin.left - margin.right;
-    my.height = box.height - margin.top - margin.bottom;
-    g.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   });
 
   my.when("height", function (height){

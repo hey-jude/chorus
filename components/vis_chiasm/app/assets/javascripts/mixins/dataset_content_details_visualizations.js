@@ -334,9 +334,9 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                 "plugin": "boxPlot",
                 "state": {
                     "xColumn": params.xColumn.name,
-                    //"xLabel": params.xColumn.label,
+                    "xAxisLabelText": params.xColumn.label,
                     "yColumn": params.yColumn.name,
-                    //"yLabel": params.yColumn.label
+                    "yAxisLabelText": params.yColumn.label
                 }
             },
             "loader": this.generateLoaderConfig(params.dataset_id),
