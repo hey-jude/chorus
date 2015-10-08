@@ -14,9 +14,10 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
     },
 
     additionalContext: function () {
+
         var ctx = {
             workFlowShowUrl: this.model.workFlowShowUrl(),
-            canOpen: this.model.canOpen(),
+            canOpen: this.model.canOpen() && !this.locationSourceDisabled(),
             canUpdate: this.canUpdate()
         };
         ctx.locationNames = _.map(this.model.executionLocations(), function (executionLocation) {
@@ -29,7 +30,17 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
                 return executionLocation.get("name");
             }
         }).join(', ');
+
         return ctx;
+    },
+
+    locationSourceDisabled: function(){
+        var location = this.model.executionLocations()[0];
+        var source_disabled = false;
+        if (location) {
+            source_disabled = location.dataSource().isDisabled();
+        }
+        return source_disabled
     },
 
     changeWorkfileDatabase: function(e) {
