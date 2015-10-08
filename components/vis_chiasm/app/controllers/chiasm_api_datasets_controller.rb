@@ -14,7 +14,6 @@ class ChiasmApiDatasetsController < ApplicationController
         {:chorus_type => /integer/, :chiasm_type => 'number'},
         {:chorus_type => /double/, :chiasm_type => 'number'},
         {:chorus_type => /smallint/, :chiasm_type => 'number'},
-        {:chorus_type => /integer/, :chiasm_type => 'number'},
         {:chorus_type => /bigint/, :chiasm_type => 'number'},
         {:chorus_type => /decimal/, :chiasm_type => 'number'},
         {:chorus_type => /numeric/, :chiasm_type => 'number'},
