@@ -1,5 +1,6 @@
 class DatabasesController < ApplicationController
   include DataSourceAuth
+  before_filter :check_source_disabled?
 
   def index
     databases = Database.visible_to(authorized_account(data_source))
@@ -18,5 +19,9 @@ class DatabasesController < ApplicationController
 
   def data_source
     DataSource.where(:type => %w(GpdbDataSource PgDataSource)).find(params[:data_source_id])
+  end
+
+  def check_source_disabled?
+    ::DataSourcesController.render_forbidden_if_disabled(params)
   end
 end
