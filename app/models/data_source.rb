@@ -31,12 +31,18 @@ class DataSource < ActiveRecord::Base
   validates_with DataSourceNameValidator
 
   after_update :solr_reindex_later, :if => :shared_changed?
+
+  before_update :check_status!, :if => :should_check_status?
   after_update :create_name_changed_event, :if => :current_user
 
   after_create :enqueue_refresh
   after_create :create_created_event, :if => :current_user
 
   after_destroy :create_deleted_event, :if => :current_user
+
+  def should_check_status?
+    changed.include?("state") && state == "enabled"
+  end
 
   def self.by_type(entity_types)
     if entity_types.present?

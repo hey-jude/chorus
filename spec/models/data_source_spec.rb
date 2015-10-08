@@ -257,17 +257,24 @@ describe DataSource do
       end
     end
 
-
     context "when the data source is disabled" do
       it "does not check the status" do
-        data_source.update_attributes(:state => 'disabled')
+
         any_instance_of(DataSource) do |ds|
-          mock(ds).disabled?
+          stub(ds).check_status! { raise "should not be raised" }
         end
-        DataSource.check_status(data_source.id)
+        expect { data_source.update_attributes(:state => 'disabled') }.not_to raise_error
       end
     end
 
+    context "when the data source is enabled" do
+      it "checks the status" do
+        any_instance_of(DataSource) do |ds|
+          mock(ds).check_status!
+        end
+        data_source.update_attributes(:state => 'enabled')
+      end
+    end
   end
 
   describe "search fields" do
