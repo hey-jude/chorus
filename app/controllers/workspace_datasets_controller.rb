@@ -1,5 +1,6 @@
 class WorkspaceDatasetsController < ApplicationController
   include DataSourceAuth
+  before_filter :check_source_disabled?, :only => [:create, :show, :destroy, :destroy_multiple]
 
   def index
     Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
@@ -71,6 +72,11 @@ class WorkspaceDatasetsController < ApplicationController
   end
 
   private
+
+  def check_source_disabled?
+    data_source = Dataset.find(params[:id]).data_source
+    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if data_source.disabled?
+  end
 
   def workspace
     @workspace ||= Workspace.workspaces_for(current_user).find(params[:workspace_id])

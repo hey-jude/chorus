@@ -200,6 +200,18 @@ describe WorkspaceDatasetsController do
           end
         end
 
+        context "when the dataset's data source is disabled" do
+          let(:dataset) { gpdb_table }
+
+          it "should render forbidden" do
+            dataset.data_source.update_attributes(:state => 'disabled')
+            Workspace.workspaces_for(user).find(workspace.to_param) # appease the mock overlord
+            get :show, :id => dataset.to_param, :workspace_id => workspace.to_param
+
+            response.should be_forbidden
+          end
+        end
+
         context "when the dataset is a table" do
           let(:dataset) { gpdb_table }
 
