@@ -189,6 +189,13 @@ describe HdfsDataSourcesController do
       mock(Authority).authorize!.with_any_args
       delete :destroy, :id => hdfs_data_source.id
     end
+
+    it "allows the owner to destroy a disabled data source" do
+      hdfs_data_source.state = 'disabled'
+      hdfs_data_source.save!
+      delete :destroy, :id => hdfs_data_source.id
+      response.should be_success
+    end
   end
 
   context 'in demo mode' do

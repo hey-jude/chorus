@@ -418,6 +418,13 @@ describe DataSourcesController do
       mock(Authority).authorize! :destroy, data_source, user, { :or => :current_user_is_object_owner }
       delete :destroy, :id => data_source.id
     end
+
+    it "allows the owner to destroy a disabled data source" do
+      data_source.state = 'disabled'
+      data_source.save!
+      delete :destroy, :id => data_source.id
+      response.should be_success
+    end
   end
 
   context 'in demo mode' do
