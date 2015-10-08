@@ -2,10 +2,6 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
     constructorName: "PublishedWorkletOutputView",
     templateName: "worklets/published_worklet_output",
 
-    events: {
-        'click #share_all_results button': 'openShareResultsDialog'
-    },
-
     setup: function() {
         this.resultsId = this.options.resultsId;
         this.worklet = this.options.worklet;
@@ -36,6 +32,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
         });
     },
 
+    // called from worklet_header_view.js
     openShareResultsDialog: function(e) {
         e && e.preventDefault();
         var dialog = new chorus.dialogs.ShareWorkletResultsDialog({
@@ -54,5 +51,13 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
             // Only flag no history when we have no results, history is loaded, and history list is empty
             hasNoHistory: _.isUndefined(this.resultsUrl) && this._historyLoaded === true && this.history.length === 0
         };
+    },
+
+    postMessageToIframe: function(message, context) {
+        this.iframe().contentWindow.postMessage(message, context);
+    },
+
+    iframe: function() {
+        return this.$("iframe#results")[0];
     }
 });
