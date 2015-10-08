@@ -83,6 +83,13 @@ describe DatabasesController do
         decoded_response.size.should == 1
       end
 
+      it "should be forbidden if the data source is disabled" do
+        data_source.update_attributes(:state => 'disabled')
+        get :index, :data_source_id => data_source.id
+
+        response.should be_forbidden
+      end
+
       it_behaves_like 'a paginated list' do
         let(:params) {{ :data_source_id => data_source.id }}
       end

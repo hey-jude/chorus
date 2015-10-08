@@ -31,4 +31,11 @@ describe Hdfs::StatisticsController do
 
   end
 
+  it "should be forbidden if the data source is disabled" do
+    hdfs_data_source.update_attributes(:state => 'disabled')
+    get :show, :hdfs_data_source_id => hdfs_data_source.id, :file_id => entry.id
+
+    response.should be_forbidden
+  end
+
 end

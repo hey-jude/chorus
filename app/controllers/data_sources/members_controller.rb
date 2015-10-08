@@ -1,6 +1,7 @@
 module DataSources
   class MembersController < ApplicationController
     wrap_parameters :account, :include => [:db_username, :db_password, :owner_id]
+    before_filter :check_source_disabled?
 
     def index
       accounts = DataSource.find(params[:data_source_id]).accounts.includes(:owner).order(:id)
@@ -74,6 +75,12 @@ module DataSources
 
       account.destroy
       render :json => {}
+    end
+
+    private
+
+    def check_source_disabled?
+      ::DataSourcesController.render_forbidden_if_disabled(params)
     end
   end
 end

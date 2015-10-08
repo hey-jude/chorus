@@ -91,7 +91,7 @@ module Permissioner
   def create_chorus_object
     chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
     scope_id = ::ChorusScope.find_by_name('application_realm').id
-    ChorusObject.find_or_create_by(:chorus_class_id => chorus_class.id,
+    ::ChorusObject.find_or_create_by(:chorus_class_id => chorus_class.id,
                                    :instance_id => self.id,
                                    :chorus_scope_id => scope_id)
   end

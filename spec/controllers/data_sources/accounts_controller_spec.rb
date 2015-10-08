@@ -11,6 +11,13 @@ describe DataSources::AccountsController do
       log_in user
     end
 
+    it "should be forbidden if the data source is disabled" do
+      data_source.update_attributes(:state => 'disabled')
+      get :show, :data_source_id => data_source.to_param
+
+      response.should be_forbidden
+    end
+
     it "returns the current_user's DataSourceAccount for the specified data source" do
       get :show, :data_source_id => data_source.to_param
       response.code.should == "200"

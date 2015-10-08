@@ -30,8 +30,6 @@ chorus.dialogs.DataSourceInvalid = chorus.dialogs.Base.extend({
     },
 
     saveSuccess: function() {
-        chorus.PageEvents.trigger("data_source:added", this.model);
-        chorus.toast('data_sources.add.toast', {dataSourceName: this.model.name(), toastOpts: {type: "success"}});
         this.closeModal();
     }
 });

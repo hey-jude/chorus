@@ -8,7 +8,8 @@ class DataSourcePresenter < Presenter
         :shared => model.shared,
         :owner_id => model.owner_id,
         :version => model.version,
-        :is_hawq => model.is_hawq
+        :is_hawq => model.is_hawq,
+        :state => model.state
     }
     unless succinct?
       hash.merge!({

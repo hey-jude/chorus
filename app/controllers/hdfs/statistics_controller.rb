@@ -1,5 +1,7 @@
 class Hdfs::StatisticsController < ApplicationController
 
+  before_filter :check_source_disabled?
+
   def show
     statistics = hdfs_entry.statistics
 
@@ -14,5 +16,9 @@ class Hdfs::StatisticsController < ApplicationController
 
   def hdfs_data_source
     @hdfs_data_source ||= HdfsDataSource.find(params[:hdfs_data_source_id])
+  end
+
+  def check_source_disabled?
+    ::HdfsDataSourcesController.render_forbidden_if_disabled(hdfs_data_source)
   end
 end

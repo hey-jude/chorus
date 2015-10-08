@@ -257,17 +257,24 @@ describe DataSource do
       end
     end
 
-
     context "when the data source is disabled" do
       it "does not check the status" do
-        data_source.update_attributes(:state => 'disabled')
+
         any_instance_of(DataSource) do |ds|
-          mock(ds).disabled?
+          stub(ds).check_status! { raise "should not be raised" }
         end
-        DataSource.check_status(data_source.id)
+        expect { data_source.update_attributes(:state => 'disabled') }.not_to raise_error
       end
     end
 
+    context "when the data source is enabled" do
+      it "checks the status" do
+        any_instance_of(DataSource) do |ds|
+          mock(ds).check_status!
+        end
+        data_source.update_attributes(:state => 'enabled')
+      end
+    end
   end
 
   describe "search fields" do
@@ -351,6 +358,21 @@ describe DataSource do
     data_source = data_sources(:default)
     expect { data_source.destroy }.to change { Events::DataSourceDeleted.count }.by(1)
     Events::DataSourceDeleted.last.data_source.should == data_source
+  end
+
+  it "creates an event if the data source is enabled" do
+    set_current_user(users(:admin))
+    data_source = data_sources(:default)
+    data_source.update_attributes(:state => "disabled")
+    expect { data_source.update_attributes(:state => "enabled") }.to change { Events::DataSourceChangedState.count }.by(1)
+    Events::DataSourceChangedState.last.data_source.should == data_source
+  end
+
+  it "creates an event if the data source is disabled" do
+    set_current_user(users(:admin))
+    data_source = data_sources(:default)
+    expect { data_source.update_attributes(:state => "disabled") }.to change { Events::DataSourceChangedState.count }.by(1)
+    Events::DataSourceChangedState.last.data_source.should == data_source
   end
 
   it_should_behave_like "taggable models", [:data_sources, :default]

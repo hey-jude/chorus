@@ -107,6 +107,7 @@ FixtureBuilder.configure do |fbuilder|
     FactoryGirl.create(:gpdb_data_source, :name => "Offline", :owner => owner, :state => "offline")
     FactoryGirl.create(:gpdb_data_source, :name => "Online", :owner => owner, :state => "online")
     FactoryGirl.create(:gpdb_data_source, :name => "disabled", :owner => owner, :state => "disabled")
+    FactoryGirl.create(:gpdb_data_source, :name => "incomplete", :owner => owner, :state => "incomplete")
 
     @owner_creates_gpdb_data_source = Events::DataSourceCreated.by(owner).add(:data_source => owners_data_source)
 
@@ -139,6 +140,9 @@ FixtureBuilder.configure do |fbuilder|
 
     FactoryGirl.create(:pg_data_source, :name => 'typeahead_pg_source', :owner => owner, :description => 'typeahead for pg data source')
     FactoryGirl.create(:pg_data_source, :name => 'searchquery_pg', :owner => owner, :description => 'searchquery for pg data source')
+
+    FactoryGirl.create(:hdfs_data_source, :name => 'hdfs_disabled', :state => 'disabled', :owner => admin)
+    FactoryGirl.create(:hdfs_data_source, :name => 'hdfs_incomplete', :state => 'incomplete', :owner => admin)
 
     hdfs_data_source = HdfsDataSource.create!({:name => 'searchquery_hadoop', :description => 'searchquery for the hadoop data source', :host => 'hadoop.example.com', :port => '1111', :owner => admin, :hdfs_version => 'Pivotal HD 2'}, :without_protection => true)
     fbuilder.name :hadoop, hdfs_data_source

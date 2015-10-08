@@ -5,6 +5,14 @@ describe DataSources::SharingController do
     before { log_in owner }
 
     describe "#create" do
+
+      it "should be forbidden if the data source is disabled" do
+        data_source.update_attributes(:state => 'disabled')
+        post :create, :data_source_id => data_source.to_param
+
+        response.should be_forbidden
+      end
+
       it "sets the shared attribute on an unshared data source" do
         data_source.update_attributes(:shared => false)
         post :create, :data_source_id => data_source.to_param

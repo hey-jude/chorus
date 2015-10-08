@@ -4,6 +4,7 @@ class DataSourcesController < ApplicationController
   wrap_parameters :data_source, :exclude => []
 
   before_filter :find_data_source, :only => [:show, :update, :destroy]
+  before_filter :hide_disabled_source, :only => [:show, :update]
   before_filter :demo_mode_filter, :only => [:create, :update, :destroy]
   before_filter :require_data_source_create, :only => [:create]
 
@@ -43,10 +44,17 @@ class DataSourcesController < ApplicationController
     head :ok
   end
 
+  def self.render_forbidden_if_disabled(params)
+    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if DataSource.find(params[:data_source_id]).disabled?
+  end
+
   private
 
   def find_data_source
     @data_source = DataSource.find(params[:id])
+  end
+
+  def hide_disabled_source
     raise ActiveRecord::RecordNotFound if !Permissioner.is_admin?(current_user) && @data_source.disabled?
   end
 end

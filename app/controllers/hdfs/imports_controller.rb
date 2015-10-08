@@ -2,6 +2,8 @@ module Hdfs
   class ImportsController < ::ApplicationController
     wrap_parameters :hdfs_import, :exclude => []
 
+    before_filter :check_source_disabled?
+
     def create
       Authority.authorize! :create, upload, current_user, { :or => :current_user_is_objects_user }
 
@@ -30,6 +32,10 @@ module Hdfs
 
     def hdfs_import_params
       params[:hdfs_import]
+    end
+
+    def check_source_disabled?
+      ::HdfsDataSourcesController.render_forbidden_if_disabled(HdfsDataSource.find(params[:hdfs_data_source_id]))
     end
   end
 end
