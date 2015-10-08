@@ -47,8 +47,8 @@ chorus.views.TimeseriesChartConfiguration = chorus.views.ChartConfiguration.exte
             xAxis: xAxis,
             yAxis: this.$(".value select option:selected").text(),
             aggregation: aggMap[this.$(".value .selected_value").text()],
-            timeInterval: this.$(".time .selected_value").text(),
-            timeType: timeColumn.get("typeCategory").toLowerCase()
+            timeInterval: this.$(".time .selected_value").text()
+            //timeType: timeColumn.get("typeCategory").toLowerCase()
         };
     }
 });

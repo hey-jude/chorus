@@ -15,6 +15,7 @@ module.exports = function (){
   chiasm.plugins.barChart = require("./barChart.js");
   chiasm.plugins.heatMap = require("./heatMap.js");
   chiasm.plugins.boxPlot = require("./boxPlot.js");
+  chiasm.plugins.lineChart = require("./lineChart.js");
   chiasm.plugins.dummyVis = require("./dummyVis.js");
 
   return chiasm;

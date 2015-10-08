@@ -112,6 +112,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
             });
         });
     },
+
     updateChiasmVisualization: function(){
         var chartOptions = this.chartConfig.chartOptions();
         var dataset_id = this.chartConfig.model.id;
@@ -124,7 +125,7 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         var generateBarChartConfig = _.bind(this.generateBarChartConfig, this);
         var generateHeatMapConfig = _.bind(this.generateHeatMapConfig, this);
         var generateBoxPlotConfig = _.bind(this.generateBoxPlotConfig, this);
-
+        var generateLineChartConfig = _.bind(this.generateLineChartConfig, this);
 
         this.chiasmInit(dataset_id, function (chiasm, columns){
 
@@ -175,8 +176,6 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                 };
                 chiasm.setConfig(generateHeatMapConfig(params));
             } else if(chartType === "boxplot") {
-                console.log("here");
-                console.log(chartOptions);
                 var params = {
                     xColumn: {
                         name: chartOptions.xAxis,
@@ -201,6 +200,27 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                     numBinsX: chartOptions.bins
                 };
                 chiasm.setConfig(generateBoxPlotConfig(params));
+            } else if(chartType === "timeseries") {
+                console.log("here");
+                console.log(chartOptions);
+                var params = {
+                    xColumn: {
+                        name: chartOptions.xAxis,
+                        label: chartOptions.xAxis,
+                        type: "date"
+                    },
+                    yColumn: {
+                        name: chartOptions.yAxis,
+                        label: chartOptions.yAxis,
+                        type: columns.find(function (column){
+                            return column.name === chartOptions.yAxis;
+                        }).type
+                    },
+                    color: alpineBlueDark,
+                    dataset_id: dataset_id,
+                    numBinsX: chartOptions.bins
+                };
+                chiasm.setConfig(generateLineChartConfig(params));
             } else {
                 //chiasm.setConfig({});
             }
@@ -216,7 +236,6 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
         //});
     },
     generateBarChartConfig: function(params){
-
         return {
             "layout": {
                 "plugin": "layout",
@@ -233,7 +252,9 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                     "idColumn": params.selectedColumn.name,
                     "idLabel": params.selectedColumn.label,
                     "orientation": params.orientation,
-                    "fill": params.barColor
+                    "fill": params.barColor,
+                    "xAxisTickDensity": 50,
+                    "yAxisTickDensity": 30
                 }
             },
             "loader": this.generateLoaderConfig(params.dataset_id),
@@ -315,6 +336,35 @@ chorus.Mixins.DatasetContentDetailsVisualizations = {
                     "bindings": [
                         "loader.dataset -> reduction.datasetIn",
                         "reduction.datasetOut -> visualization.dataset"
+                    ]
+                }
+            }
+        };
+    },
+    generateLineChartConfig: function(params){
+        return {
+            "layout": {
+                "plugin": "layout",
+                "state": {
+                    "containerSelector": "#chiasm-container",
+                    "layout": "visualization"
+                }
+            },
+            "visualization": {
+                "plugin": "lineChart",
+                "state": {
+                    "xColumn": params.xColumn.name,
+                    "xAxisLabelText": params.xColumn.label,
+                    "yColumn": params.yColumn.name,
+                    "yAxisLabelText": params.yColumn.label
+                }
+            },
+            "loader": this.generateLoaderConfig(params.dataset_id),
+            "links": {
+                "plugin": "links",
+                "state": {
+                    "bindings": [
+                        "loader.data -> visualization.data"
                     ]
                 }
             }

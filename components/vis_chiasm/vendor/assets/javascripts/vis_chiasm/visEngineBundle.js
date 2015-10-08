@@ -233,7 +233,7 @@ function BarChart() {
 module.exports = BarChart;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./mixins":6,"chiasm-component":7,"model-js":26}],2:[function(require,module,exports){
+},{"./mixins":7,"chiasm-component":8,"model-js":27}],2:[function(require,module,exports){
 var ChiasmComponent = require("chiasm-component");
 var Model = require("model-js");
 var mixins = require("./mixins");
@@ -392,7 +392,7 @@ function BoxPlot() {
 
 module.exports = BoxPlot;
 
-},{"./mixins":6,"chiasm-component":7,"model-js":26}],3:[function(require,module,exports){
+},{"./mixins":7,"chiasm-component":8,"model-js":27}],3:[function(require,module,exports){
 // This is an example Chaism plugin that uses D3.  A colored rectangle is
 // created with an X in the background and text in the foreground.  The X in the
 // background is interactive. Clicking and dragging it updates `lineWidth`.
@@ -735,7 +735,7 @@ function HeatMap() {
 module.exports = HeatMap;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"chiasm-component":7,"model-js":26}],5:[function(require,module,exports){
+},{"chiasm-component":8,"model-js":27}],5:[function(require,module,exports){
 // This file pulls together the required Chiasm components,
 // including the visEngineDataLoader component that connects to the random sampling API,
 // and outputs a Chiasm constructor with the plugins set up for the Chiasm configuration to access.
@@ -753,12 +753,77 @@ module.exports = function (){
   chiasm.plugins.barChart = require("./barChart.js");
   chiasm.plugins.heatMap = require("./heatMap.js");
   chiasm.plugins.boxPlot = require("./boxPlot.js");
+  chiasm.plugins.lineChart = require("./lineChart.js");
   chiasm.plugins.dummyVis = require("./dummyVis.js");
 
   return chiasm;
 };
 
-},{"./barChart.js":1,"./boxPlot.js":2,"./dummyVis.js":3,"./heatMap.js":4,"./visEngineDataLoader":27,"chiasm":23,"chiasm-data-reduction":8,"chiasm-dsv-dataset":11,"chiasm-layout":13,"chiasm-links":18}],6:[function(require,module,exports){
+},{"./barChart.js":1,"./boxPlot.js":2,"./dummyVis.js":3,"./heatMap.js":4,"./lineChart.js":6,"./visEngineDataLoader":28,"chiasm":24,"chiasm-data-reduction":9,"chiasm-dsv-dataset":12,"chiasm-layout":14,"chiasm-links":19}],6:[function(require,module,exports){
+var Model = require("model-js");
+var ChiasmComponent = require("chiasm-component");
+var mixins = require("./mixins");
+
+function LineChart(){
+
+  var my = new ChiasmComponent({
+    xColumn: Model.None,
+    yColumn: Model.None,
+    lineStroke: "black",
+    lineStrokeWidth: "1px"
+  });
+
+  var svg = d3.select(my.initSVG());
+  var g = mixins.marginConvention(my, svg);
+
+  var line = d3.svg.line().interpolate("basis");
+  var path = g.append("path").attr("fill", "none");
+
+  var xAxisG = mixins.xAxis(my, g);
+  mixins.xScaleTime(my);
+  mixins.xAxisLabel(my, xAxisG);
+
+  var yAxisG = mixins.yAxis(my, g);
+  mixins.yScaleLinear(my);
+  mixins.yAxisLabel(my, yAxisG);
+
+  my.when(["data", "xColumn"], function (data, xColumn){
+    if(xColumn !== Model.None){
+      my.xScaleDomain = d3.extent(data, function (d) { return d[xColumn]; });
+    }
+  });
+  
+  my.when(["data", "yColumn"], function (data, yColumn){
+    if(yColumn !== Model.None){
+      my.yScaleDomain = d3.extent(data, function (d) { return d[yColumn]; });
+    }
+  });
+
+  my.when(["data", "xScale", "xColumn", "yScale", "yColumn"],
+      function (data, xScale, xColumn, yScale, yColumn) {
+
+    line
+      .x(function(d) { return xScale(d[xColumn]); })
+      .y(function(d) { return yScale(d[yColumn]); });
+
+    path.attr("d", line(data));
+
+  });
+
+  my.when("lineStroke", function (lineStroke){
+    path.attr("stroke", lineStroke);
+  });
+
+  my.when("lineStrokeWidth", function (lineStrokeWidth){
+    path.attr("stroke-width", lineStrokeWidth);
+  });
+
+  return my;
+}
+
+module.exports = LineChart;
+
+},{"./mixins":7,"chiasm-component":8,"model-js":27}],7:[function(require,module,exports){
 (function (global){
 var d3 = (typeof window !== "undefined" ? window['d3'] : typeof global !== "undefined" ? global['d3'] : null);
 
@@ -887,7 +952,7 @@ module.exports = {
   yAxisLabel: yAxisLabel
 };
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 // chiasm-component.js
 // github.com/chiasm-project/chiasm-component
 //
@@ -955,7 +1020,7 @@ function ChiasmComponent (publicProperties){
 
 module.exports = ChiasmComponent;
 
-},{"model-js":26}],8:[function(require,module,exports){
+},{"model-js":27}],9:[function(require,module,exports){
 // chiasm-data-reduction
 // https://github.com/chiasm-project/chiasm-data-reduction
 
@@ -987,7 +1052,7 @@ function ChiasmDataReduction (){
 }
 module.exports = ChiasmDataReduction;
 
-},{"chiasm-component":7,"data-reduction":10,"model-js":26}],9:[function(require,module,exports){
+},{"chiasm-component":8,"data-reduction":11,"model-js":27}],10:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.5.6"
@@ -10492,7 +10557,7 @@ module.exports = ChiasmDataReduction;
   if (typeof define === "function" && define.amd) define(d3); else if (typeof module === "object" && module.exports) module.exports = d3;
   this.d3 = d3;
 }();
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var d3 = require("d3");
 
 function filter(data, predicates){
@@ -10641,7 +10706,7 @@ function accessor(column){
 
 module.exports = dataReduction;
 
-},{"d3":9}],11:[function(require,module,exports){
+},{"d3":10}],12:[function(require,module,exports){
 //chiasm-dsv-dataset.js
 //
 //A Chiasm plugin that loads data files.
@@ -10683,9 +10748,9 @@ function ChiasmDsvDataset (){
 
 module.exports = ChiasmDsvDataset;
 
-},{"chiasm-component":7,"d3":12,"dsv-dataset":25,"model-js":26}],12:[function(require,module,exports){
-arguments[4][9][0].apply(exports,arguments)
-},{"dup":9}],13:[function(require,module,exports){
+},{"chiasm-component":8,"d3":13,"dsv-dataset":26,"model-js":27}],13:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],14:[function(require,module,exports){
 // chiasm-layout.js
 // github.com/chiasm-project/chiasm-layout
 //
@@ -10699,9 +10764,9 @@ ChiasmLayout.computeLayout = computeLayout;
 
 module.exports = ChiasmLayout;
 
-},{"./src/computeLayout":16,"./src/layout":17}],14:[function(require,module,exports){
-arguments[4][9][0].apply(exports,arguments)
-},{"dup":9}],15:[function(require,module,exports){
+},{"./src/computeLayout":17,"./src/layout":18}],15:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],16:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -23056,7 +23121,7 @@ arguments[4][9][0].apply(exports,arguments)
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 // This function computes the nested box layout from a tree data structure.
 //
 // Takes as input the following arguments:
@@ -23236,7 +23301,7 @@ function quantize(box){
 
 module.exports = computeLayout;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var ChiasmComponent = require("chiasm-component");
 var None = require("model-js").None;
 var computeLayout = require("./computeLayout");
@@ -23400,7 +23465,7 @@ function Layout(chiasm){
 }
 module.exports = Layout;
 
-},{"./computeLayout":16,"chiasm-component":7,"d3":14,"lodash":15,"model-js":26}],18:[function(require,module,exports){
+},{"./computeLayout":17,"chiasm-component":8,"d3":15,"lodash":16,"model-js":27}],19:[function(require,module,exports){
 // chiasm-links.js
 // github.com/chiasm-project/chiasm-links
 //
@@ -23507,9 +23572,9 @@ function ChiasmLinks(chiasm) {
 
 module.exports = ChiasmLinks;
 
-},{"chiasm-component":7}],19:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15}],20:[function(require,module,exports){
+},{"chiasm-component":8}],20:[function(require,module,exports){
+arguments[4][16][0].apply(exports,arguments)
+},{"dup":16}],21:[function(require,module,exports){
 // Methods for creating and serializing Action objects.  These are used to
 // express differences between configurations.
 //
@@ -23558,7 +23623,7 @@ var Action = {
 
 module.exports = Action;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 // This function computes the difference ("diff") between two configurations.
 // The diff is returned as an array of Action objects.
 
@@ -23623,7 +23688,7 @@ function configDiff(oldConfig, newConfig){
 }
 module.exports = configDiff;
 
-},{"./action":20,"lodash":19}],22:[function(require,module,exports){
+},{"./action":21,"lodash":20}],23:[function(require,module,exports){
 // All error message strings are kept track of here.
 var ErrorMessages = {
 
@@ -23647,7 +23712,7 @@ var ErrorMessages = {
 };
 module.exports = ErrorMessages;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 // chiasm.js
 // github.com/chiasm-project/chiasm
 //
@@ -24042,7 +24107,7 @@ Chiasm.Action = Action;
 // Return the Chiasm constructor function as this AMD module.
 module.exports = Chiasm;
 
-},{"./action":20,"./config-diff":21,"./error-messages":22,"./queue":24,"lodash":19,"model-js":26}],24:[function(require,module,exports){
+},{"./action":21,"./config-diff":22,"./error-messages":23,"./queue":25,"lodash":20,"model-js":27}],25:[function(require,module,exports){
 // An asynchronous batch queue for processing Actions using Promises.
 // Draws from https://www.promisejs.org/patterns/#all
 //
@@ -24070,7 +24135,7 @@ function Queue(process){
 }
 module.exports = Queue;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -24252,7 +24317,7 @@ module.exports = Queue;
   return index;
 
 }));
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 // ModelJS v0.2.1
 //
 // https://github.com/curran/model
@@ -24443,7 +24508,7 @@ module.exports = Queue;
   }
 })();
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function (global){
 //A Chiasm plugin that loads data from the vis_chiasm random sampling API.
 var Model = require("model-js");
@@ -24490,5 +24555,5 @@ module.exports = function (){
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"chiasm-component":7,"dsv-dataset":25,"model-js":26}]},{},[5])(5)
+},{"chiasm-component":8,"dsv-dataset":26,"model-js":27}]},{},[5])(5)
 });
