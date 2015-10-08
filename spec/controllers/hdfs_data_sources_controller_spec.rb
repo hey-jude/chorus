@@ -115,6 +115,19 @@ describe HdfsDataSourcesController do
       get :index
     end
 
+    let (:disabled) { hdfs_data_sources(:hdfs_disabled) }
+    let (:incomplete) { hdfs_data_sources(:hdfs_incomplete) }
+
+    it 'includes filtered and disabled ' do
+      get :index
+      decoded_response.map(&:id).should include(disabled.id, incomplete.id)
+    end
+
+    it 'filters disabled and incomplete if filter_disabled is true' do
+      get :index, :filter_disabled => "true"
+      decoded_response.map(&:id).should_not include(*HdfsDataSource.where(:state => ['incomplete', 'disabled']).pluck(:id))
+    end
+
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
     it_behaves_like "a scoped endpoint" do

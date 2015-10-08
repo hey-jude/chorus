@@ -82,7 +82,7 @@ describe DataSourcesController do
       end
 
       it 'filters disabled and incomplete' do
-        get :index, :filter_disabled => true
+        get :index, :filter_disabled => "true"
         decoded_response.map(&:id).should_not include(*DataSource.where(:state => ['incomplete', 'disabled']).pluck(:id))
       end
     end
