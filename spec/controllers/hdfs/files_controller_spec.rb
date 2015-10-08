@@ -21,11 +21,11 @@ describe Hdfs::FilesController do
 
     it "should be forbidden if the data source is disabled" do
       hdfs_data_source.update_attributes(:state => 'disabled')
-      mock(HdfsEntry).list('/', hdfs_data_source, true) { [entry] }
+      stub(HdfsEntry).list('/', hdfs_data_source, true) { [entry] }
       entry
       get :index, :hdfs_data_source_id => hdfs_data_source.id
 
-      response.code.should be_forbidden
+      response.should be_forbidden
     end
 
     it "takes an id and renders the list of entries inside that directory" do
