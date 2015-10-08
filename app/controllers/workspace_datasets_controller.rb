@@ -1,6 +1,6 @@
 class WorkspaceDatasetsController < ApplicationController
   include DataSourceAuth
-  before_filter :check_source_disabled?, :only => [:create, :show, :destroy, :destroy_multiple]
+  #before_filter :check_source_disabled?, :only => [:create, :show, :destroy, :destroy_multiple]
 
   def index
     Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
@@ -23,6 +23,7 @@ class WorkspaceDatasetsController < ApplicationController
     Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     datasets = Dataset.where(:id => params[:dataset_ids])
+    raise_denied if datasets.any?{ |dataset| dataset.data_source.disabled? }
 
     status = workspace.associate_datasets(current_user, datasets) ? :created : :unprocessable_entity
 
@@ -35,6 +36,7 @@ class WorkspaceDatasetsController < ApplicationController
 
     dataset = params[:name] ? Dataset.find_by_name(params[:name]) : Dataset.find(params[:id])
     dataset.in_workspace?(workspace) or raise ActiveRecord::RecordNotFound
+    raise_denied if dataset.data_source.disabled?
 
     authorize_data_source_access(dataset)
 
@@ -59,6 +61,10 @@ class WorkspaceDatasetsController < ApplicationController
 
   def destroy_multiple
     Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
+
+    datasets = Dataset.where(:id => params[:dataset_ids])
+    raise_denied if datasets.any?{ |dataset| dataset.data_source.disabled? }
+
     associations = AssociatedDataset.where(:workspace_id => params[:workspace_id], :dataset_id => params[:dataset_ids])
     associations.destroy_all
     render :json => {}
@@ -66,6 +72,8 @@ class WorkspaceDatasetsController < ApplicationController
 
   def destroy
     Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
+    raise_denied if Dataset.find(params[:id]).data_source.disabled?
+
     associations = AssociatedDataset.where(:workspace_id => params[:workspace_id], :dataset_id => [params[:id]])
     associations.destroy_all
     render :json => {}
@@ -73,9 +81,8 @@ class WorkspaceDatasetsController < ApplicationController
 
   private
 
-  def check_source_disabled?
-    data_source = Dataset.find(params[:id]).data_source
-    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if data_source.disabled?
+  def raise_denied
+    raise Authority::AccessDenied.new("Forbidden", :data_source, nil)
   end
 
   def workspace
