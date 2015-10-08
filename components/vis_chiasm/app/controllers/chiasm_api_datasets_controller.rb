@@ -9,8 +9,19 @@ class ChiasmApiDatasetsController < ApplicationController
     dataset = Dataset.find(params[:dataset_id])
 
     column_types_map = [
+
+        # Numeric types based on this list http://www.postgresql.org/docs/9.1/static/datatype-numeric.html
         {:chorus_type => /integer/, :chiasm_type => 'number'},
         {:chorus_type => /double/, :chiasm_type => 'number'},
+        {:chorus_type => /smallint/, :chiasm_type => 'number'},
+        {:chorus_type => /integer/, :chiasm_type => 'number'},
+        {:chorus_type => /bigint/, :chiasm_type => 'number'},
+        {:chorus_type => /decimal/, :chiasm_type => 'number'},
+        {:chorus_type => /numeric/, :chiasm_type => 'number'},
+        {:chorus_type => /real/, :chiasm_type => 'number'},
+        {:chorus_type => /serial/, :chiasm_type => 'number'},
+        {:chorus_type => /bigserial/, :chiasm_type => 'number'},
+
         {:chorus_type => /varying/, :chiasm_type => 'string'}
     ]
 
