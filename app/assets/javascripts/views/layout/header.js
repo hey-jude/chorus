@@ -6,6 +6,7 @@ chorus.views.Header = chorus.views.Base.extend({
         "click a.notifications": "togglePopupNotifications",
         "click .drawer a": "togglePopupDrawer",
         "click .type_ahead_result a": "clearSearch",
+        "click .help_and_support a": "helpAndSupport",
         "submit .search form": "startSearch",
         "keydown .search input": "searchKeyPressed"
     },
@@ -170,9 +171,9 @@ chorus.views.Header = chorus.views.Base.extend({
 // 		function to update the unread notification in the header lozenge
 // 		deferred until postrender so that the header loads faster
 // 		and then updates for the user
-		this.$("a.notifications .lozenge").text(this.unreadNotifications.length);		
+		this.$("a.notifications .lozenge").text(this.unreadNotifications.length);
 	},
-	
+
     clearNotificationCount: function() {
         this.$("a.notifications .lozenge").text("0").addClass("empty");
     },
@@ -214,5 +215,12 @@ chorus.views.Header = chorus.views.Base.extend({
                 org_id: license.get("organizationUuid")
             })
         });
+    },
+
+    helpAndSupport: function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
+        this.dialog.launchModal();
     }
 });

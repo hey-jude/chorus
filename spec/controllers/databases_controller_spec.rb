@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe DatabasesController do
-  ignore_authorization!
 
   let(:user) { users(:owner) }
 
   before do
     log_in user
+    stub(Authority).authorize!.with_any_args { nil }
   end
 
   describe "#index" do
@@ -20,9 +20,20 @@ describe DatabasesController do
       let(:database) { databases(:shared_database) }
       let(:database2) { databases(:shared_database) }
 
+      it_behaves_like "a scoped endpoint" do
+        before do
+          stub(Database).refresh { [database] }
+        end
+        let!(:klass) { Database }
+        let!(:user)  { users(:owner) }
+        let!(:action){ :index }
+        let!(:params){ { :data_source_id => gpdb_data_source.id } }
+      end
+
       it "checks authorization" do
         stub(Database).refresh { [database] }
-        mock(subject).authorize!(:show_contents, gpdb_data_source)
+        mock(Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+
         get :index, :data_source_id => gpdb_data_source.id
       end
 
@@ -82,7 +93,8 @@ describe DatabasesController do
     let(:database) { databases(:default) }
 
     it "uses authorization" do
-      mock(subject).authorize!(:show_contents, database.data_source)
+      mock(Authority).authorize!(:explore_data, database.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+
       get :show, :id => database.to_param
     end
 
@@ -120,6 +132,7 @@ describe DatabasesController do
       subject { described_class.new }
 
       generate_fixture "forbiddenDataSource.json" do
+        stub(Authority).authorize! { raise Authority::AccessDenied.new("Forbidden", :activity, database) }
         get :show, :id => database.to_param
         response.should be_forbidden
       end

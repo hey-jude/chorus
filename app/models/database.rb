@@ -1,11 +1,12 @@
 class Database < ActiveRecord::Base
   include Stale
   include SoftDelete
+  include Permissioner
 
-  attr_accessible :name
+  attr_accessible :name, :id
 
   validates :name,
-            :format => /^[^\/?&]*$/,
+            :format => /\A[^\/?&]*\z/,
             :presence => true,
             :uniqueness => { :scope => :data_source_id }
 
@@ -34,7 +35,7 @@ class Database < ActiveRecord::Base
     data_source.connect_with(account).databases.map do |name|
       next if new(:name => name).invalid?
 
-      db = data_source.databases.find_or_create_by_name!(name)
+      db = data_source.databases.find_or_create_by!(name: name)
       results << db
       db.update_attributes!({:stale_at => nil}, :without_protection => true)
     end

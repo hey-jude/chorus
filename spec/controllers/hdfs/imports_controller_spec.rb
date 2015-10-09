@@ -39,7 +39,7 @@ describe Hdfs::ImportsController do
       end
 
       it 'uses authorization' do
-        mock(subject).authorize! :use, upload
+        mock(Authority).authorize! :create, upload, user, { :or => :current_user_is_objects_user }
         post :create, params
       end
 

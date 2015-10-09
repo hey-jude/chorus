@@ -19,11 +19,11 @@ $pumpkin:           #F7771B;
 $pacific-blue:      rgb(0,  160, 229);   // #00A0E5
 $bright-turquoise:  rgb(21, 214, 203);   // #15D6CB
 $pattens-blue:      rgb(240, 245, 250);  // #F0F5FA
-$alice-blue:        rgb(240, 247, 254);
+$alice-blue:        rgb(240, 247, 254);  // #F0F7FE
 $greyish-blue:      rgb(221, 236, 250);  // #DDECFA latest version
 $greyish-blue-v2:   rgb(248, 251, 253);  // #F8FBFD older version
-$light-sky-blue:    rgb(148, 215, 244);
-$bluer-lavender:    rgb(222, 234, 249);
+$light-sky-blue:    rgb(148, 215, 244);  // #94D7F4
+$bluer-lavender:    rgb(222, 234, 249);  // #DEEAF9
 
 $bright-grey:       rgb(88, 89, 95);        // #58595F
 $greyish-yellow:    rgb(204, 204, 200);
@@ -63,7 +63,7 @@ $informational:     $pacific-blue;
 $error:             $fire-engine-red;
 $alert:             $fire-engine-red;
 $needs-attention:   $pumpkin;
-
+$neutral:           #E7E7E3;
 
 // Background colors
 $list-hover-color:          $accent;
@@ -83,10 +83,10 @@ $border-color-darkest:  darken($border-color, 15%);
 // Text colors
 $color-text1:   darken($charcoal, 10%);
 $color-text2:   $charcoal;
-$color-text3:   lighten($charcoal, 10%);
+$color-text3:   lighten($charcoal, 7%);
 $color-text4:   lighten($bright-grey, 20%);
 $link-color:    $brand;
-$disabled-text: #939799;
+$disabled-text: #A4A5A6;
 
 $caret-color:   $light-sky-blue;
 
@@ -116,6 +116,7 @@ $default-border-radius: 3px;
 
 $border-canon:              $default-border-width solid $border-color;
 $dark-border-canon:         $default-border-width solid $border-color-dark;
+$darker-border-canon:         $default-border-width solid $border-color-darkest;
 $login-card-border-canon:   5px solid $color-text3;
 $shadow-canon:              2px 2px 3px 0px $shadow-color;
 
@@ -155,6 +156,10 @@ $type-ahead-result-border-color:            #A5A6A8;
 $content-header-link-color:     $color-text4;
 $required-marker-color:         $error;
 
+// LINKS */
+$default-link-color: $blue;
+$low-light-link-color: $gray;
+
 
 // NOTIFICATIONS aka MESSAGING
 // COLORS
@@ -186,8 +191,7 @@ $warning-icon-color:        #B24E11;
 $informational-background-color:    #DAEDFE;
 $informational-border-color:        #A3C0E0;
 $informational-icon-color:          #002755;
-//$informational-text-color:        #333;
-$informational-text-color:          #002244;
+$informational-text-color:          #102249;
 
 $success-color:             $ok;
 $success-background-color:  #DFF0D8;
@@ -197,6 +201,14 @@ $success-text-color:        #448044;
 
 $normal-tooltip-text-color: $core-white;
 $informational-tooltip-text-color: #DAEDFE;
+
+
+// neutral: displaying messages and text that is more background, not informational/foreground.
+$neutral-background-color:    #E7E7E3;
+$neutral-border-color:        #A3C0E0;
+$neutral-icon-color:          #002755;
+$neutral-text-color:          #696969;
+
 
 
 // hard errors
@@ -215,6 +227,11 @@ $alert-icon-medium:     16px;
 $alert-icon-small:      12px;
 
 
+// APPLICATION ICONS
+$delete-icon-color:         #D08077;
+$delete-icon-hover-color:   #EE5740;
+$add-icon-color:            scale_color($default-link-color, $lightness: 25%, $saturation: -25%);
+$add-icon-hover-color:      $default-link-color;
 
 // Dimensions
 $sidebar-width : 266px;
@@ -342,13 +359,8 @@ $mid-light-type: #5f5f5f;
 
 $action-bar-highlighted-font-color: $fiji-green;
 
-// LINK */
-
-$default-link-color: $blue;
-$low-light-link-color: $gray;
 
 // LISTS */
-
 $list-horizontal-divider: 1px solid $border-color;
 $list-vertical-divider: 1px solid $border-color;
 $list-selectable-hover-color: rgba(0,0,0,0.1);
@@ -363,7 +375,6 @@ $list-breadcrumb-spacingright: 5px;
 $list-breadcrumb-size: 13px;
 
 // WHITESPACE */
-
 $baseLineHeight: 1.5em !default; //must be in em
 $baseFontSize: 15px !default; // must be px
 
@@ -409,6 +420,8 @@ $lozenge-color-normal-dark: darken($lozenge-color-normal, 7%);
 $lozenge-color-hover-dark: darken($lozenge-color-hover, 7%);
 $lozenge-color-selected-dark: $brand-dark;
 
+$lozenge-font-weight: $semibold;
+$lozenge-font-size: 12px;
 
 ///////////////////////////////////////////////////////
 // Mixins
@@ -508,7 +521,10 @@ $lozenge-color-selected-dark: $brand-dark;
     font-size: 18px;
     font-weight: normal;
 }
-
+@mixin font-primary-bold {
+    font-size: 18px;
+    font-weight: $semibold;
+}
 @mixin font-primary-link {
     color: $brand;
     @include font-primary;
@@ -523,6 +539,11 @@ $lozenge-color-selected-dark: $brand-dark;
     color: $brand-dark;
     font-size: $small-font;
     font-weight: $semibold;
+}
+
+@mixin disabled-text {
+    color: $disabled-text;
+    cursor: normal;
 }
 
 @mixin font-menu {
@@ -543,8 +564,8 @@ $lozenge-color-selected-dark: $brand-dark;
 
 @mixin uppercase {
     text-transform: uppercase;
-    letter-spacing: 1px;
-    word-spacing: 0.135em;
+    letter-spacing: 1.05px;
+    word-spacing: 0.14em;
 }
 
 @mixin list-section-heading {
@@ -746,10 +767,10 @@ $lozenge-color-selected-dark: $brand-dark;
 }
 
 // ********* */
-// used to generate the pill shapes used in sub nav and right-side nav tabs */
+// LOZENGE: generates the pill shapes used in sub nav and right-side nav tabs */
 // call with: */
-// min-width: min width of the pill */
-// height: height of the pill. if none provided, defaults to 21px */
+//   min-width: min width of the pill */
+//   height: height of the pill. if none provided, defaults to 21px */
 
 @mixin pill-tab($min-width, $height: $default-lozenge-height) {
     &:hover .lozenge {
@@ -758,7 +779,7 @@ $lozenge-color-selected-dark: $brand-dark;
     }
     .lozenge {
         @include lozenge(0, $min-width, $height);
-        font-size: 12px;
+        font-size: $lozenge-font-size;
         color: $color-text2;
         padding: 0 10px;
     }
@@ -795,7 +816,7 @@ $lozenge-color-selected-dark: $brand-dark;
     @include uppercase;
     height: $height;
     line-height: $height;
-    font-weight: $semibold;
+    font-weight: $lozenge-font-weight;
     display: inline-block;
     padding: $padding;
     text-align: center;
@@ -897,6 +918,11 @@ $lozenge-color-selected-dark: $brand-dark;
     content: "\f06a";  // fa-exclamation-circle */
 }
 
+
+// FOR DEV TESTING
+@mixin borderAroundThing {
+    border: 1px solid #F00;
+}
 
 // Do not put any css rules into this file.  This file is only for declaration of variables and mixins
 //

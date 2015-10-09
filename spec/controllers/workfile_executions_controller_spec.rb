@@ -93,7 +93,7 @@ describe WorkfileExecutionsController do
 
     it "uses authorization" do
       log_in workspace_member
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
       post :create, :workfile_id => workfile.id, :sql => sql, :check_id => check_id
     end
 

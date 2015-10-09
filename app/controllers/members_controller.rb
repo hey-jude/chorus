@@ -1,18 +1,26 @@
 class MembersController < ApplicationController
   def index
     workspace = Workspace.find(params[:workspace_id])
-    authorize! :show, workspace
+    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
+                                                                    :workspace_is_public ] }
 
-    present paginate WorkspaceAccess.members_for(current_user, workspace)
+    if current_user_is_admin?
+      members = workspace.members
+    else
+      members = workspace.members_accessible_to(current_user)
+    end
+    members = Workspace.filter_by_scope(current_user, members) if current_user_in_scope?
+
+    present paginate members
   end
 
   def create
     workspace = Workspace.find(params[:workspace_id])
-    authorize! :owner, workspace
+    Authority.authorize! :show, workspace, current_user, { :or => :current_user_is_object_owner }
 
     WorkspaceMembersManager.new(
         workspace,
-        params[:member_ids],
+        { "ProjectManager" => params[:member_ids] },
         current_user
     ).update_membership
 

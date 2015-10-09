@@ -3,6 +3,7 @@ class Dataset < ActiveRecord::Base
   include SoftDelete
   include TaggableBehavior
   include Notable
+  include Permissioner
 
   unscoped_belongs_to :schema
 
@@ -12,7 +13,8 @@ class Dataset < ActiveRecord::Base
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
   has_many :comments, :through => :events
-  has_many :most_recent_comments, :through => :events, :source => :comments, :class_name => "Comment", :order => "id DESC", :limit => 1
+  has_many :most_recent_comments, -> { order("id DESC").limit(1) }, :through => :events, :source => :comments,
+           :class_name => "Comment"
   has_many :associated_datasets, :dependent => :destroy
   has_many :bound_workspaces, :through => :associated_datasets, :source => :workspace
   has_many :imports, :as => :source
@@ -60,7 +62,7 @@ class Dataset < ActiveRecord::Base
 
   def refresh_cache
     Chorus.log_debug "-- Refreshing cache for #{self.class.name} with ID = #{self.id} --"
-    options = {:workspace => self.workspace, :cached => true, :namespace =>  "workspace:datasets"}
+    options = {:workspace => self.workspace, :cached => true, :namespace => "workspace:datasets"}
     dataset = Dataset.includes(Dataset.eager_load_associations).where("id = ?", self.id)
     Presenter.present(dataset, nil, options)
   end
@@ -78,7 +80,7 @@ class Dataset < ActiveRecord::Base
 
   def self.eager_load_succinct_associations
     [
-        {:scoped_schema => :scoped_parent}
+      {:scoped_schema => :scoped_parent}
     ]
   end
 
@@ -112,7 +114,7 @@ class Dataset < ActiveRecord::Base
       like_string = "%#{DataSourceConnection.escape_like_string(name)}%"
       where("datasets.name ILIKE ? ESCAPE '#{DataSourceConnection::LIKE_ESCAPE_CHARACTER}'", like_string)
     else
-      scoped
+      all
     end
   end
 
@@ -202,6 +204,10 @@ class Dataset < ActiveRecord::Base
     cache(:column_data) do
       DatasetColumn.columns_for(schema.data_source.owner_account, self)
     end
+  end
+
+  def column_names
+    column_data.collect{|c| c.name}
   end
 
   def table_description

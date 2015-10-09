@@ -183,6 +183,12 @@ chorus.models.Workspace = chorus.models.Base.extend({
         return this.isActive() && this._hasPermission(['create_workflow']);
     },
 
+    // TODO: If worklet create permission should be distinct from workflow, this needs to change.
+    currentUserCanCreateWorklets: function(){
+        //return this.isActive() && this._hasPermission(['create_worklet']);
+        return this.currentUserCanCreateWorkFlows();
+    },
+
     currentUserCanDuplicateChorusViews: function() {
         return this._hasPermission(['admin', 'duplicate_chorus_view']);
     },

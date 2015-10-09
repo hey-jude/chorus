@@ -9,5 +9,7 @@ chorus.models.DynamicWorkfile = function(workfileJson) {
 };
 
 chorus.models.DynamicWorkfile.typeMap = {
-    alpine: 'AlpineWorkfile'
+    alpine: 'AlpineWorkfile',
+    worklet: 'Worklet',
+    published_worklet: 'PublishedWorklet'
 };

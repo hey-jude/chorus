@@ -10,6 +10,13 @@ describe UsersController do
   describe "#index" do
     it_behaves_like "an action that requires authentication", :get, :index
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { User }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
+
     it "succeeds" do
       get :index
       response.code.should == "200"
@@ -89,27 +96,42 @@ describe UsersController do
     context "when creator is admin" do
       let(:user) { users(:admin) }
 
-      before do
-        post :create, params
-      end
-
       it "should succeed" do
+        post :create, params
         response.code.should == "201"
       end
 
       it "should create a user" do
+        post :create, params
         User.find_by_username(params[:username]).should be_present
       end
 
       it "should make a user an admin" do
+        post :create, params
+        Role.find_by_name("Admin").users.should include(User.find_by_username(params[:username]))
         User.find_by_username(params[:username]).admin.should be_true
       end
 
+      it "should not make the user an admin if the flag is not set in the params" do
+        params[:admin] = false
+        post :create, params
+        Role.find_by_name("Admin").users.should_not include(User.find_by_username(params[:username]))
+      end
+
+      it "should not make the user a developer if the flag is not set in the params" do
+        params[:developer] = false
+        post :create, params
+        Role.find_by_name("WorkflowDeveloper").users.should_not include(User.find_by_username(params[:username]))
+      end
+
       it 'should make a user a developer' do
+        post :create, params
+        Role.find_by_name("WorkflowDeveloper").users.should include(User.find_by_username(params[:username]))
         User.find_by_username(params[:username]).should be_developer
       end
 
       it "should return the user's fields except password" do
+        post :create, params
         params.each do |key, value|
           key = key.to_s
           decoded_response[key].should == value unless key == "password"
@@ -122,9 +144,17 @@ describe UsersController do
       end
 
       it "makes a UserAdded event" do
+        post :create, params
         event = Events::UserAdded.last
         event.new_user.should == User.find_by_username(params[:username])
         event.actor.should == user
+      end
+
+      it "should set the admin role if the admin flag is a string" do
+        params[:admin] = "true"
+        post :create, params
+
+        Role.find_by_name("Admin").users.should include(User.find_by_username(params[:username]))
       end
 
       generate_fixture "userWithErrors.json" do
@@ -249,7 +279,7 @@ describe UsersController do
         expect {
           put :update, :id => other_user.to_param, :first_name => "updated"
         }.to_not change { other_user.reload.first_name }
-        response.code.should == "404"
+        response.code.should == "403"
       end
 
       it 'does not allow non-admins to make themselves a developer' do

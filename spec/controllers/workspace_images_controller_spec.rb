@@ -31,7 +31,7 @@ describe WorkspaceImagesController do
       end
 
       it "authorizes on owner (or admin)" do
-        log_in users(:the_collaborator)
+        log_in users(:not_a_member)
         post :create, :workspace_id => workspace.id, :files => files
         response.should be_forbidden
       end
@@ -45,11 +45,12 @@ describe WorkspaceImagesController do
       mock(controller).send_file(workspace.image.path('original'), :type => workspace.image_content_type) {
         controller.head :ok
       }
+      log_in workspace.owner
       get :show, :workspace_id => workspace.id
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :show, workspace
+      mock(Authority).authorize!.with_any_args
       get :show, :workspace_id => workspace.id
     end
   end

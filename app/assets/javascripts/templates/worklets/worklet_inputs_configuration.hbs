@@ -1,0 +1,157 @@
+{{!-- worklet: the parameters --}}
+
+<div class="worklet_configuration_panel worklet_inputs_configuration">
+    {{#if isNewWorklet}}
+        <div class="main_header"><h2>{{t "worklet.main.make_new_worklet.heading"}}</h2></div>    
+    {{else}}
+        <div class="main_header"><h2>{{t "worklet.main.configure_worklet.heading"}}</h2></div>
+    {{/if}}
+
+
+    <div class="step_header">
+        <h3>{{t "worklet.main.step_worklet_inputs"}}</h3>
+        <div class="description">
+          {{t "worklet.main.step_worklet_inputs_description"}}
+        </div>
+    </div>
+
+
+    <div>
+        <div class="errors"></div>
+
+        {{#each workletParams}}
+        <div class="worklet_parameter_module" data-index="{{@index}}">
+            <div class="parameter_section_header">
+                {{t "worklet.configure.inputs.inputs_number_heading"}} {{displayIndexPlusOne}}
+                <div class="section_controls">
+                    <a href="#" class="delete_input_param" data-index="{{@index}}" title="{{t 'worklet.configure.delete_parameter.tooltip'}}"><span class="fa fa-trash delete"></span></a>
+                </div>
+            </div>
+
+            <div class="variable_details_section">
+                <div class="subsection_header">
+                    {{t "worklet.configure.inputs.variable_details"}}
+                </div>
+
+                <div class="variable_detail_content">
+                    {{#if noVariableSelected}}
+                        <div class="no_parameters_notice">
+                            <span class="description">{{t "worklet.configure.inputs.variable_details_description"}}</span>
+                        </div>
+                    {{else}}
+                        <div class="label_header">
+                            {{t "worklet.configure.inputs.variable_details_default_value"}}
+                        </div>
+                        <div class="default_value_subsection">
+                            {{#if this.variableDefault}}
+                                {{this.variableDefault}}
+                            {{else}}
+                                ...
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="input_section">
+               <div class="errors"></div>
+               <div class="form_pair">
+                   <label for="variable_name_{{@index}}" class="required">
+                      {{t "worklet.configure.inputs.workflow_variable"}}
+                   </label>
+                    <select id="variable_name_{{@index}}" name="variable_name_{{@index}}" data-index="{{@index}}" class="workflow_variable">
+                        <option value="" selected disabled>{{t "general.select_one"}}</option>
+                        {{#each ../workflowVariables}}
+                            <option value="{{this.variableName}}" {{selectedIfMatch this.variableName ../this.variableName}}>{{this.variableName}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                
+                <div class="form_group">
+                    <div class="form_pair">
+                        {{#if useDefaultDisabled}}
+                            <input type="checkbox" id="use_default_{{@index}}" name="use_default_{{@index}}" data-index="{{@index}}" value="true" title="{{t 'worklet.configure.inputs.use_existing_disabled.tooltip'}}" disabled/>
+                            <label class="adjacent disabled" for="use_default_{{@index}}" title="{{t 'worklet.configure.inputs.use_existing_disabled.tooltip'}}">{{t "worklet.configure.inputs.use_existing"}}</label>
+                        {{else}}
+                            <input type="checkbox" id="use_default_{{@index}}" name="use_default_{{@index}}" data-index="{{@index}}" value="true"{{#if this.useDefault}} checked{{/if}}/>
+                            <label class="adjacent" for="use_default_{{@index}}">{{t "worklet.configure.inputs.use_existing"}}</label>
+                        {{/if}}
+                    </div>
+                
+                    <div class="form_pair">
+                        <input type="checkbox" id="required_{{@index}}" name="required_{{@index}}" data-index="{{@index}}" value="true" {{#if this.required}} checked{{/if}}/>
+                        <label class="adjacent" for="required_{{@index}}">{{t "worklet.configure.inputs.required_field"}}</label>
+                    </div>
+                </div>
+                
+                <div class="form_group">              
+                    <div class="form_pair">
+                        <label for="label_{{@index}}" class="required">{{t "worklet.configure.inputs.field_label"}}</label>
+                        <input class="form_input" type="text" id="label_{{@index}}" name="label_{{@index}}" data-index="{{@index}}" value="{{label}}" maxlength="64"/>
+                    </div>
+                
+                    <div class="form_pair">
+                        <label for="description_{{@index}}">{{t "worklet.configure.inputs.field_description"}}</label>
+                        <textarea class="form_input" id="description_{{@index}}" data-index="{{@index}}" name="description_{{@index}}" maxlength="256">{{this.description}}</textarea>
+                    </div>
+                </div>
+                
+                    <div class="form_pair">
+                        <label for="data_type_{{@index}}" class="required">{{t "worklet.edit.input.data_type.label"}}</label>
+                        <select id="data_type_{{@index}}" name="data_type_{{@index}}" data-index="{{@index}}" class="workflow_variable">
+                            <option value="" selected disabled>{{t "general.select_one"}}</option>
+                            {{#each ../dataTypes}}
+                                <option value="{{this}}" {{selectedIfMatch this ../this.dataType}}>{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+
+                {{#if hasOptions}}
+                    <div class="description">
+                        {{t "worklet.configure.inputs.option_description"}}
+                    </div>
+                    <div class="option_edit">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="index_col">#</th>
+                                <th class="option_input_col"><span class="required">{{t "worklet.configure.select_option.label"}}</span></th>
+                                <th class="value_input_col">{{t "worklet.configure.select_value.label"}}</th>
+                                <th class="delete_col"></th>
+                            </tr>
+                            </thead>
+                            {{#each this.options}}
+                                <tr>
+                                    <td class="index_col">{{optionIndexPlusOne}}</td>
+                                    <td class="option_input_col">
+                                        <input type="text" name="option_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.option}}" maxlength="64"/>
+                                    </td>
+                                    <td class="value_input_col">
+                                        <input type="text" name="value_{{@index}}_{{../this.displayIndex}}" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" value="{{this.value}}" maxlength="64"/>
+                                    </td>
+                                    <td class="delete_col">
+                                        <a class="removeWidget delete_parameter_option" data-index="{{../this.displayIndex}}" data-option-index="{{@index}}" title="{{t 'worklet.configure.delete_option.tooltip'}}"><span class="remove fa fa-times-circle"></span></a>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </table>
+                    </div>
+                    <a class="add_parameter_option addWidget" href="#" data-index="{{@index}}"><span class="fa fa-plus-circle add"></span> {{t "worklet.configure.inputs.add_option"}}</a>
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+
+        <div id="worklet_add_new_parameter_section">
+
+            <button class="modalish add_new_parameter">
+            {{#if workletParams}}
+                {{t "worklet.configure.inputs.add_another_parameter.button"}}
+            {{else}}
+                {{t "worklet.configure.inputs.add_first_parameter.button"}}
+            {{/if}}
+            </button>
+
+        </div>
+    </div>
+</div>

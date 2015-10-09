@@ -21,7 +21,8 @@ describe GnipDataSourceImportsController do
 
     describe "#create" do
       it "uses authentication" do
-        mock(subject).authorize! :can_edit_sub_objects, workspace
+        mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+
         post :create, gnip_data_source_import_params
       end
 

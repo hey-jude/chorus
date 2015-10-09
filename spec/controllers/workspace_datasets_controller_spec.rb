@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe WorkspaceDatasetsController do
-  ignore_authorization!
+
 
   context "with stubbed greenplum" do
     let(:user) { users(:the_collaborator) }
@@ -16,6 +16,8 @@ describe WorkspaceDatasetsController do
 
     before do
       log_in user
+
+      stub(Authority).authorize!.with_any_args { nil }
 
       mock(Workspace).
           workspaces_for(user).mock!.
@@ -41,7 +43,7 @@ describe WorkspaceDatasetsController do
       end
 
       it "uses authorization" do
-        mock(subject).authorize! :show, workspace
+        mock(Authority).authorize!.with_any_args
         get :index, :workspace_id => workspace.to_param
       end
 
@@ -110,7 +112,7 @@ describe WorkspaceDatasetsController do
       let(:other_view) { datasets(:other_view) }
 
       it "uses authorization" do
-        mock(subject).authorize! :can_edit_sub_objects, workspace
+        mock(Authority).authorize!.with_any_args
         post :create, :workspace_id => workspace.to_param, :dataset_ids => [other_table.to_param]
       end
 
@@ -182,7 +184,7 @@ describe WorkspaceDatasetsController do
 
         context "when the user is not allowed to see the workspace contents" do
           let(:dataset) { gpdb_table }
-          before { mock(subject).authorize! :show, workspace }
+          before { mock(Authority).authorize!.with_any_args }
 
           it "should return forbidden" do
             get :show, :id => dataset.to_param, :workspace_id => workspace.to_param
@@ -351,7 +353,7 @@ describe WorkspaceDatasetsController do
       end
 
       it "uses authorization" do
-        mock(subject).authorize! :can_edit_sub_objects, workspace
+        mock(Authority).authorize!.with_any_args
         delete :destroy, :id => source_table.to_param, :workspace_id => workspace.to_param
       end
     end

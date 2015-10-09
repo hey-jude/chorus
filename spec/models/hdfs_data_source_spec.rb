@@ -15,6 +15,10 @@ describe HdfsDataSource do
     let!(:model) { FactoryGirl.create(:hdfs_data_source) }
   end
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { hdfs_data_sources(:hadoop) }
+  end
+
   describe "associations" do
     it { should belong_to :owner }
     its(:owner) { should be_a User }
@@ -62,7 +66,7 @@ describe HdfsDataSource do
     end
 
     it 'removes itself from the execution location field of any workfiles it owns' do
-      workfiles = subject.workfile_execution_locations.all
+      workfiles = subject.workfile_execution_locations
       workfiles.length.should > 0
 
       expect {
@@ -73,6 +77,16 @@ describe HdfsDataSource do
 
   describe "#check_status!" do
     let(:data_source) { hdfs_data_sources(:hadoop) }
+
+    context "when the data source is disabled" do
+      it "does not check the status" do
+        data_source.update_attributes(:state => 'disabled')
+        any_instance_of(HdfsDataSource) do |ds|
+          mock(ds).disabled?
+        end
+        HdfsDataSource.check_status(data_source.id)
+      end
+    end
 
     context "when the data source is offline" do
 
@@ -132,6 +146,12 @@ describe HdfsDataSource do
     let(:root_file) { HdfsEntry.new({:path => '/foo.txt'}, :without_protection => true) }
     let(:root_dir) { HdfsEntry.new({:path => '/bar', :is_directory => true}, :without_protection => true) }
     let(:deep_dir) { HdfsEntry.new({:path => '/bar/baz', :is_directory => true}, :without_protection => true) }
+
+    it 'checks if the data source is disabled' do
+      subject.update_attributes(:state => 'disabled')
+      any_instance_of(HdfsDataSource){ |ds| mock(ds).disabled? { true } }
+      subject.refresh
+    end
 
     it "lists the root directory for the data source" do
       mock(HdfsEntry).list('/', subject) { [root_file, root_dir] }

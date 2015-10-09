@@ -1,0 +1,68 @@
+<form class="worklet_new_dialog">
+    <div class="girdle">
+        <div class="creation_instructions">
+
+            {{#if fromExisting}}
+                {{t 'worklet.new.creation_instructions_from_workflow'}}
+            {{else}}
+                {{t 'worklet.new.creation_instructions_new'}}
+            {{/if}}
+        </div>
+
+
+        {{!--Show only if workflow already selected as basis: --}}
+        {{#if fromExisting}}
+            <div class="workflow_details">
+                <div class="section_header">{{t 'worklet.new.workflow_details_header'}}</div>
+
+                <span class="image workfile_image">
+                    <img src="/images/workfiles/large/afm.png" alt="{{t 'entity.name.workflow.thing'}}"/>
+                </span>
+
+<table>
+	<tr>
+	    <th>{{t "worklet.configure.workflow_used_info.name"}}</th>
+	    <td>{{workflow.fileName}}</td>
+	</tr>
+	<tr>
+	    <th>{{t "worklet.configure.workflow_used_info.user_modified_at"}}</th>
+      <td>{{modifiedTime}}</td>
+	</tr>
+	{{#if hasComments}}
+	<tr>
+	    <th>{{t "worklet.configure.workflow_used_info.comment"}}</th>
+	    <td>{{{lastComment}}}</td>
+	</tr>
+	{{/if}}
+</table>
+
+
+            </div>
+
+
+        {{/if}}
+
+        <div class="worklet_details">
+            <div class="section_header">{{t 'worklet.new.worklet_details_header'}}</div>
+
+            <div class="form_pair">
+            <label class="required" for="workletName">{{t 'worklet.new.name.label'}}</label>
+            <input type="text" id="workletName" name="workletName" placeholder="{{t 'worklet.new.name.placeholder'}}" tabindex="1" maxlength="64"/>
+            </div>
+
+            <div class="form_pair">
+            <label for="workletDescription">{{t 'worklet.new.description.label'}}</label>
+            <textarea name="workletDescription" id="workletDescription" rows="2" tabindex="2" maxlength="256">{{summary}}</textarea>
+            </div>
+
+            <div class="description">
+                {{t 'worklet.new.description_instructions'}}
+            </div>
+        </div>
+        {{> legendRequired}}
+
+    </div>
+    {{!-- END girdle --}}
+
+    {{formControlsWithDisabledSubmit "worklet.new.continue"}}
+</form>

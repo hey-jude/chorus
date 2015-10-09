@@ -40,6 +40,13 @@ describe WorkfilesController do
       names.should == names.sort
     end
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Workfile }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ { :workspace_id => workspace.id } }
+    end
+
     context "with a name pattern" do
       it "filters by name pattern" do
         get :index, :workspace_id => workspace.id, :name_pattern => "hadoop_dataset_fl"
@@ -76,7 +83,7 @@ describe WorkfilesController do
     end
 
     describe "pagination" do
-      let(:sorted_workfiles) { workspace.workfiles.sort_by! { |wf| wf.file_name.downcase } }
+      let(:sorted_workfiles) { workspace.workfiles.order("LOWER(file_name)") }
 
       it "defaults the per_page to fifty" do
         get :index, :workspace_id => workspace.id
@@ -168,8 +175,12 @@ describe WorkfilesController do
           end
 
           it "validates the datasource connections" do
-            mock(controller).authorize!(:show, alpine_workfile.workspace)
-            mock(controller).authorize!(:show_contents, alpine_workfile.data_sources.first)
+            mock(Authority).authorize!(:show,
+                                       alpine_workfile.workspace,
+                                       non_member,
+                                       { :or => [ :current_user_is_in_workspace,
+                                                  :workspace_is_public ] })
+            mock(Authority).authorize! :explore_data, alpine_workfile.data_sources.first, non_member, { :or => [:data_source_is_shared, :data_source_account_exists] }
             any_instance_of(AlpineWorkfile) do |workfile|
               mock(workfile).attempt_data_source_connection
             end
@@ -571,7 +582,7 @@ describe WorkfilesController do
     end
 
     it "uses authorization" do
-      mock(controller).authorize!(:can_edit_sub_objects, public_workfile.workspace)
+      mock(Authority).authorize!(:update, public_workfile.workspace, user, { :or => :can_edit_sub_objects })
       put :update, options
     end
 
@@ -767,7 +778,7 @@ describe WorkfilesController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize!(:update, public_workfile.workspace, member, { :or => :can_edit_sub_objects })
       delete :destroy, :id => public_workfile.id
     end
 
@@ -798,7 +809,7 @@ describe WorkfilesController do
     end
 
     it 'uses authorization' do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize!(:update, workspace, member, { :or => :can_edit_sub_objects })
       delete :destroy_multiple, :workspace_id => workspace.id
     end
 
@@ -830,7 +841,7 @@ describe WorkfilesController do
     end
 
     it 'uses authorization and runs the workflow' do
-      mock(controller).authorize!(:can_edit_sub_objects, workfile.workspace)
+      mock(Authority).authorize!(:update, workfile.workspace, user, { :or => :can_edit_sub_objects })
       post :run, :id => workfile.id
     end
 
@@ -865,7 +876,7 @@ describe WorkfilesController do
     end
 
     it 'uses authorization and stops the workflow' do
-      mock(controller).authorize!(:can_edit_sub_objects, workfile.workspace)
+      mock(Authority).authorize!(:update, workfile.workspace, user, { :or => :can_edit_sub_objects })
       post :stop, :id => workfile.id
     end
 

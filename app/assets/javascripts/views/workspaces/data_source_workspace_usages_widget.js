@@ -32,7 +32,7 @@ chorus.views.DataSourceWorkspaceUsagesWidget = chorus.views.Base.extend({
                 } else {
                     el = $("<span class='disabled workspace_usage'></span>");
                 }
-                el.text(t("data_sources.sidebar.usage", {count: count}));
+                el.text(t("data_sources.sidebar.usage"));
                 this.$el.append(el);
             }
         }

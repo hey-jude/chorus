@@ -5,6 +5,23 @@ describe User do
     stub(LdapClient).enabled? { false }
   end
 
+  describe "defaults" do
+    it "has the default role" do
+      User.new.roles.should include(Role.find_by_name("Collaborator"))
+      User.new.roles.should include(Role.find_by_name("User"))
+    end
+
+    it "doesn't duplicate roles when pulling record from database" do
+      u = User.new(:username => "single_role")
+      old_roles = u.roles
+      u.save(:validate => false)
+
+      u = User.find_by_username("single_role")
+      new_roles = u.roles
+      old_roles.sort.should eq(new_roles.sort)
+    end
+  end
+
   describe ".authenticate" do
     let(:user) { users(:default) }
 
@@ -52,8 +69,12 @@ describe User do
   end
 
   describe ".order" do
+    def users_sorted_without_order_method(sorted_by)
+      User.find_by_sql("SELECT * FROM users WHERE deleted_at IS NULL ORDER BY LOWER(#{sorted_by}), id ASC").to_a
+    end
+
     it "sorts by first name, by default" do
-      User.order(nil).to_a.should == User.all(:order => "LOWER(first_name), id").to_a
+      User.order(nil).to_a.should == users_sorted_without_order_method('first_name')
     end
 
     it "sorts by id as a secondary sort" do
@@ -64,13 +85,13 @@ describe User do
 
     context "with a recognized sort order" do
       it "respects the sort order" do
-        User.order("last_name").to_a.should == User.all(:order => "LOWER(last_name), id").to_a
+        User.order("last_name").to_a.should == users_sorted_without_order_method('last_name')
       end
     end
 
     context "with an unrecognized sort order" do
       it "sorts by first name" do
-        User.order("last_name; DROP TABLE users;").to_a.should == User.order("LOWER(first_name), id").to_a
+        User.order("last_name; DROP TABLE users;").to_a.should == users_sorted_without_order_method('first_name')
       end
     end
   end
@@ -101,7 +122,7 @@ describe User do
   end
 
   describe "validations" do
-    let(:max_user_icon_size) {ChorusConfig.instance['file_sizes_mb']['user_icon']}
+    let(:max_user_icon_size) { ChorusConfig.instance['file_sizes_mb']['user_icon'] }
 
     it { should validate_presence_of :first_name }
     it { should validate_presence_of :last_name }
@@ -263,6 +284,45 @@ describe User do
     it { should have_many(:activities) }
     it { should have_many(:events) }
     it { should have_many(:dashboard_items).dependent(:destroy) }
+    it { should have_and_belong_to_many(:groups) }
+    it { should have_and_belong_to_many(:roles) }
+    it { should have_many(:chorus_object_roles) }
+    it { should have_many(:object_roles).through(:chorus_object_roles) }
+
+    let(:user) { users(:owner) }
+    let(:admin) { users(:admin) }
+    let(:role) { roles(:a_role) }
+
+    it "should not allow the same role to be in .roles more than once" do
+       user.roles << role
+       expect {
+         user.roles << role
+       }.to_not change{ user.roles.count }
+    end
+
+    it "should remove the AppManager role if Admin role is removed" do
+      admin.roles.destroy(Role.find_by_name("Admin"))
+      expect(admin.roles.find_by_name("ApplicationManager")).to be_nil
+    end
+
+    it "should remove the Admin role if the AppManager role is removed" do
+      admin.roles.destroy(Role.find_by_name("ApplicationManager"))
+      expect(admin.roles.find_by_name("Admin")).to be_nil
+    end
+
+    it "should add the Admin role if the AppManager role is added" do
+      admin_role = Role.find_by_name("Admin")
+      user.roles << admin_role
+      expect(user.roles).to include(Role.find_by_name("ApplicationManager"))
+    end
+
+    it "should add the AppManager role if the Admin role is added" do
+      app_manager_role = Role.find_by_name("ApplicationManager")
+      user.roles << app_manager_role
+      expect(user.roles).to include(Role.find_by_name("Admin"))
+    end
+
+
   end
 
   describe ".admin_count" do
@@ -273,16 +333,43 @@ describe User do
 
   describe "#admin=" do
     let(:admin) { users(:admin) }
+    let(:user) { users(:owner) }
 
     it "allows an admin to remove their own privileges, if there are other admins" do
       admin.admin = false
+      admin.save!
+      admin.reload
       admin.should_not be_admin
     end
 
     it "does not allow an admin to remove their own privileges if there are no other admins" do
       users(:evil_admin).delete
       admin.admin = false
+      admin.save!
+      admin.reload
       admin.should be_admin
+    end
+
+    it "should add the user to the ApplicationManager role" do
+      user.admin = false
+      user.admin = true
+      user.save!
+      user.reload
+      user.roles.should include(Role.find_by_name("ApplicationManager"))
+    end
+
+    it "should remove the user f rom the ApplicationManager role" do
+      admin.admin = false
+      admin.save!
+      admin.reload
+      admin.roles.should_not include(Role.find_by_name("ApplicationManager"))
+    end
+
+    it "should create an admin if passed the string 'true'" do
+      user.admin = false
+      user.admin = "true"
+      user.save!
+      expect(user.admin?).to be_true
     end
   end
 
@@ -319,13 +406,13 @@ describe User do
 
       it "should raise an error when the user is not in the LDAP server" do
         stub(LdapClient).search.with_any_args { [] }
-        args = { :bogus => 'field', :username => 'aDmin2', :password => 'secret', :first_name => "Jeau", :last_name => "Bleau", :email => "jb@emc.com" }
+        args = {:bogus => 'field', :username => 'aDmin2', :password => 'secret', :first_name => "Jeau", :last_name => "Bleau", :email => "jb@emc.com"}
         expect { User.create(args) }.to raise_error(LdapClient::LdapCouldNotBindWithUser)
       end
 
       it "should succeed when the user is found in the LDAP server" do
         stub(LdapClient).search.with_any_args { [:result] }
-        args = { :bogus => 'field', :username => 'aDmin2', :password => 'secret', :first_name => "Jeau", :last_name => "Bleau", :email => "jb@emc.com" }
+        args = {:bogus => 'field', :username => 'aDmin2', :password => 'secret', :first_name => "Jeau", :last_name => "Bleau", :email => "jb@emc.com"}
         expect { User.create(args) }.not_to raise_error
       end
     end
@@ -343,7 +430,7 @@ describe User do
     it "does not allow deleting a user who owns a workspace" do
       workspace = FactoryGirl.create(:workspace)
       expect { workspace.owner.destroy}.to raise_exception(ActiveRecord::RecordInvalid)
-      workspace.owner.should have_error_on(:workspace_count).with_message(:equal_to).with_options(:count => 0)
+      workspace.owner.should have_error_on(:workspace_count).with_message(:equal_to).with_options(:count => workspace.owner.owned_workspaces.count)
     end
 
     it "deletes associated memberships" do
@@ -396,5 +483,9 @@ describe User do
 
   it_behaves_like 'a soft deletable model' do
     let(:model) { users(:default) }
+  end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { users(:default) }
   end
 end

@@ -1,4 +1,5 @@
 class HdfsImport < ActiveRecord::Base
+  include Permissioner
 
   attr_accessible :hdfs_entry, :upload, :file_name
 

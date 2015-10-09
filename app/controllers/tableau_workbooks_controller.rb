@@ -3,7 +3,8 @@ require 'optparse'
 class TableauWorkbooksController < ApplicationController
   def create
     workspace = Workspace.find(params[:workspace_id])
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
+    #authorize! :can_edit_sub_objects, workspace
     dataset = Dataset.find(params[:dataset_id])
     publisher = TableauPublisher.new(current_user)
     publication = publisher.publish_workbook(dataset, workspace, params)

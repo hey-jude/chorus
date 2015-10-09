@@ -1,16 +1,19 @@
 class DataSourceAccount < ActiveRecord::Base
+  include Permissioner
+
 
   attr_accessible :db_username, :db_password, :owner
   validate :credentials_are_valid
   validates_presence_of :db_username, :db_password, :data_source, :owner
   validates_uniqueness_of :owner_id, :scope => :data_source_id
 
-  attr_encrypted :db_password, :encryptor => ChorusEncryptor, :encrypt_method => :encrypt_password, :decrypt_method => :decrypt_password, :encode => false
+  attr_encrypted :db_password, :encryptor => ChorusEncryptor, :encrypt_method => :encrypt_password,
+                 :decrypt_method => :decrypt_password, :encode => false
 
   has_many :data_source_account_permissions, :dependent => :destroy
   has_many :accesseds, :through => :data_source_account_permissions
-  # has_many :gpdb_databases, :through => :data_source_account_permissions, :source => :accessed,
-  #          :conditions => "data_source_account_permissions.accessed_type = 'GpdbDatabase'"
+  # has_many :gpdb_databases, -> {where "data_source_account_permissions.accessed_type = 'GpdbDatabase'"},
+  # :through => :data_source_account_permissions, :source => :accessed,
 
   belongs_to :owner, :class_name => 'User'
   belongs_to :data_source
@@ -20,7 +23,7 @@ class DataSourceAccount < ActiveRecord::Base
   after_destroy { data_source_account_permissions.clear }
 
   def reindex_data_source
-    data_source.refresh_databases_later
+    data_source.refresh_databases_later unless data_source.disabled?
   end
 
   def invalid_credentials!

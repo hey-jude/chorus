@@ -40,6 +40,39 @@ describe("chorus.views.DataSourceItem", function() {
             expect(this.view.$(".description")).toContainText("I'm a data source");
         });
 
+        context("when the data source is disabled", function() {
+            beforeEach(function() {
+                this.model.set({ state: 'disabled'});
+                this.view = new chorus.views.DataSourceItem({model: this.model});
+                this.view.render();
+            });
+
+            it("should not have a link", function() {
+                expect(this.view.$('a.name').length).toBe(0);
+            });
+
+            it("should show the disabled text", function() {
+                expect(this.view.$('.description')[0]).toContainTranslation("data_sources.list.disabled");
+            });
+        });
+
+
+        context("when the data source is incomplete", function() {
+            beforeEach(function() {
+                this.model.set({ state: 'incomplete'});
+                this.view = new chorus.views.DataSourceItem({model: this.model});
+                this.view.render();
+            });
+
+            it("should not have a link", function() {
+                expect(this.view.$('a.name').length).toBe(0);
+            });
+
+            it("should show the disabled text", function() {
+                expect(this.view.$('.description')[0]).toContainTranslation("data_sources.list.incomplete");
+            });
+        });
+
         context("when the dataset has tags", function () {
             beforeEach(function () {
                 this.model.tags().reset([{name: "tag1"}, {name: "tag2"}]);

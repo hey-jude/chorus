@@ -1,0 +1,47 @@
+{{!-- shell for workflow output in worklet RUN workbench --}}
+
+
+    {{!-- display for when worklet is opened and results are not selected --}}
+
+    
+        {{#if hasNoHistory}}
+        <div class="not_showing_results_section">
+            <div id="hasNoHistory">
+                <span class="notice_icon fa fa-info-circle"></span>
+
+                <h3>{{t "worklet.workbench.no_history.heading"}}</h3>
+                <p>{{t "worklet.workbench.no_history.description_A"}}</p>
+                <p>{{t "worklet.workbench.no_history.description_B"}}</p>
+                <p>
+                    <a href="https://alpine.atlassian.net/wiki/display/V5/Touchpoints" title="{{t 'help.link_address.tooltip'}}">{{t "worklet.help.documentation.learn_more"}}</a>
+                </p>
+
+            </div>
+        </div>
+        {{/if}}
+
+        {{#if hasNoResults}}
+        <div class="not_showing_results_section">
+            <div id="hasNoResults">
+
+                <h3>{{t "worklet.workbench.no_results.heading"}}</h3>
+                <p>{{t "worklet.workbench.no_results.description"}}</p>
+
+            </div>
+        </div>
+        {{/if}}
+
+
+<div class="iframe_wrapper">
+
+    <div>
+        {{#if isPublished}}
+            <div class="form_controls" id="share_all_results">
+                <button class="submit modalish">{{t "worklet.results.share_these_results.button"}}!</button>
+            </div>
+        {{/if}}
+
+        <iframe id="results" src="{{resultsUrl}}"></iframe>
+    </div>
+
+</div>

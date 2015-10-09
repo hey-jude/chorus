@@ -4,8 +4,8 @@ class DatasetImportsController < ApplicationController
 
   def index
     workspace = Workspace.find(params[:workspace_id])
-    authorize! :show, workspace
-
+    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
+                                                                    :workspace_is_public ] }
     table = Dataset.find(params[:dataset_id])
     if table.is_a?(ChorusView)
       imports = Import.where(:source_id => table.id, :source_type => 'Dataset').order('created_at DESC')
@@ -13,7 +13,9 @@ class DatasetImportsController < ApplicationController
       imports = Import.where('(source_id = ? AND source_type = ?) OR (to_table = ? AND workspace_id = ?)',
                              table.id, 'Dataset', table.name, workspace.id).order('created_at DESC')
     end
-    present paginate imports.includes(:destination_dataset)
+    imports = imports.includes(:destination_dataset)
+    imports = Import.filter_by_scope(current_user, imports) if current_user_in_scope?
+    present paginate imports
   end
 
   def update
@@ -21,7 +23,7 @@ class DatasetImportsController < ApplicationController
 
     ids.each do |id|
       import = Import.find(id)
-      authorize! :update, import
+      Authority.authorize! :update, import, current_user, { :or => :current_user_is_objects_user }
 
       unless import.finished_at
         dataset_import_params = params[:dataset_import]

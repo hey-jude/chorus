@@ -5,16 +5,18 @@ class Workspace < ActiveRecord::Base
   include TaggableBehavior
   include Notable
   include RenderAnywhere
+  include Permissioner
 
   PROJECT_STATUSES = [:on_track, :needs_attention, :at_risk]
 
-  attr_accessible :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,
+  attr_accessible :id, :name, :public, :summary, :member_ids, :has_added_member, :owner_id, :archiver, :archived,
                   :has_changed_settings, :show_sandbox_datasets, :is_project, :project_status, :project_status_reason,
                   :project_target_date
 
   has_attached_file :image, :path => ":rails_root/system/:class/:id/:style/:basename.:extension",
                     :url => "/:class/:id/image?style=:style",
                     :default_url => "", :styles => {:icon => "50x50>"}
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   belongs_to :archiver, :class_name => 'User', :touch => true
   belongs_to :owner, :class_name => 'User', :touch => true
@@ -25,11 +27,11 @@ class Workspace < ActiveRecord::Base
   has_many :workfiles, :dependent => :destroy
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
-  has_many :owned_notes, :class_name => 'Events::Base', :conditions => "events.action ILIKE 'Events::Note%'"
+  has_many :owned_notes, -> { where "events.action ILIKE 'Events::Note%'" }, :class_name => 'Events::Base'
   has_many :owned_events, :class_name => 'Events::Base'
   has_many :comments, :through => :owned_events
   has_many :chorus_views, :dependent => :destroy
-  belongs_to :sandbox, :class_name => 'Schema', :conditions => { :type => %w(GpdbSchema PgSchema) }
+  belongs_to :sandbox, -> { where :type => %w(GpdbSchema PgSchema) }, :class_name => 'Schema'
 
   has_many :csv_files
 
@@ -46,6 +48,9 @@ class Workspace < ActiveRecord::Base
   validates_attachment_size :image, :less_than => ChorusConfig.instance['file_sizes_mb']['workspace_icon'].megabytes, :message => :file_size_exceeded
   validates_with MemberCountValidator
 
+  #PT. After creating the workspace object add entry to chorus_objects tables.
+  #after_create  :add_to_permissions
+
   before_update :reindex_sandbox, :if => :show_sandbox_datasets_changed?
   before_update :create_name_change_event, :if => :name_changed?
   before_update :disassociate_source_datasets_in_sandbox, :if => 'sandbox_id_changed? || show_sandbox_datasets_changed?'
@@ -53,8 +58,9 @@ class Workspace < ActiveRecord::Base
   before_save :handle_archiving, :if => :archived_changed?
   before_save :update_has_added_sandbox
   after_create :add_owner_as_member
+  after_create :add_owner_to_workspace_roles
 
-  scope :active, where(:archived_at => nil)
+  scope :active, -> { where(:archived_at => nil) }
 
   after_update :solr_reindex_later, :if => :public_changed?
   # PT 12/19/14 This will auto-refresh the JSON data object for workspace
@@ -105,7 +111,7 @@ class Workspace < ActiveRecord::Base
 
 
   def solr_reindex_later
-    QC.enqueue_if_not_queued('Workspace.reindex_workspace', id)
+    SolrIndexer.SolrQC.enqueue_if_not_queued('Workspace.reindex_workspace', id)
   end
 
   has_shared_search_fields [
@@ -148,7 +154,8 @@ class Workspace < ActiveRecord::Base
     filtered_workfiles = self.workfiles.order_by(params[:order]).includes(:latest_workfile_version)
     filtered_workfiles = filtered_workfiles.with_file_type(params[:file_type]) if params[:file_type].present?
     filtered_workfiles = filtered_workfiles.where("workfiles.file_name LIKE ?", "%#{params[:name_pattern]}%") if params[:name_pattern]
-    filtered_workfiles.includes(Workfile.eager_load_associations)
+    filtered_workfiles = filtered_workfiles.where("workfiles.type != 'PublishedWorklet'") if params[:no_published_worklets]
+    filtered_workfiles.includes(Workfile.eager_load_associations).references(Workfile.eager_load_associations)
   end
 
   def filtered_datasets(options = {})
@@ -239,7 +246,7 @@ class Workspace < ActiveRecord::Base
 
   def self.workspaces_for(user)
     if user.admin?
-      scoped
+      all
     else
       accessible_to(user)
     end
@@ -247,12 +254,21 @@ class Workspace < ActiveRecord::Base
 
   def self.accessible_to(user)
     with_membership = user.memberships.pluck(:workspace_id)
-    where('workspaces.public OR
+
+    workspaces = where('workspaces.public OR
           workspaces.id IN (:with_membership) OR
           workspaces.owner_id = :user_id',
           :with_membership => with_membership,
           :user_id => user.id
          )
+
+    # PT. 7/9. filter_by_scope returns an array of workspaces instead of ActiveRelation which causes a problem in the caller class (WorkspaceController)
+    # Filter by scope
+    #  if Permissioner.user_in_scope?(user)
+    #    filter_by_scope(user, workspaces)
+    #  else
+    #    workspaces
+    #  end
   end
 
   def members_accessible_to(user)
@@ -275,6 +291,7 @@ class Workspace < ActiveRecord::Base
       []
     end
     perm << :create_workflow if user.developer? && has_membership
+
     perm
   end
 
@@ -349,7 +366,7 @@ class Workspace < ActiveRecord::Base
   private
 
   def reindex_sandbox
-    QC.enqueue_if_not_queued("Schema.reindex_datasets", sandbox.id) if sandbox
+    SolrIndexer.SolrQC.enqueue_if_not_queued("Schema.reindex_datasets", sandbox.id) if sandbox
   end
 
   def skip_sandbox?(options, account)
@@ -371,6 +388,11 @@ class Workspace < ActiveRecord::Base
     unless members.include? owner
       memberships.create!({ :user => owner, :workspace => self }, { :without_protection => true })
     end
+  end
+
+  def add_owner_to_workspace_roles
+    self.add_user_to_object_role(owner, Role.find_by_name("Owner"))
+    self.add_user_to_object_role(owner, Role.find_by_name("ProjectManager"))
   end
 
   def archiver_is_set_when_archiving

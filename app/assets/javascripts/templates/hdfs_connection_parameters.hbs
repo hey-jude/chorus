@@ -9,11 +9,13 @@
                 <div class="pair line row">
                     <div class="col cols-11">
                         <input type="text" class="key" value="{{key}}"
+                               name="key_{{@index}}"
                                placeholder="{{t "hdfs_connection_parameters.dialog.key"}}"/>
                     </div>
 
                     <div class="col cols-11">
                         <input type="text" class="value" value="{{value}}"
+                               name="value_{{@index}}"
                                placeholder="{{t "hdfs_connection_parameters.dialog.value"}}"/>
                     </div>
 
@@ -23,8 +25,41 @@
                 </div>
             {{/each}}
         </div>
+
+        <div class="load_configuration_text">
+            <a href="#" class="external_config action">{{t "hdfs_connection_parameters.dialog.load_configuration.title"}}</a>
+        </div>
+
+        <div class="load_configuration_area hidden">
+            {{formInfoBlock "hdfs_connection_parameters.dialog.load_configuration.instructions"}}
+
+            <div class="multiple_fields">
+                <div class="width_wide">
+                    <label name="configuration_host" class="host required" for="configuration_host">{{t "data_sources.dialog.host"}}</label>
+                </div>
+
+                <div class="width_small">
+                    <label name="configuration_port" class="port required" for="configuration_port">{{t "data_sources.dialog.port"}}</label>
+                </div>
+            </div>
+
+            <div class="multiple_fields">
+                <div class="width_wide">
+                    <input type="text" id="configuration_host" required name="configuration_host" value="{{configuration_host}}"/>
+                </div>
+
+                <div class="width_small">
+                    <input type="text" class="port" id="configuration_port" name="configuration_port" value="{{configuration_port}}"/>
+                </div>
+            </div>
+
+            <div class="links">
+                <a href="#" class="fetch_external_config action">{{t "hdfs_connection_parameters.dialog.load_configuration.fetch"}}</a>
+                <a href="#" class="cancel_external_config action">{{t "actions.cancel"}}</a>
+            </div>
+        </div>
     </div>
-    <!-- END girdle -->
+    {{!-- END girdle --}}
     
     {{formControls "hdfs_connection_parameters.dialog.save"}}
 </div>

@@ -6,7 +6,6 @@ chorus.views.MainContentList = chorus.views.MainContentView.extend({
     setup: function(options) {
         var modelClass = options.modelClass;
         var collection = this.collection;
-
         if(options.useCustomList) {
             this.content = new chorus.views[modelClass + "List"](_.extend({collection: collection}, options.contentOptions));
         } else {

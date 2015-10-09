@@ -30,7 +30,7 @@ describe OracleDataSource do
     end
 
     it "removes itself from the execution location field of any workfiles it owns" do
-      workfiles = data_source.workfile_execution_locations.all
+      workfiles = data_source.workfile_execution_locations
       workfiles.length.should > 0
 
       expect {
@@ -132,7 +132,7 @@ describe OracleDataSource do
       it "enqueues a reindex_datasets worker for each schema if accounts were changed" do
         schema.data_source_accounts = []
         schema.data_source_accounts.find_by_id(account_with_access.id).should be_nil
-        mock(QC.default_queue).enqueue_if_not_queued("OracleSchema.reindex_datasets", schema.id).once
+        mock(SolrIndexer.SolrQC).enqueue_if_not_queued("OracleSchema.reindex_datasets", schema.id).once
         data_source.refresh_schemas
         data_source.refresh_schemas
       end

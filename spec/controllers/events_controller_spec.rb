@@ -7,8 +7,11 @@ describe EventsController do
       model.association(:workspace).should be_loaded
       model.association(:datasets).should be_loaded
       model.association(:actor).should be_loaded
-      model.association(:target1).should be_loaded
-      model.association(:target2).should be_loaded
+
+      # KT TODO -- polymorphic eager loading in Rails 4 has been simplified / removed:
+      # http://blog.arkency.com/2013/12/rails4-preloading/
+      # model.association(:target1).should be_loaded
+      # model.association(:target2).should be_loaded
 
       model.association(:attachments).should be_loaded
       model.attachments.each { |attachment| attachment.association(:note).should be_loaded }
@@ -39,6 +42,13 @@ describe EventsController do
      end
 
      get :index, :entity_type => "dashboard"
+   end
+
+   it_behaves_like "a scoped endpoint" do
+     let!(:klass)  { Events::Base }
+     let!(:user)   { current_user }
+     let!(:action) { :index }
+     let!(:params) { { :entity_type => "dashboard" } }
    end
 
    it "passes the succinct option to the Presenter" do
@@ -393,8 +403,12 @@ describe EventsController do
         'jobFailed' => Events::JobFailed,
         'workfileResult' => Events::WorkfileResult,
         'jobDisabled' => Events::JobDisabled,
+        'jobCreated' => Events::JobCreated,
+        'jobDeleted' => Events::JobDeleted,
         'hdfsImportSuccess' => Events::HdfsImportSuccess,
-        'hdfsImportFailed' => Events::HdfsImportFailed
+        'hdfsImportFailed' => Events::HdfsImportFailed,
+        'milestoneCreated' => Events::MilestoneCreated,
+        'milestoneUpdated' => Events::MilestoneUpdated
     }
 
     FIXTURE_FILES.each do |file_name, event_class|

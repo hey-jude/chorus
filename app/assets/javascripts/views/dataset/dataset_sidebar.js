@@ -27,8 +27,11 @@ chorus.views.DatasetSidebar = chorus.views.Sidebar.extend({
         this.subscribePageEvent("dataset:selected", this.setDataset);
         this.subscribePageEvent("column:selected", this.setColumn);
         this.subscribePageEvent("analyze:running", this.resetStatistics);
+
+        // KT TOOO: clarify should move this into visualization component or not?
         this.subscribePageEvent("start:visualization", this.enterVisualizationMode);
         this.subscribePageEvent("cancel:visualization", this.endVisualizationMode);
+
         this.tabs = new chorus.views.TabControl(['activity', 'statistics']);
         this.registerSubView(this.tabs);
     },

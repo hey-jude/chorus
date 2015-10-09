@@ -3,6 +3,10 @@ require 'spec_helper'
 describe Job do
   let(:ready_job) { FactoryGirl.create(:job, :status => Job::ENQUEUED, :next_run => 1.second.ago) }
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { ready_job }
+  end
+
   describe 'validations' do
     it { should validate_presence_of :name }
     it { should validate_presence_of :interval_unit }
@@ -78,6 +82,16 @@ describe Job do
     it 'makes a disabled Job by default' do
       FactoryGirl.create(:job).should_not be_enabled
     end
+
+    it 'creates activity after user creates a Job' do
+     expect do
+          Events::JobCreated.add(
+             :actor => actor,
+             :job => job,
+             :workspace => workspace
+            )
+        end
+     end
   end
 
   describe 'scheduling' do
@@ -100,7 +114,7 @@ describe Job do
       end
 
       it 'returns only enabled jobs that should have run by now' do
-        Job.ready_to_run.all.should == [job1]
+        Job.ready_to_run.should == [job1]
       end
     end
 
@@ -463,4 +477,5 @@ describe Job do
       }.to change(job, :owner).from(job_owner).to(workspace.owner)
     end
   end
+
 end

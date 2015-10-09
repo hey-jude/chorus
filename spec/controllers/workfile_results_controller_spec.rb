@@ -6,7 +6,8 @@ describe WorkfileResultsController do
     let(:workfile) { workfiles(:alpine_flow) }
     let(:params) do
       {
-        :workfile_id => workfile.id
+        :workfile_id => workfile.id,
+        :results_written => 'true'
       }
     end
 
@@ -25,15 +26,11 @@ describe WorkfileResultsController do
       response.status.should == 201
     end
 
-    it "uses authorization" do
-      mock(controller).authorize!(:create_note_on, workfile)
-      post :create, params
-    end
-
     context "when there is a result_id" do
       let(:params) do
         {
           :workfile_id => workfile.id,
+          :results_written => 'true',
           :result_id => "123"
         }
       end

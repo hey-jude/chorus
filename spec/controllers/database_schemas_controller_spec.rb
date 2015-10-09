@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe DatabaseSchemasController do
-  ignore_authorization!
 
   let(:user) { users(:owner) }
 
   before do
     log_in user
+    #
+    stub(Authority).authorize!.with_any_args { nil }
   end
 
   describe "#index" do
@@ -15,12 +16,19 @@ describe DatabaseSchemasController do
     let(:schema1) { database.schemas[0] }
     let(:schema2) { database.schemas[1] }
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Schema }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ { :database_id => database.to_param } }
+    end
+
     before do
       stub(Schema).refresh(gpdb_data_source.account_for_user!(user), database) { [schema1, schema2] }
     end
 
     it 'uses authorization' do
-      mock(subject).authorize!(:show_contents, gpdb_data_source)
+      mock(Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
       get :index, :database_id => database.to_param
     end
 

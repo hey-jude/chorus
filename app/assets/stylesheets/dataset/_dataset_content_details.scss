@@ -1,4 +1,5 @@
-@mixin action_bar_icon($name) {
+
+@mixin action_bar_icon_revised($name) {
     .#{$name}.action_bar_icon {
         background-image: url("/images/visualizations/#{$name}.png");
         opacity: 0.6;
@@ -8,11 +9,22 @@
         }
 
         &.selected {
-/*             background-image: url("/images/visualizations/#{$name}.png"); */
             opacity: 1;
         }
     }
 }
+
+// visualizations/action_bar_icon
+@mixin action_bar_icon($name) {
+    .#{$name}.action_bar_icon {
+        background-image: url("/images/visualizations/create_icons/#{$name}_off.png");
+        &.selected {
+            background-image: url("/images/visualizations/create_icons/#{$name}_on.png");
+        }
+    }
+}
+
+
 
 $action-bar-height: 32px;
 
@@ -30,11 +42,9 @@ $action-bar-height: 32px;
     position: relative;
 
     .triangle {
-/*       display: inline-block; */
       position: absolute;
       left: 17px;
       bottom: -10px;
-/*       @include triangle-css(down, $content-details-chart-icon-selected-background-color, 16px, 10px); */
       	@include triangle-glyph(down);
       	color: $content-details-chart-icon-selected-background-color;
     }
@@ -82,10 +92,8 @@ $action-bar-height: 32px;
     line-height: $action-bar-height;
   }
   .triangle_right {
-/*     @include triangle-css(right, $content-details-create-background-color, 12px, $action-bar-height); */
 	@include triangle-glyph(right);
 	color: $content-details-create-background-color;
-/*     display: inline-block; */
     vertical-align: top;
   }
 

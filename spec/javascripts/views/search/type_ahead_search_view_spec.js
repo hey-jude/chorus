@@ -97,7 +97,7 @@ describe("chorus.views.TypeAheadSearch", function() {
             var resultIndex = this.results.indexOf(dataSource);
             var result = this.view.$("li.result:eq(" + resultIndex + ")");
             expect(result.find(".name").html()).toBe(dataSource.get("highlightedAttributes").name[0]);
-            expect(result.find("a").attr("href")).toBe(dataSource.showUrl());
+            expect(result.find("a").attr("href")).toBe(_.isNull(dataSource.showUrl())? '' : dataSource.showUrl());
             expect(result.find(".type").text()).toMatchTranslation("type_ahead.entity.hdfs_data_source");
         });
 

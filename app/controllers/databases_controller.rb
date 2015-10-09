@@ -4,6 +4,7 @@ class DatabasesController < ApplicationController
   def index
     databases = Database.visible_to(authorized_account(data_source))
 
+    databases = Database.filter_by_scope(current_user, databases) if current_user_in_scope?
     present paginate databases
   end
 

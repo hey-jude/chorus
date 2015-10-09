@@ -39,8 +39,8 @@ describe DataSource do
     end
 
     it 'enqueues a refresh job' do
-      stub(QC.default_queue).enqueue_if_not_queued.any_times # for other jobs
-      mock(QC.default_queue).enqueue_if_not_queued('DataSource.refresh', anything, hash_including('new' => true))
+      stub(SolrIndexer.SolrQC).enqueue_if_not_queued.any_times # for other jobs
+      mock(SolrIndexer.SolrQC).enqueue_if_not_queued('DataSource.refresh', anything, hash_including('new' => true))
       FactoryGirl.create(:data_source)
     end
   end
@@ -82,7 +82,7 @@ describe DataSource do
     let(:data_source) { data_sources(:owners) }
 
     it 'enqueues a job' do
-      mock(QC.default_queue).enqueue_if_not_queued('DataSource.reindex_data_source', data_source.id)
+      mock(SolrIndexer.SolrQC).enqueue_if_not_queued('DataSource.reindex_data_source', data_source.id)
       data_source.solr_reindex_later
     end
   end
@@ -123,6 +123,11 @@ describe DataSource do
   describe '#refresh' do
     let(:data_source) { data_sources(:owners) }
 
+    it 'checks if the data source is disabled' do
+      any_instance_of(DataSource){ |ds| mock(ds).disabled? }
+      DataSource.refresh(data_source.id)
+    end
+
     it 'refreshes databases for the data source' do
       mock(data_source).refresh_databases({})
       data_source.refresh
@@ -141,7 +146,7 @@ describe DataSource do
     let(:data_source) { data_sources(:owners) }
 
     it 'should enqueue a job' do
-      mock(QC.default_queue).enqueue_if_not_queued('DataSource.refresh_databases', data_source.id)
+      mock(SolrIndexer.SolrQC).enqueue_if_not_queued('DataSource.refresh_databases', data_source.id)
       data_source.refresh_databases_later
     end
   end
@@ -174,7 +179,7 @@ describe DataSource do
       let(:data_source) { data_sources(:owners) }
 
       it 'raises an exception' do
-        expect { data_source.account_for_user!(users(:no_collaborators)) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { data_source.account_for_user!(users(:no_collaborators)) }.to raise_error(Authority::AccessDenied)
       end
     end
   end
@@ -251,6 +256,18 @@ describe DataSource do
         }.to change(data_source, :last_online_at)
       end
     end
+
+
+    context "when the data source is disabled" do
+      it "does not check the status" do
+        data_source.update_attributes(:state => 'disabled')
+        any_instance_of(DataSource) do |ds|
+          mock(ds).disabled?
+        end
+        DataSource.check_status(data_source.id)
+      end
+    end
+
   end
 
   describe "search fields" do
@@ -281,7 +298,13 @@ describe DataSource do
   describe ".solr_reindex_later" do
     let(:data_source) { data_sources(:owners) }
     it "should enqueue a job" do
-      mock(QC.default_queue).enqueue_if_not_queued("DataSource.reindex_data_source", data_source.id)
+      mock(SolrIndexer.SolrQC).enqueue_if_not_queued("DataSource.reindex_data_source", data_source.id)
+      data_source.solr_reindex_later
+    end
+
+    it "should not enqueue a job if the data source is disabled" do
+      data_source.update_attributes(:state => 'disabled')
+      any_instance_of(DataSource){ |ds| mock(ds).disabled? }
       data_source.solr_reindex_later
     end
   end
@@ -334,5 +357,9 @@ describe DataSource do
 
   it_behaves_like 'a soft deletable model' do
     let(:model) { data_sources(:oracle) }
+  end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { data_sources(:oracle) }
   end
 end

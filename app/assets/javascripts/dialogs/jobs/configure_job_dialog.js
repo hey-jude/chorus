@@ -1,12 +1,12 @@
 chorus.dialogs.ConfigureJob = chorus.dialogs.Base.include(chorus.Mixins.DialogFormHelpers).extend({
     constructorName: 'ConfigureJobDialog',
     templateName: 'configure_job_dialog',
-    
+
     title: function () {
         return this.model.isNew() ? t('job.dialog.title') : t('job.dialog.edit.title');
     },
     toastMessage: function () {
-        return this.isCreating ? 'job.dialog.create.toast' : 'job.dialog.edit.toast';
+        return this.isCreating ? 'job_create.toast' : 'job_edit.toast';
     },
     submitTranslation: function () {
         return this.model.isNew() ? "job.dialog.submit" : "job.dialog.edit.submit";
@@ -52,8 +52,9 @@ chorus.dialogs.ConfigureJob = chorus.dialogs.Base.include(chorus.Mixins.DialogFo
         this.model = this.model || new chorus.models.Job({ workspace: {id: this.options.pageModel.id}, intervalUnit: 'on_demand' });
     },
 
-    modelSaved: function () {
-        chorus.toast(this.toastMessage(), {toastOpts: {type: "success"}} );
+    modelSaved: function (updatedModel) {
+        var name = updatedModel.name();
+        chorus.toast(this.toastMessage(), {jobName: name , toastOpts: {type: "success" }} );
         this.model.trigger('invalidated');
         this.closeModal();
 

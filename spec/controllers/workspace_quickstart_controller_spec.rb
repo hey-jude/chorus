@@ -10,7 +10,7 @@ describe WorkspaceQuickstartController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize!.with_any_args
 
       delete :destroy, :workspace_id => workspace.id
     end

@@ -3,6 +3,7 @@ class HdfsEntry < ActiveRecord::Base
   include Notable
   include TaggableBehavior
   include SoftDelete
+  include Permissioner
 
   attr_accessible :path
 
@@ -18,7 +19,7 @@ class HdfsEntry < ActiveRecord::Base
   validates_format_of :path, :with => %r{\A/.*}
   validates_length_of :path, :maximum => 4096
 
-  scope :files, where(:is_directory => false)
+  scope :files, -> { where(:is_directory => false) }
 
   attr_accessor :highlighted_attributes, :search_result_notes
   searchable_model :unless => lambda { |model| model.is_directory? || model.stale? } do
@@ -74,10 +75,10 @@ class HdfsEntry < ActiveRecord::Base
     end
   end
 
-  def self.list(path, hdfs_data_source)
+  def self.list(path, hdfs_data_source, delay_mark_stale = false)
     query_service = Hdfs::QueryService.for_data_source(hdfs_data_source, current_user ? current_user.username : '')
     current_entries = query_service.list(path).map do |result|
-      hdfs_entry = hdfs_data_source.hdfs_entries.find_or_initialize_by_path(result["path"])
+      hdfs_entry = hdfs_data_source.hdfs_entries.find_or_initialize_by(path: result["path"])
       hdfs_entry.stale_at = nil if hdfs_entry.stale?
       hdfs_entry.hdfs_data_source = hdfs_data_source
       hdfs_entry.assign_attributes(result, :without_protection => true)
@@ -85,8 +86,25 @@ class HdfsEntry < ActiveRecord::Base
       hdfs_entry
     end
 
-    parent = hdfs_data_source.hdfs_entries.find_by_path(normalize_path(path))
     current_entry_ids = current_entries.map(&:id)
+
+    # The operation of marking stale hdfs_entries can take a long time, so in the interest of saving time, if delay_mark_stale is set to true,
+    # we will put the operation in the queue so that the user is not waiting such a long time for results to come back.
+    # In general, delay_mark_stale will be false for refresh operations, like those done in solr indexing operations
+    # When we reach this from the hdfs_entry_presenter class, since we know it is coming from a user interaction, delay_mark_stale will be set to true
+    if(delay_mark_stale)
+      QC.enqueue("HdfsEntry.mark_stale_entries", hdfs_data_source.id, path, current_entry_ids)
+    else
+      self.mark_stale_entries(hdfs_data_source.id, path, current_entry_ids)
+    end
+
+    current_entries
+  end
+
+  # For any hdfs_entries we find in the DB that are no longer present in the actual hdfs path, we will mark these entries as stale
+  def self.mark_stale_entries(hdfs_data_source_id, path, current_entry_ids)
+    hdfs_data_source = HdfsDataSource.find(hdfs_data_source_id)
+    parent = hdfs_data_source.hdfs_entries.find_by_path(normalize_path(path))
     finder = parent.children
     finder = finder.where(['id not in (?)', current_entry_ids]) unless current_entry_ids.empty?
     finder.each do |hdfs_entry|
@@ -96,12 +114,10 @@ class HdfsEntry < ActiveRecord::Base
         entry_to_mark_stale.mark_stale!
       end
     end
-
-    current_entries
   end
 
-  def entries
-    HdfsEntry.list(path.chomp('/') + '/', hdfs_data_source)
+  def entries(delay_mark_stale = false)
+    HdfsEntry.list(path.chomp('/') + '/', hdfs_data_source, delay_mark_stale)
   end
   alias_method :refresh, :entries
 
@@ -147,7 +163,7 @@ class HdfsEntry < ActiveRecord::Base
 
   def build_full_path
     return true if path == "/"
-    self.parent = hdfs_data_source.hdfs_entries.find_or_create_by_path(parent_path)
+    self.parent = hdfs_data_source.hdfs_entries.find_or_create_by(path: parent_path)
     self.parent.is_directory = true
     self.parent.save!
   end

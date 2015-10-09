@@ -7,10 +7,10 @@ class WorkspaceImagesController < ImagesController
   end
 
   def authorize_create!
-    authorize! :owner, @entity
+    Authority.authorize! :update, @entity, current_user, { :or => :current_user_is_object_owner }
   end
 
   def authorize_show!
-    authorize! :show, @entity
+    Authority.authorize! :show, @entity, current_user, { :or => :current_user_is_in_workspace }
   end
 end

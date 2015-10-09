@@ -7,19 +7,59 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
     events: {
         'click a.add_pair': 'addPair',
         'click a.remove_pair': 'removePair',
-        'click button.submit': 'save'
+        'click button.submit': 'save',
+        'click a.external_config': 'showExternalConfig',
+        'click a.fetch_external_config': 'fetchExternalConfig',
+        'click a.cancel_external_config': 'cancelExternalConfig'
     },
 
     setup: function () {
-        this.pairs = this.model.get('connectionParameters') || [{key: '', value: ''}];
+        this.pairs = this.model.connectionParametersWithoutHadoopHive();
+        if(this.pairs.length === 0) {
+          this.pairs = [{key: '', value: ''}];
+        }
+
+        this.host_info = { host: '', port: 8088 };
     },
 
     save: function (e) {
         e && e.preventDefault();
 
         this.preservePairs();
+
         this.model.set('connectionParameters', this.pairs);
-        this.closeModal();
+
+        if (this.validatePairs() === true) {
+            delete this.model['errors'];
+            this.clearErrors();
+            this.closeModal();
+        }
+    },
+
+    validatePairs: function() {
+        // Perform manual validation
+        var validation_errors = {};
+        for (var k in this.pairs) {
+            var key = this.pairs[k].key.trim();
+
+            // Don't allow any key to be blank
+            if (key === '') {
+                validation_errors['key_' + k] = t('validation.required', {fieldName: "Key"});
+            }
+
+            if (key === 'is_hive' || key === 'hive.metastore.uris') {
+              validation_errors['key_' + k] = t('data_sources.dialog.validation.hadoop_hive_keys_not_allowed');
+            }
+        }
+
+        if (!_.isEmpty(validation_errors)) {
+            this.model['errors'] = validation_errors;
+            this.showErrors(this.model);
+
+            return false;
+        }
+
+        return true;
     },
 
     addPair: function (e) {
@@ -45,10 +85,85 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
         });
     },
 
+    showExternalConfig: function(event) {
+        event && event.preventDefault();
+        this.$(".load_configuration_area").removeClass("hidden");
+    },
+
+    fetchExternalConfig: function(event) {
+        event && event.preventDefault();
+
+        this.host_info = {
+            host: this.$("#configuration_host").val().trim(),
+            port: this.$("#configuration_port").val().trim()
+        };
+        this.fetchedParams = new chorus.collections.HadoopConfigurationParamSet(this.host_info);
+
+        // Perform manual validation
+        var validation_errors = {};
+
+        if (!this.host_info.host || this.host_info.host.length === 0) {
+            validation_errors['configuration_host'] = t('validation.required', {fieldName: "Host"});
+        }
+
+        if (!this.host_info.port || this.host_info.port.length === 0) {
+            validation_errors['configuration_port'] = t('validation.required', {fieldName: "Port"});
+        }
+
+        if (!_.isEmpty(validation_errors)) {
+            this.fetchedParams.models[0]['errors'] = validation_errors;
+            this.showErrors(this.fetchedParams.models[0]);
+
+            return;
+        }
+
+        // If validates, fetch params
+        this.listenTo(this.fetchedParams, "reset", this.populateFetchedParams);
+        this.listenTo(this.fetchedParams, "fetchFailed", this.configFetchFailed);
+
+        this.fetchedParams.fetch();
+    },
+
+    configFetchFailed: function(e) {
+        this.resource = this.fetchedParams;
+        //this.showErrors(this.fetchedParams);
+
+        chorus.toast("hdfs_connection_parameters.dialog.load_configuration.failure.toast", {
+            error_msg: this.fetchedParams.serverErrors.params,
+            toastOpts: { type: "error" }
+        });
+    },
+
+    populateFetchedParams: function() {
+        // Make an hash lookup for existing keys
+        this.preservePairs();
+        var existing_params = {};
+        _.each(this.pairs, function(pair, index) { this[pair.key] = index; }, existing_params);
+
+        // For each fetched param, either overwrite if it already is defined
+        // or append it to the list
+        var param_set = this.fetchedParams.models[0].attributes.params;
+        for (var i = 0; i < param_set.length; i++) {
+            if (existing_params.hasOwnProperty(param_set[i].name)) {
+                this.pairs[existing_params[param_set[i].name]].value = param_set[i].value;
+            } else {
+                this.pairs.push({key: param_set[i].name, value: param_set[i].value});
+            }
+        }
+
+        this.render();
+    },
+
+    cancelExternalConfig: function(event) {
+        event && event.preventDefault();
+        this.$(".load_configuration_area").addClass("hidden");
+    },
+
     additionalContext: function () {
         return {
-            connectionParameters: this.pairs
+            connectionParameters: this.pairs,
+            configuration_host: this.host_info.host,
+            configuration_port: this.host_info.port
         };
     }
-
 });

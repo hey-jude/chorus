@@ -3,8 +3,6 @@ module Dashboards
     wrap_parameters :project_card_list
 
     def create
-      authorize! :update, current_user
-
       option_value = params[:project_card_list][:option_value]
       config = DashboardConfig.new(current_user)
       config.set_options('ProjectCardList', option_value)

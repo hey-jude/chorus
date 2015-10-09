@@ -2,10 +2,14 @@ class WorkfileCopyController < ApplicationController
 
   def create
     workfile = Workfile.find(params[:workfile_id])
-    authorize! :show, workfile
+    Authority.authorize! :show,
+                         workfile.workspace,
+                         current_user,
+                         { :or => [ :current_user_is_in_workspace,
+                                    :workspace_is_public ] }
 
     workspace = params[:workspace_id].nil? ? workfile.workspace : Workspace.find(params[:workspace_id])
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     copied_workfile = workfile.copy!(current_user, workspace, params[:file_name])
 

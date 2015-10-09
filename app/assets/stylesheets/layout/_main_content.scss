@@ -1,11 +1,10 @@
 #main_content {
 /*     border: $border-canon; */
     border-right: $border-canon;
-/*     @include border-radius(3px); */
 }
 
 .content_header {
-    background: #FFFFFF;
+    background: $core-white;
     min-height: 36px;
     padding: 12px $padding-x 5px;
     border-bottom: $border-canon;
@@ -44,8 +43,9 @@
 
     .menus {
         float: right;
-        text-align : right;
-        margin-top:25px;
+        text-align: right;
+        margin-top: 25px;
+        margin-right: 10px;
         height: 25px;
         @include after-clearfix;
     }
@@ -73,20 +73,19 @@
     border-bottom: $border-canon;
 }
 
-
 .content_footer {
     height: auto;
     border-top: $border-canon;
 }
 
 .tableau_icon {
-  display:inline-block;
-  vertical-align:-3px;
+  display: inline-block;
+  vertical-align: -3px;
 
-  margin-left:1px;
-  margin-right:2px;
+  margin-left: 1px;
+  margin-right: 2px;
 
   height: 16px;
-  width:16px;
+  width: 16px;
   background-image: url("/images/general/tableau_icon.png");
 }

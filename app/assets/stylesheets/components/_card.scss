@@ -1,0 +1,33 @@
+@import "compass/css3/border-radius";
+$card-border-radius: 3px;
+
+.card {
+
+  @media (max-width: 1024px) {
+    width: 308px;
+  }
+
+  @media (min-width: 1025px) and (max-width: 1250px) {
+    width: 23.7555%;
+    min-width: 20%;
+  }
+
+  @media (min-width: 1251px) and (max-width: 1650px) {
+    width: 23.7855%;
+  }
+
+  @media (min-width: 1651px) {
+    width: 19.0%;
+    min-width: 17%;
+    max-width: 25%;
+  }
+
+  min-height: 160px;
+  position: relative;
+  vertical-align: top;
+  display: inline-block;
+  margin: 0px 0px 10px 10px;
+  border: $border-canon;
+  @include border-radius($card-border-radius);
+  overflow: hidden;
+}

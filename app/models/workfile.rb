@@ -2,14 +2,18 @@ class Workfile < ActiveRecord::Base
   include SoftDelete
   include TaggableBehavior
   include Notable
+  include Permissioner
 
   @@entity_subtypes = Hash.new('ChorusWorkfile').merge!({
-     'alpine' => 'AlpineWorkfile'
+     'alpine' => 'AlpineWorkfile',
+     'worklet' => 'Worklet',
+     'published_worklet' => 'PublishedWorklet'
   })
 
   attr_accessible :description, :file_name, :as => [:default, :create]
   attr_accessible :owner, :workspace, :as => :create
   attr_accessible :status
+  attr_accessible :content_type
   attr_accessor :resolve_name_conflicts
 
   serialize :additional_data, JsonHashSerializer
@@ -22,16 +26,18 @@ class Workfile < ActiveRecord::Base
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
   has_many :comments, :through => :events
-  has_many :most_recent_comments, :through => :events, :source => :comments, :class_name => "Comment", :order => "id DESC", :limit => 1
+  has_many :most_recent_comments, -> { order("id DESC").limit(1) }, :through => :events, :source => :comments,
+           :class_name => "Comment"
   has_many :versions, :class_name => 'WorkfileVersion', :dependent => :destroy
-
+  has_many :open_workfile_events
   belongs_to :latest_workfile_version, :class_name => 'WorkfileVersion'
 
   validates :workspace, presence: true
   validates :owner, presence: true
   validates_presence_of :file_name
-  validates_uniqueness_of :file_name, :scope => [:workspace_id, :deleted_at]
-  validates_format_of :file_name, :with => /^[a-zA-Z0-9_ \.\(\)\-]+$/
+  validates_with WorkfileUniqueNameValidator
+  #validates_uniqueness_of :file_name, :scope => [:workspace_id, :deleted_at]
+  validates_format_of :file_name, :with => /\A[a-zA-Z0-9_ \.\(\)\-]+\z/
 
   before_validation :init_file_name, :on => :create
 
@@ -89,7 +95,12 @@ class Workfile < ActiveRecord::Base
     integer :workspace_id, :multiple => true
     integer :member_ids, :multiple => true
     boolean :public
+    text :content_type, :stored => true
   end
+
+  has_shared_search_fields [
+       { :type => :string, :name => :content_type }
+   ]
 
   def self.eager_load_associations
     [
@@ -124,7 +135,7 @@ class Workfile < ActiveRecord::Base
     if column_name.blank? || column_name == "file_name"
       order("lower(workfiles.file_name), workfiles.id")
     else
-      order("user_modified_at desc")
+      order("workfiles.user_modified_at desc")
     end
   end
 
@@ -139,6 +150,7 @@ class Workfile < ActiveRecord::Base
           without :security_type_name, Workfile.security_type_name
           with :member_ids, current_user.id
           with :public, true
+          with :content_type, 'published_worklet'
         end
       end
     end
@@ -158,6 +170,17 @@ class Workfile < ActiveRecord::Base
   end
 
   def run_now(user)
+  end
+
+  def destroy
+    associated_worklets = Worklet.where("additional_data SIMILAR TO '%(,|{)\"workflow_id\":#{ self.id.to_s }(,|})%'")
+
+    if associated_worklets.count > 0
+      errors.add(:workfile, :worklet_associated)
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+
+    super
   end
 
   def copy(user, workspace, new_file_name = nil)

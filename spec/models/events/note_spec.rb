@@ -22,6 +22,12 @@ describe Events::Note do
     it { should belong_to(:promoted_by).class_name('User') }
   end
 
+  describe "permissions" do
+    it_behaves_like "a permissioned model" do
+      let!(:model) { events(:note_on_dataset) }
+    end
+  end
+
   it "requires an actor" do
     note = Events::Note.new
     note.should have_error_on(:actor_id)

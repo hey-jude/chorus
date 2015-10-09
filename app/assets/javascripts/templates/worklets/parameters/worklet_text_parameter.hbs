@@ -1,0 +1,21 @@
+{{#if editing}}
+    <div class="title_bar">
+        <div class="title_text">
+            {{t "worklet.configure.title_of_parameter_in_sidebar"}} {{displayIndexPlusOne}}
+        </div>
+        {{> workletInputpanelTaskButtons}}
+    </div>
+{{/if}}
+
+<div class="input_content">
+    <div class="input_section">
+        <label for="{{variableName}}" class="label{{#if required}} required{{/if}}">{{label}}</label>
+        <input type="text" class="text_input{{#if required}} required{{/if}}" {{#if required}}required{{/if}} name="{{variableName}}" placeholder="{{t 'worklet.edit.input.data_type_string.placeholder'}}" maxlength="64"{{#if useDefault}} value="{{variableDefault}}"{{/if}}/>
+
+        {{#if description}}
+        <div class="description">
+            {{description}}
+        </div>
+        {{/if}}
+    </div>
+</div>

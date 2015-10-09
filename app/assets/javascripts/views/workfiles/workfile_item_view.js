@@ -25,7 +25,6 @@ chorus.views.WorkfileItem = chorus.views.Base.extend(chorus.Mixins.TagsContext).
     },
 
     additionalContext: function() {
-
         var ctx = {
             iconUrl:  this.model.iconUrl({size: 'large'}),
             name:  this.model.name(),

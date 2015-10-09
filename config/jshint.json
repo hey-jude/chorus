@@ -98,6 +98,9 @@
         "stubKeyboardMetaKey": false,
         "cleditor": false,
         "enterTag": false,
-        "loadConfig": false
+        "loadConfig": false,
+        "require": true,
+        "define": true,
+        "module": true
     }
 }

@@ -23,6 +23,14 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
         return !this.isOnline();
     },
 
+    isDisabled: function() {
+        return this.get("state") === 'disabled';
+    },
+
+    isIncomplete: function() {
+        return this.get("state") === 'incomplete';
+    },
+
     stateText: function() {
         return t("data_sources.state." + (this.isOnline() ? 'online' : 'offline'));
     },
@@ -70,6 +78,10 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
         return false;
     },
 
+    isJdbcHive: function() {
+        return false;
+    },
+
     isSingleLevelSource: function () {
         return false;
     },
@@ -90,8 +102,21 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
         return false;
     },
 
-    numberOfConnectionParameters: function () {
-        var connectionParams = this.get('connectionParameters');
-        return connectionParams ? connectionParams.length : 0;
+    // KT TODO refactor: the two methods following, belong more in HdfsDataSource -- but, it's difficult to get that
+    // to work, due to the way that the DataSourceNewDialog is written.
+    numberOfConnectionParameters: function() {
+        return this.connectionParametersWithoutHadoopHive().length;
+    },
+    connectionParametersWithoutHadoopHive: function() {
+      var pairs = this.get('connectionParameters');
+
+      pairs = _.map(pairs, function (pair) {
+        if(pair['key'] !== 'is_hive' && pair['key'] !== 'hive.metastore.uris') {
+          return pair;
+        }
+      });
+      pairs = _.compact(pairs);
+
+      return pairs;
     }
 });

@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
   def index
     tags = params[:q].present? ? Tag.named_like(params[:q]) : Tag.all
-    present paginate(tags.sort_by!{ |tag| tag.name.downcase })
+    present paginate(tags.order("LOWER(name)"))
   end
 
   def update
@@ -14,7 +14,7 @@ class TagsController < ApplicationController
 
   def destroy
     tag = Tag.find(params[:id])
-    authorize! :destroy, tag
+    Authority.authorize! :destroy, tag, current_user
     tag.destroy
 
     head :ok

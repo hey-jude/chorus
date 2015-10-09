@@ -3,7 +3,7 @@ module Hdfs
     wrap_parameters :hdfs_import, :exclude => []
 
     def create
-      authorize! :use, upload
+      Authority.authorize! :create, upload, current_user, { :or => :current_user_is_objects_user }
 
       hdfs_import = HdfsImport.new(:hdfs_entry => hdfs_entry, :upload => upload, :file_name => file_name)
       hdfs_import.user = current_user

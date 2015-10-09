@@ -1,5 +1,6 @@
 chorus.views.DatasetContentDetails = chorus.views.Base.include(
-        chorus.Mixins.StickyHeader
+        chorus.Mixins.StickyHeader,
+        chorus.Mixins.DatasetContentDetailsVisualizations
     ).extend({
     templateName: "dataset_content_details",
     constructorName: 'DatasetContentDetails',
@@ -13,18 +14,15 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     events: {
         "click .preview": "dataPreview",
-        "click .create_chart .cancel": "cancelVisualization",
         "click .create_chorus_view .cancel": "cancelCreateChorusView",
         "click .edit_chorus_view .cancel": "cancelEditChorusView",
         "click .edit_chorus_view .save": "saveChorusView",
-        "click .chart_icon": "selectVisualization",
         "click .close_errors": "closeErrorWithDetailsLink",
         "click .view_error_details": "viewErrorDetails",
         "click a.select_all": "triggerSelectAll",
         "click a.select_none": "triggerSelectNone",
         "mouseenter .chart_icon": "showTitle",
         "mouseleave .chart_icon": "showSelectedTitle",
-        "click button.visualize": "startVisualizationWizard",
         "click button.derive": "startCreateChorusViewWizard",
         "click button.edit": "startEditChorusViewWizard",
         "click button.publish": "displayPublishDialog"
@@ -96,44 +94,6 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
     triggerSelectNone: function(e) {
         e && e.preventDefault();
         chorus.PageEvents.trigger("column:select_none");
-    },
-
-    startVisualizationWizard: function() {
-        this.resultsConsole.clickClose();
-        this.$('.chart_icon:eq(0)').click();
-        this.$('.column_count').addClass('hidden');
-        this.$('.info_bar').removeClass('hidden');
-        this.$('.definition').addClass("hidden");
-        this.$('.create_chart').removeClass("hidden");
-        this.$(".filters").removeClass("hidden");
-        this.filterWizardView.options.showAliasedName = false;
-        this.filterWizardView.resetFilters();
-        chorus.PageEvents.trigger("start:visualization");
-    },
-
-    selectVisualization: function(e) {
-        var type = $(e.target).data('chart_type');
-        this.$(".create_chart .cancel").data("type", type);
-        this.$('.chart_icon').removeClass('selected');
-        $(e.target).addClass('selected');
-        this.showTitle(e);
-        this.showVisualizationConfig(type);
-    },
-
-    cancelVisualization: function(e) {
-        e.preventDefault();
-        this.$('.definition').removeClass("hidden");
-        this.$('.create_chart').addClass("hidden");
-        this.$(".filters").addClass("hidden");
-        this.$('.column_count').removeClass("hidden");
-        this.$('.info_bar').addClass('hidden');
-        this.$(".chart_config").addClass('hidden');
-        chorus.PageEvents.trigger('cancel:visualization');
-        if(this.chartConfig) {
-            this.chartConfig.teardown(true);
-            delete this.chartConfig;
-        }
-
     },
 
     startCreateChorusViewWizard: function() {
@@ -217,17 +177,6 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
         this.$('.chart_type_title.' + $(e.target).data('chart_type')).removeClass('hidden');
     },
 
-    showVisualizationConfig: function(chartType) {
-        if(this.chartConfig) { this.chartConfig.teardown(true);}
-
-        var options = { model: this.dataset, collection: this.collection, errorContainer: this };
-        this.chartConfig = chorus.views.ChartConfiguration.buildForType(chartType, options);
-        this.chartConfig.filters = this.filterWizardView.collection;
-
-        this.$(".chart_config").removeClass("hidden");
-        this.renderSubview("chartConfig");
-    },
-
     showSelectedTitle: function(e) {
         this.$('.chart_type_title').addClass('hidden');
         var type = this.$('.selected').data('chart_type');
@@ -236,13 +185,12 @@ chorus.views.DatasetContentDetails = chorus.views.Base.include(
 
     additionalContext: function() {
         var workspaceArchived = this.options.workspace && !this.options.workspace.isActive();
-        return {
+        return _.extend(this.additionalContextForVisualizations(), {
             definition: this.dataset.isChorusView() ? this.dataset.get("query") : this.statistics.get("definition"),
             showEdit: this.dataset.isChorusView() && !workspaceArchived,
             showDerive: this.showDerive(workspaceArchived),
-            showPublish: this.showPublish(workspaceArchived),
-            showVisualize: this.dataset.schema()
-        };
+            showPublish: this.showPublish(workspaceArchived)
+        });
     },
 
     showErrorWithDetailsLink: function(taskOrColumnSet, alertClass) {

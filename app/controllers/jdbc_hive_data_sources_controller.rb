@@ -1,5 +1,7 @@
 class JdbcHiveDataSourcesController < ApplicationController
 
+  wrap_parameters :jdbc_hive_data_source, :exclude => []
+
   before_filter :demo_mode_filter, :only => [:create, :update, :destroy]
   before_filter :require_data_source_create, :only => [:create]
 
@@ -11,7 +13,9 @@ class JdbcHiveDataSourcesController < ApplicationController
   def index
     succinct = params[:succinct] == 'true'
     includes = succinct ? [] : [{:owner => :tags}, :tags]
-    present paginate(JdbcHiveDataSource.scoped.includes(includes)), :presenter_options => {:succinct => succinct}
+    data_sources = JdbcHiveDataSource.all.includes(includes)
+    data_sources = JdbcHiveDataSource.filter_by_scope(current_user, data_sources) if current_user_in_scope?
+    present paginate(data_sources), :presenter_options => {:succinct => succinct}
   end
 
   def show
@@ -21,7 +25,7 @@ class JdbcHiveDataSourcesController < ApplicationController
   def update
     gnip_params = params[:jdbc_hive_data_source]
     data_source = JdbcHiveDataSource.find(params[:id])
-    authorize! :edit, data_source
+    Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
     data_source = JdbcHive::DataSourceRegistrar.update!(params[:id], gnip_params)
 
     present data_source
@@ -29,7 +33,7 @@ class JdbcHiveDataSourcesController < ApplicationController
 
   def destroy
     data_source = JdbcHiveDataSource.find(params[:id])
-    authorize! :edit, data_source
+    Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
     data_source.destroy
 
     head :ok

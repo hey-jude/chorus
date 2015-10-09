@@ -18,10 +18,20 @@ chorus.collections.ActivitySet = chorus.collections.Base.extend({
     },
 
     urlParams: function() {
+        var params = {};
         if(this.attributes.entity) {
-            return { entityType: this.attributes.entity.entityType, entityId: this.attributes.entity.get('id') };
+            params.entityType = this.attributes.entity.entityType;
+            params.entityId = this.attributes.entity.get('id');
         } else {
-            return { entityType: 'dashboard' };
+            params.entityType = 'dashboard';
         }
+
+        if(this.attributes.resultsOnly) {
+            params.resultsOnly = true;
+        }
+        if(this.attributes.currentUserOnly) {
+            params.currentUserOnly = true;
+        }
+        return params;
     }
 });

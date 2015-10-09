@@ -10,7 +10,7 @@
             title="{{milestoneCompletedCount}}/{{milestoneCount}} {{pluralize milestoneCount 'dashboard.project_card_list.milestone'}} {{t 'dashboard.project_card_list.milestone_completed'}}">
             <a href="{{milestonesUrl}}"> {{t 'workspace.project.progress.label'}} {{milestoneCompletedCount}}/{{milestoneCount}}</a>
         </span>
-        <div class="progress_bar card" style="width:{{milestoneProgress}}%"></div>
+        <div class="progress_bar progress_bar_body" style="width:{{milestoneProgress}}%"></div>
     </div>
     {{/if}}
 </div>
@@ -31,7 +31,7 @@
             <div class="number"><a class="dataset_list" href="{{datasetsUrl}}">{{datasetsCount}}</a></div>
             <div class="element">{{pluralize datasetsCount 'dashboard.project_card_list.dataset'}}</div>
         </div>
-        <div class="right_side">           
+        <div class="right_side">
             <div class="number"> <a class="member_list" href="{{showUrl}}">{{membersCount}}</a></div>
             <div class="element">{{pluralize membersCount 'dashboard.project_card_list.member'}}</div>
         </div>
@@ -39,7 +39,7 @@
 </div>
 
 <div class='insight_row'>
-    <div class="main_row 
+    <div class="main_row
         {{#if hasRecentComments}}
             has_recent_comments
         {{else}}

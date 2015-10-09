@@ -53,8 +53,8 @@ describe("chorus.views.DataSourceWorkspaceUsagesWidget", function() {
                 expect(this.view.$('.workspace_usage').data('dialog_launch')).toBeUndefined();
             });
 
-            it("should show a count of zero", function() {
-                expect(this.view.$('.workspace_usage')).toContainTranslation('data_sources.sidebar.usage', {count: 0});
+            it("should show the UI translation message", function() {
+                expect(this.view.$('.workspace_usage')).toContainTranslation('data_sources.sidebar.usage');
             });
         });
 
@@ -63,8 +63,8 @@ describe("chorus.views.DataSourceWorkspaceUsagesWidget", function() {
                 expect(this.dataSource.usage().get("workspaces").length).toBeGreaterThan(0);
             });
 
-            it("should show the appropriate number of workspaces", function() {
-                expect(this.view.$('.workspace_usage')).toContainTranslation('data_sources.sidebar.usage', {count: this.dataSource.usage().get("workspaces").length});
+            it("should show the UI translation message", function() {
+                expect(this.view.$('.workspace_usage')).toContainTranslation('data_sources.sidebar.usage');
             });
 
             context("clicking the View Usages link", function() {

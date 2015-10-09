@@ -1,0 +1,29 @@
+/* style rules for worklet results only */
+
+#exportButtonId {
+    margin-top: 10px;
+    
+}
+
+.cancelButton,
+.alpineDialog .dijitSelect,
+.alpineDialog .greyDropdownButton,
+.greyDropdownButton,
+.inlineEditCustom,
+.outputTitleBarDropdownButton,
+.current_operator_titlebar,
+.outputTitleBarHelpButton .dijitButtonNode,
+.outputTitleBarDropdownButton .dijitButtonNode,
+.outputTitleBarButton .dijitButtonNode,
+.secondaryButton .dijitButtonNode,
+.primaryButton .dijitButtonNode,
+.workflowButton .dijitButtonNode,
+.workflowButtonInvalid .dijitButtonNode,
+#sidePropertyContainer .dijitTextBox,
+#sidePropertyContainer .dijitTextArea {
+    height: 24px;
+    line-height: 24px;
+    
+    font-size: 12px;
+    font-weight: 600;
+}

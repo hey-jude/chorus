@@ -1,7 +1,7 @@
 module DataSources
   class SharingController < ApplicationController
     def create
-      authorize! :edit, data_source
+      Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
 
       data_source.shared = true
       data_source.accounts.where("id != #{data_source.owner_account.id}").destroy_all
@@ -10,7 +10,7 @@ module DataSources
     end
 
     def destroy
-      authorize! :edit, data_source
+      Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
 
       data_source.shared = false
       data_source.save!

@@ -49,6 +49,13 @@
         {{/ifAny}}
         {{#if userCanEditDataSource}}
             <li><a class="dialog-launch edit_data_source" href="#">{{t "data_sources.sidebar.edit_data_source"}}</a></li>
+            {{#unless isIncomplete}}
+                {{#if isDisabled}}
+                    <li><a class="dialog-launch enable_data_source" href="#">{{t "data_sources.sidebar.enable_data_source"}}</a></li>
+                {{else}}
+                    <li><a class="dialog-launch disable_data_source" href="#">{{t "data_sources.sidebar.disable_data_source"}}</a></li>
+                {{/if}}
+             {{/unless}}
             <li><a class="alert-launch delete_data_source" href="#">{{t "data_sources.sidebar.delete_data_source"}}</a></li>
         {{/if}}
         {{#if hasUsage}}

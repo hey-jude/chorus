@@ -25,12 +25,21 @@ describe Workspace do
     let!(:model) { workspaces(:public_with_no_collaborators) }
   end
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { workspaces(:public) }
+  end
+
   describe "associations" do
     it { should have_many(:members) }
     it { should have_many(:activities) }
     it { should have_many(:events) }
     it { should belong_to(:sandbox) }
-    it { should have_many(:owned_notes).class_name('Events::Base').conditions("events.action ILIKE 'Events::Note%'") }
+
+    it {
+      pending "KT: upgraded shoulda-matcher syntax potentially depends on RSpec 3 ..."
+      should have_many(:owned_notes).class_name('Events::Base').conditions("events.action ILIKE 'Events::Note%'")
+    }
+
     it { should have_many(:owned_events).class_name('Events::Base') }
     it { should have_many(:comments).through(:owned_events) }
   end
@@ -41,6 +50,14 @@ describe Workspace do
 
     it "creates a membership for the owner" do
       workspace.members.should include(owner)
+    end
+
+    it "assigns the owner role to the owner" do
+      workspace.users_for_role(Role.find_by_name("Owner")).should include(owner)
+    end
+
+    it "assigns the contributor role to the owner" do
+      workspace.users_for_role(Role.find_by_name("ProjectManager")).should include(owner)
     end
 
     it "shows sandbox datasets by default" do
@@ -73,7 +90,7 @@ describe Workspace do
     context "user is admin" do
       let(:admin) { users(:admin) }
       it "returns unscoped workspaces" do
-        mock(Workspace).scoped
+        mock(Workspace).all
 
         described_class.workspaces_for(admin)
       end
@@ -508,7 +525,7 @@ describe Workspace do
   describe "#solr_reindex_later" do
     let(:workspace) { workspaces(:public) }
     it "should enqueue a job" do
-      mock(QC.default_queue).enqueue_if_not_queued("Workspace.reindex_workspace", workspace.id)
+      mock(SolrIndexer.SolrQC).enqueue_if_not_queued("Workspace.reindex_workspace", workspace.id)
       workspace.solr_reindex_later
     end
   end
@@ -728,14 +745,14 @@ describe Workspace do
     let(:schema_id) { workspace.sandbox.id }
 
     it 'enqueue a reindex of the sandbox' do
-      mock(QC.default_queue).enqueue_if_not_queued("Schema.reindex_datasets", schema_id)
+      mock(SolrIndexer.SolrQC).enqueue_if_not_queued("Schema.reindex_datasets", schema_id)
       workspace.show_sandbox_datasets = !workspace.show_sandbox_datasets
       workspace.save!
     end
 
     it 'does not do that by accident' do
-      stub(QC.default_queue).enqueue_if_not_queued.with_any_args
-      dont_allow(QC.default_queue).enqueue_if_not_queued("Schema.reindex_datasets", anything)
+      stub(SolrIndexer.SolrQC).enqueue_if_not_queued.with_any_args
+      dont_allow(SolrIndexer.SolrQC).enqueue_if_not_queued("Schema.reindex_datasets", anything)
       workspace.toggle(:public)
       workspace.save!
     end

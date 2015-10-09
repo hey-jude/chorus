@@ -18,6 +18,10 @@ describe Dataset do
   end
   it_should_behave_like "taggable models", [:datasets, :default_table]
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { datasets(:default_table) }
+  end
+
   describe "associations" do
     it { should belong_to(:scoped_schema).class_name('Schema') }
     it { should have_many :activities }
@@ -243,7 +247,7 @@ describe Dataset do
   describe "list_order" do
     # postgres loves to order by update order, it's like that
     it "sorts by id as a secondary sort, and not by update order" do
-      Dataset.order("id desc").all.each_with_index do |dataset, i|
+      Dataset.order("id desc").each_with_index do |dataset, i|
         Dataset.where(:id => dataset.id).update_all(:name => 'billy', :schema_id => i)
       end
       ids = Dataset.list_order.collect &:id

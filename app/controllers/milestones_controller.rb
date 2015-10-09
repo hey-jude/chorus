@@ -1,8 +1,10 @@
 class MilestonesController < ApplicationController
   before_filter :require_milestones
+  before_filter :authorize_edit_sub_objects, :only => [:create, :destroy, :update]
 
   def index
-    authorize! :show, workspace
+    Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
+                                                                    :workspace_is_public ] }
 
     milestones = workspace.milestones.order(:target_date)
 
@@ -10,24 +12,18 @@ class MilestonesController < ApplicationController
   end
 
   def create
-    authorize! :can_edit_sub_objects, workspace
-
     milestone = workspace.milestones.create params[:milestone]
 
     present milestone, :status => :created
   end
 
   def destroy
-    authorize! :can_edit_sub_objects, workspace
-
     Milestone.find(params[:id]).destroy
 
     head :ok
   end
 
   def update
-    authorize! :can_edit_sub_objects, workspace
-
     milestone = workspace.milestones.find(params[:id])
     milestone.update_attributes!(params[:milestone])
 
@@ -42,5 +38,9 @@ class MilestonesController < ApplicationController
 
   def require_milestones
     render_not_licensed if License.instance.limit_milestones?
+  end
+
+  def authorize_edit_sub_objects
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
   end
 end

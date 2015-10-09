@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe SchemasController do
-  ignore_authorization!
 
   let(:user) { users(:owner) }
 
   before do
     log_in user
+    #
+    stub(Authority).authorize!.with_any_args { nil }
   end
 
   describe "#show" do
@@ -18,7 +19,7 @@ describe SchemasController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize!(:show_contents, schema.data_source)
+      mock(Authority).authorize!(:explore_data, schema.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
       get :show, :id => schema.to_param
     end
 
@@ -54,8 +55,8 @@ describe SchemasController do
 
     context "when the user does not have an account for the Data Source" do
       it "returns a 403" do
-        mock(subject).authorize!(:show_contents, schema.data_source) {
-          raise Allowy::AccessDenied.new("Not authorized", :show_contents, schema.data_source)
+        mock(Authority).authorize!.with_any_args {
+          raise Authority::AccessDenied.new("Forbidden", :activity, schema)
         }
 
         get :show, :id => schema.to_param

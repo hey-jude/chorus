@@ -1,2 +1,0 @@
-class GpdbDataSourceAccess < DataSourceAccess
-end

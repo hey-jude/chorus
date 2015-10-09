@@ -17,6 +17,13 @@ describe DatasetImportsController do
       let(:params) { {:workspace_id => import_three.workspace_id, :dataset_id => source_dataset.to_param} }
     end
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Import }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ { :workspace_id => import_three.workspace_id, :dataset_id => source_dataset.to_param } }
+    end
+
     it "shows the latest imports for a dataset as the source dataset" do
       get :index, :workspace_id => import_three.workspace_id, :dataset_id => source_dataset.to_param
       response.should be_success

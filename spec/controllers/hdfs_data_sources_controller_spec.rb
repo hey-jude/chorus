@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe HdfsDataSourcesController do
-  ignore_authorization!
+
 
   let(:hdfs_data_source) { hdfs_data_sources(:hadoop) }
 
   before do
     @user = users(:no_collaborators)
     log_in @user
+    stub(Authority).authorize! { nil }
   end
 
   describe "#create" do
@@ -77,9 +78,17 @@ describe HdfsDataSourcesController do
     let(:params) { attributes.merge :id => hdfs_data_source }
     let(:fake_data_source) { Object.new }
 
+    it "allows the user to update the status" do
+      stub(Hdfs::QueryService).version_of { hdfs_data_source }
+      stub(Hdfs::QueryService).accessible? { true }
+      attributes["state"] = 'disabled'
+      put :update, params
+      expect(HdfsDataSource.find(params[:id]).disabled?).to be_true
+    end
+
     it "checks authorization and presents the updated hadoop data source" do
       mock(Hdfs::DataSourceRegistrar).update!(hdfs_data_source.id, attributes, @user) { fake_data_source }
-      it_uses_authorization(:edit, hdfs_data_source)
+      mock(Authority).authorize!.with_any_args
       mock_present { |data_source| data_source.should == fake_data_source }
       put :update, params
     end
@@ -108,6 +117,12 @@ describe HdfsDataSourcesController do
 
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { HdfsDataSource }
+      let!(:user)  { users(:no_collaborators) }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
 
     context "when job_tracker is true" do
       it "returns only the hdfs data sources with job tracker info" do
@@ -126,6 +141,25 @@ describe HdfsDataSourcesController do
       decoded_response.name.should == hdfs_data_source.name
     end
 
+    context "when the user is not an admin" do
+      it "hides disabled data sources" do
+        hdfs_data_source.state = "disabled"
+        hdfs_data_source.save!
+        get :show, :id => hdfs_data_source.id
+        response.should be_not_found
+      end
+    end
+
+    context "when the user is an admin" do
+      it "shows the disabled data sources" do
+        log_in users(:admin)
+        hdfs_data_source.state = "disabled"
+        hdfs_data_source.save!
+        get :show, :id => hdfs_data_source.id
+        response.should be_success
+      end
+    end
+
     generate_fixture "hdfsDataSource.json" do
       get :show, :id => hdfs_data_source.id
     end
@@ -139,7 +173,7 @@ describe HdfsDataSourcesController do
     end
 
     it "uses authentication" do
-      mock(subject).authorize! :edit, hdfs_data_source
+      mock(Authority).authorize!.with_any_args
       delete :destroy, :id => hdfs_data_source.id
     end
   end

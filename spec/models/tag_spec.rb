@@ -63,24 +63,24 @@ describe Tag do
     end
   end
 
-  describe ".find_or_create_by_tag_name" do
+  describe ".case_insensitive_find_or_create_by_tag_name" do
     context "when the tag exists" do
       let!(:tag) { Tag.create!(:name => "ABC") }
 
-      it "returns the tag" do
-        Tag.find_or_create_by_tag_name("abc").should == tag
+      it "returns the tag, regardless of case" do
+        Tag.case_insensitive_find_or_create_by_tag_name("abc").should == tag
       end
     end
 
     context "when the tag does not exist" do
       it "creates a new tag" do
         -> {
-          Tag.find_or_create_by_tag_name("abc")
+          Tag.case_insensitive_find_or_create_by_tag_name("abc")
         }.should change(Tag, :count).by(1)
       end
 
       it "returns the new tag" do
-        tag = Tag.find_or_create_by_tag_name("abc")
+        tag = Tag.case_insensitive_find_or_create_by_tag_name("abc")
         tag.name.should == "abc"
       end
     end
@@ -125,12 +125,12 @@ describe Tag do
     end
 
     it "resets the tag count" do
+      expect(tag.taggings_count).to eq 0
+
       model_1.tags << tag
       model_2.tags << tag
 
-      tag.reload.update_attribute(:taggings_count, 0)
-
-      expect { Tag.reset_all_counters }.to change { tag.reload.taggings_count }.to(2)
+      expect(tag.reload.taggings_count).to eq 2
     end
   end
 
@@ -149,12 +149,12 @@ describe Tag do
     end
 
     it "should not reindex tagged objects after create" do
-      dont_allow(QC.default_queue).enqueue_if_not_queued("SolrIndexer.reindex_objects", anything)
+      dont_allow(SolrIndexer.SolrQC).enqueue_if_not_queued("SolrIndexer.reindex_objects", anything)
       Tag.create!(name: "another-tag")
     end
 
     it "should reindex tagged objects after update" do
-      mock(QC.default_queue).enqueue_if_not_queued.with_any_args do |*args|
+      mock(SolrIndexer.SolrQC).enqueue_if_not_queued.with_any_args do |*args|
         args[0].should == "SolrIndexer.reindex_objects"
         args[1].should =~ job_args
       end
@@ -163,11 +163,15 @@ describe Tag do
     end
 
     it "should reindex tagged objects after destroy" do
-      mock(QC.default_queue).enqueue_if_not_queued.with_any_args do |*args|
+      mock(SolrIndexer.SolrQC).enqueue_if_not_queued.with_any_args do |*args|
         args[0].should == "SolrIndexer.reindex_objects"
         args[1].should =~ job_args
       end
       tag.destroy
     end
+  end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { Tag.create!(name: "scope") }
   end
 end

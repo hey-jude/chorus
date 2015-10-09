@@ -1,5 +1,7 @@
 class CsvFile < ActiveRecord::Base
   include StaleUpload
+  include Permissioner
+
 
   attr_accessible :contents, :column_names, :types, :delimiter, :to_table, :has_header, :new_table, :truncate
 
@@ -11,6 +13,7 @@ class CsvFile < ActiveRecord::Base
   belongs_to :import, :touch => true
 
   has_attached_file :contents, :path => ":rails_root/system/:class/:id/:basename.:extension"
+  do_not_validate_attachment_file_type :contents
 
   validates :contents, :attachment_presence => true
   validates_attachment_size :contents,

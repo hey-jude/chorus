@@ -6,7 +6,7 @@ module Workspaces
     def create
       import_params = params[:dataset_import]
       workspace = Workspace.find(params[:workspace_id])
-      authorize! :can_edit_sub_objects, workspace
+      Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
       source_dataset = Dataset.find(import_params[:dataset_id])
       source_dataset.check_duplicate_column(current_user) if source_dataset.is_a?(ChorusView)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe DataSources::WorkspaceDetailsController do
-  ignore_authorization!
+
 
   let(:user) { users(:owner) }
 

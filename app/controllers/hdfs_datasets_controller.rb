@@ -3,7 +3,7 @@ class HdfsDatasetsController < ApplicationController
 
   def create
     workspace   = Workspace.find params[:hdfs_dataset].delete(:workspace_id)
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     data_source = HdfsDataSource.find params[:hdfs_dataset].delete(:data_source_id)
 
@@ -14,7 +14,7 @@ class HdfsDatasetsController < ApplicationController
 
   def update
     dataset = Dataset.find(params[:id])
-    authorize! :can_edit_sub_objects, dataset.workspace
+    Authority.authorize! :update, dataset.workspace, current_user, { :or => :can_edit_sub_objects }
     dataset.update_attributes!(params[:hdfs_dataset])
 
     dataset.make_updated_event
@@ -24,7 +24,7 @@ class HdfsDatasetsController < ApplicationController
 
   def destroy
     dataset = Dataset.find(params[:id])
-    authorize! :can_edit_sub_objects, dataset.workspace
+    Authority.authorize! :update, dataset.workspace, current_user, { :or => :can_edit_sub_objects }
     dataset.destroy
     render :json => {}
   end

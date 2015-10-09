@@ -5,7 +5,7 @@ module Workspaces
 
     def create
       csv_file = CsvFile.find params[:csv_id]
-      authorize! :create, csv_file
+      Authority.authorize! :create, csv_file, current_user, { :or => :current_user_is_objects_user }
 
       file_params = params[:csv_import].slice(:types, :delimiter, :column_names, :has_header, :to_table)
       csv_file.update_attributes!(file_params)

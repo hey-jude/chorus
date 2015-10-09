@@ -1,5 +1,8 @@
 class Notification < ActiveRecord::Base
   include SoftDelete
+  include Permissioner
+
+
   attr_accessible :event_id, :recipient_id, :comment_id, :event, :recipient
 
   belongs_to :recipient, :class_name => 'User', :foreign_key => 'recipient_id', :touch => true
@@ -8,5 +11,5 @@ class Notification < ActiveRecord::Base
 
   validates_presence_of :recipient_id, :event_id
 
-  scope :unread, where(:read => false)
+  scope :unread, -> { where(:read => false) }
 end

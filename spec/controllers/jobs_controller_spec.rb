@@ -29,7 +29,7 @@ describe JobsController do
     end
 
     describe "pagination" do
-      let(:sorted_jobs) { workspace.jobs.sort_by! { |job| job.name.downcase } }
+      let(:sorted_jobs) { workspace.jobs.order("LOWER(name)") }
 
       it "defaults the per_page to fifty" do
         get :index, :workspace_id => workspace.id
@@ -86,7 +86,7 @@ describe JobsController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       post :create, params
     end
 
@@ -197,7 +197,7 @@ describe JobsController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :can_edit_sub_objects, workspace
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       put :update, params
     end
 
@@ -325,7 +325,7 @@ describe JobsController do
     end
 
     it "uses authorization" do
-      mock(controller).authorize!(:can_edit_sub_objects, workspace)
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       delete :destroy, params
     end
   end
@@ -334,7 +334,7 @@ describe JobsController do
     let(:job) { FactoryGirl.create(:job, workspace: workspace, enabled: false) }
 
     it 'uses authorization and enqueues the job' do
-      mock(controller).authorize!(:can_edit_sub_objects, workspace)
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       mock(QC.default_queue).enqueue_if_not_queued('Job.run', job.id)
       post :run, :id => job.id
     end
@@ -364,7 +364,7 @@ describe JobsController do
     let(:job) { FactoryGirl.create(:job, workspace: workspace, enabled: false) }
 
     it 'uses authorization and kills the job' do
-      mock(controller).authorize!(:can_edit_sub_objects, workspace)
+      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       any_instance_of(Job) { |job| mock(job).kill }
       post :stop, :id => job.id
     end

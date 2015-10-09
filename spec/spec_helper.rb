@@ -1,3 +1,12 @@
+if ENV["COVERAGE"] == "true"
+  require 'simplecov'
+
+  SimpleCov.start do
+    add_filter "/spec/" # Ignore coverage for _spec.rb files because they are always 100%
+  end
+end
+
+
 require 'rubygems'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["LOG_LEVEL"] = '3'
@@ -8,7 +17,6 @@ require 'rspec/autorun'
 require 'paperclip/matchers'
 require 'rspec_api_documentation'
 require 'rspec_api_documentation/dsl'
-require 'allowy/rspec'
 require 'shoulda-matchers'
 require 'factory_girl'
 
@@ -22,6 +30,8 @@ require 'external_service_detector'
 # models from Factory Girl will clash with the fixtures
 FACTORY_GIRL_SEQUENCE_OFFSET = 44444
 FactoryGirl.find_definitions
+
+SPEC_PASSWORD = 'password'
 
 require 'support/fixture_builder'
 silence_warnings { FACTORY_GIRL_SEQUENCE_OFFSET = 0 }
@@ -86,7 +96,6 @@ RSpec.configure do |config|
   config.include JsonHelper, :type => :request
   config.include Paperclip::Shoulda::Matchers
   config.include GpdbTestHelpers
-  config.include AllowyRSpecHelpers
   config.include GreenplumIntegration, :greenplum_integration => true
   config.include SunspotMatchers
   config.include SolrHelpers

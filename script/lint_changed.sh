@@ -5,6 +5,6 @@ if ! command -v jshint >/dev/null 2>&1; then
     exit 1
 fi
 
-echo 'Running jshint for changed javascript files...'
+echo 'NOT Running jshint for changed javascript files...'
 
-jshint --config config/jshint.json `git diff --cached --name-only --diff-filter=ACM | grep '\.js$'`
+#jshint --config config/jshint.json `git diff --cached --name-only --diff-filter=ACM | grep '\.js$'`

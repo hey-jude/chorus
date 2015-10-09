@@ -15,7 +15,7 @@ module PostgresLikeDataSourceBehavior
     end
 
     database_account_groups.each do |database_name, db_usernames|
-      database = databases.find_or_initialize_by_name(database_name)
+      database = databases.find_or_initialize_by(name: database_name)
 
       if database.invalid?
         databases.delete(database)
@@ -26,7 +26,7 @@ module PostgresLikeDataSourceBehavior
       database_accounts = accounts.where(:db_username => db_usernames)
       if database.data_source_accounts.sort != database_accounts.sort
         database.data_source_accounts = database_accounts
-        QC.enqueue_if_not_queued('Database.reindex_datasets', database.id) if database.datasets.count > 0
+        SolrIndexer.SolrQC.enqueue_if_not_queued('Database.reindex_datasets', database.id) if database.datasets.count > 0
       end
       found_databases << database
     end

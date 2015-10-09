@@ -12,7 +12,9 @@ chorus.views.DataSourceListSidebar = chorus.views.Sidebar.extend({
         "click .edit_tags": 'startEditingTags',
         "click .remove_credentials": 'launchRemoveCredentialsAlert',
         "click .edit_data_source": 'editDataSource',
-        "click .delete_data_source": 'deleteDataSource'
+        "click .delete_data_source": 'deleteDataSource',
+        "click .disable_data_source": 'disableDataSource',
+        "click .enable_data_source": 'enableDataSource'
     },
 
     setup: function() {
@@ -39,7 +41,9 @@ chorus.views.DataSourceListSidebar = chorus.views.Sidebar.extend({
             entityType: this.model.entityType,
             dataSourceProvider: t("data_sources.provider." + dataSourceType),
             shared: this.model.isShared && this.model.isShared(),
-            isGnip: this.model.isGnip()
+            isGnip: this.model.isGnip(),
+            isDisabled: this.model.isDisabled(),
+            isIncomplete: this.model.isIncomplete()
         };
     },
 
@@ -82,7 +86,7 @@ chorus.views.DataSourceListSidebar = chorus.views.Sidebar.extend({
         this.requiredResources.reset();
         this.listenTo(this.resource, "change", this.render);
 
-        if(this.resource.isGreenplum() || this.resource.isPostgres() || this.resource.isOracle() || this.resource.isJdbc()) {
+        if(this.resource.isGreenplum() || this.resource.isPostgres() || this.resource.isOracle() || this.resource.isJdbc() || this.resource.isJdbcHive()) {
             var account = this.dataSource.accountForCurrentUser();
             this.dataSource.accounts().fetchAllIfNotLoaded();
             account.fetchIfNotLoaded();
@@ -136,5 +140,17 @@ chorus.views.DataSourceListSidebar = chorus.views.Sidebar.extend({
     deleteDataSource: function(e) {
         e.preventDefault();
         new chorus.alerts.DataSourceDelete({model: this.model}).launchModal();
+    },
+
+    disableDataSource: function(e) {
+        e.preventDefault();
+        this.model.set('state', 'disabled');
+        this.model.save();
+    },
+
+    enableDataSource: function(e) {
+        e.preventDefault();
+        this.model.set('state', 'enabled');
+        this.model.save();
     }
 });

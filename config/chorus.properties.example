@@ -7,6 +7,9 @@ server_port = 8080
 postgres_port = 8543
 solr_port = 8983
 
+# Whether to enable solr indexing. See also: indexer_threads
+indexer.enabled = true
+
 java_options = -Djava.security.egd=file:/dev/./urandom -server -Xmx2048m -Xms512m -XX:MaxPermSize=128m
 
 # SSL Settings
@@ -59,6 +62,7 @@ database_login_timeout = 10
 # the 'database_threads' property. This overrides postgresql.conf.
 
 worker_threads = 1
+indexer_threads = 1
 webserver_threads = 20
 database_threads = 25
 
@@ -112,6 +116,15 @@ gpfdist.data_dir = /tmp
 tableau.enabled = false
 tableau.url = 10.80.129.44
 tableau.port = 80
+
+# Hadoop Config Fetch Settings
+
+# This points to a yaml file for use in setting the
+# matching rules for fetching hadoop resource manager config files.
+# See github.com/Chorus/chorus-hadoop-conf/blob/master/hadoopconf/rules.default.yml
+# For the default.
+
+hadoop_config_fetch.rule_file = hadoop_config_fetch_rules.yml
 
 # Gnip Settings
 
@@ -182,3 +195,6 @@ demo_mode.enabled=false
 jdbc_schema_blacklist.postgresql = [information_schema, pg_catalog]
 jdbc_schema_blacklist.sqlserver = [db_accessadmin, db_backupoperator, db_datareader, db_datawriter, db_ddladmin, db_denydatareader, db_denydatawriter, db_owner, db_securityadmin, dbo, INFORMATION_SCHEMA, sys]
 jdbc_schema_blacklist.teradata = [All, Crashdumps, DBC, dbcmngr, Default, EXTUSER, LockLogShredder, PUBLIC, SQLJ, SysAdmin, SYSBAR, SYSLIB, SYSSPATIAL, SystemFe, SYSUDTLIB, Sys_Calendar, TDPUSER, TDQCD, TDStats, tdwm, TD_SYSFNLIB, TD_SYSXML]
+
+touchpoints.enabled = true
+

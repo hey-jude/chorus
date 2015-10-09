@@ -1,5 +1,7 @@
 class Import < ActiveRecord::Base
   include ImportMixins
+  include Permissioner
+
 
   attr_accessible :to_table, :new_table, :sample_count, :truncate, :user
   attr_accessible :file_name # only for CSV files

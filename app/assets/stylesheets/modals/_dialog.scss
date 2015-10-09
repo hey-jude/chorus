@@ -16,7 +16,7 @@ $dialog-girdle-padding-top: 10px;
 //     development: to remove */
 //  		border: 1px dotted #A44;
 //     END development: to remove */
-    
+
     background-color: $body-background-color;
 
     .action_bar {
@@ -38,7 +38,7 @@ $dialog-girdle-padding-top: 10px;
 }
 
 #dialog_content {
-    
+
     .girdle {}
 }
 
@@ -65,7 +65,7 @@ $dialog-girdle-padding-top: 10px;
     .message_callout {
         font-weight: bold;
     }
-    
+
     .dialog_content {
         // background-color: $body-background-color;
 
@@ -189,7 +189,7 @@ div.dialog {
     width: $default-dialog-width;
     // interim fix for background of dialogs
     background-color: $body-background-color;
-    
+
     &.dialog_wide {
         width: $default-dialog-width-wide;
     }
@@ -204,6 +204,10 @@ div.dialog {
     }
 
     &.workspace_edit_dialog {
+        width: $default-dialog-width-medium;
+    }
+
+    &.dialogs_help_and_support {
         width: $default-dialog-width-medium;
     }
 }

@@ -72,6 +72,7 @@ describe("chorus.presenters.Activity", function() {
                     expect(this.presenter.headerHtml().toString()).toContainTranslation(
                         "activity.header.WorkfileCreated.without_workspace", {
                             actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
+                            workfileType: this.presenter.helpers().workfileType(this),
                             workfileLink: linkTo(this.workfile.showUrl(), this.workfile.name())
                         }
                     );
@@ -84,6 +85,7 @@ describe("chorus.presenters.Activity", function() {
                         "activity.header.WorkfileCreated.default", {
                             actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
                             workfileLink: linkTo(this.workfile.showUrl(), this.workfile.name()),
+                            workfileType: this.presenter.helpers().workfileType(this),
                             workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name())
                         }
                     );
@@ -328,7 +330,7 @@ describe("chorus.presenters.Activity", function() {
             expect(this.presenter.headerHtml().toString()).toContainTranslation(
                 "activity.header.DataSourceDeleted.default", {
                     actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
-                    dataSourceLink: linkTo(null, this.dataSource.name())
+                    dataSourceLink: this.dataSource.name()
                 }
             );
         });
@@ -572,7 +574,7 @@ describe("chorus.presenters.Activity", function() {
             expect(this.presenter.headerHtml().toString()).toMatchTranslation(
                 "activity.header.WorkspaceDeleted.default", {
                     actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
-                    workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name())
+                    workspaceLink: this.workspace.name()
                 }
             );
         });
@@ -618,6 +620,7 @@ describe("chorus.presenters.Activity", function() {
                 "activity.header.WorkfileCreated.default", {
                     actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
                     workfileLink: linkTo(this.workfile.showUrl(), this.workfile.name()),
+                    workfileType: this.presenter.helpers().workfileType(this),
                     workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name())
                 }
             );
@@ -663,7 +666,7 @@ describe("chorus.presenters.Activity", function() {
                 expect(this.presenter.headerHtml().toString()).toMatchTranslation(
                     "activity.header.WorkfileUpgradedVersion.default", {
                         actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
-                        workfileLink: linkTo(this.workfile.showUrl(), this.workfile.name()),
+                        workfileLink: this.workfile.name(),
                         workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name()),
                         versionLink: linkTo(null, t("workfile.version_title", {versionNum: this.model.get('versionNum') }))
                     }
@@ -2125,6 +2128,77 @@ describe("chorus.presenters.Activity", function() {
         });
     });
 
+    context("job created event", function () {
+        beforeEach(function () {
+            this.model = backboneFixtures.activity.jobCreated();
+            this.presenter = new chorus.presenters.Activity(this.model);
+            this.actor = this.model.actor();
+            this.workspace = this.model.workspace();
+            this.job = this.model.job();
+
+            this.translation_params = {
+                actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
+                workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name()),
+                jobLink: linkTo(this.job.showUrl(), this.job.name())
+            };
+        });
+
+        context("without workspace", function() {
+            it("has the right header html", function() {
+                this.presenter.options.displayStyle = ["without_workspace"];
+                expect(this.presenter.headerHtml().toString()).toMatchTranslation(
+                    "activity.header.JobCreated.without_workspace", this.translation_params
+                );
+            });
+        });
+
+        context("with workspace", function() {
+            it("has the right header html", function() {
+                this.presenter.options.displayStyle = ["default"];
+                expect(this.presenter.headerHtml().toString()).toMatchTranslation(
+                    "activity.header.JobCreated.default", this.translation_params
+                );
+            });
+        });
+
+
+    });
+
+    context("job deleted event", function () {
+        beforeEach(function () {
+            this.model = backboneFixtures.activity.jobDeleted();
+            this.presenter = new chorus.presenters.Activity(this.model);
+            this.actor = this.model.actor();
+            this.workspace = this.model.workspace();
+            this.job = this.model.job();
+
+            this.translation_params = {
+                actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
+                workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name()),
+                jobLink: linkTo(this.job.showUrl(), this.job.name())
+            };
+        });
+
+        context("without workspace", function() {
+            it("has the right header html", function() {
+                this.presenter.options.displayStyle = ["without_workspace"];
+                expect(this.presenter.headerHtml().toString()).toMatchTranslation(
+                    "activity.header.JobDeleted.without_workspace", this.translation_params
+                );
+            });
+        });
+
+        context("with workspace", function() {
+            it("has the right header html", function() {
+                this.presenter.options.displayStyle = ["default"];
+                expect(this.presenter.headerHtml().toString()).toMatchTranslation(
+                    "activity.header.JobDeleted.default", this.translation_params
+                );
+            });
+        });
+
+    });
+
     context("dataset changed query event", function() {
         beforeEach(function() {
             this.model = backboneFixtures.activity.chorusViewChanged();
@@ -2290,9 +2364,83 @@ describe("chorus.presenters.Activity", function() {
         it("has the right header html", function() {
             expect(this.presenter.headerHtml().toString()).toMatchTranslation(
                 "activity.header.WorkfileResult.default", {
-                    workfileLink: linkTo(this.model.workfile().showUrl(), this.model.workfile().name())
+                    workfileLink: linkTo(this.model.workfile().showUrl(), this.model.workfile().name()),
+                    workfileTypeCaps: this.presenter.helpers().workfileTypeCaps(this)
                 }
             );
         });
     });
+
+    context("milestone created event", function () {
+        beforeEach(function () {
+            this.model = backboneFixtures.activity.milestoneCreated();
+            this.presenter = new chorus.presenters.Activity(this.model);
+            this.actor = this.model.actor();
+            this.workspace = this.model.workspace();
+            this.milestone = this.model.milestone();
+
+            this.translation_params = {
+                actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
+                workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name()),
+                milestoneLink:  linkTo(this.milestone.showUrl(), this.milestone.name())
+            };
+        });
+
+        context("without workspace", function() {
+            it("has the right header html", function() {
+                this.presenter.options.displayStyle = ["without_workspace"];
+                expect(this.presenter.headerHtml().toString()).toMatchTranslation(
+                    "activity.header.MilestoneCreated.without_workspace", this.translation_params
+                );
+            });
+        });
+
+        context("with workspace", function() {
+            it("has the right header html", function() {
+                this.presenter.options.displayStyle = ["default"];
+                expect(this.presenter.headerHtml().toString()).toMatchTranslation(
+                    "activity.header.MilestoneCreated.default", this.translation_params
+                );
+            });
+        });
+
+    });
+
+    context("milestone updated event", function () {
+        beforeEach(function () {
+            this.model = backboneFixtures.activity.milestoneUpdated();
+            this.presenter = new chorus.presenters.Activity(this.model);
+            this.actor = this.model.actor();
+            this.workspace = this.model.workspace();
+            this.milestone = this.model.milestone();
+            var milestoneState =  t("milestone.state." + this.milestone.get("state").toString());
+
+            this.translation_params = {
+                actorLink: linkTo(this.actor.showUrl(), this.actor.name()),
+                workspaceLink: linkTo(this.workspace.showUrl(), this.workspace.name()),
+                milestoneLink:  linkTo(this.milestone.showUrl(), this.milestone.name()),
+                milestoneState:  milestoneState
+            };
+        });
+
+        context("without workspace", function() {
+            it("has the right header html", function() {
+                this.presenter.options.displayStyle = ["without_workspace"];
+                expect(this.presenter.headerHtml().toString()).toMatchTranslation(
+                    "activity.header.MilestoneUpdated.without_workspace", this.translation_params
+                );
+            });
+        });
+
+        context("with workspace", function() {
+            it("has the right header html", function() {
+                this.presenter.options.displayStyle = ["default"];
+                expect(this.presenter.headerHtml().toString()).toMatchTranslation(
+                    "activity.header.MilestoneUpdated.default", this.translation_params
+                );
+            });
+        });
+
+    });
+
 });

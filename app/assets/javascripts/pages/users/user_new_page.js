@@ -14,7 +14,7 @@ chorus.pages.UserNewPage = chorus.pages.Base.extend({
         this.mainContent = new chorus.views.MainContentView({
             model:this.model,
             content: content,
-            contentHeader:new chorus.views.StaticTemplate("default_content_header", {title:t("users.new_user")}),
+            contentHeader:new chorus.views.StaticTemplate("default_content_header", {title:t("users.new_user")})
         });
     }
 });

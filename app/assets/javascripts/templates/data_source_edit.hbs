@@ -1,9 +1,15 @@
 <form>
     <div class="girdle">
-        
+
     <div class="data_source_fields">
         {{generalDataSourceFields this}}
-        
+
+        {{#if hdfsHiveDataSource}}
+            <div>
+              <label class="required" for="hiveMetastoreLocation">{{ t "data_sources.dialog.hive_metastore_location" }}</label>
+              <input type="text" id="hiveMetastoreLocation" name="hiveMetastoreLocation" maxlength="64" value="{{hiveMetastoreLocation}}" tabindex="1"/>
+            </div>
+        {{/if}}
 
         {{#if hdfsDataSource}}
             {{hdfsVersionsSelect false false}}
@@ -30,9 +36,9 @@
 
         {{#if jdbcHiveDataSource}}
             {{hdfsVersionsSelect true true}}
-            
+
             {{jdbcDataSourceFields this}}
-           
+
             {{jdbcHiveDataSourceFields this}}
         {{/if}}
 
@@ -67,11 +73,11 @@
                 </div>
         {{/if}}
     </div>
-    
+
         {{> legendRequired}}
-        
+
     </div>
-    <!-- END girdle -->
-        
+    {{!-- END girdle --}}
+
     {{formControls "data_sources.edit_dialog.save"}}
 </form>

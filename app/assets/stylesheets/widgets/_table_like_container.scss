@@ -1,0 +1,26 @@
+// KT: A widget which allows you to create a table with aligned columns, but each row has rounded corners.
+// See DEV-11638 for Michel's design which was the inspiration.
+// Also used: http://stackoverflow.com/questions/5214686/css3-border-radius-on-displaytable-row-element
+
+.table_like_container {
+  display: table;
+  width: 100%;
+  border-spacing: 0 $default-padding-horizontal;
+}
+
+.table_like_row {
+  background-color: $informational-background-color;
+  display: table-row;
+  div {
+    display: table-cell;
+    padding: $default-padding-horizontal $default-padding-vertical;
+  }
+}
+
+.table_like_row > div:first-child {
+  @include border-radius($default-border-radius 0 0 $default-border-radius);
+}
+
+.table_like_row > div:last-child {
+  @include border-radius(0 $default-border-radius $default-border-radius 0);
+}

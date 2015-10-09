@@ -1,13 +1,18 @@
 class AttachmentsController < ApplicationController
   def create
     event = Events::Base.find(params[:note_id])
-    authorize! :create, Attachment, event
+
+    Authority.authorize! :create_attachment_on, event, current_user, {:or => :current_user_is_event_actor}
 
     if params[:contents]
       attachment_content = params[:contents]
     else
-      transcoder = SvgToPng.new(params[:svg_data])
-      attachment_content = transcoder.fake_uploaded_file(params[:file_name])
+      if defined?(VisLegacy::Engine)
+        transcoder = SvgToPng.new(params[:svg_data])
+        attachment_content = transcoder.fake_uploaded_file(params[:file_name])
+      else
+        raise "No Visualization component attached."
+      end
     end
     event.attachments.create!(:contents => attachment_content)
     event.reload
@@ -16,7 +21,7 @@ class AttachmentsController < ApplicationController
 
   def show
     attachment = Attachment.find(params[:id])
-    authorize! :show, attachment.note
+    Authority.authorize! :show, attachment.note.note_target, current_user, {:or => :handle_legacy_show}
     send_file(attachment.contents.path(params[:style]), :type => attachment.contents_content_type, :disposition => 'inline')
     ActiveRecord::Base.connection.close
   end

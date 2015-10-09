@@ -19,6 +19,7 @@ chorus.pages.WorkspaceShowPage = chorus.pages.Base.extend({
         this.primaryActionPanel = new chorus.views.PrimaryActionPanel({pageModel: this.model, actions: this.primaryActions()});
     },
 
+    //TODO: RPG
     primaryActions: function () {
         var canKaggle   = !!chorus.models.Config.instance().get("kaggleConfigured"); // && this.model.canUpdate()
         var active      = !!this.model.isActive();

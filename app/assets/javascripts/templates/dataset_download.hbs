@@ -1,4 +1,9 @@
 <div class="girdle">
+
+    {{#if dataset}}
+    <p>{{t "dataset.download.body"}}: {{dataset.name}}</p>
+    {{/if}}
+
     <div class="specify">
         <input type="radio" name="row_select" id="specify_rows" checked="checked"/>
         <input name="rowLimit" type="text" value="100"/>
@@ -10,6 +15,6 @@
         <label for="all_rows">{{t "dataset.download.all_rows"}}</label>
     </div>
 </div>
-<!-- END girdle -->
+{{!-- END girdle --}}
 
 {{formControls submitKey}}

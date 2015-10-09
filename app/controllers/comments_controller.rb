@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
 
   def show
     comment = Comment.find(params[:id])
-    authorize! :show, comment
+    Authority.authorize! :show, comment, current_user, { :or => :current_user_can_see_comment }
     present comment
   end
 
@@ -15,7 +15,10 @@ class CommentsController < ApplicationController
     attributes[:author_id] = current_user.id
     comment.attributes = attributes
 
-    authorize! :create_comment_on, Comment, Events::Base.find(comment.event_id)
+    Authority.authorize! :create_comment_on,
+                         Events::Base.find(comment.event_id),
+                         current_user,
+                         { :or => :current_user_can_create_comment_on_event }
     comment.save!
 
     event = comment.event
@@ -37,7 +40,7 @@ class CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find(params[:id])
-    authorize! :destroy, comment
+    Authority.authorize! :destroy, comment, current_user, { :or => :current_user_is_author }
 
     comment.destroy
     render :json => {}

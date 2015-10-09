@@ -21,6 +21,10 @@ chorus.models.Job = chorus.models.Base.extend({
         return this._workspace;
     },
 
+    canUpdate: function() {
+      return this.workspace().canUpdate();
+    },
+
     tasks: function () {
         if (!this._tasks) {
             this._tasks = new chorus.collections.JobTaskSet(this.get("tasks") || [], {parse: true});
@@ -63,10 +67,12 @@ chorus.models.Job = chorus.models.Base.extend({
 
     disable: function (callbacks) {
         this.save( {enabled: false}, _.extend({}, callbacks, { wait: true}) );
+        chorus.toast('job.actions.disable_message', {jobName: this.name()});
     },
 
     enable: function (callbacks) {
         this.save( {enabled: true}, _.extend({}, callbacks, { wait: true}) );
+        chorus.toast('job.actions.enable_message', {jobName: this.name()});
     },
 
     frequency: function () {
@@ -141,7 +147,7 @@ chorus.models.Job = chorus.models.Base.extend({
     lastRunStatusKey: function () {
         return this.get("lastRunFailed") ? "job.status.job_failed" : "job.status.job_succeeded";
     },
-    
+
     lastRunLinkKey: function () {
         return this.get("lastRunFailed") ? "job.show_errors" : "job.show_details";
     },

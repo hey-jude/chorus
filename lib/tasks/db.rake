@@ -1,11 +1,38 @@
 namespace :db do
   namespace :test do
     task :prepare => 'db:integration:load_structure'
+
+    task :prepare_permissions => :environment do
+      load Rails.root.join('db', 'permissions_test_data.rb')
+    end
   end
 
   task :seed_development => :environment do
-    load Rails.root.join('db', 'development_seeds.rb')
+    ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
+      load Rails.root.join('db', 'development_seeds.rb')
+    end
   end
+
+  task :clear_permissions => :environment do
+    load Rails.root.join('db', 'clear_permissions.rb')
+  end
+  # Load permissions seed data
+  task :seed_permissions => :environment do
+    ENV['SKIP_SOLR'] = 'true'
+    ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
+      load Rails.root.join('db', 'permissions_seeds.rb')
+    end
+    ENV['SKIP_SOLR'] = nil
+  end
+
+  task :migrate_permissions => :environment do
+    ENV['SKIP_SOLR'] = 'true'
+    ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
+      load Rails.root.join('db', 'migrate_permissions.rb')
+    end
+    ENV['SKIP_SOLR'] = nil
+  end
+
 
   def create_database_tasks(database_name)
     namespace database_name.to_sym do
@@ -22,6 +49,8 @@ namespace :db do
       task :prepare => "db:#{database_name}:load_structure"
     end
   end
+
+
 
   def load_database_structure(database_name)
     current_config(:config => ActiveRecord::Base.configurations[database_name])

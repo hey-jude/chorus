@@ -41,6 +41,18 @@ describe("chorus.Mixins.Urls", function() {
             });
         });
 
+        context("when showUrlTemplate is a function, but it returns null", function() {
+            beforeEach(function() {
+                this.object.showUrlTemplate = function(suffix) {
+                    return null;
+                };
+            });
+
+            it("calls the function with any arguments passed to 'showUrl', but returns null", function() {
+                expect(this.object.showUrl("banana")).toBe(null);
+            });
+        });
+
         context("when showUrlTemplate is not a function", function() {
             beforeEach(function() {
                 this.object.showUrlTemplate = "my_items/show/{{id}}";
@@ -51,7 +63,7 @@ describe("chorus.Mixins.Urls", function() {
                 expect(this.object.showUrl()).toBe("#/my_items/show/45");
             });
         });
-        
+
         context("#showLink", function() {
             it("shows the link with the model's name", function () {
                 expect(this.object.showLink().string).toBe('<a href="#/workspaces/45">Public</a>');

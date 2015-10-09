@@ -16,6 +16,7 @@ chorus.views.MilestoneSidebar = chorus.views.Sidebar.extend({
 
     additionalContext: function () {
         return this.model ? {
+            //TODO: RPG
             canUpdate: this.model.workspace().canUpdate(),
             stateToggleKey: 'milestone.actions.toggle.' + this.model.get('state')
         } : {};

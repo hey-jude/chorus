@@ -15,6 +15,7 @@ chorus.dialogs.CreateHdfsDataset = chorus.dialogs.HdfsDatasetAttributes.extend({
 
     loadDataSources: function() {
         this.dataSources = new chorus.collections.HdfsDataSourceSet();
+        this.dataSources.attributes.filterDisabled = true;
         this.dataSources.fetchAll();
         this.onceLoaded(this.dataSources, this.dataSourcesLoaded);
     },

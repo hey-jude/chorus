@@ -5,6 +5,7 @@
     var CODE = 'code';
     var TEXT = 'text';
     var ALPINE = 'alpine';
+    var WORKLET = 'worklet';
     var TABLEAU = 'tableau_workbook';
     var XML_TYPE = 'xml';
     var OTHER = 'other';
@@ -142,6 +143,10 @@
 
         isAlpine: function() {
             return this.get("fileType") === ALPINE;
+        },
+
+        isWorklet: function() {
+            return this.get("fileType") === WORKLET;
         },
 
         isPartialFile: function() {

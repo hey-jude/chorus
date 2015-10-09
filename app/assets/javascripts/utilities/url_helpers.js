@@ -4,6 +4,7 @@
     // This mapping actually maps file extensions AND workfile 'fileType' attributes to filename values.
     var map = {
         "afm":"afm",
+        "worklet":"worklet",
         "c":"c",
         "c++":"cpp",
         "cc":"cpp",
@@ -39,6 +40,8 @@
         "jpeg":"img",
         "twb":"tableau",
         "pmml":"pmml",
+        "json":"json",
+        "am":"am",
         "xml":"xml",
         "js":"js",
         "md":"md",

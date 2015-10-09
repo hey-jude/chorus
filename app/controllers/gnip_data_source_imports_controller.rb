@@ -4,7 +4,7 @@ class GnipDataSourceImportsController < ApplicationController
   def create
     workspace = Workspace.find(params[:import][:workspace_id])
 
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
     GnipImport.create!(:workspace => workspace,
                        :source => data_source,

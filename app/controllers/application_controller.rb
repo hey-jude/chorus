@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   rescue_from 'DataSourceConnection::QueryError', :with => :render_query_error
   rescue_from 'HdfsDataset::HdfsContentsError', :with => :render_hdfs_query_error
   rescue_from 'PostgresLikeConnection::SqlPermissionDenied', :with => :render_resource_forbidden
-  rescue_from 'Allowy::AccessDenied', :with => :render_forbidden
+  rescue_from 'Authority::AccessDenied', :with => :render_forbidden
   rescue_from 'ModelNotCreated', :with => :render_unprocessable_entity
   rescue_from 'Hdfs::DirectoryNotFoundError', :with => :render_not_found
   rescue_from 'SunspotError', :with => :render_unprocessable_entity
@@ -48,6 +48,10 @@ class ApplicationController < ActionController::Base
     else
       super
     end
+  end
+
+  def current_user
+    Thread.current[:user]
   end
 
   private
@@ -126,15 +130,25 @@ class ApplicationController < ActionController::Base
 
   def render_forbidden(e = nil)
     error_type = e.respond_to?(:error_type) && e.try(:error_type)
-    present_forbidden(e.try(:subject), error_type)
+    subject = e.respond_to?(:subject) && e.try(:subject)
+    present_forbidden(subject, error_type)
   end
 
   def logged_in?
     !!current_user
   end
 
-  def current_user
-    Thread.current[:user]
+  #PT Method to check if current user is in scope
+  def current_user_in_scope?
+    if Permissioner.is_admin?(current_user)
+      return false
+    else
+      Permissioner.user_in_scope?(current_user)
+    end
+  end
+
+  def current_user_is_admin?
+    Permissioner.is_admin?(current_user)
   end
 
   def extend_expiration
@@ -150,11 +164,11 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    render_forbidden unless logged_in? && current_user.admin?
+    render_forbidden unless logged_in? && (current_user.admin? || current_user.roles.include?(Role.find_by_name("Admin")))
   end
 
-  def require_admin_or_referenced_user
-    head :not_found unless logged_in? && (current_user.admin? || current_user == @user)
+  def require_referenced_user
+    render_forbidden unless logged_in? && (current_user == @user)
   end
 
   def demo_mode_filter
@@ -164,7 +178,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_collection_defaults
+    # PT: Need to fully qualify request.params in Rails 4.0
+    #TODO:Prakash Not sure why I have to add this twice. params and request.params have different storage.
+    #Some Rspec test cases are failing since request.parameteres do not get the :page and :per_page parameters.
     params.reverse_merge!(Chorus::Application.config.collection_defaults)
+    request.params.reverse_merge!(Chorus::Application.config.collection_defaults)
   end
 
   def present(model_or_collection, options={})

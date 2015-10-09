@@ -4,6 +4,8 @@ require_relative '../task_helpers/package_maker'
 namespace :package do
   task :check_clean_working_tree do
     unless ENV['IGNORE_DIRTY'] || system('git diff-files --quiet')
+      puts system('git diff-files')
+      puts system('git diff')
       puts "You have a dirty working tree. You must stash or commit your changes before packaging. Or run with IGNORE_DIRTY=true"
       exit(1)
     end

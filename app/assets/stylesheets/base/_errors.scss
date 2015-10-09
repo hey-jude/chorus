@@ -34,6 +34,12 @@ $margin-right-for-error-marker: 20px;
     padding-right: $margin-right-for-error-marker;
 }
 
+@mixin error-background-icon-select {
+  background-image: url("/images/messaging/error-exclamation.svg");
+  background-size: 17px 17px;
+  background-repeat: no-repeat;
+  padding-right: $margin-right-for-error-marker + 10px;
+}
 
 .errors,
 .sql_errors,
@@ -155,6 +161,14 @@ $margin-right-for-error-marker: 20px;
 
 // input elements wont take ::after  */
 // so background image is necessary */
+
+select.has_error {
+  @include error-input-border;
+  @include border-radius(1px);
+
+  @include error-background-icon;
+  background-position: right 20px top 50%;
+}
 
 input.has_error,
 textarea.has_error,

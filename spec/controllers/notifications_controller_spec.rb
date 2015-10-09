@@ -17,6 +17,13 @@ describe NotificationsController do
       response.code.should == "200"
     end
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Notification }
+      let!(:user)  { current_user }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
+
     it "shows list of notifications" do
       get :index
       notifications = decoded_response
@@ -78,7 +85,7 @@ describe NotificationsController do
     end
 
     it "uses authorization" do
-      mock(subject).authorize! :destroy, @notification
+      mock(Authority).authorize! :destroy, @notification, current_user, { :or => :current_user_is_object_recipient }
       delete :destroy, :id => @notification.id
     end
 

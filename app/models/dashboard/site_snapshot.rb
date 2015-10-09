@@ -1,16 +1,32 @@
 module Dashboard
   class SiteSnapshot < DataModule
+
+    attr_reader :user
+
     INCREMENT_TIME = 7.days.ago
 
     private
 
     def fetch_results
-      [Workspace, AssociatedDataset, Workfile, User].map do |model|
-        {
-            :model => model.to_s.underscore,
-            :total => model.count,
-            :increment => changed_count(model)
-        }
+
+      if @user == nil
+        [Workspace, AssociatedDataset, Workfile, User].map do |model|
+          {
+              :model => model.to_s.underscore,
+              :total => model.count,
+              :increment => changed_count(model)
+          }
+        end
+      else
+        [Workspace, AssociatedDataset, Workfile, User].map do |model|
+          {
+              :model => model.to_s.underscore,
+              # Fix for DEV-12309.  Turning off scope filter until 5.7
+              #:total => model.count_in_scope(@user),
+              :total => model.count,
+              :increment => changed_count(model)
+          }
+        end
       end
     end
 

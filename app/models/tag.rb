@@ -1,4 +1,6 @@
 class Tag < ActiveRecord::Base
+  include Permissioner
+
   has_many :taggables, :through => :taggings
   has_many :taggings
   belongs_to :workfile, :touch => true
@@ -30,7 +32,7 @@ class Tag < ActiveRecord::Base
     find_each { |tag| Tag.reset_counters(tag.id, :taggings) }
   end
 
-  def self.find_or_create_by_tag_name(name)
+  def self.case_insensitive_find_or_create_by_tag_name(name)
     self.where("UPPER(name) = UPPER(?)", name).first_or_create!(:name => name)
   end
 
@@ -45,6 +47,6 @@ class Tag < ActiveRecord::Base
     objects_to_reindex = taggings.map(&:taggable).map do |obj|
       [obj.class.to_s, obj.id]
     end
-    QC.enqueue_if_not_queued("SolrIndexer.reindex_objects", objects_to_reindex)
+    SolrIndexer.SolrQC.enqueue_if_not_queued("SolrIndexer.reindex_objects", objects_to_reindex)
   end
 end

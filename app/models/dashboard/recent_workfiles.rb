@@ -13,16 +13,21 @@ module Dashboard
       limitValue = user.dashboard_items.where(:name => 'RecentWorkfiles').select('options').map(&:options).first
       if limitValue == ''
         limitValue = 5
-    end
+      end
+      workfiles = nil
 
-        OpenWorkfileEvent.
-          select('max(created_at) as created_at, workfile_id').
-          where(:user_id => user.id).
-          group(:workfile_id).
-          order('created_at DESC').
-          includes(:workfile).
-          limit(limitValue)
-        end
-  
+      active_rel =  OpenWorkfileEvent.
+        select('max(created_at) as created_at, workfile_id').
+        where(:user_id => user.id).
+        group(:workfile_id).
+        order('created_at DESC').
+        includes(:workfile).
+        limit(limitValue)
+
+      if active_rel != nil
+        workfiles = active_rel.all
+      end
+      workfiles
+    end
   end
 end

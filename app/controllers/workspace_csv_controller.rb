@@ -3,7 +3,7 @@ class WorkspaceCsvController < ApplicationController
 
   def create
     workspace = Workspace.find(params[:workspace_id])
-    authorize! :can_edit_sub_objects, workspace
+    Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
     csv_file = workspace.csv_files.create(params[:csv]) do |file|
       file.user = current_user
     end

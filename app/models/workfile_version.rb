@@ -1,10 +1,13 @@
 class WorkfileVersion < ActiveRecord::Base
+  include Permissioner
+
   attr_accessible :commit_message, :owner, :modifier, :contents, :version_num, :as => [:default, :create]
   has_attached_file :contents,
                     :styles => {:icon => "50x50>"},
                     :path => ":rails_root/system/:class/:id/:style/:basename.:extension",
                     :url => "/:class/:id/image?style=:style",
                     :restricted_characters => nil #retain original filename
+  do_not_validate_attachment_file_type :contents
 
   belongs_to :workfile, :class_name => 'ChorusWorkfile', :touch => true
   belongs_to :owner, :class_name => 'User',  :touch => true
@@ -43,6 +46,7 @@ class WorkfileVersion < ActiveRecord::Base
     end
   end
 
+  # KT: should be named "attempt_to_resize? or should_post_process?"
   def check_file_type
     image?
   end

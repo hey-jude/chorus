@@ -3,9 +3,13 @@ class DataSource < ActiveRecord::Base
   include TaggableBehavior
   include Notable
   include CommonDataSourceBehavior
+  include Permissioner
+
+  # DO NOT CHANGE the order of these permissions, you'll accidently change everyone's permissons across the site.
+  # Order: edit, show_contents
 
   attr_accessor :db_username, :db_password
-  attr_accessible :name, :description, :host, :port, :ssl, :db_name, :db_username, :db_password, :is_hawq, :as => [:default, :create]
+  attr_accessible :name, :description, :host, :port, :state, :ssl, :db_name, :db_username, :db_password, :is_hawq, :as => [:default, :create]
   attr_accessible :shared, :as => :create
 
   # Must happen before accounts are destroyed
@@ -13,10 +17,11 @@ class DataSource < ActiveRecord::Base
 
   belongs_to :owner, :class_name => 'User'
   has_many :accounts, :class_name => 'DataSourceAccount', :inverse_of => :data_source, :foreign_key => 'data_source_id', :dependent => :destroy
-  has_one :owner_account, :class_name => 'DataSourceAccount', :foreign_key => 'data_source_id', :inverse_of => :data_source, :conditions => proc { {:owner_id => owner_id} }
+  has_one :owner_account, ->(record) { where :owner_id => record.owner_id }, :class_name => 'DataSourceAccount', :foreign_key => 'data_source_id', :inverse_of => :data_source
 
   has_many :activities, :as => :entity
   has_many :events, :through => :activities
+  has_many :databases
 
   before_validation :build_data_source_account_for_owner, :on => :create
 
@@ -43,7 +48,7 @@ class DataSource < ActiveRecord::Base
 
   def self.owned_by(user)
     if user.admin?
-      scoped
+      all
     else
       where(:owner_id => user.id)
     end
@@ -124,7 +129,10 @@ class DataSource < ActiveRecord::Base
   end
 
   def account_for_user!(user)
-    account_for_user(user) || (raise ActiveRecord::RecordNotFound)
+    #account_for_user(user) || (raise ActiveRecord::RecordNotFound)
+    # Fix for DEV-12064. Error message not appearing when attempting to view a non-shared DB data source after upgrade.
+    # Always throw AccessDenied exception to force UI to pop-up credential dialog box.
+    account_for_user(user) || (raise Authority::AccessDenied.new("Unuthorized", :show, self))
   end
 
   def data_source
@@ -133,9 +141,9 @@ class DataSource < ActiveRecord::Base
 
   def self.check_status(id)
     data_source = DataSource.find(id)
-    data_source.check_status!
+    data_source.check_status! unless data_source.disabled?
   rescue => e
-    Rails.logger.error  "Unable to check status of DataSource: #{data_source.inspect}"
+    Rails.logger.error "Unable to check status of DataSource: #{data_source.inspect}"
     Rails.logger.error "#{e.message} :  #{e.backtrace}"
   end
 
@@ -146,6 +154,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh(options={})
+    return if disabled?
     options[:skip_dataset_solr_index] = true if options[:new]
     refresh_databases options
 
@@ -156,17 +165,17 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh_databases_later
-    QC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed?
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed? || disabled?
   end
 
   def solr_reindex_later
-    QC.enqueue_if_not_queued('DataSource.reindex_data_source', id)
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id) unless disabled?
   end
 
   def update_state_and_version
     self.state = "online"
     self.version = connect_as_owner.version
-  rescue  => e
+  rescue => e
     Chorus.log_error "Could not connect while updating state: #{e}: #{e.message} on #{e.backtrace[0]}"
     self.state = "offline"
   end
@@ -177,10 +186,20 @@ class DataSource < ActiveRecord::Base
     connect_as(user).with_connection {}
   end
 
+  def save_if_incomplete!(params)
+    if params["state"] == "incomplete"
+      save!(:validate => false)
+    else
+      save!
+    end
+    self
+  end
+
   private
 
   def build_data_source_account_for_owner
     build_owner_account(:owner => owner, :db_username => db_username, :db_password => db_password)
+    # DataSourceAccount.new(:owner => owner, :db_username => db_username, :db_password => db_password)
   end
 
   def validate_owner?
@@ -188,7 +207,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def enqueue_refresh
-    QC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true)
+    SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true) unless disabled?
   end
 
   def account_owned_by(user)
@@ -202,9 +221,9 @@ class DataSource < ActiveRecord::Base
   def create_name_changed_event
     if name_changed?
       Events::DataSourceChangedName.by(current_user).add(
-          :data_source => self,
-          :old_name => name_was,
-          :new_name => name
+        :data_source => self,
+        :old_name => name_was,
+        :new_name => name
       )
     end
   end

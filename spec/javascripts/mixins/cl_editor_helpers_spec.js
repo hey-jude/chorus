@@ -15,7 +15,6 @@ describe("chorus.Mixins.clEditor", function() {
     describe("#makeEditor", function() {
         context("without options", function() {
             beforeEach(function() {
-                // this.editor = chorus.Mixins.ClEditor.makeEditor(this.editorContainer, ".toolbar", "summary");
                 this.editor = chorus.Mixins.ClEditor.makeEditor(this.editorContainer, "summary");
             });
 
@@ -28,24 +27,13 @@ describe("chorus.Mixins.clEditor", function() {
                 expect(this.editor.options.controls).toBe("bold italic | bullets numbering | link unlink");
             });
 
-//             _.each(controls, function(control) {
-//                 it("should append the " + control + " control to the toolbars", function() {
-//                     expect($('.toolbar a.' + control)).toExist();
-//                     expect($('.toolbar a.' + control)).toContainTranslation("workspace.settings.toolbar." + control);
-//                 });
+            });
 
-//                 it("should bind clicking on the " + control + " link to onClickToolBar" + _.capitalize(control), function() {
-//                     var methodName = "onClickToolbar" + _.capitalize(control);
-//                     $('.toolbar a.' + control).click();
-//                     expect(chorus.Mixins.ClEditor[methodName]).toHaveBeenCalled();
-//                 });
-//             });
-        });
+//         });
 
         context("with options", function() {
             beforeEach(function() {
                 var options = { width: 200 };
-                // this.editor = chorus.Mixins.ClEditor.makeEditor(this.editorContainer, "toolbar", "summary", options);
                 this.editor = chorus.Mixins.ClEditor.makeEditor(this.editorContainer, "summary", options);
             });
 
@@ -84,11 +72,7 @@ describe("chorus.Mixins.clEditor", function() {
     });
 });
 
-//     describe("toolbar helpers", function() {
-//         beforeEach(function() {
-            // this.editor = chorus.Mixins.ClEditor.makeEditor(this.editorContainer, ".toolbar", "summary");
-//             this.editor = chorus.Mixins.ClEditor.makeEditor(this.editorContainer, "summary");
-//         });
+
 
 // TODO: if there is a way to test the graphic images, then revise to use
 // else delete when graphic toolbar is final

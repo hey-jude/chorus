@@ -37,7 +37,7 @@ chorus.Modal = chorus.views.Base.extend({
 // BEGIN: move .errors inside of .girdle
 // TODO: fix when dialogs are redone
 
-    $(".girdle").prepend($(".errors"));
+// $(".girdle").prepend($(".errors"));
 
 // END: move the .errors
 
@@ -105,7 +105,7 @@ chorus.Modal = chorus.views.Base.extend({
         
         var $dialogInteriorContent = $("#dialog_content .girdle");
         $dialogInteriorContent.css("max-height", maxInteriorHeight + "px");
-        
+
 //         console.log ("modals.js > resize: max-height:" + maxInteriorHeight);
 //         console.log ("modals.js > resize: error-height:" + errorHeight);
 
@@ -116,6 +116,7 @@ chorus.Modal = chorus.views.Base.extend({
         var result = this._super('preRender', arguments);
 
         $(window).resize(this.resize);
+        $(window).resize(this.centerHorizontally);
 
         this.preventScrollingBody();
         return result;
@@ -146,6 +147,7 @@ chorus.Modal = chorus.views.Base.extend({
 
     keydownHandler:function (e) {
         if (e.keyCode === 27) {
+            e.preventDefault();
             this.escapePressed();
         }
     },
