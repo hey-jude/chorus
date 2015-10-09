@@ -18,6 +18,14 @@ describe ApplicationController do
       log_in users(:no_collaborators)
     end
 
+    it "renders 'adapter_not_found' if the JDBC url is wrong" do
+      stub(controller).index { raise Sequel::AdapterNotFound }
+      get :index
+
+      response.should be_unprocessable
+      decoded_errors.record.should == "ADAPTER_NOT_FOUND"
+    end
+
     it "renders 'not found' JSON when record not found" do
       stub(controller).index { raise ActiveRecord::RecordNotFound }
       get :index

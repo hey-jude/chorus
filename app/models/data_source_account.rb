@@ -40,6 +40,7 @@ class DataSourceAccount < ActiveRecord::Base
   private
 
   def credentials_are_valid
+    return true if data_source.incomplete?
     @currently_validating_creds = true
     self.invalid_credentials = false
     association = association(:data_source)

@@ -31,6 +31,10 @@ module CommonDataSourceBehavior
     state == 'disabled' || state == 'incomplete'
   end
 
+  def incomplete?
+    state == 'incomplete'
+  end
+
   def online?
     state == 'online'
   end
