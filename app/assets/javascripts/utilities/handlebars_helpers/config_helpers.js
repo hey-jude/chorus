@@ -3,7 +3,7 @@ chorus.handlebarsHelpers.config = {
     ifTouchpoints: function (block) {
         this.config = chorus.models.Config.instance();
         var touchpoints = this.config.get("touchpointsEnabled");
-        if (touchpoints == true) {
+        if (touchpoints === true) {
             return block.fn(this);
         } else if (block.inverse) {
             return block.inverse(this);

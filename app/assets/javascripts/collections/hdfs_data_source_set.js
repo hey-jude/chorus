@@ -18,8 +18,7 @@ chorus.collections.HdfsDataSourceSet = chorus.collections.Base.extend({
             params.jobTracker = true;
         }
 
-        params.filterDisabled = this.attributes.filterDisabled
-
+        params.filterDisabled = this.attributes.filterDisabled;
         return params;
     }
 });

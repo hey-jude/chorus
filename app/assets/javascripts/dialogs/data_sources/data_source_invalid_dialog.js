@@ -19,7 +19,7 @@ chorus.dialogs.DataSourceInvalid = chorus.dialogs.Base.extend({
             text: t("data_sources.invalid_dialog.text"),
             ok: t("data_sources.invalid_dialog.save"),
             cancel: t("data_sources.invalid_dialog.cancel")
-        }
+        };
     },
 
     createDataSource: function(e) {
@@ -34,4 +34,4 @@ chorus.dialogs.DataSourceInvalid = chorus.dialogs.Base.extend({
         chorus.toast('data_sources.add.toast', {dataSourceName: this.model.name(), toastOpts: {type: "success"}});
         this.closeModal();
     }
-})
+});

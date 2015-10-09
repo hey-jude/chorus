@@ -8,7 +8,7 @@ chorus.collections.DataSourceSet = chorus.collections.Base.extend({
         if (this.attributes.succinct) {
             params.succinct = true;
         }
-        params.filterDisabled = this.attributes.filterDisabled
+        params.filterDisabled = this.attributes.filterDisabled;
 
         return params;
     },
