@@ -33,7 +33,7 @@ chorus.views.MultipleSelectionSidebarMenu = chorus.views.Base.include(
             // Show the actions list only if the user has permissions
             // to update all of the selected models.
             var canUpdateSelected = this.selectedModels.every(function (model) {
-                if (typeof model.canUpdate == 'function') {
+                if (typeof model.canUpdate === 'function') {
                     return model.canUpdate();
                 } else {
                     return true;
