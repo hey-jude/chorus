@@ -258,18 +258,29 @@ div[data-page="PublishedWorkletShow"] {
         .caret {
             margin-left: $caret-margin;
         }
-    }
+        .worklet_action_menu {
+            float: right;
 
-    .popup_worklet_menu {
-        line-height: 24px;
-        // account for 1px border around popup
-        right: 0;
-        width: $header-margin * 6;
+            a.inactive {
+                color: gray;
+                cursor: default;
+                text-decoration: none;
+            }
 
-        li {
-          @include username-item-link($menu-item-height-default);
+            .popup_worklets {
+                line-height: 24px;
+                right: 24px;
+                width: 180px;
+
+                li {
+                    display: block;
+                    cursor: pointer;
+                    @include username-item-link($menu-item-height-default);
+                }
+            }
         }
     }
+
 }
 // END: top header
 
