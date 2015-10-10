@@ -25,13 +25,16 @@ chorus.dialogs.WorkletViewLogsDialog = chorus.dialogs.Base.include(
                             continue;
                         }
                         var div = $('<div></div>')[0];
-                        var name = log.nodeName == "null" ? "" : log.nodeName;
+                        var name = log.nodeName === "null" ? "" : log.nodeName;
                         var message = log.logmessage;
                         if(log.message === 'sql_log'){
                             //existing flow results have this key, but it is wrong so do not display it
-                        }else if(log.message === 'bad_data'){
+                            continue;
+                        }
+                        else if(log.message === 'bad_data'){
                             badDataMsg += log.logmessage + '<br/>';
-                        }else{
+                        }
+                        else{
                             div.innerHTML = " [" + log.dateTime + "] " + "  " + name + "  " + message;
                             dialogDiv.append(div);
                             //append error message
@@ -54,7 +57,6 @@ chorus.dialogs.WorkletViewLogsDialog = chorus.dialogs.Base.include(
                 },
 
                 error: function() {
-                    debugger;
                     $('#logs').text('There was an error retrieving the run logs for this worklet.');
                 }
             });

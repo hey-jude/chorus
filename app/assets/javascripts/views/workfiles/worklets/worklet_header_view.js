@@ -50,23 +50,17 @@ chorus.views.WorkletHeader = chorus.views.Base.extend({
 
     openShareResults: function(e) {
         e && e.preventDefault();
-        this.outputView.openShareResultsDialog();
+        chorus.PageEvents.trigger("worklet:open_share_results_dialog");
     },
 
     saveHTMLReport: function(e) {
         e && e.preventDefault();
-        this.outputView.postMessageToIframe({'action': 'export'}, '*');
+        chorus.PageEvents.trigger("worklet:export_html_report");
     },
 
     viewLogs: function(e) {
         e && e.preventDefault();
-        var flowId = this.activity.workfile().id;
-        var resultsId = this.activity.attachments()[0].id;
-        var dialog = new chorus.dialogs.WorkletViewLogsDialog({
-            resultsId: resultsId,
-            flowId: flowId
-        });
-        dialog.launchModal();
+        chorus.PageEvents.trigger("worklet:view_logs");
     },
 
     activatePopupMenu: function(data) {
