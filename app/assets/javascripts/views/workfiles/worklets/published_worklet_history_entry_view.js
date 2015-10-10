@@ -24,7 +24,7 @@ chorus.views.PublishedWorkletHistoryEntry = chorus.views.Base.extend({
             outputTable: this.model.get('outputTable')
         });
 
-        chorus.PageEvents.trigger("worklet:history_results_shown", {activity: this.model, outputView: newView});
+        chorus.PageEvents.trigger("worklet:history_results_shown", "");
 
         if (main.workletOutput) {
             main.workletOutput.teardown(true);
