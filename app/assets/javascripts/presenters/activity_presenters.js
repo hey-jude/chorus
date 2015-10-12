@@ -190,6 +190,11 @@
             attrs: [ "newName", "oldName" ]
         },
 
+        DataSourceChangedState: {
+            links: [ "actor", "dataSource" ],
+            attrs: [ "newState", "oldState" ]
+        },
+
         HdfsDataSourceChangedName: {
             links: [ "actor", "hdfsDataSource" ],
             attrs: [ "newName", "oldName" ]

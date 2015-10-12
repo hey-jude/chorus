@@ -360,6 +360,21 @@ describe DataSource do
     Events::DataSourceDeleted.last.data_source.should == data_source
   end
 
+  it "creates an event if the data source is enabled" do
+    set_current_user(users(:admin))
+    data_source = data_sources(:default)
+    data_source.update_attributes(:state => "disabled")
+    expect { data_source.update_attributes(:state => "enabled") }.to change { Events::DataSourceChangedState.count }.by(1)
+    Events::DataSourceChangedState.last.data_source.should == data_source
+  end
+
+  it "creates an event if the data source is disabled" do
+    set_current_user(users(:admin))
+    data_source = data_sources(:default)
+    expect { data_source.update_attributes(:state => "disabled") }.to change { Events::DataSourceChangedState.count }.by(1)
+    Events::DataSourceChangedState.last.data_source.should == data_source
+  end
+
   it_should_behave_like "taggable models", [:data_sources, :default]
 
   it_behaves_like 'a soft deletable model' do
