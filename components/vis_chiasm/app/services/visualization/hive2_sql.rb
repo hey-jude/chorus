@@ -6,8 +6,10 @@ module Visualization
     end
 
     def random_sampling_sql(o)
-      # Michael Thyen TODO -- fill in
-      raise NotImplemented
+      dataset, numRows = fetch_opts(o, :dataset, :numRows)
+      columns = dataset.column_names.sort.join(',') # no quotes for
+      sourceTable = dataset.scoped_name
+      "SELECT #{columns} FROM (SELECT #{columns}, RAND() as alp_rand_order FROM #{sourceTable}) ORDER BY alp_rand_order LIMIT #{numRows}"
     end
   end
 end

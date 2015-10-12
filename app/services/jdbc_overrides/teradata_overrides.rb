@@ -8,5 +8,9 @@ module JdbcOverrides
 
     module DatasetOverrides
     end
+
+    def self.VisualizationOverrides
+      return Visualization::TeradataSql
+    end
   end
 end
