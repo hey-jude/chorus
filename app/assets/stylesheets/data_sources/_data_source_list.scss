@@ -47,6 +47,19 @@
 
     .description {
         @include secondary-text-normal;
+        
+        &.disabled {
+            margin-top: -5px;
+            margin-bottom: 6px;
+            font-size: $medium-font;
+        }
+        
+        &.incomplete {
+            margin-top: -5px;
+            margin-bottom: 6px;
+            font-size: $medium-font;
+        }
+        
     }
 
     span.name{
