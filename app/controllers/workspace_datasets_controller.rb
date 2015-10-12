@@ -1,6 +1,5 @@
 class WorkspaceDatasetsController < ApplicationController
   include DataSourceAuth
-  #before_filter :check_source_disabled?, :only => [:create, :show, :destroy, :destroy_multiple]
 
   def index
     Authority.authorize! :show, workspace, current_user, { :or => [ :current_user_is_in_workspace,
