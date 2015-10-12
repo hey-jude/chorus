@@ -66,7 +66,7 @@ GIT
 PATH
   remote: components
   specs:
-    vis_chiasm (0.0.1)
+    vis_legacy (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -504,7 +504,7 @@ DEPENDENCIES
   timecop
   uglifier
   vcr (~> 2.3.0)
-  vis_chiasm!
+  vis_legacy!
   will_paginate (= 3.0.4)
   yui-compressor (= 0.12.0)
 
