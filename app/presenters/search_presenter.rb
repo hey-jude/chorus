@@ -1,4 +1,3 @@
-
 class SearchPresenter < SearchPresenterBase
 
   def to_hash
@@ -42,7 +41,9 @@ class SearchPresenter < SearchPresenterBase
 
 
   def self.filter_disabled(data_source_results)
-    data_source_results.select{|ds|ds.state != 'disabled'} unless Permissioner.is_admin?(current_user)
+    return data_source_results if Permissioner.is_admin?(current_user)
+
+    data_source_results.select { |ds| ds.state != 'disabled' }
   end
 
   private
