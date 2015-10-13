@@ -15,8 +15,8 @@
         <button class="modalish close" data-event-type="close">{{t "form.button.close"}}</button>
         {{#unless editing}}
             <div class="token worklet_action_menu">
-                <a class="label inactive" href="#" title="action">
-                    <span>{{t "worklet.dropdown.actions"}}<span class="fa fa-caret-down caret"></span></span>
+                <a class="label inactive actions_menu" href="#" title="action">
+                    <span>{{t "worklet.workbench.header.actions.menu"}}<span class="fa fa-caret-down caret"></span></span>
                 </a>
                 <div class="menu hidden popup_worklets">
                     <ul>
@@ -43,7 +43,6 @@
             </div>
         {{/unless}}
 
-<!--         <a href="#" class="actions_menu"><span>{{t "worklet.workbench.header.actions.menu"}}<span class="fa fa-caret-down caret"></span></span>        </a> -->
     
         {{#if editing}}
 <!--         <div class="menu popup_worklet_menu hidden"> -->
