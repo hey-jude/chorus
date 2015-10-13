@@ -21,8 +21,10 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
             canUpdate: this.canUpdate()
         };
         ctx.locationNames = _.map(this.model.executionLocations(), function (executionLocation) {
-            ctx.stateText = executionLocation.dataSource().stateText();
-            ctx.stateUrl  = executionLocation.dataSource().stateIconUrl();
+            if (!_.isUndefined(executionLocation.dataSource)) {
+                ctx.stateText = executionLocation.dataSource().stateText();
+                ctx.stateUrl  = executionLocation.dataSource().stateIconUrl();
+            }
 
             if (executionLocation.get("entityType") === "gpdb_database") {
                 return executionLocation.dataSource().get("name") + '.' + executionLocation.get("name");
@@ -37,10 +39,12 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
     locationSourceDisabled: function(){
         var location = this.model.executionLocations()[0];
         var source_disabled = false;
-        if (location) {
+        
+        if (location && !_.isUndefined(location.dataSource)) {
             source_disabled = location.dataSource().isDisabled();
         }
-        return source_disabled
+
+        return source_disabled;
     },
 
     changeWorkfileDatabase: function(e) {
