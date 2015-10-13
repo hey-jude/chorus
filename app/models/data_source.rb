@@ -240,25 +240,14 @@ class DataSource < ActiveRecord::Base
   end
 
   def create_state_change_event
-    if state_changed?
-
-      if state == "disabled"
+    if state_changed? && ( state == "disabled" || state == "enabled" )
         attributes = {
             :data_source => self,
             :old_state => state_was,
             :new_state => state
         }
-        Events::DataSourceChangedState.by(current_user).add(attributes)
-      end
 
-      if state_was == "disabled"
-        attributes = {
-            :data_source => self,
-            :old_state => state_was,
-            :new_state => "enabled"
-        }
         Events::DataSourceChangedState.by(current_user).add(attributes)
-      end
     end
   end
 
