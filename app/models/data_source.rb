@@ -33,7 +33,7 @@ class DataSource < ActiveRecord::Base
   after_update :solr_reindex_later, :if => :shared_changed?
 
   before_update :create_state_change_event, :if => :current_user
-  before_update :check_connection_status, :if => :should_check_status?
+  before_update :check_status!, :if => :should_check_status?
   after_update :create_name_changed_event, :if => :current_user
 
   after_create :enqueue_refresh
