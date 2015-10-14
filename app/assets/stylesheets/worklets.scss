@@ -1283,6 +1283,7 @@ $workletSteps-container-height: 50px;
             padding: 10px;
             position: relative;
             height: 100%;
+            line-height: 25px;
 
             h3 {
                 @include font-primary-bold;
