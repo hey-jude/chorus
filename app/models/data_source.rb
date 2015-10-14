@@ -29,6 +29,7 @@ class DataSource < ActiveRecord::Base
   validates_presence_of :name, :host
   validates_length_of :name, :maximum => 64
   validates_with DataSourceNameValidator
+  validates :state, :inclusion => %w(online offline incomplete disabled enabled)
 
   after_update :solr_reindex_later, :if => :shared_changed?
 
