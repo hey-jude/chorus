@@ -9,7 +9,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         "change input[name=high_availability]": 'toggleHighAvailability'
     },
 
-    formFields: ["name", "host", "port", "size", "dbName", "username", "groupList", "streamUrl", "password", "jobTrackerHost", "jobTrackerPort", "hiveMetastoreLocation", "hdfsVersion", "hiveKerberosPrincipal", "hiveKerberosKeytabLocation"],
+    formFields: ["name", "host", "port", "size", "dbName", "username", "groupList", "streamUrl", "password", "jobTrackerHost", "jobTrackerPort", "hiveMetastoreLocation", "hdfsVersion", "hiveKerberosPrincipal", "hiveKerberosKeytabLocation", "dbUsername", "dbPassword"],
 
     makeModel: function() {
         this.sourceModel = this.model;

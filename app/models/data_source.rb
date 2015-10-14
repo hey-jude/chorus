@@ -24,6 +24,7 @@ class DataSource < ActiveRecord::Base
   has_many :databases
 
   before_validation :build_data_source_account_for_owner, :on => :create
+  before_validation :update_data_source_account_for_owner, :on => :update, :if => :validate_owner?
 
   validates_associated :owner_account, :if => :validate_owner?
   validates_presence_of :name, :host
@@ -32,7 +33,6 @@ class DataSource < ActiveRecord::Base
   validates :state, :inclusion => %w(online offline incomplete disabled enabled)
 
   after_update :solr_reindex_later, :if => :shared_changed?
-
 
   after_update :create_name_changed_event, :if => :current_user
 
@@ -211,8 +211,17 @@ class DataSource < ActiveRecord::Base
     # DataSourceAccount.new(:owner => owner, :db_username => db_username, :db_password => db_password)
   end
 
+  def update_data_source_account_for_owner
+    owner_account.assign_attributes(:db_username => db_username, :db_password => db_password)
+    owner_account.save!
+  end
+
   def validate_owner?
-    self.changed.include?('host') || self.changed.include?('port') || self.changed.include?('db_name')
+    self.changed.include?('host')        ||
+    self.changed.include?('port')        ||
+    self.changed.include?('db_name')     ||
+    self.changed.include?('db_username') ||
+    self.changed.include?('db_password')
   end
 
   def enqueue_refresh

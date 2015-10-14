@@ -19,6 +19,19 @@
             {{dbDataSourceFields this}}
         {{/if}}
 
+        {{#if jdbcHiveDataSource}}
+            {{hdfsVersionsSelect true true}}
+
+            {{jdbcDataSourceFields this}}
+
+            {{jdbcHiveDataSourceFields this}}
+        {{/if}}
+
+        {{#ifAny hdfsDataSource gnipDataSource hdfsHiveDataSource}}
+        {{else}}
+            {{generaldBAccountFields}}
+        {{/ifAny}}
+
         {{#if gpOrPg}}
             <div>
                 <input type="checkbox" id="ssl" name="ssl" {{#if ssl}}checked{{/if}}/>
@@ -34,13 +47,9 @@
             {{jdbcDataSourceFields this}}
         {{/if}}
 
-        {{#if jdbcHiveDataSource}}
-            {{hdfsVersionsSelect true true}}
 
-            {{jdbcDataSourceFields this}}
 
-            {{jdbcHiveDataSourceFields this}}
-        {{/if}}
+
 
         {{#if gnipDataSource}}
                 <div>
