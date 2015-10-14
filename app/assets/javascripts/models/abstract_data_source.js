@@ -44,7 +44,7 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
             'online'   : 'green.svg',
             'offline'  : 'yellow.svg',
             'disabled' : 'unknown.svg',
-            'enabled'  : 'unknown.svg'
+            'enabled'  : 'yellow.svg'
         }
 
         var state = this.get("state");
