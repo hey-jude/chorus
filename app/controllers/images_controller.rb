@@ -5,7 +5,7 @@ class ImagesController < ApplicationController
     authorize_create!
     @entity.image = params[:files][0]
     @entity.save!
-    present @entity.image, :content_type => 'text/html'
+    present @entity.image, :content_type => 'text/html', :status => :created
   end
 
   def show
