@@ -24,6 +24,9 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
             if (!_.isUndefined(executionLocation.dataSource)) {
                 ctx.stateText = executionLocation.dataSource().stateText();
                 ctx.stateUrl  = executionLocation.dataSource().stateIconUrl();
+            } else if (!_.isUndefined(executionLocation.attributes.state)) {
+                ctx.stateText = executionLocation.stateText();
+                ctx.stateUrl  = executionLocation.stateIconUrl();
             }
 
             if (executionLocation.get("entityType") === "gpdb_database") {

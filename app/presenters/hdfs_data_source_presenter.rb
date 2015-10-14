@@ -9,7 +9,8 @@ class HdfsDataSourcePresenter < Presenter
         :hdfs_version => model.hdfs_version,
         :is_hdfs_hive => model.is_hdfs_hive,
         :hive_metastore_location => model.hive_metastore_location,
-        :is_deleted => model.deleted?
+        :is_deleted => model.deleted?,
+        :state => model.state
     }
     unless succinct?
       hash.merge!({
@@ -24,7 +25,6 @@ class HdfsDataSourcePresenter < Presenter
           :job_tracker_port => model.job_tracker_port,
           :high_availability => model.high_availability?,
           :connection_parameters => model.connection_parameters_including_hive,
-          :state => model.state
       }.merge(owner_hash).
       merge(tags_hash))
     end
