@@ -28,6 +28,7 @@ class DataSourcesController < ApplicationController
   def create
     entity_type = params[:data_source].delete(:entity_type)
     data_source = DataSource.create_for_entity_type(entity_type, current_user, params[:data_source])
+    data_source.check_status!
     present data_source, :status => :created
   end
 
