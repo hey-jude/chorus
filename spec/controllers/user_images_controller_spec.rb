@@ -38,7 +38,7 @@ describe UserImagesController do
         it "should succeed" do
           log_in( users(:admin) )
           post :create, :user_id => user.id, :files => files
-          response.code.should == "201"
+          response.code.should == "200"
         end
       end
 
