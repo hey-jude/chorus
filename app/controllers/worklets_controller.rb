@@ -137,7 +137,12 @@ class WorkletsController < ApplicationController
 
   def run
     begin
-      worklet_params = params[:workfile][:worklet_parameters][:string].inspect
+      #worklet_params = params[:workfile][:worklet_parameters][:string].inspect
+      params_obj = {}
+      params[:workfile][:worklet_parameters][:fields].each do |field|
+        params_obj[field[:name]] = field[:value]
+      end
+      worklet_params = params_obj.inspect
 
       temp_accounts = []
 
