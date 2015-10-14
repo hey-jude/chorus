@@ -188,6 +188,13 @@ describe DataSourcesController do
       put :update, params
       expect(DataSource.find(params[:id]).disabled?).to be_true
     end
+
+    it "doesn't allow the user to set an invalid state" do
+      params[:state] = 'some random state'
+
+      put :update, params
+      response.should be_unprocessable
+    end
   end
 
   describe "create" do
