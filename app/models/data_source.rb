@@ -33,8 +33,7 @@ class DataSource < ActiveRecord::Base
 
   after_update :solr_reindex_later, :if => :shared_changed?
 
-  before_update :create_state_change_event, :if => :current_user
-  before_update :check_status!, :if => :should_check_status?
+
   after_update :create_name_changed_event, :if => :current_user
 
   after_create :enqueue_refresh
@@ -46,9 +45,7 @@ class DataSource < ActiveRecord::Base
     QC.enqueue_if_not_queued('DataSource.check_status', self.id)
   end
 
-  def should_check_status?
-    changed.include?("state") && state == "enabled"
-  end
+
 
   def self.by_type(entity_types)
     if entity_types.present?
@@ -237,18 +234,6 @@ class DataSource < ActiveRecord::Base
         :old_name => name_was,
         :new_name => name
       )
-    end
-  end
-
-  def create_state_change_event
-    if state_changed? && ( state == "disabled" || state == "enabled" )
-        attributes = {
-            :data_source => self,
-            :old_state => state_was,
-            :new_state => state
-        }
-
-        Events::DataSourceChangedState.by(current_user).add(attributes)
     end
   end
 
