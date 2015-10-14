@@ -55,6 +55,10 @@ class DataSourcesController < ApplicationController
   end
 
   def hide_disabled_source
-    raise ActiveRecord::RecordNotFound if !Permissioner.is_admin?(current_user) && @data_source.disabled?
+    raise ActiveRecord::RecordNotFound if hide_data_source?
+  end
+
+  def hide_data_source?
+    !Permissioner.is_admin?(current_user) && @data_source.disabled? && @data_source.owner != current_user
   end
 end

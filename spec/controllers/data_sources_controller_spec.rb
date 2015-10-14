@@ -189,6 +189,14 @@ describe DataSourcesController do
       expect(DataSource.find(params[:id]).disabled?).to be_true
     end
 
+    it "allows the user to re-enable the data source" do
+      params[:state] = 'disabled'
+      put :update, params
+      params[:state] = 'enabled'
+      put :update, params
+      expect(DataSource.find(params[:id]).disabled?).to be_false
+    end
+
     it "doesn't allow the user to set an invalid state" do
       params[:state] = 'some random state'
 
