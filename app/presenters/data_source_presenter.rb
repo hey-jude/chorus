@@ -20,11 +20,15 @@ class DataSourcePresenter < Presenter
           :db_name => model.db_name,
           :description => model.description,
           :schema_blacklist => model.connect_as_owner.schema_blacklist,
-          :state => model.state
+          :db_username => db_username
       }.merge(owner_hash).
       merge(tags_hash))
     end
     hash
+  end
+
+  def db_username
+    model.owner_account.db_username
   end
 
   def complete_json?

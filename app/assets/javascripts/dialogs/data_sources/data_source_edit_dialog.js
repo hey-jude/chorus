@@ -20,7 +20,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     setup: function() {
         this.listenTo(this.model, "saved", this.saveSuccess);
         this.listenTo(this.model, "saveFailed", this.saveFailed);
-        this.listenTo(this.model, "validationFailed", this.saveFailed);
+        this.listenTo(this.model, "validationFailed", this.validationFailed);
     },
 
     postRender: function() {
@@ -34,6 +34,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
                 return '<span class='+ aliasedName +'></span>' + text;
             } });
         }, this));
+
     },
 
     launchConnectionParametersDialog: function (e) {

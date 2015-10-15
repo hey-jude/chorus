@@ -93,9 +93,7 @@ chorus.models.DataSource = chorus.models.AbstractDataSource.extend({
         this.require("port", newAttrs);
         this.require("dbName", newAttrs);
         this.requirePattern("port", chorus.ValidationRegexes.OnlyDigits(), newAttrs);
-        if (this.isNew()) {
-            this.require("dbUsername", newAttrs);
-            this.require("dbPassword", newAttrs);
-        }
+        this.require("dbUsername", newAttrs);
+        this.require("dbPassword", newAttrs);
     }
 });
