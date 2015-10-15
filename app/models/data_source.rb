@@ -232,6 +232,10 @@ class DataSource < ActiveRecord::Base
     SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true) unless disabled?
   end
 
+  def enqueue_check_status!
+    QC.enqueue_if_not_queued('DataSource.check_status', self.id)
+  end
+
   def account_owned_by(user)
     accounts.find_by_owner_id(user.id)
   end
