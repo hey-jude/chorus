@@ -217,7 +217,11 @@ class DataSource < ActiveRecord::Base
 
   def update_data_source_account_for_owner
     owner_account.assign_attributes(:db_username => db_username, :db_password => db_password)
-    owner_account.save!
+    if incomplete?
+      owner_account.save!(validate: false)
+    else
+      owner_account.save!
+    end
   end
 
   def validate_owner?
