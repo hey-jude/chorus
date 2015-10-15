@@ -28,7 +28,9 @@ class DataSourcePresenter < Presenter
   end
 
   def db_username
-    model.owner_account.db_username
+    if model.owner_account
+      owner_account.db_username
+    end
   end
 
   def complete_json?
