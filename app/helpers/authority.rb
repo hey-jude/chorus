@@ -186,10 +186,10 @@ module Authority
   end
 
   def self.retrieve_roles(user)
-    roles = user.roles.clone
+    roles = user.roles.to_a
 
     user.groups.each do |group|
-      roles << group.roles if group.roles.empty? == false
+      roles.concat(group.roles) if group.roles.empty? == false
     end
 
     roles
