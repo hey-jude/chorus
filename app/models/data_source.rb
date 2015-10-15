@@ -212,7 +212,10 @@ class DataSource < ActiveRecord::Base
   end
 
   def should_update_account?
-    !db_password.nil? || (db_username && db_username != owner_account.db_username)
+    if owner_account.nil?
+      build_data_source_account_for_owner
+    end
+    (!db_password.nil? && db_password != owner_account.db_password)|| (db_username && db_username != owner_account.db_username)
   end
 
   def update_data_source_account_for_owner
