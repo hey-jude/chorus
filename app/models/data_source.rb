@@ -24,7 +24,7 @@ class DataSource < ActiveRecord::Base
   has_many :databases
 
   before_validation :build_data_source_account_for_owner, :on => :create
-  before_validation :update_data_source_account_for_owner, :on => :update
+  before_update :update_data_source_account_for_owner, :if => :should_update_account?
 
   validates_associated :owner_account, :if => :validate_owner?
   validates_presence_of :name, :host
@@ -209,6 +209,10 @@ class DataSource < ActiveRecord::Base
   def build_data_source_account_for_owner
     build_owner_account(:owner => owner, :db_username => db_username, :db_password => db_password)
     # DataSourceAccount.new(:owner => owner, :db_username => db_username, :db_password => db_password)
+  end
+
+  def should_update_account?
+    !db_password.nil? || (db_username && db_username != owner_account.db_username)
   end
 
   def update_data_source_account_for_owner

@@ -34,6 +34,7 @@ class DataSourcesController < ApplicationController
   def update
     Authority.authorize! :update, @data_source, current_user, { :or => :current_user_is_object_owner }
     @data_source.assign_attributes(params[:data_source])
+
     @data_source.save_if_incomplete!(params[:data_source])
     present @data_source
   end
