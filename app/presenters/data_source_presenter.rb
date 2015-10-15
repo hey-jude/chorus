@@ -29,7 +29,7 @@ class DataSourcePresenter < Presenter
 
   def db_username
     if model.owner_account
-      owner_account.db_username
+      model.owner_account.db_username
     end
   end
 
