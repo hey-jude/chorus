@@ -53,6 +53,10 @@ class HdfsDataSourcesController < ApplicationController
   end
 
   def hide_disabled_source
-    raise ActiveRecord::RecordNotFound if !Permissioner.is_admin?(current_user) && @hdfs_data_source.disabled? && @data_source.owner != current_user
+    if !Permissioner.is_admin?(current_user) &&
+        @hdfs_data_source.disabled? &&
+        @hdfs_data_source.owner != current_user
+      raise ActiveRecord::RecordNotFound
+    end
   end
 end
