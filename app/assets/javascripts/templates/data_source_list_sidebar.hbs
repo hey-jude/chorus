@@ -59,7 +59,11 @@
             <li><a class="alert-launch delete_data_source" href="#">{{t "data_sources.sidebar.delete_data_source"}}</a></li>
         {{/if}}
         {{#if hasUsage}}
-            <li class="workspace_usage_container"></li>
+            {{#unless isIncomplete}}
+                {{#unless isDisabled}}
+                       <li class="workspace_usage_container"></li>
+                {{/unless}}
+            {{/unless}}
         {{/if}}
         <li><a class="dialog-launch" href="#" data-entity-id="{{id}}" data-entity-type="{{entityType}}" data-allow-workspace-attachments="false" data-dialog="NotesNew">{{t "actions.add_note"}}</a></li>
         <li><a class="edit_tags" href="#">{{t "sidebar.edit_tags"}}</a></li>

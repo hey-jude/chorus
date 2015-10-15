@@ -24,16 +24,16 @@ class DataSource < ActiveRecord::Base
   has_many :databases
 
   before_validation :build_data_source_account_for_owner, :on => :create
+  before_update :update_data_source_account_for_owner, :if => :should_update_account?
 
   validates_associated :owner_account, :if => :validate_owner?
   validates_presence_of :name, :host
   validates_length_of :name, :maximum => 64
   validates_with DataSourceNameValidator
+  validates :state, :inclusion => %w(online offline incomplete disabled enabled)
 
   after_update :solr_reindex_later, :if => :shared_changed?
 
-  before_update :create_state_change_event, :if => :current_user
-  before_update :check_status!, :if => :should_check_status?
   after_update :create_name_changed_event, :if => :current_user
 
   after_create :enqueue_refresh
@@ -45,9 +45,7 @@ class DataSource < ActiveRecord::Base
     QC.enqueue_if_not_queued('DataSource.check_status', self.id)
   end
 
-  def should_check_status?
-    changed.include?("state") && state == "enabled"
-  end
+
 
   def self.by_type(entity_types)
     if entity_types.present?
@@ -213,12 +211,29 @@ class DataSource < ActiveRecord::Base
     # DataSourceAccount.new(:owner => owner, :db_username => db_username, :db_password => db_password)
   end
 
+  def should_update_account?
+    !db_password.nil? || (db_username && db_username != owner_account.db_username)
+  end
+
+  def update_data_source_account_for_owner
+    owner_account.assign_attributes(:db_username => db_username, :db_password => db_password)
+    owner_account.save!
+  end
+
   def validate_owner?
-    self.changed.include?('host') || self.changed.include?('port') || self.changed.include?('db_name')
+    self.changed.include?('host')        ||
+    self.changed.include?('port')        ||
+    self.changed.include?('db_name')     ||
+    self.changed.include?('db_username') ||
+    self.changed.include?('db_password')
   end
 
   def enqueue_refresh
     SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true) unless disabled?
+  end
+
+  def enqueue_check_status!
+    QC.enqueue_if_not_queued('DataSource.check_status', self.id)
   end
 
   def account_owned_by(user)
@@ -236,18 +251,6 @@ class DataSource < ActiveRecord::Base
         :old_name => name_was,
         :new_name => name
       )
-    end
-  end
-
-  def create_state_change_event
-    if state_changed? && ( state == "disabled" || state == "enabled" )
-        attributes = {
-            :data_source => self,
-            :old_state => state_was,
-            :new_state => state
-        }
-
-        Events::DataSourceChangedState.by(current_user).add(attributes)
     end
   end
 

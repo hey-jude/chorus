@@ -41,10 +41,11 @@ chorus.models.AbstractDataSource = chorus.models.Base.extend({
 
     stateIconUrl: function() {
         var icon_map = {
-            'online'   : 'green.svg',
-            'offline'  : 'yellow.svg',
-            'disabled' : 'unknown.svg',
-            'enabled'  : 'unknown.svg'
+            'online'     : 'green.svg',
+            'offline'    : 'yellow.svg',
+            'disabled'   : 'unknown.svg',
+            'incomplete' : 'incomplete.svg',
+            'enabled'    : 'yellow.svg'
         }
 
         var state = this.get("state");

@@ -98,6 +98,10 @@ class HdfsDataSource < ActiveRecord::Base
     %(#{hdfs_version}+#{version})
   end
 
+  def enqueue_check_status!
+    QC.enqueue_if_not_queued('HdfsDataSource.check_status', self.id)
+  end
+
   private
 
   def enqueue_destroy_children

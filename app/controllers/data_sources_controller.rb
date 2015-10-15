@@ -35,6 +35,7 @@ class DataSourcesController < ApplicationController
   def update
     Authority.authorize! :update, @data_source, current_user, { :or => :current_user_is_object_owner }
     @data_source.assign_attributes(params[:data_source])
+
     @data_source.save_if_incomplete!(params[:data_source])
     present @data_source
   end
@@ -56,6 +57,10 @@ class DataSourcesController < ApplicationController
   end
 
   def hide_disabled_source
-    raise ActiveRecord::RecordNotFound if !Permissioner.is_admin?(current_user) && @data_source.disabled?
+    raise ActiveRecord::RecordNotFound if hide_data_source?
+  end
+
+  def hide_data_source?
+    !Permissioner.is_admin?(current_user) && @data_source.disabled? && @data_source.owner != current_user
   end
 end
