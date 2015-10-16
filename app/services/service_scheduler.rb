@@ -2,6 +2,7 @@ class ServiceScheduler
   include Clockwork
 
   def initialize
+    Jdbc::Postgres.load_driver
 
     #fix for DEV-9102. Worker process crashes under heavy load.
     data_sources = DataSource.where(:deleted_at => nil)
