@@ -35,7 +35,7 @@ class WorkspaceDatasetsController < ApplicationController
 
     dataset = params[:name] ? Dataset.find_by_name(params[:name]) : Dataset.find(params[:id])
     dataset.in_workspace?(workspace) or raise ActiveRecord::RecordNotFound
-    raise_denied if dataset.data_source.disabled?
+    raise ActiveRecord::RecordNotFound if dataset.data_source.disabled?
 
     authorize_data_source_access(dataset)
 
