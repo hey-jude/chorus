@@ -42,6 +42,14 @@ describe Workspaces::CsvImportsController do
     post :create, params
   end
 
+  it "returns forbidden if the data source is disabled" do
+    stub(Authority).authorize! :create, csv_file, user, { :or => :current_user_is_objects_user }
+
+    workspace.sandbox.data_source.update_attributes(:state => 'disabled')
+    post :create, params
+    response.should be_forbidden
+  end
+
   context "when the import is created successfully" do
     before do
       mock(CsvImport).create!.with_any_args { true }
