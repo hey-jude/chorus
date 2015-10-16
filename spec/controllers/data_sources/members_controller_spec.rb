@@ -72,6 +72,13 @@ describe DataSources::MembersController do
             rehydrated_account.data_source.should == data_source
           end
         end
+
+        it "allows the user to save invalid credentials" do
+          any_instance_of(DataSource) { |ds| stub(ds).valid_db_credentials? { false } }
+
+          post :create, :incomplete => "true", :data_source_id => data_source.id, :account => {:db_username => "lenny", :db_password => "secret", :owner_id => admin.id}
+          response.should be_success
+        end
       end
 
       context "when data source owner" do

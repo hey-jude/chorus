@@ -224,6 +224,7 @@ chorus.dialogs.DataSourcePermissions = chorus.dialogs.Base.extend({
         this.listenTo(this.account, "saveFailed", function() {
             this.showErrors(this.account);
         });
+        this.account.urlParams = {incomplete: "false"};
         this.account.save({
             ownerId: li.find("select").val(),
             dbUsername: li.find("input[name=dbUsername]").val(),
@@ -257,6 +258,7 @@ chorus.dialogs.DataSourcePermissions = chorus.dialogs.Base.extend({
 
     saveFailed: function() {
         this.$("a.save").stopLoading();
+        new chorus.dialogs.DataSourceInvalid({model: this.account}).launchModal();
     },
 
     removeSharedAccountAlert: function(e) {

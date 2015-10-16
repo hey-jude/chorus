@@ -43,7 +43,7 @@ class HdfsDataSourcesController < ApplicationController
   end
 
   def self.render_forbidden_if_disabled(hdfs_data_source)
-    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if hdfs_data_source.disabled?
+    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if hdfs_data_source.state == 'disabled'
   end
 
   private
