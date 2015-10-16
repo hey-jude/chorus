@@ -144,19 +144,8 @@ chorus.views.DataSourceListSidebar = chorus.views.Sidebar.extend({
 
     disableDataSource: function(e) {
         e.preventDefault();
-        this.model.set('state', 'disabled');
+        new chorus.dialogs.DataSourceDisable({model: this.model}).launchModal();
 
-        this.model.save(this.model.attributes, {
-
-            success: function(){
-                chorus.toast("data_sources.state.disabled_success.toast", {dataSourceName: this.model.name(), toastOpts: {type:"info"}});
-            }.bind(this),
-
-            error: function() {
-                chorus.toast("data_sources.state.disabled_error.toast", {dataSourceName: this.model.name(), toastOpts: {type:"success"}});
-                this.model.set('state', 'enabled');
-            }.bind(this)
-        });
     },
 
     enableDataSource: function(e) {
