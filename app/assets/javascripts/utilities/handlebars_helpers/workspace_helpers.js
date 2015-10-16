@@ -64,6 +64,27 @@ chorus.handlebarsHelpers.workspace = {
         }
 
         return new Handlebars.SafeString(result.outerHtml());
+    },
+
+    executionLocationHtml: function(name_state_url_arrays){
+        var html = '<span class="execution_locations">' + t("work_flows.show.in");
+        var first = name_state_url_arrays.shift();
+
+        name = first[0];
+        state = first[1];
+        url = first[2];
+        html += ' <img class="state" src="' + url + '" title="' + state + '"/> ' + name;
+
+        _.each(name_state_url_arrays, function(arguments_array){
+            name = arguments_array[0];
+            state = arguments_array[1];
+            url = arguments_array[2];
+            html += ', <img class="state" src="' + url + '" title="' + state + '"/> ' + name;
+        });
+        
+        html += '</span>';
+
+        return new Handlebars.SafeString(html);
     }
 };
 
