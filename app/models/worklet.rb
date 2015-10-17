@@ -8,7 +8,7 @@ class Worklet < AlpineWorkfile
 
   has_attached_file :image, :styles => {:display => "500x310>"},
                     :path => ":rails_root/system/worklets/:id/:style/:basename.:extension"
-  #validates_attachment_content_type :worklet_image, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   before_validation { self.content_type ='worklet' }
 
