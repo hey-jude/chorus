@@ -10,6 +10,7 @@ module Workspaces
 
       source_dataset = Dataset.find(import_params[:dataset_id])
       source_dataset.check_duplicate_column(current_user) if source_dataset.is_a?(ChorusView)
+      render ActiveRecord::NotFound if source_dataset.data_source.disabled?
 
       import = workspace.imports.new(import_params)
 

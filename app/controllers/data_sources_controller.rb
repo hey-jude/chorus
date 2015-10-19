@@ -28,7 +28,8 @@ class DataSourcesController < ApplicationController
   def create
     entity_type = params[:data_source].delete(:entity_type)
     data_source = DataSource.create_for_entity_type(entity_type, current_user, params[:data_source])
-    data_source.check_status!
+
+    data_source.check_status! if data_source.valid?
     present data_source, :status => :created
   end
 
@@ -47,7 +48,7 @@ class DataSourcesController < ApplicationController
   end
 
   def self.render_forbidden_if_disabled(params)
-    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if DataSource.find(params[:data_source_id]).disabled?
+    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if DataSource.find(params[:data_source_id]).state == 'disabled'
   end
 
   private

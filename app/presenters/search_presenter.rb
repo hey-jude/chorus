@@ -41,9 +41,7 @@ class SearchPresenter < SearchPresenterBase
 
 
   def self.filter_disabled(data_source_results)
-    return data_source_results if Permissioner.is_admin?(current_user)
-
-    data_source_results.select { |ds| ds.state != 'disabled' }
+    data_source_results.select { |ds| ds.state != 'disabled' && ds.state != 'incomplete' }
   end
 
   private

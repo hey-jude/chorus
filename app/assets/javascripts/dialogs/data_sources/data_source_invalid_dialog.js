@@ -25,6 +25,7 @@ chorus.dialogs.DataSourceInvalid = chorus.dialogs.Base.extend({
     createDataSource: function(e) {
         e.preventDefault();
         this.model.set({state: "incomplete"});
+        this.model.urlParams = { incomplete: "true" };
         this.model.save({silent: true});
         this.$("button.submit").startLoading("data_sources.edit_dialog.saving");
     },

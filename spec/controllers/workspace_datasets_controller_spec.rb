@@ -203,11 +203,11 @@ describe WorkspaceDatasetsController do
         context "when the dataset's data source is disabled" do
           let(:dataset) { gpdb_table }
 
-          it "should render forbidden" do
+          it "should render not found" do
             dataset.data_source.update_attributes(:state => 'disabled')
             get :show, :id => dataset.to_param, :workspace_id => workspace.to_param
 
-            response.should be_forbidden
+            response.should be_not_found
           end
         end
 
