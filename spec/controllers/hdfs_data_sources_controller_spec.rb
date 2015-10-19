@@ -86,6 +86,15 @@ describe HdfsDataSourcesController do
       expect(HdfsDataSource.find(params[:id]).disabled?).to be_true
     end
 
+    it "doesn't allow the user to set an invalid state" do
+      stub(Hdfs::QueryService).version_of { hdfs_data_source }
+      stub(Hdfs::QueryService).accessible? { true }
+      attributes[:state] = 'some random state'
+
+      put :update, params
+      response.should be_unprocessable
+    end
+
     it "checks authorization and presents the updated hadoop data source" do
       mock(Hdfs::DataSourceRegistrar).update!(hdfs_data_source.id, attributes, @user) { fake_data_source }
       mock(Authority).authorize!.with_any_args

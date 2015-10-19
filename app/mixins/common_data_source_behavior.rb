@@ -4,6 +4,7 @@ module CommonDataSourceBehavior
   included do
     before_update :create_state_change_event, :if => :current_user
     before_update :enqueue_check_status!, :if => :should_check_status?
+    validates :state, :inclusion => %w(online offline incomplete disabled enabled)
 
     def should_check_status?
       changed.include?("state") && state == "enabled"
