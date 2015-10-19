@@ -38,11 +38,14 @@ chorus.views.DashboardRecentWorkfiles = chorus.views.DashboardModule.extend({
     },
 
     collectionModelContext: function(model) {
+        //TODO: better solution for this, hard-coding for published worklets for now, similar to workspace_helpers.js
+        var model_is_published_touchpoint = model.get('fileType') === 'published_worklet';
         return {
             iconUrl: model.iconUrl(),
             showUrl: model.showUrl(),
-            workspaceShowUrl: model.workspace().showUrl(),
-            workspaceIconUrl: model.workspace().defaultIconUrl("small")
+            workspaceShowUrl: model_is_published_touchpoint ? "#/touchpoints" : model.workspace().showUrl(),
+            workspaceIconUrl: model.workspace().defaultIconUrl("small"),
+            workspaceName: model_is_published_touchpoint ? "Touchpoints" : model.workspace().name()
         };
     },
 
