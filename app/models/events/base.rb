@@ -138,7 +138,7 @@ module Events
     def self.activity_query(user, workspace_activities)
       group("events.id").readonly(false).
           joins(:activities).
-          where(%Q{(events.published = true) OR (events.actor_id=#{user.id}) OR (activities.entity_type = 'GLOBAL') OR (activities.entity_type = 'Workspace''
+          where(%Q{(events.published = true) OR (events.actor_id=#{user.id}) OR (activities.entity_type = 'GLOBAL') OR (activities.entity_type = 'Workspace'
           AND (#{workspace_activities}))})
     end
 
