@@ -18,7 +18,9 @@ class DatasetsController < ApplicationController
   end
 
   def show
-    authorize_data_source_access(Dataset.find(params[:id]))
+    data_set = Dataset.find(params[:id])
+    authorize_data_source_access(data_set)
+    raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if data_set.data_source.state == 'disabled'
     dataset = Dataset.find_and_verify_in_source(params[:id].to_i, current_user)
     present dataset, params
   end
