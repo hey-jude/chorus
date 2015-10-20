@@ -17,10 +17,7 @@ chorus.Mixins.DataSourceCredentials.page = {
 
     dependentResourceForbidden: function(resource) {
 
-        if (_.isEmpty(resource.executionLocations()) && resource.attributes.entitySubtype === "alpine"){
-            Backbone.history.loadUrl("/forbidden");
-            return;
-        }
+
 
         var dataSource = resource.dataSourceRequiringCredentials && resource.dataSourceRequiringCredentials();
         if(dataSource) {
@@ -29,9 +26,16 @@ chorus.Mixins.DataSourceCredentials.page = {
             } else {
                 chorus.pageOptions = this.unauthorizedErrorPageOptions();
                 Backbone.history.loadUrl("/forbidden");
+                return;
             }
         } else {
             this._super("dependentResourceForbidden", arguments);
+            return;
+        }
+
+        if (resource.attributes.entitySubtype === "alpine" && resource.executionLocations() && _.isEmpty(resource.executionLocations())){
+            Backbone.history.loadUrl("/forbidden");
+            return;
         }
     },
 
