@@ -386,8 +386,8 @@ class ChorusSetup:
                 self._cp_f(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/configuration/hadoop_version.properties"),\
                            os.path.join(alpine_data_repo, "configuration/hadoop_version.properties"))
                 self._mkdir_p(os.path.join(alpine_data_repo, "plugins10"))
-                self._cp_f(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/plugins10/plugins-alpine.jar"),\
-                           os.path.join(alpine_data_repo, "plugins10/plugins-alpine.jar"))
+                self._cp_f(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/plugins10/default_operators.jar"),\
+                           os.path.join(alpine_data_repo, "plugins10/default_operators.jar"))
                 if os.path.exists(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/libjars")):
                     self._cp_rf(os.path.join(self.alpine_release_path, "ALPINE_DATA_REPOSITORY/libjars"), \
                                 os.path.join(alpine_data_repo, "libjars"))
