@@ -35,7 +35,7 @@ chorus.dialogs.DataSourcePermissions = chorus.dialogs.Base.extend({
         this.listenTo(this.collection, "add", this.render);
         this.listenTo(this.collection, "saved", this.saved);
         this.listenTo(this.collection, "saveFailed", this.saveFailed);
-        this.listenTo(this.collection, "validationFailed", this.saveFailed);
+        this.listenTo(this.collection, "validationFailed", this.validationFailed);
 
     },
 
@@ -259,6 +259,10 @@ chorus.dialogs.DataSourcePermissions = chorus.dialogs.Base.extend({
     saveFailed: function() {
         this.$("a.save").stopLoading();
         new chorus.dialogs.DataSourceInvalid({model: this.account}).launchModal();
+    },
+
+    validationFailed: function() {
+        this.$("a.save").stopLoading();
     },
 
     removeSharedAccountAlert: function(e) {

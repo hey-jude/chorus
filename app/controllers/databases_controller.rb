@@ -1,6 +1,6 @@
 class DatabasesController < ApplicationController
   include DataSourceAuth
-  before_filter :check_source_disabled?, :only => [:index]
+  before_filter :check_source_disabled?, :only => [:index, :show]
 
   def index
     databases = Database.visible_to(authorized_account(data_source))

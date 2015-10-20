@@ -16,6 +16,12 @@ chorus.Mixins.DataSourceCredentials.page = {
     },
 
     dependentResourceForbidden: function(resource) {
+
+        if (_.isEmpty(resource.executionLocations()) && resource.attributes.entitySubtype === "alpine"){
+            Backbone.history.loadUrl("/forbidden");
+            return;
+        }
+
         var dataSource = resource.dataSourceRequiringCredentials && resource.dataSourceRequiringCredentials();
         if(dataSource) {
             if(chorus.models.DataSourceAccount.currentUserCanUpdateCredentialsFor(dataSource)) {

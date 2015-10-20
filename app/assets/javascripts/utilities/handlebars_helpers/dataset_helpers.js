@@ -23,7 +23,7 @@ chorus.handlebarsHelpers.dataset = {
             var databaseName = (database && Handlebars.helpers.withSearchResults(database).name()) || "";
             var schemaName = Handlebars.helpers.withSearchResults(schema).name();
 
-            if (dataset.get('hasCredentials') === false) {
+            if (dataset.get('hasCredentials') === false || dataSource.isDisabled()) {
                 locationPieces.push(dataSourceName);
                 if (databaseName.toString()) {
                     locationPieces.push(databaseName);
@@ -41,7 +41,12 @@ chorus.handlebarsHelpers.dataset = {
         function locateHdfsDataset() {
             dataSource = dataset.dataSource();
             dataSourceName = dataSource.name();
-            locationPieces.push(Handlebars.helpers.linkTo(dataSource.showUrl(), dataSourceName, {"class": "data_source"}).toString());
+            if (dataSource.isDisabled){
+                locationPieces.push(dataSourceName);
+
+            } else {
+                locationPieces.push(Handlebars.helpers.linkTo(dataSource.showUrl(), dataSourceName, {"class": "data_source"}).toString());
+            }
         }
 
         if (dataset.get('entitySubtype') === 'HDFS') {

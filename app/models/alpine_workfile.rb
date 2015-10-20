@@ -26,6 +26,7 @@ class AlpineWorkfile < Workfile
 
   def attempt_data_source_connection
     data_sources.each do |ds|
+      raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if ds.disabled?
       ds.attempt_connection(current_user)
     end
   end
