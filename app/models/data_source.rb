@@ -23,8 +23,7 @@ class DataSource < ActiveRecord::Base
   has_many :events, :through => :activities
   has_many :databases
 
-  before_validation :build_data_source_account_for_owner, :on => :create
-  before_update :update_data_source_account_for_owner, :if => :should_update_account?
+  before_save :update_data_source_account_for_owner, :if => :should_update_account?
 
   validates_associated :owner_account, :if => :validate_owner?
   validates_presence_of :name, :host

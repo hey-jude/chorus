@@ -93,6 +93,12 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             state: 'enabled'
         };
 
+        if (this.model.isDisabled()){
+            attrs["state"] = 'disabled';
+        } else {
+            attrs["state"] = 'enabled';
+        }
+
         _.each(this.formFields, function(name) {
             var input = this.$("input[name=" + name + "], select[name=" + name + "]");
             if (input.length) {
