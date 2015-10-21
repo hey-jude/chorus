@@ -2,6 +2,9 @@ chorus.Mixins.DataSourceCredentials = {};
 
 chorus.Mixins.DataSourceCredentials.model = {
     dataSourceRequiringCredentials: function() {
+        if (_.isUndefined(this.serverErrors)){
+            return;
+        }
         this.invalidCredentials = (this.serverErrors.record === 'INVALID_CREDENTIALS');
         return new chorus.models.DynamicDataSource(this.serverErrors.modelData);
     }
