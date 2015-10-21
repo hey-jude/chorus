@@ -47,7 +47,7 @@ Chorus::Application.configure do
   config.assets.debug = false
 
   # Only turn it on if you really need concurrent requests
-  #config.allow_concurrency = true
+  config.allow_concurrency = true
   #config.threadsafe!
 
   if ChorusConfig.instance['mail.enabled']

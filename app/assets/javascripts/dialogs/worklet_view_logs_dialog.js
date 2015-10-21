@@ -35,16 +35,17 @@ chorus.dialogs.WorkletViewLogsDialog = chorus.dialogs.Base.include(
                             badDataMsg += log.logmessage + '<br/>';
                         }
                         else{
-                            div.innerHTML = " [" + log.dateTime + "] " + "  " + name + "  " + message;
-                            dialogDiv.append(div);
                             //append error message
-                            if (log.message === 'process_error') {
-                                var div1 = $('<div></div>')[0];
-                                div1.id = name + "_errdiv";
-                                div1.style.color = "FF0000";
+                            if (log.errMessage !== 'null' || log.message === 'process_error') {
+                                div.style.color = "#FF0000";
 
-                                div1.innerHTML = log.errMessage;
-                                dialogDiv.append(div1);
+                                div.innerHTML = " [" + log.dateTime + "] " + log.errMessage;
+                                dialogDiv.append(div);
+                            }
+
+                            else {
+                                div.innerHTML = " [" + log.dateTime + "] " + "  " + name + "  " + message;
+                                dialogDiv.append(div);
                             }
                         }
                     }

@@ -7,8 +7,7 @@ chorus.views.WorkletHeader = chorus.views.Base.extend({
         "click button.save": 'clickedMenu',
         "click button.close": 'clickedMenu',
         "click a.menu_item": 'clickedMenu',
-        "click a.actions_menu": 'togglePopupMenu',
-        "click .worklet_action_menu a.label": "toggleWorkletMenu",
+        "click a.actions_menu": 'toggleWorkletMenu',
         "click #worklet_header_shareResultsLink": "openShareResults",
         "click #worklet_header_saveReportLink": "saveHTMLReport",
         "click #worklet_header_viewLogsLink": "viewLogs"
