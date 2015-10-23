@@ -38,7 +38,10 @@
             ["users/new", "UserNew"],
             ["workspaces", "WorkspaceIndex"],
             ["workspaces/:id", "WorkspaceShow"],
-            ["workspaces/:id/quickstart", "WorkspaceQuickstart"],
+            
+            // ["workspaces/:id/quickstart", "WorkspaceQuickstart"],
+            ["workspaces/:id/quickstart", "WorkspaceShow"],
+            
             ["workspaces/:workspaceId/workfiles", "WorkfileIndex"],
             ["workspaces/:workspaceId/datasets/:datasetId", "WorkspaceDatasetShow"],
             ["workspaces/:workspaceId/chorus_views/:datasetId", "ChorusViewShow"],

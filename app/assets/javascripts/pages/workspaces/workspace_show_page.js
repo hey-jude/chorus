@@ -65,7 +65,8 @@ chorus.pages.WorkspaceShowPage = chorus.pages.Base.extend({
                 this.model.get("hasAddedSandbox") === false ||
                 this.model.get("hasChangedSettings") === false)) {
 
-                chorus.router.navigate("/workspaces/" + this.workspaceId + "/quickstart");
+                //chorus.router.navigate("/workspaces/" + this.workspaceId + "/quickstart");
+                
                 return;
             }
         }
