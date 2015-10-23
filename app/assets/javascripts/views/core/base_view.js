@@ -73,7 +73,7 @@ chorus.views.Base = chorus.views.Bare.extend({
         }
     },
 
-    showErrors: function(model) {
+    showErrors: function(model, options) {
         var self = this;
 
         var isModal = $(this.el).closest(".dialog").length;
@@ -84,8 +84,8 @@ chorus.views.Base = chorus.views.Bare.extend({
         if (!model) { return; }
 
         _.each(model.errors, function(val, key) {
-            var $input = self.$("input[name=" + key + "], form textarea[name=" + key + "]");
-            self.markInputAsInvalid($input, val, isModal);
+            var $input = self.$("select[name=\"" + key + "\"], input[name=\"" + key + "\"], form textarea[name=\"" + key + "\"]");
+            self.markInputAsInvalid($input, val, isModal, options);
         });
         this.displayServerErrors(model);
     },
@@ -95,8 +95,10 @@ chorus.views.Base = chorus.views.Bare.extend({
         this.$(".errors").removeClass("hidden");
     },
 
-    markInputAsInvalid: function($input, message, isModal) {
+    markInputAsInvalid: function($input, message, isModal, options) {
         var classes = isModal ? "tooltip-error tooltip-modal" : "tooltip-error";
+        options = options || {};
+
         $input.addClass("has_error");
         $input.qtip({
             content: {
@@ -111,11 +113,11 @@ chorus.views.Base = chorus.views.Bare.extend({
                     height: 12
                 }
             },
-            position: {
+            position: _.extend({
                 my: "left center",
                 at: "right center",
                 container: this.el
-            }
+            }, options.position)
         });
     },
 

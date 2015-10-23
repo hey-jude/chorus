@@ -84,10 +84,12 @@ resource "Workfiles" do
   post "/workfiles/:workfile_id/results" do
     parameter :workfile_id, "Id of workfile to add result"
     parameter :result_id, "Id of workfile result on alpine"
+    parameter :results_written, "boolean of whether results were written after Alpine run"
 
     required_parameters :workfile_id
 
     let(:result_id) { "0.1274758" }
+    let(:results_written) { "true" }
 
     example_request "Add a workfile result to a workfile" do
       status.should == 201

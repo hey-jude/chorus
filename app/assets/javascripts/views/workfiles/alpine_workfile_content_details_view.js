@@ -14,20 +14,40 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
     },
 
     additionalContext: function () {
+
         var ctx = {
             workFlowShowUrl: this.model.workFlowShowUrl(),
-            canOpen: this.model.canOpen(),
+            canOpen: this.model.canOpen() && !this.locationSourceDisabled(),
             canUpdate: this.canUpdate()
         };
-        ctx.locationNames = _.map(this.model.executionLocations(), function (executionLocation) {
-            if (executionLocation.get("entityType") === "gpdb_database") {
-                return executionLocation.dataSource().get("name") + '.' + executionLocation.get("name");
-            } else {
-                return executionLocation.get("name");
+        ctx.locations  = _.map(this.model.executionLocations(), function (executionLocation) {
+            if (!_.isUndefined(executionLocation.dataSource)) {
+                stateText = executionLocation.dataSource().stateText();
+                stateUrl  = executionLocation.dataSource().stateIconUrl();
+            } else if (!_.isUndefined(executionLocation.attributes.state)) {
+                stateText = executionLocation.stateText();
+                stateUrl  = executionLocation.stateIconUrl();
             }
-        }).join(', ');
+
+            if (executionLocation.get("entityType") === "gpdb_database") {
+                return [executionLocation.dataSource().get("name") + '.' + executionLocation.get("name"), stateText, stateUrl];
+            } else {
+                return [executionLocation.get("name"), stateText, stateUrl];
+            }
+        });
 
         return ctx;
+    },
+
+    locationSourceDisabled: function(){
+        var location = this.model.executionLocations()[0];
+        var source_disabled = false;
+        
+        if (location && !_.isUndefined(location.dataSource)) {
+            source_disabled = location.dataSource().isDisabled();
+        }
+
+        return source_disabled;
     },
 
     changeWorkfileDatabase: function(e) {

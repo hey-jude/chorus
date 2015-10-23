@@ -10,7 +10,7 @@
 
                 {{#if dataSourcesLoaded}}
                     <select class="data_sources full_dialog_horizontal{{#unless loaded}} hidden{{/unless}}">
-                        <option value="">{{t "selectbox.select_one"}}</option>
+                        <option value="">{{t "general.select_one"}}</option>
                         {{#each dataSources}}
                             <option value={{id}}>{{name}}</option>
                         {{/each}}
@@ -31,7 +31,7 @@
         {{> legendRequired}}
 
     </div>
-    <!-- END girdle -->
+    {{!-- END girdle --}}
 
     {{#if datasetPersisted}}
         {{formControls "edit_hdfs_dataset.submit"}}

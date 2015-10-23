@@ -1,32 +1,21 @@
 # Clear all tables related to roles, groups and permissions.
 puts 'Clearing data entries for roles, groups and permissions'
-connection = ActiveRecord::Base.connection
-#Role.destroy_all
-connection.execute("DELETE FROM roles")
-connection.execute("DELETE FROM roles_users")
+Role.destroy_all
 
-#Group.destroy_all
-connection.execute("DELETE FROM groups")
-connection.execute("DELETE FROM groups_roles")
-connection.execute("DELETE FROM groups_users")
+Group.destroy_all
 
-#Permission.destroy_all
-connection.execute("DELETE FROM permissions")
+Permission.destroy_all
 
-#ChorusScope.destroy_all
-connection.execute("DELETE FROM chorus_scopes")
+ChorusScope.destroy_all
 
-#Operation.destroy_all
-connection.execute("DELETE FROM operations")
+Operation.destroy_all
 
-#ChorusClass.destroy_all
-connection.execute("DELETE FROM chorus_classes")
+ChorusClass.destroy_all
 
-#ChorusObject.destroy_all
-connection.execute("DELETE FROM chorus_objects")
+ChorusObject.destroy_all
 
-#ChorusObjectRole.destroy_all
-connection.execute("DELETE FROM chorus_object_roles")
+ChorusObjectRole.destroy_all
+
 puts '--- DONE ----'
 
 

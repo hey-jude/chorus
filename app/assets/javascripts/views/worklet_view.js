@@ -1,9 +1,9 @@
 chorus.views.WorkletView = chorus.views.Base.extend({
     constructorName: 'WorkletView',
-    templateName: 'worklet',
+    templateName: 'worklets/worklet',
 
     events:{
-        "submit form":'saveWorklet'
+        "submit form": 'saveWorklet'
     },
 
     saveWorklet:function saveWorklet(e) {

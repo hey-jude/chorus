@@ -1,0 +1,42 @@
+{{!-- worklet: workflow used --}}
+
+<div class="worklet_configuration_panel worklet_workflow_configuration">
+  {{#if isNewWorklet}}
+    <div class="main_header"><h2>{{t "worklet.main.make_new_worklet.heading"}}</h2></div>
+  {{else}}
+    <div class="main_header"><h2>{{t "worklet.main.configure_worklet.heading"}}</h2></div>
+  {{/if}}
+
+  <div class="step_header">
+    <h3>{{t "worklet.main.step_workflow_used"}}</h3>
+
+    <div class="description">
+      {{t "worklet.main.step_workflow_used_description"}}
+    </div>
+  </div>
+
+  <div class="workflow_details">
+    <div class="section_header">{{t 'worklet.new.workflow_details_header'}}</div>
+
+    <span class="image workfile_image">
+        <img src="{{workflowIconUrl}}" alt="{{t 'entity.name.workflow.thing'}}"/>
+      </span>
+
+    <table>
+      <tr>
+        <th>{{t "worklet.configure.workflow_used_info.name"}}</th>
+        <td><a href="{{workflowWorkfileUrl}}">{{workflow.fileName}}</a></td>
+      </tr>
+      <tr>
+        <th>{{t "worklet.configure.workflow_used_info.user_modified_at"}}</th>
+        <td>{{modifiedTime}}</td>
+      </tr>
+      {{#if hasComments}}
+        <tr>
+          <th>{{t "worklet.configure.workflow_used_info.comment"}}</th>
+          <td>{{{lastComment}}}</td>
+        </tr>
+      {{/if}}
+    </table>
+  </div>
+</div>

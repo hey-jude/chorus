@@ -14,9 +14,6 @@ module JdbcOverrides
   #
   #  module DatasetOverrides
   #  end
-  #
-  #  module VisualizationOverrides
-  #  end
   #end
 
   # For hive2, mariadb, sqlserver, teradata, ... there are some deviations from standard jdbc behavior.

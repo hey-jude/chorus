@@ -20,9 +20,16 @@ def processify(msg='', interval=0.5):
             p = Process(target=process_func, args=[q]+list(args), kwargs=kwargs)
             p.start()
             sys.__stdout__.write(msg+"\n")
+            count = 0
             while p.is_alive():
                 sys.stdout.write(".")
                 sys.stdout.flush()
+                count += 1
+                if count == 60:
+                    sys.stdout.write("\r" + " "*60)
+                    sys.stdout.write("\r")
+                    sys.stdout.flush()
+                    count = 0
                 time.sleep(interval)
             ret, error = q.get()
             if error:

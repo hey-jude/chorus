@@ -123,6 +123,11 @@ describe DataSource do
   describe '#refresh' do
     let(:data_source) { data_sources(:owners) }
 
+    it 'checks if the data source is disabled' do
+      any_instance_of(DataSource){ |ds| mock(ds).disabled? }
+      DataSource.refresh(data_source.id)
+    end
+
     it 'refreshes databases for the data source' do
       mock(data_source).refresh_databases({})
       data_source.refresh
@@ -174,7 +179,7 @@ describe DataSource do
       let(:data_source) { data_sources(:owners) }
 
       it 'raises an exception' do
-        expect { data_source.account_for_user!(users(:no_collaborators)) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { data_source.account_for_user!(users(:no_collaborators)) }.to raise_error(Authority::AccessDenied)
       end
     end
   end
@@ -251,6 +256,25 @@ describe DataSource do
         }.to change(data_source, :last_online_at)
       end
     end
+
+    context "when the data source is disabled" do
+      it "does not check the status" do
+
+        any_instance_of(DataSource) do |ds|
+          stub(ds).check_status! { raise "should not be raised" }
+        end
+        expect { data_source.update_attributes(:state => 'disabled') }.not_to raise_error
+      end
+    end
+
+    context "when the data source is enabled" do
+      it "checks the status" do
+        any_instance_of(DataSource) do |ds|
+          #mock(ds).check_status!
+        end
+        data_source.update_attributes(:state => 'enabled')
+      end
+    end
   end
 
   describe "search fields" do
@@ -282,6 +306,12 @@ describe DataSource do
     let(:data_source) { data_sources(:owners) }
     it "should enqueue a job" do
       mock(SolrIndexer.SolrQC).enqueue_if_not_queued("DataSource.reindex_data_source", data_source.id)
+      data_source.solr_reindex_later
+    end
+
+    it "should not enqueue a job if the data source is disabled" do
+      data_source.update_attributes(:state => 'disabled')
+      any_instance_of(DataSource){ |ds| mock(ds).disabled? }
       data_source.solr_reindex_later
     end
   end
@@ -330,9 +360,28 @@ describe DataSource do
     Events::DataSourceDeleted.last.data_source.should == data_source
   end
 
+  it "creates an event if the data source is enabled" do
+    set_current_user(users(:admin))
+    data_source = data_sources(:default)
+    data_source.update_attributes(:state => "disabled")
+    expect { data_source.update_attributes(:state => "enabled") }.to change { Events::DataSourceChangedState.count }.by(1)
+    Events::DataSourceChangedState.last.data_source.should == data_source
+  end
+
+  it "creates an event if the data source is disabled" do
+    set_current_user(users(:admin))
+    data_source = data_sources(:default)
+    expect { data_source.update_attributes(:state => "disabled") }.to change { Events::DataSourceChangedState.count }.by(1)
+    Events::DataSourceChangedState.last.data_source.should == data_source
+  end
+
   it_should_behave_like "taggable models", [:data_sources, :default]
 
   it_behaves_like 'a soft deletable model' do
     let(:model) { data_sources(:oracle) }
+  end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { data_sources(:oracle) }
   end
 end

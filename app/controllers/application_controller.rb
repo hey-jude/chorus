@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   rescue_from 'SearchExtensions::SolrUnreachable', :with => :render_solr_unreachable_error
   rescue_from 'ModelMap::UnknownEntityType', :with => :render_unprocessable_entity
   rescue_from 'DataSourceConnection::InvalidCredentials', :with => :render_forbidden
+  rescue_from 'Sequel::AdapterNotFound', :with => :render_adapter_not_found
   rescue_from 'Net::LDAP::LdapError', :with => :render_service_unavailable_error
   rescue_from 'Net::LDAP::Error', :with => :render_ldap_service_unavailable_error
   rescue_from 'LdapClient::LdapNotCorrectlyConfigured', :with => :render_service_unavailable_error
@@ -48,6 +49,10 @@ class ApplicationController < ActionController::Base
     else
       super
     end
+  end
+
+  def current_user
+    Thread.current[:user]
   end
 
   private
@@ -100,6 +105,10 @@ class ApplicationController < ActionController::Base
     present_errors({:record => :HDFS_QUERY_ERROR, :message => e.message}, :status => :not_found)
   end
 
+  def render_adapter_not_found(e)
+    present_errors({:record => :ADAPTER_NOT_FOUND}, :status => :unprocessable_entity)
+  end
+
   def render_resource_forbidden(e)
     present_errors({:message => e.message, :type => e.class.name}, :status => :forbidden)
   end
@@ -132,10 +141,6 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_user
-  end
-
-  def current_user
-    Thread.current[:user]
   end
 
   #PT Method to check if current user is in scope
@@ -178,7 +183,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_collection_defaults
+    # PT: Need to fully qualify request.params in Rails 4.0
+    #TODO:Prakash Not sure why I have to add this twice. params and request.params have different storage.
+    #Some Rspec test cases are failing since request.parameteres do not get the :page and :per_page parameters.
     params.reverse_merge!(Chorus::Application.config.collection_defaults)
+    request.params.reverse_merge!(Chorus::Application.config.collection_defaults)
   end
 
   def present(model_or_collection, options={})

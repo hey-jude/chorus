@@ -1,5 +1,5 @@
 class PublishedWorkletPresenter < WorkletPresenter
-  def variables
-    model.published_variables
+  def parameters
+    model.published_parameters
   end
 end

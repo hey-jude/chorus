@@ -1,5 +1,7 @@
 module DataSources
   class AccountsController < ApplicationController
+    before_filter :check_source_disabled?
+
     def show
       present DataSource.find(params[:data_source_id]).account_for_user(current_user)
     end
@@ -32,6 +34,10 @@ module DataSources
 
       account.save!
       account
+    end
+
+    def check_source_disabled?
+      ::DataSourcesController.render_forbidden_if_disabled(params)
     end
   end
 end

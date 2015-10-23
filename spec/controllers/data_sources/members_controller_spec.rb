@@ -36,6 +36,13 @@ describe DataSources::MembersController do
       it_behaves_like "a paginated list" do
         let(:params) { {:data_source_id => data_source.to_param} }
       end
+
+      it "should be forbidden if the data source is disabled" do
+        data_source.update_attributes(:state => 'disabled')
+        get :index, :data_source_id => data_source.to_param
+
+        response.should be_forbidden
+      end
     end
 
     describe "#create" do
@@ -64,6 +71,13 @@ describe DataSources::MembersController do
             rehydrated_account.owner.should == admin
             rehydrated_account.data_source.should == data_source
           end
+        end
+
+        it "allows the user to save invalid credentials" do
+          any_instance_of(DataSource) { |ds| stub(ds).valid_db_credentials? { false } }
+
+          post :create, :incomplete => "true", :data_source_id => data_source.id, :account => {:db_username => "lenny", :db_password => "secret", :owner_id => admin.id}
+          response.should be_success
         end
       end
 

@@ -40,7 +40,7 @@ class WorkspacesController < ApplicationController
         present paginate(@workspaces),
            :presenter_options => {
                :show_latest_comments => (params[:show_latest_comments] == 'true'),
-              :succinct => succinct, :cached => true, :cache_expiry => 7.days, :namespace => @namespace
+               :succinct => succinct, :cached => true, :namespace => @namespace
         }
 
       end
@@ -55,7 +55,7 @@ class WorkspacesController < ApplicationController
       present paginate(@workspaces),
              :presenter_options => {
                  :show_latest_comments => (params[:show_latest_comments] == 'true'),
-                 :succinct => succinct, :cached => true, :cache_expiry => 7.days, :namespace => @namespace
+                 :succinct => succinct, :cached => true, :namespace => @namespace
              }
 
     end
@@ -79,7 +79,7 @@ class WorkspacesController < ApplicationController
     permissions = Workspace.permission_symbols_for current_user
     permissions.push(:update).uniq! if workspace.member? current_user
     # use the cached version of "workspaces:workspaces" namespace.
-    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true', :cached => true, :cache_expiry => 7.days, :namespace => 'workspaces:workspaces' }
+    present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true', :cached => false, :namespace => 'workspaces:workspaces' }
   end
 
   def update
@@ -87,9 +87,15 @@ class WorkspacesController < ApplicationController
 
     attributes = params[:workspace]
     attributes[:archiver] = current_user if (attributes[:archived] && !workspace.archived?)
-    workspace.attributes = attributes
 
+    workspace.attributes = attributes
     Authority.authorize! :update, workspace, current_user, { :or => :current_user_can_update_workspace }
+
+    if workspace.changed.include?("owner_id")
+      update_owner_role(workspace, workspace.owner_id_was, workspace.owner_id)
+    end
+
+
     create_workspace_events(workspace) if workspace.valid?
 
     workspace.save!
@@ -98,7 +104,16 @@ class WorkspacesController < ApplicationController
 
   def destroy
     workspace = Workspace.find(params[:id])
+    worklets = Worklet.where(:workspace_id => params[:id])
+    worklets.each do |worklet|
+      Authority.authorize! :destroy, worklet, current_user, { :or => :current_user_is_worklets_workspace_owner }
+    end
     Authority.authorize! :destroy, workspace, current_user, { :or => :current_user_is_object_owner }
+
+    if worklets.any?
+      worklets.destroy_all
+    end
+
     Events::WorkspaceDeleted.by(current_user).add(:workspace => workspace)
     workspace.destroy
 
@@ -129,6 +144,15 @@ class WorkspacesController < ApplicationController
     if workspace.project_status_changed? || workspace.project_status_reason_changed?
       Events::ProjectStatusChanged.by(current_user).add(:workspace => workspace)
     end
+  end
+
+  def update_owner_role(workspace, old_owner_id, new_owner_id)
+    old_owner = User.find(old_owner_id)
+    new_owner = User.find(new_owner_id)
+    owner_role = Role.find_by_name("Owner")
+
+    workspace.remove_user_from_object_role(old_owner, owner_role)
+    workspace.add_user_to_object_role(new_owner, owner_role)
   end
 end
 

@@ -175,7 +175,7 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
         });
 
         this.models.workfileWithErrors = this.models.workfile.clone();
-        
+
         this.models.workfileWithErrors.serverErrors = {
             fields: { general: { GENERIC: { field: "general", message: "JDBC::Postgres::Oracle::Connection Really long message that should not wrap in a weird way" }}}
         };
@@ -183,15 +183,15 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
         // *****
         // to set up the workfileConflictAlert
         this.models.workfileWithConflict = this.models.workfile.clone();
-        
+
         var conflictMessage = "This work file has been modified by Brobee";
         this.models.workfileWithConflict.serverErrors = {fields: {version: {GENERIC: {message: conflictMessage}}}};
-        
+
         this.models.workfileWithConflict.versionInfo = {
             content : "version content",
         };
         // *****
-               
+
         this.models.tableauWorkfile = new chorus.models.Workfile({
             fileName: "Bestest Tableaust Workfile",
             fileType: "tableau_workbook",
@@ -273,7 +273,7 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
             workspace: this.models.workspace.attributes,
             timestamp: "2015-01-31T20:14:27Z"
         });
-        
+
         this.models.searchResult = new chorus.models.SearchResult({
             users: {
                 results: [this.models.user.set({ highlightedAttributes: {
@@ -369,7 +369,7 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
                 this.models.chorusView.attributes
             ]
         });
- 
+
         this.models.chartOptions = {type: "boxplot", name: "Foo"};
 
         this.models.datasetFilter = new chorus.models.DatasetFilter({
@@ -823,10 +823,10 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
 
               "Change Password": new chorus.dialogs.ChangePassword({
                     model: this.models.otherUser
-                }),               
+                }),
 
             "Create Comment": new chorus.dialogs.Comment(),
-            
+
             "Create Note": new chorus.dialogs.NotesNew({pageModel: new chorus.models.Job()}),
 
 
@@ -861,7 +861,7 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
             "Data Source Permissions": new chorus.dialogs.DataSourcePermissions({
                 dataSource: this.models.gpdbDataSource
             }),
-            
+
             "Edit Data Source (GPDB)": new chorus.dialogs.DataSourceEdit({
                 model: this.models.gpdbDataSource
             }),
@@ -950,12 +950,12 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
                     svgData: "<svg/>"
                 }
             }),
-            
+
             "Analyze this?" :  new chorus.alerts.Analyze({
                 model: this.models.dataset
             }),
 
-            
+
             "Analyze this + error" :  new chorus.alerts.Analyze({
                 model: this.models.newModelwithError
             }),
@@ -977,7 +977,7 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
             "Add Shared Account Alert": new chorus.alerts.AddSharedAccount(),
 
             "Remove Shared Account Alert": new chorus.alerts.RemoveSharedAccount(),
-            
+
             "Remove Individual Account Alert": new chorus.alerts.RemoveIndividualAccount(),
 
 //             "Remove Join Alert": new chorus.alerts.RemoveJoinConfirmAlert({
@@ -990,7 +990,7 @@ chorus.pages.StyleGuidePage.SiteElementsView = chorus.views.Bare.extend({
 
             "workfile conflict alert": new chorus.alerts.WorkfileConflict({
                 model: this.models.workfileWithConflict,
-                
+
                 //versionInfo: { content : "version content" }
             })
         };

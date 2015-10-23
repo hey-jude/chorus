@@ -3,7 +3,9 @@ require 'zip_file_generator'
 
 module LogArchiver
 
-  ARCHIVE_DIR = "#{Rails.root}/tmp/log_archiver"
+  # This needs to be in `system` in order to work with 'X-Accel-Redirect' ...
+  # See: http://thedataasylum.com/articles/how-rails-nginx-x-accel-redirect-work-together.html
+  ARCHIVE_DIR = "#{Rails.root}/system/log_archiver"
   ASSEMBLE_ZIP_DIR = "#{ARCHIVE_DIR}/tmp"
 
   def create_archive
@@ -12,27 +14,40 @@ module LogArchiver
     @log_archiver_logfile = File.new("#{ASSEMBLE_ZIP_DIR}/log_archiver.log", "w+")
     start_time = Time.now
     log "Log archiver started at #{start_time.to_formatted_s(:long)}"
-
     log "Truncating logs into #{ASSEMBLE_ZIP_DIR} ..."
 
-    truncate_logs_into_assemble_zip_dir
+    # KT: chorus_control.sh modifies $CHORUS_HOME for the webserver process -- appending './current'
+    @chorus_home = "#{(`echo $CHORUS_HOME`).to_s.strip}/../.."
+
+    add_logs
+    add_config_files
+    add_licences
+    add_properties
+    add_hdfs_data_sources
 
     log "Zipping, after: #{Time.now - start_time}."
-
     @log_archiver_logfile.close()
 
     # alpine_logs_20150720150924.zip
-    zip_path = "#{ARCHIVE_DIR}/alpine_logs_#{Time.now.to_formatted_s(:number)}.zip"
+    zip_file_path = zip
 
-    zip_file = ZipFileGenerator.new(ASSEMBLE_ZIP_DIR, zip_path)
-    zip_file.write()
-
-    `rm -rf #{ASSEMBLE_ZIP_DIR}`
-
-    zip_path
+    zip_file_path
   end
 
   private
+
+  def log_cmd(cmd)
+    log cmd
+    log `#{cmd}`
+  end
+
+  def log(msg)
+    unless msg.blank?
+      logger.debug msg
+      @log_archiver_logfile.write("#{msg}\n")
+      @log_archiver_logfile.flush
+    end
+  end
 
   # KT: from Nate ... see: https://alpine.atlassian.net/browse/DEV-11637
   # Alpine.log > chorus user's home directory
@@ -48,7 +63,7 @@ module LogArchiver
     alpine_install = {path: "/tmp/install.log",
                       archive_path: "#{ASSEMBLE_ZIP_DIR}/alpine_install_logs"}
 
-    postgres = {path: "#{(`echo $CHORUS_HOME`).to_s.strip}/shared/db/server.log",
+    postgres = {path: "#{@chorus_home}/shared/db/server.log",
                 archive_path: "#{ASSEMBLE_ZIP_DIR}/postgres_logs"}
 
     chorus = {path: "#{Rails.root}/log",
@@ -73,10 +88,10 @@ module LogArchiver
   end
 
   def tomcat_path(version)
-    "#{(`echo $CHORUS_HOME`).to_s.strip}/alpine-current/apache-tomcat-#{version}/logs"
+    "#{@chorus_home}/alpine-current/apache-tomcat-#{version}/logs"
   end
 
-  def truncate_logs_into_assemble_zip_dir
+  def add_logs
 
     log_locations.each do |log|
       if File.exists?(log[:path])
@@ -114,17 +129,68 @@ module LogArchiver
     log_cmd("tail -n #{num_lines} \"#{path}\" > \"#{truncated_path}\"")
   end
 
-  def log_cmd(cmd)
-    log cmd
-    log `#{cmd}`
-  end
+  def add_config_files
+    path = "#{ASSEMBLE_ZIP_DIR}/config_files"
 
-  def log(msg)
-    unless msg.blank?
-      logger.debug msg
-      @log_archiver_logfile.write("#{msg}\n")
-      @log_archiver_logfile.flush
+    ["#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.runtime.conf",
+     "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/alpine.conf"].each do |file|
+      if File.exists?(file)
+        copy_file(file, path)
+      else
+        log "WARN: Not found! #{file} \n"
+      end
     end
   end
 
+  def add_licences
+    path = "#{ASSEMBLE_ZIP_DIR}/licence_files"
+
+    ["#{@chorus_home}/shared/chorus.license", "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/alpine.license"].each do |file|
+      if File.exists?(file)
+        copy_file(file, path)
+      else
+        log "WARN: Not found! #{file} \n"
+      end
+    end
+  end
+
+  def add_properties
+    path = "#{ASSEMBLE_ZIP_DIR}/properties_files"
+
+    ["#{@chorus_home}/shared/chorus.properties",
+     "#{@chorus_home}/shared/ALPINE_DATA_REPOSITORY/configuration/deploy.properties"].each do |file|
+
+      if File.exists?(file)
+        copy_file(file, path)
+      else
+        log "WARN: Not found! #{file} \n"
+      end
+    end
+
+  end
+
+  def add_hdfs_data_sources
+    path = "#{ASSEMBLE_ZIP_DIR}/registered_hdfs_data_sources/"
+    log_cmd "mkdir -p #{path}"
+
+    filename = path + 'hdfs_data_sources.json'
+
+    json = HdfsDataSource.all.to_json
+    File.open(filename, 'w') { |f| f.write(json) }
+  end
+
+  def copy_file(from, to)
+    log_cmd "mkdir -p #{to}"
+    log_cmd("cp #{from} #{to}")
+  end
+
+  def zip
+    zip_path = "#{ARCHIVE_DIR}/alpine_logs_#{Time.now.to_formatted_s(:number)}.zip"
+
+    zip_file = ZipFileGenerator.new(ASSEMBLE_ZIP_DIR, zip_path)
+    zip_file.write()
+
+    `rm -rf #{ASSEMBLE_ZIP_DIR}`
+    zip_path
+  end
 end

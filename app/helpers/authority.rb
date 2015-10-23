@@ -9,6 +9,14 @@ module Authority
 
   # Triggers a 403 in the ApplicationController
   class AccessDenied < StandardError
+    attr_reader :action, :subject, :payload
+
+    def initialize(message, action, subject, payload=nil)
+      @message = message
+      @action = action
+      @subject = subject
+      @payload = payload
+    end
   end
 
   # Attempts to match the given activity with the activities
@@ -22,19 +30,24 @@ module Authority
     # retreive user and object information
     legacy_action_allowed = handle_legacy_action(options, object, user) if options
     chorus_class = ChorusClass.search_permission_tree(object.class, activity_symbol)
-
     # If we don't have new-style permissions chorus_classs for the object,
     # and the old permissions didn't pass either, then raise access denied
-    raise_access_denied if !legacy_action_allowed && chorus_class.nil?
+    raise_access_denied(activity_symbol, object) if !legacy_action_allowed && chorus_class.nil?
 
     if !legacy_action_allowed
       roles = retrieve_roles(user)
+
       chorus_object = ChorusObject.where(:instance_id => object.id, :chorus_class_id => chorus_class.id).first
 
       actual_class = chorus_class.name.constantize
 
       class_permissions = common_permissions_between(roles, chorus_class)
-      object_permissions = common_permissions_between(roles, chorus_object)
+
+      if chorus_object
+        role_ids = chorus_object.roles_for_user(user).map(&:id)
+        object_permissions = Permission.where(:role_id => role_ids, :chorus_class_id => chorus_class.id)
+      end
+
       permissions = [class_permissions, object_permissions].flatten.compact
 
       activity_mask = actual_class.bitmask_for(activity_symbol)
@@ -44,7 +57,7 @@ module Authority
       end
     end
 
-    raise_access_denied if !allowed && !legacy_action_allowed
+    raise_access_denied(activity_symbol, object) if !allowed && !legacy_action_allowed
 
     allowed || legacy_action_allowed
   end
@@ -73,7 +86,8 @@ module Authority
                       if object.respond_to? :shared then object.shared? else false end
 
                     when :data_source_account_exists
-                      user.data_source_accounts.exists?(:data_source_id => object.id)
+                      # Collaborators don't have data_source permissions yet so we have to include this workaround until 5.7
+                      user.data_source_accounts.exists?(:data_source_id => object.id) || object.is_a?(::HdfsDataSource)
 
                     when :current_user_can_create_comment_on_event
                         ::Events::Base.for_dashboard_of(user).find_by_id(object.id) || object.workspace.public?
@@ -109,6 +123,9 @@ module Authority
                     when :current_user_is_notes_workspace_owner
                       (object.class < ::Events::Base) && object.workspace && (object.workspace.owner == user)
 
+                    when :current_user_is_worklets_workspace_owner
+                      object.is_a?(Worklet) && object.workspace && object.workspace.owner == user
+
                     when :current_user_promoted_note
                       (object.class < ::Events::Base) && object.promoted_by == user
 
@@ -141,6 +158,9 @@ module Authority
     elsif object.is_a?(Comment)
       Events::Base.for_dashboard_of(current_user).exists?(comment.event_id)
 
+    elsif object.is_a?(DataSource)
+        object.accessible_to(user)
+
     elsif object.is_a?(Workspace)
       object.visible_to? user
 
@@ -164,14 +184,14 @@ module Authority
     account = data_source.account_for_user(current_user) || data_source.accounts.build(:owner => current_user)
     account.owner
   end
-  
+
   def self.retrieve_roles(user)
     roles = user.roles.clone
+
     user.groups.each do |group|
       roles << group.roles if group.roles.empty? == false
     end
-    # PT: Andrew, why do we need this?
-    roles.reject!{|r| r.class.name == 'Array'}
+
     roles
   end
 
@@ -188,8 +208,8 @@ module Authority
     (bits & mask) == mask
   end
 
-  def self.raise_access_denied
-    raise AccessDenied.new
+  def self.raise_access_denied(sym, obj)
+    raise AccessDenied.new("Not Authorized", sym, obj)
   end
 
 end

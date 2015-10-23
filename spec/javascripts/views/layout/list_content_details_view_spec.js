@@ -406,9 +406,9 @@ describe("chorus.views.ListContentDetails", function() {
             this.view.render();
         });
         it("shows the loading text in the right place", function() {
-            expect(this.view.$(".count")).not.toContainTranslation("loading");
+            expect(this.view.$(".count")).not.toContainTranslation("general.loading");
             this.view.startLoading(".count");
-            expect(this.view.$(".count")).toContainTranslation("loading");
+            expect(this.view.$(".count")).toContainTranslation("general.loading");
         });
     });
 

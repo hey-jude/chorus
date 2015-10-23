@@ -31,6 +31,7 @@ delete_unimported_csv_files_after_hours = 12
 instance_poll_interval_minutes = 5
 reindex_search_data_interval_hours = 24
 reset_counter_cache_interval_hours = 24
+restart_indexer_interval_hours = 24
 
 sandbox_recommended_size_in_gb = 5
 
@@ -195,3 +196,6 @@ demo_mode.enabled=false
 jdbc_schema_blacklist.postgresql = [information_schema, pg_catalog]
 jdbc_schema_blacklist.sqlserver = [db_accessadmin, db_backupoperator, db_datareader, db_datawriter, db_ddladmin, db_denydatareader, db_denydatawriter, db_owner, db_securityadmin, dbo, INFORMATION_SCHEMA, sys]
 jdbc_schema_blacklist.teradata = [All, Crashdumps, DBC, dbcmngr, Default, EXTUSER, LockLogShredder, PUBLIC, SQLJ, SysAdmin, SYSBAR, SYSLIB, SYSSPATIAL, SystemFe, SYSUDTLIB, Sys_Calendar, TDPUSER, TDQCD, TDStats, tdwm, TD_SYSFNLIB, TD_SYSXML]
+
+touchpoints.enabled = true
+

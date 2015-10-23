@@ -3,35 +3,39 @@ class InsightsController < ApplicationController
   
   def create
     note_id = params[:insight][:note_id] || params[:note][:note_id]
-    note = Events::Note.visible_to(current_user).find(note_id)
-    note.promote_to_insight
-    present note, :status => :created
+    event = Events::Base.visible_to(current_user).find(note_id)
+    if event.is_a?(Events::WorkletResultShared) || event.is_a?(Events::Note)
+      event.promote_to_insight
+      present event, :status => :created
+    else
+      raise ApiValidationError.new(:base, :generic, {:message => "Event cannot become an insight"})
+    end
   end
 
   def destroy
-    note = Events::Note.visible_to(current_user).find params[:id]
-    Authority.authorize! :update, note, current_user, {:or => [:current_user_promoted_note,
+    event = Events::Base.visible_to(current_user).find params[:id]
+    Authority.authorize! :update, event, current_user, {:or => [:current_user_promoted_note,
                                                                             :current_user_is_notes_workspace_owner]}
-    note.demote_from_insight
-    present note
+    event.demote_from_insight
+    present event
   end
 
   def publish
     note_id = params[:insight][:note_id] || params[:note][:note_id]
-    note = Events::Note.visible_to(current_user).find(note_id)
-    raise ApiValidationError.new(:base, :generic, {:message => "Note has to be an insight first"}) unless note.insight
-    note.set_insight_published true
-    present note, :status => :created
+    event = Events::Base.visible_to(current_user).find(note_id)
+    raise ApiValidationError.new(:base, :generic, {:message => "Note has to be an insight first"}) unless event.insight
+    event.set_insight_published true
+    present event, :status => :created
   end
 
   def unpublish
     note_id = params[:insight][:note_id] || params[:note][:note_id]
-    note = Events::Note.find(note_id)
+    event = Events::Base.find(note_id)
     #authorize! :update, note
-    Authority.authorize! :update, note, current_user, { :or => :current_user_is_event_actor }
-    raise ApiValidationError.new(:base, :generic, {:message => "Note has to be published first"}) unless note.published
-    note.set_insight_published false
-    present note, :status => :created
+    Authority.authorize! :update, event, current_user, { :or => :current_user_is_event_actor }
+    raise ApiValidationError.new(:base, :generic, {:message => "Note has to be published first"}) unless event.published
+    event.set_insight_published false
+    present event, :status => :created
   end
 
   def index

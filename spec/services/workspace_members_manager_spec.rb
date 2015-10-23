@@ -3,14 +3,29 @@ require 'spec_helper'
 describe WorkspaceMembersManager do
   let(:workspace) { workspaces(:public) }
   let(:owner) { workspace.owner }
+  let(:other_user) { users(:admin) }
   let(:member) { users(:the_collaborator) }
-  let(:manager) { WorkspaceMembersManager.new(workspace, { :member => [owner.id] }, owner) }
+  let(:manager) { WorkspaceMembersManager.new(workspace, { "ProjectManager" => [owner.id] }, owner) }
+  let(:new_member_manager) { WorkspaceMembersManager.new(workspace, { "ProjectManager" => [other_user.id, owner.id] }, owner) }
+  let(:contributor_role) { Role.find_by_name("ProjectManager") }
 
   describe '#update_membership' do
     it 'updates the membership' do
       expect {
         manager.update_membership
       }.to change(workspace.members, :count).to(1)
+    end
+
+    it 'adds members to the contributor role' do
+      expect{
+        manager.update_membership
+      }.to change{ workspace.users_for_role(contributor_role).count }.to(1)
+    end
+
+    it 'removes members from the contributor role' do
+      expect{
+        WorkspaceMembersManager.new(workspace, { "Contributor" => [owner.id] }, owner).update_membership
+      }.to change{ workspace.users_for_role(contributor_role).count }.by(-1)
     end
 
     context 'when a removed member owns jobs in this workspace' do

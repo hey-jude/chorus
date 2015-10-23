@@ -1,0 +1,60 @@
+{{!-- worklet: details --}}
+
+<div class="worklet_configuration_panel worklet_details_configuration">
+    {{#if isNewWorklet}}
+    <div class="main_header"><h2>{{t "worklet.main.make_new_worklet.heading"}}</h2></div>    
+    {{else}}
+    <div class="main_header"><h2>{{t "worklet.main.configure_worklet.heading"}}</h2></div>
+    {{/if}}
+    
+
+    <div class="step_header">
+        <h3>{{t "worklet.main.define_the_worklet_details"}}</h3>
+        <div class="description">
+          {{t "worklet.main.describe_the_worklet"}}
+        </div>
+    </div>
+
+    <div>
+
+        <div class="errors"></div>
+
+        <div class="section_header">{{t "worklet.main.worklet_details.section.title"}}</div>
+
+        <div class="form_pair form_row">
+            <label class="required">{{t "worklet.main.worklet_details.filename.label"}}</label>
+            <input type="text" name="fileName" placeholder="{{t 'workfiles.new.filename_placeholder'}}" value="{{fileName}}"/>
+        </div>
+
+        <div class="form_pair form_row">
+            <label>{{t 'worklet.new.description.label' }}</label>
+            <textarea name="description">{{description}}</textarea>
+        </div>
+        
+        <div class="form_pair form_row">
+            <label>{{t "worklet.edit.avatar_image_label"}}</label>
+            <div class="image_upload">
+                <div class="avatar_img_envelope">
+                    <img id="avatar_img" src="{{avatarUrl}}" class="worklet_image" alt=""/>
+                </div>
+                <div class="image_instructions">
+                  <p>{{t "worklet.edit.avatar_image_description_info"}}</p>
+                  
+                              <div>
+                <span class="file-wrapper">
+                    <button type="submit" class="choose button_action upload_new_image">{{t "worklet.edit.avatar_image_upload_new_image.button"}}</button>
+                    <input type="file" class="file-input" name="contents" multiple=""/>
+                </span>
+            </div>
+
+                </div>
+
+            
+            </div> 
+
+            
+        </div>
+    </div>
+
+</div>
+

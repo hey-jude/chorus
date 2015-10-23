@@ -45,6 +45,7 @@ describe("chorus.dialogs.DataSourcesNew", function() {
             expect(this.dialog.$("select.data_sources option").eq(1).text()).toMatchTranslation("datasource.greenplum");
             expect(this.dialog.$("select.data_sources option").eq(2).text()).toMatchTranslation("datasource.postgres");
             expect(this.dialog.$("select.data_sources option").eq(3).text()).toMatchTranslation("datasource.hdfs");
+//            expect(this.dialog.$("select.data_sources option").eq(4).text()).toMatchTranslation("datasource.hdfs_hive");
             expect(this.dialog.$("select.data_sources option").eq(4).text()).toMatchTranslation("datasource.hawq");
             expect(this.dialog.$("select.data_sources option").eq(5).text()).toMatchTranslation("datasource.jdbc");
             expect(this.dialog.$("select.data_sources option").eq(6).text()).toMatchTranslation("datasource.jdbc_hive");
@@ -52,7 +53,7 @@ describe("chorus.dialogs.DataSourcesNew", function() {
         });
 
         it("starts with no select box selected", function() {
-            expect(this.dialog.$(".data_sources option:selected").text()).toMatchTranslation("selectbox.select_one");
+            expect(this.dialog.$(".data_sources option:selected").text()).toMatchTranslation("general.select_one");
         });
 
         it("starts with the submit button disabled", function() {
@@ -619,7 +620,7 @@ describe("chorus.dialogs.DataSourcesNew", function() {
                 expect(json['job_tracker_host']).toBe("foooo.baaaar");
                 expect(json['job_tracker_port']).toBe("4321");
                 expect(json['high_availability']).toBe(false);
-                
+
                 var connection_parameters = json['connection_parameters'];
                 expect(connection_parameters[0]['key']).toEqual(this.someConnectionParams[0].key);
                 expect(connection_parameters[0]['value']).toEqual(this.someConnectionParams[0].value);

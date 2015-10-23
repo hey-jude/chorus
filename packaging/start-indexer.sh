@@ -19,7 +19,7 @@ if [ -f $INDEXER_PID_FILE ]; then
 fi
 
 RAILS_ENV=$RAILS_ENV $RUBY packaging/update_database_yml.rb
-QUEUE="indexer_queue" JRUBY_OPTS=$JRUBY_OPTS CHORUS_JAVA_OPTIONS=$CHORUS_JAVA_OPTIONS_WITHOUT_XMS RAILS_ENV=$RAILS_ENV SOLR_PORT=$SOLR_PORT $RUBY script/rails runner "ChorusIndexer.new.start" >> $CHORUS_HOME/log/indexer.$RAILS_ENV.log 2>&1 &
+QUEUE="indexer_queue" JRUBY_OPTS=$JRUBY_OPTS CHORUS_JAVA_OPTIONS=$CHORUS_JAVA_OPTIONS_WITHOUT_XMS RAILS_ENV=$RAILS_ENV SOLR_PORT=$SOLR_PORT $RUBY bin/rails runner "ChorusIndexer.new.start" >> $CHORUS_HOME/log/indexer.$RAILS_ENV.log 2>&1 &
 
 indexer_pid=$!
 echo $indexer_pid > $INDEXER_PID_FILE

@@ -1,0 +1,12 @@
+{{#if editing}}
+    <div class="title_bar">
+        <div class="title_text">
+            {{t "worklet.configure.title_of_parameter_in_sidebar"}} {{displayIndexPlusOne}}
+        </div>
+        {{> workletInputpanelTaskButtons}}
+    </div>
+{{/if}}
+<div class="input_content">
+    <span class="fa fa-lg fa-ellipsis-h" title="{{t 'worklet.configure.inputs.waiting_for_configuration.tooltip'}}"></span>
+</div>
+

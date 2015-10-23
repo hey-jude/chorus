@@ -30,9 +30,8 @@ module Events
 
     has_many :activities, :foreign_key => :event_id, :dependent => :destroy
     has_many :notifications, :foreign_key => :event_id, :dependent => :destroy
-    has_one :notification_for_current_user, :class_name => 'Notification', :conditions => proc {
-      "recipient_id = #{current_user.id}"
-    }, :foreign_key => :event_id
+    has_one :notification_for_current_user, -> { where "recipient_id = #{current_user.id}" },
+            :class_name => 'Notification', :foreign_key => :event_id
 
     has_many :comments, :foreign_key => :event_id, :dependent => :destroy
 
@@ -109,7 +108,11 @@ module Events
         FROM memberships
         WHERE user_id = #{user.id})
       SQL
-      self.activity_query(user, workspace_activities)
+
+      group("events.id").readonly(false).
+          joins(:activities).
+          where(%Q{(events.published = true) OR (events.actor_id=#{user.id} AND activities.entity_type != 'Workspace') OR (activities.entity_type = 'GLOBAL') OR (activities.entity_type = 'Workspace'
+          AND (#{workspace_activities}))})
     end
 
     def self.visible_to(user)

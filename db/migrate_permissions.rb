@@ -1,28 +1,27 @@
 
-admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
-owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
-user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
-developer_role = Role.find_or_create_by_name(:name => 'developer'.camelize)
-collaborator_role = Role.find_or_create_by_name(:name => 'collaborator'.camelize)
-site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
-app_admin_role = Role.find_or_create_by_name(:name => 'application_administrator'.camelize)
-app_manager_role = Role.find_or_create_by_name(:name => 'application_manager'.camelize)
-workflow_developer_role = Role.find_or_create_by_name(:name => 'workflow_developer'.camelize)
-project_manager_role = Role.find_or_create_by_name(:name => 'project_manager'.camelize)
-project_developer_role = Role.find_or_create_by_name(:name => 'project_developer'.camelize)
-contributor_role = Role.find_or_create_by_name(:name => 'contributor'.camelize)
-data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.camelize)
+admin_role = Role.find_or_create_by(:name => 'admin'.camelize)
+owner_role = Role.find_or_create_by(:name => 'owner'.camelize)
+user_role = Role.find_or_create_by(:name => 'user'.camelize)
+developer_role = Role.find_or_create_by(:name => 'developer'.camelize)
+collaborator_role = Role.find_or_create_by(:name => 'collaborator'.camelize)
+site_admin_role = Role.find_or_create_by(:name => 'site_administrator'.camelize)
+app_admin_role = Role.find_or_create_by(:name => 'application_administrator'.camelize)
+app_manager_role = Role.find_or_create_by(:name => 'application_manager'.camelize)
+workflow_developer_role = Role.find_or_create_by(:name => 'workflow_developer'.camelize)
+project_manager_role = Role.find_or_create_by(:name => 'project_manager'.camelize)
+project_developer_role = Role.find_or_create_by(:name => 'project_developer'.camelize)
+contributor_role = Role.find_or_create_by(:name => 'contributor'.camelize)
+data_scientist_role = Role.find_or_create_by(:name => 'data_scientist'.camelize)
 
 # Groups
 puts '---- Adding Default Group  ----'
-default_group = Group.find_or_create_by_name(:name => 'default_group')
+default_group = Group.find_or_create_by(:name => 'default_group')
 
 
 # Scope
 puts ''
 puts '---- Adding application_realm as Default Scope ----'
-application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
-
+application_realm = ChorusScope.find_or_create_by(:name => 'application_realm')
 
 role_class = ChorusClass.where(:name => 'role'.camelize).first
 chorus_scope_class = ChorusClass.where(:name => 'chorus_scope'.camelize).first
@@ -68,6 +67,38 @@ task_class = ChorusClass.where(:name => 'task'.camelize).first
 insight_class = ChorusClass.where(:name => 'insight'.camelize).first
 upload_class = ChorusClass.where(:name => 'upload'.camelize).first
 
+
+# Check if we need to run these migrations. compare the count of users, workspaces and datasources againts the corresponding object count in chorus_objects table. If they match, the migration has been run and we can skip it.
+
+if ENV['force'] !=  'true'
+  user_co_count = ChorusObject.where(:chorus_class_id => user_class.id).count
+  ws_co_count = ChorusObject.where(:chorus_class_id =>  workspace_class.id).count
+  datasource_co_count = ChorusObject.where(:chorus_class_id => datasource_class.id).count
+  if user_co_count == User.count && ws_co_count == Workspace.count && datasource_co_count == DataSource.count
+    puts ''
+    puts "---- Skipping permissions migration. If you need to run permissions migration again use 'rake db:migrate_permissions force=true' from command line. ----"
+    puts ''
+    exit(0)
+  end
+end
+
+puts ''
+puts '==============================================================================='
+puts 'This task may take few minutes to an hour based on the amount of data in your'
+puts 'Chorus database. Please do not cancel this task until it is finished.'
+puts '==============================================================================='
+puts ''
+
+# Groups
+puts '---- Adding Default Group  ----'
+default_group = Group.find_or_create_by(:name => 'default_group')
+
+
+# Scope
+puts ''
+puts '---- Adding application_realm as Default Scope ----'
+application_realm = ChorusScope.find_or_create_by(:name => 'application_realm')
+
 puts ''
 puts "===================== Adding Chorus Object =========================="
 
@@ -88,13 +119,8 @@ User.find_in_batches({:batch_size => 5}) do |users|
       ChorusClass.create(:name => user.class.name)
     end
     print '.'
-    user_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(user.class.name).id, :instance_id => user.id, :chorus_scope_id => application_realm.id)
-    user_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
-
-    #user_object_role = ChorusObjectRole.create(:chorus_object_id => user_object.id, :user_id => user.id, :role_id => user_role.id)
-    # add all users to default scope (application realm) by adding user to the default group
-    #user.chorus_scopes << application_realm
-    user.groups << default_group
+    ChorusObject.create(:chorus_class_id => user_class.id, :instance_id => user.id, :chorus_scope_id => application_realm.id)
+    user.groups << default_group unless user.groups.include?(default_group)
     count = count + user.gpdb_data_sources.count
     user.gpdb_data_sources.each do |data_source|
       if ChorusClass.find_by_name(data_source.class.name) == nil
@@ -240,7 +266,18 @@ Workspace.find_in_batches({:batch_size => 5}) do |workspaces|
     # Add owner as workspace role
     print '.'
     workspace_object = ChorusObject.create(:chorus_class_id => ChorusClass.find_by_name(workspace.class.name).id, :instance_id => workspace.id, :owner_id => workspace.owner.id, :chorus_scope_id => application_realm.id)
-    workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
+    object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
+    workspace_object.chorus_object_roles << object_role unless workspace_object.chorus_object_roles.include? object_role
+    #workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
+
+    # Add members as Project Managers
+    workspace.members.each do |member|
+      object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => member.id, :role_id => project_manager_role.id)
+      workspace_object.chorus_object_roles << object_role unless  workspace_object.chorus_object_roles.include? object_role
+
+      #workspace_object.chorus_object_roles << ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => member.id, :role_id => project_manager_role.id)
+      #workspace_object.add_user_to_object_role(member, project_manager_role)
+    end
 
     #workspace_object_role = ChorusObjectRole.create(:chorus_object_id => workspace_object.id, :user_id => workspace.owner.id, :role_id => owner_role.id)
     #workspace.owner.object_roles << workspace_object_role
@@ -441,7 +478,11 @@ DataSource.find_in_batches({:batch_size => 1000}) do |datasources|
   chorus_objects = []
   datasources.each do |data_source|
     print '.'
-    chorus_objects << [datasource_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    if data_source.owner != nil
+      chorus_objects << [datasource_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    else
+      chorus_objects << [datasource_class.id, data_source.id, nil, application_realm.id]
+    end
     #ChorusObject.create(:chorus_class_id => datasource_class.id, :instance_id => data_source.id, :owner_id => data_source.owner.id, :chorus_scope_id => application_realm.id)
   end
   ChorusObject.import columns, chorus_objects, :validate => true
@@ -460,7 +501,11 @@ Database.find_in_batches({:batch_size => 1000}) do |databases|
     co = []
     co << [database_class.id, database.id, application_realm.id]
     if database.data_source != nil
-      co << [database.data_source.owner.id,  datasource_class.name, datasource_class.id, database.data_source.id]
+      if database.data_source.owner != nil
+        co << [database.data_source.owner.id,  datasource_class.name, datasource_class.id, database.data_source.id]
+      else
+        co << [nil,  datasource_class.name, datasource_class.id, database.data_source.id]
+      end
     else
       co << [nil, nil, nil, nil]
     end
@@ -479,7 +524,11 @@ HdfsDataSource.find_in_batches({:batch_size => 1000}) do |datasources|
   chorus_objects = []
   datasources.each do |data_source|
     print '.'
-    chorus_objects << [hdfs_data_source_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    if data_source.owner != nil
+      chorus_objects << [hdfs_data_source_class.id, data_source.id, data_source.owner.id, application_realm.id]
+    else
+      chorus_objects << [hdfs_data_source_class.id, data_source.id, nil, application_realm.id]
+    end
   end
   ChorusObject.import columns, chorus_objects, :validate => true
 end

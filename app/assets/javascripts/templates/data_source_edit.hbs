@@ -1,9 +1,15 @@
 <form>
     <div class="girdle">
-        
+
     <div class="data_source_fields">
         {{generalDataSourceFields this}}
-        
+
+        {{#if hdfsHiveDataSource}}
+            <div>
+              <label class="required" for="hiveMetastoreLocation">{{ t "data_sources.dialog.hive_metastore_location" }}</label>
+              <input type="text" id="hiveMetastoreLocation" name="hiveMetastoreLocation" maxlength="64" value="{{hiveMetastoreLocation}}" tabindex="1"/>
+            </div>
+        {{/if}}
 
         {{#if hdfsDataSource}}
             {{hdfsVersionsSelect false false}}
@@ -12,6 +18,37 @@
         {{#if gpdbPgOrOracle}}
             {{dbDataSourceFields this}}
         {{/if}}
+
+        {{#if jdbcHiveDataSource}}
+            {{hdfsVersionsSelect true true}}
+
+            {{jdbcDataSourceFields this}}
+
+            {{jdbcHiveDataSourceFields this}}
+        {{/if}}
+
+        {{#ifAny hdfsDataSource gnipDataSource hdfsHiveDataSource}}
+        {{else}}
+            <div class="multiple_fields">
+                <div class="width_half_left">
+                    <label class="required db_username" name="dbUsername" for="dbUsername">{{t "data_sources.dialog.database_account"}}</label>
+                </div>
+
+                <div class="width_half_right">
+                    <label class="required db_password" name="dbPassword" for="dbPassword">{{t "data_sources.dialog.database_password"}}</label>
+                </div>
+            </div>
+
+            <div class="multiple_fields">
+                <div class="width_half_left">
+                    <input class="db_username" type="text" id="dbUsername" name="dbUsername" maxlength="256" tabindex="10" value="{{dbUsername}}"/>
+                </div>
+
+                <div class="width_half_right">
+                    <input class="db_password" type="password" id="dbPassword" name="dbPassword" maxlength="256" accept="" autocomplete="off" tabindex="11"/>
+                </div>
+            </div>
+        {{/ifAny}}
 
         {{#if gpOrPg}}
             <div>
@@ -28,13 +65,9 @@
             {{jdbcDataSourceFields this}}
         {{/if}}
 
-        {{#if jdbcHiveDataSource}}
-            {{hdfsVersionsSelect true true}}
-            
-            {{jdbcDataSourceFields this}}
-           
-            {{jdbcHiveDataSourceFields this}}
-        {{/if}}
+
+
+
 
         {{#if gnipDataSource}}
                 <div>
@@ -67,11 +100,11 @@
                 </div>
         {{/if}}
     </div>
-    
+
         {{> legendRequired}}
-        
+
     </div>
-    <!-- END girdle -->
-        
+    {{!-- END girdle --}}
+
     {{formControls "data_sources.edit_dialog.save"}}
 </form>

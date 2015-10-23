@@ -6,40 +6,44 @@ module Permissioner
   extend ActiveSupport::Concern
 
   included do
-    # after_create :initialize_default_roles, :if => Proc.new { |obj| obj.class.const_defined? 'OBJECT_LEVEL_ROLES' }
     after_create :create_chorus_object
     after_destroy :destroy_chorus_object
   end
 
-  # def initialize_default_roles
-  #   default_roles = self.class::OBJECT_LEVEL_ROLES.map do |role_symbol|
-  #     Role.create(:name => role_symbol.to_s)
-  #   end
-  #   object_roles << default_roles
-  # end
+  # Use these methods to manipulate object-level roles. Method definitions can be found on ChorusObject
+  delegate :users_for_role,
+           :roles_for_user,
+           :add_user_to_object_role,
+           :remove_user_from_object_role,
+           :show_roles_and_users,
+           to: :chorus_object
 
   # Returns true if current user has assigned scope. False otherwise
   def self.user_in_scope?(user)
-    if self.is_admin?(user)
-      return false
-    end
-    if user == nil
-      # log error and raise exception TBD
-      return nil
-    else
-      groups = user.groups
-      groups.each do |group|
-        if group.chorus_scope != nil
-          return true
-        end
-      end
-    end
-    return false
+    return true
+
+    # AL: This method is short-circuited until 5.8.
+    #
+    # if self.is_admin?(user)
+    #   return false
+    # end
+    # if user == nil
+    #   # log error and raise exception TBD
+    #   return nil
+    # else
+    #   groups = user.groups
+    #   groups.each do |group|
+    #     if group.chorus_scope != nil
+    #       return true
+    #     end
+    #   end
+    # end
+    # return false
   end
 
   # Returns true if user has site wide admin role.
   def self.is_admin?(user)
-    admin_roles = %w(SiteAdministrator ApplicationAdministrator Admin)
+    admin_roles = %w(SiteAdministrator ApplicationAdministrator Admin ApplicationManager)
     roles = user.roles
     roles.each do |role|
       if admin_roles.include?(role.name)
@@ -85,14 +89,16 @@ module Permissioner
 
   # Called after model object is created. Created corresponding entry in chorus_objects table
   def create_chorus_object
-    chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
-    scope_id = ChorusScope.find_by_name('application_realm').id
-    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id_and_chorus_scope_id(chorus_class.id, self.id, scope_id)
+    chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
+    scope_id = ::ChorusScope.find_by_name('application_realm').id
+    ::ChorusObject.find_or_create_by(:chorus_class_id => chorus_class.id,
+                                   :instance_id => self.id,
+                                   :chorus_scope_id => scope_id)
   end
 
   # Called after a model object is destroyed. Removes corresponding entry from chorus_objects table
   def destroy_chorus_object
-    chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
+    chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
     chorus_object = ChorusObject.where(:instance_id => self.id, :chorus_class_id => chorus_class.id).first
     chorus_object.destroy if chorus_object.nil? == false
   end
@@ -111,8 +117,9 @@ module Permissioner
   end
 
   def chorus_object
-    chorus_class = ChorusClass.find_or_create_by_name(self.class.name)
-    ChorusObject.find_or_create_by_chorus_class_id_and_instance_id(chorus_class.id, self.id)
+    chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
+    ChorusObject.find_or_create_by(:chorus_class_id => chorus_class.id,
+                                   :instance_id => self.id)
   end
 
   # returns a parent object if exists. Nil otherwise
@@ -128,26 +135,17 @@ module Permissioner
   module ClassMethods
 
 
-    # Given an collection of objects, returns a collection filterd by user's scope. Removes objects that are not in user's current scope.
+    # Given an collection of objects, returns a collection filtered by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
-      return objects
-      #ret = []
-      #groups = user.groups
-      #groups.each do |group|
-      #  chorus_scope = group.chorus_scope
-      #  if chorus_scope == nil
-      #    continue
-      #  end
-      #  #TODO Prakash : Can user belong to more than one scope?
-      #  objects.each do |objectz|
-      #    if objectz.chorus_scope == chorus_scope
-      #      puts "Adding object id = #{objectz.id} to filtered list"
-      #      ret << objectz
-      #    end
-      #  end
-      #end
-      #
-      #ret
+      groups_ids = user.groups.map(&:id)
+      scope_ids = ChorusScope.where(:group_id => groups_ids).pluck(:id)
+      object_class_names = objects.group_by(&:class).keys.map(&:to_s)
+      chorus_class_ids = ChorusClass.where(:name => object_class_names).map(&:id)
+      scoped_object_ids = ChorusObject.where(:chorus_class_id => chorus_class_ids, :chorus_scope_id => scope_ids).pluck(:instance_id)
+
+      filtered_objects = objects.select{ |o| scoped_object_ids.include?(o.id)}
+
+      return filtered_objects
     end
 
     # returns total # of objects of current class type in scope for current_user
@@ -226,7 +224,7 @@ module Permissioner
     def generate_permissions_for(roles, activity_symbol_array)
       klass = self
       roles, activities = Array.wrap(roles), Array.wrap(activity_symbol_array)
-      chorus_class = ChorusClass.find_or_create_by_name(self.name)
+      chorus_class = ChorusClass.find_or_create_by(:name => self.name)
 
       permissions = roles.map do |role|
         permission = Permission.find_or_initialize_by_role_id_and_chorus_class_id(role.id, chorus_class.id)
@@ -242,7 +240,7 @@ module Permissioner
     end
 
     def set_permissions_for(roles, activity_symbol_array)
-      chorus_class = ChorusClass.find_or_create_by_name(self.name)
+      chorus_class = ChorusClass.find_or_create_by(:name => self.name)
       chorus_class.permissions << generate_permissions_for(roles, activity_symbol_array)
     end
 

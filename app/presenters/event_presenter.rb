@@ -109,7 +109,7 @@ class EventPresenter < Presenter
       datasets = model.datasets
       datasets.each do |dataset|
         model_hash = present(dataset, {:workspace => model.workspace}.merge(extended_options))
-        model_hash.merge!({:workspace => model.workspace}) if model.workspace
+        model_hash.merge!({:workspace => model.workspace.attributes}) if model.workspace
         model_hash.merge!({:entity_type => 'dataset'} )
         attachments << model_hash
       end
@@ -122,15 +122,27 @@ class EventPresenter < Presenter
       end
     end
 
-    if model.is_a?(Events::NoteOnWorkfile) || model.is_a?(Events::WorkfileResult)
-      model.notes_work_flow_results.each do |workflow_result|
+    if model.is_a?(Events::NoteOnWorkfile) || model.is_a?(Events::WorkfileResult) || model.is_a?(Events::WorkletResultShared)
+      results = model.is_a?(Events::WorkletResultShared) ? model.original_worklet_results : model.notes_work_flow_results
+      results.each do |workflow_result|
         model_hash = {
             :entity_type => (model.respond_to?(:workfile) && (model.workfile.is_a?(Worklet) || model.workfile.is_a?(PublishedWorklet))) ? 'worklet_result' : 'work_flow_result',
             :id => workflow_result.result_id,
-            :model => model
+            :model => model.attributes
         }
 
         model_hash.merge!(:workfile_id => model.workfile.id) if model.respond_to?(:workfile)
+
+        if (model.workfile.is_a?(Worklet) || model.workfile.is_a?(PublishedWorklet))
+          if (model.is_a?(Events::WorkfileResult))
+            output_table = model.output_table.nil? ? model.workfile.output_table : model.output_table
+          elsif (model.is_a?(Events::WorkletResultShared))
+            result_event = Events::Base.find(model.result_note_id)
+            output_table = result_event.output_table.nil? ? model.workfile.output_table : result_event.output_table
+          end
+
+          model_hash.merge!(:output_vars => output_table)
+        end
         attachments << model_hash
       end
     end

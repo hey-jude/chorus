@@ -13,6 +13,10 @@ describe Workfile do
     let!(:model) { FactoryGirl.create(:workfile) }
   end
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { workfiles(:public) }
+  end
+
   it { should respond_to(:create_new_version) }
   it { should respond_to(:attempt_data_source_connection) }
   it { should respond_to(:remove_draft) }

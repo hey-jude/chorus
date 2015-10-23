@@ -42,7 +42,7 @@ $label-width: 82px;
                 }
 
                 a {
-                    color: $color-text4;
+                    @include disabled-text;
                 }
             }
         }

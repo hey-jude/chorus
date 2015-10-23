@@ -1,0 +1,26 @@
+{{#if pagination}}
+  <div class="pagination content_details"></div>
+{{/if}}
+
+
+<!-- if there are published worklets to display -->
+{{#if models.length}}
+
+  {{#each models}}
+    {{> workletCard}}
+  {{/each}}
+
+<!-- otherwise display the empty state message -->
+{{else}}
+    {{#if loaded}}
+        <div id="catalog_empty">
+            <div id="empty_message">
+                <h3>{{t "worklet.catalog.empty_message.heading"}}</h3>
+                <p>{{t "worklet.catalog.empty_message.description"}}</p>
+                <p>
+                    <a href="https://alpine.atlassian.net/wiki/display/V5/Touchpoints" title="{{t 'help.link_address.tooltip'}}">{{t "worklet.help.documentation.learn_more"}}</a>
+                </p>
+            </div>
+        </div>
+    {{/if}}
+{{/if}}

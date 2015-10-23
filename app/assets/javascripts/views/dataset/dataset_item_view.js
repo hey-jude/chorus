@@ -50,7 +50,8 @@ chorus.views.DatasetItem = chorus.views.Base.extend(chorus.Mixins.TagsContext).e
             iconUrl: this.model.iconUrl(),
             workspaces: this.model.workspacesAssociated(),
             viewable: viewable,
-            isDataset: true
+            isDataset: true,
+            isDisabled: this.model.dataSource().isDisabled()
         };
 
         _.extend(ctx, this.additionalContextForTags());

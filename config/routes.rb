@@ -1,4 +1,5 @@
 Chorus::Application.routes.draw do
+
   resource :sessions, :only => [:create, :destroy, :show]
   resource :config, :only => [:show], :controller => 'configurations'
   resource :license, :only => [:show]
@@ -14,9 +15,9 @@ Chorus::Application.routes.draw do
   end
 
   # Roles, groups and permissions routes
-  resources :roles
-  resources :groups
-  resources :permissions
+  #resources :roles
+  #resources :groups
+  #resources :permissions
 
   resources :hdfs_data_sources, :only => [:create, :index, :show, :update, :destroy] do
     scope :module => 'hdfs' do
@@ -89,13 +90,15 @@ Chorus::Application.routes.draw do
 
   resource :imports, :only => :update, :controller => 'dataset_imports'
 
-  resources :worklets, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
+  resources :touchpoints, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
     member do
       put 'run'
+      post 'stop'
+      post 'share'
     end
   end
 
-  resources :worklet_variable_versions, :only => [:index, :show]
+  resources :worklet_parameter_versions, :only => [:index, :show]
 
   resources :workspaces, :only => [:index, :create, :show, :update, :destroy] do
     resources :members, :only => [:index, :create]
@@ -106,15 +109,17 @@ Chorus::Application.routes.draw do
         delete :index, action: :destroy_multiple
       end
     end
-    resources :worklets, :only => [:create, :show, :update, :destroy] do
+    resources :touchpoints, :only => [:create, :show, :update, :destroy], :controller => :worklets do
       member do
         put 'run'
+        post 'stop'
         get 'image'
         put 'publish'
         put 'unpublish'
+        post 'upload_image'
       end
 
-      resources :variables, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_variables
+      resources :parameters, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_parameters
     end
     resources :jobs, :only => [:index, :create, :show, :update, :destroy] do
       resources :job_tasks, :only => [:create, :update, :destroy]
@@ -220,17 +225,15 @@ Chorus::Application.routes.draw do
   end
 
   namespace :import_console do
-    match '/' => 'imports#index'
+    get '/' => 'imports#index'
     resources :imports, :only => :index
   end
-
-  post 'download_chart', :controller => 'image_downloads'
 
   post 'download_data', :controller => 'data_downloads'
 
   resource :log_archiver, :only => :show
 
-  match '/' => 'root#index'
-  match 'VERSION' => 'configurations#version'
+  get '/' => 'root#index'
+  get 'VERSION' => 'configurations#version'
 
 end

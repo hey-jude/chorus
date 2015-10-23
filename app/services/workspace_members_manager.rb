@@ -19,7 +19,7 @@ class WorkspaceMembersManager
       add_members_with_roles(new_members)
 
       removed_members = removed_member_ids.map{ |id| User.find(id) }
-      @workspace.members.delete(removed_members)
+      remove_members_with_roles(removed_members)
 
       @workspace.update_attributes!(:has_added_member => true)
       transfer_job_ownership(removed_member_ids)
@@ -31,12 +31,25 @@ class WorkspaceMembersManager
 
   private
 
+  def remove_members_with_roles(removed_members)
+    member_role = Role.find_by_name("ProjectManager") # This is temporary until 5.7
+    removed_members.each do |member|
+      @workspace.remove_user_from_object_role(member, member_role)
+    end
+    @workspace.members.delete(removed_members)
+  end
+
   def add_members_with_roles(new_members)
-    @roles_ids.each do |role, ids|
+    @roles_ids.each do |role_name, ids|
+      role = Role.find_by_name(role_name)
+
       new_ids = ids & new_members
       new_ids.each do |id|
-        m = @workspace.memberships.new(:role => role)
-        m.user = User.find(id)
+        m = @workspace.memberships.new
+        user = User.find(id)
+
+        @workspace.add_user_to_object_role(user, role)
+        m.user = user
         m.save!
       end
     end

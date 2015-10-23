@@ -30,7 +30,6 @@ FactoryGirl.define do
   factory :chorus_workfile do
     owner
     workspace
-    additional_data ''
     description 'A nice description'
     file_name 'chorus_workfile.doc'
   end

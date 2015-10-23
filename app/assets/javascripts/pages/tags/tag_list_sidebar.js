@@ -14,6 +14,9 @@ chorus.views.TagListSidebar = chorus.views.Sidebar.extend({
         this.subscribePageEvent('tag:deselected', function() {
             this.setTag(null);
         });
+        this.subscribePageEvent('tag:deleted', function() {
+            this.setTag(null);
+        });
     },
 
     setTag: function(tag) {

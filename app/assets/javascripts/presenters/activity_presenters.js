@@ -1,6 +1,9 @@
 (function() {
     var presenterHelpers, headerDefinitions;
     chorus.presenters.Activity = chorus.presenters.Base.extend({
+        helpers: function() {
+            return presenterHelpers;
+        },
 
         headerHtml: function() {
             var string = t(presenterHelpers.headerTranslationKey(this, this.isNotification()), presenterHelpers.headerParams(this));
@@ -187,6 +190,11 @@
             attrs: [ "newName", "oldName" ]
         },
 
+        DataSourceChangedState: {
+            links: [ "actor", "dataSource" ],
+            attrs: [ "newState", "oldState" ]
+        },
+
         HdfsDataSourceChangedName: {
             links: [ "actor", "hdfsDataSource" ],
             attrs: [ "newName", "oldName" ]
@@ -249,7 +257,8 @@
         },
 
         WorkfileCreated: {
-            links: [ "actor", "workfile", "workspace" ]
+            links: [ "actor", "workfile", "workspace" ],
+            computed: ["workfileType"]
         },
 
         WorkspaceAddSandbox: {
@@ -453,6 +462,19 @@
         },
 
         WorkfileResult: {
+            links: ["workfile", "workspace"],
+            computed: ["workfileTypeCaps", "workletEnding"]
+        },
+
+        WorkletResultShared: {
+            links: ["actor", "workfile", "workspace"]
+        },
+
+        WorkletPublished: {
+            links: ["workfile"]
+        },
+
+        WorkletUnpublished: {
             links: ["workfile"]
         },
 
@@ -562,6 +584,37 @@
             return t("dataset.entitySubtypes." + type);
         },
 
+        workfileType: function(self) {
+            switch(self.model.workfile().get('entitySubtype')) {
+                case "worklet":
+                    return t("entity.worklet").toLowerCase();
+                case "published_worklet":
+                    return t("entity.published_worklet").toLowerCase();
+                default:
+                    return "file";
+            }
+        },
+
+        workfileTypeCaps: function(self) {
+            switch(self.model.workfile().get('entitySubtype')) {
+                case "worklet":
+                    return t("entity.worklet");
+                case "published_worklet":
+                    return t("entity.published_worklet");
+                default:
+                    return "Workfile";
+            }
+        },
+
+        workletEnding: function(self) {
+            switch(self.model.workfile().get('entitySubtype')) {
+                case "worklet":
+                    return " in workspace " + presenterHelpers.modelLink(self.model["workfile"]()["workspace"]()).string;
+                default:
+                    return "";
+            }
+        },
+
         tableauWorkbookLink: function(self) {
             var workbookName = self.model.get("workbookName");
             var workbookUrl = self.model.get("workbookUrl");
@@ -604,8 +657,8 @@
         },
 
         milestoneState: function(self) {
-            object = self.model.get("milestone");
-            state = "milestone.state." + object.state.toString();
+            var object = self.model.get("milestone");
+            var state = "milestone.state." + object.state.toString();
             return t(state);
         },
 
@@ -693,7 +746,16 @@
         },
 
         modelLink: function(model) {
-            return Handlebars.helpers.linkTo(model.showUrl(), model.name());
+            var url = model.showUrl();
+            
+            if(url){
+                return Handlebars.helpers.linkTo(url, model.name());
+            } else {
+
+                // If the URL is null, do not create an <a> element,
+                // so as not to give the user the impression the text is clickable.
+                return model.name();
+            }
         },
 
         dialogLink: function (model, linkTranslation) {

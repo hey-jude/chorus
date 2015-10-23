@@ -14,7 +14,11 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
     },
 
     setup: function () {
-        this.pairs = this.model.get('connectionParameters') || [{key: '', value: ''}];
+        this.pairs = this.model.connectionParametersWithoutHadoopHive();
+        if(this.pairs.length === 0) {
+          this.pairs = [{key: '', value: ''}];
+        }
+
         this.host_info = { host: '', port: 8088 };
     },
 
@@ -22,6 +26,7 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
         e && e.preventDefault();
 
         this.preservePairs();
+
         this.model.set('connectionParameters', this.pairs);
 
         if (this.validatePairs() === true) {
@@ -35,9 +40,15 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
         // Perform manual validation
         var validation_errors = {};
         for (var k in this.pairs) {
-            // Don't allow any key to be blank.
-            if (this.pairs[k].key.trim() === '') {
+            var key = this.pairs[k].key.trim();
+
+            // Don't allow any key to be blank
+            if (key === '') {
                 validation_errors['key_' + k] = t('validation.required', {fieldName: "Key"});
+            }
+
+            if (key === 'is_hive' || key === 'hive.metastore.uris') {
+              validation_errors['key_' + k] = t('data_sources.dialog.validation.hadoop_hive_keys_not_allowed');
             }
         }
 
@@ -130,7 +141,7 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
         _.each(this.pairs, function(pair, index) { this[pair.key] = index; }, existing_params);
 
         // For each fetched param, either overwrite if it already is defined
-        // or append it to the list.
+        // or append it to the list
         var param_set = this.fetchedParams.models[0].attributes.params;
         for (var i = 0; i < param_set.length; i++) {
             if (existing_params.hasOwnProperty(param_set[i].name)) {

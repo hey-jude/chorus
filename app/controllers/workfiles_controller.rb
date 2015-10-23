@@ -29,7 +29,7 @@ class WorkfilesController < ApplicationController
                          workfile.workspace,
                          current_user,
                          { :or => [ :current_user_is_in_workspace,
-                                    :workspace_is_public ] }
+                                    :workspace_is_public] } unless workfile.is_a?(PublishedWorklet)
     if params[:connect].present?
       authorize_data_sources_access workfile
       workfile.attempt_data_source_connection
@@ -65,7 +65,7 @@ class WorkfilesController < ApplicationController
     workfile.update_from_params!(params[:workfile])
 
     if(params[:workfile][:status] && params[:workfile][:status] == 'idle')
-      RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => params[:workfile][:id]).destroy_all
+      RunningWorkfile.where(:owner_id => current_user.id, :workfile_id => params[:id]).destroy_all
     end
 
     present workfile, :presenter_options => {:include_execution_schema => true}
@@ -111,7 +111,7 @@ class WorkfilesController < ApplicationController
   end
 
   def authorize_edit_workfile
-    Authority.authorize! :update, workfile.workspace, current_user, { :or => :can_edit_sub_objects }
+    Authority.authorize! :update, workfile.workspace, current_user, { :or => :can_edit_sub_objects }  unless (workfile.is_a?(PublishedWorklet) || (workfile.is_a?(Worklet) && workfile.workspace.public?))
   end
 
   def convert_form_encoded_arrays

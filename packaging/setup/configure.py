@@ -84,11 +84,12 @@ class Configure:
             return
 
         self.method = self._load_configure_func()
+        not_experiment_method = ["enable_alpine_agent", "role_permission_migrate"]
         while True:
             menu = ""
             lens = len(self.method) + 1
             for e in self.method.keys():
-                if self.method[e][0] != "enable_alpine_agent":
+                if self.method[e][0] not in not_experiment_method:
                     menu += str(e) + ". " + self.method[e][0] + " (experimental) \n"
                 else:
                     menu += str(e) + ". " + self.method[e][0] + "\n"

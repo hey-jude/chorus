@@ -2,7 +2,7 @@ chorus.dialogs.WorkletNew = chorus.dialogs.Base.include(
         chorus.Mixins.DialogFormHelpers
     ).extend({
         constructorName: "WorkletNew",
-        templateName: "worklet_new_dialog",
+        templateName: "worklets/worklet_new_dialog",
         title: t("worklet.create_new_title"),
         events: {
             "submit form":"save"
@@ -44,13 +44,19 @@ chorus.dialogs.WorkletNew = chorus.dialogs.Base.include(
 
         workletSaved:function () {
             this.closeModal();
-            chorus.router.navigate("/workspaces/" + this.workspace.get('id') + "/worklets/" + this.model.get("id"));
+            chorus.router.navigate("/workspaces/" + this.workspace.get('id') + "/touchpoints/" + this.model.get("id"));
         },
 
         additionalContext: function() {
-            return {
+            var context = {
                 workflow: this.workflow.attributes,
-                fromExisting: typeof(this.workflow.id) !== 'undefined'
+                fromExisting: typeof(this.workflow.id) !== 'undefined',
+                modifiedTime: new Date(this.workflow.get('userModifiedAt')).toString('MM-dd-yyyy HH:mm:ss'),
+                hasComments: this.workflow.get('recentComments').length > 0
             };
-        },
+            if (this.workflow.get('recentComments').length > 0) {
+                context['lastComment'] = this.workflow.get('recentComments')[0].body;
+            }
+            return context;
+        }
     });

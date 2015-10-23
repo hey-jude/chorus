@@ -31,6 +31,13 @@ describe MembersController do
         response.code.should == "200"
         decoded_response.should have(private_workspace.members.length).items #including the owner
       end
+
+      it_behaves_like "a scoped endpoint" do
+        let!(:klass) { Workspace }
+        let!(:user)  { member }
+        let!(:action){ :index }
+        let!(:params){ { :workspace_id => private_workspace.id } }
+      end
     end
 
     context "user is an admin" do
@@ -126,6 +133,15 @@ describe MembersController do
 
         Notification.last.recipient.id == member4.id
       end
+
+      it "should add users to the correct workspace role" do # this role is ProjectManager right now but will change in 5.7
+        parameters = {:workspace_id => workspace.id, :member_ids => [member1.id, member2.id, member3.id, member4.id]}
+        role = Role.find_by_name("ProjectManager")
+
+        expect {
+          post :create, parameters
+        }.to change{ workspace.users_for_role(role).count }.by(2)
+      end
     end
 
     context "change some of the members for the workspace" do
@@ -136,6 +152,12 @@ describe MembersController do
         lambda {
           post :create, parameters
         }.should change(Membership, :count).by(-1)
+      end
+
+      it "shold remove the member from the ProjectManager role" do
+        expect {
+          post :create, parameters
+        }.to change{workspace.users_for_role(Role.find_by_name("ProjectManager")).length}.by(-1)
       end
 
       it "does not create any events" do

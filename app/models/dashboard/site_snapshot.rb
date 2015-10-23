@@ -21,7 +21,9 @@ module Dashboard
         [Workspace, AssociatedDataset, Workfile, User].map do |model|
           {
               :model => model.to_s.underscore,
-              :total => model.count_in_scope(@user),
+              # Fix for DEV-12309.  Turning off scope filter until 5.7
+              #:total => model.count_in_scope(@user),
+              :total => model.count,
               :increment => changed_count(model)
           }
         end

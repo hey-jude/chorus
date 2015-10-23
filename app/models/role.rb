@@ -4,11 +4,16 @@ class Role < ActiveRecord::Base
 
   validates :name, :presence => true, :uniqueness => true
 
-  has_and_belongs_to_many :users, :uniq => true
-  has_and_belongs_to_many :groups, :uniq => true
+  has_and_belongs_to_many :users, -> { uniq }
+  has_and_belongs_to_many :groups, -> { uniq }
   has_many :permissions, :dependent => :destroy
-  has_many :chorus_object_roles
+  has_many :chorus_object_roles,  :dependent => :destroy
   has_many :chorus_objects, :through => :chorus_object_roles
+
+  # Delete HABTM association objects
+  before_destroy { groups.clear }
+  before_destroy { users.clear }
+
 
   def permissions_for(class_name)
     chorus_class = ChorusClass.find_by_name(class_name.camelize)

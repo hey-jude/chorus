@@ -36,6 +36,7 @@ chorus.views.DashboardWorkspaceActivity = chorus.views.Base.extend({
         this.tickFcn = d3.time.days;
         this.model.fetch();
 
+        // KT TODO: When we use Chiasm for the dashboard visualization, this should be moved into the VisChiasm component.
         this.vis = {
             // Properties about data provided by server
             dataSettings: {
@@ -233,7 +234,7 @@ chorus.views.DashboardWorkspaceActivity = chorus.views.Base.extend({
                 var hovercard_name_html = '<div class="name_row">' + workspace_name + '</div>';
 
 				// workspace description, if there is one
-                var summary = $(workspaces[wid].summary).text();
+                var summary = $.stripHtml(workspaces[wid].summary);
                 if (summary && summary.length > 512) {
                     summary = summary.substring(0, 512) + "\n...";
                 }

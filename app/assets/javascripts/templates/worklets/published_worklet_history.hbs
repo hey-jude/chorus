@@ -1,0 +1,17 @@
+<div class="header">
+    <div class="heading">{{t "worklet.run.history.heading"}}</div>
+</div>
+
+<div class="history">
+    <div class="worklet_history_list">
+        
+        {{#if isEmpty}}
+            <div class="empty_state">
+                <div class="empty_message">
+                    <span class="icon"></span>
+                    <p>{{t "worklet.run.history.empty.message"}}</p>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</div>

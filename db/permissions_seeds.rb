@@ -3,47 +3,44 @@
 # roles
 puts ''
 puts '---- Adding Roles ----'
-admin_role = Role.find_or_create_by_name(:name => 'admin'.camelize)
-owner_role = Role.find_or_create_by_name(:name => 'owner'.camelize)
-user_role = Role.find_or_create_by_name(:name => 'user'.camelize)
-developer_role = Role.find_or_create_by_name(:name => 'developer'.camelize)
-collaborator_role = Role.find_or_create_by_name(:name => 'collaborator'.camelize)
-site_admin_role = Role.find_or_create_by_name(:name => 'site_administrator'.camelize)
-app_admin_role = Role.find_or_create_by_name(:name => 'application_administrator'.camelize)
-app_manager_role = Role.find_or_create_by_name(:name => 'application_manager'.camelize)
-workflow_developer_role = Role.find_or_create_by_name(:name => 'workflow_developer'.camelize)
-project_manager_role = Role.find_or_create_by_name(:name => 'project_manager'.camelize)
-project_developer_role = Role.find_or_create_by_name(:name => 'project_developer'.camelize)
-contributor_role = Role.find_or_create_by_name(:name => 'contributor'.camelize)
-data_scientist_role = Role.find_or_create_by_name(:name => 'data_scientist'.camelize)
+admin_role = Role.find_or_create_by(:name => 'admin'.camelize)
+owner_role = Role.find_or_create_by(:name => 'owner'.camelize)
+user_role = Role.find_or_create_by(:name => 'user'.camelize)
+collaborator_role = Role.find_or_create_by(:name => 'collaborator'.camelize)
+site_admin_role = Role.find_or_create_by(:name => 'site_administrator'.camelize)
+app_admin_role = Role.find_or_create_by(:name => 'application_administrator'.camelize)
+app_manager_role = Role.find_or_create_by(:name => 'application_manager'.camelize)
+workflow_developer_role = Role.find_or_create_by(:name => 'workflow_developer'.camelize)
+project_manager_role = Role.find_or_create_by(:name => 'project_manager'.camelize)
+project_developer_role = Role.find_or_create_by(:name => 'project_developer'.camelize)
+contributor_role = Role.find_or_create_by(:name => 'contributor'.camelize)
+data_scientist_role = Role.find_or_create_by(:name => 'data_scientist'.camelize)
 
 admins = User.where(:admin => true).all
 
 admins.each do |admin|
-  admin.roles << admin_role
-  admin.roles << site_admin_role
+  admin.roles << admin_role unless admin.roles.include?(admin_role)
+  admin.roles << app_manager_role unless admin.roles.include?(app_manager_role)
 end
 #puts ''
 #puts '---- Adding permissions ----'
 
-#chorusadmin = User.find_by_username("chorusadmin")
+chorusadmin = User.find_by_username("chorusadmin")
 
-#site_admin_role.users << chorusadmin if chorusadmin
-#admin_role.users << chorusadmin if chorusadmin
+site_admin_role.users << chorusadmin if chorusadmin && !site_admin_role.users.include?(chorusadmin)
+admin_role.users << chorusadmin if chorusadmin && !admin_role.users.include?(chorusadmin)
 
 # Groups
 puts '---- Adding Default Group  ----'
-default_group = Group.find_or_create_by_name(:name => 'default_group')
+default_group = Group.find_or_create_by(:name => 'default_group')
 # Scope
 puts ''
 puts '---- Adding application_realm as Default Scope ----'
-application_realm = ChorusScope.find_or_create_by_name(:name => 'application_realm')
+application_realm = ChorusScope.find_or_create_by(:name => 'application_realm')
 # add application_realm to default group
 default_group.chorus_scope = application_realm
 
-site_admin_role.groups << default_group unless site_admin_role.groups.include? default_group
-
-admin_role.groups << default_group unless admin_role.groups.include? default_group
+collaborator_role.groups << default_group unless collaborator_role.groups.include? default_group
 
 #Role.all.each do |role|
 #    role.groups << default_group
@@ -141,6 +138,7 @@ chorus_classes =  [
         {:name => 'pg_schema'.camelize},
         {:name => 'pg_table'.camelize},
         {:name => 'pg_view'.camelize},
+        {:name => 'published_worklet'.camelize},
         {:name => 'relational_dataset'.camelize},
         {:name => 'role'.camelize},
         {:name => 'run_sql_workfile_task'.camelize},
@@ -194,7 +192,7 @@ chorus_classes =  [
     ]
 
 chorus_classes.each do |chorus_class|
-    ChorusClass.find_or_create_by_name(chorus_class)
+    ChorusClass.find_or_create_by(:name => chorus_class[:name])
 end
 
 
@@ -262,28 +260,30 @@ puts ''
 puts '---- Adding Operations ----'
 
 class_operations = {
-    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
-    'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
-    'ChorusScope' =>  %w(create show update destroy manage_scopes),
-    'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
-    'Account' =>      %w(create show update destroy change_password lock unlock),
-    'Group' =>        %w(create show update destroy),
-    'Workspace' =>    %w(create show update destroy admin create_workflow edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data),
-    'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
-    'Note' =>         %w(create show update destroy create_attachment_on demote_from_insight),
-    'Schema' =>       %w(create show update destroy),
-    'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
-    'Comment' =>      %w(create show update destroy promote_to_insight),
-    'Workfile' =>     %w(create show update destroy create_workflow run_workflow),
-    'Workflow' =>     %w(create show update destroy run stop open),
-    'Job' =>          %w(create show update destroy run stop),
-    'Task' =>         %w(create show update destroy run stop),
-    'Milestone' =>    %w(create show update destroy complete restart),
-    'Tag' =>          %w(create show update destroy apply remove),
-    'Upload' =>       %w(create show update destroy),
-    'Import' =>       %w(create show update destroy),
-    'Notification' => %w(create show update destroy),
-    'CsvFile' =>      %w(create show update destroy)
+    'Events::Base' =>  %w(create show update destroy create_comment_on create_attachment_on),
+    'Role' =>          %w(create show update destroy manage_application_roles manage_workspace_roles),
+    'ChorusScope' =>   %w(create show update destroy manage_scopes),
+    'User' =>          %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
+    'DataSourceAccount' =>       %w(create show update destroy change_password lock unlock),
+    'Group' =>         %w(create show update destroy),
+    'Workspace' =>     %w(create show update destroy admin create_workflow edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data),
+    'DataSource' =>    %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'HdfsDataSource'=> %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'GnipDataSource'=> %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'Note' =>          %w(create show update destroy create_attachment_on demote_from_insight),
+    'Schema' =>        %w(create show update destroy),
+    'Sandbox' =>       %w(create show update destroy add_to_workspace delete_from_workspace),
+    'Comment' =>       %w(create show update destroy promote_to_insight),
+    'Workfile' =>      %w(create show update destroy create_workflow run_workflow),
+    'Workflow' =>      %w(create show update destroy run stop open),
+    'Job' =>           %w(create show update destroy run stop),
+    'Task' =>          %w(create show update destroy run stop),
+    'Milestone' =>     %w(create show update destroy complete restart),
+    'Tag' =>           %w(create show update destroy apply remove),
+    'Upload' =>        %w(create show update destroy),
+    'Import' =>        %w(create show update destroy),
+    'Notification' =>  %w(create show update destroy),
+    'CsvFile' =>       %w(create show update destroy)
 }
 
 Operation.destroy_all
@@ -302,28 +302,30 @@ puts '=================== Adding permissions to Roles ======================'
 role_permissions = {
 
    'Admin' => {
-     'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
-     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
-     'ChorusScope' =>  %w(create show update destroy manage_scopes),
-     'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
-     'Account' =>      %w(create show update destroy change_password lock unlock),
-     'Group' =>        %w(create show update destroy),
-     'Workspace' =>    %w(create show update destroy admin create_workflow edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data),
-     'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
-     'Note' =>         %w(create show update destroy create_attachment_on demote_from_insight),
-     'Schema' =>       %w(create show update destroy),
-     'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
-     'Comment' =>      %w(create show update destroy promote_to_insight),
-     'Workfile' =>     %w(create show update destroy create_workflow run_workflow),
-     'Workflow' =>     %w(create show update destroy run stop open),
-     'Job' =>          %w(create show update destroy run stop),
-     'Task' =>         %w(create show update destroy run stop),
-     'Milestone' =>    %w(create show update destroy complete restart),
-     'Tag' =>          %w(create show update destroy apply remove),
-     'Upload' =>       %w(create show update destroy),
-     'Import' =>       %w(create show update destroy),
-     'Notification' => %w(create show update destroy),
-     'CsvFile' =>      %w(create show update destroy)
+     'Events::Base' =>  %w(create show update destroy create_comment_on create_attachment_on),
+     'Role' =>          %w(create show update destroy manage_application_roles manage_workspace_roles),
+     'ChorusScope' =>   %w(create show update destroy manage_scopes),
+     'User' =>          %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials ldap),
+     'DataSourceAccount' =>       %w(create show update destroy change_password lock unlock),
+     'Group' =>         %w(create show update destroy),
+     'Workspace' =>     %w(create show update destroy admin create_workflow edit_settings add_members delete_members add_to_scope remove_from_scope add_sandbox delete_sandbox change_status add_data remove_data explore_data transform_data download_data),
+     'DataSource' =>    %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+     'HdfsDataSource'=> %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+     'GnipDataSource'=> %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+     'Note' =>          %w(create show update destroy create_attachment_on demote_from_insight),
+     'Schema' =>        %w(create show update destroy),
+     'Sandbox' =>       %w(create show update destroy add_to_workspace delete_from_workspace),
+     'Comment' =>       %w(create show update destroy promote_to_insight),
+     'Workfile' =>      %w(create show update destroy create_workflow run_workflow),
+     'Workflow' =>      %w(create show update destroy run stop open),
+     'Job' =>           %w(create show update destroy run stop),
+     'Task' =>          %w(create show update destroy run stop),
+     'Milestone' =>     %w(create show update destroy complete restart),
+     'Tag' =>           %w(create show update destroy apply remove),
+     'Upload' =>        %w(create show update destroy),
+     'Import' =>        %w(create show update destroy),
+     'Notification' =>  %w(create show update destroy),
+     'CsvFile' =>       %w(create show update destroy)
 
  },
 
@@ -332,10 +334,12 @@ role_permissions = {
     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
     'ChorusScope' =>  %w(create show update destroy manage_scopes),
     'User' =>         %w(show change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
-    'Account' =>      %w(create show update destroy change_password lock unlock),
+    'DataSourceAccount' =>      %w(create show update destroy change_password lock unlock),
     'Group' =>        %w(create show update destroy),
     'Workspace' =>    %w(create show update destroy admin edit_settings add_members delete_members add_to_scope remove_from_scope change_status explore_data transform_data download_data),
     'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'HdfsDataSource'=>%w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'GnipDataSource'=>%w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
     'Note' =>         %w(create show update destroy),
     'Schema' =>       %w(create show update destroy),
     'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
@@ -350,33 +354,6 @@ role_permissions = {
     'Import' =>       %w(create show update destroy),
     'Notification' => %w(create show update destroy),
     'CsvFile' =>      %w(create show update destroy)
-  },
-
-  'Developer' => {
-    'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
-    'ChorusScope' =>  %w(create show update destroy manage_scopes),
-    'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
-    'User' =>         %w(show change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
-    'Account' =>      %w(create show update destroy change_password lock unlock),
-    'Group' =>        %w(create show update destroy),
-    'Workspace' =>    %w(create show update destroy admin edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data),
-    'Workflow' =>     %w(create show update destroy run stop open),
-    'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
-    'Note' =>         %w(create show update destroy),
-    'Schema' =>       %w(create show update destroy),
-    'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
-    'Comment' =>      %w(create show update destroy promote_to_insight),
-    'Workfile' =>     %w(create show update destroy create_workflow run_workflow ),
-    'Workflow' =>     %w(create show update destroy run stop open),
-    'Job' =>          %w(create show update destroy run stop),
-    'Task' =>         %w(create show update destroy run stop),
-    'Milestone' =>    %w(create show update destroy complete restart),
-    'Tag' =>          %w(create show update destroy apply remove),
-    'Upload' =>       %w(create show update destroy),
-    'Import' =>       %w(create show update destroy),
-    'Notification' => %w(create show update destroy),
-    'CsvFile' =>      %w(create show update destroy)
-
   },
 
   'Collaborator' => {
@@ -384,10 +361,12 @@ role_permissions = {
     'ChorusScope' =>  %w(),
     'Role' =>         %w(),
     'User' =>         %w(),
-    'Account' =>      %w(),
+    'DataSourceAccount' =>      %w(),
     'Group' =>        %w(),
     'Workspace' =>    %w(),
     'DataSource' =>   %w(show),
+    'HdfsDataSource'=>%w(show),
+    'GnipDataSource'=>%w(show),
     'Note' =>         %w(create show),
     'Schema' =>       %w(),
     'Sandbox' =>      %w(),
@@ -404,17 +383,46 @@ role_permissions = {
     'CsvFile' =>      %w()
 
   },
-  
+
+  'User' => {
+      'Events::Base' => %w(create_comment_on create_attachment_on),
+      'ChorusScope' =>  %w(),
+      'Role' =>         %w(),
+      'User' =>         %w(),
+      'DataSourceAccount' =>      %w(),
+      'Group' =>        %w(),
+      'Workspace' =>    %w(),
+      'DataSource' =>   %w(show),
+      'HdfsDataSource'=>%w(show),
+      'GnipDataSource'=>%w(show),
+      'Note' =>         %w(create show),
+      'Schema' =>       %w(),
+      'Sandbox' =>      %w(),
+      'Comment' =>      %w(create show promote_to_insight),
+      'Workfile' =>     %w(),
+      'Workflow' =>     %w(),
+      'Job' =>          %w(),
+      'Task' =>         %w(),
+      'Milestone' =>    %w(),
+      'Tag' =>          %w(create show apply remove),
+      'Upload' =>       %w(),
+      'Import' =>       %w(),
+      'Notification' => %w(),
+      'CsvFile' =>      %w()
+
+  },
 
   'SiteAdministrator' => {
     'Events::Base' =>  %w(create show update destroy create_comment_on create_attachment_on),
     'ChorusScope' =>   %w(create show update destroy manage_scopes),
     'Role' =>          %w(create show update destroy manage_application_roles manage_workspace_roles),
     'User' =>          %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
-    'Account' =>       %w(create show update destroy change_password lock unlock),
+    'DataSourceAccount' =>       %w(create show update destroy change_password lock unlock),
     'Group' =>         %w(create show update destroy),
     'Workspace' =>     %w(create show update destroy admin edit_settings add_members delete_members add_to_scope remove_from_scope  change_status explore_data transform_data download_data),
     'DataSource' =>    %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'HdfsDataSource'=> %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'GnipDataSource'=> %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
     'Note' =>          %w(create show update destroy),
     'Schema' =>        %w(create show update destroy),
     'Sandbox' =>       %w(create show update destroy add_to_workspace delete_from_workspace),
@@ -430,17 +438,19 @@ role_permissions = {
     'Notification' =>  %w(create show update destroy),
     'CsvFile' =>       %w(create show update destroy)
   },
-  
+
 
   'ApplicationAdministrator' => {
     'Events::Base' => %w(create show update destroy create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(create show update destroy manage_scopes),
     'Role' =>         %w(create show update destroy manage_application_roles manage_workspace_roles),
     'User' =>         %w(create show update destroy change_password edit_dashboard manage_notifications manage_comments manage_notes manage_insights manage_data_source_credentials),
-    'Account' =>      %w(create show update destroy change_password lock unlock),
+    'DataSourceAccount' =>      %w(create show update destroy change_password lock unlock),
     'Group' =>        %w(create show update destroy),
     'Workspace' =>    %w(create show update destroy admin edit_settings add_members delete_members add_to_scope remove_from_scope change_status explore_data transform_data download_data),
     'DataSource' =>   %w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'HdfsDataSource'=>%w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
+    'GnipDataSource'=>%w(create show update destroy add_credentials edit_credentials delete_credentials add_data remove_data explore_data download_data),
     'Note' =>         %w(create show update destroy),
     'Schema' =>       %w(create show update destroy),
     'Sandbox' =>      %w(create show update destroy add_to_workspace delete_from_workspace),
@@ -456,17 +466,19 @@ role_permissions = {
     'Notification' => %w(create show update destroy),
     'CsvFile' =>      %w(create show update destroy)
   },
-  
+
 
   'ApplicationManager' => {
     'Events::Base' => %w(create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(),
     'Role' =>         %w(manage_workspace_roles),
     'User' =>         %w(),
-    'Account' =>      %w(),
+    'DataSourceAccount' =>      %w(),
     'Group' =>        %w(create show update destroy),
     'Workspace' =>    %w(create show update destroy admin edit_settings add_members delete_members add_to_scope remove_from_scope change_status explore_data transform_data download_data),
     'DataSource' =>   %w(create show update destroy add_data remove_data explore_data download_data),
+    'HdfsDataSource'=>%w(create show update destroy add_data remove_data explore_data download_data),
+    'GnipDataSource'=>%w(create show update destroy add_data remove_data explore_data download_data),
     'Note' =>         %w(create show update destroy),
     'Schema' =>       %w(show),
     'Sandbox' =>      %w(show),
@@ -482,16 +494,18 @@ role_permissions = {
     'Notification' => %w(create show update destroy),
     'CsvFile' =>      %w(create show update destroy)
   },
-  
+
   'WorkflowDeveloper' => {
     'Events::Base' =>  %w(),
     'ChorusScope' =>   %w(),
     'Role' =>          %w(),
     'User' =>          %w(),
-    'Account' =>       %w(),
+    'DataSourceAccount' =>       %w(),
     'Group' =>         %w(),
     'Workspace' =>     %w(),
     'DataSource' =>    %w(),
+    'HdfsDataSource'=> %w(),
+    'GnipDataSource'=> %w(),
     'Note' =>          %w(),
     'Schema' =>        %w(),
     'Sandbox' =>       %w(),
@@ -513,10 +527,12 @@ role_permissions = {
     'ChorusScope' =>  %w(),
     'Role' =>         %w(),
     'User' =>         %w(),
-    'Account' =>      %w(),
+    'DataSourceAccount' =>      %w(),
     'Group' =>        %w(),
     'Workspace' =>    %w(create show update edit_settings add_members delete_members add_to_scope remove_from_scope change_status explore_data transform_data download_data),
     'DataSource' =>   %w(),
+    'HdfsDataSource'=>%w(),
+    'GnipDataSource'=>%w(),
     'Note' =>         %w(create show update destroy),
     'Schema' =>       %w(),
     'Sandbox' =>      %w(),
@@ -532,16 +548,18 @@ role_permissions = {
     'Notification' => %w(create show update destroy),
     'CsvFile' =>      %w(create show update destroy)
   },
-  
+
   'Contributor' => {
     'Events::Base' =>  %w(create show create_comment_on create_attachment_on),
     'ChorusScope' =>   %w(),
     'Role' =>          %w(),
     'User' =>          %w(),
-    'Account' =>       %w(),
+    'DataSourceAccount' =>       %w(),
     'Group' =>         %w(),
     'Workspace' =>     %w(show explore_data transform_data download_data),
     'DataSource' =>    %w(),
+    'HdfsDataSource'=> %w(),
+    'GnipDataSource'=> %w(),
     'Note' =>          %w(create show),
     'Schema' =>        %w(),
     'Sandbox' =>       %w(),
@@ -557,16 +575,18 @@ role_permissions = {
     'Notification' =>  %w(create show update destroy),
     'CsvFile' =>       %w(create show update destroy)
   },
-  
+
   'ProjectDeveloper' => {
     'Events::Base' => %w(create show create_comment_on create_attachment_on),
     'ChorusScope' =>  %w(),
     'Role' =>         %w(),
     'User' =>         %w(),
-    'Account' =>      %w(),
+    'DataSourceAccount' =>      %w(),
     'Group' =>        %w(),
     'Workspace' =>    %w(create show explore_data transform_data download_data),
     'DataSource' =>   %w(show explore_data download_data),
+    'HdfsDataSource'=>%w(show explore_data download_data),
+    'GnipDataSource'=>%w(show explore_data download_data),
     'Note' =>         %w(create show),
     'Schema' =>       %w(),
     'Sandbox' =>      %w(),
@@ -609,7 +629,7 @@ role_permissions.each do |role_name, permissions_hash|
         chorus_class = ChorusClass.find_by_name(class_name)
         #puts "---- Adding permissions for #{role_name} role and #{class_name} ----"
         role.permissions << Permission.create(:role_id => role.id,
-                                              :chorus_class_id => chorus_class.id, 
+                                              :chorus_class_id => chorus_class.id,
                                               :permissions_mask => create_permission_mask_for(permission_names, chorus_class.class_operations))
     end
 end
@@ -622,13 +642,14 @@ puts ''
 User.find_in_batches({:batch_size => 100}) do |users|
   users.each do |user|
     if user.admin
-      user.roles << site_admin_role unless user.roles.include? site_admin_role
+      user.roles << admin_role unless user.roles.include? admin_role
+      user.roles << app_manager_role unless user.roles.include? app_manager_role
     end
     if user.developer
-      user.roles << project_developer_role unless user.roles.include? project_developer_role
       user.roles << workflow_developer_role unless user.roles.include? workflow_developer_role
     end
     user.roles << collaborator_role unless user.roles.include? collaborator_role
+    user.roles << user_role unless user.roles.include? user_role
   end
 end
 

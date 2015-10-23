@@ -18,6 +18,14 @@ describe ApplicationController do
       log_in users(:no_collaborators)
     end
 
+    it "renders 'adapter_not_found' if the JDBC url is wrong" do
+      stub(controller).index { raise Sequel::AdapterNotFound }
+      get :index
+
+      response.should be_unprocessable
+      decoded_errors.record.should == "ADAPTER_NOT_FOUND"
+    end
+
     it "renders 'not found' JSON when record not found" do
       stub(controller).index { raise ActiveRecord::RecordNotFound }
       get :index
@@ -157,7 +165,7 @@ describe ApplicationController do
 
     describe "when an access denied error is raised" do
       let(:object_to_present) { data_sources(:default) }
-      let(:exception) { Authority::AccessDenied }
+      let(:exception) { Authority::AccessDenied.new("Forbidden", "action", users(:admin)) }
 
       before do
         log_in users(:owner)
@@ -167,6 +175,11 @@ describe ApplicationController do
       it "returns a status of 403" do
         get :index
         response.should be_forbidden
+      end
+
+      it "should return model_data" do
+        get :index
+        response.body.should eq("{\"errors\":{\"model_data\":{}}}")
       end
 
     end

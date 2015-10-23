@@ -4,7 +4,7 @@
 }
 
 .content_header {
-    background: #FFFFFF;
+    background: $core-white;
     min-height: 36px;
     padding: 12px $padding-x 5px;
     border-bottom: $border-canon;
@@ -45,6 +45,7 @@
         float: right;
         text-align: right;
         margin-top: 25px;
+        margin-right: 10px;
         height: 25px;
         @include after-clearfix;
     }
@@ -71,7 +72,6 @@
 .content_details {
     border-bottom: $border-canon;
 }
-
 
 .content_footer {
     height: auto;

@@ -10,6 +10,13 @@ describe UsersController do
   describe "#index" do
     it_behaves_like "an action that requires authentication", :get, :index
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { User }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
+
     it "succeeds" do
       get :index
       response.code.should == "200"
@@ -114,12 +121,12 @@ describe UsersController do
       it "should not make the user a developer if the flag is not set in the params" do
         params[:developer] = false
         post :create, params
-        Role.find_by_name("Developer").users.should_not include(User.find_by_username(params[:username]))
+        Role.find_by_name("WorkflowDeveloper").users.should_not include(User.find_by_username(params[:username]))
       end
 
       it 'should make a user a developer' do
         post :create, params
-        Role.find_by_name("Developer").users.should include(User.find_by_username(params[:username]))
+        Role.find_by_name("WorkflowDeveloper").users.should include(User.find_by_username(params[:username]))
         User.find_by_username(params[:username]).should be_developer
       end
 
@@ -141,6 +148,13 @@ describe UsersController do
         event = Events::UserAdded.last
         event.new_user.should == User.find_by_username(params[:username])
         event.actor.should == user
+      end
+
+      it "should set the admin role if the admin flag is a string" do
+        params[:admin] = "true"
+        post :create, params
+
+        Role.find_by_name("Admin").users.should include(User.find_by_username(params[:username]))
       end
 
       generate_fixture "userWithErrors.json" do

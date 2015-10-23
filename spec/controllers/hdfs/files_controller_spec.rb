@@ -19,6 +19,15 @@ describe Hdfs::FilesController do
       parsed_response.should have(1).item
     end
 
+    it "should be forbidden if the data source is disabled" do
+      hdfs_data_source.update_attributes(:state => 'disabled')
+      stub(HdfsEntry).list('/', hdfs_data_source, true) { [entry] }
+      entry
+      get :index, :hdfs_data_source_id => hdfs_data_source.id
+
+      response.should be_forbidden
+    end
+
     it "takes an id and renders the list of entries inside that directory" do
       parent_entry = HdfsEntry.create!({:is_directory => true, :path => '/data2', :hdfs_data_source => hdfs_data_source}, :without_protection => true)
       child_entry = HdfsEntry.create!({:is_directory => false, :path => '/data2/test.csv', :parent_id => parent_entry.id, :hdfs_data_source => hdfs_data_source}, :without_protection => true)

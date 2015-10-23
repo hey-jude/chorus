@@ -1,9 +1,15 @@
 require 'spec_helper'
 
 describe DataSourcesController do
+  # Prakash. Mock current_user to avoid accessing private method in application_controller
+  let(:context) { Object.new }
   let(:user) { users(:owner) }
 
-  before { log_in user }
+  before do
+    log_in user
+    # Prakash. Mock current_user to avoid accessing private method in application_controller
+    stub(context).current_user { user }
+  end
 
   # ignore authorization unless we're specifically testing for it
   before :each do
@@ -15,6 +21,8 @@ describe DataSourcesController do
     let(:prohibited_data_source) { data_sources(:admins) }
     let(:online_data_source) { data_sources(:online) }
     let(:offline_data_source) { data_sources(:offline) }
+    let(:disabled_data_source) { data_sources(:disabled) }
+    let(:incomplete) { data_sources(:incomplete) }
 
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
@@ -72,6 +80,11 @@ describe DataSourcesController do
         get :index, :entity_type => %w(pg_data_source gpdb_data_source), :all => true
         decoded_response.map(&:id).should =~ DataSource.where(:type => %w(PgDataSource GpdbDataSource)).pluck(:id)
       end
+
+      it 'filters disabled and incomplete' do
+        get :index, :filter_disabled => "true"
+        decoded_response.map(&:id).should_not include(*DataSource.where(:state => ['incomplete', 'disabled']).pluck(:id))
+      end
     end
   end
 
@@ -92,6 +105,22 @@ describe DataSourcesController do
       it "presents the gpdb data source" do
         mock.proxy(controller).present(data_source)
         get :show, :id => data_source.to_param
+      end
+
+      it "doesn't show disabled data sources" do
+        data_source.update_attributes(:state => 'disabled')
+
+        get :show, :id => data_source.to_param
+      end
+
+      context "when the user is an admin" do
+        it "shows the disabled data sources" do
+          log_in users(:admin)
+          data_source.state = "disabled"
+          data_source.save!
+          get :show, :id => data_source.id
+          response.should be_success
+        end
       end
     end
 
@@ -152,6 +181,27 @@ describe DataSourcesController do
       params[:name] = ''
       put :update, params
       response.code.should == "422"
+    end
+
+    it "allows the user to disable the data source" do
+      params[:state] = 'disabled'
+      put :update, params
+      expect(DataSource.find(params[:id]).disabled?).to be_true
+    end
+
+    it "allows the user to re-enable the data source" do
+      params[:state] = 'disabled'
+      put :update, params
+      params[:state] = 'enabled'
+      put :update, params
+      expect(DataSource.find(params[:id]).disabled?).to be_false
+    end
+
+    it "doesn't allow the user to set an invalid state" do
+      params[:state] = 'some random state'
+
+      put :update, params
+      response.should be_unprocessable
     end
   end
 
@@ -382,6 +432,13 @@ describe DataSourcesController do
     it "uses authorization" do
       mock(Authority).authorize! :destroy, data_source, user, { :or => :current_user_is_object_owner }
       delete :destroy, :id => data_source.id
+    end
+
+    it "allows the owner to destroy a disabled data source" do
+      data_source.state = 'disabled'
+      data_source.save!
+      delete :destroy, :id => data_source.id
+      response.should be_success
     end
   end
 

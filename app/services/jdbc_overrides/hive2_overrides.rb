@@ -9,9 +9,13 @@ module JdbcOverrides
 
       HDFS_VERSIONS = {
           'Cloudera CDH5' => '4.0.0',
+          'Cloudera CDH5.3' => '4.0.0',
+          'Cloudera CDH5.4' => '4.0.0',
           'Hortonworks HDP 2' => '4.0.0',
+          'Hortonworks HDP 2.2' => '4.0.0',
           'IBM Big Insights 4.0' => '4.0.0',
-          'MapR4' => '0.20.2mr'
+          'MapR4' => '0.20.2mr',
+          'Pivotal HD 3' => '4.0.0'
       }
 
       def prepare_and_execute_statement(query, options={}, cancelable_query = nil)
@@ -206,10 +210,6 @@ module JdbcOverrides
       def scoped_name
         %(#{schema_name}.#{name})
       end
-    end
-
-    def self.VisualizationOverrides
-      return Visualization::Hive2Sql
     end
   end
 end

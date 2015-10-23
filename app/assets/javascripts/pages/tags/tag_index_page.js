@@ -14,6 +14,11 @@ chorus.pages.TagIndexPage = chorus.pages.Base.extend({
 
         this.handleFetchErrorsFor(tags);
         this.listenTo(tags, "loaded", this.render);
-        this.listenTo(tags, "remove", this.render);
+
+        this.listenTo(tags, "remove", function (tag) {
+          chorus.PageEvents.trigger('clear_selection', tag);
+          this.render();
+        });
+
     }
 });

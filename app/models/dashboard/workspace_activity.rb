@@ -46,7 +46,7 @@ module Dashboard
       else
         @date_parts = @rules[@date_group][:default]
       end
-      
+
       @start_date = @rules[@date_group][:history_fcn].call(@date_parts)
     end
 
@@ -96,8 +96,9 @@ module Dashboard
                :start_date => @start_date,
                :end_date => Time.now)
       .count
+      events_by_datepart_workspace = Hash[events_by_datepart_workspace.map { |k,v| [[k[0], k[1].strftime('%F 00:00:00 UTC')], v] }]
 
-      # Fill in gaps and construct axis labels
+      # Fill in date gaps (each date in the range should be present) and construct axis labels
       labels = []
       (0..@date_parts).each do |d|
         label = @rules[@date_group][:label_fcn].call(@rules[@date_group][:history_fcn].call(d))
@@ -109,7 +110,7 @@ module Dashboard
           labels << label
         end
 
-        fmt_d = @rules[@date_group][:history_fcn].call(d).strftime('%F 00:00:00')
+        fmt_d = @rules[@date_group][:history_fcn].call(d).strftime('%F 00:00:00 UTC')
         top_workspace_ids.each do |id|
           events_by_datepart_workspace[[id, fmt_d]] ||= 0
         end
@@ -119,7 +120,7 @@ module Dashboard
       events_by_datepart_workspace = events_by_datepart_workspace.sort_by { |k,v| Date.strptime(k.last, '%F %T') }
       evs = events_by_datepart_workspace.map do |t, v|
         {
-          date_part: t.last[0..."YYYY-MM-DD".length],
+          date_part: t.last.to_s[0..."YYYY-MM-DD".length],
           workspace_id: t.first,
           event_count: v,
           rank: top_workspace_ids.find_index(t.first)

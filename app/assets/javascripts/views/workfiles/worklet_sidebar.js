@@ -1,9 +1,10 @@
 //= require ./workfile_sidebar
 chorus.views.WorkletSidebar = chorus.views.AlpineWorkfileSidebar.extend ({
     additionalContext: function() {
+        var canUpdate = this.model && this.model.workspace().canUpdate();
         var ctx = this._super('additionalContext', arguments);
-        ctx.showPublishWorklet = this.model.get('state') === 'completed';
-        ctx.showUnpublishWorklet = this.model.get('state') === 'published';
+        ctx.showPublishWorklet = this.model.get('state') === 'completed' && canUpdate;
+        ctx.showUnpublishWorklet = this.model.get('state') === 'published' && canUpdate;
         return ctx;
     },
     setup: function() {
@@ -14,11 +15,22 @@ chorus.views.WorkletSidebar = chorus.views.AlpineWorkfileSidebar.extend ({
 
     publishWorklet: function(e) {
         e && e.preventDefault();
-        this.model.isWorklet() && this.model.publishWorklet();
+        new chorus.alerts.WorkletPublish({model: this.model}).launchModal();
     },
 
     unpublishWorklet: function(e) {
         e && e.preventDefault();
-        this.model.isWorklet() && this.model.unpublishWorklet();
+        new chorus.alerts.WorkletUnpublish({model: this.model}).launchModal();
+    },
+
+    launchWorkfileDeleteDialog: function(e) {
+        e && e.preventDefault();
+        var alert = new chorus.alerts.WorkfileDelete ({
+            model: this.model,
+            workfileId: this.model.id,
+            workspaceId: this.model.workspace().id,
+            workfileName: this.model.get("fileName")
+        });
+        alert.launchModal();
     }
 });

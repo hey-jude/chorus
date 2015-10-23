@@ -2,13 +2,13 @@ module PackageMaker
   PATHS_TO_PACKAGE = %w{
     bin/
     app/
+    components/
     config/*
     db/
     doc/
     lib/*
     packaging/
     public/
-    script/rails
     solr/conf/
     vendor/
     WEB-INF/

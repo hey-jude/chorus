@@ -1,0 +1,19 @@
+
+<div id="workletResults_loading">
+    <div id="spinner_container">
+        <div id="spinner"></div>
+    </div>
+    <div id="loading_time_container">
+        <p class="loading_title">{{t "general.running" }}</p>
+
+        <p class="loading_time">
+            {{t "worklet.running_time_information.label"}} <span id="elapsed_time"></span>
+        </p>
+    </div>
+</div>
+
+<div class="iframe_wrapper">
+    <iframe id="testResults_frame"></iframe>
+</div>
+
+{{> closeWindowFormControls }}

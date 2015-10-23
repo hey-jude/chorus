@@ -31,7 +31,7 @@ describe WorkspaceImagesController do
       end
 
       it "authorizes on owner (or admin)" do
-        log_in users(:the_collaborator)
+        log_in users(:not_a_member)
         post :create, :workspace_id => workspace.id, :files => files
         response.should be_forbidden
       end

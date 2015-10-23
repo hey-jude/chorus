@@ -22,6 +22,13 @@ describe DataSources::WorkspaceDetailsController do
         response.should be_success
       end
 
+      it "should be forbidden if the data source is disabled" do
+        data_source.update_attributes(:state => 'disabled')
+        get :show, :data_source_id => data_source.to_param
+
+        response.should be_forbidden
+      end
+
       it "presents the gpdb data source workspace details" do
         mock.proxy(DataSourceWorkspaceDetailPresenter).new(data_source, anything, {})
         get :show, :data_source_id => data_source.to_param

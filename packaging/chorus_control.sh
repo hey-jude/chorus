@@ -98,6 +98,21 @@ function start () {
   fi
 }
 
+function migrate() {
+  EXIT_STATUS=0
+  pushd $CHORUS_HOME > /dev/null
+  flag=false
+  if [[ "$@" == "-f" || "$@" == "force" ]]; then
+    flag=true;
+  fi
+  $bin/start-postgres.sh;
+  EXIT_STATUS=`expr $EXIT_STATUS + $?`;
+  EXIT_STATUS=0
+  RAILS_ENV=$RAILS_ENV $RUBY -S $RAKE db:migrate_permissions force=$flag
+  EXIT_STATUS=`expr $EXIT_STATUS + $?`
+  popd > /dev/null
+}
+
 function stop () {
   while getopts "t:" OPTION; do
        case $OPTION in

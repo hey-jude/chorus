@@ -32,7 +32,7 @@ class Schema < ActiveRecord::Base
     found_schemas = []
 
     schema_parent.connect_with(account).schemas.each do |name|
-      schema = schema_parent.schemas.find_or_initialize_by_name(name)
+      schema = schema_parent.schemas.find_or_initialize_by(name: name)
       next if schema.invalid?
       schema.stale_at = nil
       schema.save!
@@ -63,6 +63,7 @@ class Schema < ActiveRecord::Base
   end
 
   def self.reindex_datasets(schema_id)
+    return if parent.respond_to?(:disabled?) && parent.disabled?
     schema = find(schema_id)
     schema.refresh_datasets(schema.data_source.owner_account, {:force_index => true})
   end

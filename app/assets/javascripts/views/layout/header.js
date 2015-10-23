@@ -218,6 +218,8 @@ chorus.views.Header = chorus.views.Base.extend({
     },
 
     helpAndSupport: function(e){
+        e.preventDefault();
+        e.stopPropagation();
         this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
         this.dialog.launchModal();
     }

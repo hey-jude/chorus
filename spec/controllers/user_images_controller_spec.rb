@@ -34,11 +34,20 @@ describe UserImagesController do
         decoded_response.icon.should == user.image.url(:icon)
       end
 
-      it "uses authorization" do
-        #mock(subject).authorize! :update, user
-        log_in( users(:the_collaborator) )
-        post :create, :user_id => user.id, :files => files
-        response.should be_forbidden
+      context "when admin tries to post image" do
+        it "should succeed" do
+          log_in( users(:admin) )
+          post :create, :user_id => user.id, :files => files
+          response.code.should == "200"
+        end
+      end
+
+      context "when collaborator tries to post image" do
+        it "should fail" do
+          log_in( users(:the_collaborator) )
+          post :create, :user_id => user.id, :files => files
+          response.should be_forbidden
+        end
       end
 
       generate_fixture "image.json" do

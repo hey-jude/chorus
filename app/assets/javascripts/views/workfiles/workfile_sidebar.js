@@ -21,7 +21,9 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         "click a.copy": 'launchCopyWorkfileDialog',
         "click a.new_note": 'launchNotesNewDialog',
         "click a.create_worklet": 'launchNewWorkletDialog',
+        "click a.worklet_usage": 'launchWorkletUsageDialog',
         "click a.run_now": 'runWorkflow',
+        "click a.run_worklet": 'runWorklet',
         "click a.stop" : 'stopWorkflow'
     },
 
@@ -98,10 +100,12 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
             showEditLinks: workspaceActive && this.options.showEditingLinks && canUpdate,
             showUpdatedTime: this.options.showUpdatedTime,
             showVersions: this.options.showVersions,
-            showRunWorkflow: workspaceActive && this.model.isAlpine() && canUpdate,
+            showRunWorkflow: workspaceActive && this.model.isAlpine() && !this.model.isWorklet() && canUpdate,
+            showRunWorklet: workspaceActive && this.model.isAlpine() && this.model.isWorklet() && canUpdate,
             isRunning: this.model.get('status') === 'running',
             inWorkfile: this.options.inWorkfile,
-            showCreateWorklet: this.model.isAlpine() && !this.model.isWorklet()
+            showCreateWorklet: this.model.isAlpine() && !this.model.isWorklet() && canUpdate,
+            showWorkletUsage: this.model.get('associatedWorklets').length > 0
         };
 
         if (this.model) {
@@ -112,6 +116,9 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
                 ctx.showDeleteLink = false;
                 ctx.showUpdatedTime = false;
                 ctx.showVersions = false;
+            }
+            if(this.model.get('entitySubtype') === 'worklet') {
+                ctx.showCopyLink = false;
             }
             _.extend(ctx, this.modifierContext());
         }
@@ -202,9 +209,24 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         dialog.launchModal();
     },
 
+    launchWorkletUsageDialog: function(e) {
+        e && e.preventDefault();
+
+        var dialog = new chorus.dialogs.WorkletUsage({
+            associatedWorklets: this.model.get('associatedWorklets')
+        });
+
+        dialog.launchModal();
+    },
+
     runWorkflow: function (e) {
         e && e.preventDefault();
         this.model.isAlpine() && this.model.run();
+    },
+
+    runWorklet: function (e) {
+        e && e.preventDefault();
+        chorus.router.navigate(this.model.showRunUrl());
     },
 
     stopWorkflow: function (e) {

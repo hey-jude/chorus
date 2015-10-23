@@ -2,7 +2,9 @@
     {{> multipleSelectionHeader}}
 {{/if}}
 
-<div class="button_holder"></div>
+{{#unless cardLayout}}
+  <div class="button_holder"></div>
+{{/unless}}
 
 {{#if loaded}}
     <div class="pagination">
@@ -23,8 +25,10 @@
 {{/if}}
 
 {{#if search}}
-    {{#unless multiSelect}}
+    {{#unless multiSelect }}
+      {{#unless cardLayout}}
         <span class="explore"></span>
+      {{/unless}}
     {{/unless}}
 
     {{#if search.placeholder}}
@@ -37,5 +41,5 @@
         <div class="count"></div>
     {{/unless}}
 {{else}}
-    <div class="loading_section">{{t "loading"}}</div>
+    <div class="loading_section">{{t "general.loading"}}</div>
 {{/if}}

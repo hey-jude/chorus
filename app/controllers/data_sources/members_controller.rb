@@ -1,6 +1,7 @@
 module DataSources
   class MembersController < ApplicationController
     wrap_parameters :account, :include => [:db_username, :db_password, :owner_id]
+    before_filter :check_source_disabled?
 
     def index
       accounts = DataSource.find(params[:data_source_id]).accounts.includes(:owner).order(:id)
@@ -10,19 +11,20 @@ module DataSources
     end
 
     def create
-      gpdb_data_source = DataSource.unshared.find(params[:data_source_id])
-      Authority.authorize! :update, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
+      @gpdb_data_source = DataSource.unshared.find(params[:data_source_id])
+      Authority.authorize! :update, @gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
 
-      account = gpdb_data_source.accounts.find_or_initialize_by_owner_id(params[:account][:owner_id])
+      owner = User.find(params[:account][:owner_id])
+      @account = @gpdb_data_source.accounts.find_or_initialize_by(owner: owner)
 
-      account.attributes = params[:account]
+      @account.attributes = params[:account]
 
-      account.save!
+      save_invalid_accounts!
 
-      # Need to clean workspace cache for user so that dashboard displays correct no of data sources. DEV-9092
-      if gpdb_data_source.instance_of?(GpdbDataSource)
-        user = account.owner
-        workspaces = gpdb_data_source.workspaces
+        # Need to clean workspace cache for user so that dashboard displays correct no of data sources. DEV-9092
+      if @gpdb_data_source.instance_of?(GpdbDataSource)
+        user = @account.owner
+        workspaces = @gpdb_data_source.workspaces
         workspaces.each do |workspace|
           if workspace.members.include? user
             workspace.delete_cache(user)
@@ -30,21 +32,22 @@ module DataSources
         end
       end
 
-      present account, :status => :created
+      present @account, :status => :created
     end
 
     def update
-      gpdb_data_source = DataSource.find(params[:data_source_id])
-      Authority.authorize! :update, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
+      @gpdb_data_source = DataSource.find(params[:data_source_id])
+      Authority.authorize! :update, @gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
 
-      account = gpdb_data_source.accounts.find(params[:id])
-      account.attributes = params[:account]
-      account.save!
+      @account = @gpdb_data_source.accounts.find(params[:id])
+      @account.attributes = params[:account]
+
+      save_invalid_accounts!
 
       # Need to clean workspace cache for user so that dashboard displays correct no of data sources. DEV-9092
-      if gpdb_data_source.instance_of?(GpdbDataSource)
-        user = account.owner
-        workspaces = gpdb_data_source.workspaces
+      if @gpdb_data_source.instance_of?(GpdbDataSource)
+        user = @account.owner
+        workspaces = @gpdb_data_source.workspaces
         workspaces.each do |workspace|
           if workspace.members.include? user
             workspace.delete_cache(user)
@@ -52,7 +55,7 @@ module DataSources
         end
       end
 
-      present account, :status => :ok
+      present @account, :status => :ok
     end
 
     def destroy
@@ -73,6 +76,23 @@ module DataSources
 
       account.destroy
       render :json => {}
+    end
+
+    private
+
+    def save_invalid_accounts!
+      if params[:incomplete] == "true"
+        @account.save!(:validate => false)
+      else
+        if @gpdb_data_source.valid?
+          @gpdb_data_source.update_attributes({:state => 'enabled'})
+        end
+        @account.save!
+      end
+    end
+
+    def check_source_disabled?
+      ::DataSourcesController.render_forbidden_if_disabled(params)
     end
   end
 end

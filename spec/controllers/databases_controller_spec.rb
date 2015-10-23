@@ -83,6 +83,13 @@ describe DatabasesController do
         decoded_response.size.should == 1
       end
 
+      it "should be forbidden if the data source is disabled" do
+        data_source.update_attributes(:state => 'disabled')
+        get :index, :data_source_id => data_source.id
+
+        response.should be_forbidden
+      end
+
       it_behaves_like 'a paginated list' do
         let(:params) {{ :data_source_id => data_source.id }}
       end
@@ -132,7 +139,7 @@ describe DatabasesController do
       subject { described_class.new }
 
       generate_fixture "forbiddenDataSource.json" do
-        stub(Authority).authorize! { raise Authority::AccessDenied }
+        stub(Authority).authorize! { raise Authority::AccessDenied.new("Forbidden", :activity, database) }
         get :show, :id => database.to_param
         response.should be_forbidden
       end

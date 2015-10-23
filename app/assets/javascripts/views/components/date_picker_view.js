@@ -23,7 +23,7 @@ chorus.views.DatePicker = chorus.views.Base.extend({
             "%d": this.daySelector
         };
 
-        chorus.datePicker(dateMatchers, { disableBeforeToday: true });
+        chorus.datePicker(dateMatchers, { disableBeforeToday: !_.isUndefined(this.options.disableBeforeToday)? this.options.disableBeforeToday : true });
     },
 
     getDate: function () {
