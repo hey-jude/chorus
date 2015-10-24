@@ -186,18 +186,15 @@ class ChorusConfig
   def initialize_hdfs_versions
     versions = []
     pivotal_versions = [
-        'Pivotal HD 2',
         'Pivotal HD 3'
     ]
     other_versions = [
-        'Cloudera CDH4',
         'Cloudera CDH5',
         'Cloudera CDH5.3',
         'Cloudera CDH5.4',
         'Hortonworks HDP 2',
         'Hortonworks HDP 2.2',
         'IBM Big Insights 4.0',
-        'MapR',
         'MapR4'
     ]
     versions += pivotal_versions
