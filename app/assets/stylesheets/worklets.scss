@@ -1,5 +1,5 @@
 @import "_common";
-@import "layout/_header";
+// @import "layout/_header";
 @import "compass/css3/box-shadow";
 @import "compass/css3/filter";
 @import "compass/utilities/general/clearfix";
@@ -20,6 +20,8 @@ $worklet-history-item-selected-color: #DEF2DD;
 
 $worklet-edit-avatar-size: 150px;
 $worklet-panel-header-color: #E0F0FF;
+
+$menu-item-height-default: 40px;
 
 
 // parameters/inputs values
@@ -50,6 +52,28 @@ $parameter-background-color: #F4F6FA;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+// WIP
+// dupe of username-item-link, but created here for the action menu item
+
+@mixin menu-item-link($height) {
+    &:hover, &.selected {
+        background-color: $list-hover-color;
+    }
+
+    a {
+        height: $height;
+        width: 100%;
+
+        text-decoration: none;
+
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 15px;
+        line-height: $height;
+    }
 }
 
 // ********************
@@ -276,7 +300,7 @@ div[data-page="PublishedWorkletShow"] {
                 li {
                     display: block;
                     cursor: pointer;
-                    @include username-item-link($menu-item-height-default);
+                    @include menu-item-link($menu-item-height-default);
                 }
             }
         }
