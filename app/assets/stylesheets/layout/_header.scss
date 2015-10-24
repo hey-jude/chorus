@@ -10,7 +10,7 @@ $header-margin-right: $page-margin-right;
 $expanded-search-width: 450px;
 $notification-token-width: $header-margin * 2;
 
-$branding-opacity: 0.93;
+$branding-opacity: 0.92;
 
 $menu-item-height-default: 40px;
 
@@ -192,10 +192,10 @@ $menu-item-height-default: 40px;
 
                 &.advisorNow a img {
                     position: relative;
-                    width: 83px;
-                    top: 6px;
+                    width: 89px;
+                    top: 1px;
                     
-                    margin-bottom: 0px;
+                    // margin-bottom: 0px;
                     padding-right: 15px;
                     opacity: $branding-opacity;
                     
