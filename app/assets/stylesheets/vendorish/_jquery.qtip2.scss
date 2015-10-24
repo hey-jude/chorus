@@ -187,7 +187,7 @@
 }
 
 	.ui-tooltip-light .ui-tooltip-content{
-		background-color: white;
+		background-color: core-white;
 	}
 
 	.ui-tooltip-light .ui-tooltip-titlebar{
@@ -369,7 +369,7 @@
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000);
 		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)";
 
-		color: white;
+		color: $core-white;
 		border-color: #CCCCCC;
 	}
 
@@ -414,7 +414,7 @@
 	.ui-tooltip-jtools .ui-tooltip-titlebar,
 	.ui-tooltip-jtools .ui-tooltip-content{
 		background: transparent;
-		color: white;
+		color: $core-white;
 		border: 0 dashed transparent;
 	}
 
@@ -436,7 +436,7 @@
 
 	.ui-tooltip-cluetip .ui-tooltip-titlebar{
 		background-color: #87876A;
-		color: white;
+		color: $core-white;
 		border: 0 dashed transparent;
 	}
 
@@ -471,14 +471,14 @@
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000);
 		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9000000,endColorstr=#D9000000)";
 		
-		color: white;
+		color: $core-white;
 		border: 0px transparent;
 
 		font-size: 11px;
 		font-family: 'Lucida Grande', sans-serif;
 		font-weight: $semibold;
 		line-height: 16px;
-		text-shadow: 0 1px black;
+		text-shadow: 0 1px $black;
 	}
 
 	.ui-tooltip-tipsy .ui-tooltip-titlebar{
@@ -518,7 +518,7 @@
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D);
 		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)";
 
-		color: white;
+		color: $core-white;
 		font-weight: normal;
 		font-family: serif;
 

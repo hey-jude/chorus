@@ -15,10 +15,6 @@
     }
 }
 
-button .down_caret {
-
-/*     @include triangle-css(down, #aaa, 8px, 4px); */
-/*     @include triangle-glyph(down); */
-    
+button .down_caret {    
     margin: 0 0 0 $caret-margin;
 }

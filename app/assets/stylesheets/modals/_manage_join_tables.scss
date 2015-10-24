@@ -58,7 +58,7 @@
                 background-color: $picklist-selected-background-color;
 
                 .name, .column_count, a {
-                    color: white;
+                    color: #core-white;
                 }
 
                 .spacer_left, .spacer_right {
@@ -125,7 +125,6 @@
             margin-top: 5px;
             float: right;
             width: 250px;
-//             display: inline-block; */
         }
 
         .name {
