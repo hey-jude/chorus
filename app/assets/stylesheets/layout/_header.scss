@@ -10,7 +10,7 @@ $header-margin-right: $page-margin-right;
 $expanded-search-width: 450px;
 $notification-token-width: $header-margin * 2;
 
-$branding-opacity: 0.92;
+$branding-opacity: 0.94;
 
 $menu-item-height-default: 40px;
 
@@ -75,8 +75,7 @@ $menu-item-height-default: 40px;
             box-shadow: $shadow-canon;
             padding: 0 0 0 0;
             top: $header-height;
-        }
-
+        }           
         .token {
             &.active {
                 background-color: $brand-tint;
@@ -103,15 +102,18 @@ $menu-item-height-default: 40px;
         .left {
             float: left;
             #primary-menu {
-            	position: relative;
+            	// position: relative;
+            	position: absolute;
             	top: 1px;
+            	left: 16px;
             	width: 16px;
             	height: 16px;
-            	opacity: 0.94;
-            	
-            	position: absolute;
-            	left: 16px;
-            	
+            	opacity: $branding-opacity;
+
+                &:hover {
+                    opacity: 1;
+                }
+                    
             	svg {
             	    fill: #FFF;
             	}
@@ -122,20 +124,36 @@ $menu-item-height-default: 40px;
                 
                 // main branding logo
                 &.logo {
-                    width: 90px;
-                    padding: 0px 10px;
+                    padding: 0px 20px 0 10px;
                     opacity: $branding-opacity;
-                    
+
                     &:hover {
                         opacity: 1;
                     }
-                    a img {
-                        vertical-align: middle;
+        
+                    
+                    &.alpine {
+                        position: relative;
+                        top: 3px;
+                        width: 111px;
+                        
+                        img {
+                            // max-height: 25px;
+                        }
+                    
+                    }
+                    
+                    &.pivotal {
+                        width: 90px;                    
+                        a img {
+                            vertical-align: middle;
+                        }
+                        img {
+                            max-height: 25px;
+                        }
+                    
                     }
 
-                    img {
-                        max-height: 25px;
-                    }
                 }
 
                 &.drawer {
@@ -186,17 +204,16 @@ $menu-item-height-default: 40px;
                         &.empty { background: $brand-dark; }
                         background: $notification;
 
-                        @include lozenge(2px, 30px, $header-height/3);
+                        // @include lozenge(2px, 30px, $header-height/3);
+                        @include lozenge(2px, 30px, 18px);
                     }
                 }
 
                 &.advisorNow a img {
                     position: relative;
-                    width: 89px;
+                    width: 85px;
                     top: 1px;
-                    
-                    // margin-bottom: 0px;
-                    padding-right: 15px;
+                    padding-right: 20px;
                     opacity: $branding-opacity;
                     
                     &:hover {
@@ -249,26 +266,24 @@ $menu-item-height-default: 40px;
                 height: $icon-box-width;
                 background-color: $brand-shade;
                 border: none;
-                color: white;
+                color: $core-white;
                 font-weight: normal;
 
                 @include transition-duration(0.7s);
                 @include transition-timing-function(cubic-bezier(0,0,0,1));
-                padding-left: $icon-box-width;
+                padding-left: $icon-box-width - 2;
                 padding-right: $icon-box-width;
                 width: $collapsed-search-width;
 
                 &:valid, &:focus {
                     width: $expanded-search-width;
                     background-color: $brand-dark;
-                    @include placeholder {
-                        color: transparent;
-                    }
+                    @include placeholder {color: transparent;}
                 }
 
-                html.ie8 & {
-                    height: 17px;
-                }
+//                 html.ie8 & {
+//                     height: 17px;
+//                 }
             }
         }
 
@@ -328,14 +343,14 @@ $primary-nav-separation-height: 30px;
             }
             .knob {
                 padding-left: 0px;
-                color: white;
+                color: $core-white;
                 background: $brand-dark;
                 width: $header-height;
                 text-align: center;
                 &.remainder { height: 100vh; }
             }
             
-            //  color for svg glyphs in the primary nav
+            // color for svg glyphs in the primary nav
             #primary {
                 svg {
                     fill: #FFF;

@@ -129,7 +129,9 @@ chorus.views.Header = chorus.views.Base.extend({
         this.requiredResources.reset();
         var user = this.session.user();
         var license = chorus.models.Config.instance().license();
-
+        
+        var branding = this.generateBrandingLogo();
+                    
         return _.extend(ctx, this.session.attributes, {
             notifications: this.unreadNotifications,
             fullName: user && user.displayName(),
@@ -137,7 +139,8 @@ chorus.views.Header = chorus.views.Base.extend({
             userUrl: user && user.showUrl(),
             helpLinkUrl: 'help.link_address.' + license.branding(),
             //brandingLogo: license.branding() + "-logo.png",
-            brandingLogoSrc: this.generateBrandingLogo(),
+            brandingVendor: branding.brandingVendor,
+            brandingLogoSrc: branding.brandingLogo,
             advisorNow: license.advisorNowEnabled(),
             advisorNowLink: this.advisorNowLink(user, license)
         });
@@ -145,19 +148,17 @@ chorus.views.Header = chorus.views.Base.extend({
 
     
     generateBrandingLogo: function() {
-        // generate the reference to the rght branding logo
-        // basic = brandingLogo: license.branding() + "-logo.png",
-  // VENDOR_ALPINE = 'alpine'
-  // VENDOR_PIVOTAL = 'pivotal'
+        // generate reference to the branding logo
+        // VENDOR_ALPINE = 'alpine'
+        // VENDOR_PIVOTAL = 'pivotal'
   
         var brandingLogo;
         var brandingLogoLocation = "images/branding/";
-        var license = chorus.models.Config.instance().license();
-        var vendor = license.branding();
+        var vendor = chorus.models.Config.instance().license().branding();
         
         switch (vendor) {
             case "alpine":
-                brandingLogo = "alpine-logo-header.png";
+                brandingLogo = "alpine-logo-header.svg";
                 break;
             
             case "pivotal":
@@ -170,7 +171,7 @@ chorus.views.Header = chorus.views.Base.extend({
         }
         
         brandingLogo = brandingLogoLocation + brandingLogo;
-        return brandingLogo;
+        return {brandingVendor: vendor, brandingLogo: brandingLogo};
     },
 
 
