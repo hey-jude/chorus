@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="chrome=IE8">
+  
   <%= csrf_meta_tags %>
 
   <script>
@@ -15,9 +15,10 @@
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application.js" %>
 
-  <link rel="icon" href="<%= "images/branding/#{License.instance.branding}-favicon.ico" %>" type="image/x-icon">
-  <link rel="shortcut icon" href="<%= "images/branding/#{License.instance.branding}-favicon.ico" %>" type="image/x-icon">
 
+  <link rel="shortcut icon" href="<%= "images/branding/#{License.instance.branding}-favicon.ico" %>" />
+  <meta name="application-name" content="Alpine Data"/>
+  
   <script>
       var instance = chorus.models.Config.instance();
       instance.set(instance.parse(<%= Presenter.present(ChorusConfig.instance, self).to_json.html_safe %>));
