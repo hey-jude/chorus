@@ -136,11 +136,43 @@ chorus.views.Header = chorus.views.Base.extend({
             firstName: user && user.get('firstName'),
             userUrl: user && user.showUrl(),
             helpLinkUrl: 'help.link_address.' + license.branding(),
-            brandingLogo: license.branding() + "-logo.png",
+            //brandingLogo: license.branding() + "-logo.png",
+            brandingLogoSrc: this.generateBrandingLogo(),
             advisorNow: license.advisorNowEnabled(),
             advisorNowLink: this.advisorNowLink(user, license)
         });
     },
+
+    
+    generateBrandingLogo: function() {
+        // generate the reference to the rght branding logo
+        // basic = brandingLogo: license.branding() + "-logo.png",
+  // VENDOR_ALPINE = 'alpine'
+  // VENDOR_PIVOTAL = 'pivotal'
+  
+        var brandingLogo;
+        var brandingLogoLocation = "images/branding/";
+        var license = chorus.models.Config.instance().license();
+        var vendor = license.branding();
+        
+        switch (vendor) {
+            case "alpine":
+                brandingLogo = "alpine-logo-header.png";
+                break;
+            
+            case "pivotal":
+                brandingLogo = "pivotal-logo-header.png";
+                break;
+                
+            default:
+                brandingLogo = "alpine-logo-header.png";
+                break;
+        }
+        
+        brandingLogo = brandingLogoLocation + brandingLogo;
+        return brandingLogo;
+    },
+
 
     refreshNotifications: function() {
         this.notifications.loaded = false;
