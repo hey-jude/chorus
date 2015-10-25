@@ -1,13 +1,13 @@
 @import "_common";
+@import "compass/css3/border-radius";
 
 div.login {
     $card-height: 420px;
-    $card-padding-top: 50px;
+    $card-padding-top: 45px;
     $card-width : 620px;
     $card-top: 150px;
     $card-border-radius: 5px;
-    $image-fudge: 10px;
-
+    $image-fudge: 25px;
 
     position: absolute;
     top: 0;
@@ -27,11 +27,6 @@ div.login {
     background-color: transparent;
     top: 30px;
 
-//     ul {
-//         li {
-//             margin-top: 10px;
-//         }
-//     }
     }
 
     .login_content {
@@ -53,7 +48,7 @@ div.login {
 
         border: $login-card-border-canon;
         background-color: $body-background-color;
-        border-radius: $card-border-radius;
+        @include border-radius($card-border-radius);
 
         height: $card-height - $card-padding-top;
         width: $card-width;
@@ -69,7 +64,7 @@ div.login {
             input {
                 border: $border-canon;
                 border-radius: 3px;
-                height:35px;
+                height: 35px;
                 margin: 5px 0px;
             }
 
@@ -82,50 +77,59 @@ div.login {
         }
 	}
 
-	.logo.alpine {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: $image-fudge;
-		width:120px;
-	}
+	.logo {
+	    display: block;
+	    margin-bottom: $image-fudge;
+	            
+        &.alpine {
+            
+            margin-left: auto;
+            margin-right: auto;
 
-	.logo.pivotal {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: $image-fudge;
-	}
+            // width: 120px;
+            width: 320px;
+        }
+        
+        &.pivotal {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    
+    }
+    
+
 
     .login_footer {
         margin-left: auto;
         margin-right: auto;
 
-        width : $card-width;
+        width: $card-width;
         color: $color-text3;
-        font-size : $small-font;
+        font-size: $small-font;
         text-align: center;
 
-        .logos {
-            @include after-clearfix;
-            width: $card-width;
-            margin: 25px 0;
+//         .logos {
+//             @include after-clearfix;
+//             width: $card-width;
+//             margin: 25px 0;
 
-            .greenplum { float: left; }
-            .emc { float: right; }
-        }
+//             .greenplum { float: left; }
+//             .emc { float: right; }
+//         }
 
         .legal {
-            text-align: left;
-            &.alpine { text-align: center; }
+            // text-align: left;
+            // &.alpine {
+//                 text-align: center;
+//             }
 
             p {
                 padding-bottom: 12px;
                 span {
                     display: inline-block;
 
-                    &.version {}
-                    &.copyright {}
+                   //  &.version {}
+                   //  &.copyright {}
                 }
             }
         }

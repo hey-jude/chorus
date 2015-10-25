@@ -166,7 +166,7 @@ chorus.views.Header = chorus.views.Base.extend({
                 break;
                 
             default:
-                brandingLogo = "alpine-logo-header.png";
+                brandingLogo = "alpine-logo-header.svg";
                 break;
         }
         
