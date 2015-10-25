@@ -1,12 +1,18 @@
 @import "_common";
 @import "compass/css3/border-radius";
 
+
+$login-card-border-canon:   5px solid $color-text3;
+
+
 div.login {
     $card-height: 420px;
     $card-padding-top: 45px;
     $card-width : 620px;
     $card-top: 150px;
     $card-border-radius: 5px;
+    
+    $form-width: 260px;
     $image-fudge: 25px;
 
     position: absolute;
@@ -18,22 +24,14 @@ div.login {
     background: $login-background;
 
 
-.errors,
-.warning {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width: $card-width;
-    background-color: transparent;
-    top: 30px;
-
-    }
-
-    .login_content {
+    .errors,
+    .warning {
         position: relative;
         margin-left: auto;
         margin-right: auto;
-        top: $card-top;
+        width: $card-width;
+        background-color: transparent;
+        top: 30px;
     }
 
     .form_controls {
@@ -42,7 +40,12 @@ div.login {
 		padding-left: 0px;
     }
 
-    .login_card {
+    #login_content {
+        position: relative;
+        top: $card-top;
+    }
+
+    #login_card {
         margin-left: auto;
         margin-right: auto;
 
@@ -53,19 +56,26 @@ div.login {
         height: $card-height - $card-padding-top;
         width: $card-width;
         padding-top: $card-padding-top;
-        overflow: auto;
+       //  overflow: auto;
 
         form {
-            width: 260px;
+            width: $form-width;
             display: block;
             margin-left: auto;
             margin-right: auto;
-
+            
+            .form_pair {
+                label {
+                    margin-bottom: 1px;
+                }
+            
+            }
+            
             input {
-                border: $border-canon;
-                border-radius: 3px;
+                border: $darker-border-canon;
+                @include border-radius($default-border-radius);
                 height: 35px;
-                margin: 5px 0px;
+                margin: 0 0 10px 0;
             }
 
             button {
@@ -82,11 +92,8 @@ div.login {
 	    margin-bottom: $image-fudge;
 	            
         &.alpine {
-            
             margin-left: auto;
             margin-right: auto;
-
-            // width: 120px;
             width: 320px;
         }
         
@@ -94,12 +101,10 @@ div.login {
             margin-left: auto;
             margin-right: auto;
         }
-    
     }
     
 
-
-    .login_footer {
+    #login_footer {
         margin-left: auto;
         margin-right: auto;
 
@@ -108,17 +113,7 @@ div.login {
         font-size: $small-font;
         text-align: center;
 
-//         .logos {
-//             @include after-clearfix;
-//             width: $card-width;
-//             margin: 25px 0;
-
-//             .greenplum { float: left; }
-//             .emc { float: right; }
-//         }
-
         .legal {
-            // text-align: left;
             // &.alpine {
 //                 text-align: center;
 //             }
@@ -128,8 +123,6 @@ div.login {
                 span {
                     display: inline-block;
 
-                   //  &.version {}
-                   //  &.copyright {}
                 }
             }
         }

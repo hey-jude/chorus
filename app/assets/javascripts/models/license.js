@@ -3,7 +3,9 @@ chorus.models.License = chorus.models.Base.extend({
     urlTemplate: "license",
 
     branding: function() {
-        return this.get("branding");
+       // return ("pivotal");
+        return ("alpine");
+        // return this.get("branding");
     },
 
     limitSearch: function() {
@@ -40,6 +42,7 @@ chorus.models.License = chorus.models.Base.extend({
 
     applicationKey: function() {
         var vendor = this.get("vendor");
+        
         switch (vendor) {
             case "alpine":
                 return "alpine_" + this.get("level");

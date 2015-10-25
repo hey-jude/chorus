@@ -116,8 +116,8 @@ $default-border-radius: 3px;
 
 $border-canon:              $default-border-width solid $border-color;
 $dark-border-canon:         $default-border-width solid $border-color-dark;
-$darker-border-canon:         $default-border-width solid $border-color-darkest;
-$login-card-border-canon:   5px solid $color-text3;
+$darker-border-canon:       $default-border-width solid $border-color-darkest;
+
 $shadow-canon:              2px 2px 3px 0px $shadow-color;
 
 
