@@ -14,13 +14,19 @@
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application.js" %>
 
-
-  <link rel="shortcut icon" href="<%= "images/branding/#{License.instance.branding}-favicon.ico" %>" />
-  <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
-  <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
+  <link rel="shortcut icon" href="<%= "/images/branding/#{License.instance.branding}-favicon.ico" %>" />
   
-  <link rel="mask-icon" href="<%= "images/branding/#{License.instance.branding}-pinned-tab.svg" %>" color="#5BBAD5" />
-  <meta name="application-name" content="Alpine Data"/>
+<% if License.instance.branding == 'alpine' %>
+    <meta name="application-name" content="Alpine Data" />
+    <link rel="mask-icon" href="<%= "/images/branding/#{License.instance.branding}-pinned-tab.svg" %>" color="#5BBAD5" />
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
+  
+<% else %>
+    <meta name="application-name" content="Chorus" />
+<% end %>
+
+
   
   <script>
       var instance = chorus.models.Config.instance();
