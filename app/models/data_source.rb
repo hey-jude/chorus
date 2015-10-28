@@ -23,8 +23,7 @@ class DataSource < ActiveRecord::Base
   has_many :events, :through => :activities
   has_many :databases
 
-  before_validation :build_data_source_account_for_owner, :on => :create
-  before_update :update_data_source_account_for_owner, :if => :should_update_account?
+  before_save :update_data_source_account_for_owner, :if => :should_update_account?
 
   validates_associated :owner_account, :if => :validate_owner?
   validates_presence_of :name, :host
@@ -227,11 +226,10 @@ class DataSource < ActiveRecord::Base
   end
 
   def validate_owner?
-    self.changed.include?('host')        ||
-    self.changed.include?('port')        ||
-    self.changed.include?('db_name')     ||
-    self.changed.include?('db_username') ||
-    self.changed.include?('db_password')
+    (self.changed.include?('host')        ||
+    self.changed.include?('port')         ||
+    self.changed.include?('db_name'))     &&
+    should_update_account? == false
   end
 
   def enqueue_refresh

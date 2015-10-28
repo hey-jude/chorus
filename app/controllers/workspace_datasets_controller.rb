@@ -14,7 +14,8 @@ class WorkspaceDatasetsController < ApplicationController
 
     #Added caching options to speed up page load time. Prakash 1/15/15
     namespace = workspace ? "workspace:#{workspace.id}:datasets" : "workspace:datasets"
-    present paginate(@datasets), :presenter_options => { :workspace => workspace, :cached => true, :namespace => namespace }
+
+    present paginate(@datasets), :presenter_options => { :workspace => workspace, :cached => false, :namespace => namespace }
     
   end
 

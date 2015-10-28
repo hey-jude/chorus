@@ -78,7 +78,8 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             hdfsHiveDataSource: this.model.constructorName === "HdfsDataSource" && this.model.isHdfsHive(),
             gnipDataSource: this.model.constructorName === "GnipDataSource",
             parameterCount: {count: this.model.connectionParametersWithoutHadoopHive().length},
-            jdbcHiveDataSource: this.model.constructorName === "JdbcHiveDataSource"
+            jdbcHiveDataSource: this.model.constructorName === "JdbcHiveDataSource",
+            isIncomplete: this.model.isIncomplete()
         };
     },
 
@@ -89,9 +90,14 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     save: function(e) {
         e.preventDefault();
         var attrs = {
-            description: this.$("textarea[name=description]").val().trim(),
-            state: 'enabled'
+            description: this.$("textarea[name=description]").val().trim()
         };
+
+        if (this.model.isDisabled()){
+            attrs["state"] = 'disabled';
+        } else {
+            attrs["state"] = 'enabled';
+        }
 
         _.each(this.formFields, function(name) {
             var input = this.$("input[name=" + name + "], select[name=" + name + "]");
@@ -112,7 +118,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         attrs.ssl = !!this.$("input[name=ssl]").prop("checked");
 
         this.$("button.submit").startLoading("data_sources.edit_dialog.saving");
-        this.model.save(attrs);
+        this.model.save(attrs, {silent: true});
     },
 
     saveSuccess: function() {
@@ -127,6 +133,8 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
 
     saveFailed: function() {
         this.$("button.submit").stopLoading();
+        this.model.set({state: 'incomplete'});
+
         new chorus.dialogs.DataSourceInvalid({model: this.model}).launchModal();
     }
 });

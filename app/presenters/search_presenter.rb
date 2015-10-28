@@ -1,6 +1,8 @@
 class SearchPresenter < SearchPresenterBase
 
   def to_hash
+    data_source_results = present_models_with_highlights(model.data_sources).compact
+
     {
         :users => {
             :results => present_models_with_highlights(model.users),
@@ -8,8 +10,8 @@ class SearchPresenter < SearchPresenterBase
         },
 
         :data_sources => {
-            :results => present_models_with_highlights(SearchPresenter.filter_disabled(model.data_sources)),
-            :numFound => model.num_found[:data_sources]
+            :results => data_source_results,
+            :numFound => data_source_results.length
         },
 
         :workspaces => {

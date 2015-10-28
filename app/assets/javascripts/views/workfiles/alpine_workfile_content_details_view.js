@@ -45,6 +45,8 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
         
         if (location && !_.isUndefined(location.dataSource)) {
             source_disabled = location.dataSource().isDisabled();
+        } else if (location && !_.isUndefined(location.isDisabled)) {
+            source_disabled = location.isDisabled();
         }
 
         return source_disabled;

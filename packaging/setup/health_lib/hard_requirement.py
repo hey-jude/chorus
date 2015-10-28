@@ -68,11 +68,23 @@ def c_check_java_version(install_mode=False, user=None):
 def d_check_disk_space(dir):
     @processify(msg=text.get("step_msg", "check_disk"))
     def check():
-        stat= os.statvfs(dir)
+        stat = os.statvfs(dir)
         free_space = stat.f_frsize*stat.f_bavail / (1024 * 1024 * 1024)
         logger.debug("free space in %s: %d" % (dir, free_space))
         if free_space < 6:
             raise Exception("Not enough space left in %s" % dir)
+    check()
+
+def e_check_free_memory():
+    executor = ChorusExecutor()
+    @processify(msg=text.get("step_msg", "check_free_memory"))
+    def check():
+        ret, stdout, stderr = executor.run("free -m |awk 'FNR == 2 {print $4}'")
+        stdout = stdout.strip()
+        if ret == 0 and stdout.isdigit():
+            logger.debug("free memory is %s" % stdout)
+            if int(stdout) < 4096:
+                raise Exception("Not enough free memory, need at least 4096M free memory")
     check()
 #def d_check_open_port():
 #    from configParser import ConfigParser

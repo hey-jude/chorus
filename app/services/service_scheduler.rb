@@ -37,6 +37,11 @@ class ServiceScheduler
       SolrIndexer.SolrQC.enqueue_if_not_queued('SolrIndexer.refresh_external_data')
     end
 
+    every(ChorusConfig.instance['restart_indexer_interval_hours'].hours, 'chorus_control.sh restart indexer') {
+      chorus_control = File.expand_path("../../../packaging/chorus_control.sh", __FILE__)
+      `#{chorus_control} restart indexer`
+    }
+
     every(ChorusConfig.instance['reset_counter_cache_interval_hours'].hours, 'Tag.reset_all_counters') do
       QC.enqueue_if_not_queued('Tag.reset_all_counters')
     end
