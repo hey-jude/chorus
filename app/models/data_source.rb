@@ -226,11 +226,10 @@ class DataSource < ActiveRecord::Base
   end
 
   def validate_owner?
-    self.changed.include?('host')        ||
-    self.changed.include?('port')        ||
-    self.changed.include?('db_name')     ||
-    self.changed.include?('db_username') ||
-    self.changed.include?('db_password')
+    (self.changed.include?('host')        ||
+    self.changed.include?('port')         ||
+    self.changed.include?('db_name'))     &&
+    should_update_account? == false
   end
 
   def enqueue_refresh

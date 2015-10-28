@@ -5,7 +5,7 @@ module JdbcHive
       data_source = JdbcHiveDataSource.new(data_source_attributes)
       data_source[:shared] = data_source_attributes[:shared]
       data_source.owner = owner
-      data_source.save!
+      data_source.save_if_incomplete!(data_source_attributes)
       Events::DataSourceCreated.by(owner).add(:data_source => data_source)
       data_source
     end
@@ -16,7 +16,8 @@ module JdbcHive
       data_source_attributes.delete(:owner)
 
       data_source.attributes = data_source_attributes
-      data_source.save!
+
+      data_source.save_if_incomplete!(data_source_attributes)
       data_source
 
     end
