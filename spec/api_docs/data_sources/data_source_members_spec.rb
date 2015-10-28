@@ -12,6 +12,7 @@ resource "Data source members" do
   before do
     log_in owner
     any_instance_of(DataSource) { |ds| stub(ds).valid_db_credentials? {true} }
+    any_instance_of(GreenplumConnection) { |c| stub(c).connect! {true} }
   end
 
   get "/data_sources/:data_source_id/members" do
