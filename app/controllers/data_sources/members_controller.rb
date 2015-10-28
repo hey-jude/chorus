@@ -84,9 +84,17 @@ module DataSources
       if params[:incomplete] == "true"
         @account.save!(:validate => false)
       else
+
+        begin
+          connection = @gpdb_data_source.connect_with(@account).connect!
+        ensure
+          connection.try(:disconnect)
+        end
+
         if @gpdb_data_source.valid?
           @gpdb_data_source.update_attributes({:state => 'enabled'})
         end
+
         @account.save!
       end
     end
