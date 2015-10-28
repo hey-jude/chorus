@@ -1,5 +1,5 @@
 class MarkUnsupportedHdfsIncomplete < ActiveRecord::Migration
-  def change
+  def up
     versions = [
         'Cloudera CDH5',
         'Cloudera CDH5.3',
@@ -13,7 +13,11 @@ class MarkUnsupportedHdfsIncomplete < ActiveRecord::Migration
     unsupported_data_sources = HdfsDataSource.where.not(:hdfs_version => versions)
 
     unsupported_data_sources.each do |data_source|
-      data_source.update_attributes(:state => 'incomplete')
+      data_source.update_columns(:state => 'incomplete')
     end
+  end
+
+  def down
+    # not reversible
   end
 end
