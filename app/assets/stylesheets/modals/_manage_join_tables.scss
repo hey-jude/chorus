@@ -58,7 +58,7 @@
                 background-color: $picklist-selected-background-color;
 
                 .name, .column_count, a {
-                    color: #core-white;
+                    color: $core-white;
                 }
 
                 .spacer_left, .spacer_right {
@@ -84,8 +84,7 @@
         a {
             font-size: inherit;
             border-bottom: dotted 1px;
-
-			@include menu-triangle-glyph; 
+			      @include menu-triangle-glyph; 
         }
     }
 }
@@ -148,7 +147,6 @@
             @include secondary-text-small;
         }
     }
-
 }
 
 .join_schemas.components_menu {

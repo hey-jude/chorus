@@ -42,7 +42,6 @@ chorus.models.License = chorus.models.Base.extend({
 
     applicationKey: function() {
         var vendor = this.get("vendor");
-        
         switch (vendor) {
             case "alpine":
                 return "alpine_" + this.get("level");

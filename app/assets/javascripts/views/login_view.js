@@ -24,8 +24,6 @@ chorus.views.Login = chorus.views.Base.extend({
         console.log ("login: b,brandingLogo: " + branding.brandingLogo);
         /* jshint ignore:end */ 
         return {
-//             branding: this.branding(),
-//             logo: this.branding() + "-logo.png",
             branding: brandingVendor,
             brandingLogoSrc: brandingLogoSrc,
             copyright: t("login." + this.branding() + "_copyright", {year:moment().year()}),
@@ -71,23 +69,14 @@ chorus.views.Login = chorus.views.Base.extend({
         
         switch (vendor) {
             case "alpine":
-                /* jshint ignore:start */
-                console.log ("login: alpine");
-                /* jshint ignore:end */
                 brandingLogo = "alpine-logo-login.svg";
                 break;
             
             case "pivotal":
-                /* jshint ignore:start */
-                console.log ("login: pivotal");
-                /* jshint ignore:end */
                 brandingLogo = "pivotal-logo-login.png";
                 break;
                 
             default:
-                /* jshint ignore:start */
-                console.log ("login: default");
-                /* jshint ignore:end */
                 brandingLogo = "alpine-logo-login.png";
                 break;
         }

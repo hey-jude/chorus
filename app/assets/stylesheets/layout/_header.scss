@@ -130,17 +130,13 @@ $menu-item-height-default: 40px;
                     &:hover {
                         opacity: 1;
                     }
-        
-                    
+
                     &.alpine {
                         position: relative;
                         top: 3px;
                         width: 111px;
                         
-                        img {
-                            // max-height: 25px;
-                        }
-                    
+                        img {}
                     }
                     
                     &.pivotal {
@@ -151,7 +147,6 @@ $menu-item-height-default: 40px;
                         img {
                             max-height: 25px;
                         }
-                    
                     }
 
                 }

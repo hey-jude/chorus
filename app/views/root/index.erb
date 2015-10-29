@@ -17,7 +17,7 @@
   <link rel="shortcut icon" href="<%= "/images/branding/#{License.instance.branding}-favicon.ico" %>" />
   
 <% if License.instance.branding == 'alpine' %>
-    <meta name="application-name" content="Alpine Data" />
+    <meta name="application-name" content="Alpine Chorus" />
     <link rel="mask-icon" href="<%= "/images/branding/#{License.instance.branding}-pinned-tab.svg" %>" color="#5BBAD5" />
     <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
     <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
@@ -27,7 +27,6 @@
 <% end %>
 
 
-  
   <script>
       var instance = chorus.models.Config.instance();
       instance.set(instance.parse(<%= Presenter.present(ChorusConfig.instance, self).to_json.html_safe %>));
