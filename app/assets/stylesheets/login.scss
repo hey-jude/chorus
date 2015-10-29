@@ -2,7 +2,8 @@
 @import "compass/css3/border-radius";
 
 
-$login-card-border-canon:   5px solid $color-text3;
+$login-card-border-width: 5px;
+$login-card-border-canon: $login-card-border-width solid $color-text3;
 
 
 div.login {
@@ -23,21 +24,28 @@ div.login {
 
     background: $login-background;
 
-
     .errors,
     .warning {
         position: relative;
         margin-left: auto;
         margin-right: auto;
-        width: $card-width;
+        width: $card-width + (2 * $login-card-border-width);
         background-color: transparent;
         top: 30px;
+        
+        ul {
+          li {
+            margin-left: 0;
+            margin-right: 0;
+          }
+        }
+        
     }
 
     .form_controls {
-		margin-top: 15px;
-		padding-right: 0px;
-		padding-left: 0px;
+      margin-top: 15px;
+      padding-right: 0px;
+      padding-left: 0px;
     }
 
     #login_content {
@@ -57,6 +65,7 @@ div.login {
         width: $card-width;
         padding-top: $card-padding-top;
        //  overflow: auto;
+	}
 
         form {
             width: $form-width;
@@ -68,7 +77,6 @@ div.login {
                 label {
                     margin-bottom: 1px;
                 }
-            
             }
             
             input {
@@ -85,8 +93,7 @@ div.login {
                 margin: 0px;
             }
         }
-	}
-
+        
 	.logo {
 	    display: block;
 	    margin-bottom: $image-fudge;
@@ -114,9 +121,6 @@ div.login {
         text-align: center;
 
         .legal {
-            // &.alpine {
-//                 text-align: center;
-//             }
 
             p {
                 padding-bottom: 12px;
