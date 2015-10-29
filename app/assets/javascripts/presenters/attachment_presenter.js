@@ -13,7 +13,7 @@ chorus.presenters.Attachment = chorus.presenters.Base.extend({
     },
 
     isImage: function() {
-        return chorus.urlHelpers.getMapping(this.model.get("type")) === "img" || chorus.urlHelpers.getMapping(this.model.get("fileType")) === "img";
+        return chorus.urlHelpers.getMapping(this.model.get("type")) === "image" || chorus.urlHelpers.getMapping(this.model.get("fileType")) === "image";
     },
 
     useExternalLink: function() {
