@@ -194,8 +194,6 @@ Api::Engine.routes.draw do
     end
   end
 
-  post 'download_chart', :controller => 'image_downloads'
-
   post 'download_data', :controller => 'data_downloads'
 
   get 'VERSION' => 'configurations#version'

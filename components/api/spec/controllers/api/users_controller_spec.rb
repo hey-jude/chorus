@@ -12,6 +12,13 @@ describe Api::UsersController do
   describe "#index" do
     it_behaves_like "an action that requires authentication", :get, :index
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { User }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
+
     it "succeeds" do
       get :index
       response.code.should == "200"

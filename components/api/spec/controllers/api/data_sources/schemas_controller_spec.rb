@@ -22,6 +22,13 @@ describe Api::DataSources::SchemasController do
       let!(:params){ { :data_source_id => data_source.to_param } }
     end
 
+    it "should be forbidden if the data source is disabled" do
+      data_source.update_attributes(:state => 'disabled')
+      get :index, :data_source_id => data_source.to_param
+
+      response.should be_forbidden
+    end
+
     it 'returns a 200 status code' do
       get :index, :data_source_id => data_source.to_param
       response.status.should == 200

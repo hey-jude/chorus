@@ -28,6 +28,7 @@ describe Api::DataSourcePresenter, :type => :view do
       hash.should have_key(:shared)
       hash.should have_key(:is_hawq)
       hash.should have_key(:schema_blacklist)
+      hash.should have_key(:state)
       hash[:entity_type].should == "oracle_data_source"
     end
   end

@@ -28,12 +28,7 @@ module Dashboard
         workfiles = active_rel.all
       end
 
-      if Permissioner.user_in_scope? @user
-        workfiles = OpenWorkfileEvent.filter_by_scope(@user, workfiles)
-      else
-        workfiles
-      end
-
+      workfiles
     end
   end
 end

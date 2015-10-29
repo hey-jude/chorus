@@ -23,6 +23,13 @@ describe Api::DataSources::OwnersController do
       request_ownership_update
     end
 
+    it "should be forbidden if the data source is disabled" do
+      data_source.update_attributes(:state => 'disabled')
+      put :update, :data_source_id => data_source.to_param, :owner => {:id => new_owner.to_param }
+
+      response.should be_forbidden
+    end
+
     context "with a greenplum data source" do
       it "switches ownership of data source and account" do
         mock(DataSourceOwnership).change(user, data_source, new_owner)

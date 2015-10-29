@@ -9,7 +9,8 @@ module Api
         :shared => model.shared,
         :owner_id => model.owner_id,
         :version => model.version,
-        :is_hawq => model.is_hawq
+        :is_hawq => model.is_hawq,
+        :state => model.state
       }
       unless succinct?
         hash.merge!({
@@ -19,11 +20,18 @@ module Api
                       :online => model.state == "online",
                       :db_name => model.db_name,
                       :description => model.description,
-                      :schema_blacklist => model.connect_as_owner.schema_blacklist
+                      :schema_blacklist => model.connect_as_owner.schema_blacklist,
+                      :db_username => db_username
                     }.merge(owner_hash).
                       merge(tags_hash))
       end
       hash
+    end
+
+    def db_username
+      if model.owner_account
+        model.owner_account.db_username
+      end
     end
 
     def complete_json?

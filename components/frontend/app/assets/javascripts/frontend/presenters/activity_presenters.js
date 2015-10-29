@@ -190,6 +190,11 @@
             attrs: [ "newName", "oldName" ]
         },
 
+        DataSourceChangedState: {
+            links: [ "actor", "dataSource" ],
+            attrs: [ "newState", "oldState" ]
+        },
+
         HdfsDataSourceChangedName: {
             links: [ "actor", "hdfsDataSource" ],
             attrs: [ "newName", "oldName" ]
@@ -742,7 +747,7 @@
 
         modelLink: function(model) {
             var url = model.showUrl();
-            
+
             if(url){
                 return Handlebars.helpers.linkTo(url, model.name());
             } else {

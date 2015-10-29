@@ -9,7 +9,7 @@ class DataSource < ActiveRecord::Base
   # Order: edit, show_contents
 
   attr_accessor :db_username, :db_password
-  attr_accessible :name, :description, :host, :port, :ssl, :db_name, :db_username, :db_password, :is_hawq, :as => [:default, :create]
+  attr_accessible :name, :description, :host, :port, :state, :ssl, :db_name, :db_username, :db_password, :is_hawq, :as => [:default, :create]
   attr_accessible :shared, :as => :create
 
   # Must happen before accounts are destroyed
@@ -23,7 +23,7 @@ class DataSource < ActiveRecord::Base
   has_many :events, :through => :activities
   has_many :databases
 
-  before_validation :build_data_source_account_for_owner, :on => :create
+  before_save :update_data_source_account_for_owner, :if => :should_update_account?
 
   validates_associated :owner_account, :if => :validate_owner?
   validates_presence_of :name, :host
@@ -31,12 +31,17 @@ class DataSource < ActiveRecord::Base
   validates_with DataSourceNameValidator
 
   after_update :solr_reindex_later, :if => :shared_changed?
+
   after_update :create_name_changed_event, :if => :current_user
 
   after_create :enqueue_refresh
   after_create :create_created_event, :if => :current_user
 
   after_destroy :create_deleted_event, :if => :current_user
+
+  def check_connection_status
+    QC.enqueue_if_not_queued('DataSource.check_status', self.id)
+  end
 
   def self.by_type(entity_types)
     if entity_types.present?
@@ -141,7 +146,7 @@ class DataSource < ActiveRecord::Base
 
   def self.check_status(id)
     data_source = DataSource.find(id)
-    data_source.check_status!
+    data_source.check_status! unless data_source.disabled?
   rescue => e
     Rails.logger.error "Unable to check status of DataSource: #{data_source.inspect}"
     Rails.logger.error "#{e.message} :  #{e.backtrace}"
@@ -154,6 +159,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh(options={})
+    return if disabled?
     options[:skip_dataset_solr_index] = true if options[:new]
     refresh_databases options
 
@@ -164,11 +170,11 @@ class DataSource < ActiveRecord::Base
   end
 
   def refresh_databases_later
-    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed?
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.refresh_databases', id) unless being_destroyed? || disabled?
   end
 
   def solr_reindex_later
-    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id)
+    SolrIndexer.SolrQC.enqueue_if_not_queued('DataSource.reindex_data_source', id) unless disabled?
   end
 
   def update_state_and_version
@@ -185,6 +191,15 @@ class DataSource < ActiveRecord::Base
     connect_as(user).with_connection {}
   end
 
+  def save_if_incomplete!(params)
+    if params["state"] == "incomplete"
+      save!(:validate => false)
+    else
+      save!
+    end
+    self
+  end
+
   private
 
   def build_data_source_account_for_owner
@@ -192,12 +207,35 @@ class DataSource < ActiveRecord::Base
     # DataSourceAccount.new(:owner => owner, :db_username => db_username, :db_password => db_password)
   end
 
+  def should_update_account?
+    if owner_account.nil?
+      build_data_source_account_for_owner
+    end
+    (!db_password.nil? && db_password != owner_account.db_password)|| (db_username && db_username != owner_account.db_username)
+  end
+
+  def update_data_source_account_for_owner
+    owner_account.assign_attributes(:db_username => db_username, :db_password => db_password)
+    if incomplete?
+      owner_account.save!(validate: false)
+    else
+      owner_account.save!
+    end
+  end
+
   def validate_owner?
-    self.changed.include?('host') || self.changed.include?('port') || self.changed.include?('db_name')
+    (self.changed.include?('host')        ||
+      self.changed.include?('port')         ||
+      self.changed.include?('db_name'))     &&
+      should_update_account? == false
   end
 
   def enqueue_refresh
-    SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true)
+    SolrIndexer.SolrQC.enqueue_if_not_queued("DataSource.refresh", self.id, 'new' => true) unless disabled?
+  end
+
+  def enqueue_check_status!
+    QC.enqueue_if_not_queued('DataSource.check_status', self.id)
   end
 
   def account_owned_by(user)

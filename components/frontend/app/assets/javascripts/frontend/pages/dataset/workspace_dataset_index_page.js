@@ -88,7 +88,14 @@ chorus.pages.WorkspaceDatasetIndexPage = chorus.pages.Base.include(
 
         var fileImport = {name: 'import_file', target: chorus.dialogs.WorkspaceFileImport};
 
-        this.workspace.sandbox() && actions.push(fileImport);
+        var sandbox = this.workspace.sandbox();
+
+        if (sandbox){
+            var database = sandbox.database();
+            if (database && database.dataSource() && !database.dataSource().isDisabled()){
+                actions.push(fileImport);
+            }
+        }
 
         return actions;
     },

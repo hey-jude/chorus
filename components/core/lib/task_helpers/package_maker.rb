@@ -2,6 +2,7 @@ module PackageMaker
   PATHS_TO_PACKAGE = %w{
     bin/
     app/
+    components/
     config/*
     db/
     doc/

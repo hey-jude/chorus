@@ -9,7 +9,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         "change input[name=high_availability]": 'toggleHighAvailability'
     },
 
-    formFields: ["name", "host", "port", "size", "dbName", "username", "groupList", "streamUrl", "password", "jobTrackerHost", "jobTrackerPort", "hiveMetastoreLocation", "hdfsVersion", "hiveKerberosPrincipal", "hiveKerberosKeytabLocation"],
+    formFields: ["name", "host", "port", "size", "dbName", "username", "groupList", "streamUrl", "password", "jobTrackerHost", "jobTrackerPort", "hiveMetastoreLocation", "hdfsVersion", "hiveKerberosPrincipal", "hiveKerberosKeytabLocation", "dbUsername", "dbPassword"],
 
     makeModel: function() {
         this.sourceModel = this.model;
@@ -20,7 +20,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
     setup: function() {
         this.listenTo(this.model, "saved", this.saveSuccess);
         this.listenTo(this.model, "saveFailed", this.saveFailed);
-        this.listenTo(this.model, "validationFailed", this.saveFailed);
+        this.listenTo(this.model, "validationFailed", this.validationFailed);
     },
 
     postRender: function() {
@@ -34,6 +34,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
                 return '<span class='+ aliasedName +'></span>' + text;
             } });
         }, this));
+
     },
 
     launchConnectionParametersDialog: function (e) {
@@ -77,7 +78,8 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
             hdfsHiveDataSource: this.model.constructorName === "HdfsDataSource" && this.model.isHdfsHive(),
             gnipDataSource: this.model.constructorName === "GnipDataSource",
             parameterCount: {count: this.model.connectionParametersWithoutHadoopHive().length},
-            jdbcHiveDataSource: this.model.constructorName === "JdbcHiveDataSource"
+            jdbcHiveDataSource: this.model.constructorName === "JdbcHiveDataSource",
+            isIncomplete: this.model.isIncomplete()
         };
     },
 
@@ -90,6 +92,12 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         var attrs = {
             description: this.$("textarea[name=description]").val().trim()
         };
+
+        if (this.model.isDisabled()){
+            attrs["state"] = 'disabled';
+        } else {
+            attrs["state"] = 'enabled';
+        }
 
         _.each(this.formFields, function(name) {
             var input = this.$("input[name=" + name + "], select[name=" + name + "]");
@@ -110,7 +118,6 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         attrs.ssl = !!this.$("input[name=ssl]").prop("checked");
 
         this.$("button.submit").startLoading("data_sources.edit_dialog.saving");
-        this.$("button.cancel").prop("disabled", true);
         this.model.save(attrs, {silent: true});
     },
 
@@ -118,5 +125,16 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
         this.sourceModel.set(this.model.attributes);
         chorus.toast("data_sources.edit_dialog.saved.toast", {dataSourceName: this.model.name(), toastOpts: {type:"success"}});
         this.closeModal();
+    },
+
+    validationFailed: function() {
+        this._super("saveFailed", this.model);
+    },
+
+    saveFailed: function() {
+        this.$("button.submit").stopLoading();
+        this.model.set({state: 'incomplete'});
+
+        new chorus.dialogs.DataSourceInvalid({model: this.model}).launchModal();
     }
 });

@@ -8,7 +8,8 @@ module Api
         :entity_type => model.entity_type_name,
         :supports_work_flows => model.supports_work_flows,
         :hdfs_version => model.hdfs_version,
-        :is_deleted => model.deleted?
+        :is_deleted => model.deleted?,
+        :state => model.state
       }
       unless succinct?
         hash.merge!({
@@ -22,7 +23,7 @@ module Api
                       :job_tracker_host => model.job_tracker_host,
                       :job_tracker_port => model.job_tracker_port,
                       :high_availability => model.high_availability?,
-                      :connection_parameters => model.connection_parameters
+                      :connection_parameters => model.connection_parameters_including_hive
                     }.merge(owner_hash).
                       merge(tags_hash))
       end

@@ -78,6 +78,23 @@ describe Api::HdfsDataSourcesController do
     let(:params) { attributes.merge :id => hdfs_data_source }
     let(:fake_data_source) { Object.new }
 
+    it "allows the user to update the status" do
+      stub(Hdfs::QueryService).version_of { hdfs_data_source }
+      stub(Hdfs::QueryService).accessible? { true }
+      attributes["state"] = 'disabled'
+      put :update, params
+      expect(HdfsDataSource.find(params[:id]).disabled?).to be_true
+    end
+
+    it "doesn't allow the user to set an invalid state" do
+      stub(Hdfs::QueryService).version_of { hdfs_data_source }
+      stub(Hdfs::QueryService).accessible? { true }
+      attributes[:state] = 'some random state'
+
+      put :update, params
+      response.should be_unprocessable
+    end
+
     it "checks authorization and presents the updated hadoop data source" do
       mock(Hdfs::DataSourceRegistrar).update!(hdfs_data_source.id, attributes, @user) { fake_data_source }
       mock(Authority).authorize!.with_any_args
@@ -107,6 +124,19 @@ describe Api::HdfsDataSourcesController do
       get :index
     end
 
+    let (:disabled) { hdfs_data_sources(:hdfs_disabled) }
+    let (:incomplete) { hdfs_data_sources(:hdfs_incomplete) }
+
+    it 'includes filtered and disabled ' do
+      get :index
+      decoded_response.map(&:id).should include(disabled.id, incomplete.id)
+    end
+
+    it 'filters disabled and incomplete if filter_disabled is true' do
+      get :index, :filter_disabled => "true"
+      decoded_response.map(&:id).should_not include(*HdfsDataSource.where(:state => ['incomplete', 'disabled']).pluck(:id))
+    end
+
     it_behaves_like "a paginated list"
     it_behaves_like :succinct_list
     it_behaves_like "a scoped endpoint" do
@@ -133,6 +163,25 @@ describe Api::HdfsDataSourcesController do
       decoded_response.name.should == hdfs_data_source.name
     end
 
+    context "when the user is not an admin" do
+      it "hides disabled data sources" do
+        hdfs_data_source.state = "disabled"
+        hdfs_data_source.save!
+        get :show, :id => hdfs_data_source.id
+        response.should be_not_found
+      end
+    end
+
+    context "when the user is an admin" do
+      it "shows the disabled data sources" do
+        log_in users(:admin)
+        hdfs_data_source.state = "disabled"
+        hdfs_data_source.save!
+        get :show, :id => hdfs_data_source.id
+        response.should be_success
+      end
+    end
+
     generate_fixture "hdfsDataSource.json" do
       get :show, :id => hdfs_data_source.id
     end
@@ -148,6 +197,13 @@ describe Api::HdfsDataSourcesController do
     it "uses authentication" do
       mock(Authority).authorize!.with_any_args
       delete :destroy, :id => hdfs_data_source.id
+    end
+
+    it "allows the owner to destroy a disabled data source" do
+      hdfs_data_source.state = 'disabled'
+      hdfs_data_source.save!
+      delete :destroy, :id => hdfs_data_source.id
+      response.should be_success
     end
   end
 

@@ -29,6 +29,7 @@ class ApiController < ApplicationController
   rescue_from 'SearchExtensions::SolrUnreachable', :with => :render_solr_unreachable_error
   rescue_from 'ModelMap::UnknownEntityType', :with => :render_unprocessable_entity
   rescue_from 'DataSourceConnection::InvalidCredentials', :with => :render_forbidden
+  rescue_from 'Sequel::AdapterNotFound', :with => :render_adapter_not_found
   rescue_from 'Net::LDAP::LdapError', :with => :render_service_unavailable_error
   rescue_from 'Net::LDAP::Error', :with => :render_ldap_service_unavailable_error
   rescue_from 'LdapClient::LdapNotCorrectlyConfigured', :with => :render_service_unavailable_error
@@ -77,6 +78,10 @@ class ApiController < ApplicationController
 
   def render_hdfs_query_error(e)
     present_errors({:record => :HDFS_QUERY_ERROR, :message => e.message}, :status => :not_found)
+  end
+
+  def render_adapter_not_found(e)
+    present_errors({:record => :ADAPTER_NOT_FOUND}, :status => :unprocessable_entity)
   end
 
   def render_resource_forbidden(e)

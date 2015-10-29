@@ -112,7 +112,7 @@ div[data-page="PublishedWorkletIndex"] {
       bottom: 0;
     }
   }
-  
+
   // when the catalog has no touchpoints
     #catalog_empty {
         position: relative;
@@ -258,18 +258,30 @@ div[data-page="PublishedWorkletShow"] {
         .caret {
             margin-left: $caret-margin;
         }
-    }
+        .worklet_action_menu {
+            float: right;
 
-    .popup_worklet_menu {
-        line-height: 24px;
-        // account for 1px border around popup
-        right: 0;
-        width: $header-margin * 6;
+            a.inactive {
+                color: gray;
+                cursor: default;
+                text-decoration: none;
+            }
 
-        li {
-          @include username-item-link($menu-item-height-default);
+            .popup_worklet_menu {
+                line-height: 24px;
+                // account for 1px border around popup
+                right: 0;
+                width: $header-margin * 6;
+
+                li {
+                    display: block;
+                    cursor: pointer;
+                    @include username-item-link($menu-item-height-default);
+                }
+            }
         }
     }
+
 }
 // END: top header
 
@@ -872,7 +884,7 @@ $workletSteps-container-height: 50px;
   }
 }
 
-.worklet_new_dialog, 
+.worklet_new_dialog,
 .worklets_worklet_workflow_configuration {
 
     .workflow_details, .worklet_details {
@@ -1272,6 +1284,7 @@ $workletSteps-container-height: 50px;
             padding: 10px;
             position: relative;
             height: 100%;
+            line-height: 25px;
 
             h3 {
                 @include font-primary-bold;

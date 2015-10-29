@@ -89,7 +89,11 @@ module Events
         FROM memberships
         WHERE user_id = #{user.id})
       SQL
-      self.activity_query(user, workspace_activities)
+
+      group("events.id").readonly(false).
+        joins(:activities).
+        where(%Q{(events.published = true) OR (events.actor_id=#{user.id} AND activities.entity_type != 'Workspace') OR (activities.entity_type = 'GLOBAL') OR (activities.entity_type = 'Workspace'
+          AND (#{workspace_activities}))})
     end
 
     def self.visible_to(user)

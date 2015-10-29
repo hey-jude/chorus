@@ -46,6 +46,13 @@ describe Api::MembersController do
         response.code.should == "200"
         decoded_response.should have(private_workspace.members.length).items #including the owner
       end
+
+      it_behaves_like "a scoped endpoint" do
+        let!(:klass) { Workspace }
+        let!(:user)  { member }
+        let!(:action){ :index }
+        let!(:params){ { :workspace_id => private_workspace.id } }
+      end
     end
 
     context "workspace is public" do

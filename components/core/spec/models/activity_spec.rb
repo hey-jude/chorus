@@ -8,4 +8,8 @@ describe Activity do
       activity.entity_id.should be_nil
     end
   end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { Activity.global.create!(:created_at => Time.current + 25) }
+  end
 end

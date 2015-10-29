@@ -15,6 +15,10 @@ describe HdfsDataSource do
     let!(:model) { FactoryGirl.create(:hdfs_data_source) }
   end
 
+  it_behaves_like "a permissioned model" do
+    let!(:model) { hdfs_data_sources(:hadoop) }
+  end
+
   describe "associations" do
     it { should belong_to :owner }
     its(:owner) { should be_a User }
@@ -73,6 +77,24 @@ describe HdfsDataSource do
 
   describe "#check_status!" do
     let(:data_source) { hdfs_data_sources(:hadoop) }
+
+    context "when the data source is disabled" do
+      it "does not check the status" do
+        data_source.update_attributes(:state => 'disabled')
+        any_instance_of(HdfsDataSource) do |ds|
+          mock(ds).disabled?
+        end
+        HdfsDataSource.check_status(data_source.id)
+      end
+    end
+
+    context "when the data source is re-enabled" do
+      it "checks the status again" do
+        data_source.update_attributes(:state => 'disabled')
+        any_instance_of(HdfsDataSource){ |ds| mock(ds).check_status! {nil} }
+        data_source.update_attributes(:state => 'enabled')
+      end
+    end
 
     context "when the data source is offline" do
 
@@ -133,6 +155,12 @@ describe HdfsDataSource do
     let(:root_dir) { HdfsEntry.new({:path => '/bar', :is_directory => true}, :without_protection => true) }
     let(:deep_dir) { HdfsEntry.new({:path => '/bar/baz', :is_directory => true}, :without_protection => true) }
 
+    it 'checks if the data source is disabled' do
+      subject.update_attributes(:state => 'disabled')
+      any_instance_of(HdfsDataSource){ |ds| mock(ds).disabled? { true } }
+      subject.refresh
+    end
+
     it "lists the root directory for the data source" do
       mock(HdfsEntry).list('/', subject) { [root_file, root_dir] }
       mock(HdfsEntry).list(root_dir.path, subject) { [] }
@@ -191,7 +219,7 @@ describe HdfsDataSource do
 
   describe "after being created" do
     before do
-      @new_data_source = HdfsDataSource.create({:owner => User.first, :name => "Hadoop", :host => "localhost", :port => "8020", :hdfs_version => "Pivotal HD 2"}, { :without_protection => true })
+      @new_data_source = HdfsDataSource.create({:owner => User.first, :name => "Hadoop", :host => "localhost", :port => "8020", :hdfs_version => "Pivotal HD 3"}, { :without_protection => true })
     end
 
     it "creates an HDFS root entry" do

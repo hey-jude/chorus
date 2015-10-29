@@ -187,6 +187,10 @@ class Dataset < ActiveRecord::Base
     end
   end
 
+  def column_names
+    column_data.collect{|c| c.name}
+  end
+
   def table_description
     cache(:table_description) do
       DatasetStatistics.build_for(self, schema.data_source.owner_account).description

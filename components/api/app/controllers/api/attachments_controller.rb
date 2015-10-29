@@ -8,8 +8,12 @@ module Api
       if params[:contents]
         attachment_content = params[:contents]
       else
-        transcoder = SvgToPng.new(params[:svg_data])
-        attachment_content = transcoder.fake_uploaded_file(params[:file_name])
+        if defined?(VisLegacy::Engine)
+          transcoder = SvgToPng.new(params[:svg_data])
+          attachment_content = transcoder.fake_uploaded_file(params[:file_name])
+        else
+          raise "No Visualization component attached."
+        end
       end
       event.attachments.create!(:contents => attachment_content)
       event.reload

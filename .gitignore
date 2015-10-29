@@ -98,3 +98,13 @@ screenshot*.html
 
 .sass-cache
 .ruby-gemset
+
+# Python related
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore coverage statistics
+coverage
+public/coverage
+

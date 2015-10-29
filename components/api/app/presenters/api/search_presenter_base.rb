@@ -14,6 +14,9 @@ module Api
         if model.is_a? Dataset
           extend_result_with_nested_highlights(hsh)
         end
+        if model.is_a?(DataSource) || model.is_a?(HdfsDataSource)
+          next if model.disabled? || model.incomplete?
+        end
         hsh
       end
     end

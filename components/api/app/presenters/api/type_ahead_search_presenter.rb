@@ -5,7 +5,7 @@ module Api
       {
         type_ahead: {
           results:
-            present_models_with_highlights(model.results)
+            present_models_with_highlights(model.results).compact
         }
       }
     end

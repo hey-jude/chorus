@@ -128,6 +128,14 @@ describe Api::Workspaces::ImportsController do
             last_import.sample_count.should == 12
             last_import.truncate.should be_false
           end
+
+          context 'when the data source is disabled' do
+            it 'does not allow the import' do
+              database.data_source.update_attributes(:state => 'disabled')
+              post :create, attributes
+              response.should be_not_found
+            end
+          end
         end
 
         it "throws an error if table structure is not consistent" do

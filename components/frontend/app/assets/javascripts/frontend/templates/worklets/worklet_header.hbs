@@ -14,8 +14,36 @@
 
         <button class="modalish close" data-event-type="close">{{t "form.button.close"}}</button>
 
-<!--         <a href="#" class="actions_menu"><span>{{t "worklet.workbench.header.actions.menu"}}<span class="fa fa-caret-down caret"></span></span>        </a> -->
-    
+        {{#unless editing}}
+            <div class="token worklet_action_menu">
+                <a class="label inactive actions_menu" href="#" title="action">
+                    <span>{{t "worklet.workbench.header.actions.menu"}}<span class="fa fa-caret-down caret"></span></span>
+                </a>
+                <div class="menu hidden popup_worklets">
+                    <ul>
+                        {{#if published}}
+                            <li class='underline' id="worklet_header_shareResultsLink">
+                                <a href="#">
+                                    {{t "worklet.dropdown.share_results"}}
+                                </a>
+                            </li>
+                        {{/if}}
+
+                        <li class='underline' id="worklet_header_saveReportLink">
+                            <a href="#">
+                                {{t "worklet.dropdown.save_report_html"}}
+                            </a>
+                        </li>
+                        <li id="worklet_header_viewLogsLink">
+                            <a href='#'>
+                                {{t "worklet.dropdown.view_logs"}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {{/unless}}
+
         {{#if editing}}
 <!--         <div class="menu popup_worklet_menu hidden"> -->
 <!--             <ul> -->
@@ -26,7 +54,7 @@
 <!--             </li> -->
 <!--          </ul> -->
          {{/if}}
-     
+
          </div>
     </div>
 </div>

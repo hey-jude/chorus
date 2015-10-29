@@ -81,15 +81,16 @@ module Dashboard
 
       # Get event counts grouped by @date_group and workspace
       events_by_datepart_workspace = Events::Base
-        .group(:workspace_id, "(date_trunc('#{@date_group}', #{created_at_adjusted}))")
-        .where('workspace_id IN (:workspace_ids)',
-               :workspace_ids => top_workspace_ids)
-        .where("#{created_at_adjusted} >= :start_date and #{created_at_adjusted} <= :end_date",
-               :start_date => @start_date,
-               :end_date => Time.now)
-      .count
+                                       .group(:workspace_id, "(date_trunc('#{@date_group}', #{created_at_adjusted}))")
+                                       .where('workspace_id IN (:workspace_ids)',
+                                              :workspace_ids => top_workspace_ids)
+                                       .where("#{created_at_adjusted} >= :start_date and #{created_at_adjusted} <= :end_date",
+                                              :start_date => @start_date,
+                                              :end_date => Time.now)
+                                       .count
+      events_by_datepart_workspace = Hash[events_by_datepart_workspace.map { |k,v| [[k[0], k[1].strftime('%F 00:00:00 UTC')], v] }]
 
-      # Fill in gaps and construct axis labels
+      # Fill in date gaps (each date in the range should be present) and construct axis labels
       labels = []
       (0..@date_parts).each do |d|
         label = @rules[@date_group][:label_fcn].call(@rules[@date_group][:history_fcn].call(d))
@@ -101,16 +102,14 @@ module Dashboard
           labels << label
         end
 
-        fmt_d = @rules[@date_group][:history_fcn].call(d).strftime('%F 00:00:00')
+        fmt_d = @rules[@date_group][:history_fcn].call(d).strftime('%F 00:00:00 UTC')
         top_workspace_ids.each do |id|
           events_by_datepart_workspace[[id, fmt_d]] ||= 0
         end
       end
 
       # Sort by date
-      # Prakash (5/24). Need to append "to_s" to date string for strptime method to work. It is throwing exception otherwise.
-      # Not sure how it worked earlier in Rails 3.2
-      events_by_datepart_workspace = events_by_datepart_workspace.sort_by { |k,v| Date.strptime(k.last.to_s, '%F %T') }
+      events_by_datepart_workspace = events_by_datepart_workspace.sort_by { |k,v| Date.strptime(k.last, '%F %T') }
       evs = events_by_datepart_workspace.map do |t, v|
         {
           date_part: t.last.to_s[0..."YYYY-MM-DD".length],

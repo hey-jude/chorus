@@ -45,6 +45,13 @@ describe Api::Hdfs::ImportsController do
         post :create, params
       end
 
+      it "should be forbidden if the data source is disabled" do
+        hdfs_data_source.update_attributes(:state => 'disabled')
+        post :create, params
+
+        response.should be_forbidden
+      end
+
       context 'when the current user is not the file uploader or admin' do
         let(:user) { users(:owner) }
 

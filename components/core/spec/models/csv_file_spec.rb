@@ -64,7 +64,7 @@ describe CsvFile do
       csv_file.escaped_column_names.should == %w{"where" "order" "select"}
     end
   end
-  
+
   describe "#table_already_exists" do
     let(:csv_file) { csv_files(:default) }
     let(:user) { csv_file.user }
@@ -92,5 +92,9 @@ describe CsvFile do
 
       it { should be_false }
     end
+  end
+
+  it_behaves_like "a permissioned model" do
+    let!(:model) { csv_files(:default) }
   end
 end

@@ -1,0 +1,3 @@
+[submodule "chorushdfs"]
+	path = chorushdfs
+	url = https://github.com/Chorus/chorushdfs.git

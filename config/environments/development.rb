@@ -3,7 +3,8 @@ Rails.application.configure do
   # Custom config options up top:
 
   # See: https://github.com/Chorus/chorus/commit/79fedf38c1ba72578084786e15b41b233fa417a1
-  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus"
+  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus", { expires_in: 7.days }
+  config.action_controller.perform_caching = false
 
   # See: https://github.com/Chorus/chorus/commit/17728d81c16aa788d17ed35e2df3f917259a83d0
   config.eager_load_paths += config.autoload_paths
@@ -16,6 +17,10 @@ Rails.application.configure do
   else
     config.action_mailer.perform_deliveries = false
   end
+
+  # Only turn it on if you really need concurrent requests
+  config.allow_concurrency = true
+  #config.threadsafe!
 
 
   # DEFAULT RAILS CONFIG OPTIONS below
@@ -30,9 +35,7 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

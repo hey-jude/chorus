@@ -13,7 +13,7 @@ Rails.application.configure do
   end
 
   # See: https://github.com/Chorus/chorus/commit/6680e8d9d401e9f679a55842b5a274e764c23001
-  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus"
+  config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus", { expires_in: 7.days }
 
   # See: https://github.com/Chorus/chorus/commit/f7fbd62bec637d74d68a22c61f7bd905ec0c732e
   if !(defined?($rails_rake_task) && $rails_rake_task)

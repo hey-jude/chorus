@@ -1,6 +1,12 @@
-class MessageMiddleware
+class MessageMiddlewareCommon
   def call(env)
-    [200, {"Content-Type" => "text/html"}, [IO.read("public/messages/Messages_en.properties")]]
+    [200, {"Content-Type" => "text/html"}, [IO.read("public/translations/messages_en.properties")]]
+  end
+end
+
+class MessageMiddlewareVisualizations
+  def call(env)
+    [200, {"Content-Type" => "text/html"}, [IO.read("public/translations/visualizations_messages_en.properties")]]
   end
 end
 
@@ -35,10 +41,11 @@ class DummyMiddleware
 end
 
 Jasmine.configure do |config|
-  config.boot_dir = Core::Engine.root.join('spec/javascripts/support/jasmine-boot').to_s
-  config.boot_files = lambda { [Core::Engine.root.join('spec/javascripts/support/jasmine-boot/boot.js').to_s] }
+  config.boot_dir = Frontend::Engine.root.join('spec/javascripts/support/jasmine-boot').to_s
+  config.boot_files = lambda { [Frontend::Engine.root.join('spec/javascripts/support/jasmine-boot/boot.js').to_s] }
 
-  config.add_rack_path('/messages/Messages_en.properties', lambda { MessageMiddleware.new })
+  config.add_rack_path('/translations/messages_en.properties', lambda { MessageMiddlewareCommon.new })
+  config.add_rack_path('/translations/visualizations_messages_en.properties', lambda { MessageMiddlewareVisualizations.new })
   config.add_rack_path('/__fixtures', lambda { BackboneFixtures::FixtureMiddleware.new })
   config.add_rack_app(DummyMiddleware)
 end

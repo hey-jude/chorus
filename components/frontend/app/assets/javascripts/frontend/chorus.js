@@ -2,6 +2,9 @@ window.Chorus = function chorus$Global() {
     var self = this;
     self.models = {};
     self.views = {};
+
+    self.translation_files = ['/translations/messages_en.properties'];
+
     self.views.visualizations = {};
     self.views.LocationPicker = {};
     self.pages = {};

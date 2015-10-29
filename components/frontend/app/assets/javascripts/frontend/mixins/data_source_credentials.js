@@ -2,6 +2,9 @@ chorus.Mixins.DataSourceCredentials = {};
 
 chorus.Mixins.DataSourceCredentials.model = {
     dataSourceRequiringCredentials: function() {
+        if (_.isUndefined(this.serverErrors)){
+            return;
+        }
         this.invalidCredentials = (this.serverErrors.record === 'INVALID_CREDENTIALS');
         return new chorus.models.DynamicDataSource(this.serverErrors.modelData);
     }
@@ -23,9 +26,16 @@ chorus.Mixins.DataSourceCredentials.page = {
             } else {
                 chorus.pageOptions = this.unauthorizedErrorPageOptions();
                 Backbone.history.loadUrl("/forbidden");
+                return;
             }
         } else {
             this._super("dependentResourceForbidden", arguments);
+            return;
+        }
+
+        if (resource.attributes.entitySubtype === "alpine" && resource.executionLocations() && _.isEmpty(resource.executionLocations())){
+            Backbone.history.loadUrl("/forbidden");
+            return;
         }
     },
 

@@ -15,14 +15,16 @@ module Api
 
       #Added caching options to speed up page load time. Prakash 1/15/15
       namespace = workspace ? "workspace:#{workspace.id}:datasets" : "workspace:datasets"
-      present paginate(@datasets), :presenter_options => {:workspace => workspace, :cached => true, :namespace => namespace}
+
+      present paginate(@datasets), :presenter_options => {:workspace => workspace, :cached => false, :namespace => namespace}
 
     end
 
     def create
-      Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      Authority.authorize! :update, workspace, current_user, { :or => :can_edit_sub_objects }
 
       datasets = Dataset.where(:id => params[:dataset_ids])
+      raise_denied if datasets.any?{ |dataset| dataset.data_source.disabled? }
 
       status = workspace.associate_datasets(current_user, datasets) ? :created : :unprocessable_entity
 
@@ -35,6 +37,7 @@ module Api
 
       dataset = params[:name] ? Dataset.find_by_name(params[:name]) : Dataset.find(params[:id])
       dataset.in_workspace?(workspace) or raise ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound if dataset.data_source.disabled?
 
       authorize_data_source_access(dataset)
 
@@ -59,6 +62,10 @@ module Api
 
     def destroy_multiple
       Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+
+      datasets = Dataset.where(:id => params[:dataset_ids])
+      raise_denied if datasets.any?{ |dataset| dataset.data_source.disabled? }
+
       associations = AssociatedDataset.where(:workspace_id => params[:workspace_id], :dataset_id => params[:dataset_ids])
       associations.destroy_all
       render :json => {}
@@ -66,12 +73,18 @@ module Api
 
     def destroy
       Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      raise_denied if Dataset.find(params[:id]).data_source.disabled?
+
       associations = AssociatedDataset.where(:workspace_id => params[:workspace_id], :dataset_id => [params[:id]])
       associations.destroy_all
       render :json => {}
     end
 
     private
+
+    def raise_denied
+      raise Authority::AccessDenied.new("Forbidden", :data_source, nil)
+    end
 
     def workspace
       @workspace ||= Workspace.workspaces_for(current_user).find(params[:workspace_id])

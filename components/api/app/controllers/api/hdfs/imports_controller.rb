@@ -1,6 +1,9 @@
 # KT TODO: why not inherit from HdfsDataSourcesController?
 module Api::Hdfs
   class ImportsController < ApiController
+
+    before_filter :check_source_disabled?
+
     wrap_parameters :hdfs_import, :exclude => []
 
     def create
@@ -31,6 +34,10 @@ module Api::Hdfs
 
     def hdfs_import_params
       params[:hdfs_import]
+    end
+
+    def check_source_disabled?
+      ::HdfsDataSourcesController.render_forbidden_if_disabled(HdfsDataSource.find(params[:hdfs_data_source_id]))
     end
   end
 end

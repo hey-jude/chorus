@@ -290,7 +290,6 @@ function usage () {
   echo "  $script setup                                    setup chorus and alpine"
   echo "  $script health_check                             health check chorus service"
   echo "  $script configure                                configure chorus and alpine"
-  echo "  $script migrate [-f force]                       migrate permissions"
   echo
   if [ "$ALPINE_HOME" != "" ]; then
     echo "The following services are available: postgres, workers, indexer, scheduler, solr, webserver, alpine."
@@ -349,9 +348,6 @@ case $command in
 	   ;;
 	configure )
 	   configure ${@}
-	   ;;
-	migrate )
-	   migrate ${@}
 	   ;;
     * )
        usage

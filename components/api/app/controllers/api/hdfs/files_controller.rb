@@ -1,6 +1,9 @@
 # KT TODO: why not inherit from HdfsDataSourcesController?
 module Api::Hdfs
   class FilesController < ApiController
+
+    before_filter :check_source_disabled?
+
     def index
       begin
         if params[:id]
@@ -37,6 +40,10 @@ module Api::Hdfs
     end
 
     private
+
+    def check_source_disabled?
+      ::HdfsDataSourcesController.render_forbidden_if_disabled(hdfs_data_source)
+    end
 
     def hdfs_data_source
       @hdfs_data_source ||= HdfsDataSource.find(params[:hdfs_data_source_id])

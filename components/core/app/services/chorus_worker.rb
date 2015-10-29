@@ -2,6 +2,7 @@ class ChorusWorker < QC::Worker
   SLEEP_INCREMENT = 2
 
   def start
+    Jdbc::Postgres.load_driver
     Thread.new { ImportCanceler.run }
     super
   end

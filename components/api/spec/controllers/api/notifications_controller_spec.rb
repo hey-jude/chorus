@@ -19,6 +19,13 @@ describe Api::NotificationsController do
       response.code.should == "200"
     end
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Notification }
+      let!(:user)  { current_user }
+      let!(:action){ :index }
+      let!(:params){ {} }
+    end
+
     it "shows list of notifications" do
       get :index
       notifications = decoded_response

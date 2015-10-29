@@ -1,3 +1,11 @@
+if ENV["COVERAGE"] == "true"
+  require 'simplecov'
+
+  SimpleCov.start do
+    add_filter "/spec/" # Ignore coverage for _spec.rb files because they are always 100%
+  end
+end
+
 require 'rubygems'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["LOG_LEVEL"] = '3'

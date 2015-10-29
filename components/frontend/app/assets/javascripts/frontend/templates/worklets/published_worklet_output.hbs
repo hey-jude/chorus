@@ -3,7 +3,7 @@
 
     {{!-- display for when worklet is opened and results are not selected --}}
 
-    
+
         {{#if hasNoHistory}}
         <div class="not_showing_results_section">
             <div id="hasNoHistory">
@@ -35,12 +35,6 @@
 <div class="iframe_wrapper">
 
     <div>
-        {{#if isPublished}}
-            <div class="form_controls" id="share_all_results">
-                <button class="submit modalish">{{t "worklet.results.share_these_results.button"}}!</button>
-            </div>
-        {{/if}}
-
         <iframe id="results" src="{{resultsUrl}}"></iframe>
     </div>
 

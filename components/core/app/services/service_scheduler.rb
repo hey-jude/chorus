@@ -2,6 +2,7 @@ class ServiceScheduler
   include Clockwork
 
   def initialize
+    Jdbc::Postgres.load_driver
 
     #fix for DEV-9102. Worker process crashes under heavy load.
     data_sources = DataSource.where(:deleted_at => nil)
@@ -20,9 +21,9 @@ class ServiceScheduler
       end
     end
 
-#    every(ChorusConfig.instance['instance_poll_interval_minutes'].minutes, 'DataSourceStatusChecker.check_all') do
-#      QC.enqueue_if_not_queued('DataSourceStatusChecker.check_all')
-#    end
+    #    every(ChorusConfig.instance['instance_poll_interval_minutes'].minutes, 'DataSourceStatusChecker.check_all') do
+    #      QC.enqueue_if_not_queued('DataSourceStatusChecker.check_all')
+    #    end
 
     every(ChorusConfig.instance['delete_unimported_csv_files_interval_hours'].hours, 'delete_old_files!') do
       [CsvFile, Upload].each { |clazz| QC.enqueue_if_not_queued("#{clazz}.delete_old_files!") }
@@ -36,6 +37,11 @@ class ServiceScheduler
       SolrIndexer.SolrQC.enqueue_if_not_queued('SolrIndexer.refresh_external_data')
     end
 
+    every(ChorusConfig.instance['restart_indexer_interval_hours'].hours, 'chorus_control.sh restart indexer') {
+      chorus_control = File.expand_path("../../../packaging/chorus_control.sh", __FILE__)
+      `#{chorus_control} restart indexer`
+    }
+
     every(ChorusConfig.instance['reset_counter_cache_interval_hours'].hours, 'Tag.reset_all_counters') do
       QC.enqueue_if_not_queued('Tag.reset_all_counters')
     end
@@ -47,6 +53,8 @@ class ServiceScheduler
     every(1.minute, 'JobBoss.run') { JobBoss.run }
 
     every(24.hours, 'SystemStatusService.refresh') { SystemStatusService.refresh }
+
+    every(1.day, 'Rails.cache.cleanup') { Rails.cache.cleanup }
 
     every(5.minutes, 'RunningWorkfileChecker.check_running_workfiles') do
       RunningWorkfileChecker.check_running_workfiles

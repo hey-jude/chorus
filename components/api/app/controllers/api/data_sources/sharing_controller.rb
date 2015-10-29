@@ -1,6 +1,8 @@
 # KT TODO why not inherit from DataSourcesController?
 module Api::DataSources
   class SharingController < ApiController
+    before_filter :check_source_disabled?
+
     def create
       Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
 
@@ -22,6 +24,10 @@ module Api::DataSources
 
     def data_source
       @data_source ||= DataSource.find(params[:data_source_id])
+    end
+
+    def check_source_disabled?
+      ::DataSourcesController.render_forbidden_if_disabled(params)
     end
   end
 end

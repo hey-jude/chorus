@@ -108,7 +108,7 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
         this.resource = this.model = new (this.dataSourceClass())(merged_attributes);
         this.listenTo(this.model, "saved", this.saveSuccess);
         this.listenTo(this.model, "saveFailed", this.saveFailed);
-        this.listenTo(this.model, "validationFailed", this.saveFailed);
+        this.listenTo(this.model, "validationFailed", this.validationFailed);
 
         this.$("button.submit").startLoading("data_sources.new_dialog.saving");
         this.model.save();
@@ -174,6 +174,14 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
         chorus.PageEvents.trigger("data_source:added", this.model);
         chorus.toast('data_sources.add.toast', {dataSourceName: this.model.name(), toastOpts: {type: "success"}});
         this.closeModal();
+    },
+
+    validationFailed: function() {
+        this._super("saveFailed", this.model);
+    },
+
+    saveFailed: function() {
+        this.$("button.submit").stopLoading();
+        new chorus.dialogs.DataSourceInvalid({model: this.model}).launchModal();
     }
 });
-

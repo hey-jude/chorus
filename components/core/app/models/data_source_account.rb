@@ -23,7 +23,7 @@ class DataSourceAccount < ActiveRecord::Base
   after_destroy { data_source_account_permissions.clear }
 
   def reindex_data_source
-    data_source.refresh_databases_later
+    data_source.refresh_databases_later unless data_source.disabled?
   end
 
   def invalid_credentials!
@@ -40,6 +40,7 @@ class DataSourceAccount < ActiveRecord::Base
   private
 
   def credentials_are_valid
+    return true if data_source && data_source.incomplete?
     @currently_validating_creds = true
     self.invalid_credentials = false
     association = association(:data_source)

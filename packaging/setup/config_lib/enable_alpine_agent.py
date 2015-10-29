@@ -16,9 +16,9 @@ def enable_alpine_agent(options):
     with open(alpine_conf, "r") as f:
         contents = f.read()
 
-    agents_str = "\n".join(str(key+1) + ". " + agent_dic[key][1] + " " + agent_dic[key][2] for key in range(0, len(agent_dic)))
+    agents_str = "\n".join(str(key+1) + ". " + agent_dic[key][1] + " " + agent_dic[key][2] for key in range(3, len(agent_dic)))
     agents_str += "\n%d. exit" % (len(agent_dic) + 1)
-    agents = io.require_selection(text.get("interview_question", "alpine_agent_menu") % agents_str, range(1, len(agent_dic)+2), default=[4])
+    agents = io.require_selection(text.get("interview_question", "alpine_agent_menu") % agents_str, range(4, len(agent_dic)+2), default=[4])
 
     if (len(agent_dic) + 1) in agents:
         return

@@ -42,6 +42,13 @@ describe Api::WorkfilesController do
       names.should == names.sort
     end
 
+    it_behaves_like "a scoped endpoint" do
+      let!(:klass) { Workfile }
+      let!(:user)  { users(:owner) }
+      let!(:action){ :index }
+      let!(:params){ { :workspace_id => workspace.id } }
+    end
+
     context "with a name pattern" do
       it "filters by name pattern" do
         get :index, :workspace_id => workspace.id, :name_pattern => "hadoop_dataset_fl"

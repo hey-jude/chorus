@@ -9,7 +9,8 @@ class JdbcDataSource < DataSource
            :foreign_key => :execution_location_id, :dependent => :destroy
 
   def self.create_for_user(user, data_source_hash)
-    user.jdbc_data_sources.create!(data_source_hash, :as => :create)
+    data_source = user.jdbc_data_sources.new(data_source_hash, :as => :create)
+    data_source.save_if_incomplete!(data_source_hash)
   end
 
   private

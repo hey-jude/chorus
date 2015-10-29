@@ -9,7 +9,8 @@ class GpdbDataSource < ConcreteDataSource
   has_many :imports_as_destination_via_workspace, :through => :schemas, :source => :imports_via_workspaces
 
   def self.create_for_user(user, data_source_hash)
-    user.gpdb_data_sources.create!(data_source_hash, :as => :create)
+    data_source = user.gpdb_data_sources.new(data_source_hash, :as => :create)
+    data_source.save_if_incomplete!(data_source_hash)
   end
 
   def data_source_provider
