@@ -7,7 +7,7 @@
         py: "text/x-python",
         r: "text/x-rsrc",
         pig: "text/x-pig",
-        js: "javascript",
+        js: "text/javascript",
         md: "text/x-markdown"
     };
 

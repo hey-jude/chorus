@@ -9,7 +9,7 @@ describe("chorus.utilities.mime", function() {
         verifyMime("py", "text/x-python");
         verifyMime("r", "text/x-rsrc");
         verifyMime("pig", "text/x-pig");
-        verifyMime("js", "javascript");
+        verifyMime("js", "text/javascript");
         verifyMime("md", "text/x-markdown");
 
         verifyMime("other", "text/plain");
