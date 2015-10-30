@@ -2,27 +2,44 @@
 @import "_common";
 @import "compass/css3/border-radius";
 
-.about_box {
-    font-size: $medium-font;
-    position: relative;
-    top: 100px;
 
-    border: $border-canon;
-    @include border-radius($default-border-radius);
+$about-header-background: $dialog-header-background;
 
-    width: 500px;
+$about-border-color: lighten($color-text3, 40%);
+
+#about_box {
+
+    $card-width: 520px;
+    $card-from-top: 150px;
+    $card-border-radius: 5px;
+    $card-border-width: 5px;
+    
     margin-left: auto;
     margin-right: auto;
 
-    .title {
-    	@include border-top-radius($default-border-radius);
+    position: relative;
+    top: $card-from-top;
+            
+    width: $card-width;
 
-        background-color: $dialog-header-background;
+    font-size: $medium-font;
+
+    border: $border-canon;
+
+    border: $card-border-width solid $about-border-color;
+    background-color: $body-background-color;
+    @include border-radius($card-border-radius);
+
+        
+    .title {
+//     	  @include border-top-radius($default-border-radius);
+
+        background-color: $about-header-background;
         padding: 20px;
-        font-weight: normal;
+        font-weight: 600;
     }
 
-    .content{
+    .content {
         .text {
             padding: 10px;
         }
@@ -35,4 +52,16 @@
             margin-right: 10px;
         }
     }
+    
+    .legal {
+            p {
+                padding-bottom: 12px;
+                span {
+                    display: inline-block;
+                }
+            }    
+    
+    }
+    
+    
 }

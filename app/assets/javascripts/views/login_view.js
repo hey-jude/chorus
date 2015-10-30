@@ -77,7 +77,7 @@ chorus.views.Login = chorus.views.Base.extend({
                 break;
                 
             default:
-                brandingLogo = "alpine-logo-login.png";
+                brandingLogo = "alpine-logo-login.svg";
                 break;
         }
         

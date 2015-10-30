@@ -9,7 +9,7 @@ $login-card-border-canon: $login-card-border-width solid $color-text3;
 div.login {
     $card-height: 420px;
     $card-padding-top: 45px;
-    $card-width : 620px;
+    $card-width: 620px;
     $card-top: 150px;
     $card-border-radius: 5px;
     
@@ -60,8 +60,8 @@ div.login {
         background-color: $body-background-color;
         @include border-radius($card-border-radius);
 
-        height: $card-height - $card-padding-top;
         width: $card-width;
+        height: $card-height - $card-padding-top;
         padding-top: $card-padding-top;
        //  overflow: auto;
 	}

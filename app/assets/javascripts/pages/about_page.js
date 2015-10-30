@@ -28,12 +28,26 @@ chorus.pages.AboutPage = chorus.pages.Base.extend({
     items: function() {
         var keys = [];
         var vendor = this.model.get("vendor");
+        
+        switch (vendor) {
+            case "alpine":
+                keys.splice(0, 0, "collaborators", "admins", "developers");
+                break;
+            case "pivotal":
+                break;              
+            case "openchorus":
+                break;
+            default:
+                break;
+        }
+        
         if (vendor !== "openchorus") {
             keys.splice(0, 0, "expires");
-        }
-        if(vendor === "alpine") {
-            keys.splice(0, 0, "collaborators", "admins", "developers");
-        }
+         }
+
+//         if(vendor === "alpine") {
+//             keys.splice(0, 0, "collaborators", "admins", "developers");
+//         }
 
         return _.map(keys, function(key) {
             return {
