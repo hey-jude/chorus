@@ -20,9 +20,7 @@ chorus.views.Login = chorus.views.Base.extend({
         var branding = this.generateLoginBrandingLogo();
         var brandingVendor = branding.brandingVendor;
         var brandingLogoSrc = branding.brandingLogo;
-        /* jshint ignore:start */
-        console.log ("login: b,brandingLogo: " + branding.brandingLogo);
-        /* jshint ignore:end */ 
+
         return {
             branding: brandingVendor,
             brandingLogoSrc: brandingLogoSrc,

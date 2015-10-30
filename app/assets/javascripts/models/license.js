@@ -3,8 +3,8 @@ chorus.models.License = chorus.models.Base.extend({
     urlTemplate: "license",
 
     branding: function() {
-       return ("pivotal");
-//         return ("alpine");
+       //return ("pivotal");
+        return ("alpine");
         //return ("openchorus");
         // return this.get("branding");
     },
