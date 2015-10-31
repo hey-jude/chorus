@@ -78,7 +78,7 @@
             ["about", "About"]
         ],
 
-        initialize:function (app) {
+        initialize: function (app) {
             var self = this;
             self.app = app;
 
@@ -95,7 +95,7 @@
             self.route("logout", "Logout", self.app.session.logout);
         },
 
-        navigate:function (fragment, pageOptions) {
+        navigate: function (fragment, pageOptions) {
             this.app.pageOptions = pageOptions;
             fragment = fragment.match(/#?(.*)/)[1];
             var fragComparison = fragment.match(/\/?(.*)/)[1];
