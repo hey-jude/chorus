@@ -18,10 +18,10 @@
   
 <% if License.instance.branding == 'alpine' %>
     <meta name="application-name" content="Alpine Chorus" />
-    <link rel="mask-icon" href="<%= "/images/branding/#{License.instance.branding}-pinned-tab.svg" %>" color="#5BBAD5" />
+    <link rel="mask-icon" href="<%= "/images/branding/#{License.instance.branding}-pinned-tab.svg" %>" color="#00A0E5" />
     <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
-    <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
-  
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%= "images/branding/#{License.instance.branding}-touch-icon-144x144.png" %>" />
+    
 <% else %>
     <meta name="application-name" content="Chorus" />
 <% end %>
