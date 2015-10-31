@@ -2,13 +2,13 @@
 "name": "Alpine Data",
 "icons": [
     {
-        "src": "\/alpine-android-chrome-72x72.png",
+        "src": "\/alpine-android-72x72.png",
         "sizes": "72x72",
         "type": "image\/png",
         "density": "1.5"
     },
     {
-        "src": "\/alpine-android-chrome-96x96.png",
+        "src": "\/alpine-android-96x96.png",
         "sizes": "96x96",
         "type": "image\/png",
         "density": "2.0"
