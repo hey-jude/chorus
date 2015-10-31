@@ -27,15 +27,20 @@
             ["notLicensed", "NotLicensed"],
             ["unprocessableEntity", "UnprocessableEntity"],
             ["?*query", "Dashboard"],
-            ["", "Dashboard"],
+            
             ["login", "Login"],
+            
+            ["", "Dashboard"],
+
             ["search/:query", "SearchIndex"],
             ["search/:scope/:entityType/:query", "SearchIndex"],
+
             ["users", "UserIndex"],
             ["users/:id", "UserShow"],
             ["users/:id/edit", "UserEdit"],
             ["users/:id/dashboard_edit", "UserDashboardEdit"],
             ["users/new", "UserNew"],
+
             ["workspaces", "WorkspaceIndex"],
             ["workspaces/:id", "WorkspaceShow"],
             ["workspaces/:id/quickstart", "WorkspaceQuickstart"],
@@ -59,8 +64,11 @@
             ["workspaces/:workspaceId/touchpoints/:id/run", "WorkletRun"],
             ["touchpoints", "PublishedWorkletIndex"],
             ["touchpoints/:id", "PublishedWorkletShow"],
+            
             ["data_sources", "DataSourceIndex"],
             ["data_sources/:dataSourceId/databases", "DatabaseIndex"],
+            ["data_sources/:id/schemas", "OracleSchemaIndex"],
+            
             ["databases/:databaseId", "GpdbSchemaIndex"],
             ["schemas/:schemaId", "SchemaDatasetIndex"],
             ["datasets/:id", "DatasetShow"],
@@ -68,14 +76,16 @@
             ["hdfs_data_sources/:dataSourceId/browse", "HdfsEntryIndex"],
             ["hdfs_data_sources/:dataSourceId/browse/:id", "HdfsEntryIndex"],
             ["hdfs_data_sources/:dataSourceId/browseFile/:id", "HdfsShowFile"],
+            
             ["notifications", "NotificationIndex"],
-            ["styleguide", "StyleGuide"],
+            
             ["tags", "TagIndex"],
             ["tags/:name", "TagShow"],
             ["tags/:scope/:entityType/:name", "TagShow"],
-            ["data_sources/:id/schemas", "OracleSchemaIndex"],
+
             ["work_flows/:id", "WorkFlowShow"],
-            ["about", "About"]
+            ["about", "About"],
+            ["styleguide", "StyleGuide"]
         ],
 
         initialize: function (app) {
