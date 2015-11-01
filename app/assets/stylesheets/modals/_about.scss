@@ -1,0 +1,90 @@
+@import "_browser_support";
+@import "_common";
+
+
+.dialogs_about {
+
+//     $card-width: 520px;
+//     $card-from-top: 150px;
+//     $card-border-radius: 5px;
+//     $card-border-width: 5px;
+
+//     $card-padding-top: 20px;
+//     $card-padding-right: 20px;
+//     $card-padding-bottom: 15px;
+//     $card-padding-left: 20px;
+ 
+//     margin-left: auto;
+//     margin-right: auto;
+
+//     position: relative;
+//     top: $card-from-top;
+//     width: $card-width;
+
+    font-size: $medium-font;
+
+	.logo {
+	    display: block;
+	    
+	    margin-left: auto;
+	    margin-right: auto;
+	    margin-top: 10px;
+	    margin-bottom: 20px;
+	    width: 200px;
+	         
+        &.alpine {
+            width: 250px;
+        }
+        
+        &.pivotal {
+            width: 220px;
+        }
+    }
+
+    #application_title {
+        text-transform: none;
+        font-weight: $semibold;
+        font-size: 24px;
+        line-height: 24px;
+    }
+
+    #application_version {
+        font-weight: $semibold;
+    }
+
+    .about_list {
+        margin-top: 20px;
+    
+        .text {}
+        .items li {
+            // special case for the about screen
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        li:first-child {
+          border-top: $list-vertical-divider;
+        }
+        li:last-child {
+          border-bottom: $list-vertical-divider;
+        }
+        .about_label {
+            font-weight: $semibold;
+        }
+        .about_item {
+            float: right;
+        }
+    }
+
+
+    #footer {
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+
+//         width: $card-width;
+        color: $color-text3;
+        font-size: $small-font;
+    }
+
+}

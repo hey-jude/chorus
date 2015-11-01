@@ -7,6 +7,7 @@ chorus.views.Header = chorus.views.Base.extend({
         "click .drawer a": "togglePopupDrawer",
         "click .type_ahead_result a": "clearSearch",
         "click .help_and_support a": "helpAndSupport",
+        "click .about a": "aboutScreen",
         "submit .search form": "startSearch",
         "keydown .search input": "searchKeyPressed"
     },
@@ -129,7 +130,6 @@ chorus.views.Header = chorus.views.Base.extend({
         this.requiredResources.reset();
         var user = this.session.user();
         var license = chorus.models.Config.instance().license();
-
                     
         return _.extend(ctx, this.session.attributes, {
             notifications: this.unreadNotifications,
@@ -222,10 +222,18 @@ chorus.views.Header = chorus.views.Base.extend({
         }
     },
 
-    helpAndSupport: function(e){
+    helpAndSupport: function(e) {
         e.preventDefault();
         e.stopPropagation();
         this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
         this.dialog.launchModal();
+    },
+
+    aboutScreen: function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.dialog = new chorus.dialogs.About ({ model: this.model });
+        this.dialog.launchModal();
     }
+    
 });
