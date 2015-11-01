@@ -357,14 +357,6 @@ http://www.overset.com/2008/09/01/javascript-natural-sort-algorithm-with-unicode
 
 -----------------------------------------------------------------
 
-Open Sans Font
-http://www.fontsquirrel.com/fonts/open-sans
-
-Apache License Version 2
-http://www.fontsquirrel.com/license/open-sans
-
------------------------------------------------------------------
-
 Punycode.js <http://mths.be/punycode>
 Copyright 2011 Mathias Bynens <http://mathiasbynens.be/>
 
@@ -421,3 +413,23 @@ http://that-matt.com/2010/04/updated-textarea-maxlength-with-jquery-plugin/
 Licensed under Public Domain
 
 -----------------------------------------------------------------
+
+Source Sans Font
+
+Copyright 2010, 2012, 2014 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name 'Source'.
+All Rights Reserved. Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+http://scripts.sil.org/OFL
+
+-----------------------------------------------------------------
+
+Font Awesome
+
+Version: 4.3
+https://fortawesome.github.io/Font-Awesome/license/
+
+-----------------------------------------------------------------
+
+
+
