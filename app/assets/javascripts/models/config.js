@@ -36,8 +36,6 @@ chorus.models.Config = chorus.models.Base.extend({
             this._instance = new chorus.models.Config();
         }
 
-        console.log ("instance: models.Config");
-        
         return this._instance;
     }
 });
