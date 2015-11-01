@@ -17,9 +17,9 @@ chorus.views.Login = chorus.views.Base.extend({
 
     additionalContext: function() {
     
-        var branding = this.generateLoginBrandingLogo();
-        var brandingVendor = branding.brandingVendor;
-        var brandingLogoSrc = branding.brandingLogo;
+        //var branding = this.generateLoginBrandingLogo();
+       // var brandingVendor = branding.brandingVendor;
+        //var brandingLogoSrc = branding.brandingLogo;
 
         return {
             branding: brandingVendor,
@@ -58,30 +58,30 @@ chorus.views.Login = chorus.views.Base.extend({
         return chorus.models.Config.instance().license().branding();
     },
 
-    generateLoginBrandingLogo: function() {
-        // generate reference to the branding logo
-  
-        var brandingLogo;
-        var brandingLogoLocation = "images/branding/";
-        var vendor = chorus.models.Config.instance().license().branding();
-        
-        switch (vendor) {
-            case "alpine":
-                brandingLogo = "alpine-logo-login.svg";
-                break;
-            
-            case "pivotal":
-                brandingLogo = "pivotal-logo-login.png";
-                break;
-                
-            default:
-                brandingLogo = "alpine-logo-login.svg";
-                break;
-        }
-        
-        brandingLogo = brandingLogoLocation + brandingLogo;
-        return {brandingVendor: vendor, brandingLogo: brandingLogo};
-    },
+//     generateLoginBrandingLogo: function() {
+//         // generate reference to the branding logo
+//   
+//         var brandingLogo;
+//         var brandingLogoLocation = "images/branding/";
+//         var vendor = chorus.models.Config.instance().license().branding();
+//         
+//         switch (vendor) {
+//             case "alpine":
+//                 brandingLogo = "alpine-logo-login.svg";
+//                 break;
+//             
+//             case "pivotal":
+//                 brandingLogo = "pivotal-logo-login.png";
+//                 break;
+//                 
+//             default:
+//                 brandingLogo = "alpine-logo-login.svg";
+//                 break;
+//         }
+//         
+//         brandingLogo = brandingLogoLocation + brandingLogo;
+//         return {brandingVendor: vendor, brandingLogo: brandingLogo};
+//     },
 
 
     processStatus: function() {

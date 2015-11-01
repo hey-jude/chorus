@@ -173,6 +173,18 @@ chorus.views.Header = chorus.views.Base.extend({
         return {brandingVendor: vendor, brandingLogo: brandingLogo};
     },
 
+    advisorNowLink: function(user, license) {
+        return URI({
+            hostname: "http://advisor.alpinenow.com",
+            path: "start",
+            query: $.param({
+                first_name: user.get("firstName"),
+                last_name: user.get("lastName"),
+                email: user.get("email"),
+                org_id: license.get("organizationUuid")
+            })
+        });
+    },
 
     refreshNotifications: function() {
         this.notifications.loaded = false;
@@ -234,19 +246,6 @@ chorus.views.Header = chorus.views.Base.extend({
             });
             chorus.router.navigate(search.showUrl());
         }
-    },
-
-    advisorNowLink: function(user, license) {
-        return URI({
-            hostname: "http://advisor.alpinenow.com",
-            path: "start",
-            query: $.param({
-                first_name: user.get("firstName"),
-                last_name: user.get("lastName"),
-                email: user.get("email"),
-                org_id: license.get("organizationUuid")
-            })
-        });
     },
 
     helpAndSupport: function(e){
