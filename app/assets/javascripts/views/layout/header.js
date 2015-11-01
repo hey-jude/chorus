@@ -232,7 +232,7 @@ chorus.views.Header = chorus.views.Base.extend({
     aboutScreen: function(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.dialog = new chorus.dialogs.About ({ model: this.model });
+        this.dialog = new chorus.dialogs.About({ model: this.model });
         this.dialog.launchModal();
     }
     

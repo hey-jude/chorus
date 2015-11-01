@@ -1,13 +1,8 @@
-@import "_browser_support";
+
 @import "_common";
 
 
 .dialogs_about {
-
-//     $card-width: 520px;
-//     $card-from-top: 150px;
-//     $card-border-radius: 5px;
-//     $card-border-width: 5px;
 
 //     $card-padding-top: 20px;
 //     $card-padding-right: 20px;
@@ -57,7 +52,7 @@
     
         .text {}
         .items li {
-            // special case for the about screen
+            // special for the about screen
             padding-left: 0px;
             padding-right: 0px;
         }
@@ -82,7 +77,6 @@
         margin-left: auto;
         margin-right: auto;
 
-//         width: $card-width;
         color: $color-text3;
         font-size: $small-font;
     }
