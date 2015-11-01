@@ -21,7 +21,12 @@ chorus.pages.AboutPage = chorus.pages.Base.extend({
     context: function() {
         return _.extend({
             items: this.items(),
-            applicationKey: "about." + this.model.applicationKey()
+            applicationKey: "about." + this.model.applicationKey(),
+            
+            branding: chorus.branding.applicationVendor,
+            brandingLogoSrc: chorus.branding.applicationLoginLogo,
+            copyright: chorus.branding.copyright,
+            
         }, this.pageOptions);
     },
 
@@ -43,11 +48,7 @@ chorus.pages.AboutPage = chorus.pages.Base.extend({
         
         if (vendor !== "openchorus") {
             keys.splice(0, 0, "expires");
-         }
-
-//         if(vendor === "alpine") {
-//             keys.splice(0, 0, "collaborators", "admins", "developers");
-//         }
+        }
 
         return _.map(keys, function(key) {
             return {

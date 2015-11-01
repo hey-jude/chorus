@@ -129,49 +129,23 @@ chorus.views.Header = chorus.views.Base.extend({
         this.requiredResources.reset();
         var user = this.session.user();
         var license = chorus.models.Config.instance().license();
-        
-        var branding = this.generateBrandingLogo();
+
                     
         return _.extend(ctx, this.session.attributes, {
             notifications: this.unreadNotifications,
             fullName: user && user.displayName(),
             firstName: user && user.get('firstName'),
             userUrl: user && user.showUrl(),
-            helpLinkUrl: 'help.link_address.' + license.branding(),
-            brandingVendor: branding.brandingVendor,
-            brandingLogoSrc: branding.brandingLogo,
-            advisorNow: license.advisorNowEnabled(),
+
+            helpLinkUrl: chorus.branding.applicationHelpLink,
+            brandingVendor: chorus.branding.applicationVendor,
+            brandingLogoSrc: chorus.branding.applicationHeaderLogo,
+            advisorNow: chorus.branding.applicationAdvisorNowEnabled,
+            
             advisorNowLink: this.advisorNowLink(user, license)
         });
     },
 
-    
-    generateBrandingLogo: function() {
-        // generate reference to the branding logo
-        // VENDOR_ALPINE = 'alpine'
-        // VENDOR_PIVOTAL = 'pivotal'
-  
-        var brandingLogo;
-        var brandingLogoLocation = "images/branding/";
-        var vendor = chorus.models.Config.instance().license().branding();
-        
-        switch (vendor) {
-            case "alpine":
-                brandingLogo = "alpine-logo-header.svg";
-                break;
-            
-            case "pivotal":
-                brandingLogo = "pivotal-logo-header.png";
-                break;
-                
-            default:
-                brandingLogo = "alpine-logo-header.svg";
-                break;
-        }
-        
-        brandingLogo = brandingLogoLocation + brandingLogo;
-        return {brandingVendor: vendor, brandingLogo: brandingLogo};
-    },
 
     advisorNowLink: function(user, license) {
         return URI({

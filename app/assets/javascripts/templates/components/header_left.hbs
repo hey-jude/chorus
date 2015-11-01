@@ -10,7 +10,9 @@
 	<div class="menu hidden popup_drawer">
     {{> drawerMenu}}
 	</div>
+	{{#if brandingLogoSrc}}
 	<div class="token logo {{brandingVendor}}">
       <a class="label" href="#/"><img src="{{brandingLogoSrc}}" alt=""/></a>
 	</div>
+	{{/if}}
 </div>

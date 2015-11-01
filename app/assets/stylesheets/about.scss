@@ -13,55 +13,85 @@ $about-border-color: lighten($color-text3, 40%);
     $card-from-top: 150px;
     $card-border-radius: 5px;
     $card-border-width: 5px;
-    
+
+    $card-padding-top: 20px;
+    $card-padding-right: 20px;
+    $card-padding-bottom: 15px;
+    $card-padding-left: 20px;
+ 
     margin-left: auto;
     margin-right: auto;
 
     position: relative;
     top: $card-from-top;
-            
     width: $card-width;
 
     font-size: $medium-font;
 
-    border: $border-canon;
-
     border: $card-border-width solid $about-border-color;
-    background-color: $body-background-color;
     @include border-radius($card-border-radius);
+    background-color: $body-background-color;
 
+    padding: $card-padding-top $card-padding-right $card-padding-bottom $card-padding-left;
+
+	.logo {
+	    display: block;
+	    
+	    margin-left: auto;
+	    margin-right: auto;
+	    margin-bottom: 15px;
+	    width: 200px;
+	         
+        &.alpine {
+            width: 240px;
+        }
         
-    .title {
-//     	  @include border-top-radius($default-border-radius);
-
-        background-color: $about-header-background;
-        padding: 20px;
-        font-weight: 600;
+        &.pivotal {
+            width: 220px;
+        }
     }
 
-    .content {
-        .text {
-            padding: 10px;
-        }
+    #application_title {
+        font-weight: $semibold;
+    }
+
+    #application_version {
+        font-weight: $semibold;
+    }
+
+    .about_list {
+        margin-top: 20px;
+    
+        .text {}
         .items li {
             // special case for the about screen
-            padding-left: 20px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        li:first-child {
+          border-top: $list-vertical-divider;
+        }
+        li:last-child {
+          border-bottom: $list-vertical-divider;
+        }
+        .about_label {
+            font-weight: $semibold;
         }
         .about_item {
             float: right;
-            margin-right: 10px;
         }
     }
-    
-    .legal {
-            p {
-                padding-bottom: 12px;
-                span {
-                    display: inline-block;
-                }
-            }    
-    
+
+
+    #footer {
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+
+        width: $card-width;
+        color: $color-text3;
+        font-size: $small-font;
     }
-    
-    
+
 }

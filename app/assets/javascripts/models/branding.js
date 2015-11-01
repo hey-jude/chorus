@@ -9,17 +9,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
 
     brandingLogoLocation: "/images/branding/",
 
-
-//  what needs to be set?
-//             helpLinkUrl: 'help.link_address.' + license.branding(),
-//             brandingVendor: branding.brandingVendor,
-//             brandingLogoSrc: branding.brandingLogo,
-//             advisorNow: license.advisorNowEnabled(),
-//             advisorNowLink: this.advisorNowLink(user, license)
-            
-//          var user = this.session.user();
-//         var license = chorus.models.Config.instance().license();
-
     initialize: function () {
     
         console.log ("chorus.models.Branding initialize");
@@ -27,14 +16,21 @@ chorus.models.Branding = chorus.models.Base.extend ({
         
         this.applicationLicense = chorus.models.Config.instance().license();
         
+        // values to use for branding
+        
         this.applicationVendor = this.getBrandingVendor();
         this.applicationHeaderLogo = this.getBrandingLogo();
+        this.applicationLoginLogo = this.getBrandingLoginLogo();
         
-        // if (this.isAdvisorNowEnabled) this.advisorNowLink = this.getAdvisorNowLink( chorus.session.user(), this.applicationLicense);
+        this.applicationAdvisorNowEnabled = this.isAdvisorNowEnabled();
+        this.advisorNowLink = "";
+        if (this.isAdvisorNowEnabled) {
+            this.advisorNowLink = this.getAdvisorNowLink( chorus.session.user(), this.applicationLicense);
+        }
 
         this.applicationHelpLink = this.getHelpLink();
-        
 
+        this.copyright = this.getCopyright();
     },
       
    getBrandingVendor: function() {
@@ -42,70 +38,70 @@ chorus.models.Branding = chorus.models.Base.extend ({
         return this.applicationLicense.branding();
     },
 
-
    getBrandingLogo: function() {
    
-        console.log ("models.branding > getBrandingLogo");
-        // generate reference to the branding logo
+        console.log ("models.branding > getBrandingLogo >" + this.getBrandingVendor() );
+        // generate path to the branding logo
         
-        var brandingLogo;
-        // var brandingLogoLocation = "/images/branding/";
-        var vendor = this.getBrandingVendor;
+        var logoFile;
+        var vendor = this.getBrandingVendor();
         
         switch (vendor) {
             case "alpine":
-                brandingLogo = "alpine-logo-header.svg";
+                logoFile = "alpine-logo-header.svg";
                 break;
             
             case "pivotal":
-                brandingLogo = "pivotal-logo-header.png";
+                logoFile = "pivotal-logo-header.png";
                 break;
  
             case "openchorus":
-                brandingLogo = "alpine-logo-header.svg";
+                logoFile = null;
                 break;
                              
             default:
-                brandingLogo = "alpine-logo-header.svg";
+                logoFile = "alpine-logo-header.svg";
                 break;
         }
         
-        brandingLogo = this.brandingLogoLocation + brandingLogo;
+        // if no logofile is defined, then return is null
+        brandingLogo = ( logoFile ? this.brandingLogoLocation + logoFile : null );
         return brandingLogo;
     },
 
-    generateLoginBrandingLogo: function() {
-        // generate reference to the branding logo on login screen
+    getBrandingLoginLogo: function() {
+        // generate path to the branding login logo
   
-        var loginBrandingLogo;
-        // var brandingLogoLocation = "images/branding/";
-        var vendor = this.getBrandingVendor;
+        console.log ("models.branding > getLoginBrandingLogo >" + this.getBrandingVendor() );
+            
+        var logoFile;
+        var vendor = this.getBrandingVendor();
         
         switch (vendor) {
             case "alpine":
-                brandingLogo = "alpine-logo-login.svg";
+                logoFile = "alpine-logo-login.svg";
                 break;
             
             case "pivotal":
-                brandingLogo = "pivotal-logo-login.png";
+                logoFile = "pivotal-logo-login.png";
                 break;
 
             case "openchorus":
-                brandingLogo = "alpine-logo-header.svg";
+                logoFile = null;
                 break;
 
             default:
-                brandingLogo = "alpine-logo-login.svg";
+                logoFile = "alpine-logo-login.svg";
                 break;
         }
         
-        brandingLogo = this.brandingLogoLocation + loginBrandingLogo;
+        loginBrandingLogo = ( logoFile ? this.brandingLogoLocation + logoFile : null );
         return loginBrandingLogo;
     },
 
 
     isAdvisorNowEnabled: function () { 
-        return applicationLicense.advisorNowEnabled();
+        return this.applicationLicense.advisorNowEnabled();
     },
 
     getAdvisorNowLink: function(user, license) {
@@ -117,19 +113,28 @@ chorus.models.Branding = chorus.models.Base.extend ({
             hostname: "http://advisor.alpinenow.com",
             path: "start",
             query: $.param({
-                first_name: user.get("firstName"),
-                last_name: user.get("lastName"),
-                email: user.get("email"),
+                //first_name: user.get("firstName"),
+                first_name: "lamont",
+                //last_name: user.get("lastName"),
+                last_name: "cranston",
+                //email: user.get("email"),
+                email: "address@gmail.com",
                 org_id: license.get("organizationUuid")
             })
         });
     },
 
     getHelpLink: function() {
-        // pull the base help link from the messages properties file...?
-        return ( "help.link_address." + this.applicationVendor);
+        // default to the alpine help if no vendor listed
+        var vendor = ( this.applicationVendor ? this.applicationVendor : "alpine" );
+        return ( "help.link_address." + vendor);
+    },
+
+    getCopyright: function() {
+        // default to the alpine copyright notice if no vendor listed
+        var vendor = ( this.applicationVendor ? this.applicationVendor : "alpine" );
+        return ( t("login." + vendor + "_copyright", {year:moment().year()}) );
     }
-    
 
 }, {
     // singleton

@@ -9,8 +9,8 @@ describe("chorus.pages.AboutPage", function() {
             this.server.completeFetchFor(this.page.model, this.license);
         });
 
-        it("has the styles for a logged in page", function () {
-            expect(this.page.$el).toHaveClass("logged_in_layout");
+        it("has the styles for an about page", function () {
+            expect(this.page.$el).toHaveID("about");
         });
 
         it("includes the application name", function () {
@@ -37,6 +37,7 @@ describe("chorus.pages.AboutPage", function() {
             this.server.completeFetchFor(this.page.model, this.license);
         });
 
+        
         it("renders the license info", function () {
             _.each(["collaborators", "admins", "developers", "expires"], function(item) {
                 expectItemExists(this.page, this.license, item);
