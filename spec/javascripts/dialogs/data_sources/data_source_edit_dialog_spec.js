@@ -443,7 +443,7 @@ describe("chorus.dialogs.DataSourceEdit", function() {
     });
 
     afterEach(function() {
-        this.dataSource= "";
+        this.dataSource= null;
         this.dialog.teardown();
     });
 

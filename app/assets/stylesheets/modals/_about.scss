@@ -1,0 +1,72 @@
+@import "_common";
+
+
+.dialogs_about {
+
+    font-size: $medium-font;
+
+	.logo {
+	    display: block;
+	    
+	    margin-left: auto;
+	    margin-right: auto;
+	    margin-top: 10px;
+	    margin-bottom: 20px;
+	    width: 200px;
+	         
+        &.alpine {
+            width: 250px;
+        }
+        
+        &.pivotal {
+            width: 220px;
+        }
+    }
+
+    #application_title {
+        text-transform: none;
+        font-weight: $semibold;
+        font-size: 24px;
+        line-height: 24px;
+    }
+
+    #application_version {
+        font-weight: $semibold;
+    }
+
+    .about_list {
+        margin-top: 20px;
+        margin-bottom: 30px;
+            
+        .text {}
+        .items li {
+            // special for the about screen
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        li:first-child {
+          border-top: $list-vertical-divider;
+        }
+        li:last-child {
+          border-bottom: $list-vertical-divider;
+        }
+        .about_label {
+            font-weight: $semibold;
+        }
+        .about_item {
+            float: right;
+        }
+    }
+
+
+    #footer {
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+
+        color: $color-text3;
+        font-size: $small-font;
+    }
+
+}
