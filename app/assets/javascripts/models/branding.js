@@ -16,25 +16,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
         
         this.applicationLicense = chorus.models.Config.instance().license();
         
-        // values to use for branding
- //       $.get("/VERSION", function(res) {
- //           $(this).text(res);
- //       });
-// this.$(".version").load("/VERSION", function(res) {
- //           $(this).text(res);
-  //      });
-        
-//         this.applicationVersion = $.ajax({
-//             url: "/VERSION",
-//             dataType: "text"
-//             })
-//             .done ( function(res) {
-// 
-//                 console.log ("v2 > " + typeof(res));
-//                 });              
-
-        //this.applicationVersion = this.getApplicationVersion();
-        
         this.applicationVendor = this.getBrandingVendor();
         this.applicationHeaderLogo = this.getBrandingLogo();
         this.applicationLoginLogo = this.getBrandingLoginLogo();
@@ -50,16 +31,16 @@ chorus.models.Branding = chorus.models.Base.extend ({
         this.copyright = this.getCopyright();
     },
     
-    getApplicationVersion: function() {
-        $.ajax({
-            url: "/VERSION",
-            dataType: "text"
-        })
-         .done ( function(res) {
-            console.log ("v > " + res);
-                return res;
-            });
-    },
+//     getApplicationVersion: function() {
+//         $.ajax({
+//             url: "/VERSION",
+//             dataType: "text"
+//         })
+//          .done ( function(res) {
+//             console.log ("v > " + res);
+//                 return res;
+//             });
+//     },
       
     getBrandingVendor: function() {
         // get vendor
@@ -136,7 +117,7 @@ chorus.models.Branding = chorus.models.Base.extend ({
         console.log ("models.branding > advisorNowLink");
         console.log ("user > " + user);
 
-        return URI({
+         return URI({
             hostname: "http://advisor.alpinenow.com",
             path: "start",
             query: $.param({
@@ -151,6 +132,23 @@ chorus.models.Branding = chorus.models.Base.extend ({
         });
     },
 
+    createAdvisorNowLink: function(user, license) {
+
+        console.log ("models.branding > CREATE advisorNowLink");
+        console.log ("user > " + user);
+
+         return URI({
+            hostname: "http://advisor.alpinenow.com",
+            path: "start",
+            query: $.param({
+                first_name: user.get("firstName"),
+                last_name: user.get("lastName"),
+                email: user.get("email"),
+                org_id: license.get("organizationUuid")
+            })
+        });
+    },
+    
     getHelpLink: function() {
         // default to the alpine help if no vendor listed
         var vendor = ( this.applicationVendor ? this.applicationVendor : "alpine" );

@@ -141,6 +141,7 @@ chorus.views.Header = chorus.views.Base.extend({
             brandingLogoSrc: chorus.branding.applicationHeaderLogo,
             advisorNow: chorus.branding.applicationAdvisorNowEnabled,
             
+            //advisorNowLink: chorus.branding.applicationAdvisorNowLink,
             advisorNowLink: this.advisorNowLink(user, license)
         });
     },
