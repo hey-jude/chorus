@@ -13,7 +13,7 @@ chorus.pages.AboutPage = chorus.pages.Base.extend({
     },
 
     postRender: function() {
-        this.$(".version").load("/VERSION", function(res) {
+        this.$("#version").load("/VERSION", function(res) {
             $(this).text(res);
         });
     },
@@ -23,16 +23,17 @@ chorus.pages.AboutPage = chorus.pages.Base.extend({
             items: this.items(),
             applicationKey: "about." + this.model.applicationKey(),
             
+            version: this.applicationVersion,
             branding: chorus.branding.applicationVendor,
             brandingLogoSrc: chorus.branding.applicationLoginLogo,
             copyright: chorus.branding.copyright,
-            
+
         }, this.pageOptions);
     },
 
     items: function() {
         var keys = [];
-        var vendor = this.model.get("vendor");
+        var vendor = chorus.branding.applicationVendor;
         
         switch (vendor) {
             case "alpine":

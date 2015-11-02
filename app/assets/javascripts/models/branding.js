@@ -17,6 +17,23 @@ chorus.models.Branding = chorus.models.Base.extend ({
         this.applicationLicense = chorus.models.Config.instance().license();
         
         // values to use for branding
+ //       $.get("/VERSION", function(res) {
+ //           $(this).text(res);
+ //       });
+// this.$(".version").load("/VERSION", function(res) {
+ //           $(this).text(res);
+  //      });
+        
+//         this.applicationVersion = $.ajax({
+//             url: "/VERSION",
+//             dataType: "text"
+//             })
+//             .done ( function(res) {
+// 
+//                 console.log ("v2 > " + typeof(res));
+//                 });              
+
+        //this.applicationVersion = this.getApplicationVersion();
         
         this.applicationVendor = this.getBrandingVendor();
         this.applicationHeaderLogo = this.getBrandingLogo();
@@ -32,8 +49,19 @@ chorus.models.Branding = chorus.models.Base.extend ({
 
         this.copyright = this.getCopyright();
     },
+    
+    getApplicationVersion: function() {
+        $.ajax({
+            url: "/VERSION",
+            dataType: "text"
+        })
+         .done ( function(res) {
+            console.log ("v > " + res);
+                return res;
+            });
+    },
       
-   getBrandingVendor: function() {
+    getBrandingVendor: function() {
         // get vendor
         return this.applicationLicense.branding();
     },
@@ -98,7 +126,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
         loginBrandingLogo = ( logoFile ? this.brandingLogoLocation + logoFile : null );
         return loginBrandingLogo;
     },
-
 
     isAdvisorNowEnabled: function () { 
         return this.applicationLicense.advisorNowEnabled();

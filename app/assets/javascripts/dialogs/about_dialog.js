@@ -47,8 +47,9 @@ chorus.dialogs.About= chorus.dialogs.Base.extend ({
 
     items: function() {
         var keys = [];
-        var vendor = this.model.get("vendor");
-        
+        //var vendor = this.model.get("vendor");
+        var vendor = chorus.branding.applicationVendor;
+
         switch (vendor) {
             case "alpine":
                 keys.splice(0, 0, "collaborators", "admins", "developers");
