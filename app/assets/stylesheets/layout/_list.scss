@@ -120,15 +120,21 @@
 				@include font-primary;
             }
 
-            .arrows{
+            .arrows {
                 position: absolute;
                 right: 20px;
                 top: 15px;
                 .move_up_arrow,
                 .move_down_arrow {
+                    
+                    width: 42px;
+                    height: 30px;
+                    
                     cursor: pointer;
                     display: inline-block;
-
+                    
+                    
+                    // css to draw circle around the arrow
                     border: 3px solid #606060;
                     border-radius: 20px;
                     background-color: #F0F0F0;
