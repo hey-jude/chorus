@@ -76,10 +76,10 @@ chorus.pages.JobsShowPage = chorus.pages.Base.extend({
     },
 
     pollForJob: function () {
-        this.pollerID && clearInterval(this.pollerID);
+        //this.pollerID && clearInterval(this.pollerID);
 
-        var fetchModel = _.bind(function () { this.model.fetch(); }, this);
-        this.pollerID = setInterval(fetchModel, (45 * 1000));  // seconds in milliseconds
+        //var fetchModel = _.bind(function () { this.model.fetch(); }, this);
+        //this.pollerID = setInterval(fetchModel, (45 * 1000));  // seconds in milliseconds
     },
 
     teardown: function () {
