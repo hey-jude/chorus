@@ -236,11 +236,12 @@ describe AlpineWorkfile do
 
   describe "#attempt_data_source_connection" do
     let(:database) { databases(:default) }
+    let(:data_source) { data_sources(:default) }
 
     before do
       set_current_user(user)
-      mock(database).attempt_connection(user)
-      stub(model).data_sources { [database] }
+      mock(data_source).attempt_connection(user)
+      stub(model).data_sources { [data_source] }
     end
 
     it "tries to connect using the data source" do
@@ -413,11 +414,11 @@ describe AlpineWorkfile do
     end
 
     it 'rolls back if it cannot successfully copy in alpine' do
-      stub(Alpine::API).copy_work_flow(workflow, numeric) { raise ModelNotCreated.new }
+      stub(Alpine::API).copy_work_flow(workflow, numeric) { raise ApplicationController::ModelNotCreated.new }
       expect {
         expect {
           workflow.copy!(user, workspace)
-        }.to raise_error(ModelNotCreated)
+        }.to raise_error
       }.to_not change(Workfile, :count)
     end
   end
