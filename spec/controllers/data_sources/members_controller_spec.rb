@@ -48,6 +48,8 @@ describe DataSources::MembersController do
     describe "#create" do
       before do
         any_instance_of(DataSource) { |ds| stub(ds).valid_db_credentials? { true } }
+        any_instance_of(GreenplumConnection) { |c| stub(c).connect! {true} }
+        any_instance_of(OracleConnection) { |c| stub(c).connect! {true} }
       end
 
       context "when admin" do
@@ -136,6 +138,8 @@ describe DataSources::MembersController do
 
       before do
         any_instance_of(DataSource) { |ds| stub(ds).valid_db_credentials? { true } }
+        any_instance_of(GreenplumConnection) { |c| stub(c).connect! {true} }
+        any_instance_of(OracleConnection) { |c| stub(c).connect! {true} }
       end
 
       context "when admin" do
