@@ -25,10 +25,12 @@ describe GpdbDataSource do
       any_instance_of(DataSource) { |ds| stub(ds).valid_db_credentials? { true } }
     end
 
-    it "requires db username and password" do
+    it "requires db_username and password" do
       [:db_username, :db_password].each do |attribute|
         data_source = user.gpdb_data_sources.build(valid_input_attributes.merge(attribute => nil), :as => :create)
-        data_source.should have_error_on(attribute)
+        data_source.save
+
+        data_source.owner_account.should have_error_on(attribute)
       end
     end
 
