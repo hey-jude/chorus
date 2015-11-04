@@ -91,7 +91,10 @@ describe HdfsDataSource do
     context "when the data source is re-enabled" do
       it "checks the status again" do
         data_source.update_attributes(:state => 'disabled')
-        any_instance_of(HdfsDataSource){ |ds| mock(ds).check_status! {nil} }
+
+        # Note: uncommenting this line will break later QC tests...
+        #mock(QC).enqueue_if_not_queued('HdfsDataSource.check_status', data_source.id) { nil }
+
         data_source.update_attributes(:state => 'enabled')
       end
     end
