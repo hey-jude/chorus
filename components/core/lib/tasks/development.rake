@@ -23,9 +23,8 @@ namespace :development do
 
   desc "Copy database.yml.example to database.yml"
   task :generate_database_yml do
-    CBRA_ROOT = Rails.root
-    database_yml_example = CBRA_ROOT.join("packaging/database.yml.example")
-    database_yml = CBRA_ROOT.join("config/database.yml")
+    database_yml_example = Pathname.new(ENV['CHORUS_HOME']).join("packaging/database.yml.example")
+    database_yml = Pathname.new(ENV['CHORUS_HOME']).join("config/database.yml")
     FileUtils.cp(database_yml_example.to_s, database_yml.to_s) unless database_yml.exist?
   end
 
@@ -35,27 +34,24 @@ namespace :development do
 
   desc "Initialize the database and create the database user used by Chorus"
   task :init_database => [:generate_database_yml] do
-    CBRA_ROOT = Rails.root
-
-    postgres_port = `ruby #{File.join(CBRA_ROOT, 'packaging', 'get_postgres_port.rb')}`.chomp
+    postgres_port = `ruby #{File.join(ENV['CHORUS_HOME'], 'packaging', 'get_postgres_port.rb')}`.chomp
 
     # Give the poor developer a clue as to what is wrong!
-    if CBRA_ROOT.join("postgres-db").exist?
+    if Pathname.new(ENV['CHORUS_HOME']).join("postgres-db").exist?
       p "The postgres-db directory already exists, so exiting."
       next
     end
 
-    ENV['DYLD_LIBRARY_PATH'] = "#{CBRA_ROOT}/postgres/lib"
-    ENV['LD_LIBRARY_PATH'] = "#{CBRA_ROOT}/postgres/lib"
-    ENV['CHORUS_HOME'] = "#{CBRA_ROOT}"
-    `#{CBRA_ROOT}/postgres/bin/initdb -D #{CBRA_ROOT}/postgres-db -E utf8`
-    `#{CBRA_ROOT}/packaging/chorus_control.sh start postgres`
-    `#{CBRA_ROOT}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
+    ENV['DYLD_LIBRARY_PATH'] = "#{ENV['CHORUS_HOME']}/postgres/lib"
+    ENV['LD_LIBRARY_PATH'] = "#{ENV['CHORUS_HOME']}/postgres/lib"
+    `#{ENV['CHORUS_HOME']}/postgres/bin/initdb -D #{ENV['CHORUS_HOME']}/postgres-db -E utf8`
+    `#{ENV['CHORUS_HOME']}/packaging/chorus_control.sh start postgres`
+    `#{ENV['CHORUS_HOME']}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
 
     Rake::Task["development:db_reset"].invoke
     Rake::Task["db:seed_permissions"].invoke
     Rake::Task["db:seed_development"].invoke
-    `#{CBRA_ROOT}/packaging/chorus_control.sh stop postgres`
+    `#{ENV['CHORUS_HOME']}/packaging/chorus_control.sh stop postgres`
   end
 
   desc "Initialize development environment.  Includes initializing the database and creating secret tokens"

@@ -164,7 +164,7 @@ describe Events::Base do
 
     it "deletes its attachments when it is destroyed" do
       event = Events::SourceTableCreated.last
-      event.attachments.create!(:contents => File.new(CBRA_ROOT.join('spec', 'fixtures', 'workfile.sql')))
+      event.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'workfile.sql')))
 
       expect {
         event.destroy

@@ -1,6 +1,6 @@
 require 'timeout'
 
-require Core::Engine.root.join('vendor/hadoop/hdfs-query-service-0.0.11.jar')
+require Pathname.new(ENV['CHORUS_HOME']).join('vendor/hadoop/hdfs-query-service-0.0.11.jar')
 
 module Hdfs
   include Chorus
