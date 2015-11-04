@@ -10,9 +10,9 @@ describe("chorus.views.TextWorkfileContentView", function() {
         this.clock = this.useFakeTimers();
 
         // in IE8, we can't 'select' a textrange whose textarea is not on the DOM
-        if($.browser.msie) {
-            spyOn(window.TextRange.prototype, 'select');
-        }
+        //if($.browser.msie) {
+        //    spyOn(window.TextRange.prototype, 'select');
+        //}
         spyOn(CodeMirror, "fromTextArea").andCallThrough();
     });
 
@@ -109,7 +109,7 @@ describe("chorus.views.TextWorkfileContentView", function() {
         });
     });
 
-    describe("#editText", function() {
+    describe("#editText >", function() {
         beforeEach(function() {
             this.view.render();
 

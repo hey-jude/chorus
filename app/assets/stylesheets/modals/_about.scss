@@ -1,20 +1,7 @@
-
 @import "_common";
 
 
 .dialogs_about {
-
-//     $card-padding-top: 20px;
-//     $card-padding-right: 20px;
-//     $card-padding-bottom: 15px;
-//     $card-padding-left: 20px;
- 
-//     margin-left: auto;
-//     margin-right: auto;
-
-//     position: relative;
-//     top: $card-from-top;
-//     width: $card-width;
 
     font-size: $medium-font;
 
@@ -49,7 +36,8 @@
 
     .about_list {
         margin-top: 20px;
-    
+        margin-bottom: 30px;
+
         .text {}
         .items li {
             // special for the about screen
@@ -70,7 +58,6 @@
             float: right;
         }
     }
-
 
     #footer {
         margin-top: 30px;

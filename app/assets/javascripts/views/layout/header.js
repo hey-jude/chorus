@@ -1,12 +1,14 @@
 chorus.views.Header = chorus.views.Base.extend({
     constructorName: "HeaderView",
     templateName: "header",
+
     events: {
-        "click .username a.label": "togglePopupUsername",
+        "click .username a.label": "togglePopupUsermenu",
         "click a.notifications": "togglePopupNotifications",
         "click .drawer a": "togglePopupDrawer",
         "click .type_ahead_result a": "clearSearch",
         "click .help_and_support a": "helpAndSupport",
+        "click .about_this_app a": "aboutThisApp",
         "submit .search form": "startSearch",
         "keydown .search input": "searchKeyPressed"
     },
@@ -18,7 +20,7 @@ chorus.views.Header = chorus.views.Base.extend({
 
     setup: function() {
         this.session = chorus.session;
-        this.unreadNotifications = new chorus.collections.NotificationSet([], { type: 'unread' });
+        this.unreadNotifications = new chorus.collections.NotificationSet([], {type: 'unread'});
         this.notifications = new chorus.collections.NotificationSet();
         this.notifications.per_page = 5;
 
@@ -42,26 +44,44 @@ chorus.views.Header = chorus.views.Base.extend({
         this.subscribePageEvent("notification:deleted", this.refreshNotifications);
     },
 
-    disableSearch: function() {
-        this.typeAheadView.disableSearch();
+    additionalContext: function(ctx) {
+        this.requiredResources.reset();
+        var user = this.session.user();
+        var license = chorus.models.Config.instance().license();
+
+        return _.extend(ctx, this.session.attributes, {
+            notifications: this.unreadNotifications,
+            fullName: user && user.displayName(),
+            firstName: user && user.get('firstName'),
+            userUrl: user && user.showUrl(),
+            helpLinkUrl: 'help.link_address.' + license.branding(),
+            brandingLogo: license.branding() + "-logo.png",
+            advisorNow: license.advisorNowEnabled(),
+            advisorNowLink: this.advisorNowLink(user, license)
+        });
     },
 
-    updateNotifications: function() {
-        if (this.notifications.loaded && this.unreadNotifications.loaded) {
-            this.notificationList.collection.reset(this.unreadNotifications.models, { silent: true });
-            var numberToAdd = (5 - this.unreadNotifications.length);
-            if (numberToAdd > 0) {
-                this.notificationList.collection.add(this.notifications.chain().reject(
-                    function(model) {
-                        return !!this.unreadNotifications.get(model.get("id"));
-                    }, this).first(numberToAdd).value());
-            }
-
-            this.notificationList.collection.loaded = true;
-            this.render();
-        }
-    },
-
+//     additionalContext: function(ctx) {
+//         this.requiredResources.reset();
+//         var user = this.session.user();
+//         var license = chorus.models.Config.instance().license();
+//                     
+//         return _.extend(ctx, this.session.attributes, {
+//             notifications: this.unreadNotifications,
+//             fullName: user && user.displayName(),
+//             firstName: user && user.get('firstName'),
+//             userUrl: user && user.showUrl(),
+// 
+//             helpLinkUrl: chorus.branding.applicationHelpLink,
+//             brandingVendor: chorus.branding.applicationVendor,
+//             brandingLogoSrc: chorus.branding.applicationHeaderLogo,
+//             advisorNow: chorus.branding.applicationAdvisorNowEnabled,
+//             
+//             //advisorNowLink: chorus.branding.applicationAdvisorNowLink,
+//             advisorNowLink: this.advisorNowLink(user, license)
+//         });
+//     },
+    
     postRender: function() {
         this.$(".search input").unbind("textchange").bind("textchange", _.bind(_.throttle(this.displayResult, 500), this));
         chorus.addSearchFieldModifications(this.$(".search input"));
@@ -105,8 +125,30 @@ chorus.views.Header = chorus.views.Base.extend({
         this.listenTo(this.users, "loaded", addDropdown);
     },
 
+
+    disableSearch: function() {
+        this.typeAheadView.disableSearch();
+    },
+
     searchKeyPressed: function(event) {
         this.typeAheadView.handleKeyEvent(event);
+    },
+
+    clearSearch: function() {
+        this.$(".search input").val('');
+        this.displayResult();
+    },
+
+    startSearch: function(e) {
+        e.preventDefault();
+        var query = this.$(".search input:text").val();
+        if (query.length > 0 && !chorus.models.Config.instance().license().limitSearch()) {
+            var search = new chorus.models.SearchResult({
+                workspaceId: this.workspaceId,
+                query: query
+            });
+            chorus.router.navigate(search.showUrl());
+        }
     },
 
     displayResult: function() {
@@ -120,30 +162,20 @@ chorus.views.Header = chorus.views.Base.extend({
         }
     },
 
-    clearSearch: function() {
-        this.$(".search input").val('');
-        this.displayResult();
-    },
+    updateNotifications: function() {
+        if (this.notifications.loaded && this.unreadNotifications.loaded) {
+            this.notificationList.collection.reset(this.unreadNotifications.models, { silent: true });
+            var numberToAdd = (5 - this.unreadNotifications.length);
+            if (numberToAdd > 0) {
+                this.notificationList.collection.add(this.notifications.chain().reject(
+                    function(model) {
+                        return !!this.unreadNotifications.get(model.get("id"));
+                    }, this).first(numberToAdd).value());
+            };
 
-    additionalContext: function(ctx) {
-        this.requiredResources.reset();
-        var user = this.session.user();
-        var license = chorus.models.Config.instance().license();
-                    
-        return _.extend(ctx, this.session.attributes, {
-            notifications: this.unreadNotifications,
-            fullName: user && user.displayName(),
-            firstName: user && user.get('firstName'),
-            userUrl: user && user.showUrl(),
-
-            helpLinkUrl: chorus.branding.applicationHelpLink,
-            brandingVendor: chorus.branding.applicationVendor,
-            brandingLogoSrc: chorus.branding.applicationHeaderLogo,
-            advisorNow: chorus.branding.applicationAdvisorNowEnabled,
-            
-            //advisorNowLink: chorus.branding.applicationAdvisorNowLink,
-            advisorNowLink: this.advisorNowLink(user, license)
-        });
+            this.notificationList.collection.loaded = true;
+            this.render();
+        }
     },
 
 
@@ -196,8 +228,8 @@ chorus.views.Header = chorus.views.Base.extend({
         this.$("a.notifications .lozenge").text("0").addClass("empty");
     },
 
-    togglePopupUsername: function(e) {
-        chorus.PopupMenu.toggle(this, ".menu.popup_username", e, '.username');
+    togglePopupUsermenu: function(e) {
+        chorus.PopupMenu.toggle(this, ".menu.popup_usermenu", e, '.username');
     },
 
     togglePopupDrawer: function(e) {
@@ -210,23 +242,21 @@ chorus.views.Header = chorus.views.Base.extend({
         }
     },
 
-    startSearch: function(e) {
-        e.preventDefault();
-        var query = this.$(".search input:text").val();
-        if (query.length > 0 && !chorus.models.Config.instance().license().limitSearch()) {
-            var search = new chorus.models.SearchResult({
-                workspaceId: this.workspaceId,
-                query: query
-            });
-            chorus.router.navigate(search.showUrl());
-        }
-    },
-
     helpAndSupport: function(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
+        // this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
+        this.dialog = new chorus.dialogs.HelpAndSupport();
         this.dialog.launchModal();
+        this.togglePopupUsermenu();        
+    },
+
+    aboutThisApp: function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        this.dialog = new chorus.dialogs.AboutThisApp();
+        this.dialog.launchModal();
+        this.togglePopupUsermenu();
     }
-    
+
 });
