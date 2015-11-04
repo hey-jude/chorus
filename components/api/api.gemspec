@@ -31,6 +31,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'sunspot_rails', '2.1.0'
   s.add_dependency 'will_paginate', '3.0.4'
 
+  # Need to install 0.99.4 version of mustache gem. Latest version is not compatible with Jruby 1.7
+  s.add_dependency 'mustache', '0.99.4'
+
   s.add_development_dependency 'rspec-rails', '2.99.0'
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'fixture_builder'

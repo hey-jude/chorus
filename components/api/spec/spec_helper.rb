@@ -10,13 +10,14 @@ require 'rubygems'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["LOG_LEVEL"] = '3'
 
-CBRA_ROOT = Pathname.new(File.expand_path("../.."))
 require File.expand_path("../dummy/config/environment", __FILE__)
 
 require 'sunspot_matchers'
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'paperclip/matchers'
+require 'rspec_api_documentation'
+require 'rspec_api_documentation/dsl'
 require 'shoulda-matchers'
 require 'factory_girl'
 require 'timecop'
@@ -27,9 +28,9 @@ require 'faker'
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Api::Engine.root.join("spec/support/**/*.rb")].each { |f| require f unless f.match /fixture_builder/ }
-Dir[CBRA_ROOT.join("spec/support/**/*.rb")].each { |f| require f unless f.match /fixture_builder/ }
+Dir["#{ENV['CHORUS_HOME']}/spec/support/**/*.rb"].each { |f| require f unless f.match /fixture_builder/ }
 
-require "#{CBRA_ROOT}/components/core/spec/external_service_detector"
+require "#{ENV['CHORUS_HOME']}/components/core/spec/external_service_detector"
 
 SPEC_PASSWORD = 'password'
 
@@ -38,7 +39,7 @@ SPEC_PASSWORD = 'password'
 FACTORY_GIRL_SEQUENCE_OFFSET = 44444
 FactoryGirl.factories.clear
 # KT: see https://github.com/thoughtbot/factory_girl_rails/pull/42
-FactoryGirl.definition_file_paths = ["#{CBRA_ROOT}/spec/factories"]
+FactoryGirl.definition_file_paths = ["#{ENV['CHORUS_HOME']}/spec/factories"]
 FactoryGirl.reload
 
 require 'support/fixture_builder'
@@ -47,7 +48,7 @@ silence_warnings { FACTORY_GIRL_SEQUENCE_OFFSET = 0 }
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{CBRA_ROOT}/spec/fixtures"
+  config.fixture_path = "#{ENV['CHORUS_HOME']}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -96,6 +97,8 @@ RSpec.configure do |config|
   config.include AuthHelper, :type => :controller
   config.include CurrentUserHelpers
   config.include FakeRelations
+  config.include AuthHelper, :type => :controller
+  config.include AcceptanceAuthHelper, :api_doc_dsl => :resource
   config.include FileHelper
   config.include JsonHelper, :type => :controller
   config.include JsonHelper, :type => :request
@@ -105,4 +108,5 @@ RSpec.configure do |config|
   config.include RocketPants::TestHelper, :type => :request
   config.include SolrHelpers
   config.include SunspotMatchers
+  config.extend ApiDocHelper, :api_doc_dsl => :endpoint
 end

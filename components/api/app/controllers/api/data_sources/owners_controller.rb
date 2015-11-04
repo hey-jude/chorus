@@ -20,7 +20,7 @@ module Api::DataSources
     end
 
     def check_source_disabled?
-      ::DataSourcesController.render_forbidden_if_disabled(params)
+      Api::DataSourcesController.render_forbidden_if_disabled(params)
     end
   end
 end

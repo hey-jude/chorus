@@ -26,7 +26,7 @@ module Api
       if action_name == "show"
         params[:data_source_id] = Database.find(params[:id]).data_source.id
       end
-      ::DataSourcesController.render_forbidden_if_disabled(params)
+      Api::DataSourcesController.render_forbidden_if_disabled(params)
     end
   end
 end

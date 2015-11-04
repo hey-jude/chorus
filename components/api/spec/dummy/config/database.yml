@@ -1,9 +1,14 @@
 development: &development
-  # POSTGRESQL
+  database: chorus_rails_development
   adapter: jdbcpostgresql
-  database: chorus_development
-  host: localhost
+  encoding: unicode
+  username: postgres_chorus
+  password:
+  port: 8543
+  min_messages: warning
+  host: 127.0.0.1
+  pool: 20
 
 test: &TEST
   <<: *development
-  database: chorus_test
+  database: chorus_rails_test

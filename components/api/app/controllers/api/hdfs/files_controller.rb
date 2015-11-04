@@ -42,7 +42,7 @@ module Api::Hdfs
     private
 
     def check_source_disabled?
-      ::HdfsDataSourcesController.render_forbidden_if_disabled(hdfs_data_source)
+      Api::HdfsDataSourcesController.render_forbidden_if_disabled(hdfs_data_source)
     end
 
     def hdfs_data_source
