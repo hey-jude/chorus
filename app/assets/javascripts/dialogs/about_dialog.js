@@ -41,17 +41,17 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
             items: this.items(),
             applicationKey: "about." + this.model.applicationKey(),
             
-            //branding: chorus.branding.applicationVendor,
-            //brandingLogoSrc: chorus.branding.applicationLoginLogo,
-            //copyright: chorus.branding.copyright,
+            branding: chorus.branding.applicationVendor,
+            brandingLogoSrc: chorus.branding.applicationLoginLogo,
+            copyright: chorus.branding.copyright,
             
         }, this.pageOptions);
     },
     
     items: function() {
         var keys = [];
-        var vendor = this.model.get("vendor");
-        //var vendor = chorus.branding.applicationVendor;
+        //var vendor = this.model.get("vendor");
+        var vendor = chorus.branding.applicationVendor;
 
         switch (vendor) {
             case "alpine":
