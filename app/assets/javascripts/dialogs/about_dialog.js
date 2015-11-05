@@ -20,21 +20,6 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
 
     },
 
-//     context: function() {
-//         console.log ("context");
-//         console.log ("> " + this.model.applicationKey());
-//         
-//         return _.extend({
-//             items: this.items(),
-//             applicationKey: "about." + this.model.applicationKey(),
-//             
-//             //branding: chorus.branding.applicationVendor,
-//             //brandingLogoSrc: chorus.branding.applicationLoginLogo,
-//             //copyright: chorus.branding.copyright,
-//             
-//         }, this.pageOptions);
-//     },
-
     additionalContext: function() {
 
         return _.extend({
