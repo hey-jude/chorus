@@ -42,7 +42,7 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
             applicationKey: "about." + this.model.applicationKey(),
             
             branding: chorus.branding.applicationVendor,
-            brandingLogoSrc: chorus.branding.applicationLoginLogo,
+            brandingLogo: chorus.branding.applicationLoginLogo,
             copyright: chorus.branding.copyright,
             
         }, this.pageOptions);

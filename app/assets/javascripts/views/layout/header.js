@@ -54,33 +54,19 @@ chorus.views.Header = chorus.views.Base.extend({
             fullName: user && user.displayName(),
             firstName: user && user.get('firstName'),
             userUrl: user && user.showUrl(),
-            helpLinkUrl: 'help.link_address.' + license.branding(),
-            brandingLogo: license.branding() + "-logo.png",
-            advisorNow: license.advisorNowEnabled(),
+            
+            helpLinkUrl: chorus.branding.applicationHelpLink,
+            //helpLinkUrl: 'help.link_address.' + license.branding(),
+            brandingVendor: chorus.branding.applicationVendor,
+            
+            brandingLogo: chorus.branding.applicationHeaderLogo,
+            //brandingLogo: license.branding() + "-logo.png",
+            
+            advisorNow: chorus.branding.applicationAdvisorNowEnabled,
+            //advisorNow: license.advisorNowEnabled(),
             advisorNowLink: this.advisorNowLink(user, license)
         });
     },
-
-//     additionalContext: function(ctx) {
-//         this.requiredResources.reset();
-//         var user = this.session.user();
-//         var license = chorus.models.Config.instance().license();
-//                     
-//         return _.extend(ctx, this.session.attributes, {
-//             notifications: this.unreadNotifications,
-//             fullName: user && user.displayName(),
-//             firstName: user && user.get('firstName'),
-//             userUrl: user && user.showUrl(),
-// 
-//             helpLinkUrl: chorus.branding.applicationHelpLink,
-//             brandingVendor: chorus.branding.applicationVendor,
-//             brandingLogoSrc: chorus.branding.applicationHeaderLogo,
-//             advisorNow: chorus.branding.applicationAdvisorNowEnabled,
-//             
-//             //advisorNowLink: chorus.branding.applicationAdvisorNowLink,
-//             advisorNowLink: this.advisorNowLink(user, license)
-//         });
-//     },
     
     postRender: function() {
         this.$(".search input").unbind("textchange").bind("textchange", _.bind(_.throttle(this.displayResult, 500), this));

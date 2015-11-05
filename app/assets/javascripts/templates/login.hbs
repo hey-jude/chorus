@@ -6,7 +6,10 @@
 <div id="login_content">
     <div id="login_card">
         
-        <img class="logo {{branding}}" src="{{brandingLogoSrc}}"/>
+        {{#if brandingLogo}}
+        <img class="logo {{branding}}" src="{{brandingLogo}}"/>
+        {{/if}}
+        
         <form class="login" action="/auth/login/" method="post">
             <div class="content">
                 <div class="form_pair">

@@ -25,7 +25,7 @@ chorus.pages.AboutPage = chorus.pages.Base.extend({
             
             version: this.applicationVersion,
             branding: chorus.branding.applicationVendor,
-            brandingLogoSrc: chorus.branding.applicationLoginLogo,
+            brandingLogo: chorus.branding.applicationLoginLogo,
             copyright: chorus.branding.copyright,
 
         }, this.pageOptions);

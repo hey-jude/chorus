@@ -18,7 +18,7 @@ chorus.views.Login = chorus.views.Base.extend({
     additionalContext: function() {
         return {
             branding: chorus.branding.applicationVendor,
-            brandingLogoSrc: chorus.branding.applicationLoginLogo,
+            brandingLogo: chorus.branding.applicationLoginLogo,
             copyright: chorus.branding.copyright,
             warning: this.warning
         };
