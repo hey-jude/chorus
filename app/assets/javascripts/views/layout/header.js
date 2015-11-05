@@ -58,7 +58,7 @@ chorus.views.Header = chorus.views.Base.extend({
             helpLinkUrl: chorus.branding.applicationHelpLink,
             //helpLinkUrl: 'help.link_address.' + license.branding(),
             brandingVendor: chorus.branding.applicationVendor,
-            
+            isAlpine: chorus.branding.isAlpine,
             brandingLogo: chorus.branding.applicationHeaderLogo,
             //brandingLogo: license.branding() + "-logo.png",
             

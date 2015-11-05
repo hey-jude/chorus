@@ -17,6 +17,8 @@ chorus.models.Branding = chorus.models.Base.extend ({
         this.applicationLicense = chorus.models.Config.instance().license();
         
         this.applicationVendor = this.getBrandingVendor();
+        this.isAlpine = this.isAlpine();
+        
         this.applicationHeaderLogo = this.getBrandingLogo();
         this.applicationLoginLogo = this.getBrandingLoginLogo();
         
@@ -47,7 +49,17 @@ chorus.models.Branding = chorus.models.Base.extend ({
         return this.applicationLicense.branding();
     },
 
-   getBrandingLogo: function() {
+    isAlpine: function() {
+        if (this.getBrandingVendor() === "alpine") {
+            return true;
+        }
+        else {
+            return false;
+        };
+    },
+    
+            
+    getBrandingLogo: function() {
    
         console.log ("models.branding > getBrandingLogo >" + this.getBrandingVendor() );
         // generate path to the branding logo
