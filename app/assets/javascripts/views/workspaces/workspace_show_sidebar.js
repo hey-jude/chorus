@@ -14,10 +14,10 @@ chorus.views.WorkspaceShowSidebar = chorus.views.Sidebar.extend({
     additionalContext:function () {
         var license = chorus.models.Config.instance().license();
         return {
-            workspaceAdmin:this.model.workspaceAdmin(),
-            imageUrl:this.model.fetchImageUrl(),
-            hasImage:this.model.hasImage(),
-            hasSandbox:!!this.model.sandbox(),
+            workspaceAdmin: this.model.workspaceAdmin(),
+            imageUrl: this.model.fetchImageUrl(),
+            hasImage: this.model.hasImage(),
+            hasSandbox: !!this.model.sandbox(),
             limitSandboxes: license.limitSandboxes(),
             canUpdate: this.model.canUpdate(),
             active: this.model.isActive(),
