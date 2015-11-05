@@ -2,20 +2,22 @@ chorus.views.JobTaskItem = chorus.views.Base.extend({
     constructorName: "JobTaskItemView",
     templateName:"job_task_item",
 
+    jobsIconPath: "/images/jobs/",
+    
     events: {
-        "click .move_down_arrow": "moveJobTaskDown",
-        "click .move_up_arrow"  : "moveJobTaskUp"
+        "click .move_down_arrow": "moveTaskDown",
+        "click .move_up_arrow"  : "moveTaskUp"
     },
     
     iconMap: {
-//          run_work_flow: "/images/jobs/task-afm.png",
-            run_work_flow: "/images/jobs/task-afm.svg",
-            
-//          run_sql_workfile: "/images/jobs/task-sql.png",
-            run_sql_workfile: "/images/jobs/task-sql.svg",
-            
-//          import_source_data: "/images/jobs/task-import.png"
-            import_source_data: "/images/jobs/task-import.svg"
+//      run_work_flow: "/images/jobs/task-afm.png",
+        run_work_flow: "task-afm.svg",
+        
+//      run_sql_workfile: "/images/jobs/task-sql.png",
+        run_sql_workfile: "task-sql.svg",
+        
+//      import_source_data: "/images/jobs/task-import.png"
+        import_source_data: "task-import.svg"
     },
 
     additionalContext: function () {
@@ -33,9 +35,15 @@ chorus.views.JobTaskItem = chorus.views.Base.extend({
     },
 
     iconUrlForType: function (action) {
-        return this.iconMap[action];
+        return this.jobsIconPath + this.iconMap[action];
     },
 
-    moveJobTaskDown: function() { chorus.page.model.moveTaskDown(this.model); },
-    moveJobTaskUp:   function() { chorus.page.model.moveTaskUp(this.model); }
+    moveTaskDown: function() {
+        chorus.page.model.moveTaskDown(this.model);
+    },
+
+    moveTaskUp: function() {
+        chorus.page.model.moveTaskUp(this.model);
+    }
+
 });
