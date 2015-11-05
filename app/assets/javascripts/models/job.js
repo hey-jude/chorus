@@ -36,8 +36,12 @@ chorus.models.Job = chorus.models.Base.extend({
         return this._tasks;
     },
 
-    moveTaskUp:   function (task) { this.moveTask(task, -1); },
-    moveTaskDown: function (task) { this.moveTask(task, +1); },
+    moveTaskUp:   function (task) {
+        this.moveTask(task, -1);
+    },
+    moveTaskDown: function (task) {
+        this.moveTask(task, +1);
+    },
 
     moveTask: function (task, direction) {
         var desired_id_order = this._tasks.chain().pluck('id').invoke('toString').value();
