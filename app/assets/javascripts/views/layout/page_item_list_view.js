@@ -40,13 +40,21 @@ chorus.views.PageItemList = chorus.views.Base.extend({
         _.each(this.liViews, function(liViews) {
             liViews.teardown();
         });
+        
+        var holdingPen = document.createDocumentFragment();
+
         this.liViews = [];
         this.collection.each(function(model) {
+            
             var view = this.makeListItemView(model);
-            $(this.el).append(view.render().el);
+            
+            holdingPen.appendChild(view.render().el)
+            //$(this.el).append(view.render().el);
             this.liViews.push(view);
-            this.registerSubView(view);
+            //this.registerSubView(view);
         }, this);
+
+        this.$el.append(holdingPen);
 
         this.checkSelectedModels();
 
