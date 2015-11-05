@@ -1,5 +1,5 @@
 <span class="image">
-    <img src="{{iconUrl}}"/>
+    <img src="{{iconUrl}}" alt="{{t stateKey}}"/>
 </span>
 
 <div class="item_information">
@@ -32,21 +32,19 @@
                 {{#if running}}
                     <span class='loading_spinner'></span>
                 {{/if}}
-
                 {{t stateKey}}
             </span>
 
             <!-- NOTE -->
             <!-- There was a template conditional here for 'title' and 'lastComment' -->
             <!-- now removed because it doesnt appear possible for those attributes to exist on jobs -->
-
         </div>
         
         <div>
             <span class="last_run">
                 <strong>{{t "job.last_run"}}</strong>
                 {{#if lastRun}}
-                    <a class='last_run_date' href='#' title="{{t 'job.show_details.tip'}}">{{displayTimestamp lastRun}}. <span class="status">{{t lastRunStatusKey}}<span></a>
+                    <a class='last_run_date' href='#' title="{{t 'job.show_details.tooltip'}}">{{displayTimestamp lastRun}}. <span class="status">{{t lastRunStatusKey}}<span></a>
                 {{else}}
                     {{t "job.last_run_no_last_run"}}
                 {{/if}}
