@@ -5,9 +5,6 @@ chorus.models.Session = chorus.models.Base.extend({
     initialize: function() {
         this.sandboxPermissionsCreated = {};
         _.bindAll(this, ['logout']);
-        
-        
-        console.log ("models.session");
      
     },
     

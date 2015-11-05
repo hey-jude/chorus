@@ -10,8 +10,7 @@ chorus.models.Branding = chorus.models.Base.extend ({
     brandingLogoLocation: "/images/branding/",
 
     initialize: function () {
-    
-        console.log ("chorus.models.Branding initialize");
+
         console.log ("chorus.models.Branding user: " + chorus.session.user() );
         
         this.applicationLicense = chorus.models.Config.instance().license();
@@ -60,8 +59,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
     
             
     getBrandingLogo: function() {
-   
-        console.log ("models.branding > getBrandingLogo >" + this.getBrandingVendor() );
         // generate path to the branding logo
         
         var logoFile;
@@ -92,8 +89,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
 
     getBrandingLoginLogo: function() {
         // generate path to the branding login logo
-  
-        console.log ("models.branding > getLoginBrandingLogo >" + this.getBrandingVendor() );
             
         var logoFile;
         var vendor = this.getBrandingVendor();
@@ -125,10 +120,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
     },
 
     getAdvisorNowLink: function(user, license) {
-
-        console.log ("models.branding > advisorNowLink");
-        console.log ("user > " + user);
-
          return URI({
             hostname: "http://advisor.alpinenow.com",
             path: "start",
@@ -179,8 +170,7 @@ chorus.models.Branding = chorus.models.Base.extend ({
         if (!this._instance) {
             this._instance = new chorus.models.Branding();
         }
-        
-        console.log ("instance models.Branding");
+
         return this._instance;
     }
 });
