@@ -38,7 +38,7 @@ chorus.views.TagsInput = chorus.views.Base.extend({
                 188: 'comma'
             },
             ajax: {
-                url: '/tags',
+                url: window.chorusApi.apiUrlPrefix + '/tags',
                 dataType: 'json',
                 existingTagCollection: this.tags
             },
