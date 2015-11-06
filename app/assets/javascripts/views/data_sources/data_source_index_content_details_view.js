@@ -2,7 +2,7 @@ chorus.views.DataSourceIndexContentDetails = chorus.views.Base.include(
         chorus.Mixins.BoundForMultiSelect
     ).extend({
     constructorName: "DataSourceIndexContentDetailsView",
-    templateName:"data_source_index_content_details",
+    templateName: "data_source_index_content_details",
     additionalClass: "action_bar_primary",
 
     events: {},
