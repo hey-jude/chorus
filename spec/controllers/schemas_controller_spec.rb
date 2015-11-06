@@ -44,6 +44,17 @@ describe SchemasController do
       end
     end
 
+    context "when data source is incomplete" do
+      it "returns 403" do
+        data_source = schema.data_source
+        data_source.state = "incomplete"
+        data_source.port = 999
+        data_source.save!
+        get :show, :id => schema.to_param
+        response.code.should == "403"
+      end
+    end
+
     context "when the schema is not in data source" do
       it "should raise an error" do
         stub(schema).verify_in_source(user) { raise ActiveRecord::RecordNotFound.new }
