@@ -81,14 +81,14 @@ chorus.dialogs.DataSourcesNew = chorus.dialogs.Base.extend ({
             this.$('[name=hiveKerberosKeytabLocation]').removeClass('hidden');
             this.$('[name=dbUsername]').addClass('hidden');
             this.$('[name=dbPassword]').addClass('hidden');
-            this.$('[name=shared]').addClass('hidden');
+            this.$('[name=shared_account]').addClass('hidden');
             this.$('[for=register_jdbc_shared]').addClass('hidden');
         } else {
             this.$('[name=hiveKerberosPrincipal]').addClass('hidden');
             this.$('[name=hiveKerberosKeytabLocation]').addClass('hidden');
             this.$('[name=dbUsername]').removeClass('hidden');
             this.$('[name=dbPassword]').removeClass('hidden');
-            this.$('[name=shared]').removeClass('hidden');
+            this.$('[name=shared_account]').removeClass('hidden');
             this.$('[for=register_jdbc_shared]').removeClass('hidden');
         }
     },
