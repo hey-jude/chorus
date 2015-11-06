@@ -149,6 +149,18 @@ describe DatasetsController do
       end
     end
 
+    context "when data source is incomplete" do
+      before do
+        table.data_source.state = "incomplete"
+        table.data_source.save!
+      end
+
+      it "should return forbidden" do
+        get :show, :id => table.to_param
+        response.code.should == "403"
+      end
+    end
+
     context "when dataset is not valid in GPDB" do
       it "should raise an error" do
         stub(Dataset).find_and_verify_in_source(table.id, user) { raise ActiveRecord::RecordNotFound.new }

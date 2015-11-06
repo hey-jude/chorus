@@ -27,6 +27,13 @@ describe DataSources::SchemasController do
       response.should be_forbidden
     end
 
+    it "should be forbidden if the data source is incomplete" do
+      data_source.update_attributes(:state => 'incomplete')
+      get :index, :data_source_id => data_source.to_param
+
+      response.should be_forbidden
+    end
+
     it 'returns a 200 status code' do
       get :index, :data_source_id => data_source.to_param
       response.status.should == 200

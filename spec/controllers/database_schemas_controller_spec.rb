@@ -49,6 +49,15 @@ describe DatabaseSchemasController do
       decoded_response[1].dataset_count.should == schema2.active_tables_and_views_count
     end
 
+    it "renders 403 when data source is incomplete" do
+      data_source = database.data_source
+      data_source.state = "incomplete"
+      data_source.port = 999
+      data_source.save!
+      get :index, :database_id => database.to_param
+      response.code.should == "403"
+    end
+
     it_behaves_like "a paginated list" do
       let(:params) {{ :database_id => database.to_param }}
     end
