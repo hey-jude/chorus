@@ -13,8 +13,8 @@ class ChorusConfig
 
     @config = ChorusConfig.deep_merge(defaults, app_config)
 
-    secret_key_file = File.join(@root_dir, 'config/chorus_secret.key')
-    abort "No config/chorus_secret.key file found.  Run rake development:init or rake development:generate_secret_key" unless File.exists?(secret_key_file)
+    secret_key_file = File.join(@root_dir, 'config/secret.key')
+    abort "No config/secret.key file found.  Run rake development:init or rake development:generate_secret_key" unless File.exists?(secret_key_file)
     @config['secret_key'] = File.read(secret_key_file).strip
   end
 

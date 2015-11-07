@@ -23,7 +23,7 @@ describe ChorusConfig do
       file << new_config
     end
 
-    File.open(Rails.root.join('config/chorus_secret.key').to_s, 'w') do |file|
+    File.open(Rails.root.join('config/secret.key').to_s, 'w') do |file|
       file << "secret_key_goes_here\n"
     end
   end
@@ -32,7 +32,7 @@ describe ChorusConfig do
     config['simple'].should == 'no'
   end
 
-  it "reads the chorus_secret.key file" do
+  it "reads the secret.key file" do
     config['secret_key'].should == "secret_key_goes_here"
   end
 

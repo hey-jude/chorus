@@ -75,7 +75,7 @@ GREENPLUM_IP
 /config/database.yml
 
 # Ignore secret keys
-/config/chorus_secret.key
+/config/secret.key
 /config/secrets.yml
 
 # Ignore .vagrant

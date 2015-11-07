@@ -29,7 +29,7 @@ class ChorusEncryptor
       cipher.update(password) + cipher.final
 
     rescue OpenSSL::Cipher::CipherError => e
-      raise e, "Is config/chorus_secret.key the same one used to encrypt?: #{e}", e.backtrace
+      raise e, "Is config/secret.key the same one used to encrypt?: #{e}", e.backtrace
     end
   end
 end

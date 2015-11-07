@@ -4,7 +4,7 @@ require 'fakefs/spec_helpers'
 describe SensitiveFileChecker do
   include FakeFS::SpecHelpers
   file_names = %W{
-        chorus_secret.key
+        secret.key
         chorus.properties
       }
 

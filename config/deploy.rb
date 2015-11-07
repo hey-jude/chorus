@@ -89,7 +89,7 @@ after 'deploy:update_code', :roles => [:app, :db, :web] do
   run "ln -nfs #{shared_path}/system #{release_path}/system"
   run "ln -nfs #{shared_path}/bin #{release_path}/bin"
 
-  upload "./config/chorus_secret.key",  "#{release_path}/config/chorus_secret.key"
+  upload "./config/secret.key",  "#{release_path}/config/secret.key"
   upload "./config/secrets.yml", "#{release_path}/config/secrets.yml"
 
   run "cp #{shared_path}/vendor/jruby.jar #{release_path}/vendor/."
