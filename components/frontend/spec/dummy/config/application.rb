@@ -1,12 +1,13 @@
 require File.expand_path('../boot', __FILE__)
 
 # KT TODO this seems wrong
-require_relative "../../../../../config/initializers/chorus_config"
+require_relative "#{ENV['CHORUS_HOME']}/config/initializers/chorus_config"
+require_relative "#{ENV['CHORUS_HOME']}/config/initializers/ldap_config"
 
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "core"
+require "api"
 
 module Dummy
   class Application < Rails::Application

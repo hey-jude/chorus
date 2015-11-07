@@ -10,14 +10,15 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-path '..' do
-  gem 'core'
-end
+gem 'mizuno'
 
 gem 'queue_classic', :github => 'Chorus/queue_classic'
 gem 'chorusgnip', :github => 'Chorus/gnip'
 
+gem 'jasmine', :github => 'pivotal/jasmine-gem'
+gem 'jasmine-core', :github => 'pivotal/jasmine'
+
 # KT TODO: run jasmine specs and figure out development dependencies
-group :test do
+group :test, :development do
   gem 'backbone_fixtures_rails', :github => 'charleshansen/backbone_fixtures_rails'
 end

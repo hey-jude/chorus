@@ -10,7 +10,6 @@ require 'rubygems'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["LOG_LEVEL"] = '3'
 
-CBRA_ROOT = Pathname.new(File.expand_path("../.."))
 require File.expand_path("../dummy/config/environment", __FILE__)
 
 require 'rspec/rails'
@@ -26,7 +25,7 @@ SPEC_PASSWORD = 'password'
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{CBRA_ROOT}/spec/fixtures"
+  config.fixture_path = "#{ENV['CHORUS_HOME']}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

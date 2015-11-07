@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency 'core'
+  s.add_dependency 'api'
+  s.add_dependency 'vis_legacy'
 
   s.add_dependency 'actionpack', '4.1.10'
   s.add_dependency 'actionview', '4.1.10'
@@ -33,7 +34,7 @@ Gem::Specification.new do |s|
   # assets
   s.add_dependency 'sass-rails', '5.0.1'
   s.add_dependency 'compass-rails', '2.0.4'
-  s.add_dependency 'handlebars_assets', '0.20.2'
+  s.add_dependency 'handlebars_assets', '0.14.1'
   s.add_dependency 'therubyrhino', '2.0.4'
   s.add_dependency 'uglifier', '2.7.1'
   s.add_dependency 'yui-compressor', '0.12.0'
@@ -42,6 +43,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'quiet_assets'
 
   # KT TODO: run jasmine specs and figure out development dependencies
+  s.add_dependency 'mizuno'
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'rr'
   s.add_development_dependency 'fuubar'
