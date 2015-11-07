@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-path 'components' do
+path 'components', :platform => 'jruby' do
   gem 'core'
   gem 'api'
   gem 'frontend'
