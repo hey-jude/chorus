@@ -45,7 +45,7 @@ describe("chorus.collections.WorkfileSet", function () {
             this.collection.search("search term");
             var url = this.server.lastFetchFor(this.collection).url;
 
-            expect(url).toHaveUrlPath("/workspaces/" + this.workspace.id + "/workfiles");
+            expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/workspaces/" + this.workspace.id + "/workfiles");
             expect(url).toContainQueryParams({name_pattern: "search term", file_type: this.collection.fileType});
         });
 
@@ -67,7 +67,7 @@ describe("chorus.collections.WorkfileSet", function () {
         it("deletes the models in bulk", function() {
             var req = this.server.lastDestroy();
 
-            expect(req.url).toHaveUrlPath("/workspaces/" + this.workspace.id + "/workfiles");
+            expect(req.url).toHaveUrlPath(window.chorusApi.urlPrefix + "/workspaces/" + this.workspace.id + "/workfiles");
             expect(req.json()['workfile_ids']).toEqual(this.workfileIds);
         });
     });

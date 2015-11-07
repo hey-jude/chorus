@@ -22,7 +22,7 @@ describe("chorus.dialogs.ConfigureWorkfileTask", function () {
 
             it("only fetches work flows", function () {
                 var lastFetch = this.server.lastFetchFor(this.workFlowSet);
-                expect(lastFetch.url).toHaveUrlPath('/workspaces/' + this.workFlowSet.models[0].workspace().id + '/workfiles');
+                expect(lastFetch.url).toHaveUrlPath(window.chorusApi.urlPrefix + '/workspaces/' + this.workFlowSet.models[0].workspace().id + '/workfiles');
                 expect(lastFetch.url).toContainQueryParams({fileType: 'work_flow'});
             });
 
@@ -191,7 +191,7 @@ describe("chorus.dialogs.ConfigureWorkfileTask", function () {
 
         it("only fetches work flows", function () {
             var lastFetch = this.server.lastFetchFor(this.sqlWorkfileSet);
-            expect(lastFetch.url).toHaveUrlPath('/workspaces/' + this.sqlWorkfileSet.models[0].workspace().id + '/workfiles');
+            expect(lastFetch.url).toHaveUrlPath(window.chorusApi.urlPrefix + '/workspaces/' + this.sqlWorkfileSet.models[0].workspace().id + '/workfiles');
             expect(lastFetch.url).toContainQueryParams({fileType: 'sql'});
         });
 

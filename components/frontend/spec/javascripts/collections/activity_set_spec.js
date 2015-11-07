@@ -7,7 +7,7 @@ describe("chorus.collections.ActivitySet", function() {
 
             context("and collection is for the dashboard", function() {
                 it("returns the url for fetching all insights", function() {
-                    expect(this.collection.url()).toHaveUrlPath("/insights");
+                    expect(this.collection.url()).toHaveUrlPath(window.chorusApi.urlPrefix + "/insights");
                     expect(this.collection.url()).toContainQueryParams({entity_type : "dashboard"});
                 });
             });
@@ -15,7 +15,7 @@ describe("chorus.collections.ActivitySet", function() {
             context("and collection is for a workspace", function() {
                 it("returns the url for fetching insights belonging to a workspace", function() {
                     this.collection.attributes.entity = backboneFixtures.workspace({ id: 21 });
-                    expect(this.collection.url()).toHaveUrlPath("/insights");
+                    expect(this.collection.url()).toHaveUrlPath(window.chorusApi.urlPrefix + "/insights");
                     expect(this.collection.url()).toContainQueryParams({entityType : "workspace", entityId: 21, perPage : 20});
                 });
             });

@@ -433,7 +433,7 @@ describe("chorus.models.Activity", function() {
         });
 
         it("posts to the comment insight url with the correct parameters", function() {
-            expect(this.server.lastCreate().url).toBe("/insights");
+            expect(this.server.lastCreate().url).toBe(window.chorusApi.urlPrefix + "/insights");
             expect(this.server.lastCreate().json()['note']['note_id']).toBe(this.model.id);
         });
 
@@ -452,7 +452,7 @@ describe("chorus.models.Activity", function() {
         });
 
         it("posts to the comment insight url with the correct parameters", function() {
-            expect(this.server.lastDestroy().url).toBe("/insights/" + this.model.id);
+            expect(this.server.lastDestroy().url).toBe(window.chorusApi.urlPrefix + "/insights/" + this.model.id);
         });
 
         it("unsets 'isinsight' on the activity", function() {
@@ -501,14 +501,14 @@ describe("chorus.models.Activity", function() {
     describe("#publish", function() {
         it("posts to the comment insight url with the publish action", function() {
             this.model.publish();
-            expect(this.server.lastCreate().url).toBe("/insights/publish");
+            expect(this.server.lastCreate().url).toBe(window.chorusApi.urlPrefix + "/insights/publish");
         });
     });
 
     describe("#unpublish", function() {
         it("posts to the comment insight url with the unpublish action", function() {
             this.model.unpublish();
-            expect(this.server.lastCreate().url).toBe("/insights/unpublish");
+            expect(this.server.lastCreate().url).toBe(window.chorusApi.urlPrefix + "/insights/unpublish");
         });
     });
 

@@ -17,7 +17,7 @@ describe("chorus.collections.SchemaDatasetSet", function() {
         it("is correct", function() {
             var url = this.collection.url({ per_page: 10, page: 1});
             expect(url).toContainQueryParams({ per_page: 10, page: 1 });
-            expect(url).toHaveUrlPath("/schemas/987/datasets");
+            expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/schemas/987/datasets");
         });
 
         it('filters by type', function() {
@@ -28,7 +28,7 @@ describe("chorus.collections.SchemaDatasetSet", function() {
         it("filters by name", function() {
             this.collection.attributes.filter = "foo";
             var url = this.collection.url({per_page: 10, page: 1});
-            expect(url).toHaveUrlPath("/schemas/987/datasets");
+            expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/schemas/987/datasets");
             expect(url).toContainQueryParams({ per_page: 10, page: 1, filter: "foo" });
         });
     });

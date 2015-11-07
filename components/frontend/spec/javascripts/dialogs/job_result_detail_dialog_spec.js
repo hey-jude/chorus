@@ -12,7 +12,7 @@ describe("chorus.dialogs.JobResultDetail", function () {
 
         it("fetches the latest result for the model", function () {
             expect(this.dialog.model).toHaveBeenFetched();
-            expect(this.server.lastFetch().url).toHaveUrlPath('/jobs/' + this.job.id + '/job_results/latest');
+            expect(this.server.lastFetch().url).toHaveUrlPath(window.chorusApi.urlPrefix + '/jobs/' + this.job.id + '/job_results/latest');
         });
 
         context("when the fetch completes", function () {
@@ -30,7 +30,7 @@ describe("chorus.dialogs.JobResultDetail", function () {
                     expect(this.dialog.$('.workflow_result')).toExist();
                 });
             });
-            
+
 
             it("displays the start, finish, and duration timing for overall job", function () {
                 expect(this.dialog.$('.job_started_at')).toContainText(Handlebars.helpers.displayTimestamp(this.dialog.model.get('startedAt')));

@@ -91,7 +91,7 @@ describe("chorus.models.OracleDataSource", function() {
 
     describe('#schemas', function(){
         it('has the right url', function(){
-            expect(this.dataSource.schemas().url()).toHaveUrlPath('/data_sources/' + this.dataSource.id + '/schemas');
+            expect(this.dataSource.schemas().url()).toHaveUrlPath(window.chorusApi.urlPrefix + '/data_sources/' + this.dataSource.id + '/schemas');
         });
     });
 });

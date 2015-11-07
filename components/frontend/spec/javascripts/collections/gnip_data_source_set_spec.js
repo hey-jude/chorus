@@ -10,7 +10,7 @@ describe("chorus.collections.GnipDataSourceSet", function() {
     });
 
     it("has the right url", function() {
-        expect(this.collection.url()).toHaveUrlPath("/gnip_data_sources");
+        expect(this.collection.url()).toHaveUrlPath(window.chorusApi.urlPrefix + "/gnip_data_sources");
     });
 
     it('sorts the data sources by name, case insensitively', function() {

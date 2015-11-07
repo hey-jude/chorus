@@ -5,7 +5,7 @@ describe("chorus.models.DatasetStatistics", function() {
         });
 
         it("should call the right API", function() {
-            expect(this.datasetStatistics.url()).toMatchUrl("/datasets/1/statistics");
+            expect(this.datasetStatistics.url()).toMatchUrl(window.chorusApi.urlPrefix + "/datasets/1/statistics");
         });
     });
 });

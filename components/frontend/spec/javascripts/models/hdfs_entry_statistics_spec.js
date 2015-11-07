@@ -5,7 +5,7 @@ describe("chorus.models.HdfsEntryStatistics", function() {
         });
 
         it("should call the right API", function() {
-            expect(this.datasetStatistics.url()).toMatchUrl("/hdfs_data_sources/2/files/1/statistics");
+            expect(this.datasetStatistics.url()).toMatchUrl(window.chorusApi.urlPrefix + "/hdfs_data_sources/2/files/1/statistics");
         });
     });
 });

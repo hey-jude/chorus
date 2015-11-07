@@ -27,7 +27,7 @@ describe("chorus.models.DatabaseColumn", function() {
 
             describe("#url", function() {
                 it("is correct", function() {
-                    expect(this.model.url()).toMatchUrl("/datasets/45/columns?filter=Col");
+                    expect(this.model.url()).toMatchUrl(window.chorusApi.urlPrefix + "/datasets/45/columns?filter=Col");
                 });
             });
 

@@ -9,7 +9,7 @@ describe("chorus.models.SchemaImport", function() {
 
     describe('url', function() {
         it('saves to the schema/:id/imports', function() {
-            expect(this.model.url()).toHaveUrlPath('/schemas/34/imports');
+            expect(this.model.url()).toHaveUrlPath(window.chorusApi.urlPrefix + '/schemas/34/imports');
         });
     });
 

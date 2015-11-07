@@ -4,7 +4,7 @@ describe("chorus.collections.DataSourceSet", function() {
     });
 
     it("has the correct url", function() {
-        expect(this.collection.url()).toHaveUrlPath('/data_sources');
+        expect(this.collection.url()).toHaveUrlPath(window.chorusApi.urlPrefix + '/data_sources');
     });
 
     describe("#comparator", function() {

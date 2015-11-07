@@ -10,7 +10,7 @@ describe("chorus.collections.TaggingSet", function() {
     });
 
     it("has the right url", function() {
-        expect(this.collection.url()).toHaveUrlPath("/taggings");
+        expect(this.collection.url()).toHaveUrlPath(window.chorusApi.urlPrefix + "/taggings");
         expect(this.collection.url()).toContainQueryParams({entity_id: 33, entity_type: 'modelClass'});
     });
 

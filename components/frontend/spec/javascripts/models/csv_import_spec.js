@@ -11,7 +11,7 @@ describe("chorus.models.CSVImport", function() {
         it("should have the correct url", function() {
             this.model.set({workspaceId: '7'});
 
-            expect(this.model.url()).toMatchUrl("/workspaces/7/csv/" + this.model.get('csvId') + "/imports");
+            expect(this.model.url()).toMatchUrl(window.chorusApi.urlPrefix + "/workspaces/7/csv/" + this.model.get('csvId') + "/imports");
         });
     });
 

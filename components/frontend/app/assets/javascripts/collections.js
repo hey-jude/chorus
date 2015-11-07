@@ -57,7 +57,7 @@ chorus.collections = {
                 uri.addSearch({iebuster: chorus.cachebuster()});
             }
 
-            var prefixedUrl = window.chorusApi.apiUrlPrefix + uri.toString();
+            var prefixedUrl = window.chorusApi.urlPrefix + uri.toString();
 
             return prefixedUrl;
         },

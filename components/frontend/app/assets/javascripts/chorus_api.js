@@ -1,3 +1,3 @@
 window.chorusApi = {
-  apiUrlPrefix: '/api'
+  urlPrefix: '/api'
 }

@@ -161,7 +161,7 @@ describe("chorus.views.SchemaPicker", function() {
 
                 it("fetches the list of data sources", function() {
                     var req = this.server.lastFetchFor(this.view.dataSourceView.pgGpDataSources);
-                    expect(req.url).toHaveUrlPath("/data_sources");
+                    expect(req.url).toHaveUrlPath(window.chorusApi.urlPrefix + "/data_sources");
                     expect(req.params()["entity_type[]"]).toMatch(["gpdb_data_source", "pg_data_source"]);
                 });
 
@@ -635,7 +635,7 @@ describe("chorus.views.SchemaPicker", function() {
 
                     it("fetches the oracle data source's schemas", function () {
                         var req = this.server.lastFetch();
-                        expect(req.url).toHaveUrlPath("/data_sources/12/schemas");
+                        expect(req.url).toHaveUrlPath(window.chorusApi.urlPrefix + "/data_sources/12/schemas");
                     });
 
                     describe("picking a schema", function () {
@@ -673,7 +673,7 @@ describe("chorus.views.SchemaPicker", function() {
 
                             it("fetches the databases", function () {
                                 var req = this.server.lastFetch();
-                                expect(req.url).toHaveUrlPath("/data_sources/11/databases");
+                                expect(req.url).toHaveUrlPath(window.chorusApi.urlPrefix + "/data_sources/11/databases");
                             });
                         });
                     });

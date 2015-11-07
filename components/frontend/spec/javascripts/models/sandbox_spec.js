@@ -19,7 +19,7 @@ describe("chorus.models.Sandbox", function() {
 
     describe("#url", function() {
         it("has the right url", function() {
-            expect(this.model.url()).toHaveUrlPath("/workspaces/" + this.model.get('workspaceId') + "/sandbox");
+            expect(this.model.url()).toHaveUrlPath(window.chorusApi.urlPrefix + "/workspaces/" + this.model.get('workspaceId') + "/sandbox");
         });
     });
 

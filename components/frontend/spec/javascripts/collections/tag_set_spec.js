@@ -7,6 +7,6 @@ describe("chorus.collections.TagSet", function() {
     });
 
     it("has the right url", function() {
-        expect(this.collection.url()).toHaveUrlPath("/tags");
+        expect(this.collection.url()).toHaveUrlPath(window.chorusApi.urlPrefix + "/tags");
     });
 });

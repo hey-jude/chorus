@@ -10,7 +10,7 @@ describe("chorus.collections.NotificationSet", function() {
     describe("#url", function() {
         context("when constructed with no type option", function() {
             it("is correct", function() {
-                expect(this.collection.url()).toHaveUrlPath("/notifications");
+                expect(this.collection.url()).toHaveUrlPath(window.chorusApi.urlPrefix + "/notifications");
             });
         });
 
@@ -20,7 +20,7 @@ describe("chorus.collections.NotificationSet", function() {
             });
 
             it("is correct", function() {
-                expect(this.collection.url()).toMatchUrl("/notifications?type=unread", { paramsToIgnore: ["page", "per_page" ]});
+                expect(this.collection.url()).toMatchUrl(window.chorusApi.urlPrefix + "/notifications?type=unread", { paramsToIgnore: ["page", "per_page" ]});
             });
         });
     });

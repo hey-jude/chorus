@@ -21,7 +21,7 @@ describe("chorus.dialogs.DatasetsPicker", function() {
             var url = this.server.lastFetch().url;
             var urlParams = _.extend({}, options);
             urlParams.order = "object_name";
-            expect(url).toHaveUrlPath("/workspaces/33/datasets");
+            expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/workspaces/33/datasets");
             expect(url).toContainQueryParams(urlParams);
         });
 

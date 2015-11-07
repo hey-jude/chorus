@@ -13,7 +13,7 @@ describe("chorus.models.Base", function() {
             });
 
             it("uses the function's return value", function() {
-                expect(this.model.url()).toMatchUrl("/my_other_items/foo");
+                expect(this.model.url()).toMatchUrl(window.chorusApi.urlPrefix + "/my_other_items/foo");
             });
 
             it("passes any options to the urlTemplate function", function() {
@@ -24,7 +24,7 @@ describe("chorus.models.Base", function() {
         });
 
         it("compiles the urlTemplate and renders it with model attributes", function() {
-            expect(this.model.url()).toMatchUrl("/my_items/foo");
+            expect(this.model.url()).toMatchUrl(window.chorusApi.urlPrefix + "/my_items/foo");
         });
 
         it("compiles the urlTemplate with the model's entityId and entityType", function() {
@@ -60,7 +60,7 @@ describe("chorus.models.Base", function() {
                 });
 
                 it("url-encodes the params and appends them to the url", function() {
-                    expect(this.model.url()).toMatchUrl("/my_items/foo?dance_dance=the+thizzle");
+                    expect(this.model.url()).toMatchUrl(window.chorusApi.urlPrefix + "/my_items/foo?dance_dance=the+thizzle");
                 });
 
                 context("when the base url template includes a query string", function() {
@@ -69,7 +69,7 @@ describe("chorus.models.Base", function() {
                     });
 
                     it("merges the query strings properly", function() {
-                        expect(this.model.url()).toMatchUrl("/my_items/foo?dance_dance=the+thizzle&roof=on_fire");
+                        expect(this.model.url()).toMatchUrl(window.chorusApi.urlPrefix + "/my_items/foo?dance_dance=the+thizzle&roof=on_fire");
                     });
                 });
             });

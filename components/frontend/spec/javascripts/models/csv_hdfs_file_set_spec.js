@@ -8,7 +8,7 @@ describe("chorus.collections.CsvHdfsFileSet", function () {
     });
 
     it("use the correct url", function() {
-        expect(this.collection.url()).toMatchUrl("/hdfs_data_sources/1/files/?id=123", {paramsToIgnore: ["page", "per_page"]});
+        expect(this.collection.url()).toMatchUrl(window.chorusApi.urlPrefix + "/hdfs_data_sources/1/files/?id=123", {paramsToIgnore: ["page", "per_page"]});
     });
 
     describe("#removeDirectories", function () {

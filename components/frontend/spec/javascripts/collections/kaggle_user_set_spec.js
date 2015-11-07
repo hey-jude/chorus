@@ -4,7 +4,7 @@ describe("chorus.collections.KaggleUserSet", function() {
     });
 
     it("has the right url", function() {
-        expect(this.collection.url()).toHaveUrlPath('/kaggle/users');
+        expect(this.collection.url()).toHaveUrlPath(window.chorusApi.urlPrefix + '/kaggle/users');
     });
 
     describe("#count", function () {

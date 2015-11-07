@@ -9,7 +9,7 @@ describe("chorus.models.WorkspaceImport", function() {
 
     describe('url', function() {
         it('saves to the workspace/:id/imports', function() {
-            expect(this.model.url()).toHaveUrlPath('/workspaces/1/imports');
+            expect(this.model.url()).toHaveUrlPath(window.chorusApi.urlPrefix + '/workspaces/1/imports');
         });
     });
 
@@ -122,7 +122,7 @@ describe("chorus.models.WorkspaceImport", function() {
             expect(this.model.source().name()).toBe('source');
         });
     });
-    
+
     describe("#destination", function() {
         it("returns the workspace dataset", function() {
             expect(this.model.destination()).toBeA(chorus.models.WorkspaceDataset);

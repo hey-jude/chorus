@@ -5,10 +5,10 @@ describe('chorus.models.DataSource', function() {
     );
 
     it("has the right url", function() {
-        expect(this.model.url()).toHaveUrlPath('/data_sources/1');
+        expect(this.model.url()).toHaveUrlPath(window.chorusApi.urlPrefix + '/data_sources/1');
 
         this.model.unset("id", { silent: true });
-        expect(this.model.url()).toHaveUrlPath('/data_sources/');
+        expect(this.model.url()).toHaveUrlPath(window.chorusApi.urlPrefix + '/data_sources/');
     });
 
     describe('#canHaveIndividualAccounts', function(){

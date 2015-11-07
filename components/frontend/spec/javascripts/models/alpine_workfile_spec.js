@@ -45,7 +45,7 @@ describe("chorus.models.AlpineWorkfile", function() {
         it("has the right iframeUrl", function() {
             var url = this.model.iframeUrl();
 
-            expect(url).toHaveUrlPath("/alpinedatalabs/main/chorus.do");
+            expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/alpinedatalabs/main/chorus.do");
             expect(url).toContainQueryParams({
                 workfile_id: "23",
                 session_id: "hex",
@@ -70,7 +70,7 @@ describe("chorus.models.AlpineWorkfile", function() {
         it("has the right iframeUrl", function() {
             var url = this.model.iframeUrl();
 
-            expect(url).toHaveUrlPath("/alpinedatalabs/main/chorus.do");
+            expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/alpinedatalabs/main/chorus.do");
             expect(url).toContainQueryParams({
                 workfile_id: "23",
                 session_id: "hex",
@@ -94,7 +94,7 @@ describe("chorus.models.AlpineWorkfile", function() {
         it("has the right iframeUrl", function() {
             var url = this.model.iframeUrl();
 
-            expect(url).toHaveUrlPath("/alpinedatalabs/main/chorus.do");
+            expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/alpinedatalabs/main/chorus.do");
             expect(url).toContainQueryParams({
                 workfile_id: this.model.id,
                 session_id: "hex",
@@ -106,7 +106,7 @@ describe("chorus.models.AlpineWorkfile", function() {
     it("has the right imageUrl", function() {
         var url = this.model.imageUrl();
 
-        expect(url).toHaveUrlPath("/alpinedatalabs/main/chorus.do");
+        expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/alpinedatalabs/main/chorus.do");
         expect(url).toContainQueryParams({
             workfile_id: "23",
             session_id: "hex",

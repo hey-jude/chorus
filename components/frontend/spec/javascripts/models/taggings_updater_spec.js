@@ -17,7 +17,7 @@ describe("chorus.models.TaggingsUpdater", function() {
         });
 
         it("posts to taggings", function() {
-            expect(this.server.lastCreate().url).toHaveUrlPath("/taggings");
+            expect(this.server.lastCreate().url).toHaveUrlPath(window.chorusApi.urlPrefix + "/taggings");
         });
 
         it("posts the added tag to the taggings for all objects", function() {

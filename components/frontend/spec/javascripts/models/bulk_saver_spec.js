@@ -11,12 +11,12 @@ describe("chorus.models.BulkSaver", function() {
 
         it("submits to its collection's url", function() {
             saver.save();
-            expect(this.server.lastCreate().url).toHaveUrlPath("/the/collections/url");
+            expect(this.server.lastCreate().url).toHaveUrlPath(window.chorusApi.urlPrefix + "/the/collections/url");
         });
 
         it("sends additional data", function() {
             saver.save({fooBarKey: 'foobarvalue'});
-            expect(this.server.lastCreate().url).toHaveUrlPath("/the/collections/url");
+            expect(this.server.lastCreate().url).toHaveUrlPath(window.chorusApi.urlPrefix + "/the/collections/url");
         });
 
         it("triggers saved on the collection", function() {

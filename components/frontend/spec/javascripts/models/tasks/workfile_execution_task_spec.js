@@ -8,7 +8,7 @@ describe("chorus.models.WorkfileExecutionTask", function() {
     });
 
     it("has the right URL", function() {
-        expect(this.model.url()).toMatchUrl("/workfiles/1/executions");
+        expect(this.model.url()).toMatchUrl(window.chorusApi.urlPrefix + "/workfiles/1/executions");
     });
 
     it("name returns the name of the workfile", function() {

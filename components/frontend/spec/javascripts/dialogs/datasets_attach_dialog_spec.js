@@ -16,7 +16,7 @@ describe("chorus.dialogs.DatasetsAttach", function() {
 
     it("fetches the results sorted by objectName ascending", function() {
         var url = this.server.lastFetch().url;
-        expect(url).toHaveUrlPath("/workspaces/33/datasets");
+        expect(url).toHaveUrlPath(window.chorusApi.urlPrefix + "/workspaces/33/datasets");
         expect(url).toContainQueryParams({ order: "object_name"});
     });
 

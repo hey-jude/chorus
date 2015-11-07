@@ -282,7 +282,7 @@ describe("chorus.models.User", function() {
                 username: 'elephant',
                 id: "55"
             });
-            expect(user.createImageUrl()).toHaveUrlPath("/users/55/image");
+            expect(user.createImageUrl()).toHaveUrlPath(window.chorusApi.urlPrefix + "/users/55/image");
             expect(user.createImageUrl()).toBeA("string");
         });
     });

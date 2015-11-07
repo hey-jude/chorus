@@ -11,7 +11,7 @@ describe("chorus.models.BulkDestroyer", function() {
 
         it("submits to its collection's url", function() {
             destroyer.destroy();
-            expect(this.server.lastDestroy().url).toHaveUrlPath("/the/collections/url");
+            expect(this.server.lastDestroy().url).toHaveUrlPath(window.chorusApi.urlPrefix + "/the/collections/url");
         });
 
         it("sends additional options in the 'data' parameter with snaked keys", function() {
