@@ -1,5 +1,5 @@
-module Visualization
-  class HeatmapPresenter < Presenter
+module Api::Visualization
+  class HeatmapPresenter < ApiPresenter
     include GpdbDataTypes
 
     def to_hash

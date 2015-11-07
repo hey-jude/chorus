@@ -1,5 +1,5 @@
-module Visualization
-  class TimeseriesPresenter < Presenter
+module Api::Visualization
+  class TimeseriesPresenter < ApiPresenter
     include GpdbDataTypes
 
     def to_hash

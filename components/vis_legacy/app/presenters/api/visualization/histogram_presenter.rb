@@ -1,5 +1,5 @@
-module Visualization
-  class HistogramPresenter < Presenter
+module Api::Visualization
+  class HistogramPresenter < ApiPresenter
     include GpdbDataTypes
 
     def to_hash

@@ -1,5 +1,5 @@
-module Visualization
-  class FrequencyPresenter < Presenter
+module Api::Visualization
+  class FrequencyPresenter < ApiPresenter
     include GpdbDataTypes
 
     def to_hash
