@@ -30,7 +30,7 @@ GIT
 PATH
   remote: components
   specs:
-    api (0.0.1)
+    api (0.0.1-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)
       activeresource (= 4.0.0)
@@ -42,7 +42,7 @@ PATH
       sass-rails (= 5.0.1)
       sunspot_rails (= 2.1.0)
       will_paginate (= 3.0.4)
-    core (0.0.1)
+    core (0.0.1-java)
       actionmailer (= 4.1.10)
       activerecord (= 4.1.10)
       activerecord-jdbcpostgresql-adapter
@@ -60,7 +60,7 @@ PATH
       sequel (~> 4.0)
       sunspot_rails (= 2.1.0)
       will_paginate (= 3.0.4)
-    frontend (0.0.1)
+    frontend (0.0.1-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)
       api
@@ -76,7 +76,7 @@ PATH
       uglifier (= 2.7.1)
       vis_legacy
       yui-compressor (= 0.12.0)
-    vis_legacy (0.0.1)
+    vis_legacy (0.0.1-java)
 
 GEM
   remote: https://rubygems.org/

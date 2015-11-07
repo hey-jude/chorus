@@ -7,6 +7,7 @@ require "vis_legacy/version"
 Gem::Specification.new do |s|
   s.name        = "vis_legacy"
   s.version     = VisLegacy::VERSION
+  s.platform    = 'jruby'
   s.authors     = ["Kevin Trowbridge"]
   s.email       = ["kevin@alpinenow.com"]
   s.homepage    = ""

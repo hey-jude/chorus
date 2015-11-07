@@ -7,6 +7,7 @@ require "frontend/version"
 Gem::Specification.new do |s|
   s.name = "frontend"
   s.version = Frontend::VERSION
+  s.platform = 'jruby'
   s.authors = ["Prakash Teli", "Kevin Trowbridge"]
   s.email = ["prakash@alpinenow.com", "kevin@alpinenow.com"]
   s.homepage = "http://alpinenow.com"

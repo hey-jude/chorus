@@ -7,6 +7,7 @@ require "vis_chiasm/version"
 Gem::Specification.new do |s|
   s.name        = "vis_chiasm"
   s.version     = VisChiasm::VERSION
+  s.platform    = 'jruby'
   s.authors     = ["Kevin Trowbridge"]
   s.email       = ["kevin@alpinenow.com"]
   s.homepage    = ""

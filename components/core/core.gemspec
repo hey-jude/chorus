@@ -7,6 +7,7 @@ require "core/version"
 Gem::Specification.new do |s|
   s.name = "core"
   s.version = Core::VERSION
+  s.platform = 'jruby'
   s.authors = ["Prakash Teli", "Kevin Trowbridge"]
   s.email = ["prakash@alpinenow.com", "kevin@alpinenow.com"]
   s.homepage = "http://alpinenow.com"
