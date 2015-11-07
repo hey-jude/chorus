@@ -23,8 +23,9 @@ namespace :development do
 
   desc "Copy database.yml.example to database.yml"
   task :generate_database_yml do
-    database_yml_example = Pathname.new(ENV['CHORUS_HOME']).join("packaging/database.yml.example")
-    database_yml = Pathname.new(ENV['CHORUS_HOME']).join("config/database.yml")
+    root = Pathname.new(__FILE__).dirname.join("../..")
+    database_yml_example = root.join("config/database.yml.example")
+    database_yml = root.join("config/database.yml")
     FileUtils.cp(database_yml_example.to_s, database_yml.to_s) unless database_yml.exist?
   end
 

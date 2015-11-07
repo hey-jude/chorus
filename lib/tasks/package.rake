@@ -1,4 +1,4 @@
-require_relative '../../../../version'
+require_relative '../../version'
 require_relative '../task_helpers/package_maker'
 
 namespace :package do
