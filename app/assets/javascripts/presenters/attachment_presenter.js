@@ -12,7 +12,11 @@ chorus.presenters.Attachment = chorus.presenters.Base.extend({
         return this.model.get("name") || this.model.get("objectName") || this.model.get("fileName");
     },
 
-    isImage: function() {
+//     isImage: function() {
+//         return chorus.urlHelpers.getMapping(this.model.get("type")) === "image" || chorus.urlHelpers.getMapping(this.model.get("fileType")) === "image";
+//     },
+
+    isImageFiletype: function() {
         return chorus.urlHelpers.getMapping(this.model.get("type")) === "image" || chorus.urlHelpers.getMapping(this.model.get("fileType")) === "image";
     },
 

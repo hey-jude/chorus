@@ -48,7 +48,7 @@ describe("chorus.models.Attachment", function() {
         });
     });
 
-    describe("#isImage", function() {
+    describe("#isImageFiletype", function() {
         beforeEach(function() {
             var search = backboneFixtures.searchResultWithAttachmentOnWorkspaceNote();
             this.model = search.attachments().at(0);
@@ -56,9 +56,9 @@ describe("chorus.models.Attachment", function() {
 
         it("returns the correct value", function() {
             this.model.set({type: "IMAGE"});
-            expect(this.model.isImage()).toBeTruthy();
+            expect(this.model.isImageFiletype()).toBeTruthy();
             this.model.set({type: "OTHER"});
-            expect(this.model.isImage()).toBeFalsy();
+            expect(this.model.isImageFiletype()).toBeFalsy();
         });
     });
 

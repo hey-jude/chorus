@@ -129,10 +129,14 @@
             "fileName": "workfiles.validation.name"
         },
 
-        isImage: function() {
+//        isImage: function() {
+//            return this.get("fileType") === IMAGE;
+//        },
+
+        isImageFiletype: function() {
             return this.get("fileType") === IMAGE;
         },
-
+        
         isSql: function() {
             return this.get("fileType") === SQL;
         },
@@ -217,7 +221,7 @@
         },
 
         iconUrl: function(options) {
-            if (this.isImage() && this.get("versionInfo")) {
+            if (this.isImageFiletype() && this.get("versionInfo")) {
                 return this.get("versionInfo").iconUrl;
             } else {
                 return chorus.urlHelpers.fileIconUrl(this.extension(), options && options.size);
