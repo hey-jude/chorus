@@ -28,14 +28,14 @@ chorus.views.DashboardActivityList = chorus.views.Base.extend({
         }
     },
 
-    toggleCommentList:function (ev) {
-        ev.preventDefault();
-        $(ev.target).closest(".comments").toggleClass("more");
+    toggleCommentList:function (e) {
+        e.preventDefault();
+        $(e.target).closest(".comments").toggleClass("more");
         chorus.PageEvents.trigger("content:changed");
     },
 
-    fetchMoreActivities:function (ev) {
-        ev.preventDefault();
+    fetchMoreActivities:function (e) {
+        e.preventDefault();
         var pageToFetch = parseInt(this.collection.pagination.page, 10) + 1;
         this.collection.fetchPage(pageToFetch, { reset: false, remove: false, success: _.bind(this.render, this) });
     },
