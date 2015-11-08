@@ -75,7 +75,7 @@ $menu-item-height-default: 40px;
             box-shadow: $shadow-canon;
             padding: 0 0 0 0;
             top: $header-height;
-        }           
+        }
         .token {
             &.active {
                 background-color: $brand-tint;
@@ -170,7 +170,8 @@ $menu-item-height-default: 40px;
             float: right;
 
             .menu {
-                border: $border-canon;
+                //border: $border-canon;
+                border: $darker-border-canon;
                 border-top: none;
             }
             .token {
@@ -403,15 +404,19 @@ $primary-nav-separation-height: 30px;
             }
         }
 
-        .menu.popup_usermenu {
-            line-height: 24px;
-            // account for 1px border around popup
-            right: $header-margin-right - 1;
-            width: $header-margin * 6;
+        .menu {
+        
+            &.popup_usermenu {
+                line-height: 24px;
+                // account for 1px border around popup
+                right: $header-margin-right - 1;
+                width: $header-margin * 6;
 
-            li {
-                @include username-item-link($menu-item-height-default)
+                li {
+                    @include username-item-link($menu-item-height-default)
+                }
             }
+        
         }
 
         .menu.popup_notifications {
