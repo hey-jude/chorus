@@ -59,7 +59,7 @@
                 <li><a class="associate" href="#">{{t "actions.associate"}}</a></li>
             {{/if}}
 
-            <li><a class="edit_tags">{{t "sidebar.edit_tags"}}</a></li>
+            <li><a class="edit_tags">{{t "actions.edit_tags"}}</a></li>
             {{#unless workspaceArchived}}
                 {{#if isHdfsDataset}}
                     <li><a class="edit_hdfs_dataset">{{t "actions.edit_hdfs_dataset"}}</a></li>
@@ -76,9 +76,9 @@
             {{#if currentUserCanCreateWorkFlow}}
                 <li>
                     {{#if stale}}
-                        <span class="new_work_flow disabled">{{t "sidebar.new_work_flow"}}</span>
+                        <span class="new_work_flow disabled">{{t "actions.new_work_flow"}}</span>
                     {{else}}
-                        <a class="new_work_flow">{{t "sidebar.new_work_flow"}}</a>
+                        <a class="new_work_flow">{{t "actions.new_work_flow"}}</a>
                     {{/if}}
                 </li>
             {{/if}}
