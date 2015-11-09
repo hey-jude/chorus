@@ -7,6 +7,9 @@ $media-gutter: 10px;
 $system-action-color: #7C7D7D;
 $refresh-activity-gutter: $activity-gutter - 5;
 
+//$activity-unread-color: #FFFACE;
+$activity-unread-color: #E2F5F3;
+
 .media, .media > .bd {
     overflow: hidden;
 }
@@ -47,7 +50,7 @@ $refresh-activity-gutter: $activity-gutter - 5;
 
 .activity {
     &.unread {
-        background: #ffface;
+        background: $activity-unread-color;
     }
 
     .activity_item {
@@ -234,7 +237,7 @@ li .activity_content,
         border-bottom: $border-canon;
 
         &.insight {
-            background: #FFFFFF;
+            background: $core-white;
             border-bottom: $border-canon;
             .activity_item {
                 padding-top: 12px;
@@ -274,7 +277,7 @@ li .activity_content,
 
 #sidebar .activity_list {
     li.insight {
-        background: #FFFFFF;
+        background: $core-white;
         .insight_ribbon {
             left: -5px;
         }
