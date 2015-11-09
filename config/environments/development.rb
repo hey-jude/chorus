@@ -12,12 +12,21 @@ Chorus::Application.configure do
   if ChorusConfig.instance['mail.enabled']
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+    #config.action_mailer.smtp_settings = ChorusConfig.instance.smtp_configuration
     ActionMailer::Base.default ChorusConfig.instance.mail_configuration
   else
     config.action_mailer.perform_deliveries = false
   end
 
-
+#   if ChorusConfig.instance['mail.enabled']
+#     config.action_mailer.delivery_method = :smtp
+#     config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+#     ActionMailer::Base.default ChorusConfig.instance.mail_configuration
+#   else
+#     config.action_mailer.perform_deliveries = false
+#   end
+  
+  
   # DEFAULT RAILS CONFIG OPTIONS below
 
   # Settings specified here will take precedence over those in config/application.rb
@@ -33,7 +42,7 @@ Chorus::Application.configure do
   config.consider_all_requests_local       = true
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -44,17 +53,12 @@ Chorus::Application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = false
+  config.assets.debug = true
 
   # Only turn it on if you really need concurrent requests
   config.allow_concurrency = true
   #config.threadsafe!
 
-  if ChorusConfig.instance['mail.enabled']
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
-    ActionMailer::Base.default ChorusConfig.instance.mail_configuration
-  else
-    config.action_mailer.perform_deliveries = false
-  end
+  config.log_level = :debug
+
 end
