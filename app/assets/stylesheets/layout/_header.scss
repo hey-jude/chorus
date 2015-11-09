@@ -13,7 +13,7 @@ $notification-token-width: $header-margin * 2;
 $branding-opacity: 0.94;
 
 $menu-item-height-default: 40px;
-
+$menu-notifications-width: 320px;
 
 @mixin full-item-link($height) {
     &:hover, &.selected {
@@ -197,7 +197,9 @@ $menu-item-height-default: 40px;
                     text-align: center;
 
                     a.notifications .lozenge {
-                        &.empty { background: $brand-dark; }
+                        &.empty {
+                            background: $brand-dark;
+                        }
                         background: $notification;
 
                         // @include lozenge(2px, 30px, $header-height/3);
@@ -420,7 +422,8 @@ $primary-nav-separation-height: 30px;
         }
 
         .menu.popup_notifications {
-            $width: 320px;
+            $width: $menu-notifications-width;
+
 			// calculate the left margin. add 1 for 1px border */
             margin-left: -( ($width - $notification-token-width / 2) +1);
             width: $width;
@@ -469,10 +472,14 @@ $primary-nav-separation-height: 30px;
             a.notifications_all {
                 padding: 10px 0;
                 display: block;
+                background-color: #E2E2D6;
+                
                 text-align: center;
                 font-size: $small-font;
                 font-weight: $semibold;
             }
         }
+
+
     }
 }
