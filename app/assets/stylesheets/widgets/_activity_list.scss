@@ -7,8 +7,13 @@ $media-gutter: 10px;
 $system-action-color: #7C7D7D;
 $refresh-activity-gutter: $activity-gutter - 5;
 
-//$activity-unread-color: #FFFACE;
 $activity-unread-color: #E2F5F3;
+
+
+// TODO: normal all small icon usage in appl. to use these dimensions
+$workfile-icon-small-width: 30px;
+$workfile-icon-small-height: auto;
+
 
 .media, .media > .bd {
     overflow: hidden;
@@ -58,20 +63,23 @@ $activity-unread-color: #E2F5F3;
         position: relative;
         overflow: visible;
 
-        .fa.failure {
-            position: relative;
-            font-size: 34px;
-            top: 4px;
-            left: 2px;
-            color: $error-icon-color;
-        }
+        .fa {
 
-        .fa.success {
-            position: relative;
-            font-size: 34px;
-            top: 4px;
-            left: 2px;
-            color: $success-icon-color;
+            &.failure {
+                position: relative;
+                font-size: 34px;
+                top: 4px;
+                left: 2px;
+                color: $error-icon-color;
+            }
+
+            &.success {
+                position: relative;
+                font-size: 34px;
+                top: 4px;
+                left: 2px;
+                color: $success-icon-color;
+            }
         }
     }
 }
@@ -119,9 +127,20 @@ $activity-unread-color: #E2F5F3;
 .activity_content,
 .comment_content {
     ul.attachments {
+    
+        margin-top: 5px;
+        
+        .icon {
+            img {
+            width: $workfile-icon-small-width;
+            height: $workfile-icon-small-height;
+            }
+        }
+            
         img {
             vertical-align: middle;
             cursor: pointer;
+
         }
 
         li {
@@ -288,7 +307,7 @@ li .activity_content,
     &.data_source_list_sidebar,
     &.workfile_show_sidebar {
         .activity_list .heading {
-            display: none
+            display: none;
         }
     }
 }
