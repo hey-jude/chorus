@@ -13,36 +13,48 @@ chorus.models.Branding = chorus.models.Base.extend ({
 
         console.log ("chorus.models.Branding user: " + chorus.session.user() );
         
+        // setup a collection of values
+        //this.applicationVersion = this.getApplicationVersion();
+
         this.applicationLicense = chorus.models.Config.instance().license();
-        
         this.applicationVendor = this.getBrandingVendor();
         this.isAlpine = this.isAlpine();
-        
         this.applicationHeaderLogo = this.getBrandingLogo();
         this.applicationLoginLogo = this.getBrandingLoginLogo();
-        
+
         this.applicationAdvisorNowEnabled = this.isAdvisorNowEnabled();
         this.advisorNowLink = "";
+        
         if (this.isAdvisorNowEnabled) {
             this.advisorNowLink = this.getAdvisorNowLink( chorus.session.user(), this.applicationLicense);
         }
 
         this.applicationHelpLink = this.getHelpLink();
-
         this.copyright = this.getCopyright();
     },
-    
-//     getApplicationVersion: function() {
-//         $.ajax({
-//             url: "/VERSION",
-//             dataType: "text"
-//         })
-//          .done ( function(res) {
-//             console.log ("v > " + res);
-//                 return res;
-//             });
-//     },
+
+    setApplicationVersion: function (r) {
+      console.log ("setApplicationVersion :" + r);
+    },
       
+    getApplicationVersion: function() {
+        var v;
+        this.setApplicationVersion ("2");
+
+        $.ajax({
+              url: "/VERSION",
+              dataType: "text"
+          })
+          .success (function(response) {
+              v = response;
+              // this.this.setApplicationVersion (response);
+          });
+        return v;
+        
+    },
+
+    
+    
     getBrandingVendor: function() {
         // get vendor
         return this.applicationLicense.branding();
@@ -57,7 +69,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
         };
     },
     
-            
     getBrandingLogo: function() {
         // generate path to the branding logo
         
@@ -82,7 +93,7 @@ chorus.models.Branding = chorus.models.Base.extend ({
                 break;
         }
         
-        // if no logofile is defined, then return is null
+        // if no logofile is defined, then return = null
         brandingLogo = ( logoFile ? this.brandingLogoLocation + logoFile : null );
         return brandingLogo;
     },
@@ -121,7 +132,8 @@ chorus.models.Branding = chorus.models.Base.extend ({
 
     getAdvisorNowLink: function(user, license) {
          return URI({
-            hostname: "http://advisor.alpinenow.com",
+            protocol: "http",
+            hostname: "advisor.alpinenow.com",
             path: "start",
             query: $.param({
                 //first_name: user.get("firstName"),
@@ -140,16 +152,22 @@ chorus.models.Branding = chorus.models.Base.extend ({
         console.log ("models.branding > CREATE advisorNowLink");
         console.log ("user > " + user);
 
-         return URI({
-            hostname: "http://advisor.alpinenow.com",
-            path: "start",
-            query: $.param({
-                first_name: user.get("firstName"),
-                last_name: user.get("lastName"),
-                email: user.get("email"),
-                org_id: license.get("organizationUuid")
-            })
-        });
+//          return URI({
+//             hostname: "http://advisor.alpinenow.com",
+//             path: "start",
+//             query: $.param({
+//                 first_name: user.get("firstName"),
+//                 last_name: user.get("lastName"),
+//                 email: user.get("email"),
+//                 org_id: license.get("organizationUuid")
+//             })
+//         });
+
+          return URI({
+          
+         
+          });
+
     },
     
     getHelpLink: function() {
@@ -159,6 +177,7 @@ chorus.models.Branding = chorus.models.Base.extend ({
     },
 
     getCopyright: function() {
+        // construct the copyright notice used here and there.
         // default to the alpine copyright notice if no vendor listed
         var vendor = ( this.applicationVendor ? this.applicationVendor : "alpine" );
         return ( t("login." + vendor + "_copyright", {year:moment().year()}) );

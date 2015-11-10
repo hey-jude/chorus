@@ -14,9 +14,9 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
     },
 
     postRender: function() {
-        this.$(".version").load("/VERSION", function(res) {
+       this.$(".version").load("/VERSION", function(res) {
             $(this).text(res);
-        });
+       });
 
     },
 
@@ -25,7 +25,7 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
         return _.extend({
             items: this.items(),
             applicationKey: "about." + this.model.applicationKey(),
-            
+            //version: chorus.branding.applicationVersion,
             branding: chorus.branding.applicationVendor,
             brandingLogo: chorus.branding.applicationLoginLogo,
             copyright: chorus.branding.copyright,
