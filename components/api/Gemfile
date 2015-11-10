@@ -23,4 +23,5 @@ gem 'chorusgnip', :github => 'Chorus/gnip'
 group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :ci_next do
   # Needed for api-controller testing
   gem 'rspec_api_documentation', :github => 'Chorus/rspec_api_documentation', :require => false
+  gem "fakefs", :require => "fakefs/safe"
 end
