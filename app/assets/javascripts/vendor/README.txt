@@ -358,7 +358,9 @@ http://www.overset.com/2008/09/01/javascript-natural-sort-algorithm-with-unicode
 -----------------------------------------------------------------
 
 Punycode.js <http://mths.be/punycode>
-Copyright 2011 Mathias Bynens <http://mathiasbynens.be/>
+punycode v1.2.3
+
+Copyright 2013 Mathias Bynens <http://mathiasbynens.be/>
 
 Available under MIT license http://mths.be/mit
 
@@ -397,13 +399,14 @@ Version 2.0.0
 
 URL.js - Mutating URLs
 
-Version: 1.4.3
+Version: 1.16.1
 Author: Rodney Rehm
 Web: http://medialize.github.com/URI.js/
 
 Licensed under
 MIT License http://www.opensource.org/licenses/mit-license
 GPL v3 http://opensource.org/licenses/GPL-3.0
+
 
 -----------------------------------------------------------------
 
