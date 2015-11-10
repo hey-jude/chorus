@@ -16,8 +16,18 @@ require 'sunspot_matchers'
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'paperclip/matchers'
+
 require 'rspec_api_documentation'
 require 'rspec_api_documentation/dsl'
+RspecApiDocumentation.configure do |config|
+  config.docs_dir = Pathname.new(ENV['CHORUS_HOME']).join("doc")
+
+  config.define_group :public do |config|
+    config.docs_dir = Pathname.new(ENV['CHORUS_HOME']).join("public", "docs")
+    config.url_prefix = "/docs"
+  end
+end
+
 require 'shoulda-matchers'
 require 'factory_girl'
 require 'timecop'

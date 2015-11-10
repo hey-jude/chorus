@@ -56,9 +56,12 @@ unless Rails.env.production?
     Rails.application.reload_routes!
     all_routes = Rails.application.routes.routes
 
-    require 'rails/application/route_inspector'
-    inspector = Rails::Application::RouteInspector.new
-    routes = inspector.collect_routes(all_routes)
+    require 'action_dispatch/routing/inspector'
+    inspector = ActionDispatch::Routing::RoutesInspector.new(all_routes)
+
+    # "collect_routes" method is private, but we get around that by using 'send'
+    routes = inspector.send(:collect_routes, all_routes)
+
     routes.reject! do |r|
       r[:verb].blank? || routes_to_ignore.include?(r[:reqs])
     end

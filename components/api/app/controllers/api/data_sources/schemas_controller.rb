@@ -1,7 +1,7 @@
 # KT TODO: it's strange how this is the only file in /data_sources that actually inherits from
 # DataSourcesController ...
 module Api::DataSources
-  class SchemasController < DataSourcesController
+  class SchemasController < Api::DataSourcesController
     before_filter :check_source_disabled?
 
     def index
