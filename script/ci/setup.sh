@@ -27,4 +27,5 @@ cp ~/ojdbc6.jar $WORKSPACE/lib/libraries/ojdbc6.jar
 cp ~/tdgssconfig.jar $WORKSPACE/lib/libraries/tdgssconfig.jar
 cp ~/terajdbc4.jar $WORKSPACE/lib/libraries/terajdbc4.jar
 
-b/rake development:generate_database_yml development:generate_secret_token development:generate_secret_key package:prepare_hdfs_jar db:drop db:create db:migrate --trace > "$WORKSPACE/bundle.log"
+b/rake development:generate_database_yml development:generate_secret_token development:generate_secret_key package:prepare_hdfs_jar db:drop db:create --trace > "$WORKSPACE/bundle.log"
+b/rake db:migrate --trace > "$WORKSPACE/bundle.log"
