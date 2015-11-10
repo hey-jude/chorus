@@ -70,7 +70,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_girl'
 
   # A Fake Filesystem, used in install & model tests
-  s.add_development_dependency 'fakefs'
+  s.add_development_dependency 'fakefs', '0.4.2'
 
   s.add_development_dependency 'faker'
 

@@ -32,7 +32,6 @@ require 'shoulda-matchers'
 require 'factory_girl'
 require 'timecop'
 require 'fixture_builder'
-require 'backbone_fixtures_rails'
 require 'faker'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

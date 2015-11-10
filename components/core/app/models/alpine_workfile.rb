@@ -137,8 +137,8 @@ class AlpineWorkfile < Workfile
   end
 
   def notify_alpine_of_deletion
-    # This will only work in development mode if you have alpine running locally and you have
-    # config.threadsafe! or config.allow_concurrency = true in your config/environments/development.rb
+    # This will only work in development mode if you have alpine running locally and
+    # config.allow_concurrency = true in your config/environments/development.rb
     # Otherwise, this will time out.
     Alpine::API.delete_work_flow(self)
   end
