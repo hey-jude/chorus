@@ -167,7 +167,8 @@ chorus.views.Header = chorus.views.Base.extend({
 
     advisorNowLink: function(user, license) {
         return URI({
-            hostname: "http://advisor.alpinenow.com",
+            protocol: "http",
+            hostname: "advisor.alpinenow.com",
             path: "start",
             query: $.param({
                 first_name: user.get("firstName"),
