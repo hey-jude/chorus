@@ -2,6 +2,8 @@ chorus.views.Header = chorus.views.Base.extend({
     constructorName: "HeaderView",
     templateName: "header",
 
+    search_throttle_milliseconds: 440,  // was 500. speed it up a tiny bit
+    
     events: {
         "click .username a.label": "togglePopupUsermenu",
         "click a.notifications": "togglePopupNotifications",
@@ -66,14 +68,14 @@ chorus.views.Header = chorus.views.Base.extend({
     },
     
     postRender: function() {
-        this.$(".search input").unbind("textchange").bind("textchange", _.bind(_.throttle(this.displayResult, 500), this));
+        this.$(".search input").unbind("textchange").bind("textchange", _.bind(_.throttle(this.displayResult, this.search_throttle_milliseconds ), this));
         chorus.addSearchFieldModifications(this.$(".search input"));
-
+        this.modifyTypeAheadSearchPosition();
+        this.displayNotificationCount();
+        
         if (chorus.isDevMode()) {
             this.addFastUserToggle();
         }
-        this.modifyTypeAheadSearchLength();
-        this.displayNotificationCount();
     },
 
     addFastUserToggle: function() {
@@ -220,7 +222,7 @@ chorus.views.Header = chorus.views.Base.extend({
         chorus.PopupMenu.toggle(this, ".menu.popup_drawer", e, '.drawer');
     },
 
-    modifyTypeAheadSearchLength: function() {
+    modifyTypeAheadSearchPosition: function() {
         if(!_.isEmpty($('.left')) && !_.isEmpty($('.type_ahead_search'))) {
             this.$('.type_ahead_search').css('left', (this.$('.left').width() + parseInt($('.search').css('padding-left'), 10)) + "px");
         }
