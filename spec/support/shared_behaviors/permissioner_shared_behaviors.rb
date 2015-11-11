@@ -1,5 +1,11 @@
 shared_examples "a permissioned model" do
 
+  describe "associations" do
+    it "allows the model to belong in multiple scopes" do
+      expect { model_a.chorus_scopes << [scope_a, scope_b] }.not_to raise_error
+    end
+  end
+
   describe "scope" do
 
     let(:user_a){ User.new(:username => 'user_a') }
@@ -25,19 +31,19 @@ shared_examples "a permissioned model" do
       user_b.save!(:validate => false)
 
       group_a.users << user_a
-      group_a.chorus_scope = scope_a
+      group_a.chorus_scopes << scope_a
       group_a.save!
 
       group_b.users << user_b
-      group_b.chorus_scope = scope_b
+      group_b.chorus_scopes << scope_b
       group_b.save!
 
       co_a = model_a.chorus_object
-      co_a.chorus_scope = scope_a
+      co_a.chorus_scopes << scope_a
       co_a.save!
 
       co_b = model_b.chorus_object
-      co_b.chorus_scope = scope_b
+      co_b.chorus_scopes << scope_b
       co_b.save!
     end
 
@@ -54,7 +60,4 @@ shared_examples "a permissioned model" do
     chorus_object = chorus_class.chorus_objects.find_by_instance_id(model.id)
     expect(chorus_object).to_not be_nil
   end
-
-
-
 end
