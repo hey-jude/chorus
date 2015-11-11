@@ -57,6 +57,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'jruby-openssl'
   s.add_dependency 'activerecord-jdbcpostgresql-adapter'
 
+  # for zip_file_generator.rb
+  s.add_dependency 'rubyzip', '0.9.9'
+
   # The Bullet gem is designed to help you increase your application's performance by reducing the number of queries it makes.
   # But -- it is disabled.
   s.add_development_dependency 'bullet'
