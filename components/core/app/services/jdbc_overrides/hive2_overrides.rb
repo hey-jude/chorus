@@ -1,4 +1,6 @@
-require Pathname.new(ENV['CHORUS_HOME']).join('vendor/hadoop/hdfs-query-service-0.0.11.jar')
+# jdbc_overrides/services/app/core/components/chorus
+relative_chorus_root = '../../../../../..'
+require File.expand_path("#{relative_chorus_root}/vendor/hadoop/hdfs-query-service-0.0.11.jar", __FILE__)
 
 module JdbcOverrides
   module Hive2

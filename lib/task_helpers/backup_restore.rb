@@ -107,11 +107,7 @@ module BackupRestore
     def dump_database
       log "Dumping database contents..."
 
-      # KT TODO -- if we *must* have these binaries in our repo, perhaps we can put them into a
-      # 'binaries' or 'vendor' component:
-      # pg_dump: server version: 9.4.1; pg_dump version: 9.2.4
-      # pg_dump: aborting because of server version mismatch
-      pg_dump = "#{ENV['CHORUS_HOME']}/packaging/pg_dump.sh -Fc"
+      pg_dump = "$CHORUS_HOME/packaging/pg_dump.sh -Fc"
       pg_dump += " --compress=0" # because our postgres 9.2 install warns that it can't compress otherwise
 
       pg_dump += " #{pg_cmd_port} #{pg_cmd_user} #{database_name}"
@@ -259,7 +255,7 @@ PROMPT
     def restore_database
       log "Restoring database..."
       capture_output "DYLD_LIBRARY_PATH=$CHORUS_HOME/postgres/lib LD_LIBRARY_PATH=$CHORUS_HOME/postgres/lib exec $CHORUS_HOME/postgres/bin/dropdb #{pg_cmd_port} #{pg_cmd_user} #{database_name}", :error => "Existing database could not be dropped."
-      capture_output "gunzip -c #{DATABASE_DATA_FILENAME} | #{ENV['CHORUS_HOME']}/postgres/bin/pg_restore -C #{pg_cmd_port} #{pg_cmd_user} -d postgres", :error => "Could not restore database."
+      capture_output "gunzip -c #{DATABASE_DATA_FILENAME} | $CHORUS_HOME/postgres/bin/pg_restore -C #{pg_cmd_port} #{pg_cmd_user} -d postgres", :error => "Could not restore database."
     end
 
     def restore_alpine

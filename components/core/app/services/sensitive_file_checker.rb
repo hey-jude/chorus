@@ -10,7 +10,8 @@ module SensitiveFileChecker
     if Object.const_defined? :Rails
       Rails.root
     else
-      ENV['CHORUS_HOME']
+      # services/app/core/components/chorus
+      File.expand_path("../../../../..", __FILE__)
     end
   end
 
