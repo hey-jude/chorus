@@ -22,6 +22,13 @@ describe User do
     end
   end
 
+  describe "roles, groups, permissions" do
+    let(:user) { users(:default) }
+    it "lets a user belong in multiple scopes" do
+      expect {user.chorus_scopes}.not_to raise_error
+    end
+  end
+
   describe ".authenticate" do
     let(:user) { users(:default) }
 
