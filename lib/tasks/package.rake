@@ -12,7 +12,7 @@ namespace :package do
   end
 
   task :prepare_app => :check_clean_working_tree do
-    `cd components/api; rake app:api_docs:package`
+    system("cd components/api; rake app:api_docs:package") || exit(1)
     system("rake assets:precompile RAILS_ENV=production RAILS_GROUPS=assets --trace") || exit(1)
     system("bundle exec jetpack .") || exit(1)
     PackageMaker.write_version
