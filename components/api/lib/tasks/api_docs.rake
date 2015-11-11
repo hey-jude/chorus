@@ -25,8 +25,8 @@ unless Rails.env.production?
 
     desc "Package api docs"
     task :package => :build do
-      destination_archive = File.expand_path(File.dirname(__FILE__) + '../../../doc/api_documentation.tar.gz')
-      source_directory = File.expand_path(File.dirname(__FILE__) + '../../../public')
+      destination_archive = "#{ENV['CHORUS_HOME']}/doc/api_documentation.tar.gz"
+      source_directory = "#{ENV['CHORUS_HOME']}/public"
       `tar czf #{destination_archive} -C #{source_directory} api/`
     end
   end
