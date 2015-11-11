@@ -11,13 +11,13 @@ chorus.alerts.DatasetDelete = chorus.alerts.ModelDelete.extend({
         this.deleteMessage = "dataset_delete." + keyPrefix + ".toast";
     },
 
-    deleteMessageParams:function () {
+    deleteMessageParams: function () {
         return {
-            datasetName:this.datasetName
+            datasetName: this.datasetName
         };
     },
 
-    makeModel:function () {
+    makeModel: function () {
         this._super("makeModel", arguments);
         this.model = this.model || this.pageModel;
         this.datasetName = this.model.name();

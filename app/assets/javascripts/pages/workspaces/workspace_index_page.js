@@ -1,7 +1,7 @@
 chorus.pages.WorkspaceIndexPage = chorus.pages.Base.extend({
     helpId: "workspaces",
 
-    setup:function () {
+    setup: function () {
         this.collection = new chorus.collections.WorkspaceSet();
 
         this.multiSelectSidebarMenu = new chorus.views.MultipleSelectionSidebarMenu({
@@ -33,7 +33,7 @@ chorus.pages.WorkspaceIndexPage = chorus.pages.Base.extend({
         this.choose("active");
     },
 
-    choose:function (choice) {
+    choose: function (choice) {
         this.collection.attributes.active = (choice === "active");
         this.collection.fetch();
     },

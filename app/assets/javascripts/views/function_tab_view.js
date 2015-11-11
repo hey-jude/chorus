@@ -1,7 +1,7 @@
 chorus.views.FunctionTab = chorus.views.DatabaseSidebarList.extend({
     constructorName: "FunctionTabView",
-    templateName:"function_tab",
-    useLoadingSection:true,
+    templateName: "function_tab",
+    useLoadingSection: true,
 
     postRender: function() {
         this._super('postRender', arguments);

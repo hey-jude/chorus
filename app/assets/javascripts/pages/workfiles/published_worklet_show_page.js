@@ -3,7 +3,7 @@ chorus.pages.PublishedWorkletShowPage = chorus.pages.Base.extend({
         this.subscribePageEvent("worklet:run", this.runEventHandler);
         this.subscribePageEvent("menu:worklet", this.menuEventHandler);
 
-        this.worklet = new chorus.models.PublishedWorklet({ id:workletId });
+        this.worklet = new chorus.models.PublishedWorklet({ id: workletId });
         this.worklet.fetch();
         this.handleFetchErrorsFor(this.worklet);
 

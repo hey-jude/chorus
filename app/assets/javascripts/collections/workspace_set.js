@@ -1,9 +1,9 @@
 chorus.collections.WorkspaceSet = chorus.collections.Base.extend({
     constructorName: "WorkspaceSet",
-    model:chorus.models.Workspace,
-    urlTemplate:"workspaces/",
+    model: chorus.models.Workspace,
+    urlTemplate: "workspaces/",
 
-    urlParams:function () {
+    urlParams: function () {
         var params = {};
 
         if (this.attributes.active) {

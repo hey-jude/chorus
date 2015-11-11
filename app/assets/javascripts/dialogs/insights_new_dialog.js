@@ -1,5 +1,5 @@
 chorus.dialogs.InsightsNew = chorus.dialogs.MemoNew.extend({
-    title:t("insight.new_dialog.title"),
+    title: t("insight.new_dialog.title"),
     placeholder: t("insight.placeholder"),
     submitButton: t("insight.button.create"),
 
@@ -12,7 +12,7 @@ chorus.dialogs.InsightsNew = chorus.dialogs.MemoNew.extend({
         this._super("setup", arguments);
     },
 
-    makeModel:function () {
+    makeModel: function () {
         this.pageModel = this.options.pageModel;
 
         this.model = new chorus.models.Insight({

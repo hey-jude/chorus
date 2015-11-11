@@ -10,6 +10,6 @@ chorus.alerts.TagDelete = chorus.alerts.ModelDelete.extend({
     },
 
     deleteMessageParams: function () {
-        return {tagName:this.model.get("name")};
+        return {tagName: this.model.get("name")};
     }
 });

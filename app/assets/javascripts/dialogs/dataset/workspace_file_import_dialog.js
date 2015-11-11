@@ -145,8 +145,8 @@ chorus.dialogs.WorkspaceFileImport = chorus.dialogs.Upload.extend({
             this.csvOptions.contents = contents;
             var csvId = data.result.response.id;
             workingCsvImport.set({
-                csvId:csvId,
-                contents:contents
+                csvId: csvId,
+                contents: contents
             });
 
             var csvParser = new chorus.utilities.CsvParser(contents, this.csvOptions);

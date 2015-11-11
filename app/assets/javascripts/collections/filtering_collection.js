@@ -1,7 +1,7 @@
 chorus.collections.FilteringCollection = chorus.collections.Base.extend({
-    constructorName:"FilteringCollection",
+    constructorName: "FilteringCollection",
 
-    setup:function (args) {
+    setup: function (args) {
 
         if(!this.attributes.collection) {
             throw "Must initialize FilteringCollection with a child collection";
@@ -15,7 +15,7 @@ chorus.collections.FilteringCollection = chorus.collections.Base.extend({
         this.updateCollection();
     },
 
-    search:function (term) {
+    search: function (term) {
         this.attributes.filter = (term || "").toLowerCase();
         this.updateCollection();
         this.trigger('searched');
@@ -34,7 +34,7 @@ chorus.collections.FilteringCollection = chorus.collections.Base.extend({
     updateCollection: function () {
         this.reset(this.attributes.collection.select(_.bind(function (model) {
             return !this.attributes.filter || model.name().toLowerCase().indexOf(this.attributes.filter) >= 0;
-        }, this)), {silent:true});
+        }, this)), {silent: true});
     },
 
     fetch: function () {

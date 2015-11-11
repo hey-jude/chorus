@@ -1,8 +1,8 @@
 chorus.dialogs.WorkspaceMembersMore = chorus.dialogs.Base.extend({
     constructorName: "WorkspaceMembersMore",
-    templateName:"workspace_members_more",
-    title:t("workspace.members"),
-    persistent:true,
+    templateName: "workspace_members_more",
+    title: t("workspace.members"),
+    persistent: true,
 
     subviews:{
         ".sort_menu": "sortMenu"
