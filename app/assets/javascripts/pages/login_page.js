@@ -1,9 +1,9 @@
 chorus.pages.LoginPage = chorus.pages.Bare.extend({
-    setup:function () {
+    setup: function () {
         this.mainContent = new chorus.views.Login({model:chorus.session, el:this.el});
     },
 
-    render:function () {
+    render: function () {
         this.mainContent.render();
         return this;
     }
