@@ -29,10 +29,6 @@ namespace :development do
     FileUtils.cp(database_yml_example.to_s, database_yml.to_s) unless database_yml.exist?
   end
 
-  # KT see comments here: http://blog.pivotal.io/labs/labs/leave-your-migrations-in-your-rails-engines
-  desc "reset the database, drop, create, & migrate"
-  task :db_reset => [:environment, "db:drop", "db:create", "db:migrate"]
-
   desc "Initialize the database and create the database user used by Chorus"
   task :init_database => [:generate_database_yml] do
     postgres_port = `ruby #{File.join(ENV['CHORUS_HOME'], 'packaging', 'get_postgres_port.rb')}`.chomp
@@ -49,7 +45,7 @@ namespace :development do
     `#{ENV['CHORUS_HOME']}/packaging/chorus_control.sh start postgres`
     `#{ENV['CHORUS_HOME']}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
 
-    Rake::Task["development:db_reset"].invoke
+    Rake::Task["db:custom_reset"].invoke
     Rake::Task["db:seed_permissions"].invoke
     Rake::Task["db:seed_development"].invoke
     `#{ENV['CHORUS_HOME']}/packaging/chorus_control.sh stop postgres`

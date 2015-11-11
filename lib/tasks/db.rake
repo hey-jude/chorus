@@ -1,4 +1,9 @@
 namespace :db do
+
+  # KT see comments here: http://blog.pivotal.io/labs/labs/leave-your-migrations-in-your-rails-engines
+  desc "reset the database, drop, create, & migrate"
+  task :custom_reset => [:environment, "db:drop", "db:create", "db:migrate"]
+
   namespace :test do
     task :prepare => 'db:integration:load_structure'
 
