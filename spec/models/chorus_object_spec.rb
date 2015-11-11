@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ChorusObject do
   describe "associations" do
     it { should belong_to(:chorus_class) }
-    it { should belong_to(:chorus_scope) }
+    it { should have_and_belong_to_many(:chorus_scopes) }
     it { should belong_to(:owner) }
   end
 

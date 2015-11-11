@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   # roles, groups, and permissions
   has_and_belongs_to_many :groups, -> { uniq }
   has_and_belongs_to_many :roles, -> { uniq }, :after_add => :add_missing_admin_role, :after_remove => :remove_extra_admin_role
-  #belongs_to :chorus_scope
+  has_and_belongs_to_many :chorus_scopes
 
   # object_roles allow a User to have different roles for different objects (currently just Workspace)
   has_many :chorus_object_roles

@@ -1,5 +1,5 @@
 class ChorusObject < ActiveRecord::Base
-  attr_accessible :chorus_class_id, :instance_id, :parent_class_id, :parent_class_name, :permissions_mask, :owner_id, :parent_id, :chorus_scope_id
+  attr_accessible :chorus_class_id, :instance_id, :parent_class_id, :parent_class_name, :permissions_mask, :owner_id, :parent_id
 
   validates_uniqueness_of :instance_id, scope: [:chorus_class_id]
 
