@@ -9,7 +9,7 @@ chorus.dialogs.Comment = chorus.dialogs.Base.include (
         "submit form": "save"
     },
 
-    makeModel:function () {
+    makeModel: function () {
         this._super("makeModel", arguments);
 
         this.model = new chorus.models.Comment({
@@ -19,7 +19,7 @@ chorus.dialogs.Comment = chorus.dialogs.Base.include (
         this.listenTo(this.model, "saved", this.saved);
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         return {entityTitle: this.options.entityTitle};
     },
 
@@ -30,7 +30,7 @@ chorus.dialogs.Comment = chorus.dialogs.Base.include (
         }, this));
     },
 
-    showErrors:function (model) {
+    showErrors: function (model) {
         this._super("showErrors");
 
         if (!model) {
@@ -45,12 +45,12 @@ chorus.dialogs.Comment = chorus.dialogs.Base.include (
         }
     },
 
-    save:function (e) {
+    save: function (e) {
         e.preventDefault();
         this.model.save({body: this.getNormalizedText(this.$("textarea[name=body]")) });
     },
 
-    saved:function () {
+    saved: function () {
         this.pageModel.trigger("invalidated");
         chorus.PageEvents.trigger("comment:added", this.model);
         this.closeModal();

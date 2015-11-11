@@ -17,7 +17,7 @@ chorus.alerts.DatasetDisassociateMultiple = chorus.alerts.ModelDelete.extend({
         this.redirectUrl = this.collection.showUrl();
     },
 
-    deleteMessageParams:function () {
+    deleteMessageParams: function () {
         return {
             count: this.collection.length
         };

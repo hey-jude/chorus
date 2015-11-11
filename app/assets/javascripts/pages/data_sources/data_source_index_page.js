@@ -1,10 +1,10 @@
 chorus.pages.DataSourceIndexPage = chorus.pages.Base.extend({
-    crumbs:[
+    crumbs: [
         { label:t("breadcrumbs.data_sources") }
     ],
     helpId: "instances",
 
-    setup:function () {
+    setup: function () {
         var dataSources = new chorus.collections.DataSourceSet([], {all: true});
         var hdfsDataSources = new chorus.collections.HdfsDataSourceSet();
         var gnipDataSources = new chorus.collections.GnipDataSourceSet();
@@ -51,11 +51,11 @@ chorus.pages.DataSourceIndexPage = chorus.pages.Base.extend({
         this.primaryActionPanel = new chorus.views.PrimaryActionPanel({actions: actions, pageModel: {}});
     },
 
-    setModel:function (dataSource) {
+    setModel: function (dataSource) {
         this.model = dataSource;
     },
 
-    clearModel:function (dataSource) {
+    clearModel: function (dataSource) {
         delete this.model;
         this.sidebar.clear();
     }

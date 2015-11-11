@@ -5,7 +5,7 @@ chorus.dialogs.ChangePassword = chorus.dialogs.Base.extend({
     },
     
     events: {
-        "submit form":"save"
+        "submit form": "save"
     },
     persistent: true,
 
@@ -19,7 +19,7 @@ chorus.dialogs.ChangePassword = chorus.dialogs.Base.extend({
         return (sessionUserID === passwordUserID) ? true : false;
     },
 
-    save:function (e) {
+    save: function (e) {
         e && e.preventDefault();
 
         this.model.save({
@@ -28,7 +28,7 @@ chorus.dialogs.ChangePassword = chorus.dialogs.Base.extend({
         });
     },
 
-    saved:function () {
+    saved: function () {
         this.model.trigger('invalidated');
         this.showSavedToast();
         this.closeModal();
