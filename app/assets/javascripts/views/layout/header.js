@@ -56,14 +56,11 @@ chorus.views.Header = chorus.views.Base.extend({
             userUrl: user && user.showUrl(),
             
             helpLinkUrl: chorus.branding.applicationHelpLink,
-            //helpLinkUrl: 'help.link_address.' + license.branding(),
             brandingVendor: chorus.branding.applicationVendor,
             isAlpine: chorus.branding.isAlpine,
             brandingLogo: chorus.branding.applicationHeaderLogo,
-            //brandingLogo: license.branding() + "-logo.png",
             
             advisorNow: chorus.branding.applicationAdvisorNowEnabled,
-            //advisorNow: license.advisorNowEnabled(),
             advisorNowLink: this.advisorNowLink(user, license)
         });
     },
