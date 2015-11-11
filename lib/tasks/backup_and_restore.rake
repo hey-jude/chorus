@@ -1,4 +1,4 @@
-require "#{ENV['CHORUS_HOME']}/config/initializers/chorus_config"
+require Rails.root + "config/initializers/chorus_config"
 require_relative "../task_helpers/backup_restore"
 
 namespace :backup do
