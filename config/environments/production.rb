@@ -1,5 +1,4 @@
-# KT TODO this seems wrong:
-require_relative "#{ENV['CHORUS_HOME']}/config/initializers/chorus_config"
+require "#{Rails.root}/config/initializers/chorus_config"
 
 Rails.application.configure do
 
