@@ -3,10 +3,10 @@ chorus.models.License = chorus.models.Base.extend({
     urlTemplate: "license",
 
     branding: function() {
-       //return ("pivotal");
-       return ("alpine");
-       //return ("openchorus");
-        // return this.get("branding");
+//        return ("pivotal");
+//        return ("alpine");
+//        return ("openchorus");
+        return this.get("branding");
     },
 
     limitSearch: function() {
@@ -49,5 +49,10 @@ chorus.models.License = chorus.models.Base.extend({
             default:
                 return vendor;
         }
+    },
+    
+    applicationVersion: function() {
+        return this.get("version");
     }
+    
 });

@@ -11,12 +11,14 @@ chorus.models.Branding = chorus.models.Base.extend ({
 
     initialize: function () {
 
-        console.log ("chorus.models.Branding user: " + chorus.session.user() );
+        //console.log ("chorus.models.Branding user: " + chorus.session.user() );
         
         // setup a collection of values
-        //this.applicationVersion = this.getApplicationVersion();
 
         this.applicationLicense = chorus.models.Config.instance().license();
+
+        this.applicationVersion = this.applicationLicense.applicationVersion();
+
         this.applicationVendor = this.getBrandingVendor();
         this.isAlpine = this.isAlpine();
         this.applicationHeaderLogo = this.getBrandingLogo();
@@ -34,27 +36,22 @@ chorus.models.Branding = chorus.models.Base.extend ({
     },
 
     setApplicationVersion: function (r) {
-      console.log ("setApplicationVersion :" + r);
+        this.applicationVersion = r;
     },
-      
-    getApplicationVersion: function() {
-        var v;
-        this.setApplicationVersion ("2");
 
+    getApplicationVersion: function() {
+        // 11.2015 this is the old mechanism for getting the application version via ajax call
+        // but now the version is tacked on to the chorus license model (ruby)
+        that = this;
         $.ajax({
               url: "/VERSION",
               dataType: "text"
           })
           .success (function(response) {
-              v = response;
-              // this.this.setApplicationVersion (response);
+              that.applicationVersion = response;
           });
-        return v;
-        
     },
 
-    
-    
     getBrandingVendor: function() {
         // get vendor
         return this.applicationLicense.branding();
@@ -99,7 +96,7 @@ chorus.models.Branding = chorus.models.Base.extend ({
     },
 
     getBrandingLoginLogo: function() {
-        // generate path to the branding login logo
+        // generate path to the branding logo for LOGIN page
             
         var logoFile;
         var vendor = this.getBrandingVendor();
