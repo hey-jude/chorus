@@ -24,14 +24,20 @@ chorus.models.Branding = chorus.models.Base.extend ({
         this.applicationHeaderLogo = this.getBrandingLogo();
         this.applicationLoginLogo = this.getBrandingLoginLogo();
 
+        // advisor now stuff
         this.applicationAdvisorNowEnabled = this.isAdvisorNowEnabled();
         this.advisorNowLink = "";
         
+        // this is all initialized at the start of the application, so
+        // it uses a simple advisorNow URI
         if (this.isAdvisorNowEnabled) {
-            this.advisorNowLink = this.getAdvisorNowLink( chorus.session.user(), this.applicationLicense);
+            this.advisorNowLink = this.simpleAdvisorNowLink();
         }
 
+        // different help links for different folks
         this.applicationHelpLink = this.getHelpLink();
+        
+        // conditional copyright text
         this.copyright = this.getCopyright();
     },
 
@@ -143,30 +149,26 @@ chorus.models.Branding = chorus.models.Base.extend ({
 //             })
 //         });
   
-         return URI({
-            protocol: "mailto",
-            to: "advisornow@alpinenow.com",
+//          return URI({
+//             protocol: "mailto",
+//             to: "advisornow@alpinenow.com",
             
-            subject: "I want to know more about the AdvisorNow Premier Service",
-            body: $.param({
+//             subject: "I want to know more about the AdvisorNow Premier Service",
+//             body: $.param({
                 //first_name: user.get("firstName"),
-                subject: "I want to know more about the AdvisorNow Premier Service."
-                first_name: "lamont",
+//                 first_name: "lamont",
                 //last_name: user.get("lastName"),
-                last_name: "cranston",
+//                 last_name: "cranston",
                 //email: user.get("email"),
-                email: "address@gmail.com",
-                org_id: license.get("organizationUuid")
-            })
-        });
+//                 email: "address@gmail.com",
+//                 org_id: license.get("organizationUuid")
+//             })
+//         });
       
         
     },
 
     createAdvisorNowLink: function(user, license) {
-
-        console.log ("models.branding > CREATE advisorNowLink");
-        console.log ("user > " + user);
 
 //          return URI({
 //             hostname: "http://advisor.alpinenow.com",
@@ -179,8 +181,18 @@ chorus.models.Branding = chorus.models.Base.extend ({
 //             })
 //         });
 
-
     },
+
+    simpleAdvisorNowLink: function() {
+        // basic link to prime the link
+        return new URI({
+            protocol: "http",
+            hostname: "go.alpinenow.com",
+            path: "advisornow"
+        });
+    },
+    
+  
     
     getHelpLink: function() {
         // default to the alpine help if no vendor listed

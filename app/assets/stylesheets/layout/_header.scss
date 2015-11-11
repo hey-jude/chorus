@@ -206,19 +206,20 @@ $menu-notifications-width: 320px;
                         @include lozenge(2px, 30px, 19px);
                     }
                 }
-
-                &.advisorNow a img {
-                    position: relative;
-                    width: 85px;
-                    top: 1px;
-                    padding-right: 20px;
-                    opacity: $branding-opacity;
-                    
-                    &:hover {
-                        opacity: 1;
-                    }
+            }
+            
+            #advisorNow a img {
+                position: relative;
+                width: 85px;
+                top: 1px;
+                padding-right: 20px;
+                opacity: $branding-opacity;
+                
+                &:hover {
+                    opacity: 1;
                 }
             }
+            
         }
 
         .search {

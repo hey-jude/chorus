@@ -12,15 +12,16 @@ chorus.views.Header = chorus.views.Base.extend({
         "click .help_and_support a": "helpAndSupport",
         "click .about_this_app a": "aboutThisApp",
         "submit .search form": "startSearch",
-        "keydown .search input": "searchKeyPressed"
+        "keydown .search input": "searchKeyPressed",
+        "click #advisorNow a": "advisorNowLinkClicked"
     },
 
     subviews: {
         ".popup_notifications ul": "notificationList",
         ".type_ahead_result": "typeAheadView"
     },
-
-    setup: function() {
+    
+    setup: function() {        
         this.session = chorus.session;
         this.unreadNotifications = new chorus.collections.NotificationSet([], {type: 'unread'});
         this.notifications = new chorus.collections.NotificationSet();
@@ -49,8 +50,11 @@ chorus.views.Header = chorus.views.Base.extend({
     additionalContext: function(ctx) {
         this.requiredResources.reset();
         var user = this.session.user();
-        var license = chorus.models.Config.instance().license();
 
+        var advisorNow = chorus.branding.applicationAdvisorNowEnabled;
+        var advisorNowLink;
+        (advisorNow) ? advisorNowLink = chorus.branding.advisorNowLink : "";
+        
         return _.extend(ctx, this.session.attributes, {
             notifications: this.unreadNotifications,
             fullName: user && user.displayName(),
@@ -62,8 +66,8 @@ chorus.views.Header = chorus.views.Base.extend({
             isAlpine: chorus.branding.isAlpine,
             brandingLogo: chorus.branding.applicationHeaderLogo,
             
-            advisorNow: chorus.branding.applicationAdvisorNowEnabled,
-            advisorNowLink: this.advisorNowLink(user, license)
+            advisorNow: advisorNow,
+            advisorNowLink: advisorNowLink,
         });
     },
     
@@ -72,6 +76,7 @@ chorus.views.Header = chorus.views.Base.extend({
         chorus.addSearchFieldModifications(this.$(".search input"));
         this.modifyTypeAheadSearchPosition();
         this.displayNotificationCount();
+
         
         if (chorus.isDevMode()) {
             this.addFastUserToggle();
@@ -163,12 +168,21 @@ chorus.views.Header = chorus.views.Base.extend({
         }
     },
 
+    advisorNowLinkClicked: function (e) {
+        // if the link is actually clicked, then do the work to generate link information and whatnot
 
-    advisorNowLink: function(user, license) {
-        return URI({
+        var newlink = this.complexAdvisorNowLink (this.session.user(), chorus.models.Config.instance().license());
+        $("#advisorNow a").attr("href", newlink);
+        
+        // and now let it continue on...
+    },
+    
+    
+    complexAdvisorNowLink: function(user, license) {
+        return new URI({
             protocol: "http",
-            hostname: "advisor.alpinenow.com",
-            path: "start",
+            hostname: "go.alpinenow.com",
+            path: "advisornow",
             query: $.param({
                 first_name: user.get("firstName"),
                 last_name: user.get("lastName"),
@@ -176,6 +190,7 @@ chorus.views.Header = chorus.views.Base.extend({
                 org_id: license.get("organizationUuid")
             })
         });
+        
     },
 
     refreshNotifications: function() {
