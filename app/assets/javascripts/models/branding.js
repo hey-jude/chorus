@@ -128,12 +128,29 @@ chorus.models.Branding = chorus.models.Base.extend ({
     },
 
     getAdvisorNowLink: function(user, license) {
+//          return URI({
+//             protocol: "http",
+//             hostname: "advisor.alpinenow.com",
+//             path: "start",
+//             query: $.param({
+//                 //first_name: user.get("firstName"),
+//                 first_name: "lamont",
+//                 //last_name: user.get("lastName"),
+//                 last_name: "cranston",
+//                 //email: user.get("email"),
+//                 email: "address@gmail.com",
+//                 org_id: license.get("organizationUuid")
+//             })
+//         });
+  
          return URI({
-            protocol: "http",
-            hostname: "advisor.alpinenow.com",
-            path: "start",
-            query: $.param({
+            protocol: "mailto",
+            to: "advisornow@alpinenow.com",
+            
+            subject: "I want to know more about the AdvisorNow Premier Service",
+            body: $.param({
                 //first_name: user.get("firstName"),
+                subject: "I want to know more about the AdvisorNow Premier Service."
                 first_name: "lamont",
                 //last_name: user.get("lastName"),
                 last_name: "cranston",
@@ -142,6 +159,8 @@ chorus.models.Branding = chorus.models.Base.extend ({
                 org_id: license.get("organizationUuid")
             })
         });
+      
+        
     },
 
     createAdvisorNowLink: function(user, license) {
@@ -160,10 +179,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
 //             })
 //         });
 
-          return URI({
-          
-         
-          });
 
     },
     
