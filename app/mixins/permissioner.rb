@@ -134,15 +134,25 @@ module Permissioner
   # Class-level methods invlove setting class-level permissions/roles (vs object-level)
   module ClassMethods
 
-
     # Given an collection of objects, returns a collection filtered by user's scope. Removes objects that are not in user's current scope.
     def filter_by_scope(user, objects)
+      # Collect the IDs of all the scopes a user belongs to
       groups_ids = user.groups.map(&:id)
-      scope_ids = ChorusScope.where(:group_id => groups_ids).pluck(:id)
+      scope_ids = ChorusScope.where(:group_id => groups_ids).pluck(:id) # + user.chorus_scopes # uncomment when available
+
+      # Get a list of the different ChorusClasses we have to look for, could be more than one
+      # due to inheritance. Ex: DataSource.all returns OracleDataSource, PgDataSource, etc
       object_class_names = objects.group_by(&:class).keys.map(&:to_s)
       chorus_class_ids = ChorusClass.where(:name => object_class_names).map(&:id)
-      scoped_object_ids = ChorusObject.where(:chorus_class_id => chorus_class_ids, :chorus_scope_id => scope_ids).pluck(:instance_id)
 
+      # For each of our ChorusClasses, find the real object IDs by finding all the ChorusObjects with the
+      # scope IDs we found above
+      scoped_object_ids = ChorusObject.where(:chorus_class_id => chorus_class_ids)
+                                      .joins(:chorus_scopes)
+                                      .where(chorus_scopes: {id: scope_ids})
+                                      .pluck(:instance_id)
+
+      # Filter the objects by seeing if that instance ID is found in our scoped IDs above
       filtered_objects = objects.select{ |o| scoped_object_ids.include?(o.id)}
 
       return filtered_objects

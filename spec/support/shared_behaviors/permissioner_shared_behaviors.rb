@@ -1,8 +1,10 @@
 shared_examples "a permissioned model" do
 
   describe "associations" do
+    let(:scope_a){ ChorusScope.create(:name => 'scope_a') }
+    let(:scope_b){ ChorusScope.create(:name => 'scope_b') }
     it "allows the model to belong in multiple scopes" do
-      expect { model_a.chorus_scopes << [scope_a, scope_b] }.not_to raise_error
+      expect { model.chorus_object.chorus_scopes << [scope_a, scope_b] }.not_to raise_error
     end
   end
 
@@ -31,11 +33,11 @@ shared_examples "a permissioned model" do
       user_b.save!(:validate => false)
 
       group_a.users << user_a
-      group_a.chorus_scopes << scope_a
+      group_a.chorus_scope = scope_a
       group_a.save!
 
       group_b.users << user_b
-      group_b.chorus_scopes << scope_b
+      group_b.chorus_scope = scope_b
       group_b.save!
 
       co_a = model_a.chorus_object
@@ -50,6 +52,12 @@ shared_examples "a permissioned model" do
     it "provides a scope filter for a collection of objects" do
       expect(model.class.filter_by_scope(user_a, model.class.all)).to eq([model_a])
       expect(model.class.filter_by_scope(user_b, model.class.all)).to eq([model_b])
+    end
+
+    it "allows objects to be in multiple scopes" do
+      model_a.chorus_object.chorus_scopes << scope_b
+      expect(model.class.filter_by_scope(user_b, model.class.all)).to include(model_a, model_b)
+      expect(model.class.filter_by_scope(user_a, model.class.all)).to include(model_a)
     end
   end
 
