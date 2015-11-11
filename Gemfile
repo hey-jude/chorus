@@ -7,6 +7,7 @@ path 'components', :platform => 'jruby' do
   gem 'vis_legacy'
 end
 
+gem 'hadoopconf_gem', :github => 'Chorus/chorus-hadoop-conf', :ref => 'ce0d34dde0f5f4dd372af6406fafd9c5b2baac5f'
 gem 'queue_classic', :github => 'Chorus/queue_classic'
 gem 'chorusgnip', :github => 'Chorus/gnip'
 

@@ -18,6 +18,7 @@ end
 # custom options for Gemspec files:
 gem 'queue_classic', :github => 'Chorus/queue_classic'
 gem 'chorusgnip', :github => 'Chorus/gnip'
+# gem 'hadoopconf_gem', :github => 'Chorus/chorus-hadoop-conf', :ref => 'ce0d34dde0f5f4dd372af6406fafd9c5b2baac5f'
 # gem 'jetpack', :github => 'Chorus/jetpack', :branch => '6c9253195b+chorus', :require => false
 
 group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :ci_next do

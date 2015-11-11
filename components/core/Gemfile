@@ -12,6 +12,7 @@ gemspec
 
 gem 'queue_classic', :github => 'Chorus/queue_classic'
 gem 'chorusgnip', :github => 'Chorus/gnip'
+# gem 'hadoopconf_gem', :github => 'Chorus/chorus-hadoop-conf', :ref => 'ce0d34dde0f5f4dd372af6406fafd9c5b2baac5f'
 
 # KT TODO: run jasmine specs and figure out development dependencies
 group :test do
