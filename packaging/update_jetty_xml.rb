@@ -1,14 +1,10 @@
 require 'rexml/document'
 
-component_home = File.expand_path(File.dirname(__FILE__) + '/../')
-require File.join(component_home, 'app', 'models', 'chorus_config')
+rails_root = File.expand_path(File.dirname(__FILE__) + '/../')
+require File.join(rails_root, 'config', 'initializers', 'chorus_config')
+chorus_config = ChorusConfig.new(rails_root)
 
-# KT TODO: this is a hack, until these script specs get extracted to the `cmd` component
-app_root = File.expand_path(File.dirname(__FILE__) + '../../../../')
-
-chorus_config = ChorusConfig.new(app_root)
-
-jetty_xml_file = File.join(chorus_home, 'vendor', 'jetty', 'jetty.xml')
+jetty_xml_file = File.join(rails_root, 'vendor', 'jetty', 'jetty.xml')
 
 xml_doc = REXML::Document.new(File.new(jetty_xml_file))
 max_threads = REXML::XPath.first(xml_doc, "/Configure/Set[@name='ThreadPool']/New/Set[@name='maxThreads']")
