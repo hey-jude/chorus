@@ -3,9 +3,7 @@ require 'zip_file_generator'
 
 module LogArchiver
 
-  # This needs to be in `system` in order to work with 'X-Accel-Redirect' ...
-  # See: http://thedataasylum.com/articles/how-rails-nginx-x-accel-redirect-work-together.html
-  ARCHIVE_DIR = "#{Rails.root}/system/log_archiver"
+  ARCHIVE_DIR = "#{Rails.root}/tmp/log_archiver"
   ASSEMBLE_ZIP_DIR = "#{ARCHIVE_DIR}/tmp"
 
   def create_archive
