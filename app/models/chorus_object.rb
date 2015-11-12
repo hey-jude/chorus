@@ -4,7 +4,7 @@ class ChorusObject < ActiveRecord::Base
   validates_uniqueness_of :instance_id, scope: [:chorus_class_id]
 
   belongs_to :chorus_class
-  has_and_belongs_to_many :chorus_scopes
+  has_and_belongs_to_many :chorus_scopes, -> { uniq }
   belongs_to :owner, :class_name => "User"
   has_many :chorus_object_roles, -> { uniq }, :dependent => :destroy
   #has_many :roles, :through => :chorus_object_roles
