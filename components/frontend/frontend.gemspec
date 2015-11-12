@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.summary = "Chorus 'Frontend Backbone' component."
   s.license = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.files = Dir["{app,config,db,lib,public}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency 'api'
   s.add_dependency 'vis_legacy'
@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
 
   # KT TODO: run jasmine specs and figure out development dependencies
   s.add_dependency 'mizuno'
+
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'rr'
   s.add_development_dependency 'fuubar'
