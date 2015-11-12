@@ -30,12 +30,6 @@ module Dummy
     # See: https://github.com/Chorus/chorus/commit/1a99c1ee34d1aff6ef384011450b3df44a7805ca
     config.action_controller.include_all_helpers = true
 
-    # See: https://github.com/Chorus/chorus/commit/58a32eb6a3bb2d3d3313c66d7e29c6bf5bc74f75
-    config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
-
-    # See: https://github.com/Chorus/chorus/commit/40f90e513855d9aa2e7879698b395580a3c3bfa1
-    config.middleware.use Rack::Sendfile
-
     # See: https://github.com/Chorus/chorus/commit/fa1c2c20cf03873723dcb36a8e77ffb6f78b9237
     config.middleware.delete(::ActionDispatch::RemoteIp)
     config.middleware.insert_before(::Rails::Rack::Logger, ::ActionDispatch::RemoteIp)
