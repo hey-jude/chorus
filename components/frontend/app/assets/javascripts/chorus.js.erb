@@ -3,7 +3,7 @@ window.Chorus = function chorus$Global() {
     self.models = {};
     self.views = {};
 
-    self.translation_files = ['/assets/messages_en.properties'];
+    self.translation_files = ['<%= asset_path 'messages_en.properties' %>'];
 
     self.views.visualizations = {};
     self.views.LocationPicker = {};
