@@ -50,7 +50,7 @@ chorus.models.User = chorus.models.Base.extend({
     fetchImageUrl: function (options) {
         var size = (options && options.size) || "original";
         var url = this.get("image") && this.get("image")[size];
-        return url && new URI(url)
+        return url && new URI(window.chorusApi.urlPrefix + url)
             .addSearch({ iebuster: chorus.cachebuster() })
             .toString();
     },
