@@ -1,3 +1,5 @@
+# KT TODO: make Chorus closed source and undo this Gemfile-packaging business
+
 Dir.glob(File.join(File.dirname(__FILE__), 'Gemfile')) do |gemfile|
     eval(IO.read(gemfile), binding)
 end
