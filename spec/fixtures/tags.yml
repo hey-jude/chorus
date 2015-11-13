@@ -1,0 +1,13 @@
+---
+alpha:
+  id: 1000000
+  name: alpha
+  taggings_count: 3
+beta:
+  id: 1000002
+  name: beta
+  taggings_count: 2
+typeahead:
+  id: 1000001
+  name: typeahead
+  taggings_count: 1

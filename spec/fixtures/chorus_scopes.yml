@@ -1,0 +1,8 @@
+---
+application_realm:
+  id: 1000000
+  name: application_realm
+  description:
+  group_id: 1000000
+  created_at: 2015-11-13 22:10:20.673000000 Z
+  updated_at: 2015-11-13 22:10:20.703000000 Z

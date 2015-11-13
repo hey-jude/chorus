@@ -1,0 +1,55 @@
+---
+taggings_001:
+  id: 1000000
+  tag_id: 1000000
+  taggable_id: 1000011
+  taggable_type: Dataset
+  tagger_id:
+  tagger_type:
+  context:
+  created_at: 2015-11-13 22:10:35.969000000 Z
+taggings_002:
+  id: 1000001
+  tag_id: 1000001
+  taggable_id: 1000023
+  taggable_type: Dataset
+  tagger_id:
+  tagger_type:
+  context:
+  created_at: 2015-11-13 22:10:39.175000000 Z
+taggings_003:
+  id: 1000002
+  tag_id: 1000000
+  taggable_id: 1000014
+  taggable_type: Workspace
+  tagger_id:
+  tagger_type:
+  context:
+  created_at: 2015-11-13 22:10:40.440000000 Z
+taggings_004:
+  id: 1000003
+  tag_id: 1000002
+  taggable_id: 1000014
+  taggable_type: Workspace
+  tagger_id:
+  tagger_type:
+  context:
+  created_at: 2015-11-13 22:10:40.444000000 Z
+taggings_005:
+  id: 1000004
+  tag_id: 1000000
+  taggable_id: 1000015
+  taggable_type: Workfile
+  tagger_id:
+  tagger_type:
+  context:
+  created_at: 2015-11-13 22:10:49.632000000 Z
+taggings_006:
+  id: 1000005
+  tag_id: 1000002
+  taggable_id: 1000015
+  taggable_type: Workfile
+  tagger_id:
+  tagger_type:
+  context:
+  created_at: 2015-11-13 22:10:49.636000000 Z

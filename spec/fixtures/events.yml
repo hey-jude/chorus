@@ -1,0 +1,2230 @@
+---
+owner_creates_tableau_workfile:
+  id: 1000022
+  action: Events::TableauWorkfileCreated
+  actor_id: 1000006
+  target1_id: 1000026
+  target1_type: Dataset
+  created_at: 2015-11-13 22:10:43.727000000 Z
+  updated_at: 2015-11-13 22:10:44.000000000 Z
+  target2_type: Workfile
+  target2_id: 1000001
+  additional_data: '{"workbook_name":"default"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_001:
+  id: 1000036
+  action: Events::ViewCreated
+  actor_id: 1000006
+  target1_id: 1000010
+  target1_type: Dataset
+  created_at: 2015-11-13 22:10:54.897000000 Z
+  updated_at: 2015-11-13 22:10:55.026000000 Z
+  target2_type: Dataset
+  target2_id: 1000026
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_002:
+  id: 1000000
+  action: Events::UserAdded
+  actor_id: 1000000
+  target1_id: 1000001
+  target1_type: User
+  created_at: 2015-11-13 22:10:28.440000000 Z
+  updated_at: 2015-11-13 22:10:28.614000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_public_workfile:
+  id: 1000029
+  action: Events::NoteOnWorkfile
+  actor_id: 1000006
+  target1_id: 1000012
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:53.089000000 Z
+  updated_at: 2015-11-13 22:10:53.231000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"notesearch forever"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_003:
+  id: 1000024
+  action: Events::NoteOnWorkfile
+  actor_id: 1000006
+  target1_id: 1000018
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:51.856000000 Z
+  updated_at: 2015-11-13 22:10:52.009000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"note on workfile"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+owner_creates_public_workspace:
+  id: 1000014
+  action: Events::PublicWorkspaceCreated
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:10:41.685000000 Z
+  updated_at: 2015-11-13 22:10:41.786000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_004:
+  id: 1000001
+  action: Events::UserAdded
+  actor_id: 1000000
+  target1_id: 1000003
+  target1_type: User
+  created_at: 2015-11-13 22:10:28.742000000 Z
+  updated_at: 2015-11-13 22:10:28.823000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+no_collaborators_creates_private_workfile:
+  id: 1000025
+  action: Events::WorkfileCreated
+  actor_id: 1000003
+  target1_id: 1000009
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:52.170000000 Z
+  updated_at: 2015-11-13 22:10:52.310000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"commit_message":"Fix all the bugs!"}'
+  workspace_id: 1000006
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_005:
+  id: 1000033
+  action: Events::WorkfileVersionDeleted
+  actor_id: 1000006
+  target1_id: 1000012
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:54.140000000 Z
+  updated_at: 2015-11-13 22:10:54.283000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"version_num":"15"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+owner_creates_private_workspace:
+  id: 1000015
+  action: Events::PrivateWorkspaceCreated
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:10:41.846000000 Z
+  updated_at: 2015-11-13 22:10:41.907000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000009
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_006:
+  id: 1000012
+  action: Events::NoteOnDataSource
+  actor_id: 1000006
+  target1_id: 1000017
+  target1_type: DataSource
+  created_at: 2015-11-13 22:10:38.525000000 Z
+  updated_at: 2015-11-13 22:11:18.132999000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"i exist only for my attachments"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+admin_creates_owner:
+  id: 1000002
+  action: Events::UserAdded
+  actor_id: 1000000
+  target1_id: 1000006
+  target1_type: User
+  created_at: 2015-11-13 22:10:30.100000000 Z
+  updated_at: 2015-11-13 22:10:30.190000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+public_workfile_created:
+  id: 1000026
+  action: Events::WorkfileCreated
+  actor_id: 1000006
+  target1_id: 1000012
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:52.382000000 Z
+  updated_at: 2015-11-13 22:10:52.524000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"commit_message":"There be dragons!"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+private_workfile_created:
+  id: 1000027
+  action: Events::WorkfileCreated
+  actor_id: 1000006
+  target1_id: 1000011
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:52.606000000 Z
+  updated_at: 2015-11-13 22:10:52.815000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"commit_message":"Chorus chorus chorus, i made you out of clay"}'
+  workspace_id: 1000009
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_007:
+  id: 1000003
+  action: Events::UserAdded
+  actor_id: 1000000
+  target1_id: 1000007
+  target1_type: User
+  created_at: 2015-11-13 22:10:30.274000000 Z
+  updated_at: 2015-11-13 22:10:30.362000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_no_collaborators_private_workfile:
+  id: 1000030
+  action: Events::NoteOnWorkfile
+  actor_id: 1000003
+  target1_id: 1000009
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:53.301000000 Z
+  updated_at: 2015-11-13 22:11:14.305000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"notesearch never"}'
+  workspace_id: 1000006
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_008:
+  id: 1000023
+  action: Events::WorkfileResult
+  actor_id: 1000006
+  target1_id: 1000004
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:44.640000000 Z
+  updated_at: 2015-11-13 22:10:44.871000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_009:
+  id: 1000031
+  action: Events::WorkfileUpgradedVersion
+  actor_id: 1000003
+  target1_id: 1000009
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:53.608000000 Z
+  updated_at: 2015-11-13 22:10:53.746000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"commit_message":"commit message","version_id":1000002,"version_num":1}'
+  workspace_id: 1000006
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_010:
+  id: 1000016
+  action: Events::WorkspaceMakePublic
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:10:42.054000000 Z
+  updated_at: 2015-11-13 22:10:42.158000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_011:
+  id: 1000028
+  action: Events::WorkfileCreated
+  actor_id: 1000003
+  target1_id: 1000010
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:52.892000000 Z
+  updated_at: 2015-11-13 22:10:53.030000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"commit_message":"Chorus chorus chorus, with chorus I will play"}'
+  workspace_id: 1000005
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_012:
+  id: 1000004
+  action: Events::UserAdded
+  actor_id: 1000000
+  target1_id: 1000008
+  target1_type: User
+  created_at: 2015-11-13 22:10:30.442000000 Z
+  updated_at: 2015-11-13 22:10:30.526000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_oracle:
+  id: 1000009
+  action: Events::NoteOnDataSource
+  actor_id: 1000006
+  target1_id: 1000010
+  target1_type: DataSource
+  created_at: 2015-11-13 22:10:32.762000000 Z
+  updated_at: 2015-11-13 22:11:17.107000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"note on oracle data source"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_013:
+  id: 1000037
+  action: Events::MilestoneCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Milestone
+  created_at: 2015-11-13 22:10:58.679000000 Z
+  updated_at: 2015-11-13 22:10:58.851000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_014:
+  id: 1000034
+  action: Events::ChorusViewCreated
+  actor_id: 1000006
+  target1_id: 1000026
+  target1_type: Dataset
+  created_at: 2015-11-13 22:10:54.376000000 Z
+  updated_at: 2015-11-13 22:10:54.547000000 Z
+  target2_type: Workfile
+  target2_id: 1000012
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_015:
+  id: 1000005
+  action: Events::UserAdded
+  actor_id: 1000009
+  target1_id: 1000009
+  target1_type: User
+  created_at: 2015-11-13 22:10:30.617000000 Z
+  updated_at: 2015-11-13 22:10:30.697000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_016:
+  id: 1000032
+  action: Events::WorkFlowUpgradedVersion
+  actor_id: 1000003
+  target1_id: 1000009
+  target1_type: Workfile
+  created_at: 2015-11-13 22:10:53.839000000 Z
+  updated_at: 2015-11-13 22:10:53.975000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"commit_message":"commit message"}'
+  workspace_id: 1000006
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_017:
+  id: 1000017
+  action: Events::WorkspaceMakePrivate
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:10:42.223000000 Z
+  updated_at: 2015-11-13 22:10:42.286000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000009
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_018:
+  id: 1000006
+  action: Events::DataSourceCreated
+  actor_id: 1000000
+  target1_id: 1000000
+  target1_type: DataSource
+  created_at: 2015-11-13 22:10:31.485000000 Z
+  updated_at: 2015-11-13 22:10:31.576000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_019:
+  id: 1000039
+  action: Events::JobSucceeded
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: Job
+  created_at: 2015-11-13 22:10:59.555000000 Z
+  updated_at: 2015-11-13 22:10:59.646000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type: JobResult
+  target3_id: 1000001
+events_020:
+  id: 1000035
+  action: Events::ChorusViewChanged
+  actor_id: 1000006
+  target1_id: 1000026
+  target1_type: Dataset
+  created_at: 2015-11-13 22:10:54.700000000 Z
+  updated_at: 2015-11-13 22:10:54.819000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_021:
+  id: 1000007
+  action: Events::DataSourceDeleted
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: DataSource
+  created_at: 2015-11-13 22:10:32.157000000 Z
+  updated_at: 2015-11-13 22:10:32.234000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_022:
+  id: 1000042
+  action: Events::JobCreated
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: Job
+  created_at: 2015-11-13 22:11:00.009000000 Z
+  updated_at: 2015-11-13 22:11:00.095000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_023:
+  id: 1000018
+  action: Events::WorkspaceDeleted
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:10:42.346000000 Z
+  updated_at: 2015-11-13 22:10:42.413000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_024:
+  id: 1000040
+  action: Events::JobFailed
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: Job
+  created_at: 2015-11-13 22:10:59.703000000 Z
+  updated_at: 2015-11-13 22:10:59.786000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type: JobResult
+  target3_id: 1000003
+owner_creates_gpdb_data_source:
+  id: 1000008
+  action: Events::DataSourceCreated
+  actor_id: 1000006
+  target1_id: 1000002
+  target1_type: DataSource
+  created_at: 2015-11-13 22:10:32.470000000 Z
+  updated_at: 2015-11-13 22:10:32.549000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_025:
+  id: 1000038
+  action: Events::MilestoneUpdated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Milestone
+  created_at: 2015-11-13 22:10:58.908000000 Z
+  updated_at: 2015-11-13 22:10:58.994000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_026:
+  id: 1000045
+  action: Events::SchemaImportCreated
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:01.071000000 Z
+  updated_at: 2015-11-13 22:11:01.132000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"schema_import_table","reference_id":1000000,"reference_type":"Import"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type: Schema
+  target3_id: 1000006
+events_027:
+  id: 1000041
+  action: Events::JobDisabled
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: Job
+  created_at: 2015-11-13 22:10:59.893000000 Z
+  updated_at: 2015-11-13 22:10:59.951000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_028:
+  id: 1000043
+  action: Events::JobDeleted
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: Job
+  created_at: 2015-11-13 22:11:00.149000000 Z
+  updated_at: 2015-11-13 22:11:00.237000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+dataset_import_created:
+  id: 1000044
+  action: Events::WorkspaceImportCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:00.975000000 Z
+  updated_at: 2015-11-13 22:11:00.975000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"new_table_for_import"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_029:
+  id: 1000019
+  action: Events::HdfsDatasetCreated
+  actor_id: 1000006
+  target1_id: 1000024
+  target1_type: Dataset
+  created_at: 2015-11-13 22:10:42.539000000 Z
+  updated_at: 2015-11-13 22:10:42.812000000 Z
+  target2_type: HdfsDataSource
+  target2_id: 1000002
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_030:
+  id: 1000010
+  action: Events::HdfsDataSourceCreated
+  actor_id: 1000000
+  target1_id: 1000002
+  target1_type: HdfsDataSource
+  created_at: 2015-11-13 22:10:33.901000000 Z
+  updated_at: 2015-11-13 22:10:33.979000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_031:
+  id: 1000046
+  action: Events::WorkspaceImportCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:01.191000000 Z
+  updated_at: 2015-11-13 22:11:01.306000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"new_table_for_import","reference_id":1000001,"reference_type":"Import"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_032:
+  id: 1000011
+  action: Events::GnipDataSourceCreated
+  actor_id: 1000000
+  target1_id: 1000000
+  target1_type: GnipDataSource
+  created_at: 2015-11-13 22:10:34.190000000 Z
+  updated_at: 2015-11-13 22:10:34.272000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_033:
+  id: 1000020
+  action: Events::HdfsDatasetUpdated
+  actor_id: 1000006
+  target1_id: 1000024
+  target1_type: Dataset
+  created_at: 2015-11-13 22:10:42.900000000 Z
+  updated_at: 2015-11-13 22:10:43.097000000 Z
+  target2_type: HdfsDataSource
+  target2_id: 1000002
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_034:
+  id: 1000013
+  action: Events::ProjectStatusChanged
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:10:39.330000000 Z
+  updated_at: 2015-11-13 22:10:39.457000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"status":"on_track","reason":"Seamless zero defect installation"}'
+  workspace_id: 1000004
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_035:
+  id: 1000021
+  action: Events::TableauWorkbookPublished
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:10:43.280000000 Z
+  updated_at: 2015-11-13 22:10:43.414000000 Z
+  target2_type: Dataset
+  target2_id: 1000026
+  additional_data: '{"workbook_name":"default","workbook_url":"http:///workbooks/default","project_name":"Default","site_name":"Default","project_url":"http:///workbooks?fe_project.name=Default"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_036:
+  id: 1000065
+  action: Events::NoteOnWorkspaceDataset
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:03.785000000 Z
+  updated_at: 2015-11-13 22:11:03.884000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"Note on workspace dataset"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_037:
+  id: 1000056
+  action: Events::NoteOnDataSource
+  actor_id: 1000006
+  target1_id: 1000001
+  target1_type: DataSource
+  created_at: 2015-11-13 22:11:02.664000000 Z
+  updated_at: 2015-11-13 22:11:02.723000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"really really?"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_038:
+  id: 1000047
+  action: Events::WorkspaceImportCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:01.440000000 Z
+  updated_at: 2015-11-13 22:11:01.558000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"new_table_for_import","reference_id":1000002,"reference_type":"Import"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_greenplum:
+  id: 1000051
+  action: Events::NoteOnDataSource
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: DataSource
+  created_at: 2015-11-13 22:11:02.250000000 Z
+  updated_at: 2015-11-13 22:11:19.154000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"i am a comment with greenplumsearch in me"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_hdfs_file:
+  id: 1000058
+  action: Events::NoteOnHdfsFile
+  actor_id: 1000006
+  target1_id: 1000013
+  target1_type: HdfsEntry
+  created_at: 2015-11-13 22:11:02.919000000 Z
+  updated_at: 2015-11-13 22:11:15.964000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"hhhhhhaaaadooooopppp"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_039:
+  id: 1000048
+  action: Events::WorkspaceImportCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:01.617000000 Z
+  updated_at: 2015-11-13 22:11:01.732000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"new_table_for_import","reference_id":1000003,"reference_type":"Import"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+schema_import_success:
+  id: 1000076
+  action: Events::SchemaImportSuccess
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:05.496999000 Z
+  updated_at: 2015-11-12 22:11:05.575000000 Z
+  target2_type: Dataset
+  target2_id: 1000005
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_040:
+  id: 1000049
+  action: Events::FileImportCreated
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:11:01.863000000 Z
+  updated_at: 2015-11-13 22:11:01.949000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"file_name":"import.csv","import_type":"file","destination_table":"csv_import_table","reference_id":1000004,"reference_type":"Import"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_chorus_view_private:
+  id: 1000068
+  action: Events::NoteOnWorkspaceDataset
+  actor_id: 1000006
+  target1_id: 1000029
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:04.203000000 Z
+  updated_at: 2015-11-13 22:11:17.029000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"workspacedatasetnotesearch"}'
+  workspace_id: 1000011
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_041:
+  id: 1000050
+  action: Events::GnipStreamImportCreated
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: GnipDataSource
+  created_at: 2015-11-13 22:11:02.123000000 Z
+  updated_at: 2015-11-13 22:11:02.212000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"gnip_import_table","reference_id":1000005,"reference_type":"Import"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_042:
+  id: 1000087
+  action: Events::WorkspaceChangeName
+  actor_id: 1000000
+  target1_id:
+  target1_type:
+  created_at: 2015-11-12 22:11:07.117000000 Z
+  updated_at: 2015-11-12 22:11:07.180000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"workspace_old_name":"old_name"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_workfile:
+  id: 1000061
+  action: Events::NoteOnWorkfile
+  actor_id: 1000006
+  target1_id: 1000020
+  target1_type: Workfile
+  created_at: 2015-11-13 22:11:03.202000000 Z
+  updated_at: 2015-11-13 22:11:13.773000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"My awesome workfile"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+insight_on_workspace:
+  id: 1000060
+  action: Events::NoteOnWorkspace
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:11:03.104000000 Z
+  updated_at: 2015-11-13 22:11:03.165000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"This workspace is definitely awesome!"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: true
+  promoted_by_id: 1000006
+  promotion_time: 2015-11-13 22:11:03.103000000 Z
+  published: false
+  target3_type:
+  target3_id:
+events_043:
+  id: 1000053
+  action: Events::NoteOnDataSource
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: DataSource
+  created_at: 2015-11-13 22:11:02.432000000 Z
+  updated_at: 2015-11-13 22:11:02.495000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"i love searchquery"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_044:
+  id: 1000080
+  action: Events::DataSourceChangedOwner
+  actor_id: 1000000
+  target1_id: 1000000
+  target1_type: DataSource
+  created_at: 2015-11-12 22:11:06.059999000 Z
+  updated_at: 2015-11-12 22:11:06.134000000 Z
+  target2_type: User
+  target2_id: 1000003
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_045:
+  id: 1000054
+  action: Events::NoteOnDataSource
+  actor_id: 1000006
+  target1_id: 1000001
+  target1_type: DataSource
+  created_at: 2015-11-13 22:11:02.510000000 Z
+  updated_at: 2015-11-13 22:11:02.573000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"is this a greenplumsearch data source?"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_no_collaborators_public:
+  id: 1000074
+  action: Events::NoteOnWorkspace
+  actor_id: 1000003
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:11:04.890000000 Z
+  updated_at: 2015-11-13 22:11:04.940000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"some stuff"}'
+  workspace_id: 1000005
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_hdfs_data_source:
+  id: 1000057
+  action: Events::NoteOnHdfsDataSource
+  actor_id: 1000006
+  target1_id: 1000002
+  target1_type: HdfsDataSource
+  created_at: 2015-11-13 22:11:02.826000000 Z
+  updated_at: 2015-11-13 22:11:15.456000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"hadoop-idy-doop"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_046:
+  id: 1000055
+  action: Events::NoteOnDataSource
+  actor_id: 1000006
+  target1_id: 1000001
+  target1_type: DataSource
+  created_at: 2015-11-13 22:11:02.587000000 Z
+  updated_at: 2015-11-13 22:11:02.649000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"no, not greenplumsearch"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+insight_on_dataset:
+  id: 1000067
+  action: Events::NoteOnDataset
+  actor_id: 1000006
+  target1_id: 1000016
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:04.093000000 Z
+  updated_at: 2015-11-13 22:11:04.189000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"insightsearch ftw"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: true
+  promoted_by_id: 1000006
+  promotion_time: 2015-11-13 22:11:04.188000000 Z
+  published: false
+  target3_type:
+  target3_id:
+schema_import_failed:
+  id: 1000077
+  action: Events::SchemaImportFailed
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:05.624000000 Z
+  updated_at: 2015-11-12 22:11:05.789000000 Z
+  target2_type: Dataset
+  target2_id: 1000005
+  additional_data: '{"destination_table":"other_table","error_message":"oh no''s!
+    everything is broken!"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_gnip_data_source:
+  id: 1000062
+  action: Events::NoteOnGnipDataSource
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: GnipDataSource
+  created_at: 2015-11-13 22:11:03.483000000 Z
+  updated_at: 2015-11-13 22:11:03.547000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"i am a comment with gnipsearch in me"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_workspace:
+  id: 1000059
+  action: Events::NoteOnWorkspace
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:11:03.012000000 Z
+  updated_at: 2015-11-13 22:11:12.743000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"Come see my awesome workspace!"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+insight_on_gnip_data_source:
+  id: 1000063
+  action: Events::NoteOnGnipDataSource
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: GnipDataSource
+  created_at: 2015-11-13 22:11:03.563000000 Z
+  updated_at: 2015-11-13 22:11:03.641000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"i am an insight with gnipinsight in me"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: true
+  promoted_by_id: 1000006
+  promotion_time: 2015-11-13 22:11:03.562000000 Z
+  published: false
+  target3_type:
+  target3_id:
+note_on_dataset:
+  id: 1000066
+  action: Events::NoteOnDataset
+  actor_id: 1000006
+  target1_id: 1000016
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:03.916000000 Z
+  updated_at: 2015-11-13 22:11:14.865000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"notesearch ftw"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_047:
+  id: 1000064
+  action: Events::NoteOnDataset
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:03.679000000 Z
+  updated_at: 2015-11-13 22:11:03.748000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"Note on dataset"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_search_workspace_dataset:
+  id: 1000069
+  action: Events::NoteOnWorkspaceDataset
+  actor_id: 1000006
+  target1_id: 1000016
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:04.363000000 Z
+  updated_at: 2015-11-13 22:11:16.479000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"workspacedatasetnotesearch"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+insight_on_greenplum:
+  id: 1000052
+  action: Events::NoteOnDataSource
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: DataSource
+  created_at: 2015-11-13 22:11:02.328000000 Z
+  updated_at: 2015-11-13 22:11:20.173000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"i am an insight with greenpluminsight in me"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: true
+  promoted_by_id: 1000006
+  promotion_time: 2015-11-13 22:11:02.327000000 Z
+  published: false
+  target3_type:
+  target3_id:
+source_table_created:
+  id: 1000083
+  action: Events::SourceTableCreated
+  actor_id: 1000000
+  target1_id: 1000024
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:06.492000000 Z
+  updated_at: 2015-11-12 22:11:06.627000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_workspace_dataset:
+  id: 1000070
+  action: Events::NoteOnWorkspaceDataset
+  actor_id: 1000006
+  target1_id: 1000009
+  target1_type: Dataset
+  created_at: 2015-11-13 22:11:04.487000000 Z
+  updated_at: 2015-11-13 22:11:04.576000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"workspacedatasetnotesearch"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_048:
+  id: 1000078
+  action: Events::HdfsImportSuccess
+  actor_id: 1000006
+  target1_id: 1000013
+  target1_type: HdfsEntry
+  created_at: 2015-11-12 22:11:05.844000000 Z
+  updated_at: 2015-11-12 22:11:05.915999000 Z
+  target2_type: HdfsDataSource
+  target2_id: 1000002
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_public_workspace:
+  id: 1000071
+  action: Events::NoteOnWorkspace
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:11:04.693000000 Z
+  updated_at: 2015-11-13 22:11:04.746000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"notesearch forever"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_049:
+  id: 1000072
+  action: Events::FileImportSuccess
+  actor_id: 1000007
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:11:04.790000000 Z
+  updated_at: 2015-11-13 22:11:04.790000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+import_failed_with_model_errors:
+  id: 1000075
+  action: Events::WorkspaceImportFailed
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:05.283999000 Z
+  updated_at: 2015-11-12 22:11:05.433000000 Z
+  target2_type: Dataset
+  target2_id: 1000007
+  additional_data: '{"destination_table":"other_table","error_objects":{"base":[["table_not_consistent",{"src_table_name":"default_table","dest_table_name":"other_table"}]]}}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_050:
+  id: 1000081
+  action: Events::DataSourceChangedName
+  actor_id: 1000000
+  target1_id: 1000000
+  target1_type: DataSource
+  created_at: 2015-11-12 22:11:06.184000000 Z
+  updated_at: 2015-11-12 22:11:06.344000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"old_name":"mahna_mahna","new_name":"searchquery"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_051:
+  id: 1000079
+  action: Events::HdfsImportFailed
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-12 22:11:05.957000000 Z
+  updated_at: 2015-11-12 22:11:06.029999000 Z
+  target2_type: HdfsDataSource
+  target2_id: 1000002
+  additional_data: '{"error_message":"catastrophe!","file_name":"original.csv"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_052:
+  id: 1000084
+  action: Events::WorkspaceAddSandbox
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-12 22:11:06.703000000 Z
+  updated_at: 2015-11-12 22:11:06.762000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_053:
+  id: 1000082
+  action: Events::HdfsDataSourceChangedName
+  actor_id: 1000000
+  target1_id: 1000002
+  target1_type: HdfsDataSource
+  created_at: 2015-11-12 22:11:06.385999000 Z
+  updated_at: 2015-11-12 22:11:06.454999000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"old_name":"Slartibartfast","new_name":"searchquery_hadoop"}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+note_on_no_collaborators_private:
+  id: 1000073
+  action: Events::NoteOnWorkspace
+  actor_id: 1000003
+  target1_id:
+  target1_type:
+  created_at: 2015-11-13 22:11:04.816000000 Z
+  updated_at: 2015-11-13 22:11:13.253000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"body":"notesearch never"}'
+  workspace_id: 1000006
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_054:
+  id: 1000085
+  action: Events::WorkspaceArchived
+  actor_id: 1000000
+  target1_id:
+  target1_type:
+  created_at: 2015-11-12 22:11:06.892999000 Z
+  updated_at: 2015-11-12 22:11:06.951999000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_055:
+  id: 1000086
+  action: Events::WorkspaceUnarchived
+  actor_id: 1000000
+  target1_id:
+  target1_type:
+  created_at: 2015-11-12 22:11:07.003999000 Z
+  updated_at: 2015-11-12 22:11:07.063999000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_056:
+  id: 1000088
+  action: Events::HdfsDatasetExtTableCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:07.240000000 Z
+  updated_at: 2015-11-12 22:11:07.494999000 Z
+  target2_type: Dataset
+  target2_id: 1000025
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_057:
+  id: 1000089
+  action: Events::HdfsFileExtTableCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:07.549999000 Z
+  updated_at: 2015-11-12 22:11:07.720000000 Z
+  target2_type: HdfsEntry
+  target2_id: 1000013
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_058:
+  id: 1000090
+  action: Events::HdfsDirectoryExtTableCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:07.779999000 Z
+  updated_at: 2015-11-12 22:11:07.944999000 Z
+  target2_type: HdfsEntry
+  target2_id: 1000014
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_059:
+  id: 1000091
+  action: Events::HdfsPatternExtTableCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:08.085000000 Z
+  updated_at: 2015-11-12 22:11:08.260999000 Z
+  target2_type: HdfsEntry
+  target2_id: 1000013
+  additional_data: '{"file_pattern":"*.csv"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_060:
+  id: 1000102
+  action: Events::ChorusViewCreated
+  actor_id: 1000006
+  target1_id: 1000026
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:09.943000000 Z
+  updated_at: 2015-11-12 22:11:10.098999000 Z
+  target2_type: Dataset
+  target2_id: 1000005
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_061:
+  id: 1000092
+  action: Events::FileImportCreated
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-12 22:11:08.305999000 Z
+  updated_at: 2015-11-12 22:11:08.392999000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"file_name":"import.csv","import_type":"file","destination_table":"table"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_062:
+  id: 1000093
+  action: Events::FileImportSuccess
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-12 22:11:08.434000000 Z
+  updated_at: 2015-11-12 22:11:08.525000000 Z
+  target2_type: Dataset
+  target2_id: 1000005
+  additional_data: '{"file_name":"import.csv","import_type":"file"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_063:
+  id: 1000103
+  action: Events::ImportScheduleUpdated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:10.167999000 Z
+  updated_at: 2015-11-12 22:11:10.278000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"other_table"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_064:
+  id: 1000094
+  action: Events::FileImportFailed
+  actor_id: 1000006
+  target1_id:
+  target1_type:
+  created_at: 2015-11-12 22:11:08.663000000 Z
+  updated_at: 2015-11-12 22:11:08.746000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"file_name":"import.csv","import_type":"file","destination_table":"my_table","error_message":"oh
+    no''s! everything is broken!"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_065:
+  id: 1000095
+  action: Events::MembersAdded
+  actor_id: 1000006
+  target1_id: 1000007
+  target1_type: User
+  created_at: 2015-11-12 22:11:08.795000000 Z
+  updated_at: 2015-11-12 22:11:08.846999000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"num_added":5}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_066:
+  id: 1000096
+  action: Events::WorkspaceImportCreated
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:08.884999000 Z
+  updated_at: 2015-11-12 22:11:09.003000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"other_table"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_067:
+  id: 1000104
+  action: Events::ImportScheduleDeleted
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:10.411999000 Z
+  updated_at: 2015-11-12 22:11:10.526999000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"other_table_deleted"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_068:
+  id: 1000105
+  action: Events::CredentialsInvalid
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: DataSource
+  created_at: 2015-11-12 22:11:10.565000000 Z
+  updated_at: 2015-11-12 22:11:10.565000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{}'
+  workspace_id:
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_069:
+  id: 1000097
+  action: Events::WorkspaceImportSuccess
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:09.058000000 Z
+  updated_at: 2015-11-12 22:11:09.279999000 Z
+  target2_type: Dataset
+  target2_id: 1000007
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_070:
+  id: 1000098
+  action: Events::WorkspaceImportFailed
+  actor_id: 1000006
+  target1_id: 1000005
+  target1_type: Dataset
+  created_at: 2015-11-12 22:11:09.322999000 Z
+  updated_at: 2015-11-12 22:11:09.463000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"other_table","error_message":"oh no''s!
+    everything is broken!"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+gnip_stream_import_created:
+  id: 1000099
+  action: Events::GnipStreamImportCreated
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: GnipDataSource
+  created_at: 2015-11-12 22:11:09.497999000 Z
+  updated_at: 2015-11-12 22:11:09.578999000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"other_table"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_071:
+  id: 1000100
+  action: Events::GnipStreamImportSuccess
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: GnipDataSource
+  created_at: 2015-11-12 22:11:09.625999000 Z
+  updated_at: 2015-11-12 22:11:09.713999000 Z
+  target2_type: Dataset
+  target2_id: 1000007
+  additional_data: '{}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:
+events_072:
+  id: 1000101
+  action: Events::GnipStreamImportFailed
+  actor_id: 1000006
+  target1_id: 1000000
+  target1_type: GnipDataSource
+  created_at: 2015-11-12 22:11:09.839999000 Z
+  updated_at: 2015-11-12 22:11:09.897000000 Z
+  target2_type:
+  target2_id:
+  additional_data: '{"destination_table":"other_table","error_message":"an error"}'
+  workspace_id: 1000008
+  deleted_at:
+  legacy_id:
+  legacy_type:
+  insight: false
+  promoted_by_id:
+  promotion_time:
+  published: false
+  target3_type:
+  target3_id:

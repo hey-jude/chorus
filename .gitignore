@@ -32,12 +32,6 @@ tmp
 .DS_Store
 .jhw-cache
 
-# Ignore generated fixtures
-/spec/fixtures/*.yml
-/spec/integration/fixtures/*.yml
-/spec/javascripts/fixtures/rspec
-/spec/javascripts/fixtures/backbone
-
 # Ignore ctags file
 /tags
 

@@ -1,0 +1,1641 @@
+---
+account:
+  id: 1000002
+  name: Account
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.824000000 Z
+  updated_at: 2015-11-13 22:10:20.824000000 Z
+alpine_workfile:
+  id: 1000003
+  name: AlpineWorkfile
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.832000000 Z
+  updated_at: 2015-11-13 22:10:20.832000000 Z
+chorus_scope:
+  id: 1000005
+  name: ChorusScope
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.850000000 Z
+  updated_at: 2015-11-13 22:10:20.850000000 Z
+chorus_workfile:
+  id: 1000007
+  name: ChorusWorkfile
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.873000000 Z
+  updated_at: 2015-11-13 22:10:20.873000000 Z
+csv_import:
+  id: 1000010
+  name: CsvImport
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.924000000 Z
+  updated_at: 2015-11-13 22:10:20.924000000 Z
+dashboard:
+  id: 1000011
+  name: Dashboard
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.933000000 Z
+  updated_at: 2015-11-13 22:10:20.933000000 Z
+dashboard_config:
+  id: 1000012
+  name: DashboardConfig
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.942000000 Z
+  updated_at: 2015-11-13 22:10:20.942000000 Z
+dashboard_item:
+  id: 1000013
+  name: DashboardItem
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.950000000 Z
+  updated_at: 2015-11-13 22:10:20.950000000 Z
+data_source:
+  id: 1000014
+  name: DataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.959000000 Z
+  updated_at: 2015-11-13 22:10:20.959000000 Z
+data_source_account:
+  id: 1000015
+  name: DataSourceAccount
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.967000000 Z
+  updated_at: 2015-11-13 22:10:20.967000000 Z
+database:
+  id: 1000016
+  name: Database
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.976000000 Z
+  updated_at: 2015-11-13 22:10:20.976000000 Z
+database_column:
+  id: 1000018
+  name: DatabaseColumn
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:20.996000000 Z
+  updated_at: 2015-11-13 22:10:20.996000000 Z
+datasets_note:
+  id: 1000019
+  name: DatasetsNote
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.005000000 Z
+  updated_at: 2015-11-13 22:10:21.005000000 Z
+external_table:
+  id: 1000020
+  name: ExternalTable
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.013000000 Z
+  updated_at: 2015-11-13 22:10:21.013000000 Z
+gnip_data_source:
+  id: 1000021
+  name: GnipDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.021000000 Z
+  updated_at: 2015-11-13 22:10:21.021000000 Z
+gnip_import:
+  id: 1000022
+  name: GnipImport
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.030000000 Z
+  updated_at: 2015-11-13 22:10:21.030000000 Z
+gpdb_column_statistics:
+  id: 1000023
+  name: GpdbColumnStatistics
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.039000000 Z
+  updated_at: 2015-11-13 22:10:21.039000000 Z
+gpdb_data_source:
+  id: 1000024
+  name: GpdbDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.046000000 Z
+  updated_at: 2015-11-13 22:10:21.046000000 Z
+gpdb_dataset:
+  id: 1000025
+  name: GpdbDataset
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.054000000 Z
+  updated_at: 2015-11-13 22:10:21.054000000 Z
+gpdb_database:
+  id: 1000026
+  name: GpdbDatabase
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.065000000 Z
+  updated_at: 2015-11-13 22:10:21.065000000 Z
+gpdb_dataset_column:
+  id: 1000027
+  name: GpdbDatasetColumn
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.073000000 Z
+  updated_at: 2015-11-13 22:10:21.073000000 Z
+gpdb_schema:
+  id: 1000028
+  name: GpdbSchema
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.081000000 Z
+  updated_at: 2015-11-13 22:10:21.081000000 Z
+gpdb_table:
+  id: 1000029
+  name: GpdbTable
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.089000000 Z
+  updated_at: 2015-11-13 22:10:21.089000000 Z
+gpdb_view:
+  id: 1000030
+  name: GpdbView
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.097000000 Z
+  updated_at: 2015-11-13 22:10:21.097000000 Z
+greenplum_sql_result:
+  id: 1000031
+  name: GreenplumSqlResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.108000000 Z
+  updated_at: 2015-11-13 22:10:21.108000000 Z
+group:
+  id: 1000032
+  name: Group
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.134000000 Z
+  updated_at: 2015-11-13 22:10:21.134000000 Z
+hdfs_data_source:
+  id: 1000033
+  name: HdfsDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.146000000 Z
+  updated_at: 2015-11-13 22:10:21.146000000 Z
+hdfs_dataset:
+  id: 1000034
+  name: HdfsDataset
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.187000000 Z
+  updated_at: 2015-11-13 22:10:21.187000000 Z
+hdfs_dataset_statistics:
+  id: 1000035
+  name: HdfsDatasetStatistics
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.207000000 Z
+  updated_at: 2015-11-13 22:10:21.207000000 Z
+hdfs_entry:
+  id: 1000036
+  name: HdfsEntry
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.223000000 Z
+  updated_at: 2015-11-13 22:10:21.223000000 Z
+hdfs_entry_statistics:
+  id: 1000037
+  name: HdfsEntryStatistics
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.235000000 Z
+  updated_at: 2015-11-13 22:10:21.235000000 Z
+hdfs_file:
+  id: 1000038
+  name: HdfsFile
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.259000000 Z
+  updated_at: 2015-11-13 22:10:21.259000000 Z
+hdfs_import:
+  id: 1000039
+  name: HdfsImport
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.268000000 Z
+  updated_at: 2015-11-13 22:10:21.268000000 Z
+insight:
+  id: 1000040
+  name: Insight
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.276000000 Z
+  updated_at: 2015-11-13 22:10:21.276000000 Z
+import_source_data_task:
+  id: 1000042
+  name: ImportSourceDataTask
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.292000000 Z
+  updated_at: 2015-11-13 22:10:21.292000000 Z
+import_source_task_result:
+  id: 1000043
+  name: ImportSourceTaskResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.301000000 Z
+  updated_at: 2015-11-13 22:10:21.301000000 Z
+imoort_template:
+  id: 1000044
+  name: ImoortTemplate
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.310000000 Z
+  updated_at: 2015-11-13 22:10:21.310000000 Z
+jdbc_data_source:
+  id: 1000045
+  name: JdbcDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.319000000 Z
+  updated_at: 2015-11-13 22:10:21.319000000 Z
+jdbc_dataset:
+  id: 1000046
+  name: JdbcDataset
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.327000000 Z
+  updated_at: 2015-11-13 22:10:21.327000000 Z
+jdbc_dataset_column:
+  id: 1000047
+  name: JdbcDatasetColumn
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.336000000 Z
+  updated_at: 2015-11-13 22:10:21.336000000 Z
+jdbc_hive_data_source:
+  id: 1000048
+  name: JdbcHiveDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.344000000 Z
+  updated_at: 2015-11-13 22:10:21.344000000 Z
+jdbc_schema:
+  id: 1000049
+  name: JdbcSchema
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.352000000 Z
+  updated_at: 2015-11-13 22:10:21.352000000 Z
+jdbc_sql_result:
+  id: 1000050
+  name: JdbcSqlResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.361000000 Z
+  updated_at: 2015-11-13 22:10:21.361000000 Z
+jdbc_table:
+  id: 1000051
+  name: JdbcTable
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.371000000 Z
+  updated_at: 2015-11-13 22:10:21.371000000 Z
+jdbc_view:
+  id: 1000052
+  name: JdbcView
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.379000000 Z
+  updated_at: 2015-11-13 22:10:21.379000000 Z
+job_result:
+  id: 1000054
+  name: JobResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.394000000 Z
+  updated_at: 2015-11-13 22:10:21.394000000 Z
+job_task:
+  id: 1000055
+  name: JobTask
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.404000000 Z
+  updated_at: 2015-11-13 22:10:21.404000000 Z
+job_task_result:
+  id: 1000056
+  name: JobTaskResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.412000000 Z
+  updated_at: 2015-11-13 22:10:21.412000000 Z
+ldap_config:
+  id: 1000057
+  name: LdapConfig
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.419000000 Z
+  updated_at: 2015-11-13 22:10:21.419000000 Z
+license:
+  id: 1000058
+  name: License
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.428000000 Z
+  updated_at: 2015-11-13 22:10:21.428000000 Z
+linked_tableau_workfile:
+  id: 1000059
+  name: LinkedTableauWorkfile
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.436000000 Z
+  updated_at: 2015-11-13 22:10:21.436000000 Z
+my_workspace_search:
+  id: 1000062
+  name: MyWorkspaceSearch
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.464000000 Z
+  updated_at: 2015-11-13 22:10:21.464000000 Z
+notes_workflow_result:
+  id: 1000064
+  name: NotesWorkflowResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.483000000 Z
+  updated_at: 2015-11-13 22:10:21.483000000 Z
+notes_workfile:
+  id: 1000065
+  name: NotesWorkfile
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.503000000 Z
+  updated_at: 2015-11-13 22:10:21.503000000 Z
+notification:
+  id: 1000066
+  name: Notification
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.511000000 Z
+  updated_at: 2015-11-13 22:10:21.511000000 Z
+open_workfile_event:
+  id: 1000067
+  name: OpenWorkfileEvent
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.519000000 Z
+  updated_at: 2015-11-13 22:10:21.519000000 Z
+operation:
+  id: 1000068
+  name: Operation
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.529000000 Z
+  updated_at: 2015-11-13 22:10:21.529000000 Z
+oracle_data_source:
+  id: 1000069
+  name: OracleDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.540000000 Z
+  updated_at: 2015-11-13 22:10:21.540000000 Z
+oracle_dataset:
+  id: 1000070
+  name: OracleDataset
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.550000000 Z
+  updated_at: 2015-11-13 22:10:21.550000000 Z
+oracle_dataset_column:
+  id: 1000071
+  name: OracleDatasetColumn
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.561000000 Z
+  updated_at: 2015-11-13 22:10:21.561000000 Z
+oracle_schema:
+  id: 1000072
+  name: OracleSchema
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.571000000 Z
+  updated_at: 2015-11-13 22:10:21.571000000 Z
+oracle_sql_result:
+  id: 1000073
+  name: OracleSqlResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.580000000 Z
+  updated_at: 2015-11-13 22:10:21.580000000 Z
+oracle_table:
+  id: 1000074
+  name: OracleTable
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.589000000 Z
+  updated_at: 2015-11-13 22:10:21.589000000 Z
+oracle_view:
+  id: 1000075
+  name: OracleView
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.599000000 Z
+  updated_at: 2015-11-13 22:10:21.599000000 Z
+permission:
+  id: 1000076
+  name: Permission
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.609000000 Z
+  updated_at: 2015-11-13 22:10:21.609000000 Z
+pg_data_source:
+  id: 1000077
+  name: PgDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.619000000 Z
+  updated_at: 2015-11-13 22:10:21.619000000 Z
+pg_database:
+  id: 1000078
+  name: PgDatabase
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.631000000 Z
+  updated_at: 2015-11-13 22:10:21.631000000 Z
+pg_dataset:
+  id: 1000079
+  name: PgDataset
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.639000000 Z
+  updated_at: 2015-11-13 22:10:21.639000000 Z
+pg_dataset_column:
+  id: 1000080
+  name: PgDatasetColumn
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.647000000 Z
+  updated_at: 2015-11-13 22:10:21.647000000 Z
+pg_schema:
+  id: 1000081
+  name: PgSchema
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.655000000 Z
+  updated_at: 2015-11-13 22:10:21.655000000 Z
+pg_table:
+  id: 1000082
+  name: PgTable
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.662000000 Z
+  updated_at: 2015-11-13 22:10:21.662000000 Z
+pg_view:
+  id: 1000083
+  name: PgView
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.671000000 Z
+  updated_at: 2015-11-13 22:10:21.671000000 Z
+published_worklet:
+  id: 1000084
+  name: PublishedWorklet
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.681000000 Z
+  updated_at: 2015-11-13 22:10:21.681000000 Z
+relational_dataset:
+  id: 1000085
+  name: RelationalDataset
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.689000000 Z
+  updated_at: 2015-11-13 22:10:21.689000000 Z
+role:
+  id: 1000086
+  name: Role
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.697000000 Z
+  updated_at: 2015-11-13 22:10:21.697000000 Z
+run_sql_workfile_task:
+  id: 1000087
+  name: RunSqlWorkfileTask
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.709000000 Z
+  updated_at: 2015-11-13 22:10:21.709000000 Z
+run_workflow_task:
+  id: 1000088
+  name: RunWorkflowTask
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.717000000 Z
+  updated_at: 2015-11-13 22:10:21.717000000 Z
+run_workflow_task_result:
+  id: 1000089
+  name: RunWorkflowTaskResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.726000000 Z
+  updated_at: 2015-11-13 22:10:21.726000000 Z
+schema:
+  id: 1000091
+  name: Schema
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.741000000 Z
+  updated_at: 2015-11-13 22:10:21.741000000 Z
+schema_function:
+  id: 1000092
+  name: SchemaFunction
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.749000000 Z
+  updated_at: 2015-11-13 22:10:21.749000000 Z
+schema_import:
+  id: 1000093
+  name: SchemaImport
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.756000000 Z
+  updated_at: 2015-11-13 22:10:21.756000000 Z
+search:
+  id: 1000094
+  name: Search
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.763000000 Z
+  updated_at: 2015-11-13 22:10:21.763000000 Z
+session:
+  id: 1000095
+  name: Session
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.772000000 Z
+  updated_at: 2015-11-13 22:10:21.772000000 Z
+sql_result:
+  id: 1000096
+  name: SqlResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.779000000 Z
+  updated_at: 2015-11-13 22:10:21.779000000 Z
+sql_value_parser:
+  id: 1000097
+  name: SqlValueParser
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.786000000 Z
+  updated_at: 2015-11-13 22:10:21.786000000 Z
+system_status:
+  id: 1000098
+  name: SystemStatus
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.793000000 Z
+  updated_at: 2015-11-13 22:10:21.793000000 Z
+tableau_publisher:
+  id: 1000099
+  name: TableauPublisher
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.801000000 Z
+  updated_at: 2015-11-13 22:10:21.801000000 Z
+tableau_workbook_publication:
+  id: 1000100
+  name: TableauWorkbookPublication
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.809000000 Z
+  updated_at: 2015-11-13 22:10:21.809000000 Z
+tag:
+  id: 1000101
+  name: Tag
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.816000000 Z
+  updated_at: 2015-11-13 22:10:21.816000000 Z
+tagging:
+  id: 1000102
+  name: Tagging
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.823000000 Z
+  updated_at: 2015-11-13 22:10:21.823000000 Z
+task:
+  id: 1000103
+  name: Task
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.830000000 Z
+  updated_at: 2015-11-13 22:10:21.830000000 Z
+type_ahead_search:
+  id: 1000104
+  name: TypeAheadSearch
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.839000000 Z
+  updated_at: 2015-11-13 22:10:21.839000000 Z
+upload:
+  id: 1000105
+  name: Upload
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.846000000 Z
+  updated_at: 2015-11-13 22:10:21.846000000 Z
+user:
+  id: 1000106
+  name: User
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.853000000 Z
+  updated_at: 2015-11-13 22:10:21.853000000 Z
+visualization:
+  id: 1000107
+  name: Visualization
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.863000000 Z
+  updated_at: 2015-11-13 22:10:21.863000000 Z
+workfile_draft:
+  id: 1000109
+  name: WorkfileDraft
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.878000000 Z
+  updated_at: 2015-11-13 22:10:21.878000000 Z
+workfile_execution_location:
+  id: 1000110
+  name: WorkfileExecutionLocation
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.886000000 Z
+  updated_at: 2015-11-13 22:10:21.886000000 Z
+workfile_version:
+  id: 1000111
+  name: WorkfileVersion
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.894000000 Z
+  updated_at: 2015-11-13 22:10:21.894000000 Z
+worklet:
+  id: 1000113
+  name: Worklet
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.909000000 Z
+  updated_at: 2015-11-13 22:10:21.909000000 Z
+workspace:
+  id: 1000114
+  name: Workspace
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.917000000 Z
+  updated_at: 2015-11-13 22:10:21.917000000 Z
+workspace_import:
+  id: 1000115
+  name: WorkspaceImport
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.925000000 Z
+  updated_at: 2015-11-13 22:10:21.925000000 Z
+workspace_search:
+  id: 1000116
+  name: WorkspaceSearch
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.931000000 Z
+  updated_at: 2015-11-13 22:10:21.931000000 Z
+recent_workfiles:
+  id: 1000117
+  name: RecentWorkfiles
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.941000000 Z
+  updated_at: 2015-11-13 22:10:21.941000000 Z
+milestone:
+  id: 1000061
+  name: Milestone
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:21.453000000 Z
+  updated_at: 2015-11-13 22:10:22.186000000 Z
+workfile_3:
+  id: 1000108
+  name: Workfile
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:21.870000000 Z
+  updated_at: 2015-11-13 22:10:22.200000000 Z
+workflow:
+  id: 1000112
+  name: Workflow
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:21.902000000 Z
+  updated_at: 2015-11-13 22:10:22.207000000 Z
+activity:
+  id: 1000001
+  name: Activity
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:20.813000000 Z
+  updated_at: 2015-11-13 22:10:22.213000000 Z
+events_base:
+  id: 1000000
+  name: Events::Base
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:20.801000000 Z
+  updated_at: 2015-11-13 22:10:22.219000000 Z
+note_2:
+  id: 1000063
+  name: Note
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:21.474000000 Z
+  updated_at: 2015-11-13 22:10:22.224000000 Z
+comment:
+  id: 1000008
+  name: Comment
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:20.889000000 Z
+  updated_at: 2015-11-13 22:10:22.229000000 Z
+chorus_view:
+  id: 1000006
+  name: ChorusView
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:20.861000000 Z
+  updated_at: 2015-11-13 22:10:22.235000000 Z
+csv_file:
+  id: 1000009
+  name: CsvFile
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:20.909000000 Z
+  updated_at: 2015-11-13 22:10:22.245000000 Z
+dataset_1:
+  id: 1000017
+  name: Dataset
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:20.987000000 Z
+  updated_at: 2015-11-13 22:10:22.250000000 Z
+associated_dataset:
+  id: 1000004
+  name: AssociatedDataset
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:20.841000000 Z
+  updated_at: 2015-11-13 22:10:22.257000000 Z
+import_2:
+  id: 1000041
+  name: Import
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:21.284000000 Z
+  updated_at: 2015-11-13 22:10:22.263000000 Z
+events_note_on_workfile:
+  id: 1000153
+  name: Events::NoteOnWorkfile
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:51.866000000 Z
+  updated_at: 2015-11-13 22:10:51.866000000 Z
+events_workfile_created:
+  id: 1000154
+  name: Events::WorkfileCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:52.175000000 Z
+  updated_at: 2015-11-13 22:10:52.175000000 Z
+events_workfile_upgraded_version:
+  id: 1000155
+  name: Events::WorkfileUpgradedVersion
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:53.613000000 Z
+  updated_at: 2015-11-13 22:10:53.613000000 Z
+events_work_flow_upgraded_version:
+  id: 1000156
+  name: Events::WorkFlowUpgradedVersion
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:53.843000000 Z
+  updated_at: 2015-11-13 22:10:53.843000000 Z
+events_workfile_version_deleted:
+  id: 1000157
+  name: Events::WorkfileVersionDeleted
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:54.145000000 Z
+  updated_at: 2015-11-13 22:10:54.145000000 Z
+events_chorus_view_created:
+  id: 1000158
+  name: Events::ChorusViewCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:54.381000000 Z
+  updated_at: 2015-11-13 22:10:54.381000000 Z
+events_chorus_view_changed:
+  id: 1000159
+  name: Events::ChorusViewChanged
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:54.706000000 Z
+  updated_at: 2015-11-13 22:10:54.706000000 Z
+events_view_created:
+  id: 1000160
+  name: Events::ViewCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:54.903000000 Z
+  updated_at: 2015-11-13 22:10:54.903000000 Z
+events_milestone_created:
+  id: 1000161
+  name: Events::MilestoneCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:58.684000000 Z
+  updated_at: 2015-11-13 22:10:58.684000000 Z
+events_milestone_updated:
+  id: 1000162
+  name: Events::MilestoneUpdated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:58.913000000 Z
+  updated_at: 2015-11-13 22:10:58.913000000 Z
+run_work_flow_task:
+  id: 1000163
+  name: RunWorkFlowTask
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:59.271000000 Z
+  updated_at: 2015-11-13 22:10:59.271000000 Z
+events_job_succeeded:
+  id: 1000164
+  name: Events::JobSucceeded
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:59.560000000 Z
+  updated_at: 2015-11-13 22:10:59.560000000 Z
+events_job_failed:
+  id: 1000165
+  name: Events::JobFailed
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:59.708000000 Z
+  updated_at: 2015-11-13 22:10:59.708000000 Z
+events_job_disabled:
+  id: 1000166
+  name: Events::JobDisabled
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:59.898000000 Z
+  updated_at: 2015-11-13 22:10:59.898000000 Z
+events_job_created:
+  id: 1000167
+  name: Events::JobCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:00.014000000 Z
+  updated_at: 2015-11-13 22:11:00.014000000 Z
+events_job_deleted:
+  id: 1000168
+  name: Events::JobDeleted
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:00.154000000 Z
+  updated_at: 2015-11-13 22:11:00.154000000 Z
+events_workspace_import_created:
+  id: 1000169
+  name: Events::WorkspaceImportCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:00.982000000 Z
+  updated_at: 2015-11-13 22:11:00.982000000 Z
+events_schema_import_created:
+  id: 1000170
+  name: Events::SchemaImportCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:01.076000000 Z
+  updated_at: 2015-11-13 22:11:01.076000000 Z
+events_file_import_created:
+  id: 1000171
+  name: Events::FileImportCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:01.867000000 Z
+  updated_at: 2015-11-13 22:11:01.867000000 Z
+events_gnip_stream_import_created:
+  id: 1000172
+  name: Events::GnipStreamImportCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:02.129000000 Z
+  updated_at: 2015-11-13 22:11:02.129000000 Z
+events_note_on_hdfs_data_source:
+  id: 1000173
+  name: Events::NoteOnHdfsDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:02.833000000 Z
+  updated_at: 2015-11-13 22:11:02.833000000 Z
+events_note_on_hdfs_file:
+  id: 1000174
+  name: Events::NoteOnHdfsFile
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:02.927000000 Z
+  updated_at: 2015-11-13 22:11:02.927000000 Z
+events_note_on_workspace:
+  id: 1000175
+  name: Events::NoteOnWorkspace
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:03.019000000 Z
+  updated_at: 2015-11-13 22:11:03.019000000 Z
+events_note_on_gnip_data_source:
+  id: 1000176
+  name: Events::NoteOnGnipDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:03.490000000 Z
+  updated_at: 2015-11-13 22:11:03.490000000 Z
+events_note_on_dataset:
+  id: 1000177
+  name: Events::NoteOnDataset
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:03.685000000 Z
+  updated_at: 2015-11-13 22:11:03.685000000 Z
+events_note_on_workspace_dataset:
+  id: 1000178
+  name: Events::NoteOnWorkspaceDataset
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:03.792000000 Z
+  updated_at: 2015-11-13 22:11:03.792000000 Z
+events_file_import_success:
+  id: 1000179
+  name: Events::FileImportSuccess
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:11:04.795000000 Z
+  updated_at: 2015-11-13 22:11:04.795000000 Z
+events_workspace_import_failed:
+  id: 1000180
+  name: Events::WorkspaceImportFailed
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:05.289999000 Z
+  updated_at: 2015-11-12 22:11:05.289999000 Z
+events_schema_import_success:
+  id: 1000181
+  name: Events::SchemaImportSuccess
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:05.503000000 Z
+  updated_at: 2015-11-12 22:11:05.503000000 Z
+events_schema_import_failed:
+  id: 1000182
+  name: Events::SchemaImportFailed
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:05.630000000 Z
+  updated_at: 2015-11-12 22:11:05.630000000 Z
+events_hdfs_import_success:
+  id: 1000183
+  name: Events::HdfsImportSuccess
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:05.849999000 Z
+  updated_at: 2015-11-12 22:11:05.849999000 Z
+events_hdfs_import_failed:
+  id: 1000184
+  name: Events::HdfsImportFailed
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:05.961999000 Z
+  updated_at: 2015-11-12 22:11:05.961999000 Z
+events_data_source_changed_owner:
+  id: 1000185
+  name: Events::DataSourceChangedOwner
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:06.065999000 Z
+  updated_at: 2015-11-12 22:11:06.065999000 Z
+events_data_source_changed_name:
+  id: 1000186
+  name: Events::DataSourceChangedName
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:06.190000000 Z
+  updated_at: 2015-11-12 22:11:06.190000000 Z
+events_hdfs_data_source_changed_name:
+  id: 1000187
+  name: Events::HdfsDataSourceChangedName
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:06.391000000 Z
+  updated_at: 2015-11-12 22:11:06.391000000 Z
+events_source_table_created:
+  id: 1000188
+  name: Events::SourceTableCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:06.496999000 Z
+  updated_at: 2015-11-12 22:11:06.496999000 Z
+events_workspace_add_sandbox:
+  id: 1000189
+  name: Events::WorkspaceAddSandbox
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:06.707999000 Z
+  updated_at: 2015-11-12 22:11:06.707999000 Z
+events_workspace_archived:
+  id: 1000190
+  name: Events::WorkspaceArchived
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:06.898000000 Z
+  updated_at: 2015-11-12 22:11:06.898000000 Z
+events_workspace_unarchived:
+  id: 1000191
+  name: Events::WorkspaceUnarchived
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:07.009999000 Z
+  updated_at: 2015-11-12 22:11:07.009999000 Z
+events_workspace_change_name:
+  id: 1000192
+  name: Events::WorkspaceChangeName
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:07.121999000 Z
+  updated_at: 2015-11-12 22:11:07.121999000 Z
+events_hdfs_dataset_ext_table_created:
+  id: 1000193
+  name: Events::HdfsDatasetExtTableCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:07.244999000 Z
+  updated_at: 2015-11-12 22:11:07.244999000 Z
+events_hdfs_file_ext_table_created:
+  id: 1000194
+  name: Events::HdfsFileExtTableCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:07.555000000 Z
+  updated_at: 2015-11-12 22:11:07.555000000 Z
+events_hdfs_directory_ext_table_created:
+  id: 1000195
+  name: Events::HdfsDirectoryExtTableCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:07.785000000 Z
+  updated_at: 2015-11-12 22:11:07.785000000 Z
+events_hdfs_pattern_ext_table_created:
+  id: 1000196
+  name: Events::HdfsPatternExtTableCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:08.091000000 Z
+  updated_at: 2015-11-12 22:11:08.091000000 Z
+events_file_import_failed:
+  id: 1000197
+  name: Events::FileImportFailed
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:08.667999000 Z
+  updated_at: 2015-11-12 22:11:08.667999000 Z
+events_members_added:
+  id: 1000198
+  name: Events::MembersAdded
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:08.799999000 Z
+  updated_at: 2015-11-12 22:11:08.799999000 Z
+events_workspace_import_success:
+  id: 1000199
+  name: Events::WorkspaceImportSuccess
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:09.063999000 Z
+  updated_at: 2015-11-12 22:11:09.063999000 Z
+events_gnip_stream_import_success:
+  id: 1000200
+  name: Events::GnipStreamImportSuccess
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:09.631000000 Z
+  updated_at: 2015-11-12 22:11:09.631000000 Z
+events_gnip_stream_import_failed:
+  id: 1000201
+  name: Events::GnipStreamImportFailed
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:09.845999000 Z
+  updated_at: 2015-11-12 22:11:09.845999000 Z
+events_import_schedule_updated:
+  id: 1000202
+  name: Events::ImportScheduleUpdated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:10.173000000 Z
+  updated_at: 2015-11-12 22:11:10.173000000 Z
+events_import_schedule_deleted:
+  id: 1000203
+  name: Events::ImportScheduleDeleted
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:10.417000000 Z
+  updated_at: 2015-11-12 22:11:10.417000000 Z
+events_credentials_invalid:
+  id: 1000204
+  name: Events::CredentialsInvalid
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-12 22:11:10.569999000 Z
+  updated_at: 2015-11-12 22:11:10.569999000 Z
+site_snapshot:
+  id: 1000118
+  name: SiteSnapshot
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.948000000 Z
+  updated_at: 2015-11-13 22:10:21.948000000 Z
+workspace_activity:
+  id: 1000119
+  name: WorkspaceActivity
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.957000000 Z
+  updated_at: 2015-11-13 22:10:21.957000000 Z
+chorus_view_changed:
+  id: 1000120
+  name: ChorusViewChanged
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.969000000 Z
+  updated_at: 2015-11-13 22:10:21.969000000 Z
+chorus_view_created:
+  id: 1000121
+  name: ChorusViewCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.977000000 Z
+  updated_at: 2015-11-13 22:10:21.977000000 Z
+credentials_invalid:
+  id: 1000122
+  name: CredentialsInvalid
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.985000000 Z
+  updated_at: 2015-11-13 22:10:21.985000000 Z
+data_source_changed_name:
+  id: 1000123
+  name: DataSourceChangedName
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:21.993000000 Z
+  updated_at: 2015-11-13 22:10:21.993000000 Z
+data_source_changed_owner:
+  id: 1000124
+  name: DataSourceChangedOwner
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.000000000 Z
+  updated_at: 2015-11-13 22:10:22.000000000 Z
+data_source_created:
+  id: 1000125
+  name: DataSourceCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.008000000 Z
+  updated_at: 2015-11-13 22:10:22.008000000 Z
+data_source_deleted:
+  id: 1000126
+  name: DataSourceDeleted
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.017000000 Z
+  updated_at: 2015-11-13 22:10:22.017000000 Z
+file_import_created:
+  id: 1000127
+  name: FileImportCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.025000000 Z
+  updated_at: 2015-11-13 22:10:22.025000000 Z
+file_import_failed:
+  id: 1000128
+  name: FileImportFailed
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.033000000 Z
+  updated_at: 2015-11-13 22:10:22.033000000 Z
+boxplot:
+  id: 1000129
+  name: Boxplot
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.040000000 Z
+  updated_at: 2015-11-13 22:10:22.040000000 Z
+frequency:
+  id: 1000130
+  name: Frequency
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.047000000 Z
+  updated_at: 2015-11-13 22:10:22.047000000 Z
+heatmap:
+  id: 1000131
+  name: Heatmap
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.054000000 Z
+  updated_at: 2015-11-13 22:10:22.054000000 Z
+histograp:
+  id: 1000132
+  name: Histograp
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.061000000 Z
+  updated_at: 2015-11-13 22:10:22.061000000 Z
+timeseries:
+  id: 1000133
+  name: Timeseries
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:22.069000000 Z
+  updated_at: 2015-11-13 22:10:22.069000000 Z
+job_3:
+  id: 1000053
+  name: Job
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:21.387000000 Z
+  updated_at: 2015-11-13 22:10:22.176000000 Z
+membership:
+  id: 1000060
+  name: Membership
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:21.444000000 Z
+  updated_at: 2015-11-13 22:10:22.193000000 Z
+sandbox:
+  id: 1000090
+  name: Sandbox
+  description:
+  parent_class_id:
+  parent_class_name: Workspace
+  created_at: 2015-11-13 22:10:21.734000000 Z
+  updated_at: 2015-11-13 22:10:22.240000000 Z
+no_class:
+  id: 1000134
+  name: NoClass
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:27.821000000 Z
+  updated_at: 2015-11-13 22:10:27.821000000 Z
+events_user_added:
+  id: 1000135
+  name: Events::UserAdded
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:28.454000000 Z
+  updated_at: 2015-11-13 22:10:28.454000000 Z
+events_data_source_created:
+  id: 1000136
+  name: Events::DataSourceCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:31.492000000 Z
+  updated_at: 2015-11-13 22:10:31.492000000 Z
+events_data_source_deleted:
+  id: 1000137
+  name: Events::DataSourceDeleted
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:32.164000000 Z
+  updated_at: 2015-11-13 22:10:32.164000000 Z
+events_note_on_data_source:
+  id: 1000138
+  name: Events::NoteOnDataSource
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:32.772000000 Z
+  updated_at: 2015-11-13 22:10:32.772000000 Z
+events_hdfs_data_source_created:
+  id: 1000139
+  name: Events::HdfsDataSourceCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:33.907000000 Z
+  updated_at: 2015-11-13 22:10:33.907000000 Z
+events_gnip_data_source_created:
+  id: 1000140
+  name: Events::GnipDataSourceCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:34.196000000 Z
+  updated_at: 2015-11-13 22:10:34.196000000 Z
+attachment:
+  id: 1000141
+  name: Attachment
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:39.104000000 Z
+  updated_at: 2015-11-13 22:10:39.104000000 Z
+events_project_status_changed:
+  id: 1000142
+  name: Events::ProjectStatusChanged
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:39.336000000 Z
+  updated_at: 2015-11-13 22:10:39.336000000 Z
+events_public_workspace_created:
+  id: 1000143
+  name: Events::PublicWorkspaceCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:41.692000000 Z
+  updated_at: 2015-11-13 22:10:41.692000000 Z
+events_private_workspace_created:
+  id: 1000144
+  name: Events::PrivateWorkspaceCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:41.851000000 Z
+  updated_at: 2015-11-13 22:10:41.851000000 Z
+events_workspace_make_public:
+  id: 1000145
+  name: Events::WorkspaceMakePublic
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:42.061000000 Z
+  updated_at: 2015-11-13 22:10:42.061000000 Z
+events_workspace_make_private:
+  id: 1000146
+  name: Events::WorkspaceMakePrivate
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:42.229000000 Z
+  updated_at: 2015-11-13 22:10:42.229000000 Z
+events_workspace_deleted:
+  id: 1000147
+  name: Events::WorkspaceDeleted
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:42.351000000 Z
+  updated_at: 2015-11-13 22:10:42.351000000 Z
+events_hdfs_dataset_created:
+  id: 1000148
+  name: Events::HdfsDatasetCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:42.545000000 Z
+  updated_at: 2015-11-13 22:10:42.545000000 Z
+events_hdfs_dataset_updated:
+  id: 1000149
+  name: Events::HdfsDatasetUpdated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:42.905000000 Z
+  updated_at: 2015-11-13 22:10:42.905000000 Z
+events_tableau_workbook_published:
+  id: 1000150
+  name: Events::TableauWorkbookPublished
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:43.287000000 Z
+  updated_at: 2015-11-13 22:10:43.287000000 Z
+events_tableau_workfile_created:
+  id: 1000151
+  name: Events::TableauWorkfileCreated
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:43.733000000 Z
+  updated_at: 2015-11-13 22:10:43.733000000 Z
+events_workfile_result:
+  id: 1000152
+  name: Events::WorkfileResult
+  description:
+  parent_class_id:
+  parent_class_name:
+  created_at: 2015-11-13 22:10:44.647000000 Z
+  updated_at: 2015-11-13 22:10:44.647000000 Z

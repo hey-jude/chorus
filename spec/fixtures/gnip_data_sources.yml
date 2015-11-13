@@ -1,0 +1,25 @@
+---
+default:
+  id: 1000000
+  name: default
+  description: a searchquery example gnip account
+  owner_id: 1000006
+  username: user44445
+  password: secret
+  created_at: 2015-11-13 22:10:34.124000000 Z
+  updated_at: 2015-11-13 22:10:34.124000000 Z
+  stream_url: https://historical.gnip.com/stream_url44445
+  deleted_at:
+  state: ''
+typeahead_gnip:
+  id: 1000001
+  name: typeahead_gnip
+  description:
+  owner_id: 1000006
+  username: user44446
+  password: secret
+  created_at: 2015-11-13 22:10:34.142000000 Z
+  updated_at: 2015-11-13 22:10:34.142000000 Z
+  stream_url: https://historical.gnip.com/stream_url44446
+  deleted_at:
+  state: ''

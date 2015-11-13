@@ -1,0 +1,1329 @@
+---
+create:
+  id: 1000000
+  chorus_class_id: 1000000
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:22.315000000 Z
+  updated_at: 2015-11-13 22:10:22.326000000 Z
+  sequence: 0
+show:
+  id: 1000001
+  chorus_class_id: 1000000
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:22.331000000 Z
+  updated_at: 2015-11-13 22:10:22.337000000 Z
+  sequence: 1
+update:
+  id: 1000002
+  chorus_class_id: 1000000
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:22.342000000 Z
+  updated_at: 2015-11-13 22:10:22.348000000 Z
+  sequence: 2
+destroy:
+  id: 1000003
+  chorus_class_id: 1000000
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:22.354000000 Z
+  updated_at: 2015-11-13 22:10:22.360000000 Z
+  sequence: 3
+create_comment_on:
+  id: 1000004
+  chorus_class_id: 1000000
+  name: create_comment_on
+  description:
+  created_at: 2015-11-13 22:10:22.365000000 Z
+  updated_at: 2015-11-13 22:10:22.371000000 Z
+  sequence: 4
+create_attachment_on:
+  id: 1000005
+  chorus_class_id: 1000000
+  name: create_attachment_on
+  description:
+  created_at: 2015-11-13 22:10:22.377000000 Z
+  updated_at: 2015-11-13 22:10:22.383000000 Z
+  sequence: 5
+create_3:
+  id: 1000006
+  chorus_class_id: 1000086
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:22.392000000 Z
+  updated_at: 2015-11-13 22:10:22.398000000 Z
+  sequence: 0
+show_1:
+  id: 1000007
+  chorus_class_id: 1000086
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:22.406000000 Z
+  updated_at: 2015-11-13 22:10:22.416000000 Z
+  sequence: 1
+update_1:
+  id: 1000008
+  chorus_class_id: 1000086
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:22.421000000 Z
+  updated_at: 2015-11-13 22:10:22.426000000 Z
+  sequence: 2
+destroy_1:
+  id: 1000009
+  chorus_class_id: 1000086
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:22.431000000 Z
+  updated_at: 2015-11-13 22:10:22.436000000 Z
+  sequence: 3
+manage_application_roles:
+  id: 1000010
+  chorus_class_id: 1000086
+  name: manage_application_roles
+  description:
+  created_at: 2015-11-13 22:10:22.441000000 Z
+  updated_at: 2015-11-13 22:10:22.447000000 Z
+  sequence: 4
+manage_workspace_roles:
+  id: 1000011
+  chorus_class_id: 1000086
+  name: manage_workspace_roles
+  description:
+  created_at: 2015-11-13 22:10:22.453000000 Z
+  updated_at: 2015-11-13 22:10:22.469000000 Z
+  sequence: 5
+create_4:
+  id: 1000012
+  chorus_class_id: 1000005
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:22.478000000 Z
+  updated_at: 2015-11-13 22:10:22.483000000 Z
+  sequence: 0
+show_2:
+  id: 1000013
+  chorus_class_id: 1000005
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:22.488000000 Z
+  updated_at: 2015-11-13 22:10:22.493000000 Z
+  sequence: 1
+update_2:
+  id: 1000014
+  chorus_class_id: 1000005
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:22.499000000 Z
+  updated_at: 2015-11-13 22:10:22.506000000 Z
+  sequence: 2
+destroy_2:
+  id: 1000015
+  chorus_class_id: 1000005
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:22.511000000 Z
+  updated_at: 2015-11-13 22:10:22.516000000 Z
+  sequence: 3
+manage_scopes:
+  id: 1000016
+  chorus_class_id: 1000005
+  name: manage_scopes
+  description:
+  created_at: 2015-11-13 22:10:22.522000000 Z
+  updated_at: 2015-11-13 22:10:22.528000000 Z
+  sequence: 4
+create_5:
+  id: 1000017
+  chorus_class_id: 1000106
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:22.537000000 Z
+  updated_at: 2015-11-13 22:10:22.544000000 Z
+  sequence: 0
+show_3:
+  id: 1000018
+  chorus_class_id: 1000106
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:22.550000000 Z
+  updated_at: 2015-11-13 22:10:22.555000000 Z
+  sequence: 1
+update_3:
+  id: 1000019
+  chorus_class_id: 1000106
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:22.560000000 Z
+  updated_at: 2015-11-13 22:10:22.568000000 Z
+  sequence: 2
+destroy_3:
+  id: 1000020
+  chorus_class_id: 1000106
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:22.572000000 Z
+  updated_at: 2015-11-13 22:10:22.578000000 Z
+  sequence: 3
+change_password:
+  id: 1000021
+  chorus_class_id: 1000106
+  name: change_password
+  description:
+  created_at: 2015-11-13 22:10:22.583000000 Z
+  updated_at: 2015-11-13 22:10:22.589000000 Z
+  sequence: 4
+edit_dashboard:
+  id: 1000022
+  chorus_class_id: 1000106
+  name: edit_dashboard
+  description:
+  created_at: 2015-11-13 22:10:22.594000000 Z
+  updated_at: 2015-11-13 22:10:22.599000000 Z
+  sequence: 5
+manage_notifications:
+  id: 1000023
+  chorus_class_id: 1000106
+  name: manage_notifications
+  description:
+  created_at: 2015-11-13 22:10:22.605000000 Z
+  updated_at: 2015-11-13 22:10:22.613000000 Z
+  sequence: 6
+manage_comments:
+  id: 1000024
+  chorus_class_id: 1000106
+  name: manage_comments
+  description:
+  created_at: 2015-11-13 22:10:22.618000000 Z
+  updated_at: 2015-11-13 22:10:22.623000000 Z
+  sequence: 7
+manage_notes:
+  id: 1000025
+  chorus_class_id: 1000106
+  name: manage_notes
+  description:
+  created_at: 2015-11-13 22:10:22.628000000 Z
+  updated_at: 2015-11-13 22:10:22.637000000 Z
+  sequence: 8
+manage_insights:
+  id: 1000026
+  chorus_class_id: 1000106
+  name: manage_insights
+  description:
+  created_at: 2015-11-13 22:10:22.642000000 Z
+  updated_at: 2015-11-13 22:10:22.647000000 Z
+  sequence: 9
+manage_data_source_credentials:
+  id: 1000027
+  chorus_class_id: 1000106
+  name: manage_data_source_credentials
+  description:
+  created_at: 2015-11-13 22:10:22.653000000 Z
+  updated_at: 2015-11-13 22:10:22.659000000 Z
+  sequence: 10
+ldap:
+  id: 1000028
+  chorus_class_id: 1000106
+  name: ldap
+  description:
+  created_at: 2015-11-13 22:10:22.664000000 Z
+  updated_at: 2015-11-13 22:10:22.669000000 Z
+  sequence: 11
+create_6:
+  id: 1000029
+  chorus_class_id: 1000015
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:22.677000000 Z
+  updated_at: 2015-11-13 22:10:22.682000000 Z
+  sequence: 0
+show_4:
+  id: 1000030
+  chorus_class_id: 1000015
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:22.687000000 Z
+  updated_at: 2015-11-13 22:10:22.692000000 Z
+  sequence: 1
+update_4:
+  id: 1000031
+  chorus_class_id: 1000015
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:22.697000000 Z
+  updated_at: 2015-11-13 22:10:22.702000000 Z
+  sequence: 2
+destroy_4:
+  id: 1000032
+  chorus_class_id: 1000015
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:22.707000000 Z
+  updated_at: 2015-11-13 22:10:22.713000000 Z
+  sequence: 3
+change_password_1:
+  id: 1000033
+  chorus_class_id: 1000015
+  name: change_password
+  description:
+  created_at: 2015-11-13 22:10:22.718000000 Z
+  updated_at: 2015-11-13 22:10:22.723000000 Z
+  sequence: 4
+lock:
+  id: 1000034
+  chorus_class_id: 1000015
+  name: lock
+  description:
+  created_at: 2015-11-13 22:10:22.730000000 Z
+  updated_at: 2015-11-13 22:10:22.738000000 Z
+  sequence: 5
+unlock:
+  id: 1000035
+  chorus_class_id: 1000015
+  name: unlock
+  description:
+  created_at: 2015-11-13 22:10:22.758000000 Z
+  updated_at: 2015-11-13 22:10:22.763000000 Z
+  sequence: 6
+create_7:
+  id: 1000036
+  chorus_class_id: 1000032
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:22.771000000 Z
+  updated_at: 2015-11-13 22:10:22.775000000 Z
+  sequence: 0
+show_5:
+  id: 1000037
+  chorus_class_id: 1000032
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:22.780000000 Z
+  updated_at: 2015-11-13 22:10:22.786000000 Z
+  sequence: 1
+update_5:
+  id: 1000038
+  chorus_class_id: 1000032
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:22.790000000 Z
+  updated_at: 2015-11-13 22:10:22.796000000 Z
+  sequence: 2
+destroy_5:
+  id: 1000039
+  chorus_class_id: 1000032
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:22.801000000 Z
+  updated_at: 2015-11-13 22:10:22.808000000 Z
+  sequence: 3
+create_8:
+  id: 1000040
+  chorus_class_id: 1000114
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:22.817000000 Z
+  updated_at: 2015-11-13 22:10:22.823000000 Z
+  sequence: 0
+show_6:
+  id: 1000041
+  chorus_class_id: 1000114
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:22.829000000 Z
+  updated_at: 2015-11-13 22:10:22.834000000 Z
+  sequence: 1
+update_6:
+  id: 1000042
+  chorus_class_id: 1000114
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:22.839000000 Z
+  updated_at: 2015-11-13 22:10:22.847000000 Z
+  sequence: 2
+destroy_6:
+  id: 1000043
+  chorus_class_id: 1000114
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:22.854000000 Z
+  updated_at: 2015-11-13 22:10:22.863000000 Z
+  sequence: 3
+admin:
+  id: 1000044
+  chorus_class_id: 1000114
+  name: admin
+  description:
+  created_at: 2015-11-13 22:10:22.870000000 Z
+  updated_at: 2015-11-13 22:10:22.876000000 Z
+  sequence: 4
+create_workflow:
+  id: 1000045
+  chorus_class_id: 1000114
+  name: create_workflow
+  description:
+  created_at: 2015-11-13 22:10:22.881000000 Z
+  updated_at: 2015-11-13 22:10:22.890000000 Z
+  sequence: 5
+edit_settings:
+  id: 1000046
+  chorus_class_id: 1000114
+  name: edit_settings
+  description:
+  created_at: 2015-11-13 22:10:22.895000000 Z
+  updated_at: 2015-11-13 22:10:22.902000000 Z
+  sequence: 6
+add_members:
+  id: 1000047
+  chorus_class_id: 1000114
+  name: add_members
+  description:
+  created_at: 2015-11-13 22:10:22.908000000 Z
+  updated_at: 2015-11-13 22:10:22.915000000 Z
+  sequence: 7
+delete_members:
+  id: 1000048
+  chorus_class_id: 1000114
+  name: delete_members
+  description:
+  created_at: 2015-11-13 22:10:22.920000000 Z
+  updated_at: 2015-11-13 22:10:22.928000000 Z
+  sequence: 8
+add_to_scope:
+  id: 1000049
+  chorus_class_id: 1000114
+  name: add_to_scope
+  description:
+  created_at: 2015-11-13 22:10:22.934000000 Z
+  updated_at: 2015-11-13 22:10:22.947000000 Z
+  sequence: 9
+remove_from_scope:
+  id: 1000050
+  chorus_class_id: 1000114
+  name: remove_from_scope
+  description:
+  created_at: 2015-11-13 22:10:22.954000000 Z
+  updated_at: 2015-11-13 22:10:22.961000000 Z
+  sequence: 10
+add_sandbox:
+  id: 1000051
+  chorus_class_id: 1000114
+  name: add_sandbox
+  description:
+  created_at: 2015-11-13 22:10:22.968000000 Z
+  updated_at: 2015-11-13 22:10:22.973000000 Z
+  sequence: 11
+delete_sandbox:
+  id: 1000052
+  chorus_class_id: 1000114
+  name: delete_sandbox
+  description:
+  created_at: 2015-11-13 22:10:22.977000000 Z
+  updated_at: 2015-11-13 22:10:22.984000000 Z
+  sequence: 12
+change_status:
+  id: 1000053
+  chorus_class_id: 1000114
+  name: change_status
+  description:
+  created_at: 2015-11-13 22:10:22.989000000 Z
+  updated_at: 2015-11-13 22:10:22.996000000 Z
+  sequence: 13
+add_data:
+  id: 1000054
+  chorus_class_id: 1000114
+  name: add_data
+  description:
+  created_at: 2015-11-13 22:10:23.001000000 Z
+  updated_at: 2015-11-13 22:10:23.006000000 Z
+  sequence: 14
+remove_data:
+  id: 1000055
+  chorus_class_id: 1000114
+  name: remove_data
+  description:
+  created_at: 2015-11-13 22:10:23.011000000 Z
+  updated_at: 2015-11-13 22:10:23.016000000 Z
+  sequence: 15
+explore_data:
+  id: 1000056
+  chorus_class_id: 1000114
+  name: explore_data
+  description:
+  created_at: 2015-11-13 22:10:23.020000000 Z
+  updated_at: 2015-11-13 22:10:23.028000000 Z
+  sequence: 16
+transform_data:
+  id: 1000057
+  chorus_class_id: 1000114
+  name: transform_data
+  description:
+  created_at: 2015-11-13 22:10:23.032000000 Z
+  updated_at: 2015-11-13 22:10:23.037000000 Z
+  sequence: 17
+download_data:
+  id: 1000058
+  chorus_class_id: 1000114
+  name: download_data
+  description:
+  created_at: 2015-11-13 22:10:23.042000000 Z
+  updated_at: 2015-11-13 22:10:23.047000000 Z
+  sequence: 18
+create_10:
+  id: 1000059
+  chorus_class_id: 1000014
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.056000000 Z
+  updated_at: 2015-11-13 22:10:23.061000000 Z
+  sequence: 0
+show_7:
+  id: 1000060
+  chorus_class_id: 1000014
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.066000000 Z
+  updated_at: 2015-11-13 22:10:23.071000000 Z
+  sequence: 1
+update_7:
+  id: 1000061
+  chorus_class_id: 1000014
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.076000000 Z
+  updated_at: 2015-11-13 22:10:23.081000000 Z
+  sequence: 2
+destroy_7:
+  id: 1000062
+  chorus_class_id: 1000014
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.085000000 Z
+  updated_at: 2015-11-13 22:10:23.092000000 Z
+  sequence: 3
+add_credentials:
+  id: 1000063
+  chorus_class_id: 1000014
+  name: add_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.096000000 Z
+  updated_at: 2015-11-13 22:10:23.101000000 Z
+  sequence: 4
+edit_credentials:
+  id: 1000064
+  chorus_class_id: 1000014
+  name: edit_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.106000000 Z
+  updated_at: 2015-11-13 22:10:23.112000000 Z
+  sequence: 5
+delete_credentials:
+  id: 1000065
+  chorus_class_id: 1000014
+  name: delete_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.117000000 Z
+  updated_at: 2015-11-13 22:10:23.122000000 Z
+  sequence: 6
+add_data_1:
+  id: 1000066
+  chorus_class_id: 1000014
+  name: add_data
+  description:
+  created_at: 2015-11-13 22:10:23.127000000 Z
+  updated_at: 2015-11-13 22:10:23.132000000 Z
+  sequence: 7
+remove_data_1:
+  id: 1000067
+  chorus_class_id: 1000014
+  name: remove_data
+  description:
+  created_at: 2015-11-13 22:10:23.138000000 Z
+  updated_at: 2015-11-13 22:10:23.147000000 Z
+  sequence: 8
+explore_data_1:
+  id: 1000068
+  chorus_class_id: 1000014
+  name: explore_data
+  description:
+  created_at: 2015-11-13 22:10:23.153000000 Z
+  updated_at: 2015-11-13 22:10:23.159000000 Z
+  sequence: 9
+download_data_1:
+  id: 1000069
+  chorus_class_id: 1000014
+  name: download_data
+  description:
+  created_at: 2015-11-13 22:10:23.165000000 Z
+  updated_at: 2015-11-13 22:10:23.171000000 Z
+  sequence: 10
+create_11:
+  id: 1000070
+  chorus_class_id: 1000033
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.179000000 Z
+  updated_at: 2015-11-13 22:10:23.186000000 Z
+  sequence: 0
+show_8:
+  id: 1000071
+  chorus_class_id: 1000033
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.190000000 Z
+  updated_at: 2015-11-13 22:10:23.196000000 Z
+  sequence: 1
+update_8:
+  id: 1000072
+  chorus_class_id: 1000033
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.201000000 Z
+  updated_at: 2015-11-13 22:10:23.207000000 Z
+  sequence: 2
+destroy_8:
+  id: 1000073
+  chorus_class_id: 1000033
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.212000000 Z
+  updated_at: 2015-11-13 22:10:23.217000000 Z
+  sequence: 3
+add_credentials_1:
+  id: 1000074
+  chorus_class_id: 1000033
+  name: add_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.222000000 Z
+  updated_at: 2015-11-13 22:10:23.227000000 Z
+  sequence: 4
+edit_credentials_1:
+  id: 1000075
+  chorus_class_id: 1000033
+  name: edit_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.231000000 Z
+  updated_at: 2015-11-13 22:10:23.236000000 Z
+  sequence: 5
+delete_credentials_1:
+  id: 1000076
+  chorus_class_id: 1000033
+  name: delete_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.242000000 Z
+  updated_at: 2015-11-13 22:10:23.247000000 Z
+  sequence: 6
+add_data_2:
+  id: 1000077
+  chorus_class_id: 1000033
+  name: add_data
+  description:
+  created_at: 2015-11-13 22:10:23.252000000 Z
+  updated_at: 2015-11-13 22:10:23.258000000 Z
+  sequence: 7
+remove_data_2:
+  id: 1000078
+  chorus_class_id: 1000033
+  name: remove_data
+  description:
+  created_at: 2015-11-13 22:10:23.262000000 Z
+  updated_at: 2015-11-13 22:10:23.284000000 Z
+  sequence: 8
+explore_data_2:
+  id: 1000079
+  chorus_class_id: 1000033
+  name: explore_data
+  description:
+  created_at: 2015-11-13 22:10:23.290000000 Z
+  updated_at: 2015-11-13 22:10:23.298000000 Z
+  sequence: 9
+download_data_2:
+  id: 1000080
+  chorus_class_id: 1000033
+  name: download_data
+  description:
+  created_at: 2015-11-13 22:10:23.303000000 Z
+  updated_at: 2015-11-13 22:10:23.308000000 Z
+  sequence: 10
+create_12:
+  id: 1000081
+  chorus_class_id: 1000021
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.316000000 Z
+  updated_at: 2015-11-13 22:10:23.321000000 Z
+  sequence: 0
+show_9:
+  id: 1000082
+  chorus_class_id: 1000021
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.326000000 Z
+  updated_at: 2015-11-13 22:10:23.331000000 Z
+  sequence: 1
+update_9:
+  id: 1000083
+  chorus_class_id: 1000021
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.336000000 Z
+  updated_at: 2015-11-13 22:10:23.341000000 Z
+  sequence: 2
+destroy_9:
+  id: 1000084
+  chorus_class_id: 1000021
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.346000000 Z
+  updated_at: 2015-11-13 22:10:23.350000000 Z
+  sequence: 3
+add_credentials_2:
+  id: 1000085
+  chorus_class_id: 1000021
+  name: add_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.355000000 Z
+  updated_at: 2015-11-13 22:10:23.360000000 Z
+  sequence: 4
+edit_credentials_2:
+  id: 1000086
+  chorus_class_id: 1000021
+  name: edit_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.365000000 Z
+  updated_at: 2015-11-13 22:10:23.370000000 Z
+  sequence: 5
+delete_credentials_2:
+  id: 1000087
+  chorus_class_id: 1000021
+  name: delete_credentials
+  description:
+  created_at: 2015-11-13 22:10:23.374000000 Z
+  updated_at: 2015-11-13 22:10:23.380000000 Z
+  sequence: 6
+add_data_3:
+  id: 1000088
+  chorus_class_id: 1000021
+  name: add_data
+  description:
+  created_at: 2015-11-13 22:10:23.384000000 Z
+  updated_at: 2015-11-13 22:10:23.389000000 Z
+  sequence: 7
+remove_data_3:
+  id: 1000089
+  chorus_class_id: 1000021
+  name: remove_data
+  description:
+  created_at: 2015-11-13 22:10:23.393000000 Z
+  updated_at: 2015-11-13 22:10:23.401000000 Z
+  sequence: 8
+explore_data_3:
+  id: 1000090
+  chorus_class_id: 1000021
+  name: explore_data
+  description:
+  created_at: 2015-11-13 22:10:23.405000000 Z
+  updated_at: 2015-11-13 22:10:23.411000000 Z
+  sequence: 9
+download_data_3:
+  id: 1000091
+  chorus_class_id: 1000021
+  name: download_data
+  description:
+  created_at: 2015-11-13 22:10:23.415000000 Z
+  updated_at: 2015-11-13 22:10:23.421000000 Z
+  sequence: 10
+create_13:
+  id: 1000092
+  chorus_class_id: 1000063
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.431000000 Z
+  updated_at: 2015-11-13 22:10:23.436000000 Z
+  sequence: 0
+show_10:
+  id: 1000093
+  chorus_class_id: 1000063
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.441000000 Z
+  updated_at: 2015-11-13 22:10:23.446000000 Z
+  sequence: 1
+update_10:
+  id: 1000094
+  chorus_class_id: 1000063
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.451000000 Z
+  updated_at: 2015-11-13 22:10:23.457000000 Z
+  sequence: 2
+destroy_10:
+  id: 1000095
+  chorus_class_id: 1000063
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.462000000 Z
+  updated_at: 2015-11-13 22:10:23.468000000 Z
+  sequence: 3
+update_11:
+  id: 1000110
+  chorus_class_id: 1000008
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.619000000 Z
+  updated_at: 2015-11-13 22:10:23.624000000 Z
+  sequence: 2
+create_attachment_on_1:
+  id: 1000096
+  chorus_class_id: 1000063
+  name: create_attachment_on
+  description:
+  created_at: 2015-11-13 22:10:23.472000000 Z
+  updated_at: 2015-11-13 22:10:23.478000000 Z
+  sequence: 4
+destroy_11:
+  id: 1000111
+  chorus_class_id: 1000008
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.628000000 Z
+  updated_at: 2015-11-13 22:10:23.633000000 Z
+  sequence: 3
+demote_from_insight:
+  id: 1000097
+  chorus_class_id: 1000063
+  name: demote_from_insight
+  description:
+  created_at: 2015-11-13 22:10:23.484000000 Z
+  updated_at: 2015-11-13 22:10:23.489000000 Z
+  sequence: 5
+promote_to_insight:
+  id: 1000112
+  chorus_class_id: 1000008
+  name: promote_to_insight
+  description:
+  created_at: 2015-11-13 22:10:23.638000000 Z
+  updated_at: 2015-11-13 22:10:23.643000000 Z
+  sequence: 4
+create_15:
+  id: 1000098
+  chorus_class_id: 1000091
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.500000000 Z
+  updated_at: 2015-11-13 22:10:23.505000000 Z
+  sequence: 0
+create_16:
+  id: 1000113
+  chorus_class_id: 1000108
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.649000000 Z
+  updated_at: 2015-11-13 22:10:23.654000000 Z
+  sequence: 0
+show_11:
+  id: 1000099
+  chorus_class_id: 1000091
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.510000000 Z
+  updated_at: 2015-11-13 22:10:23.515000000 Z
+  sequence: 1
+show_12:
+  id: 1000114
+  chorus_class_id: 1000108
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.658000000 Z
+  updated_at: 2015-11-13 22:10:23.663000000 Z
+  sequence: 1
+update_12:
+  id: 1000100
+  chorus_class_id: 1000091
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.520000000 Z
+  updated_at: 2015-11-13 22:10:23.525000000 Z
+  sequence: 2
+update_13:
+  id: 1000115
+  chorus_class_id: 1000108
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.667000000 Z
+  updated_at: 2015-11-13 22:10:23.672000000 Z
+  sequence: 2
+destroy_12:
+  id: 1000101
+  chorus_class_id: 1000091
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.529000000 Z
+  updated_at: 2015-11-13 22:10:23.535000000 Z
+  sequence: 3
+destroy_13:
+  id: 1000116
+  chorus_class_id: 1000108
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.677000000 Z
+  updated_at: 2015-11-13 22:10:23.682000000 Z
+  sequence: 3
+create_17:
+  id: 1000102
+  chorus_class_id: 1000090
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.542000000 Z
+  updated_at: 2015-11-13 22:10:23.547000000 Z
+  sequence: 0
+create_workflow_1:
+  id: 1000117
+  chorus_class_id: 1000108
+  name: create_workflow
+  description:
+  created_at: 2015-11-13 22:10:23.687000000 Z
+  updated_at: 2015-11-13 22:10:23.693000000 Z
+  sequence: 4
+show_13:
+  id: 1000103
+  chorus_class_id: 1000090
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.551000000 Z
+  updated_at: 2015-11-13 22:10:23.557000000 Z
+  sequence: 1
+run_workflow:
+  id: 1000118
+  chorus_class_id: 1000108
+  name: run_workflow
+  description:
+  created_at: 2015-11-13 22:10:23.698000000 Z
+  updated_at: 2015-11-13 22:10:23.703000000 Z
+  sequence: 5
+update_14:
+  id: 1000104
+  chorus_class_id: 1000090
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.561000000 Z
+  updated_at: 2015-11-13 22:10:23.566000000 Z
+  sequence: 2
+create_19:
+  id: 1000119
+  chorus_class_id: 1000112
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.711000000 Z
+  updated_at: 2015-11-13 22:10:23.716000000 Z
+  sequence: 0
+destroy_14:
+  id: 1000105
+  chorus_class_id: 1000090
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.570000000 Z
+  updated_at: 2015-11-13 22:10:23.575000000 Z
+  sequence: 3
+show_14:
+  id: 1000120
+  chorus_class_id: 1000112
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.721000000 Z
+  updated_at: 2015-11-13 22:10:23.727000000 Z
+  sequence: 1
+add_to_workspace:
+  id: 1000106
+  chorus_class_id: 1000090
+  name: add_to_workspace
+  description:
+  created_at: 2015-11-13 22:10:23.579000000 Z
+  updated_at: 2015-11-13 22:10:23.584000000 Z
+  sequence: 4
+update_15:
+  id: 1000121
+  chorus_class_id: 1000112
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.732000000 Z
+  updated_at: 2015-11-13 22:10:23.737000000 Z
+  sequence: 2
+delete_from_workspace:
+  id: 1000107
+  chorus_class_id: 1000090
+  name: delete_from_workspace
+  description:
+  created_at: 2015-11-13 22:10:23.588000000 Z
+  updated_at: 2015-11-13 22:10:23.593000000 Z
+  sequence: 5
+destroy_15:
+  id: 1000122
+  chorus_class_id: 1000112
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.742000000 Z
+  updated_at: 2015-11-13 22:10:23.747000000 Z
+  sequence: 3
+create_20:
+  id: 1000108
+  chorus_class_id: 1000008
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.600000000 Z
+  updated_at: 2015-11-13 22:10:23.605000000 Z
+  sequence: 0
+run_1:
+  id: 1000123
+  chorus_class_id: 1000112
+  name: run
+  description:
+  created_at: 2015-11-13 22:10:23.752000000 Z
+  updated_at: 2015-11-13 22:10:23.757000000 Z
+  sequence: 4
+show_15:
+  id: 1000109
+  chorus_class_id: 1000008
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.609000000 Z
+  updated_at: 2015-11-13 22:10:23.614000000 Z
+  sequence: 1
+stop:
+  id: 1000124
+  chorus_class_id: 1000112
+  name: stop
+  description:
+  created_at: 2015-11-13 22:10:23.763000000 Z
+  updated_at: 2015-11-13 22:10:23.768000000 Z
+  sequence: 5
+open:
+  id: 1000125
+  chorus_class_id: 1000112
+  name: open
+  description:
+  created_at: 2015-11-13 22:10:23.772000000 Z
+  updated_at: 2015-11-13 22:10:23.777000000 Z
+  sequence: 6
+create_21:
+  id: 1000126
+  chorus_class_id: 1000053
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.784000000 Z
+  updated_at: 2015-11-13 22:10:23.789000000 Z
+  sequence: 0
+show_16:
+  id: 1000127
+  chorus_class_id: 1000053
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.794000000 Z
+  updated_at: 2015-11-13 22:10:23.799000000 Z
+  sequence: 1
+update_16:
+  id: 1000128
+  chorus_class_id: 1000053
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.804000000 Z
+  updated_at: 2015-11-13 22:10:23.810000000 Z
+  sequence: 2
+destroy_16:
+  id: 1000129
+  chorus_class_id: 1000053
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.816000000 Z
+  updated_at: 2015-11-13 22:10:23.821000000 Z
+  sequence: 3
+run_2:
+  id: 1000130
+  chorus_class_id: 1000053
+  name: run
+  description:
+  created_at: 2015-11-13 22:10:23.827000000 Z
+  updated_at: 2015-11-13 22:10:23.833000000 Z
+  sequence: 4
+stop_1:
+  id: 1000131
+  chorus_class_id: 1000053
+  name: stop
+  description:
+  created_at: 2015-11-13 22:10:23.838000000 Z
+  updated_at: 2015-11-13 22:10:23.843000000 Z
+  sequence: 5
+create_22:
+  id: 1000132
+  chorus_class_id: 1000103
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.850000000 Z
+  updated_at: 2015-11-13 22:10:23.856000000 Z
+  sequence: 0
+show_17:
+  id: 1000133
+  chorus_class_id: 1000103
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.860000000 Z
+  updated_at: 2015-11-13 22:10:23.865000000 Z
+  sequence: 1
+update_17:
+  id: 1000134
+  chorus_class_id: 1000103
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.870000000 Z
+  updated_at: 2015-11-13 22:10:23.874000000 Z
+  sequence: 2
+destroy_17:
+  id: 1000135
+  chorus_class_id: 1000103
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.879000000 Z
+  updated_at: 2015-11-13 22:10:23.884000000 Z
+  sequence: 3
+run_3:
+  id: 1000136
+  chorus_class_id: 1000103
+  name: run
+  description:
+  created_at: 2015-11-13 22:10:23.888000000 Z
+  updated_at: 2015-11-13 22:10:23.894000000 Z
+  sequence: 4
+stop_2:
+  id: 1000137
+  chorus_class_id: 1000103
+  name: stop
+  description:
+  created_at: 2015-11-13 22:10:23.898000000 Z
+  updated_at: 2015-11-13 22:10:23.903000000 Z
+  sequence: 5
+create_23:
+  id: 1000138
+  chorus_class_id: 1000061
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.910000000 Z
+  updated_at: 2015-11-13 22:10:23.916000000 Z
+  sequence: 0
+show_18:
+  id: 1000139
+  chorus_class_id: 1000061
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.921000000 Z
+  updated_at: 2015-11-13 22:10:23.925000000 Z
+  sequence: 1
+update_18:
+  id: 1000140
+  chorus_class_id: 1000061
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.930000000 Z
+  updated_at: 2015-11-13 22:10:23.934000000 Z
+  sequence: 2
+destroy_18:
+  id: 1000141
+  chorus_class_id: 1000061
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.938000000 Z
+  updated_at: 2015-11-13 22:10:23.943000000 Z
+  sequence: 3
+complete:
+  id: 1000142
+  chorus_class_id: 1000061
+  name: complete
+  description:
+  created_at: 2015-11-13 22:10:23.947000000 Z
+  updated_at: 2015-11-13 22:10:23.953000000 Z
+  sequence: 4
+restart:
+  id: 1000143
+  chorus_class_id: 1000061
+  name: restart
+  description:
+  created_at: 2015-11-13 22:10:23.957000000 Z
+  updated_at: 2015-11-13 22:10:23.962000000 Z
+  sequence: 5
+create_24:
+  id: 1000144
+  chorus_class_id: 1000101
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:23.968000000 Z
+  updated_at: 2015-11-13 22:10:23.973000000 Z
+  sequence: 0
+show_19:
+  id: 1000145
+  chorus_class_id: 1000101
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:23.977000000 Z
+  updated_at: 2015-11-13 22:10:23.982000000 Z
+  sequence: 1
+update_19:
+  id: 1000146
+  chorus_class_id: 1000101
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:23.986000000 Z
+  updated_at: 2015-11-13 22:10:23.991000000 Z
+  sequence: 2
+destroy_19:
+  id: 1000147
+  chorus_class_id: 1000101
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:23.995000000 Z
+  updated_at: 2015-11-13 22:10:24.000000000 Z
+  sequence: 3
+apply:
+  id: 1000148
+  chorus_class_id: 1000101
+  name: apply
+  description:
+  created_at: 2015-11-13 22:10:24.005000000 Z
+  updated_at: 2015-11-13 22:10:24.009000000 Z
+  sequence: 4
+remove_5:
+  id: 1000149
+  chorus_class_id: 1000101
+  name: remove
+  description:
+  created_at: 2015-11-13 22:10:24.014000000 Z
+  updated_at: 2015-11-13 22:10:24.019000000 Z
+  sequence: 5
+create_25:
+  id: 1000150
+  chorus_class_id: 1000105
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:24.025000000 Z
+  updated_at: 2015-11-13 22:10:24.030000000 Z
+  sequence: 0
+show_20:
+  id: 1000151
+  chorus_class_id: 1000105
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:24.034000000 Z
+  updated_at: 2015-11-13 22:10:24.039000000 Z
+  sequence: 1
+update_20:
+  id: 1000152
+  chorus_class_id: 1000105
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:24.044000000 Z
+  updated_at: 2015-11-13 22:10:24.050000000 Z
+  sequence: 2
+destroy_20:
+  id: 1000153
+  chorus_class_id: 1000105
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:24.054000000 Z
+  updated_at: 2015-11-13 22:10:24.059000000 Z
+  sequence: 3
+create_26:
+  id: 1000154
+  chorus_class_id: 1000041
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:24.066000000 Z
+  updated_at: 2015-11-13 22:10:24.072000000 Z
+  sequence: 0
+show_21:
+  id: 1000155
+  chorus_class_id: 1000041
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:24.076000000 Z
+  updated_at: 2015-11-13 22:10:24.081000000 Z
+  sequence: 1
+update_21:
+  id: 1000156
+  chorus_class_id: 1000041
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:24.086000000 Z
+  updated_at: 2015-11-13 22:10:24.091000000 Z
+  sequence: 2
+destroy_21:
+  id: 1000157
+  chorus_class_id: 1000041
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:24.096000000 Z
+  updated_at: 2015-11-13 22:10:24.101000000 Z
+  sequence: 3
+create_27:
+  id: 1000158
+  chorus_class_id: 1000066
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:24.108000000 Z
+  updated_at: 2015-11-13 22:10:24.112000000 Z
+  sequence: 0
+show_22:
+  id: 1000159
+  chorus_class_id: 1000066
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:24.117000000 Z
+  updated_at: 2015-11-13 22:10:24.122000000 Z
+  sequence: 1
+update_22:
+  id: 1000160
+  chorus_class_id: 1000066
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:24.126000000 Z
+  updated_at: 2015-11-13 22:10:24.131000000 Z
+  sequence: 2
+destroy_22:
+  id: 1000161
+  chorus_class_id: 1000066
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:24.136000000 Z
+  updated_at: 2015-11-13 22:10:24.141000000 Z
+  sequence: 3
+create_28:
+  id: 1000162
+  chorus_class_id: 1000009
+  name: create
+  description:
+  created_at: 2015-11-13 22:10:24.150000000 Z
+  updated_at: 2015-11-13 22:10:24.155000000 Z
+  sequence: 0
+show_23:
+  id: 1000163
+  chorus_class_id: 1000009
+  name: show
+  description:
+  created_at: 2015-11-13 22:10:24.160000000 Z
+  updated_at: 2015-11-13 22:10:24.165000000 Z
+  sequence: 1
+update_23:
+  id: 1000164
+  chorus_class_id: 1000009
+  name: update
+  description:
+  created_at: 2015-11-13 22:10:24.169000000 Z
+  updated_at: 2015-11-13 22:10:24.174000000 Z
+  sequence: 2
+destroy_23:
+  id: 1000165
+  chorus_class_id: 1000009
+  name: destroy
+  description:
+  created_at: 2015-11-13 22:10:24.178000000 Z
+  updated_at: 2015-11-13 22:10:24.183000000 Z
+  sequence: 3

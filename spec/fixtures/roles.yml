@@ -1,0 +1,85 @@
+---
+admin:
+  id: 1000000
+  name: Admin
+  description:
+  created_at: 2015-11-13 22:10:20.427000000 Z
+  updated_at: 2015-11-13 22:10:20.427000000 Z
+owner:
+  id: 1000001
+  name: Owner
+  description:
+  created_at: 2015-11-13 22:10:20.446000000 Z
+  updated_at: 2015-11-13 22:10:20.446000000 Z
+user:
+  id: 1000002
+  name: User
+  description:
+  created_at: 2015-11-13 22:10:20.457000000 Z
+  updated_at: 2015-11-13 22:10:20.457000000 Z
+collaborator:
+  id: 1000003
+  name: Collaborator
+  description:
+  created_at: 2015-11-13 22:10:20.469000000 Z
+  updated_at: 2015-11-13 22:10:20.469000000 Z
+site_administrator:
+  id: 1000004
+  name: SiteAdministrator
+  description:
+  created_at: 2015-11-13 22:10:20.484000000 Z
+  updated_at: 2015-11-13 22:10:20.484000000 Z
+application_administrator:
+  id: 1000005
+  name: ApplicationAdministrator
+  description:
+  created_at: 2015-11-13 22:10:20.493000000 Z
+  updated_at: 2015-11-13 22:10:20.493000000 Z
+application_manager:
+  id: 1000006
+  name: ApplicationManager
+  description:
+  created_at: 2015-11-13 22:10:20.503000000 Z
+  updated_at: 2015-11-13 22:10:20.503000000 Z
+workflow_developer:
+  id: 1000007
+  name: WorkflowDeveloper
+  description:
+  created_at: 2015-11-13 22:10:20.515000000 Z
+  updated_at: 2015-11-13 22:10:20.515000000 Z
+project_manager:
+  id: 1000008
+  name: ProjectManager
+  description:
+  created_at: 2015-11-13 22:10:20.525000000 Z
+  updated_at: 2015-11-13 22:10:20.525000000 Z
+project_developer:
+  id: 1000009
+  name: ProjectDeveloper
+  description:
+  created_at: 2015-11-13 22:10:20.537000000 Z
+  updated_at: 2015-11-13 22:10:20.537000000 Z
+contributor:
+  id: 1000010
+  name: Contributor
+  description:
+  created_at: 2015-11-13 22:10:20.548000000 Z
+  updated_at: 2015-11-13 22:10:20.548000000 Z
+data_scientist:
+  id: 1000011
+  name: DataScientist
+  description:
+  created_at: 2015-11-13 22:10:20.558000000 Z
+  updated_at: 2015-11-13 22:10:20.558000000 Z
+a_role:
+  id: 1000012
+  name: role
+  description: This is a description of a role. Here it is! Right here
+  created_at: 2015-11-13 22:10:27.809000000 Z
+  updated_at: 2015-11-13 22:10:27.809000000 Z
+'1':
+  id: 1000013
+  name: '1'
+  description: This is a description of a role. Here it is! Right here
+  created_at: 2015-11-13 22:10:27.815000000 Z
+  updated_at: 2015-11-13 22:10:27.815000000 Z

@@ -1,0 +1,91 @@
+---
+on_demand:
+  id: 1000001
+  name: Synergize Strategic Experiences
+  enabled:
+  workspace_id: 1000008
+  created_at: 2015-11-13 22:10:59.095000000 Z
+  updated_at: 2015-11-13 22:10:59.095000000 Z
+  deleted_at:
+  next_run:
+  last_run:
+  interval_unit: on_demand
+  interval_value: 0
+  end_run: 2015-11-16 22:10:19.027000000 Z
+  time_zone: Alaska
+  status: idle
+  owner_id: 1000006
+  success_notify: nobody
+  failure_notify: nobody
+leverage_best_of_breed_content:
+  id: 1000002
+  name: Leverage Best Of Breed Content
+  enabled:
+  workspace_id: 1000008
+  created_at: 2015-11-13 22:10:59.113000000 Z
+  updated_at: 2015-11-13 22:10:59.113000000 Z
+  deleted_at:
+  next_run: 2015-11-15 22:10:19.026000000 Z
+  last_run:
+  interval_unit: months
+  interval_value: 19
+  end_run: 2015-11-16 22:10:19.027000000 Z
+  time_zone: Alaska
+  status: idle
+  owner_id: 1000006
+  success_notify: nobody
+  failure_notify: nobody
+benchmark_dynamic_channels:
+  id: 1000003
+  name: Benchmark Dynamic Channels
+  enabled:
+  workspace_id: 1000008
+  created_at: 2015-11-13 22:10:59.132000000 Z
+  updated_at: 2015-11-13 22:10:59.132000000 Z
+  deleted_at:
+  next_run: 2015-11-15 22:10:19.026000000 Z
+  last_run:
+  interval_unit: hours
+  interval_value: 56
+  end_run: 2015-11-16 22:10:19.027000000 Z
+  time_zone: Alaska
+  status: idle
+  owner_id: 1000006
+  success_notify: nobody
+  failure_notify: nobody
+default:
+  id: 1000000
+  name: Expedite Scalable Networks
+  enabled:
+  workspace_id: 1000008
+  created_at: 2015-11-13 22:10:59.075000000 Z
+  updated_at: 2015-11-13 22:10:59.473000000 Z
+  deleted_at:
+  next_run: 2015-11-15 22:10:19.026000000 Z
+  last_run: 2015-11-13 22:00:59.422000000 Z
+  interval_unit: weeks
+  interval_value: 43
+  end_run: 2015-11-16 22:10:19.027000000 Z
+  time_zone: Alaska
+  status: idle
+  owner_id: 1000006
+  success_notify: nobody
+  failure_notify: nobody
+with_recent_results:
+  id: 1000004
+  name: Revolutionize Strategic Eyeballs
+  enabled:
+  workspace_id: 1000008
+  created_at: 2015-11-13 22:10:59.484000000 Z
+  updated_at: 2015-11-13 22:10:59.484000000 Z
+  deleted_at:
+  next_run: 2015-11-15 22:10:19.026000000 Z
+  last_run:
+  interval_unit: weeks
+  interval_value: 39
+  end_run: 2015-11-16 22:10:19.027000000 Z
+  time_zone: Alaska
+  status: idle
+  owner_id: 1000006
+  success_notify: nobody
+  failure_notify: nobody

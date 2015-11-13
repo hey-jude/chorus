@@ -1,0 +1,70 @@
+---
+default:
+  id: 1000001
+  workspace_id: 1000008
+  contents_file_name: import.csv
+  contents_content_type:
+  contents_file_size:
+  contents_updated_at:
+  created_at: 2015-11-13 22:11:00.321000000 Z
+  updated_at: 2015-11-13 22:11:00.321000000 Z
+  has_header: true
+  column_names: |
+    ---
+    - :id
+  types: |
+    ---
+    - :integer
+  to_table: table
+  delimiter: ','
+  user_id: 1000006
+  new_table: true
+  truncate: false
+  user_uploaded: true
+  import_id:
+unimported:
+  id: 1000002
+  workspace_id: 1000008
+  contents_file_name: import.csv
+  contents_content_type:
+  contents_file_size:
+  contents_updated_at:
+  created_at: 2015-11-13 22:11:00.338000000 Z
+  updated_at: 2015-11-13 22:11:00.338000000 Z
+  has_header: true
+  column_names: |
+    ---
+    - :id
+  types: |
+    ---
+    - :integer
+  to_table: table_will_not_be_imported
+  delimiter: ','
+  user_id: 1000006
+  new_table: true
+  truncate: false
+  user_uploaded: true
+  import_id:
+csv_files_001:
+  id: 1000000
+  workspace_id: 1000008
+  contents_file_name: import.csv
+  contents_content_type:
+  contents_file_size:
+  contents_updated_at:
+  created_at: 2015-11-13 22:11:00.297000000 Z
+  updated_at: 2015-11-13 22:11:01.979000000 Z
+  has_header: true
+  column_names: |
+    ---
+    - :id
+  types: |
+    ---
+    - :integer
+  to_table: table
+  delimiter: ','
+  user_id: 1000007
+  new_table: true
+  truncate: false
+  user_uploaded: true
+  import_id: 1000004

@@ -1,0 +1,131 @@
+---
+attachments_001:
+  id: 1000000
+  note_id: 1000012
+  contents_file_name: typeahead_data_source
+  created_at: 2015-11-13 22:10:39.098000000 Z
+  updated_at: 2015-11-13 22:10:39.098000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:10:39.095000000 Z
+  legacy_id:
+sql:
+  id: 1000001
+  note_id: 1000051
+  contents_file_name: workfile.sql
+  created_at: 2015-11-13 22:11:11.067000000 Z
+  updated_at: 2015-11-13 22:11:11.067000000 Z
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:11:11.064000000 Z
+  legacy_id:
+image:
+  id: 1000002
+  note_id: 1000051
+  contents_file_name: User.png
+  created_at: 2015-11-13 22:11:11.700000000 Z
+  updated_at: 2015-11-13 22:11:11.700000000 Z
+  contents_content_type: image/png
+  contents_file_size: 37105
+  contents_updated_at: 2015-11-13 22:11:11.578000000 Z
+  legacy_id:
+attachment:
+  id: 1000003
+  note_id: 1000051
+  contents_file_name: searchquery_data_source
+  created_at: 2015-11-13 22:11:12.179000000 Z
+  updated_at: 2015-11-13 22:11:12.179000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:12.175000000 Z
+  legacy_id:
+attachment_workspace:
+  id: 1000004
+  note_id: 1000059
+  contents_file_name: searchquery_workspace
+  created_at: 2015-11-13 22:11:12.730000000 Z
+  updated_at: 2015-11-13 22:11:12.730000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:12.728000000 Z
+  legacy_id:
+attachment_private_workspace:
+  id: 1000005
+  note_id: 1000073
+  contents_file_name: searchquery_workspace
+  created_at: 2015-11-13 22:11:13.239000000 Z
+  updated_at: 2015-11-13 22:11:13.239000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:13.237000000 Z
+  legacy_id:
+attachment_workfile:
+  id: 1000006
+  note_id: 1000061
+  contents_file_name: searchquery_workfile
+  created_at: 2015-11-13 22:11:13.759000000 Z
+  updated_at: 2015-11-13 22:11:13.759000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:13.757000000 Z
+  legacy_id:
+attachment_private_workfile:
+  id: 1000007
+  note_id: 1000030
+  contents_file_name: searchquery_workspace
+  created_at: 2015-11-13 22:11:14.292000000 Z
+  updated_at: 2015-11-13 22:11:14.292000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:14.289000000 Z
+  legacy_id:
+attachment_dataset:
+  id: 1000008
+  note_id: 1000066
+  contents_file_name: searchquery_dataset
+  created_at: 2015-11-13 22:11:14.852000000 Z
+  updated_at: 2015-11-13 22:11:14.852000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:14.849000000 Z
+  legacy_id:
+attachment_hadoop:
+  id: 1000009
+  note_id: 1000057
+  contents_file_name: searchquery_hadoop
+  created_at: 2015-11-13 22:11:15.442000000 Z
+  updated_at: 2015-11-13 22:11:15.442000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:15.439000000 Z
+  legacy_id:
+attachment_hdfs:
+  id: 1000010
+  note_id: 1000058
+  contents_file_name: searchquery_hdfs_file
+  created_at: 2015-11-13 22:11:15.950000000 Z
+  updated_at: 2015-11-13 22:11:15.950000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:15.947000000 Z
+  legacy_id:
+attachment_workspace_dataset:
+  id: 1000011
+  note_id: 1000069
+  contents_file_name: searchquery_workspace_dataset
+  created_at: 2015-11-13 22:11:16.465000000 Z
+  updated_at: 2015-11-13 22:11:16.465000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:16.463000000 Z
+  legacy_id:
+attachment_on_chorus_view:
+  id: 1000012
+  note_id: 1000068
+  contents_file_name: attachmentsearch
+  created_at: 2015-11-13 22:11:17.016000000 Z
+  updated_at: 2015-11-13 22:11:17.016000000 Z
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:11:17.014000000 Z
+  legacy_id:

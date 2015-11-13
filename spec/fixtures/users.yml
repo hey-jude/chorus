@@ -1,0 +1,301 @@
+---
+no_collaborators:
+  id: 1000003
+  username: no_collaborators
+  password_digest: 351731f3de276f073f73940fb8c176ccf17165b7ccfd3dde4413abcfb21f0c9b
+  created_at: 2015-11-13 22:10:28.706000000 Z
+  updated_at: 2015-11-13 22:11:14.344000000 Z
+  first_name: Lupe
+  last_name: Koch
+  email: lupe@schroederweber.com
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: d3930d25259088c8f2b4725a0b59dffc4a81cf09
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+evil_admin:
+  id: 1000001
+  username: evil_admin
+  password_digest: cf8d6310bcb85bf61ecc9fe437183475357bb09de3fc192f2163d11b768b9083
+  created_at: 2015-11-13 22:10:28.260000000 Z
+  updated_at: 2015-11-13 22:10:28.316000000 Z
+  first_name: Admin_44446
+  last_name: AlphaSearch
+  email: admin_44446@hettingerdubuque.name
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: true
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: 4b839876928920526eaba24356d81cd4fab46147
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+typeahead:
+  id: 1000010
+  username: typeahead
+  password_digest: 357c295ccf4598d83d66d6130c3f2c6e67d3781ba9b0da3d27d77dec0aa5807b
+  created_at: 2015-11-13 22:10:36.842000000 Z
+  updated_at: 2015-11-13 22:10:36.842000000 Z
+  first_name: typeahead
+  last_name: Schiller
+  email: typeahead@nienowcrooks.name
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: 4fd9da53dd25f89481d4278fa17fe3250ae57bea
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+typeahead_too:
+  id: 1000011
+  username: typeahead_too
+  password_digest: 1038506710688ddf67c9d2d52fd55d0b02ad72c2c1a344a1e5a711fbce6e11db
+  created_at: 2015-11-13 22:10:36.885000000 Z
+  updated_at: 2015-11-13 22:10:36.885000000 Z
+  first_name: typeahead_too
+  last_name: Beer
+  email: typeahead_too@hermann.info
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: f843a1da34a95b2227fe115206a59d0b97be8671
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+not_a_member:
+  id: 1000008
+  username: not_a_member
+  password_digest: c333ad4f475da585c5e3f3bbadd8890d4999c060bd22290cf10aa7ef1a221737
+  created_at: 2015-11-13 22:10:30.407000000 Z
+  updated_at: 2015-11-13 22:10:30.407000000 Z
+  first_name: Enos
+  last_name: O'Conner
+  email: enos@green.name
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: bf8eab624541e371eb45fc0f8477dc9bc71d12c9
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+admin:
+  id: 1000000
+  username: admin
+  password_digest: fc328a90aff26825dbd3ec498c950bdd59a87b3334bb4491614aa28e1723af86
+  created_at: 2015-11-13 22:10:28.030000000 Z
+  updated_at: 2015-11-12 22:11:07.207999000 Z
+  first_name: Admin_44445
+  last_name: AlphaSearch
+  email: admin_44445@kaulke.biz
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: true
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: 03e917cb68ad11599a207af8cc13ed512d480236
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+default:
+  id: 1000002
+  username: default
+  password_digest: 1965a2f303e861f3b5c7eb1e0514c388b5079371a542b7e3422c01e340c88efd
+  created_at: 2015-11-13 22:10:28.661000000 Z
+  updated_at: 2015-11-13 22:10:28.661000000 Z
+  first_name: Graciela
+  last_name: Kilback
+  email: graciela@rath.biz
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: eec5b1524c4a4b41dc5bb1f826da7e14b013c685
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+the_collaborator:
+  id: 1000007
+  username: the_collaborator
+  password_digest: 07a13923e386891f369012d7a1b5fc3f837a6b111f2899fc16dd1dfa3275e368
+  created_at: 2015-11-13 22:10:30.237000000 Z
+  updated_at: 2015-11-13 22:11:17.131000000 Z
+  first_name: Donato
+  last_name: Hills
+  email: donato@mertz.info
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: da7cbc42ed5d1cab227055e7d5bdbfd83ac70f6f
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+no_picture:
+  id: 1000004
+  username: no_picture
+  password_digest: 2224cee5506d87d46ef9949c9abae751471c16d528b7d3a03904f777139ce911
+  created_at: 2015-11-13 22:10:28.872000000 Z
+  updated_at: 2015-11-13 22:10:28.872000000 Z
+  first_name: no_picture
+  last_name: Moore
+  email: no_picture@moen.co
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: 36a97b60241b991d8f7b3d267115374aaa74581e
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+with_picture:
+  id: 1000005
+  username: with_picture
+  password_digest: 5b5300df473bf6fcc0369998a530a15491ede365362ee0c2446ad40d135349ca
+  created_at: 2015-11-13 22:10:28.920000000 Z
+  updated_at: 2015-11-13 22:10:29.454000000 Z
+  first_name: with_picture
+  last_name: Haag
+  email: with_picture@parker.name
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name: User.png
+  image_content_type: image/png
+  image_file_size: 39100
+  image_updated_at: 2015-11-13 22:10:29.394000000 Z
+  password_salt: 4a14289fe3873b77bdd7e4e25fbf807279b3cc80
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+restricted_user:
+  id: 1000009
+  username: restricted_user
+  password_digest: b0b6c5c557727a12e91c3a9b47afa5f2e4c4696084e7798f42e9caa580d54b04
+  created_at: 2015-11-13 22:10:30.579000000 Z
+  updated_at: 2015-11-13 22:10:30.716000000 Z
+  first_name: Jalen
+  last_name: Carroll
+  email: jalen@wolfhartmann.co
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name:
+  image_content_type:
+  image_file_size:
+  image_updated_at:
+  password_salt: e7f413dbbc42c9f9b035ecad2d672bfd953a91b2
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:
+owner:
+  id: 1000006
+  username: owner
+  password_digest: 4c2d9d698a6bbb7c39e89b3cef0eb7e5deb75283e987aece3158bf37c4068ec0
+  created_at: 2015-11-13 22:10:29.527000000 Z
+  updated_at: 2015-11-13 22:11:20.173000000 Z
+  first_name: searchquery
+  last_name: Runolfsdottir
+  email: searchquery@goodwin.name
+  title: Chief Data Scientist
+  dept: Corporation Corp., Inc.
+  notes: One of our top performers
+  admin: false
+  deleted_at:
+  image_file_name: User.png
+  image_content_type: image/png
+  image_file_size: 39100
+  image_updated_at: 2015-11-13 22:10:30.005000000 Z
+  password_salt: e90ef6146c019db182dc2f9b90d8b041f1135af9
+  legacy_id:
+  legacy_password_digest:
+  subscribed_to_emails: true
+  developer: false
+  auth_method:
+  ldap_group_id:

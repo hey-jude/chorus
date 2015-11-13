@@ -1,0 +1,526 @@
+---
+default:
+  id: 1000000
+  name: searchquery
+  description: Just for searchquery and greenplumsearch
+  host: non.legit.example.com
+  port: 5432
+  db_name: postgres
+  created_at: 2015-11-13 22:10:31.361000000 Z
+  updated_at: 2015-11-13 22:10:31.361000000 Z
+  owner_id: 1000000
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+shared:
+  id: 1000001
+  name: Shared
+  description:
+  host: gpdb_host44445.emc.com
+  port: 5001
+  db_name: postgres
+  created_at: 2015-11-13 22:10:31.614000000 Z
+  updated_at: 2015-11-13 22:10:31.614000000 Z
+  owner_id: 1000000
+  shared: true
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+owners:
+  id: 1000002
+  name: Owners
+  description:
+  host: gpdb_host44446.emc.com
+  port: 5002
+  db_name: postgres
+  created_at: 2015-11-13 22:10:31.665000000 Z
+  updated_at: 2015-11-13 22:10:31.665000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+admins:
+  id: 1000003
+  name: Admins
+  description:
+  host: gpdb_host44447.emc.com
+  port: 5003
+  db_name: postgres
+  created_at: 2015-11-13 22:10:31.728000000 Z
+  updated_at: 2015-11-13 22:10:31.728000000 Z
+  owner_id: 1000000
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+alternate:
+  id: 1000004
+  name: Alternate
+  description:
+  host: gpdb_host44448.emc.com
+  port: 5004
+  db_name: postgres
+  created_at: 2015-11-13 22:10:31.779000000 Z
+  updated_at: 2015-11-13 22:10:31.779000000 Z
+  owner_id: 1000000
+  shared: true
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+deleted:
+  id: 1000005
+  name: deleted
+  description:
+  host: gpdb_host44449.emc.com
+  port: 5005
+  db_name: postgres
+  created_at: 2015-11-13 22:10:31.838000000 Z
+  updated_at: 2015-11-13 22:10:32.090000000 Z
+  owner_id: 1000000
+  shared: true
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at: 2015-11-13 22:10:32.089000000 Z
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+offline:
+  id: 1000006
+  name: Offline
+  description:
+  host: gpdb_host44450.emc.com
+  port: 5006
+  db_name: postgres
+  created_at: 2015-11-13 22:10:32.279000000 Z
+  updated_at: 2015-11-13 22:10:32.279000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: offline
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+online:
+  id: 1000007
+  name: Online
+  description:
+  host: gpdb_host44451.emc.com
+  port: 5007
+  db_name: postgres
+  created_at: 2015-11-13 22:10:32.334000000 Z
+  updated_at: 2015-11-13 22:10:32.334000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+disabled:
+  id: 1000008
+  name: disabled
+  description:
+  host: gpdb_host44452.emc.com
+  port: 5008
+  db_name: postgres
+  created_at: 2015-11-13 22:10:32.389000000 Z
+  updated_at: 2015-11-13 22:10:32.389000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: disabled
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+incomplete:
+  id: 1000009
+  name: incomplete
+  description:
+  host: gpdb_host44453.emc.com
+  port: 5009
+  db_name: postgres
+  created_at: 2015-11-13 22:10:32.428000000 Z
+  updated_at: 2015-11-13 22:10:32.428000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: incomplete
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+oracle:
+  id: 1000010
+  name: oracle
+  description:
+  host: oracle_host44445.emc.com
+  port: 5001
+  db_name: db_name
+  created_at: 2015-11-13 22:10:32.629000000 Z
+  updated_at: 2015-11-13 22:10:32.629000000 Z
+  owner_id: 1000006
+  shared: false
+  version:
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: OracleDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+jdbc:
+  id: 1000011
+  name: jdbc
+  description:
+  host: jdbc:teradata://jdbc_server44445
+  port:
+  db_name:
+  created_at: 2015-11-13 22:10:33.104000000 Z
+  updated_at: 2015-11-13 22:10:33.104000000 Z
+  owner_id: 1000006
+  shared: false
+  version:
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: JdbcDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+searchquery_jdbc:
+  id: 1000012
+  name: searchquery_jdbc
+  description: searchquery for jdbc data source
+  host: jdbc:teradata://jdbc_server44446
+  port:
+  db_name:
+  created_at: 2015-11-13 22:10:33.289000000 Z
+  updated_at: 2015-11-13 22:10:33.289000000 Z
+  owner_id: 1000006
+  shared: false
+  version:
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: JdbcDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+typeahead_jdbc_source:
+  id: 1000013
+  name: typeahead_jdbc_source
+  description: typeahead for jdbc data source
+  host: jdbc:teradata://jdbc_server44447
+  port:
+  db_name:
+  created_at: 2015-11-13 22:10:33.336000000 Z
+  updated_at: 2015-11-13 22:10:33.336000000 Z
+  owner_id: 1000006
+  shared: false
+  version:
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: JdbcDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+postgres:
+  id: 1000014
+  name: postgres
+  description:
+  host: pg_host44445.my_postgres.com
+  port: 5001
+  db_name: postgres
+  created_at: 2015-11-13 22:10:33.405000000 Z
+  updated_at: 2015-11-13 22:10:33.405000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: PgDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+typeahead_pg_source:
+  id: 1000015
+  name: typeahead_pg_source
+  description: typeahead for pg data source
+  host: pg_host44446.my_postgres.com
+  port: 5002
+  db_name: postgres
+  created_at: 2015-11-13 22:10:33.565000000 Z
+  updated_at: 2015-11-13 22:10:33.565000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: PgDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+searchquery_pg:
+  id: 1000016
+  name: searchquery_pg
+  description: searchquery for pg data source
+  host: pg_host44447.my_postgres.com
+  port: 5003
+  db_name: postgres
+  created_at: 2015-11-13 22:10:33.614000000 Z
+  updated_at: 2015-11-13 22:10:33.614000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: PgDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+typeahead_gpdb_data_source:
+  id: 1000017
+  name: typeahead_gpdb_data_source
+  description:
+  host: gpdb_host44454.emc.com
+  port: 5010
+  db_name: postgres
+  created_at: 2015-11-13 22:10:38.219000000 Z
+  updated_at: 2015-11-13 22:10:38.219000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+typeahead:
+  id: 1000018
+  name: typeahead_oracle_data_source
+  description:
+  host: oracle_host44446.emc.com
+  port: 5002
+  db_name: db_name
+  created_at: 2015-11-13 22:10:38.366000000 Z
+  updated_at: 2015-11-13 22:10:38.366000000 Z
+  owner_id: 1000006
+  shared: false
+  version:
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: OracleDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+gpdb_data_source44445:
+  id: 1000019
+  name: gpdb_data_source44445
+  description:
+  host: gpdb_host44455.emc.com
+  port: 5011
+  db_name: postgres
+  created_at: 2015-11-13 22:10:44.382000000 Z
+  updated_at: 2015-11-13 22:10:44.382000000 Z
+  owner_id: 1000006
+  shared: false
+  version: 9.1.2 - FactoryVersion
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: GpdbDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''
+oracle_data_source44445:
+  id: 1000020
+  name: oracle_data_source44445
+  description:
+  host: oracle_host44447.emc.com
+  port: 5003
+  db_name: db_name
+  created_at: 2015-11-13 22:10:44.445000000 Z
+  updated_at: 2015-11-13 22:10:44.445000000 Z
+  owner_id: 1000006
+  shared: false
+  version:
+  state: online
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  deleted_at:
+  type: OracleDataSource
+  is_hawq:
+  ssl: false
+  hive: false
+  hive_kerberos: false
+  hive_kerberos_principal: ''
+  hive_kerberos_keytab_location: ''
+  hive_hadoop_version: ''

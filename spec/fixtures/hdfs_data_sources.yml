@@ -1,0 +1,145 @@
+---
+hdfs_disabled:
+  id: 1000000
+  name: hdfs_disabled
+  description:
+  host: host44445.emc.com
+  port: 5001
+  owner_id: 1000000
+  version:
+  username:
+  group_list:
+  created_at: 2015-11-13 22:10:33.710000000 Z
+  updated_at: 2015-11-13 22:10:33.710000000 Z
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  state: disabled
+  deleted_at:
+  job_tracker_host: job-tracker-host44445.emc.com
+  job_tracker_port: 10001
+  hdfs_version: Pivotal HD 3
+  high_availability: false
+  connection_parameters: '[]'
+  is_hdfs_hive:
+  hive_metastore_location:
+hdfs_incomplete:
+  id: 1000001
+  name: hdfs_incomplete
+  description:
+  host: host44446.emc.com
+  port: 5002
+  owner_id: 1000000
+  version:
+  username:
+  group_list:
+  created_at: 2015-11-13 22:10:33.800000000 Z
+  updated_at: 2015-11-13 22:10:33.800000000 Z
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  state: incomplete
+  deleted_at:
+  job_tracker_host: job-tracker-host44446.emc.com
+  job_tracker_port: 10002
+  hdfs_version: Pivotal HD 3
+  high_availability: false
+  connection_parameters: '[]'
+  is_hdfs_hive:
+  hive_metastore_location:
+hadoop:
+  id: 1000002
+  name: searchquery_hadoop
+  description: searchquery for the hadoop data source
+  host: hadoop.example.com
+  port: 1111
+  owner_id: 1000000
+  version:
+  username:
+  group_list:
+  created_at: 2015-11-13 22:10:33.834000000 Z
+  updated_at: 2015-11-13 22:10:33.834000000 Z
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  state: online
+  deleted_at:
+  job_tracker_host:
+  job_tracker_port:
+  hdfs_version: Pivotal HD 3
+  high_availability: false
+  connection_parameters: '[]'
+  is_hdfs_hive:
+  hive_metastore_location:
+hdfs_hive:
+  id: 1000003
+  name: hdfs_hive
+  description:
+  host: host44447.emc.com
+  port: 5003
+  owner_id: 1000000
+  version:
+  username:
+  group_list:
+  created_at: 2015-11-13 22:10:34.066000000 Z
+  updated_at: 2015-11-13 22:10:34.066000000 Z
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  state: online
+  deleted_at:
+  job_tracker_host: job-tracker-host44447.emc.com
+  job_tracker_port: 10003
+  hdfs_version: Pivotal HD 3
+  high_availability: false
+  connection_parameters: '[]'
+  is_hdfs_hive: true
+  hive_metastore_location: thrift://cdh5cm.alpinenow.local:9083
+typeahead:
+  id: 1000004
+  name: typeahead_hdfs_data_source
+  description:
+  host: host44448.emc.com
+  port: 5004
+  owner_id: 1000006
+  version:
+  username:
+  group_list:
+  created_at: 2015-11-13 22:10:38.261000000 Z
+  updated_at: 2015-11-13 22:10:38.261000000 Z
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  state: online
+  deleted_at:
+  job_tracker_host: job-tracker-host44448.emc.com
+  job_tracker_port: 10004
+  hdfs_version: Pivotal HD 3
+  high_availability: false
+  connection_parameters: '[]'
+  is_hdfs_hive:
+  hive_metastore_location:
+hdfs_data_source44445:
+  id: 1000005
+  name: hdfs_data_source44445
+  description:
+  host: host44449.emc.com
+  port: 5005
+  owner_id: 1000006
+  version:
+  username:
+  group_list:
+  created_at: 2015-11-13 22:10:44.501000000 Z
+  updated_at: 2015-11-13 22:10:44.501000000 Z
+  legacy_id:
+  last_checked_at:
+  last_online_at:
+  state: online
+  deleted_at:
+  job_tracker_host: job-tracker-host44449.emc.com
+  job_tracker_port: 10005
+  hdfs_version: Pivotal HD 3
+  high_availability: false
+  connection_parameters: '[]'
+  is_hdfs_hive:
+  hive_metastore_location:
