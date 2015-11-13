@@ -22,9 +22,9 @@ GIT
 
 GIT
   remote: git://github.com/pivotal/jasmine-gem.git
-  revision: 293cb072d2f19b1534a6472a1a8c6844ffb575ae
+  revision: 2cd7c64999924e0b8525e5af0d05629a54837332
   specs:
-    jasmine (2.3.1)
+    jasmine (2.3.0)
       jasmine-core (~> 2.3)
       phantomjs
       rack (>= 1.2.1)
@@ -32,32 +32,46 @@ GIT
 
 GIT
   remote: git://github.com/pivotal/jasmine.git
-  revision: d2f2e2b870d82d8f166caa2d159b9f32eaa6b85c
+  revision: 7e6e905814d70156814110ab85b7c188b85de7b5
   specs:
     jasmine-core (2.3.4)
 
 PATH
   remote: .
   specs:
-    frontend (0.0.1)
+    frontend (1.0.0-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)
+      api
       codemirror-rails (= 5.3)
       compass-rails (= 2.0.4)
-      core
-      handlebars_assets (= 0.20.2)
+      handlebars_assets (= 0.14.1)
       jquery-rails (= 2.1.4)
       messengerjs-rails (= 1.4.1)
+      mizuno
       mustache (= 0.99.4)
       sass-rails (= 5.0.1)
       therubyrhino (= 2.0.4)
       uglifier (= 2.7.1)
+      vis_legacy
       yui-compressor (= 0.12.0)
 
 PATH
   remote: ..
   specs:
-    core (0.0.1)
+    api (1.0.0-java)
+      actionpack (= 4.1.10)
+      actionview (= 4.1.10)
+      activeresource (= 4.0.0)
+      compass-rails (= 2.0.4)
+      core
+      jbuilder (= 2.3.0)
+      mustache (= 0.99.4)
+      nokogiri (= 1.6.6.2)
+      sass-rails (= 5.0.1)
+      sunspot_rails (= 2.1.0)
+      will_paginate (= 3.0.4)
+    core (1.0.0-java)
       actionmailer (= 4.1.10)
       activerecord (= 4.1.10)
       activerecord-jdbcpostgresql-adapter
@@ -72,9 +86,11 @@ PATH
       premailer-rails
       protected_attributes
       render_anywhere
+      rubyzip (= 0.9.9)
       sequel (~> 4.0)
       sunspot_rails (= 2.1.0)
       will_paginate (= 3.0.4)
+    vis_legacy (1.0.0-java)
 
 GEM
   remote: https://rubygems.org/
@@ -104,6 +120,10 @@ GEM
     activerecord-jdbcpostgresql-adapter (1.3.18)
       activerecord-jdbc-adapter (~> 1.3.18)
       jdbc-postgres (>= 9.1)
+    activeresource (4.0.0)
+      activemodel (~> 4.0)
+      activesupport (~> 4.0)
+      rails-observers (~> 0.1.1)
     activesupport (4.1.10)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -124,7 +144,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    chunky_png (1.3.4)
+    childprocess (0.5.7)
+      ffi (~> 1.0, >= 1.0.11)
+    choice (0.2.0)
+    chunky_png (1.3.5)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cliver (0.3.2)
@@ -151,7 +174,7 @@ GEM
       compass (~> 1.0.0)
       sass-rails (<= 5.0.1)
       sprockets (< 2.13)
-    css_parser (1.3.6)
+    css_parser (1.3.7)
       addressable
     diff-lcs (1.2.5)
     encryptor (1.3.0)
@@ -163,16 +186,18 @@ GEM
     fuubar (1.3.3)
       rspec (>= 2.14.0, < 3.1.0)
       ruby-progressbar (~> 1.4)
-    handlebars_assets (0.20.2)
-      execjs (~> 2.0)
-      multi_json (~> 1.0)
-      sprockets (>= 2.0.0, < 4.0)
-      tilt (~> 1.2)
+    handlebars_assets (0.14.1)
+      execjs (>= 1.2.9)
+      sprockets (>= 2.0.3)
+      tilt
     hike (1.2.3)
     honor_codes (0.1.2)
       thor (~> 0.19.1)
     htmlentities (4.3.4)
     i18n (0.7.0)
+    jbuilder (2.3.0)
+      activesupport (>= 3.0.0, < 5)
+      multi_json (~> 1.2)
     jdbc-postgres (9.4.1200)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -185,10 +210,15 @@ GEM
     messengerjs-rails (1.4.1)
     mime-types (2.6.2)
     minitest (5.7.0)
+    mizuno (0.6.11)
+      childprocess (>= 0.2.6)
+      choice (>= 0.1.0)
+      ffi (>= 1.0.0)
+      rack (>= 1.0.0)
     multi_json (1.11.2)
     mustache (0.99.4)
     net-ldap (0.11)
-    newrelic_rpm (3.13.1.300)
+    newrelic_rpm (3.14.0.305)
     nokogiri (1.6.6.2-java)
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
@@ -225,6 +255,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.10)
       sprockets-rails (~> 2.0)
+    rails-observers (0.1.2)
+      activemodel (~> 4.0)
     railties (4.1.10)
       actionpack (= 4.1.10)
       activesupport (= 4.1.10)
@@ -237,7 +269,7 @@ GEM
     render_anywhere (0.0.12)
       rails (>= 3.0.7)
     rr (1.1.2)
-    rsolr (1.0.12)
+    rsolr (1.0.13)
       builder (>= 2.1.2)
     rspec (2.99.0)
       rspec-core (~> 2.99.0)
@@ -259,7 +291,8 @@ GEM
       rspec-expectations (~> 2.99.0)
       rspec-mocks (~> 2.99.0)
     ruby-progressbar (1.7.5)
-    sass (3.4.18)
+    rubyzip (0.9.9)
+    sass (3.4.19)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -267,7 +300,7 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
     scrolls (0.0.9)
-    sequel (4.26.0)
+    sequel (4.27.0)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     sprockets (2.12.4)
@@ -310,22 +343,24 @@ PLATFORMS
   java
 
 DEPENDENCIES
+  api!
   backbone_fixtures_rails!
   bullet
   chorusgnip!
-  core!
   factory_girl
   frontend!
   fuubar
   jasmine!
   jasmine-core!
   minitest
+  mizuno
   poltergeist
   queue_classic!
   quiet_assets
   rr
   rspec-rails (= 2.99.0)
   shoulda-matchers
+  vis_legacy!
 
 BUNDLED WITH
    1.10.6

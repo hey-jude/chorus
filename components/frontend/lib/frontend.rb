@@ -8,12 +8,6 @@ require 'rhino'
 require 'uglifier'
 require 'jquery-rails'
 
-unless Rails.env.production?
-  ENV['JASMINE_CONFIG_PATH'] = "#{ENV['CHORUS_HOME']}/components/frontend/spec/javascripts/support/jasmine.yml"
-  require 'jasmine'
-  require 'mizuno'
-end
-
 module Frontend
   require "frontend/engine"
 end
