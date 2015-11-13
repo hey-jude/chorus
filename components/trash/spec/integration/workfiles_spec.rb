@@ -68,7 +68,7 @@ describe "Workfiles" do
   describe "editing a workfile", :greenplum_integration do
     let(:workspace) { workspaces(:real) }
     let(:user) { users(:admin) }
-    let(:file) { File.open(Rails.root.join('spec', 'fixtures', 'workfile.sql')) }
+    let(:file) { File.open(Rails.root.join('spec', 'fixtures', 'files', 'workfile.sql')) }
     let(:workfile) { FactoryGirl.create :chorus_workfile, :workspace => workspace, :file_name => 'sqley.sql', :execution_schema => workspace.sandbox, :owner => user }
 
     before do

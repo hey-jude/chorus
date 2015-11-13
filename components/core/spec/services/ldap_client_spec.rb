@@ -565,7 +565,7 @@ describe LdapClient do
     pending("KT TODO: commenting out at start of upgrades, as these are failing, and lots to do.")
 
     # before(:all) do
-    #   ldif_path = Core::Engine.root.join('spec', 'fixtures', 'ldap_fixture.ldif').to_s
+    #   ldif_path = Core::Engine.root.join('spec', 'fixtures', 'files', 'ldap_fixture.ldif').to_s
     #   @ldap_server = Ladle::Server.new(
     #     :ldif => ldif_path,
     #     :domain => "dc=example,dc=COM",

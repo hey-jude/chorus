@@ -14,7 +14,7 @@ resource "Visualizations" do
 
     required_parameters :svg, :'chart-name', :'chart-type'
 
-    let(:svg) { File.read(File.expand_path("spec/fixtures/SVG-logo.svg", Rails.root)) }
+    let(:svg) { File.read(File.expand_path("spec/fixtures/files/SVG-logo.svg", ENV['CHORUS_HOME'])) }
 
     example_request "Download a rendered SVG visualization as png" do
       explanation <<-DESC

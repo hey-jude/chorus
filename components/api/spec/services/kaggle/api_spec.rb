@@ -32,7 +32,7 @@ describe Kaggle::API, :kaggle_api => true do
 
         stub(Kaggle::API).enabled? { true }
         FakeWeb.register_uri(:get, kaggle_api_url,
-                             :body => File.read(Core::Engine.root + "spec/fixtures/kaggleSearchResults.json"),
+                             :body => File.read("#{ENV['CHORUS_HOME']}/spec/fixtures/files/kaggleSearchResults.json"),
                              :status => ["200", "Success"])
       end
 
@@ -62,7 +62,7 @@ describe Kaggle::API, :kaggle_api => true do
       include FakeFS::SpecHelpers
 
       before :all do
-        @kaggle_users = File.read(Core::Engine.root + "spec/fixtures/kaggleSearchResults.json")
+        @kaggle_users = File.read("#{ENV['CHORUS_HOME']}/spec/fixtures/files/kaggleSearchResults.json")
       end
 
       before do

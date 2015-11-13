@@ -27,7 +27,7 @@ describe "Workspaces" do
     it "uploads an image for a workspace" do
       visit("#/workspaces/#{workspace.id}")
       click_link "Workspace Settings"
-      attach_file("image_upload_input", File.join(File.dirname(__FILE__), '../fixtures/User.png'))
+      attach_file("image_upload_input", File.join(File.dirname(__FILE__), '../fixtures/files/User.png'))
       click_button "Save Changes"
       page.should have_selector(".page_sub_header")
       workspace.reload.image.original_filename.should == 'User.png'

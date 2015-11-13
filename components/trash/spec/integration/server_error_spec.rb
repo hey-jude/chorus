@@ -12,7 +12,7 @@ describe "500 Internal Server Error" do
       click_link("Upload a File")
 
       within_modal do
-        attach_file("workfile[versions_attributes][0][contents]", File.join(File.dirname(__FILE__), '../fixtures/some.txt'))
+        attach_file("workfile[versions_attributes][0][contents]", "#{ENV['CHORUS_HOME']}/spec/fixtures/files/some.txt"))
         click_button("Upload File")
       end
 

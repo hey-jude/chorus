@@ -905,7 +905,7 @@ shared_examples 'a postgres-like connection' do
     describe 'copy_csv' do
       let(:number_of_lines) { 200 }
       let(:expected) { number_of_lines }
-      let(:reader) { java.io.FileReader.new Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'test.csv').to_s }
+      let(:reader) { java.io.FileReader.new Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'test.csv').to_s }
       let(:table_name) { 'csv_to_table' }
       let(:column_names) {['a', 'b', 'c']}
       let(:delimiter) { ',' }
