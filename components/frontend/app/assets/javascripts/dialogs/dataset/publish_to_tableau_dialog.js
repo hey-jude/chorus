@@ -1,7 +1,7 @@
 chorus.dialogs.PublishToTableau = chorus.dialogs.Base.include(chorus.Mixins.DialogFormHelpers).extend({
     constructorName: "PublishTableau",
 
-    templateName:"publish_to_tableau_dialog",
+    templateName: "publish_to_tableau_dialog",
     title: t("tableau.dialog.publish_to_tableau.title"),
 
     setup: function() {

@@ -44,9 +44,9 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
         var source_disabled = false;
 
         if (location && !_.isUndefined(location.dataSource)) {
-            source_disabled = location.dataSource().isDisabled();
+            source_disabled = location.dataSource().isDisabled() || location.dataSource().isIncomplete();
         } else if (location && !_.isUndefined(location.isDisabled)) {
-            source_disabled = location.isDisabled();
+            source_disabled = location.isDisabled() || location.isIncomplete();
         }
 
         return source_disabled;

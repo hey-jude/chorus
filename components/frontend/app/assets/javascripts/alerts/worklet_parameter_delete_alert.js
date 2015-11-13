@@ -6,7 +6,7 @@ chorus.alerts.WorkletParameterDeleteAlert = chorus.alerts.ModelDelete.extend({
     text: t("worklets.parameter.delete.text"),
     deleteMessage: "worklets.parameter.delete.success",
 
-    setup:function () {
+    setup: function () {
         //this.title = t("workfile.delete.title", {workfileTitle:this.model.get("fileName")});
         //this.redirectUrl = this.model.workspace().workfilesUrl();
     },
@@ -17,12 +17,12 @@ chorus.alerts.WorkletParameterDeleteAlert = chorus.alerts.ModelDelete.extend({
         };
     },
 
-    makeModel:function () {
+    makeModel: function () {
         this.model = this.model || new chorus.models.WorkletParameter({});
     },
 
     modelDeleted: function() {
         this._super("modelDeleted");
-        chorus.PageEvents.trigger("parameter:deleted", this.options);
+        chorus.PageEvents.trigger("parameter: deleted", this.options);
     }
 });

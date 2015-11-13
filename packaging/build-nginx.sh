@@ -8,10 +8,10 @@ pushd build
 mkdir -p dependencies
 pushd dependencies
 
-NGINX_VER=1.6.3
-PCRE_VER=8.36
+NGINX_VER=1.8.0
+PCRE_VER=8.37
 ZLIB_VER=1.2.8
-OPENSSL_VER=0.9.8zf
+OPENSSL_VER=0.9.8zg
 
 wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$PCRE_VER.tar.gz
 wget http://zlib.net/zlib-$ZLIB_VER.tar.gz
@@ -39,7 +39,7 @@ else
     os_friendly_name='Linux'
    #./configure --with-pcre="../dependencies/pcre-$PCRE_VER" --with-zlib="../dependencies/zlib-$ZLIB_VER" --with-openssl="../dependencies/openssl-$OPENSSL_VER" --prefix="./nginx_data" --with-cc-opt="-DNGX_HAVE_ACCEPT4=0" --with-ld-opt="-static-libgcc -Wl,-Bstatic -lc" --with-http_gzip_static_module --with-http_ssl_module --with-ipv6
     ./configure --with-pcre="../dependencies/pcre-$PCRE_VER" --with-zlib="../dependencies/zlib-$ZLIB_VER" --with-openssl="../dependencies/openssl-$OPENSSL_VER" --prefix="./nginx_data" --with-cc-opt="-DNGX_HAVE_ACCEPT4=0" --with-ld-opt="-static-libgcc -static-libstdc++ -lc" --with-http_gzip_static_module --with-http_ssl_module --with-ipv6
-    
+
 fi
 
 make

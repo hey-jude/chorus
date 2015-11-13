@@ -17,7 +17,7 @@ chorus.alerts.WorkfileDeleteMultiple = chorus.alerts.ModelDelete.extend({
         this.redirectUrl = this.collection.showUrl();
     },
 
-    deleteMessageParams:function () {
+    deleteMessageParams: function () {
         return {
             count: this.count
         };

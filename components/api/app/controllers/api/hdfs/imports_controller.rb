@@ -1,10 +1,9 @@
 # KT TODO: why not inherit from HdfsDataSourcesController?
 module Api::Hdfs
   class ImportsController < ApiController
+    wrap_parameters :hdfs_import, :exclude => []
 
     before_filter :check_source_disabled?
-
-    wrap_parameters :hdfs_import, :exclude => []
 
     def create
       Authority.authorize! :create, upload, current_user, { :or => :current_user_is_objects_user }

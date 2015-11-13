@@ -2,23 +2,23 @@ chorus.pages.UserIndexPage = chorus.pages.Base.extend({
     constructorName: 'UserIndexPage',
     helpId: "users",
 
-    setup:function () {
+    setup: function () {
         this.collection = new chorus.collections.UserSet();
         this.collection.sortAsc("firstName");
         this.collection.fetch();
 
         this.mainContent = new chorus.views.MainContentList({
-            modelClass:"User",
+            modelClass: "User",
             title: t("header.users_list"),
-            collection:this.collection,
-            linkMenus:{
-                sort:{
-                    title:t("users.header.menu.sort.title"),
-                    options:[
-                        {data:"firstName", text:t("users.header.menu.sort.first_name")},
-                        {data:"lastName", text:t("users.header.menu.sort.last_name")}
+            collection: this.collection,
+            linkMenus: {
+                sort: {
+                    title: t("users.header.menu.sort.title"),
+                    options: [
+                        {data: "firstName", text: t("users.header.menu.sort.first_name")},
+                        {data: "lastName", text: t("users.header.menu.sort.last_name")}
                     ],
-                    event:"sort",
+                    event: "sort",
                     chosen: "firstName"
                 }
             }
@@ -29,9 +29,9 @@ chorus.pages.UserIndexPage = chorus.pages.Base.extend({
             this.collection.fetch();
         }, this);
 
-        this.mainContent.contentDetails = new chorus.views.ListContentDetails({ 
-            collection: this.collection, 
-            modelClass: "User", 
+        this.mainContent.contentDetails = new chorus.views.ListContentDetails({
+            collection: this.collection,
+            modelClass: "User",
             multiSelect: true
         });
 
@@ -47,7 +47,7 @@ chorus.pages.UserIndexPage = chorus.pages.Base.extend({
         this.subscribePageEvent("user:selected", this.setModel);
     },
 
-    setModel:function(user) {
+    setModel: function(user) {
         this.model = user;
     },
 
@@ -56,5 +56,5 @@ chorus.pages.UserIndexPage = chorus.pages.Base.extend({
         var actions = isAdmin ? [{name: 'add_user', target: '#/users/new'}] : [];
         this.primaryActionPanel = new chorus.views.PrimaryActionPanel({actions: actions});
     }
-    
+
 });

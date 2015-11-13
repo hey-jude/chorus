@@ -1,6 +1,4 @@
-
-# KT TODO: this is gross
-require_relative '../../../../../version'
+require "#{Rails.root}/version"
 
 module Api
   class ConfigurationsController < ApiController

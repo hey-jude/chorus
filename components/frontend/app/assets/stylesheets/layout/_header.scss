@@ -1,4 +1,4 @@
-@import "../_browser_support";
+@import "_browser_support";
 @import "compass/css3";
 
 $header-margin: 30px;
@@ -393,7 +393,7 @@ $primary-nav-separation-height: 30px;
             }
         }
 
-        .menu.popup_username {
+        .menu.popup_usermenu {
             line-height: 24px;
             // account for 1px border around popup
             right: $header-margin-right - 1;

@@ -1,12 +1,14 @@
 chorus.views.Header = chorus.views.Base.extend({
     constructorName: "HeaderView",
     templateName: "header",
+
     events: {
-        "click .username a.label": "togglePopupUsername",
+        "click .username a.label": "togglePopupUsermenu",
         "click a.notifications": "togglePopupNotifications",
         "click .drawer a": "togglePopupDrawer",
         "click .type_ahead_result a": "clearSearch",
         "click .help_and_support a": "helpAndSupport",
+        "click .about_this_app a": "aboutThisApp",
         "submit .search form": "startSearch",
         "keydown .search input": "searchKeyPressed"
     },
@@ -18,7 +20,7 @@ chorus.views.Header = chorus.views.Base.extend({
 
     setup: function() {
         this.session = chorus.session;
-        this.unreadNotifications = new chorus.collections.NotificationSet([], { type: 'unread' });
+        this.unreadNotifications = new chorus.collections.NotificationSet([], {type: 'unread'});
         this.notifications = new chorus.collections.NotificationSet();
         this.notifications.per_page = 5;
 
@@ -55,7 +57,7 @@ chorus.views.Header = chorus.views.Base.extend({
                     function(model) {
                         return !!this.unreadNotifications.get(model.get("id"));
                     }, this).first(numberToAdd).value());
-            }
+            };
 
             this.notificationList.collection.loaded = true;
             this.render();
@@ -151,7 +153,7 @@ chorus.views.Header = chorus.views.Base.extend({
     },
 
     togglePopupNotifications: function(e) {
-    	this.notificationList.collection.trigger("reset");
+        this.notificationList.collection.trigger("reset");
         var beingShown = this.$(".menu.popup_notifications").hasClass("hidden");
 
         chorus.PopupMenu.toggle(this, ".menu.popup_notifications", e, '.messages');
@@ -167,19 +169,19 @@ chorus.views.Header = chorus.views.Base.extend({
         }
     },
 
-	displayNotificationCount: function() {
+    displayNotificationCount: function() {
 // 		function to update the unread notification in the header lozenge
 // 		deferred until postrender so that the header loads faster
 // 		and then updates for the user
-		this.$("a.notifications .lozenge").text(this.unreadNotifications.length);
-	},
+        this.$("a.notifications .lozenge").text(this.unreadNotifications.length);
+    },
 
     clearNotificationCount: function() {
         this.$("a.notifications .lozenge").text("0").addClass("empty");
     },
 
-    togglePopupUsername: function(e) {
-        chorus.PopupMenu.toggle(this, ".menu.popup_username", e, '.username');
+    togglePopupUsermenu: function(e) {
+        chorus.PopupMenu.toggle(this, ".menu.popup_usermenu", e, '.username');
     },
 
     togglePopupDrawer: function(e) {
@@ -220,7 +222,18 @@ chorus.views.Header = chorus.views.Base.extend({
     helpAndSupport: function(e){
         e.preventDefault();
         e.stopPropagation();
-        this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
+        // this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
+        this.dialog = new chorus.dialogs.HelpAndSupport();
         this.dialog.launchModal();
+        this.togglePopupUsermenu();
+    },
+
+    aboutThisApp: function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        this.dialog = new chorus.dialogs.AboutThisApp();
+        this.dialog.launchModal();
+        this.togglePopupUsermenu();
     }
+
 });

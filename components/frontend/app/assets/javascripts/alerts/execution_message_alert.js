@@ -1,7 +1,7 @@
 chorus.alerts.ExecutionMessage = chorus.alerts.Base.extend({
     constructorName: "ExecutionMessage",
 
-    cancel:t("actions.close_window"),
+    cancel: t("actions.close_window"),
     additionalClass: "info",
 
     preRender: function() {
@@ -18,7 +18,7 @@ chorus.alerts.ExecutionMessage = chorus.alerts.Base.extend({
         this.title = this.getTitle();
     },
 
-    getTitle:function () {
+    getTitle: function () {
 
         if (this.model.get("workfile"))
             return t("workfile.execution.message.title");

@@ -13,6 +13,11 @@ Api::Engine.routes.draw do
     resource :dashboard_config, :only => [:show, :create], :controller => :user_dashboards
   end
 
+  # Roles, groups and permissions routes
+  #resources :roles
+  #resources :groups
+  #resources :permissions
+
   resources :hdfs_data_sources, :only => [:create, :index, :show, :update, :destroy] do
     scope :module => 'hdfs' do
       resources :files, :only => [:show, :index] do
@@ -21,6 +26,8 @@ Api::Engine.routes.draw do
       end
     end
   end
+
+  resources :hdfs_params, :only => [:index], :controller => 'hdfs/params'
 
   resources :hdfs_datasets, :only => [:create, :update, :destroy]
 
@@ -82,6 +89,16 @@ Api::Engine.routes.draw do
 
   resource :imports, :only => :update, :controller => 'dataset_imports'
 
+  resources :touchpoints, :only => [:index, :show, :update, :destroy], :controller => 'published_worklet' do
+    member do
+      put 'run'
+      post 'stop'
+      post 'share'
+    end
+  end
+
+  resources :worklet_parameter_versions, :only => [:index, :show]
+
   resources :workspaces, :only => [:index, :create, :show, :update, :destroy] do
     resources :members, :only => [:index, :create]
     resource :image, :only => [:create, :show], :controller => :workspace_images
@@ -90,6 +107,19 @@ Api::Engine.routes.draw do
       collection do
         delete :index, action: :destroy_multiple
       end
+    end
+
+    resources :touchpoints, :only => [:create, :show, :update, :destroy], :controller => :worklets do
+      member do
+        put 'run'
+        post 'stop'
+        get 'image'
+        put 'publish'
+        put 'unpublish'
+        post 'upload_image'
+      end
+
+      resources :parameters, :only => [:index, :create, :show, :update, :destroy], :controller => :worklet_parameters
     end
     resources :jobs, :only => [:index, :create, :show, :update, :destroy] do
       resources :job_tasks, :only => [:create, :update, :destroy]

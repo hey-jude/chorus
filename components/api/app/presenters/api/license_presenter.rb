@@ -15,7 +15,8 @@ module Api
                   :limit_milestones => model.limit_milestones?,
                   :limit_jobs => model.limit_jobs?,
                   :limit_sandboxes => model.limit_sandboxes?,
-                  :home_page => model.home_page
+                  :home_page => model.home_page,
+                  :version => model.version
                 })
     end
   end

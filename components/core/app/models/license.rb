@@ -1,3 +1,4 @@
+require "#{Rails.root}/version"
 require 'honor_codes/core'
 
 class License
@@ -80,6 +81,15 @@ class License
     expires? && self[:expires] < date
   end
 
+  # VERSION
+  # tack on the version information to the license model
+  # it isnt part of the actual license file, but is made part of the license information
+  def version
+    build_string
+  end
+
+  # END VERSION
+
   private
 
   attr_reader :license
@@ -103,4 +113,10 @@ class License
   def default_license_path
     Rails.root.join 'config', 'chorus.license.default'
   end
+
+  def build_string
+    f = File.join(Rails.root, 'version_build')
+    File.exists?(f) ? File.read(f) : Chorus::VERSION::STRING
+  end
+
 end

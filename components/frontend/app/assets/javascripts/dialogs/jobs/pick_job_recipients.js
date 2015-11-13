@@ -1,14 +1,14 @@
 chorus.dialogs.PickJobRecipients = chorus.dialogs.Base.extend({
     constructorName: "PickJobRecipients",
-    templateName:"workspace_edit_members",
-    title:t('job.dialog.edit.notify.recipients.title'),
+    templateName: "workspace_edit_members",
+    title: t('job.dialog.edit.notify.recipients.title'),
     additionalClass: "dialog_wide",
 
-    events:{
-        "click button.submit" : "updateChosen"
+    events: {
+        "click button.submit": "updateChosen"
     },
 
-    makeModel:function () {
+    makeModel: function () {
         this._super("makeModel", arguments);
 
         this.available = this.model.workspace().members();
@@ -21,15 +21,15 @@ chorus.dialogs.PickJobRecipients = chorus.dialogs.Base.extend({
         this.listenTo(this.available, "reset", this.populateChosen);
     },
 
-    subviews:{
-        ".shuttle":"shuttle"
+    subviews: {
+        ".shuttle": "shuttle"
     },
 
-    setup:function () {
+    setup: function () {
         this.shuttle = new chorus.views.ShuttleWidget({
-            collection:this.available,
-            selectionSource:this.chosen,
-            objectName:t('job.dialog.edit.notify.recipients.'+this.options.condition)
+            collection: this.available,
+            selectionSource: this.chosen,
+            objectName: t('job.dialog.edit.notify.recipients.'+this.options.condition)
         });
     },
 
@@ -39,8 +39,8 @@ chorus.dialogs.PickJobRecipients = chorus.dialogs.Base.extend({
         }, this));
         this.render();
     },
-    
-    updateChosen:function () {
+
+    updateChosen: function () {
         var ids = _.map(this.shuttle.getSelectedIDs(), function (stringID) {
             return parseInt(stringID, 10);
         });

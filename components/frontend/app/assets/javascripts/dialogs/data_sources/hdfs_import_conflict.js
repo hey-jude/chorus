@@ -7,7 +7,7 @@ chorus.dialogs.HdfsImportConflict = chorus.dialogs.Base.include(chorus.Mixins.Di
         this.model = this.options.model;
     },
 
-    setup:function () {
+    setup: function () {
         this.listenTo(this.resource, "saved", this.saved);
         this.listenTo(this.resource, "saveFailed", this.saveFailed);
         this.disableFormUnlessValid({

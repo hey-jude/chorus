@@ -267,11 +267,11 @@ div[data-page="PublishedWorkletShow"] {
                 text-decoration: none;
             }
 
-            .popup_worklet_menu {
+            .popup_worklets {
                 line-height: 24px;
-                // account for 1px border around popup
-                right: 0;
-                width: $header-margin * 6;
+                right: 0px;
+                width: 180px;
+                top: 45px;
 
                 li {
                     display: block;

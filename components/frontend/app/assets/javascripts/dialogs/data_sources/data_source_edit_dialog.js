@@ -123,7 +123,7 @@ chorus.dialogs.DataSourceEdit = chorus.dialogs.Base.extend({
 
     saveSuccess: function() {
         this.sourceModel.set(this.model.attributes);
-        chorus.toast("data_sources.edit_dialog.saved.toast", {dataSourceName: this.model.name(), toastOpts: {type:"success"}});
+        chorus.toast("data_sources.edit_dialog.saved.toast", {dataSourceName: this.model.name(), toastOpts: {type: "success"}});
         this.closeModal();
     },
 

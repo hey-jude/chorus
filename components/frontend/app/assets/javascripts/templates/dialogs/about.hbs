@@ -1,0 +1,36 @@
+<div class="girdle">
+
+    <div>
+        {{#if brandingLogoSrc}}
+            <img class="logo {{branding}}" src="{{brandingLogoSrc}}"/>
+        {{/if}}
+
+        <h2 id="application_title">{{t applicationKey}}</h2>
+        <div id="application_version">
+            {{t "about.version"}}: <span class="version about_item"></span>
+        </div>
+    
+        <div class="about_list">
+            <ul class="list_vertical_divided items">
+                {{#each items}}
+                    <li class="{{key}}">
+                        <span class="about_label">{{t translationKey}}</span> <span class="about_item">{{value}}</span>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    
+        {{#if copyright}}
+        <div id="footer">
+            <div id="legal" class="{{branding}}">
+                    <span class="copyright">{{{copyright}}}</span>
+            </div>
+        </div>
+        {{/if}}
+
+    </div>
+
+</div>
+{{!-- END girdle --}}
+
+{{> closeWindowFormControls }}

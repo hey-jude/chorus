@@ -201,7 +201,7 @@ chorus.pages.WorkletEditPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
 
     buildPage: function() {
         // Initial (default) view for the editor steps when opening worklet
-        // possible values: from WorkletEditorSubheader. 
+        // possible values: from WorkletEditorSubheader.
         // 'workflow', 'details', 'outputs', 'inputs'
 
         // DEV-12645: re-route user to run page if user does not have permission to update (i.e., not admin and not member of workspace)
@@ -267,21 +267,23 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
             }
         }
         else if (event === 'runStopped') {
-            // We want to continue polling until we have a history; running stop and history are asynchronously updated.
-            // Unless we "clicked stop"; in which case we don't expect an update in the history.
-            this.history.fetchAll({ wait: true });
-            if (this.clickedStop !== true && this._last_hist_len === this.history.length) {
-                return;
-            }
+            if (!_.isUndefined(this.pollerID)) {
+                // We want to continue polling until we have a history; running stop and history are asynchronously updated.
+                // Unless we "clicked stop"; in which case we don't expect an update in the history.
+                this.history.fetchAll({ wait: true });
+                if (this.clickedStop !== true && this._last_hist_len === this.history.length) {
+                    return;
+                }
 
-            if (this.clickedStop !== true) {
-                this.mainContent.content.workletHistory._showLatestEntry = true;
-            }
-            this.clickedStop = false;
-            this.sidebar.runEventHandler('runStopped');
+                if (this.clickedStop !== true) {
+                    this.mainContent.content.workletHistory._showLatestEntry = true;
+                }
+                this.clickedStop = false;
+                this.sidebar.runEventHandler('runStopped');
 
-            clearInterval(this.pollerID);
-            this.pollerID = void 0;
+                clearInterval(this.pollerID);
+                this.pollerID = void 0;
+            }
         }
         else if (event === 'clickedStop') {
             this.clickedStop = true;

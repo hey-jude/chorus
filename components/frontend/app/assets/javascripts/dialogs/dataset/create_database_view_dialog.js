@@ -9,7 +9,7 @@ chorus.dialogs.CreateDatabaseView = chorus.dialogs.Base.extend({
         "click button.submit": "performValidation"
     },
 
-    makeModel:function (options) {
+    makeModel: function (options) {
         this.dataset = this.options.pageModel;
         this.model = new chorus.models.DatabaseViewConverter({workspaceId: this.dataset.get("workspace") && this.dataset.get("workspace").id }, {from: this.dataset});
         this.listenTo(this.model, "saved", this.saved);

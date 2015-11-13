@@ -78,9 +78,9 @@ chorus.presenters.DatasetSidebar = chorus.presenters.Base.extend({
 
     importsEnabled: function() {
         return !!(this.hasWorkspace() && this.resource.workspace().sandbox() &&
-        !(this.resource.dataSource().isDisabled()) &&
-        !(this.resource.isHdfsDataset() || this.resource.isJdbc()) &&
-        !this.resource.get('stale'));
+                !(this.resource.dataSource().isDisabled()) &&
+                !(this.resource.isHdfsDataset() || this.resource.isJdbc()) &&
+                 !this.resource.get('stale'));
     },
 
     hasWorkspace: function() {

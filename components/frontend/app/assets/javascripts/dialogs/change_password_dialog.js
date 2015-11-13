@@ -3,9 +3,9 @@ chorus.dialogs.ChangePassword = chorus.dialogs.Base.extend({
     title: function() {
         return this.changeSelfPassword() ? t("user.change_password_self.title") : t("user.change_password.title");
     },
-    
+
     events: {
-        "submit form":"save"
+        "submit form": "save"
     },
     persistent: true,
 
@@ -19,7 +19,7 @@ chorus.dialogs.ChangePassword = chorus.dialogs.Base.extend({
         return (sessionUserID === passwordUserID) ? true : false;
     },
 
-    save:function (e) {
+    save: function (e) {
         e && e.preventDefault();
 
         this.model.save({
@@ -28,14 +28,14 @@ chorus.dialogs.ChangePassword = chorus.dialogs.Base.extend({
         });
     },
 
-    saved:function () {
+    saved: function () {
         this.model.trigger('invalidated');
         this.showSavedToast();
         this.closeModal();
     },
 
     showSavedToast: function() {
-        // conditionalize the toast: 
+        // conditionalize the toast:
         // whether you are changing your own password or another password
         var toastMessage, fullName;
         if (this.changeSelfPassword()) {
