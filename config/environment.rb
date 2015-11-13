@@ -2,9 +2,9 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
-Chorus::Application.initialize!
+Rails.application.initialize!
 
-Chorus::Application.configure do
+Rails.application.configure do
   # ignore exception on mass assignment protection for Active Record models
   # See: https://github.com/Chorus/chorus/commit/486c8df94207db7a62b137110b9781663ccdff6b
   config.active_record.mass_assignment_sanitizer = :logger

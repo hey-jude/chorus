@@ -1,0 +1,24 @@
+source "https://rubygems.org"
+
+# Declare your gem's dependencies in core.gemspec.
+# Bundler will treat runtime dependencies like base dependencies, and
+# development dependencies will be added by default to the :development group.
+gemspec
+
+# Declare any dependencies that are still in development here instead of in
+# your gemspec. These might include edge Rails or gems from your path or
+# Git. Remember to move these dependencies to your gemspec before releasing
+# your gem to rubygems.org.
+
+gem 'mizuno'
+
+gem 'queue_classic', :github => 'Chorus/queue_classic'
+gem 'chorusgnip', :github => 'Chorus/gnip'
+
+gem 'jasmine', :github => 'pivotal/jasmine-gem'
+gem 'jasmine-core', :github => 'pivotal/jasmine'
+
+# KT TODO: run jasmine specs and figure out development dependencies
+group :test, :development do
+  gem 'backbone_fixtures_rails', :github => 'charleshansen/backbone_fixtures_rails'
+end

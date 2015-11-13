@@ -12,7 +12,7 @@ unless Rails.env.production?
   # remove default rspec_rails tasks and prereqs to start clean (because it assumes the database is test)
   Rake::Task["spec"].clear
   spec_prereq = if Rails.env.test?
-    "db:test:clone_structure"
+    "app:db:test:prepare"
   else
     :noop
   end

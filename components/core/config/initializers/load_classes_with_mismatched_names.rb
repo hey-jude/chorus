@@ -1,0 +1,1 @@
+autoload :Events, Core::Engine.root + 'app/models/events/base'

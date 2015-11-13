@@ -1,5 +1,5 @@
 require 'minimal_spec_helper'
-require_relative "../../packaging/install/installer_io"
+require_relative "../../../../packaging/install/installer_io"
 
 describe InstallerIO do
   let(:io) { described_class.new(silent) }

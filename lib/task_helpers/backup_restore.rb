@@ -36,6 +36,18 @@ module BackupRestore
       db_config['port']
     end
 
+    def pg_cmd_port
+      database_port.blank? ? '' : "-p #{database_port}"
+    end
+
+    def database_user
+      db_config['username']
+    end
+
+    def pg_cmd_user
+      database_user.blank? ? '' : "-U #{database_user}"
+    end
+
     def asset_path
       Rails.root.join "system"
     end
@@ -60,10 +72,6 @@ module BackupRestore
           raise failure_message
         end
       end
-    end
-
-    def postgres_username
-      @pg_user ||= YAML.load_file(Rails.root.join('config/database.yml'))['production']['username']
     end
 
     def adr_container
@@ -99,9 +107,10 @@ module BackupRestore
     def dump_database
       log "Dumping database contents..."
 
-      pg_dump = "#{ENV['CHORUS_HOME']}/packaging/pg_dump.sh -Fc"
+      pg_dump = "$CHORUS_HOME/packaging/pg_dump.sh -Fc"
       pg_dump += " --compress=0" # because our postgres 9.2 install warns that it can't compress otherwise
-      pg_dump += " -p #{database_port} -U #{postgres_username} #{database_name}"
+
+      pg_dump += " #{pg_cmd_port} #{pg_cmd_user} #{database_name}"
       capture_output "#{pg_dump} | gzip > #{DATABASE_DATA_FILENAME}", :error => "Database dump failed."
     end
 
@@ -245,8 +254,8 @@ PROMPT
 
     def restore_database
       log "Restoring database..."
-      capture_output "DYLD_LIBRARY_PATH=$CHORUS_HOME/postgres/lib LD_LIBRARY_PATH=$CHORUS_HOME/postgres/lib exec $CHORUS_HOME/postgres/bin/dropdb -p #{database_port} -U #{postgres_username} #{database_name}", :error => "Existing database could not be dropped."
-      capture_output "gunzip -c #{DATABASE_DATA_FILENAME} | #{ENV['CHORUS_HOME']}/postgres/bin/pg_restore -C -p #{database_port} -U #{postgres_username} -d postgres", :error => "Could not restore database."
+      capture_output "DYLD_LIBRARY_PATH=$CHORUS_HOME/postgres/lib LD_LIBRARY_PATH=$CHORUS_HOME/postgres/lib exec $CHORUS_HOME/postgres/bin/dropdb #{pg_cmd_port} #{pg_cmd_user} #{database_name}", :error => "Existing database could not be dropped."
+      capture_output "gunzip -c #{DATABASE_DATA_FILENAME} | $CHORUS_HOME/postgres/bin/pg_restore -C #{pg_cmd_port} #{pg_cmd_user} -d postgres", :error => "Could not restore database."
     end
 
     def restore_alpine

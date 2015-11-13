@@ -30,7 +30,11 @@ http {
 
     #access_log  logs/access.log  main;
 
-    sendfile        on;
+    # KT: for componentization, removed X-Sendfile, instead relying on config.serve_static_assets = true
+    # ... it was too difficult to configure nginx to serve up static files from so many different places
+    # and, in my opinion this is premature optimization anyways.
+    #sendfile       on;
+
     #tcp_nopush     on;
 
     #keepalive_timeout  0;
@@ -76,8 +80,8 @@ http {
         <% end %>
 
         location / {
-            root  ../../../../public/;
-            try_files $uri $uri/index.html @app;
+           root  ../../../../public/;
+           try_files $uri $uri/index.html @app;
         }
 
         location /system/ {
@@ -131,6 +135,7 @@ http {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Accel-Mapping /.*/system/=/system/;
+            proxy_set_header X-Accel-Mapping /Users/kmtrowbr/Dropbox/Work/proj/alpine-data-labs/chorus/components/frontend/app/assets/=/components/frontend/app/assets/;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_max_temp_file_size 0;
 

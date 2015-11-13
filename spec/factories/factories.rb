@@ -314,7 +314,7 @@ FactoryGirl.define do
 
   factory :upload do
     user
-    contents { Rack::Test::UploadedFile.new(File.expand_path('spec/fixtures/test.csv', Rails.root), 'text/csv') }
+    contents { Rack::Test::UploadedFile.new(File.expand_path('spec/fixtures/test.csv', ENV['CHORUS_HOME']), 'text/csv') }
   end
 
   factory :hdfs_import do

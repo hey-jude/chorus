@@ -1,6 +1,6 @@
 require 'minimal_spec_helper'
 require 'fakefs/spec_helpers'
-require_relative "../../packaging/install/old_release_cleaner"
+require_relative "../../../../packaging/install/old_release_cleaner"
 
 describe OldReleaseCleaner do
   include FakeFS::SpecHelpers
