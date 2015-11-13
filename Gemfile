@@ -17,6 +17,10 @@ end
 
 group :development, :test, :integration, :packaging, :ci_jasmine, :ci_legacy, :ci_next do
   gem 'simplecov', :require => false
-  gem 'backbone_fixtures_rails', :github => 'charleshansen/backbone_fixtures_rails'
   gem 'jetpack', :github => 'Chorus/jetpack', :branch => '6c9253195b+chorus', :require => false
+
+  gem 'backbone_fixtures_rails', :github => 'charleshansen/backbone_fixtures_rails'
+  gem 'jasmine', :github => 'pivotal/jasmine-gem'
+  gem 'jasmine-core', :github => 'pivotal/jasmine'
+  gem 'rspec-rails', '2.99.0'
 end
