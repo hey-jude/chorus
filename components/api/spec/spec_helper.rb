@@ -23,6 +23,9 @@ RspecApiDocumentation.configure do |config|
   config.docs_dir = Pathname.new(ENV['CHORUS_HOME']).join("public", "api")
 end
 
+require 'backbone_fixtures_rails'
+require 'support/backbone_fixtures_path'
+
 require 'shoulda-matchers'
 require 'factory_girl'
 require 'timecop'

@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mustache', '0.99.4'
 
   s.add_development_dependency 'rspec_api_documentation'
+  s.add_development_dependency 'backbone_fixtures_rails'
 
   s.add_development_dependency 'rspec-rails', '2.99.0'
   s.add_development_dependency 'minitest'
