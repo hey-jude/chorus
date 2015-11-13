@@ -79,12 +79,12 @@ def e_check_free_memory():
     executor = ChorusExecutor()
     @processify(msg=text.get("step_msg", "check_free_memory"))
     def check():
-        ret, stdout, stderr = executor.run("free -m |awk 'FNR == 2 {print $4}'")
+        ret, stdout, stderr = executor.run("free -m |awk 'FNR == 2 {print $2}'")
         stdout = stdout.strip()
         if ret == 0 and stdout.isdigit():
-            logger.debug("free memory is %s" % stdout)
-            if int(stdout) < 4096:
-                raise Exception("Not enough free memory, need at least 4096M free memory")
+            logger.debug("total memory is %s" % stdout)
+            if int(stdout) < 8192:
+                raise Exception("Not enough free memory, need at least 8192M free memory")
     check()
 #def d_check_open_port():
 #    from configParser import ConfigParser
