@@ -1,0 +1,30 @@
+{
+  "response": {
+    "importability": false,
+    "invalid_columns": [
+      "unsupported_col (RAINBOWS)"
+    ],
+    "supported_column_types": [
+      "BINARY_DOUBLE",
+      "BINARY_FLOAT",
+      "CHAR",
+      "CLOB",
+      "DATE",
+      "LONG",
+      "DECIMAL",
+      "FLOAT",
+      "INT",
+      "NCHAR",
+      "NCLOB",
+      "NUMBER",
+      "NVARCHAR2",
+      "ROWID",
+      "TIMESTAMP",
+      "UROWID",
+      "VARCHAR",
+      "VARCHAR2",
+      "TIMESTAMP WITH TIME ZONE",
+      "TIMESTAMP WITH LOCAL TIME ZONE"
+    ]
+  }
+}

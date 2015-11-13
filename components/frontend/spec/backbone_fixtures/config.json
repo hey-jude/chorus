@@ -1,0 +1,666 @@
+{
+  "response": {
+    "gpfdist_configured": null,
+    "tableau_configured": false,
+    "tableau_sites": [
+
+    ],
+    "file_sizes_mb_workfiles": 10,
+    "file_sizes_mb_csv_imports": 1,
+    "file_sizes_mb_user_icon": 5,
+    "file_sizes_mb_workspace_icon": 5,
+    "file_sizes_mb_attachment": 10,
+    "file_sizes_mb_hd_upload": 4096,
+    "visualization_overlay_string": null,
+    "kaggle_configured": null,
+    "gnip_configured": false,
+    "execution_timeout_in_minutes": 15,
+    "default_preview_row_limit": 20,
+    "oracle_configured": true,
+    "hdfs_versions": [
+      "Cloudera CDH5",
+      "Cloudera CDH5.3",
+      "Cloudera CDH5.4",
+      "Hortonworks HDP 2",
+      "Hortonworks HDP 2.2",
+      "IBM Big Insights 4.0",
+      "MapR4",
+      "Pivotal HD 3"
+    ],
+    "hive_hdfs_versions": [
+      "Cloudera CDH5",
+      "Cloudera CDH5.3",
+      "Cloudera CDH5.4",
+      "Hortonworks HDP 2",
+      "Hortonworks HDP 2.2",
+      "IBM Big Insights 4.0",
+      "MapR4",
+      "Pivotal HD 3"
+    ],
+    "time_zones": [
+      [
+        "(GMT-10:00) Hawaii",
+        "Hawaii"
+      ],
+      [
+        "(GMT-09:00) Alaska",
+        "Alaska"
+      ],
+      [
+        "(GMT-08:00) Pacific Time (US & Canada)",
+        "Pacific Time (US & Canada)"
+      ],
+      [
+        "(GMT-07:00) Arizona",
+        "Arizona"
+      ],
+      [
+        "(GMT-07:00) Mountain Time (US & Canada)",
+        "Mountain Time (US & Canada)"
+      ],
+      [
+        "(GMT-06:00) Central Time (US & Canada)",
+        "Central Time (US & Canada)"
+      ],
+      [
+        "(GMT-05:00) Eastern Time (US & Canada)",
+        "Eastern Time (US & Canada)"
+      ],
+      [
+        "(GMT-05:00) Indiana (East)",
+        "Indiana (East)"
+      ],
+      [
+        null,
+        null
+      ],
+      [
+        "(GMT-11:00) American Samoa",
+        "American Samoa"
+      ],
+      [
+        "(GMT-11:00) International Date Line West",
+        "International Date Line West"
+      ],
+      [
+        "(GMT-11:00) Midway Island",
+        "Midway Island"
+      ],
+      [
+        "(GMT-11:00) Samoa",
+        "Samoa"
+      ],
+      [
+        "(GMT-08:00) Tijuana",
+        "Tijuana"
+      ],
+      [
+        "(GMT-07:00) Chihuahua",
+        "Chihuahua"
+      ],
+      [
+        "(GMT-07:00) Mazatlan",
+        "Mazatlan"
+      ],
+      [
+        "(GMT-06:00) Central America",
+        "Central America"
+      ],
+      [
+        "(GMT-06:00) Guadalajara",
+        "Guadalajara"
+      ],
+      [
+        "(GMT-06:00) Mexico City",
+        "Mexico City"
+      ],
+      [
+        "(GMT-06:00) Monterrey",
+        "Monterrey"
+      ],
+      [
+        "(GMT-06:00) Saskatchewan",
+        "Saskatchewan"
+      ],
+      [
+        "(GMT-05:00) Bogota",
+        "Bogota"
+      ],
+      [
+        "(GMT-05:00) Lima",
+        "Lima"
+      ],
+      [
+        "(GMT-05:00) Quito",
+        "Quito"
+      ],
+      [
+        "(GMT-04:30) Caracas",
+        "Caracas"
+      ],
+      [
+        "(GMT-04:00) Atlantic Time (Canada)",
+        "Atlantic Time (Canada)"
+      ],
+      [
+        "(GMT-04:00) Georgetown",
+        "Georgetown"
+      ],
+      [
+        "(GMT-04:00) La Paz",
+        "La Paz"
+      ],
+      [
+        "(GMT-03:30) Newfoundland",
+        "Newfoundland"
+      ],
+      [
+        "(GMT-03:00) Brasilia",
+        "Brasilia"
+      ],
+      [
+        "(GMT-03:00) Buenos Aires",
+        "Buenos Aires"
+      ],
+      [
+        "(GMT-03:00) Greenland",
+        "Greenland"
+      ],
+      [
+        "(GMT-03:00) Montevideo",
+        "Montevideo"
+      ],
+      [
+        "(GMT-03:00) Santiago",
+        "Santiago"
+      ],
+      [
+        "(GMT-02:00) Mid-Atlantic",
+        "Mid-Atlantic"
+      ],
+      [
+        "(GMT-01:00) Azores",
+        "Azores"
+      ],
+      [
+        "(GMT-01:00) Cape Verde Is.",
+        "Cape Verde Is."
+      ],
+      [
+        "(GMT+00:00) Casablanca",
+        "Casablanca"
+      ],
+      [
+        "(GMT+00:00) Dublin",
+        "Dublin"
+      ],
+      [
+        "(GMT+00:00) Edinburgh",
+        "Edinburgh"
+      ],
+      [
+        "(GMT+00:00) Lisbon",
+        "Lisbon"
+      ],
+      [
+        "(GMT+00:00) London",
+        "London"
+      ],
+      [
+        "(GMT+00:00) Monrovia",
+        "Monrovia"
+      ],
+      [
+        "(GMT+00:00) UTC",
+        "UTC"
+      ],
+      [
+        "(GMT+01:00) Amsterdam",
+        "Amsterdam"
+      ],
+      [
+        "(GMT+01:00) Belgrade",
+        "Belgrade"
+      ],
+      [
+        "(GMT+01:00) Berlin",
+        "Berlin"
+      ],
+      [
+        "(GMT+01:00) Bern",
+        "Bern"
+      ],
+      [
+        "(GMT+01:00) Bratislava",
+        "Bratislava"
+      ],
+      [
+        "(GMT+01:00) Brussels",
+        "Brussels"
+      ],
+      [
+        "(GMT+01:00) Budapest",
+        "Budapest"
+      ],
+      [
+        "(GMT+01:00) Copenhagen",
+        "Copenhagen"
+      ],
+      [
+        "(GMT+01:00) Ljubljana",
+        "Ljubljana"
+      ],
+      [
+        "(GMT+01:00) Madrid",
+        "Madrid"
+      ],
+      [
+        "(GMT+01:00) Paris",
+        "Paris"
+      ],
+      [
+        "(GMT+01:00) Prague",
+        "Prague"
+      ],
+      [
+        "(GMT+01:00) Rome",
+        "Rome"
+      ],
+      [
+        "(GMT+01:00) Sarajevo",
+        "Sarajevo"
+      ],
+      [
+        "(GMT+01:00) Skopje",
+        "Skopje"
+      ],
+      [
+        "(GMT+01:00) Stockholm",
+        "Stockholm"
+      ],
+      [
+        "(GMT+01:00) Vienna",
+        "Vienna"
+      ],
+      [
+        "(GMT+01:00) Warsaw",
+        "Warsaw"
+      ],
+      [
+        "(GMT+01:00) West Central Africa",
+        "West Central Africa"
+      ],
+      [
+        "(GMT+01:00) Zagreb",
+        "Zagreb"
+      ],
+      [
+        "(GMT+02:00) Athens",
+        "Athens"
+      ],
+      [
+        "(GMT+02:00) Bucharest",
+        "Bucharest"
+      ],
+      [
+        "(GMT+02:00) Cairo",
+        "Cairo"
+      ],
+      [
+        "(GMT+02:00) Harare",
+        "Harare"
+      ],
+      [
+        "(GMT+02:00) Helsinki",
+        "Helsinki"
+      ],
+      [
+        "(GMT+02:00) Istanbul",
+        "Istanbul"
+      ],
+      [
+        "(GMT+02:00) Jerusalem",
+        "Jerusalem"
+      ],
+      [
+        "(GMT+02:00) Kaliningrad",
+        "Kaliningrad"
+      ],
+      [
+        "(GMT+02:00) Kyiv",
+        "Kyiv"
+      ],
+      [
+        "(GMT+02:00) Pretoria",
+        "Pretoria"
+      ],
+      [
+        "(GMT+02:00) Riga",
+        "Riga"
+      ],
+      [
+        "(GMT+02:00) Sofia",
+        "Sofia"
+      ],
+      [
+        "(GMT+02:00) Tallinn",
+        "Tallinn"
+      ],
+      [
+        "(GMT+02:00) Vilnius",
+        "Vilnius"
+      ],
+      [
+        "(GMT+03:00) Baghdad",
+        "Baghdad"
+      ],
+      [
+        "(GMT+03:00) Kuwait",
+        "Kuwait"
+      ],
+      [
+        "(GMT+03:00) Minsk",
+        "Minsk"
+      ],
+      [
+        "(GMT+03:00) Moscow",
+        "Moscow"
+      ],
+      [
+        "(GMT+03:00) Nairobi",
+        "Nairobi"
+      ],
+      [
+        "(GMT+03:00) Riyadh",
+        "Riyadh"
+      ],
+      [
+        "(GMT+03:00) St. Petersburg",
+        "St. Petersburg"
+      ],
+      [
+        "(GMT+03:00) Volgograd",
+        "Volgograd"
+      ],
+      [
+        "(GMT+03:30) Tehran",
+        "Tehran"
+      ],
+      [
+        "(GMT+04:00) Abu Dhabi",
+        "Abu Dhabi"
+      ],
+      [
+        "(GMT+04:00) Baku",
+        "Baku"
+      ],
+      [
+        "(GMT+04:00) Muscat",
+        "Muscat"
+      ],
+      [
+        "(GMT+04:00) Samara",
+        "Samara"
+      ],
+      [
+        "(GMT+04:00) Tbilisi",
+        "Tbilisi"
+      ],
+      [
+        "(GMT+04:00) Yerevan",
+        "Yerevan"
+      ],
+      [
+        "(GMT+04:30) Kabul",
+        "Kabul"
+      ],
+      [
+        "(GMT+05:00) Ekaterinburg",
+        "Ekaterinburg"
+      ],
+      [
+        "(GMT+05:00) Islamabad",
+        "Islamabad"
+      ],
+      [
+        "(GMT+05:00) Karachi",
+        "Karachi"
+      ],
+      [
+        "(GMT+05:00) Tashkent",
+        "Tashkent"
+      ],
+      [
+        "(GMT+05:30) Chennai",
+        "Chennai"
+      ],
+      [
+        "(GMT+05:30) Kolkata",
+        "Kolkata"
+      ],
+      [
+        "(GMT+05:30) Mumbai",
+        "Mumbai"
+      ],
+      [
+        "(GMT+05:30) New Delhi",
+        "New Delhi"
+      ],
+      [
+        "(GMT+05:30) Sri Jayawardenepura",
+        "Sri Jayawardenepura"
+      ],
+      [
+        "(GMT+05:45) Kathmandu",
+        "Kathmandu"
+      ],
+      [
+        "(GMT+06:00) Almaty",
+        "Almaty"
+      ],
+      [
+        "(GMT+06:00) Astana",
+        "Astana"
+      ],
+      [
+        "(GMT+06:00) Dhaka",
+        "Dhaka"
+      ],
+      [
+        "(GMT+06:00) Novosibirsk",
+        "Novosibirsk"
+      ],
+      [
+        "(GMT+06:00) Urumqi",
+        "Urumqi"
+      ],
+      [
+        "(GMT+06:30) Rangoon",
+        "Rangoon"
+      ],
+      [
+        "(GMT+07:00) Bangkok",
+        "Bangkok"
+      ],
+      [
+        "(GMT+07:00) Hanoi",
+        "Hanoi"
+      ],
+      [
+        "(GMT+07:00) Jakarta",
+        "Jakarta"
+      ],
+      [
+        "(GMT+07:00) Krasnoyarsk",
+        "Krasnoyarsk"
+      ],
+      [
+        "(GMT+08:00) Beijing",
+        "Beijing"
+      ],
+      [
+        "(GMT+08:00) Chongqing",
+        "Chongqing"
+      ],
+      [
+        "(GMT+08:00) Hong Kong",
+        "Hong Kong"
+      ],
+      [
+        "(GMT+08:00) Irkutsk",
+        "Irkutsk"
+      ],
+      [
+        "(GMT+08:00) Kuala Lumpur",
+        "Kuala Lumpur"
+      ],
+      [
+        "(GMT+08:00) Perth",
+        "Perth"
+      ],
+      [
+        "(GMT+08:00) Singapore",
+        "Singapore"
+      ],
+      [
+        "(GMT+08:00) Taipei",
+        "Taipei"
+      ],
+      [
+        "(GMT+08:00) Ulaanbaatar",
+        "Ulaanbaatar"
+      ],
+      [
+        "(GMT+09:00) Osaka",
+        "Osaka"
+      ],
+      [
+        "(GMT+09:00) Sapporo",
+        "Sapporo"
+      ],
+      [
+        "(GMT+09:00) Seoul",
+        "Seoul"
+      ],
+      [
+        "(GMT+09:00) Tokyo",
+        "Tokyo"
+      ],
+      [
+        "(GMT+09:00) Yakutsk",
+        "Yakutsk"
+      ],
+      [
+        "(GMT+09:30) Adelaide",
+        "Adelaide"
+      ],
+      [
+        "(GMT+09:30) Darwin",
+        "Darwin"
+      ],
+      [
+        "(GMT+10:00) Brisbane",
+        "Brisbane"
+      ],
+      [
+        "(GMT+10:00) Canberra",
+        "Canberra"
+      ],
+      [
+        "(GMT+10:00) Guam",
+        "Guam"
+      ],
+      [
+        "(GMT+10:00) Hobart",
+        "Hobart"
+      ],
+      [
+        "(GMT+10:00) Magadan",
+        "Magadan"
+      ],
+      [
+        "(GMT+10:00) Melbourne",
+        "Melbourne"
+      ],
+      [
+        "(GMT+10:00) Port Moresby",
+        "Port Moresby"
+      ],
+      [
+        "(GMT+10:00) Sydney",
+        "Sydney"
+      ],
+      [
+        "(GMT+10:00) Vladivostok",
+        "Vladivostok"
+      ],
+      [
+        "(GMT+11:00) New Caledonia",
+        "New Caledonia"
+      ],
+      [
+        "(GMT+11:00) Solomon Is.",
+        "Solomon Is."
+      ],
+      [
+        "(GMT+11:00) Srednekolymsk",
+        "Srednekolymsk"
+      ],
+      [
+        "(GMT+12:00) Auckland",
+        "Auckland"
+      ],
+      [
+        "(GMT+12:00) Fiji",
+        "Fiji"
+      ],
+      [
+        "(GMT+12:00) Kamchatka",
+        "Kamchatka"
+      ],
+      [
+        "(GMT+12:00) Marshall Is.",
+        "Marshall Is."
+      ],
+      [
+        "(GMT+12:00) Wellington",
+        "Wellington"
+      ],
+      [
+        "(GMT+12:45) Chatham Is.",
+        "Chatham Is."
+      ],
+      [
+        "(GMT+13:00) Nuku'alofa",
+        "Nuku'alofa"
+      ],
+      [
+        "(GMT+13:00) Tokelau Is.",
+        "Tokelau Is."
+      ]
+    ],
+    "license": {
+      "admins": -1,
+      "developers": -1,
+      "collaborators": -1,
+      "level": "openchorus",
+      "vendor": "openchorus",
+      "organization_uuid": null,
+      "expires": "2050-01-01",
+      "workflow_enabled": false,
+      "advisor_now_enabled": false,
+      "branding": "alpine",
+      "limit_search": false,
+      "limit_workspace_membership": false,
+      "limit_milestones": false,
+      "limit_jobs": false,
+      "limit_sandboxes": false,
+      "home_page": null,
+      "version": "5.8.0.0"
+    },
+    "restrict_data_source_creation": false,
+    "touchpoints_enabled": false,
+    "chiasm_enabled": null,
+    "external_auth_enabled": true
+  }
+}

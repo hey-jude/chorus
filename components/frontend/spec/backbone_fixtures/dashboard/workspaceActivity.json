@@ -1,0 +1,351 @@
+{
+  "response": {
+    "entity_type": "workspace_activity",
+    "data": {
+      "workspaces": [
+        {
+          "workspace_id": 1000008,
+          "name": "Public",
+          "summary": "searchquery",
+          "event_count": 58,
+          "is_accessible": true
+        },
+        {
+          "workspace_id": 1000006,
+          "name": "Private with no collaborators",
+          "summary": "Not for searchquery, ha ha",
+          "event_count": 5,
+          "is_accessible": true
+        },
+        {
+          "workspace_id": 1000009,
+          "name": "Private",
+          "summary": "searchquery",
+          "event_count": 3,
+          "is_accessible": true
+        },
+        {
+          "workspace_id": 1000005,
+          "name": "Public with no collaborators except collaborator",
+          "summary": "searchquery can see I guess",
+          "event_count": 2,
+          "is_accessible": true
+        },
+        {
+          "workspace_id": 1000011,
+          "name": "Search Private",
+          "summary": "searchquery",
+          "event_count": 1,
+          "is_accessible": true
+        },
+        {
+          "workspace_id": 1000004,
+          "name": "Workspace that is an important project",
+          "summary": null,
+          "event_count": 1,
+          "is_accessible": true
+        }
+      ],
+      "events": [
+        {
+          "date_part": "2015-11-06",
+          "workspace_id": 1000008,
+          "event_count": 0,
+          "rank": 0
+        },
+        {
+          "date_part": "2015-11-06",
+          "workspace_id": 1000006,
+          "event_count": 0,
+          "rank": 1
+        },
+        {
+          "date_part": "2015-11-06",
+          "workspace_id": 1000009,
+          "event_count": 0,
+          "rank": 2
+        },
+        {
+          "date_part": "2015-11-06",
+          "workspace_id": 1000005,
+          "event_count": 0,
+          "rank": 3
+        },
+        {
+          "date_part": "2015-11-06",
+          "workspace_id": 1000011,
+          "event_count": 0,
+          "rank": 4
+        },
+        {
+          "date_part": "2015-11-06",
+          "workspace_id": 1000004,
+          "event_count": 0,
+          "rank": 5
+        },
+        {
+          "date_part": "2015-11-07",
+          "workspace_id": 1000008,
+          "event_count": 0,
+          "rank": 0
+        },
+        {
+          "date_part": "2015-11-07",
+          "workspace_id": 1000006,
+          "event_count": 0,
+          "rank": 1
+        },
+        {
+          "date_part": "2015-11-07",
+          "workspace_id": 1000009,
+          "event_count": 0,
+          "rank": 2
+        },
+        {
+          "date_part": "2015-11-07",
+          "workspace_id": 1000005,
+          "event_count": 0,
+          "rank": 3
+        },
+        {
+          "date_part": "2015-11-07",
+          "workspace_id": 1000011,
+          "event_count": 0,
+          "rank": 4
+        },
+        {
+          "date_part": "2015-11-07",
+          "workspace_id": 1000004,
+          "event_count": 0,
+          "rank": 5
+        },
+        {
+          "date_part": "2015-11-08",
+          "workspace_id": 1000008,
+          "event_count": 0,
+          "rank": 0
+        },
+        {
+          "date_part": "2015-11-08",
+          "workspace_id": 1000006,
+          "event_count": 0,
+          "rank": 1
+        },
+        {
+          "date_part": "2015-11-08",
+          "workspace_id": 1000009,
+          "event_count": 0,
+          "rank": 2
+        },
+        {
+          "date_part": "2015-11-08",
+          "workspace_id": 1000005,
+          "event_count": 0,
+          "rank": 3
+        },
+        {
+          "date_part": "2015-11-08",
+          "workspace_id": 1000011,
+          "event_count": 0,
+          "rank": 4
+        },
+        {
+          "date_part": "2015-11-08",
+          "workspace_id": 1000004,
+          "event_count": 0,
+          "rank": 5
+        },
+        {
+          "date_part": "2015-11-09",
+          "workspace_id": 1000008,
+          "event_count": 0,
+          "rank": 0
+        },
+        {
+          "date_part": "2015-11-09",
+          "workspace_id": 1000006,
+          "event_count": 0,
+          "rank": 1
+        },
+        {
+          "date_part": "2015-11-09",
+          "workspace_id": 1000009,
+          "event_count": 0,
+          "rank": 2
+        },
+        {
+          "date_part": "2015-11-09",
+          "workspace_id": 1000005,
+          "event_count": 0,
+          "rank": 3
+        },
+        {
+          "date_part": "2015-11-09",
+          "workspace_id": 1000011,
+          "event_count": 0,
+          "rank": 4
+        },
+        {
+          "date_part": "2015-11-09",
+          "workspace_id": 1000004,
+          "event_count": 0,
+          "rank": 5
+        },
+        {
+          "date_part": "2015-11-10",
+          "workspace_id": 1000008,
+          "event_count": 0,
+          "rank": 0
+        },
+        {
+          "date_part": "2015-11-10",
+          "workspace_id": 1000006,
+          "event_count": 0,
+          "rank": 1
+        },
+        {
+          "date_part": "2015-11-10",
+          "workspace_id": 1000009,
+          "event_count": 0,
+          "rank": 2
+        },
+        {
+          "date_part": "2015-11-10",
+          "workspace_id": 1000005,
+          "event_count": 0,
+          "rank": 3
+        },
+        {
+          "date_part": "2015-11-10",
+          "workspace_id": 1000011,
+          "event_count": 0,
+          "rank": 4
+        },
+        {
+          "date_part": "2015-11-10",
+          "workspace_id": 1000004,
+          "event_count": 0,
+          "rank": 5
+        },
+        {
+          "date_part": "2015-11-11",
+          "workspace_id": 1000008,
+          "event_count": 23,
+          "rank": 0
+        },
+        {
+          "date_part": "2015-11-11",
+          "workspace_id": 1000006,
+          "event_count": 0,
+          "rank": 1
+        },
+        {
+          "date_part": "2015-11-11",
+          "workspace_id": 1000009,
+          "event_count": 0,
+          "rank": 2
+        },
+        {
+          "date_part": "2015-11-11",
+          "workspace_id": 1000005,
+          "event_count": 0,
+          "rank": 3
+        },
+        {
+          "date_part": "2015-11-11",
+          "workspace_id": 1000011,
+          "event_count": 0,
+          "rank": 4
+        },
+        {
+          "date_part": "2015-11-11",
+          "workspace_id": 1000004,
+          "event_count": 0,
+          "rank": 5
+        },
+        {
+          "date_part": "2015-11-12",
+          "workspace_id": 1000008,
+          "event_count": 35,
+          "rank": 0
+        },
+        {
+          "date_part": "2015-11-12",
+          "workspace_id": 1000009,
+          "event_count": 3,
+          "rank": 2
+        },
+        {
+          "date_part": "2015-11-12",
+          "workspace_id": 1000006,
+          "event_count": 5,
+          "rank": 1
+        },
+        {
+          "date_part": "2015-11-12",
+          "workspace_id": 1000011,
+          "event_count": 1,
+          "rank": 4
+        },
+        {
+          "date_part": "2015-11-12",
+          "workspace_id": 1000005,
+          "event_count": 2,
+          "rank": 3
+        },
+        {
+          "date_part": "2015-11-12",
+          "workspace_id": 1000004,
+          "event_count": 1,
+          "rank": 5
+        },
+        {
+          "date_part": "2015-11-13",
+          "workspace_id": 1000008,
+          "event_count": 0,
+          "rank": 0
+        },
+        {
+          "date_part": "2015-11-13",
+          "workspace_id": 1000006,
+          "event_count": 0,
+          "rank": 1
+        },
+        {
+          "date_part": "2015-11-13",
+          "workspace_id": 1000009,
+          "event_count": 0,
+          "rank": 2
+        },
+        {
+          "date_part": "2015-11-13",
+          "workspace_id": 1000005,
+          "event_count": 0,
+          "rank": 3
+        },
+        {
+          "date_part": "2015-11-13",
+          "workspace_id": 1000011,
+          "event_count": 0,
+          "rank": 4
+        },
+        {
+          "date_part": "2015-11-13",
+          "workspace_id": 1000004,
+          "event_count": 0,
+          "rank": 5
+        }
+      ],
+      "labels": [
+        "Nov 6",
+        "Nov 7",
+        "Nov 8",
+        "Nov 9",
+        "Nov 10",
+        "Nov 11",
+        "Nov 12",
+        "Today"
+      ]
+    }
+  }
+}

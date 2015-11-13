@@ -46,6 +46,9 @@ Gem::Specification.new do |s|
   # KT TODO: run jasmine specs and figure out development dependencies
   s.add_dependency 'mizuno'
 
+  s.add_development_dependency 'jasmine'
+  s.add_development_dependency 'jasmine-core'
+
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'rr'
   s.add_development_dependency 'fuubar'

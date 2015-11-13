@@ -1,0 +1,64 @@
+{
+  "response": [
+    {
+      "id": 1000001,
+      "to_table": "new_table_for_import",
+      "started_stamp": "2015-11-13T04:55:51Z",
+      "completed_stamp": null,
+      "success": null,
+      "source_dataset": {
+        "id": 1000005,
+        "object_name": "default_table"
+      },
+      "file_name": null,
+      "workspace_id": 1000008,
+      "entity_type": "workspace_import",
+      "destination_dataset": {
+        "id": null,
+        "object_name": "new_table_for_import"
+      }
+    },
+    {
+      "id": 1000002,
+      "to_table": "new_table_for_import",
+      "started_stamp": "2012-09-05T06:00:00Z",
+      "completed_stamp": null,
+      "success": null,
+      "source_dataset": {
+        "id": 1000005,
+        "object_name": "default_table"
+      },
+      "file_name": null,
+      "workspace_id": 1000008,
+      "entity_type": "workspace_import",
+      "destination_dataset": {
+        "id": null,
+        "object_name": "new_table_for_import"
+      }
+    },
+    {
+      "id": 1000003,
+      "to_table": "new_table_for_import",
+      "started_stamp": "2012-09-04T06:00:00Z",
+      "completed_stamp": null,
+      "success": null,
+      "source_dataset": {
+        "id": 1000005,
+        "object_name": "default_table"
+      },
+      "file_name": null,
+      "workspace_id": 1000008,
+      "entity_type": "workspace_import",
+      "destination_dataset": {
+        "id": null,
+        "object_name": "new_table_for_import"
+      }
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "per_page": 50,
+    "records": 3,
+    "total": 1
+  }
+}

@@ -1,0 +1,682 @@
+{
+  "response": {
+    "entity_type": "recent_workfiles",
+    "data": [
+      {
+        "last_opened": "2015-11-13T20:40:27Z",
+        "workfile": {
+          "id": 1000024,
+          "workspace": {
+            "id": 1000008,
+            "name": "Public",
+            "is_deleted": null,
+            "entity_type": "workspace",
+            "summary": "searchquery",
+            "archived_at": null,
+            "permission": [
+              "read",
+              "commenting",
+              "update",
+              "duplicate_chorus_view"
+            ],
+            "public": true,
+            "datasets_count": 11,
+            "members_count": 2,
+            "workfiles_count": 17,
+            "insights_count": 1,
+            "recent_insights_count": 1,
+            "recent_comments_count": 9,
+            "has_recent_comments": true,
+            "has_milestones": true,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "is_member": true,
+            "is_project": true,
+            "project_status": "on_track",
+            "project_status_reason": null,
+            "milestone_count": 3,
+            "milestone_completed_count": 0,
+            "project_target_date": "2015-12-07T00:00:00Z"
+          },
+          "file_name": "model.pmml",
+          "file_type": "xml",
+          "latest_version_id": 1000019,
+          "is_deleted": null,
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "tags": [
+
+          ],
+          "entity_type": "workfile",
+          "entity_subtype": null,
+          "user_modified_at": "2015-11-13T04:56:34Z",
+          "status": "idle",
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null
+          },
+          "associated_worklets": [
+
+          ],
+          "execution_schema": null,
+          "complete_json": true,
+          "version_info": {
+            "id": 1000019,
+            "version_num": 1,
+            "commit_message": null,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "modifier": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "created_at": "2015-11-13T04:56:34Z",
+            "updated_at": "2015-11-13T04:56:34Z",
+            "content_url": "/workfile_versions/1000019/image?style=original&1447390594",
+            "partial_file": false,
+            "icon_url": null,
+            "content": null
+          }
+        }
+      },
+      {
+        "last_opened": "2015-11-13T20:40:27Z",
+        "workfile": {
+          "id": 1000023,
+          "workspace": {
+            "id": 1000008,
+            "name": "Public",
+            "is_deleted": null,
+            "entity_type": "workspace",
+            "summary": "searchquery",
+            "archived_at": null,
+            "permission": [
+              "read",
+              "commenting",
+              "update",
+              "duplicate_chorus_view"
+            ],
+            "public": true,
+            "datasets_count": 11,
+            "members_count": 2,
+            "workfiles_count": 17,
+            "insights_count": 1,
+            "recent_insights_count": 1,
+            "recent_comments_count": 9,
+            "has_recent_comments": true,
+            "has_milestones": true,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "is_member": true,
+            "is_project": true,
+            "project_status": "on_track",
+            "project_status_reason": null,
+            "milestone_count": 3,
+            "milestone_completed_count": 0,
+            "project_target_date": "2015-12-07T00:00:00Z"
+          },
+          "file_name": "code.cpp",
+          "file_type": "code",
+          "latest_version_id": 1000018,
+          "is_deleted": null,
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "tags": [
+
+          ],
+          "entity_type": "workfile",
+          "entity_subtype": null,
+          "user_modified_at": "2015-11-13T04:56:33Z",
+          "status": "idle",
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null
+          },
+          "associated_worklets": [
+
+          ],
+          "execution_schema": null,
+          "complete_json": true,
+          "version_info": {
+            "id": 1000018,
+            "version_num": 1,
+            "commit_message": null,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "modifier": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "created_at": "2015-11-13T04:56:33Z",
+            "updated_at": "2015-11-13T04:56:33Z",
+            "content_url": "/workfile_versions/1000018/image?style=original&1447390593",
+            "partial_file": false,
+            "icon_url": null,
+            "content": null
+          }
+        }
+      },
+      {
+        "last_opened": "2015-11-13T20:40:27Z",
+        "workfile": {
+          "id": 1000022,
+          "workspace": {
+            "id": 1000008,
+            "name": "Public",
+            "is_deleted": null,
+            "entity_type": "workspace",
+            "summary": "searchquery",
+            "archived_at": null,
+            "permission": [
+              "read",
+              "commenting",
+              "update",
+              "duplicate_chorus_view"
+            ],
+            "public": true,
+            "datasets_count": 11,
+            "members_count": 2,
+            "workfiles_count": 17,
+            "insights_count": 1,
+            "recent_insights_count": 1,
+            "recent_comments_count": 9,
+            "has_recent_comments": true,
+            "has_milestones": true,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "is_member": true,
+            "is_project": true,
+            "project_status": "on_track",
+            "project_status_reason": null,
+            "milestone_count": 3,
+            "milestone_completed_count": 0,
+            "project_target_date": "2015-12-07T00:00:00Z"
+          },
+          "file_name": "binary.tar.gz",
+          "file_type": "other",
+          "latest_version_id": 1000017,
+          "is_deleted": null,
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "tags": [
+
+          ],
+          "entity_type": "workfile",
+          "entity_subtype": null,
+          "user_modified_at": "2015-11-13T04:56:33Z",
+          "status": "idle",
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null
+          },
+          "associated_worklets": [
+
+          ],
+          "execution_schema": null,
+          "complete_json": true,
+          "version_info": {
+            "id": 1000017,
+            "version_num": 1,
+            "commit_message": null,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "modifier": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "created_at": "2015-11-13T04:56:33Z",
+            "updated_at": "2015-11-13T04:56:33Z",
+            "content_url": "/workfile_versions/1000017/image?style=original&1447390593",
+            "partial_file": false,
+            "icon_url": null,
+            "content": null
+          }
+        }
+      },
+      {
+        "last_opened": "2015-11-13T20:40:27Z",
+        "workfile": {
+          "id": 1000021,
+          "workspace": {
+            "id": 1000008,
+            "name": "Public",
+            "is_deleted": null,
+            "entity_type": "workspace",
+            "summary": "searchquery",
+            "archived_at": null,
+            "permission": [
+              "read",
+              "commenting",
+              "update",
+              "duplicate_chorus_view"
+            ],
+            "public": true,
+            "datasets_count": 11,
+            "members_count": 2,
+            "workfiles_count": 17,
+            "insights_count": 1,
+            "recent_insights_count": 1,
+            "recent_comments_count": 9,
+            "has_recent_comments": true,
+            "has_milestones": true,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "is_member": true,
+            "is_project": true,
+            "project_status": "on_track",
+            "project_status_reason": null,
+            "milestone_count": 3,
+            "milestone_completed_count": 0,
+            "project_target_date": "2015-12-07T00:00:00Z"
+          },
+          "file_name": "image.png",
+          "file_type": "image",
+          "latest_version_id": 1000016,
+          "is_deleted": null,
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "tags": [
+
+          ],
+          "entity_type": "workfile",
+          "entity_subtype": null,
+          "user_modified_at": "2015-11-13T04:56:32Z",
+          "status": "idle",
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null
+          },
+          "associated_worklets": [
+
+          ],
+          "execution_schema": null,
+          "complete_json": true,
+          "version_info": {
+            "id": 1000016,
+            "version_num": 1,
+            "commit_message": null,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "modifier": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "created_at": "2015-11-13T04:56:32Z",
+            "updated_at": "2015-11-13T04:56:32Z",
+            "content_url": "/workfile_versions/1000016/image?style=original&1447390592",
+            "partial_file": false,
+            "icon_url": "/workfile_versions/1000016/image?style=icon&1447390592",
+            "content": null
+          }
+        }
+      },
+      {
+        "last_opened": "2015-11-13T20:40:27Z",
+        "workfile": {
+          "id": 1000020,
+          "workspace": {
+            "id": 1000008,
+            "name": "Public",
+            "is_deleted": null,
+            "entity_type": "workspace",
+            "summary": "searchquery",
+            "archived_at": null,
+            "permission": [
+              "read",
+              "commenting",
+              "update",
+              "duplicate_chorus_view"
+            ],
+            "public": true,
+            "datasets_count": 11,
+            "members_count": 2,
+            "workfiles_count": 17,
+            "insights_count": 1,
+            "recent_insights_count": 1,
+            "recent_comments_count": 9,
+            "has_recent_comments": true,
+            "has_milestones": true,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "is_member": true,
+            "is_project": true,
+            "project_status": "on_track",
+            "project_status_reason": null,
+            "milestone_count": 3,
+            "milestone_completed_count": 0,
+            "project_target_date": "2015-12-07T00:00:00Z"
+          },
+          "file_name": "text.txt",
+          "file_type": "text",
+          "latest_version_id": 1000015,
+          "is_deleted": null,
+          "recent_comments": [
+            {
+              "body": "My awesome workfile",
+              "author": {
+                "id": 1000006,
+                "username": "owner",
+                "first_name": "searchquery",
+                "last_name": "Rice",
+                "image": {
+                  "original": "/users/1000006/image?style=original&1447390563",
+                  "icon": "/users/1000006/image?style=icon&1447390563",
+                  "entity_type": "image",
+                  "complete_json": true
+                },
+                "entity_type": "user",
+                "is_deleted": null,
+                "auth_method": null,
+                "ldap_group_id": null
+              },
+              "timestamp": "2015-11-13T04:56:39Z",
+              "complete_json": true
+            }
+          ],
+          "comment_count": 1,
+          "tags": [
+
+          ],
+          "entity_type": "workfile",
+          "entity_subtype": null,
+          "user_modified_at": "2015-11-13T04:56:31Z",
+          "status": "idle",
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null
+          },
+          "associated_worklets": [
+
+          ],
+          "execution_schema": null,
+          "complete_json": true,
+          "version_info": {
+            "id": 1000015,
+            "version_num": 1,
+            "commit_message": null,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "modifier": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "created_at": "2015-11-13T04:56:31Z",
+            "updated_at": "2015-11-13T04:56:31Z",
+            "content_url": "/workfile_versions/1000015/image?style=original&1447390591",
+            "partial_file": false,
+            "icon_url": null,
+            "content": null
+          }
+        }
+      }
+    ]
+  }
+}

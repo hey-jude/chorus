@@ -1,0 +1,33 @@
+{
+  "response": {
+    "session_id": "d520480ee90529e2f729b47713a87e0e9f72d88c",
+    "user": {
+      "id": 1000002,
+      "username": "default",
+      "first_name": "Rey",
+      "last_name": "Treutel",
+      "image": {
+        "original": "/images/general/default-user.png",
+        "icon": "/images/general/default-user.png",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null,
+      "email": "rey@jacobswindler.net",
+      "title": "Chief Data Scientist",
+      "dept": "Corporation Corp., Inc.",
+      "notes": "One of our top performers",
+      "admin": false,
+      "developer": false,
+      "subscribed_to_emails": true,
+      "tags": [
+
+      ],
+      "complete_json": true
+    },
+    "complete_json": true
+  }
+}

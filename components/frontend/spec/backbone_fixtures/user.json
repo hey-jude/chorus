@@ -1,0 +1,29 @@
+{
+  "response": {
+    "id": 1000007,
+    "username": "the_collaborator",
+    "first_name": "Maurice",
+    "last_name": "Williamson",
+    "image": {
+      "original": "/images/general/default-user.png",
+      "icon": "/images/general/default-user.png",
+      "entity_type": "image",
+      "complete_json": true
+    },
+    "entity_type": "user",
+    "is_deleted": null,
+    "auth_method": null,
+    "ldap_group_id": null,
+    "email": "maurice@abbottjaskolski.info",
+    "title": "Chief Data Scientist",
+    "dept": "Corporation Corp., Inc.",
+    "notes": "One of our top performers",
+    "admin": false,
+    "developer": false,
+    "subscribed_to_emails": true,
+    "tags": [
+
+    ],
+    "complete_json": true
+  }
+}

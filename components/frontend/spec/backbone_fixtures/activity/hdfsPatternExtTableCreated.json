@@ -1,0 +1,103 @@
+{
+  "response": {
+    "id": 1000091,
+    "actor": {
+      "id": 1000006,
+      "username": "owner",
+      "first_name": "searchquery",
+      "last_name": "Rice",
+      "image": {
+        "original": "/users/1000006/image?style=original&1447390563",
+        "icon": "/users/1000006/image?style=icon&1447390563",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "HdfsPatternExtTableCreated",
+    "timestamp": "2015-11-12T04:56:44Z",
+    "dataset": {
+      "id": 1000005,
+      "object_name": "default_table",
+      "schema": {
+        "id": 1000006,
+        "name": "default",
+        "dataset_count": 0,
+        "refreshed_at": "2015-11-13T04:55:51Z",
+        "entity_type": "gpdb_schema",
+        "is_deleted": null,
+        "stale": false,
+        "complete_json": true
+      },
+      "entity_type": "dataset",
+      "entity_subtype": "SOURCE_TABLE",
+      "stale": false,
+      "stale_at": null,
+      "is_deleted": null,
+      "associated_workspaces": [
+
+      ],
+      "object_type": "TABLE"
+    },
+    "hdfs_entry": {
+      "id": 1000013,
+      "size": null,
+      "name": "baz.sql",
+      "is_dir": false,
+      "is_binary": false,
+      "last_updated_stamp": "2014-11-13T04:55:51Z",
+      "entity_type": "hdfs_file",
+      "hdfs_data_source": {
+        "id": 1000002,
+        "name": "searchquery_hadoop",
+        "entity_type": "hdfs_data_source",
+        "supports_work_flows": false,
+        "hdfs_version": "Pivotal HD 3",
+        "is_hdfs_hive": null,
+        "hive_metastore_location": null,
+        "is_deleted": null,
+        "state": "online"
+      },
+      "is_deleted": null,
+      "complete_json": true
+    },
+    "workspace": {
+      "id": 1000008,
+      "name": "Public",
+      "is_deleted": null,
+      "entity_type": "workspace",
+      "summary": "searchquery",
+      "archived_at": null,
+      "permission": [
+        "read",
+        "commenting",
+        "update",
+        "duplicate_chorus_view"
+      ],
+      "public": true,
+      "datasets_count": 11,
+      "members_count": 2,
+      "workfiles_count": 17,
+      "insights_count": 1,
+      "recent_insights_count": 1,
+      "recent_comments_count": 9,
+      "has_recent_comments": true,
+      "has_milestones": true
+    },
+    "file_pattern": "*.csv",
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}

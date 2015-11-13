@@ -1,3 +1,22 @@
+require 'backbone_fixtures_rails'
+
+# See components/api/spec/support/backbone_fixtures_path.rb
+module BackboneFixtures
+  class FixtureMiddleware
+    def call(env)
+      response_lines = []
+      Dir.glob(ENV['CHORUS_HOME'] + "/components/frontend/spec/backbone_fixtures/**/*.json") do |file|
+        fixture_name = file[((ENV['CHORUS_HOME'] + "/components/frontend/spec/backbone_fixtures/").length)...(-(".json".length))]
+        this_response = [%{<script type="application/json" data-fixture-path="backbone/#{fixture_name}">}]
+        this_response << IO.read(file)
+        this_response << %{</script>}
+        response_lines << this_response.join()
+      end
+      [200, {"Content-Type" => "text/html"}, response_lines]
+    end
+  end
+end
+
 class MessageMiddlewareCommon
   def call(env)
     [200, {"Content-Type" => "text/html"}, [IO.read("public/translations/messages_en.properties")]]

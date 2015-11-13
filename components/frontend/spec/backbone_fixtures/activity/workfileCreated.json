@@ -1,0 +1,120 @@
+{
+  "response": {
+    "id": 1000028,
+    "actor": {
+      "id": 1000003,
+      "username": "no_collaborators",
+      "first_name": "Cristian",
+      "last_name": "Walker",
+      "image": {
+        "original": "/images/general/default-user.png",
+        "icon": "/images/general/default-user.png",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "WorkfileCreated",
+    "timestamp": "2015-11-13T04:56:28Z",
+    "workfile": {
+      "id": 1000010,
+      "workspace": {
+        "id": 1000005,
+        "name": "Public with no collaborators except collaborator",
+        "is_deleted": null,
+        "entity_type": "workspace",
+        "summary": "searchquery can see I guess",
+        "archived_at": null,
+        "permission": [
+          "read",
+          "commenting",
+          "update",
+          "duplicate_chorus_view"
+        ],
+        "public": true,
+        "datasets_count": 0,
+        "members_count": 2,
+        "workfiles_count": 1,
+        "insights_count": 0,
+        "recent_insights_count": 0,
+        "recent_comments_count": 1,
+        "has_recent_comments": true,
+        "has_milestones": false
+      },
+      "file_name": "no collaborators Public",
+      "file_type": "sql",
+      "latest_version_id": 1000003,
+      "is_deleted": null,
+      "recent_comments": [
+
+      ],
+      "comment_count": 0,
+      "tags": [
+
+      ],
+      "entity_type": "workfile",
+      "entity_subtype": null,
+      "user_modified_at": "2015-11-13T04:56:21Z",
+      "status": "idle",
+      "associated_worklets": [
+
+      ],
+      "execution_schema": null,
+      "version_info": {
+        "id": 1000003,
+        "version_num": 1,
+        "commit_message": null,
+        "owner": {
+          "id": 1000003
+        },
+        "modifier": {
+          "id": 1000003
+        },
+        "created_at": "2015-11-13T04:56:21Z",
+        "updated_at": "2015-11-13T04:56:21Z",
+        "content_url": "/workfile_versions/1000003/image?style=original&1447390581",
+        "partial_file": false,
+        "icon_url": null,
+        "content": null
+      }
+    },
+    "workspace": {
+      "id": 1000005,
+      "name": "Public with no collaborators except collaborator",
+      "is_deleted": null,
+      "entity_type": "workspace",
+      "summary": "searchquery can see I guess",
+      "archived_at": null,
+      "permission": [
+        "read",
+        "commenting",
+        "update",
+        "duplicate_chorus_view"
+      ],
+      "public": true,
+      "datasets_count": 0,
+      "members_count": 2,
+      "workfiles_count": 1,
+      "insights_count": 0,
+      "recent_insights_count": 0,
+      "recent_comments_count": 1,
+      "has_recent_comments": true,
+      "has_milestones": false
+    },
+    "commit_message": "Chorus chorus chorus, with chorus I will play",
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}

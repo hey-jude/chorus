@@ -1,0 +1,50 @@
+{
+  "response": {
+    "id": 1000005,
+    "actor": {
+      "id": 1000009,
+      "username": "restricted_user",
+      "first_name": "Claude",
+      "last_name": "Bergstrom",
+      "image": {
+        "original": "/images/general/default-user.png",
+        "icon": "/images/general/default-user.png",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "UserAdded",
+    "timestamp": "2015-11-13T04:56:03Z",
+    "new_user": {
+      "id": 1000009,
+      "username": "restricted_user",
+      "first_name": "Claude",
+      "last_name": "Bergstrom",
+      "image": {
+        "original": "/images/general/default-user.png",
+        "icon": "/images/general/default-user.png",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}

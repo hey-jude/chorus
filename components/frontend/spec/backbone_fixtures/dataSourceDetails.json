@@ -1,0 +1,62 @@
+{
+  "response": {
+    "workspaces": [
+      {
+        "id": 1000007,
+        "name": "Archived",
+        "size_in_bytes": 100000000,
+        "percentage_used": 2,
+        "owner_full_name": "Cristian Walker",
+        "schema_name": "other_schema",
+        "database_name": "default"
+      },
+      {
+        "id": 1000008,
+        "name": "Public",
+        "size_in_bytes": 100000000,
+        "percentage_used": 2,
+        "owner_full_name": "searchquery Rice",
+        "schema_name": "default",
+        "database_name": "default"
+      },
+      {
+        "id": 1000011,
+        "name": "Search Private",
+        "size_in_bytes": 100000000,
+        "percentage_used": 2,
+        "owner_full_name": "searchquery Rice",
+        "schema_name": "searchquery_schema",
+        "database_name": "searchquery_database"
+      },
+      {
+        "id": 1000010,
+        "name": "Search Public",
+        "size_in_bytes": 100000000,
+        "percentage_used": 2,
+        "owner_full_name": "searchquery Rice",
+        "schema_name": "searchquery_schema",
+        "database_name": "searchquery_database"
+      },
+      {
+        "id": 1000014,
+        "name": "tagged",
+        "size_in_bytes": 100000000,
+        "percentage_used": 2,
+        "owner_full_name": "searchquery Rice",
+        "schema_name": "default",
+        "database_name": "default"
+      },
+      {
+        "id": 1000001,
+        "name": "typeahead_public",
+        "size_in_bytes": 100000000,
+        "percentage_used": 2,
+        "owner_full_name": "searchquery Rice",
+        "schema_name": "searchquery_schema",
+        "database_name": "searchquery_database"
+      }
+    ],
+    "sandboxes_size_in_bytes": 300000000,
+    "complete_json": true
+  }
+}

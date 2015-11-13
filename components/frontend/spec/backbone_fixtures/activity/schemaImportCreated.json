@@ -1,0 +1,69 @@
+{
+  "response": {
+    "id": 1000045,
+    "actor": {
+      "id": 1000006,
+      "username": "owner",
+      "first_name": "searchquery",
+      "last_name": "Rice",
+      "image": {
+        "original": "/users/1000006/image?style=original&1447390563",
+        "icon": "/users/1000006/image?style=icon&1447390563",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "SchemaImportCreated",
+    "timestamp": "2015-11-13T04:56:37Z",
+    "source_dataset": {
+      "id": 1000000,
+      "object_name": "oracle_table",
+      "schema": {
+        "id": 1000000,
+        "name": "oracle",
+        "dataset_count": 0,
+        "refreshed_at": null,
+        "entity_type": "oracle_schema",
+        "is_deleted": null
+      },
+      "entity_type": "dataset",
+      "entity_subtype": "SOURCE_TABLE",
+      "stale": false,
+      "stale_at": null,
+      "is_deleted": null,
+      "associated_workspaces": [
+
+      ],
+      "object_type": "TABLE"
+    },
+    "dataset": null,
+    "schema": {
+      "id": 1000006,
+      "name": "default",
+      "dataset_count": 0,
+      "refreshed_at": "2015-11-13T04:55:51Z",
+      "entity_type": "gpdb_schema",
+      "is_deleted": null,
+      "stale": false,
+      "complete_json": true
+    },
+    "destination_table": "schema_import_table",
+    "reference_id": 1000000,
+    "reference_type": "Import",
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}

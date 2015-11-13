@@ -1,0 +1,14 @@
+{
+  "response": {
+    "object_type": "BASE_TABLE",
+    "rows": 5,
+    "columns": 3,
+    "description": "a description",
+    "last_analyzed_time": "2012-06-06T23:02:42Z",
+    "on_disk_size": 500,
+    "partitions": 6,
+    "definition": null,
+    "entity_type": "dataset_statistics",
+    "complete_json": true
+  }
+}

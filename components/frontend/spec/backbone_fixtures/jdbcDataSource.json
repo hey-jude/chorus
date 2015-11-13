@@ -1,0 +1,75 @@
+{
+  "response": {
+    "id": 1000011,
+    "name": "jdbc",
+    "entity_type": "jdbc_data_source",
+    "is_deleted": null,
+    "shared": false,
+    "owner_id": 1000006,
+    "version": null,
+    "is_hawq": null,
+    "state": "online",
+    "host": "jdbc:teradata://jdbc_server44445",
+    "port": null,
+    "ssl": false,
+    "online": true,
+    "db_name": null,
+    "description": null,
+    "schema_blacklist": [
+      "All",
+      "Crashdumps",
+      "DBC",
+      "dbcmngr",
+      "Default",
+      "EXTUSER",
+      "LockLogShredder",
+      "PUBLIC",
+      "SQLJ",
+      "SysAdmin",
+      "SYSBAR",
+      "SYSLIB",
+      "SYSSPATIAL",
+      "SystemFe",
+      "SYSUDTLIB",
+      "Sys_Calendar",
+      "TDPUSER",
+      "TDQCD",
+      "TDStats",
+      "tdwm",
+      "TD_SYSFNLIB",
+      "TD_SYSXML"
+    ],
+    "db_username": "username",
+    "owner": {
+      "id": 1000006,
+      "username": "owner",
+      "first_name": "searchquery",
+      "last_name": "Rice",
+      "image": {
+        "original": "/users/1000006/image?style=original&1447390563",
+        "icon": "/users/1000006/image?style=icon&1447390563",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null,
+      "email": "searchquery@zboncak.net",
+      "title": "Chief Data Scientist",
+      "dept": "Corporation Corp., Inc.",
+      "notes": "One of our top performers",
+      "admin": false,
+      "developer": false,
+      "subscribed_to_emails": true,
+      "tags": [
+
+      ],
+      "complete_json": true
+    },
+    "tags": [
+
+    ],
+    "complete_json": true
+  }
+}

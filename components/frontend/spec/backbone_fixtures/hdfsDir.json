@@ -1,0 +1,241 @@
+{
+  "response": {
+    "id": 1000014,
+    "size": null,
+    "name": "data",
+    "is_dir": true,
+    "is_binary": false,
+    "last_updated_stamp": "2014-11-13T04:55:51Z",
+    "entity_type": "hdfs_file",
+    "hdfs_data_source": {
+      "id": 1000002,
+      "name": "searchquery_hadoop",
+      "entity_type": "hdfs_data_source",
+      "supports_work_flows": false,
+      "hdfs_version": "Pivotal HD 3",
+      "is_hdfs_hive": null,
+      "hive_metastore_location": null,
+      "is_deleted": null,
+      "state": "online",
+      "host": "hadoop.example.com",
+      "port": 1111,
+      "online": true,
+      "description": "searchquery for the hadoop data source",
+      "version": null,
+      "username": null,
+      "group_list": null,
+      "job_tracker_host": null,
+      "job_tracker_port": null,
+      "high_availability": false,
+      "connection_parameters": [
+
+      ],
+      "owner": {
+        "id": 1000000,
+        "username": "admin",
+        "first_name": "Admin_44445",
+        "last_name": "AlphaSearch",
+        "image": {
+          "original": "/images/general/default-user.png",
+          "icon": "/images/general/default-user.png",
+          "entity_type": "image",
+          "complete_json": true
+        },
+        "entity_type": "user",
+        "is_deleted": null,
+        "auth_method": null,
+        "ldap_group_id": null,
+        "email": "admin_44445@douglasgorczany.info",
+        "title": "Chief Data Scientist",
+        "dept": "Corporation Corp., Inc.",
+        "notes": "One of our top performers",
+        "admin": true,
+        "developer": false,
+        "subscribed_to_emails": true,
+        "tags": [
+
+        ],
+        "complete_json": true
+      },
+      "tags": [
+
+      ],
+      "complete_json": true
+    },
+    "is_deleted": null,
+    "ancestors": [
+      {
+        "name": "searchquery_hadoop",
+        "id": 1000002
+      }
+    ],
+    "path": "/",
+    "tags": [
+
+    ],
+    "entries": [
+      {
+        "id": 1000014,
+        "size": null,
+        "name": "data",
+        "is_dir": true,
+        "is_binary": false,
+        "last_updated_stamp": "2014-11-13T04:55:51Z",
+        "entity_type": "hdfs_file",
+        "hdfs_data_source": {
+          "id": 1000002,
+          "name": "searchquery_hadoop",
+          "entity_type": "hdfs_data_source",
+          "supports_work_flows": false,
+          "hdfs_version": "Pivotal HD 3",
+          "is_hdfs_hive": null,
+          "hive_metastore_location": null,
+          "is_deleted": null,
+          "state": "online",
+          "host": "hadoop.example.com",
+          "port": 1111,
+          "online": true,
+          "description": "searchquery for the hadoop data source",
+          "version": null,
+          "username": null,
+          "group_list": null,
+          "job_tracker_host": null,
+          "job_tracker_port": null,
+          "high_availability": false,
+          "connection_parameters": [
+
+          ],
+          "owner": {
+            "id": 1000000,
+            "username": "admin",
+            "first_name": "Admin_44445",
+            "last_name": "AlphaSearch",
+            "image": {
+              "original": "/images/general/default-user.png",
+              "icon": "/images/general/default-user.png",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null,
+            "email": "admin_44445@douglasgorczany.info",
+            "title": "Chief Data Scientist",
+            "dept": "Corporation Corp., Inc.",
+            "notes": "One of our top performers",
+            "admin": true,
+            "developer": false,
+            "subscribed_to_emails": true,
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "tags": [
+
+          ],
+          "complete_json": true
+        },
+        "is_deleted": null,
+        "ancestors": [
+          {
+            "name": "searchquery_hadoop",
+            "id": 1000002
+          }
+        ],
+        "path": "/",
+        "tags": [
+
+        ],
+        "count": null
+      },
+      {
+        "id": 1000013,
+        "size": null,
+        "name": "baz.sql",
+        "is_dir": false,
+        "is_binary": false,
+        "last_updated_stamp": "2014-11-13T04:55:51Z",
+        "entity_type": "hdfs_file",
+        "hdfs_data_source": {
+          "id": 1000002,
+          "name": "searchquery_hadoop",
+          "entity_type": "hdfs_data_source",
+          "supports_work_flows": false,
+          "hdfs_version": "Pivotal HD 3",
+          "is_hdfs_hive": null,
+          "hive_metastore_location": null,
+          "is_deleted": null,
+          "state": "online",
+          "host": "hadoop.example.com",
+          "port": 1111,
+          "online": true,
+          "description": "searchquery for the hadoop data source",
+          "version": null,
+          "username": null,
+          "group_list": null,
+          "job_tracker_host": null,
+          "job_tracker_port": null,
+          "high_availability": false,
+          "connection_parameters": [
+
+          ],
+          "owner": {
+            "id": 1000000,
+            "username": "admin",
+            "first_name": "Admin_44445",
+            "last_name": "AlphaSearch",
+            "image": {
+              "original": "/images/general/default-user.png",
+              "icon": "/images/general/default-user.png",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null,
+            "email": "admin_44445@douglasgorczany.info",
+            "title": "Chief Data Scientist",
+            "dept": "Corporation Corp., Inc.",
+            "notes": "One of our top performers",
+            "admin": true,
+            "developer": false,
+            "subscribed_to_emails": true,
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "tags": [
+
+          ],
+          "complete_json": true
+        },
+        "is_deleted": null,
+        "ancestors": [
+          {
+            "name": "bar",
+            "id": 1000012
+          },
+          {
+            "name": "foo",
+            "id": 1000011
+          },
+          {
+            "name": "searchquery_hadoop",
+            "id": 1000002
+          }
+        ],
+        "path": "/foo/bar",
+        "tags": [
+
+        ],
+        "complete_json": true
+      }
+    ],
+    "count": null,
+    "complete_json": true
+  }
+}

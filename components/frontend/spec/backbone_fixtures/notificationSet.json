@@ -1,0 +1,355 @@
+{
+  "response": [
+    {
+      "id": 1000003,
+      "recipient": {
+        "id": 1000006,
+        "username": "owner",
+        "first_name": "searchquery",
+        "last_name": "Rice",
+        "image": {
+          "original": "/users/1000006/image?style=original&1447390563",
+          "icon": "/users/1000006/image?style=icon&1447390563",
+          "entity_type": "image",
+          "complete_json": true
+        },
+        "entity_type": "user",
+        "is_deleted": null,
+        "auth_method": null,
+        "ldap_group_id": null
+      },
+      "event": {
+        "id": 1000052,
+        "actor": {
+          "id": 1000006,
+          "username": "owner",
+          "first_name": "searchquery",
+          "last_name": "Rice",
+          "image": {
+            "original": "/users/1000006/image?style=original&1447390563",
+            "icon": "/users/1000006/image?style=icon&1447390563",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "entity_type": "user",
+          "is_deleted": null,
+          "auth_method": null,
+          "ldap_group_id": null
+        },
+        "action": "NOTE",
+        "timestamp": "2015-11-13T04:56:38Z",
+        "data_source": {
+          "id": 1000000,
+          "name": "searchquery",
+          "entity_type": "gpdb_data_source",
+          "is_deleted": null,
+          "shared": false,
+          "owner_id": 1000000,
+          "version": "9.1.2 - FactoryVersion",
+          "is_hawq": null,
+          "state": "online"
+        },
+        "body": "i am an insight with greenpluminsight in me",
+        "action_type": "NoteOnDataSource",
+        "attachments": [
+
+        ]
+      },
+      "comment": null,
+      "unread": true,
+      "timestamp": "2015-11-13T04:56:56Z",
+      "complete_json": true
+    },
+    {
+      "id": 1000002,
+      "recipient": {
+        "id": 1000006,
+        "username": "owner",
+        "first_name": "searchquery",
+        "last_name": "Rice",
+        "image": {
+          "original": "/users/1000006/image?style=original&1447390563",
+          "icon": "/users/1000006/image?style=icon&1447390563",
+          "entity_type": "image",
+          "complete_json": true
+        },
+        "entity_type": "user",
+        "is_deleted": null,
+        "auth_method": null,
+        "ldap_group_id": null
+      },
+      "event": {
+        "id": 1000051,
+        "actor": {
+          "id": 1000006,
+          "username": "owner",
+          "first_name": "searchquery",
+          "last_name": "Rice",
+          "image": {
+            "original": "/users/1000006/image?style=original&1447390563",
+            "icon": "/users/1000006/image?style=icon&1447390563",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "entity_type": "user",
+          "is_deleted": null,
+          "auth_method": null,
+          "ldap_group_id": null
+        },
+        "action": "NOTE",
+        "timestamp": "2015-11-13T04:56:38Z",
+        "data_source": {
+          "id": 1000000,
+          "name": "searchquery",
+          "entity_type": "gpdb_data_source",
+          "is_deleted": null,
+          "shared": false,
+          "owner_id": 1000000,
+          "version": "9.1.2 - FactoryVersion",
+          "is_hawq": null,
+          "state": "online"
+        },
+        "body": "i am a comment with greenplumsearch in me",
+        "action_type": "NoteOnDataSource",
+        "attachments": [
+          {
+            "id": 1000001,
+            "name": "workfile.sql",
+            "timestamp": "2015-11-13T04:56:47Z",
+            "icon_url": null,
+            "content_url": null,
+            "entity_type": "attachment",
+            "type": "sql",
+            "data_source": {
+              "id": 1000000,
+              "name": "searchquery",
+              "entity_type": "gpdb_data_source",
+              "is_deleted": null,
+              "shared": false,
+              "owner_id": 1000000,
+              "version": "9.1.2 - FactoryVersion",
+              "is_hawq": null,
+              "state": "online"
+            },
+            "complete_json": true
+          },
+          {
+            "id": 1000002,
+            "name": "User.png",
+            "timestamp": "2015-11-13T04:56:47Z",
+            "icon_url": "/notes/:note_id/attachments/1000002?style=icon&1447390607",
+            "content_url": "/notes/:note_id/attachments/1000002?style=original&1447390607",
+            "entity_type": "attachment",
+            "type": "png",
+            "data_source": {
+              "id": 1000000,
+              "name": "searchquery",
+              "entity_type": "gpdb_data_source",
+              "is_deleted": null,
+              "shared": false,
+              "owner_id": 1000000,
+              "version": "9.1.2 - FactoryVersion",
+              "is_hawq": null,
+              "state": "online"
+            },
+            "complete_json": true
+          },
+          {
+            "id": 1000003,
+            "name": "searchquery_data_source",
+            "timestamp": "2015-11-13T04:56:48Z",
+            "icon_url": null,
+            "content_url": null,
+            "entity_type": "attachment",
+            "type": "",
+            "data_source": {
+              "id": 1000000,
+              "name": "searchquery",
+              "entity_type": "gpdb_data_source",
+              "is_deleted": null,
+              "shared": false,
+              "owner_id": 1000000,
+              "version": "9.1.2 - FactoryVersion",
+              "is_hawq": null,
+              "state": "online"
+            },
+            "complete_json": true
+          }
+        ]
+      },
+      "comment": null,
+      "unread": true,
+      "timestamp": "2015-11-13T04:56:55Z",
+      "complete_json": true
+    },
+    {
+      "id": 1000001,
+      "recipient": {
+        "id": 1000006,
+        "username": "owner",
+        "first_name": "searchquery",
+        "last_name": "Rice",
+        "image": {
+          "original": "/users/1000006/image?style=original&1447390563",
+          "icon": "/users/1000006/image?style=icon&1447390563",
+          "entity_type": "image",
+          "complete_json": true
+        },
+        "entity_type": "user",
+        "is_deleted": null,
+        "auth_method": null,
+        "ldap_group_id": null
+      },
+      "event": {
+        "id": 1000012,
+        "actor": {
+          "id": 1000006,
+          "username": "owner",
+          "first_name": "searchquery",
+          "last_name": "Rice",
+          "image": {
+            "original": "/users/1000006/image?style=original&1447390563",
+            "icon": "/users/1000006/image?style=icon&1447390563",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "entity_type": "user",
+          "is_deleted": null,
+          "auth_method": null,
+          "ldap_group_id": null
+        },
+        "action": "NOTE",
+        "timestamp": "2015-11-13T04:56:13Z",
+        "data_source": {
+          "id": 1000017,
+          "name": "typeahead_gpdb_data_source",
+          "entity_type": "gpdb_data_source",
+          "is_deleted": null,
+          "shared": false,
+          "owner_id": 1000006,
+          "version": "9.1.2 - FactoryVersion",
+          "is_hawq": null,
+          "state": "online"
+        },
+        "body": "i exist only for my attachments",
+        "action_type": "NoteOnDataSource",
+        "attachments": [
+          {
+            "id": 1000000,
+            "name": "typeahead_data_source",
+            "timestamp": "2015-11-13T04:56:13Z",
+            "icon_url": null,
+            "content_url": null,
+            "entity_type": "attachment",
+            "type": "",
+            "data_source": {
+              "id": 1000017,
+              "name": "typeahead_gpdb_data_source",
+              "entity_type": "gpdb_data_source",
+              "is_deleted": null,
+              "shared": false,
+              "owner_id": 1000006,
+              "version": "9.1.2 - FactoryVersion",
+              "is_hawq": null,
+              "state": "online"
+            },
+            "complete_json": true
+          }
+        ]
+      },
+      "comment": null,
+      "unread": true,
+      "timestamp": "2015-11-13T04:56:54Z",
+      "complete_json": true
+    },
+    {
+      "id": 1000000,
+      "recipient": {
+        "id": 1000006,
+        "username": "owner",
+        "first_name": "searchquery",
+        "last_name": "Rice",
+        "image": {
+          "original": "/users/1000006/image?style=original&1447390563",
+          "icon": "/users/1000006/image?style=icon&1447390563",
+          "entity_type": "image",
+          "complete_json": true
+        },
+        "entity_type": "user",
+        "is_deleted": null,
+        "auth_method": null,
+        "ldap_group_id": null
+      },
+      "event": {
+        "id": 1000009,
+        "actor": {
+          "id": 1000006,
+          "username": "owner",
+          "first_name": "searchquery",
+          "last_name": "Rice",
+          "image": {
+            "original": "/users/1000006/image?style=original&1447390563",
+            "icon": "/users/1000006/image?style=icon&1447390563",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "entity_type": "user",
+          "is_deleted": null,
+          "auth_method": null,
+          "ldap_group_id": null
+        },
+        "action": "NOTE",
+        "timestamp": "2015-11-13T04:56:08Z",
+        "data_source": {
+          "id": 1000010,
+          "name": "oracle",
+          "entity_type": "oracle_data_source",
+          "is_deleted": null,
+          "shared": false,
+          "owner_id": 1000006,
+          "version": null,
+          "is_hawq": null,
+          "state": "online"
+        },
+        "body": "note on oracle data source",
+        "action_type": "NoteOnDataSource",
+        "attachments": [
+
+        ]
+      },
+      "comment": {
+        "id": 1000001,
+        "author": {
+          "id": 1000007,
+          "username": "the_collaborator",
+          "first_name": "Maurice",
+          "last_name": "Williamson",
+          "image": {
+            "original": "/images/general/default-user.png",
+            "icon": "/images/general/default-user.png",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "entity_type": "user",
+          "is_deleted": null,
+          "auth_method": null,
+          "ldap_group_id": null
+        },
+        "body": "2nd Comment on Note on Greenplum",
+        "action": "SUB_COMMENT",
+        "timestamp": "2015-11-13T04:56:41Z",
+        "entity_type": "comment",
+        "complete_json": true
+      },
+      "unread": false,
+      "timestamp": "2015-11-13T04:56:53Z",
+      "complete_json": true
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "per_page": 50,
+    "records": 4,
+    "total": 1
+  }
+}

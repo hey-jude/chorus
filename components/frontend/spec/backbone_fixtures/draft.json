@@ -1,0 +1,10 @@
+{
+  "response": {
+    "content": "Valid content goes here",
+    "id": 1000000,
+    "owner_id": 1000006,
+    "workfile_id": 1000053,
+    "entity_type": "workfile_draft",
+    "complete_json": true
+  }
+}

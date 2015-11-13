@@ -1,0 +1,62 @@
+{
+  "response": {
+    "id": 1000094,
+    "actor": {
+      "id": 1000006,
+      "username": "owner",
+      "first_name": "searchquery",
+      "last_name": "Rice",
+      "image": {
+        "original": "/users/1000006/image?style=original&1447390563",
+        "icon": "/users/1000006/image?style=icon&1447390563",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "FileImportFailed",
+    "timestamp": "2015-11-12T04:56:44Z",
+    "workspace": {
+      "id": 1000008,
+      "name": "Public",
+      "is_deleted": null,
+      "entity_type": "workspace",
+      "summary": "searchquery",
+      "archived_at": null,
+      "permission": [
+        "read",
+        "commenting",
+        "update",
+        "duplicate_chorus_view"
+      ],
+      "public": true,
+      "datasets_count": 11,
+      "members_count": 2,
+      "workfiles_count": 17,
+      "insights_count": 1,
+      "recent_insights_count": 1,
+      "recent_comments_count": 9,
+      "has_recent_comments": true,
+      "has_milestones": true
+    },
+    "dataset": null,
+    "file_name": "import.csv",
+    "import_type": "file",
+    "destination_table": "my_table",
+    "error_message": "oh no's! everything is broken!",
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}

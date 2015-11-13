@@ -1,0 +1,13 @@
+{
+  "response": {
+    "owner": "Josie",
+    "group": "Fahey",
+    "modified_at": "2015-11-13 20:41:18 UTC",
+    "accessed_at": "2015-11-13 20:41:18 UTC",
+    "file_size": 1657,
+    "block_size": 8987,
+    "permissions": "rwx--w--r",
+    "replication": 3,
+    "complete_json": true
+  }
+}

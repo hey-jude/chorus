@@ -1,0 +1,8 @@
+{
+  "response": {
+    "original": "/users/1000004/image?style=original&1447447341",
+    "icon": "/users/1000004/image?style=icon&1447447341",
+    "entity_type": "image",
+    "complete_json": true
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "response": {
+    "id": 1000074,
+    "actor": {
+      "id": 1000003,
+      "username": "no_collaborators",
+      "first_name": "Cristian",
+      "last_name": "Walker",
+      "image": {
+        "original": "/images/general/default-user.png",
+        "icon": "/images/general/default-user.png",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "NOTE",
+    "timestamp": "2015-11-13T04:56:41Z",
+    "workspace": {
+      "id": 1000005,
+      "name": "Public with no collaborators except collaborator",
+      "is_deleted": null,
+      "entity_type": "workspace",
+      "summary": "searchquery can see I guess",
+      "archived_at": null,
+      "permission": [
+        "read",
+        "commenting",
+        "update",
+        "duplicate_chorus_view"
+      ],
+      "public": true,
+      "datasets_count": 0,
+      "members_count": 2,
+      "workfiles_count": 1,
+      "insights_count": 0,
+      "recent_insights_count": 0,
+      "recent_comments_count": 1,
+      "has_recent_comments": true,
+      "has_milestones": false
+    },
+    "body": "some stuff",
+    "action_type": "NoteOnWorkspace",
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}
