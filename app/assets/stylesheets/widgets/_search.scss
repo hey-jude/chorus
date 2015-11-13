@@ -20,7 +20,6 @@ input.chorus_search {
     vertical-align: top;
 }
 
-
 .search_magnifying_glass::before {
     position: absolute;
     top: 0px;
@@ -28,7 +27,7 @@ input.chorus_search {
     font-family: FontAwesome;
     color: $gray;
     font-size: 13px;
-    content: "\f002";  /* fa-search */
+    content: "\f002";  // fa-search
 }
 
 .chorus_search_container {
@@ -42,14 +41,7 @@ input.chorus_search {
 a.chorus_search_clear {
     position: absolute;
     top: 1px;
-    /* margin-top: -14px; */
     right: 8px;
-    /* line-height: 12px; */
     color: $gray;
-
-/*     i { */
-/*         font-size: 9px; */
-/*         color: $gray; */
-/*     } */
 }
 
