@@ -8,7 +8,6 @@ class RSpec::Core::ExampleGroup
   def save_fixture(filename, content = JSON.parse(response.body))
     path = Pathname.new(ENV['CHORUS_HOME'] + "/components/frontend/spec/backbone_fixtures/" + filename)
     path.dirname.mkpath unless path.dirname.directory?
-    p "Generated backbone_fixtures_rails fixture at: #{path}"
 
     File.open(path, 'w') do |f|
       f.write JSON.pretty_generate(content.as_json)
