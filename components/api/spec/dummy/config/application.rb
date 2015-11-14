@@ -1,8 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
-# KT TODO this seems wrong:
-require_relative "#{ENV['CHORUS_HOME']}/config/initializers/chorus_config"
-require_relative "#{ENV['CHORUS_HOME']}/config/initializers/ldap_config"
+chorus_home = File.expand_path(File.dirname(__FILE__) + '/../../../../..')
+require "#{chorus_home}/config/initializers/chorus_config"
+require "#{chorus_home}/config/initializers/ldap_config"
 
 require 'rails/all'
 
