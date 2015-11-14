@@ -1,0 +1,92 @@
+---
+import_from_marks_roberts_and_rolfson:
+  id: 1000000
+  job_result_id: 1000000
+  name: Import from Marks, Roberts and Rolfson
+  started_at: 2015-11-13 22:09:59.432000000 Z
+  finished_at: 2015-11-13 22:10:59.445000000 Z
+  status: success
+  created_at: 2015-11-13 22:10:59.450000000 Z
+  updated_at: 2015-11-13 22:10:59.450000000 Z
+  message:
+  payload_result_id: '1234'
+  payload_id: 7
+  type: RunWorkFlowTaskResult
+import_from_kessler_llc:
+  id: 1000001
+  job_result_id: 1000001
+  name: Import from Kessler LLC
+  started_at: 2015-11-13 22:09:59.453000000 Z
+  finished_at: 2015-11-13 22:10:59.453000000 Z
+  status: success
+  created_at: 2015-11-13 22:10:59.454000000 Z
+  updated_at: 2015-11-13 22:10:59.454000000 Z
+  message:
+  payload_result_id: '1234'
+  payload_id: 7
+  type: RunWorkFlowTaskResult
+import_from_kunde_hilll:
+  id: 1000002
+  job_result_id: 1000001
+  name: Import from Kunde-Hilll
+  started_at: 2015-11-13 22:09:59.458000000 Z
+  finished_at: 2015-11-13 22:10:59.458000000 Z
+  status: success
+  created_at: 2015-11-13 22:10:59.459000000 Z
+  updated_at: 2015-11-13 22:10:59.459000000 Z
+  message:
+  payload_result_id:
+  payload_id:
+  type: ImportSourceDataTaskResult
+import_from_stamm_mc_cullough:
+  id: 1000003
+  job_result_id: 1000001
+  name: Import from Stamm-McCullough
+  started_at: 2015-11-13 22:09:59.469000000 Z
+  finished_at: 2015-11-13 22:10:59.469000000 Z
+  status: success
+  created_at: 2015-11-13 22:10:59.470000000 Z
+  updated_at: 2015-11-13 22:10:59.470000000 Z
+  message:
+  payload_result_id:
+  payload_id:
+  type: ImportSourceDataTaskResult
+import_from_brekke_labadie:
+  id: 1000004
+  job_result_id: 1000002
+  name: Import from Brekke-Labadie
+  started_at: 2015-11-13 22:09:59.504000000 Z
+  finished_at: 2015-11-13 22:10:59.504000000 Z
+  status: success
+  created_at: 2015-11-13 22:10:59.505000000 Z
+  updated_at: 2015-11-13 22:10:59.505000000 Z
+  message:
+  payload_result_id: '1234'
+  payload_id: 7
+  type: RunWorkFlowTaskResult
+import_from_von_rueden_schuppe_and_pollich:
+  id: 1000005
+  job_result_id: 1000002
+  name: Import from VonRueden, Schuppe and Pollich
+  started_at: 2015-11-13 22:09:59.508000000 Z
+  finished_at: 2015-11-13 22:10:59.508000000 Z
+  status: success
+  created_at: 2015-11-13 22:10:59.509000000 Z
+  updated_at: 2015-11-13 22:10:59.509000000 Z
+  message:
+  payload_result_id:
+  payload_id:
+  type: ImportSourceDataTaskResult
+import_from_fahey_feeney_and_jacobs:
+  id: 1000006
+  job_result_id: 1000002
+  name: Import from Fahey, Feeney and Jacobs
+  started_at: 2015-11-13 22:09:59.512000000 Z
+  finished_at: 2015-11-13 22:10:59.512000000 Z
+  status: success
+  created_at: 2015-11-13 22:10:59.514000000 Z
+  updated_at: 2015-11-13 22:10:59.514000000 Z
+  message:
+  payload_result_id:
+  payload_id:
+  type: ImportSourceDataTaskResult

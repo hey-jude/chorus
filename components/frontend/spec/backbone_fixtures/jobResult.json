@@ -1,0 +1,40 @@
+{
+  "response": {
+    "succeeded": true,
+    "started_at": "2015-11-13T04:46:35Z",
+    "finished_at": "2015-11-13T04:56:35Z",
+    "id": 1000002,
+    "job_task_results": [
+      {
+        "status": "success",
+        "started_at": "2015-11-13T04:55:35Z",
+        "finished_at": "2015-11-13T04:56:35Z",
+        "name": "Import from O'Kon-Hartmann",
+        "message": null,
+        "id": 1000004,
+        "payload_result_id": "1234",
+        "payload_id": 7
+      },
+      {
+        "status": "success",
+        "started_at": "2015-11-13T04:55:35Z",
+        "finished_at": "2015-11-13T04:56:35Z",
+        "name": "Import from Schaefer-Farrell",
+        "message": null,
+        "id": 1000005,
+        "payload_result_id": null,
+        "payload_id": null
+      },
+      {
+        "status": "success",
+        "started_at": "2015-11-13T04:55:35Z",
+        "finished_at": "2015-11-13T04:56:35Z",
+        "name": "Import from Schmitt, Kautzer and Cartwright",
+        "message": null,
+        "id": 1000006,
+        "payload_result_id": null,
+        "payload_id": null
+      }
+    ]
+  }
+}

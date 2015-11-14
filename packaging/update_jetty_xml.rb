@@ -1,10 +1,10 @@
-chorus_home = File.expand_path(File.dirname(__FILE__) + '/../')
 require 'rexml/document'
-require File.join(chorus_home, 'app/models/chorus_config')
 
-jetty_xml_file = File.join(chorus_home, 'vendor', 'jetty', 'jetty.xml')
+rails_root = File.expand_path(File.dirname(__FILE__) + '/../')
+require File.join(rails_root, 'config', 'initializers', 'chorus_config')
+chorus_config = ChorusConfig.new(rails_root)
 
-chorus_config = ChorusConfig.new(chorus_home)
+jetty_xml_file = File.join(rails_root, 'vendor', 'jetty', 'jetty.xml')
 
 xml_doc = REXML::Document.new(File.new(jetty_xml_file))
 max_threads = REXML::XPath.first(xml_doc, "/Configure/Set[@name='ThreadPool']/New/Set[@name='maxThreads']")

@@ -1,0 +1,9 @@
+{
+  "response": {
+    "name": "myTableauWorkbook",
+    "dataset_id": 1000005,
+    "id": 1000006,
+    "url": "http:///workbooks/myTableauWorkbook",
+    "project_url": "http:///workbooks?fe_project.name=Default"
+  }
+}

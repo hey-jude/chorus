@@ -1,0 +1,59 @@
+{
+  "response": {
+    "id": 1000013,
+    "actor": {
+      "id": 1000006,
+      "username": "owner",
+      "first_name": "searchquery",
+      "last_name": "Rice",
+      "image": {
+        "original": "/users/1000006/image?style=original&1447390563",
+        "icon": "/users/1000006/image?style=icon&1447390563",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "ProjectStatusChanged",
+    "timestamp": "2015-11-13T04:56:14Z",
+    "workspace": {
+      "id": 1000004,
+      "name": "Workspace that is an important project",
+      "is_deleted": null,
+      "entity_type": "workspace",
+      "summary": null,
+      "archived_at": null,
+      "permission": [
+        "read",
+        "commenting",
+        "update",
+        "duplicate_chorus_view"
+      ],
+      "public": true,
+      "datasets_count": 0,
+      "members_count": 3,
+      "workfiles_count": 0,
+      "insights_count": 0,
+      "recent_insights_count": 0,
+      "recent_comments_count": 0,
+      "has_recent_comments": false,
+      "has_milestones": true
+    },
+    "status": "on_track",
+    "reason": "Vision-oriented eco-centric database",
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}

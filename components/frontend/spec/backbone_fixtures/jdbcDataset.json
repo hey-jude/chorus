@@ -1,0 +1,43 @@
+{
+  "response": {
+    "recent_comments": [
+
+    ],
+    "comment_count": 0,
+    "id": 1000003,
+    "object_name": "jdbc_table",
+    "schema": {
+      "id": 1000002,
+      "name": "jdbc",
+      "dataset_count": 0,
+      "refreshed_at": null,
+      "entity_type": "jdbc_schema",
+      "is_deleted": null,
+      "data_source": {
+        "id": 1000011,
+        "name": "jdbc",
+        "entity_type": "jdbc_data_source",
+        "is_deleted": null,
+        "shared": false,
+        "owner_id": 1000006,
+        "version": null,
+        "is_hawq": null,
+        "state": "online"
+      }
+    },
+    "entity_type": "dataset",
+    "entity_subtype": "SOURCE_TABLE",
+    "stale": false,
+    "stale_at": null,
+    "is_deleted": null,
+    "associated_workspaces": [
+
+    ],
+    "has_credentials": true,
+    "tags": [
+
+    ],
+    "object_type": "TABLE",
+    "complete_json": true
+  }
+}

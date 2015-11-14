@@ -1,0 +1,1856 @@
+---
+permissions_001:
+  id: 1000000
+  role_id: 1000000
+  chorus_class_id: 1000000
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.249000000 Z
+  updated_at: 2015-11-13 22:10:24.249000000 Z
+permissions_002:
+  id: 1000001
+  role_id: 1000000
+  chorus_class_id: 1000086
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.267000000 Z
+  updated_at: 2015-11-13 22:10:24.267000000 Z
+permissions_003:
+  id: 1000002
+  role_id: 1000000
+  chorus_class_id: 1000005
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:24.282000000 Z
+  updated_at: 2015-11-13 22:10:24.282000000 Z
+permissions_004:
+  id: 1000003
+  role_id: 1000000
+  chorus_class_id: 1000106
+  permissions_mask: 4095
+  created_at: 2015-11-13 22:10:24.301000000 Z
+  updated_at: 2015-11-13 22:10:24.301000000 Z
+permissions_005:
+  id: 1000004
+  role_id: 1000000
+  chorus_class_id: 1000015
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:24.316000000 Z
+  updated_at: 2015-11-13 22:10:24.316000000 Z
+permissions_006:
+  id: 1000005
+  role_id: 1000000
+  chorus_class_id: 1000032
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.330000000 Z
+  updated_at: 2015-11-13 22:10:24.330000000 Z
+permissions_007:
+  id: 1000006
+  role_id: 1000000
+  chorus_class_id: 1000114
+  permissions_mask: 524287
+  created_at: 2015-11-13 22:10:24.351000000 Z
+  updated_at: 2015-11-13 22:10:24.351000000 Z
+permissions_008:
+  id: 1000007
+  role_id: 1000000
+  chorus_class_id: 1000014
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:24.373000000 Z
+  updated_at: 2015-11-13 22:10:24.373000000 Z
+permissions_009:
+  id: 1000008
+  role_id: 1000000
+  chorus_class_id: 1000033
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:24.391000000 Z
+  updated_at: 2015-11-13 22:10:24.391000000 Z
+permissions_010:
+  id: 1000009
+  role_id: 1000000
+  chorus_class_id: 1000021
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:24.408000000 Z
+  updated_at: 2015-11-13 22:10:24.408000000 Z
+permissions_011:
+  id: 1000010
+  role_id: 1000000
+  chorus_class_id: 1000063
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.423000000 Z
+  updated_at: 2015-11-13 22:10:24.423000000 Z
+permissions_012:
+  id: 1000011
+  role_id: 1000000
+  chorus_class_id: 1000091
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.438000000 Z
+  updated_at: 2015-11-13 22:10:24.438000000 Z
+permissions_013:
+  id: 1000012
+  role_id: 1000000
+  chorus_class_id: 1000090
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.453000000 Z
+  updated_at: 2015-11-13 22:10:24.453000000 Z
+permissions_014:
+  id: 1000013
+  role_id: 1000000
+  chorus_class_id: 1000008
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:24.468000000 Z
+  updated_at: 2015-11-13 22:10:24.468000000 Z
+permissions_015:
+  id: 1000014
+  role_id: 1000000
+  chorus_class_id: 1000108
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.482000000 Z
+  updated_at: 2015-11-13 22:10:24.482000000 Z
+permissions_016:
+  id: 1000015
+  role_id: 1000000
+  chorus_class_id: 1000112
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:24.498000000 Z
+  updated_at: 2015-11-13 22:10:24.498000000 Z
+permissions_017:
+  id: 1000016
+  role_id: 1000000
+  chorus_class_id: 1000053
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.512000000 Z
+  updated_at: 2015-11-13 22:10:24.512000000 Z
+permissions_018:
+  id: 1000017
+  role_id: 1000000
+  chorus_class_id: 1000103
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.529000000 Z
+  updated_at: 2015-11-13 22:10:24.529000000 Z
+permissions_019:
+  id: 1000018
+  role_id: 1000000
+  chorus_class_id: 1000061
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.544000000 Z
+  updated_at: 2015-11-13 22:10:24.544000000 Z
+permissions_020:
+  id: 1000019
+  role_id: 1000000
+  chorus_class_id: 1000101
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.558000000 Z
+  updated_at: 2015-11-13 22:10:24.558000000 Z
+permissions_021:
+  id: 1000020
+  role_id: 1000000
+  chorus_class_id: 1000105
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.571000000 Z
+  updated_at: 2015-11-13 22:10:24.571000000 Z
+permissions_022:
+  id: 1000021
+  role_id: 1000000
+  chorus_class_id: 1000041
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.587000000 Z
+  updated_at: 2015-11-13 22:10:24.587000000 Z
+permissions_023:
+  id: 1000022
+  role_id: 1000000
+  chorus_class_id: 1000066
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.605000000 Z
+  updated_at: 2015-11-13 22:10:24.605000000 Z
+permissions_024:
+  id: 1000023
+  role_id: 1000000
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.620000000 Z
+  updated_at: 2015-11-13 22:10:24.620000000 Z
+permissions_025:
+  id: 1000024
+  role_id: 1000001
+  chorus_class_id: 1000000
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.638000000 Z
+  updated_at: 2015-11-13 22:10:24.638000000 Z
+permissions_026:
+  id: 1000025
+  role_id: 1000001
+  chorus_class_id: 1000086
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.652000000 Z
+  updated_at: 2015-11-13 22:10:24.652000000 Z
+permissions_027:
+  id: 1000026
+  role_id: 1000001
+  chorus_class_id: 1000005
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:24.672000000 Z
+  updated_at: 2015-11-13 22:10:24.672000000 Z
+permissions_028:
+  id: 1000027
+  role_id: 1000001
+  chorus_class_id: 1000106
+  permissions_mask: 2034
+  created_at: 2015-11-13 22:10:24.690000000 Z
+  updated_at: 2015-11-13 22:10:24.690000000 Z
+permissions_029:
+  id: 1000028
+  role_id: 1000001
+  chorus_class_id: 1000015
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:24.704000000 Z
+  updated_at: 2015-11-13 22:10:24.704000000 Z
+permissions_030:
+  id: 1000029
+  role_id: 1000001
+  chorus_class_id: 1000032
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.716000000 Z
+  updated_at: 2015-11-13 22:10:24.716000000 Z
+permissions_031:
+  id: 1000030
+  role_id: 1000001
+  chorus_class_id: 1000114
+  permissions_mask: 468959
+  created_at: 2015-11-13 22:10:24.736000000 Z
+  updated_at: 2015-11-13 22:10:24.736000000 Z
+permissions_032:
+  id: 1000031
+  role_id: 1000001
+  chorus_class_id: 1000014
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:24.751000000 Z
+  updated_at: 2015-11-13 22:10:24.751000000 Z
+permissions_033:
+  id: 1000032
+  role_id: 1000001
+  chorus_class_id: 1000033
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:24.767000000 Z
+  updated_at: 2015-11-13 22:10:24.767000000 Z
+permissions_034:
+  id: 1000033
+  role_id: 1000001
+  chorus_class_id: 1000021
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:24.783000000 Z
+  updated_at: 2015-11-13 22:10:24.783000000 Z
+permissions_035:
+  id: 1000034
+  role_id: 1000001
+  chorus_class_id: 1000063
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.797000000 Z
+  updated_at: 2015-11-13 22:10:24.797000000 Z
+permissions_036:
+  id: 1000035
+  role_id: 1000001
+  chorus_class_id: 1000091
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.809000000 Z
+  updated_at: 2015-11-13 22:10:24.809000000 Z
+permissions_037:
+  id: 1000036
+  role_id: 1000001
+  chorus_class_id: 1000090
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.823000000 Z
+  updated_at: 2015-11-13 22:10:24.823000000 Z
+permissions_038:
+  id: 1000037
+  role_id: 1000001
+  chorus_class_id: 1000008
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:24.836000000 Z
+  updated_at: 2015-11-13 22:10:24.836000000 Z
+permissions_039:
+  id: 1000038
+  role_id: 1000001
+  chorus_class_id: 1000108
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.850000000 Z
+  updated_at: 2015-11-13 22:10:24.850000000 Z
+permissions_040:
+  id: 1000039
+  role_id: 1000001
+  chorus_class_id: 1000112
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:24.864000000 Z
+  updated_at: 2015-11-13 22:10:24.864000000 Z
+permissions_041:
+  id: 1000040
+  role_id: 1000001
+  chorus_class_id: 1000053
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.878000000 Z
+  updated_at: 2015-11-13 22:10:24.878000000 Z
+permissions_042:
+  id: 1000041
+  role_id: 1000001
+  chorus_class_id: 1000103
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.892000000 Z
+  updated_at: 2015-11-13 22:10:24.892000000 Z
+permissions_043:
+  id: 1000042
+  role_id: 1000001
+  chorus_class_id: 1000061
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.906000000 Z
+  updated_at: 2015-11-13 22:10:24.906000000 Z
+permissions_044:
+  id: 1000043
+  role_id: 1000001
+  chorus_class_id: 1000101
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:24.921000000 Z
+  updated_at: 2015-11-13 22:10:24.921000000 Z
+permissions_045:
+  id: 1000044
+  role_id: 1000001
+  chorus_class_id: 1000105
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.935000000 Z
+  updated_at: 2015-11-13 22:10:24.935000000 Z
+permissions_046:
+  id: 1000045
+  role_id: 1000001
+  chorus_class_id: 1000041
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.949000000 Z
+  updated_at: 2015-11-13 22:10:24.949000000 Z
+permissions_047:
+  id: 1000046
+  role_id: 1000001
+  chorus_class_id: 1000066
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.962000000 Z
+  updated_at: 2015-11-13 22:10:24.962000000 Z
+permissions_048:
+  id: 1000047
+  role_id: 1000001
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:24.976000000 Z
+  updated_at: 2015-11-13 22:10:24.976000000 Z
+permissions_049:
+  id: 1000048
+  role_id: 1000003
+  chorus_class_id: 1000000
+  permissions_mask: 48
+  created_at: 2015-11-13 22:10:24.992000000 Z
+  updated_at: 2015-11-13 22:10:24.992000000 Z
+permissions_050:
+  id: 1000049
+  role_id: 1000003
+  chorus_class_id: 1000005
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.009000000 Z
+  updated_at: 2015-11-13 22:10:25.009000000 Z
+permissions_051:
+  id: 1000050
+  role_id: 1000003
+  chorus_class_id: 1000086
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.028000000 Z
+  updated_at: 2015-11-13 22:10:25.028000000 Z
+permissions_052:
+  id: 1000051
+  role_id: 1000003
+  chorus_class_id: 1000106
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.046000000 Z
+  updated_at: 2015-11-13 22:10:25.046000000 Z
+permissions_053:
+  id: 1000052
+  role_id: 1000003
+  chorus_class_id: 1000015
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.059000000 Z
+  updated_at: 2015-11-13 22:10:25.059000000 Z
+permissions_054:
+  id: 1000053
+  role_id: 1000003
+  chorus_class_id: 1000032
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.072000000 Z
+  updated_at: 2015-11-13 22:10:25.072000000 Z
+permissions_055:
+  id: 1000054
+  role_id: 1000003
+  chorus_class_id: 1000114
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.091000000 Z
+  updated_at: 2015-11-13 22:10:25.091000000 Z
+permissions_056:
+  id: 1000055
+  role_id: 1000003
+  chorus_class_id: 1000014
+  permissions_mask: 2
+  created_at: 2015-11-13 22:10:25.105000000 Z
+  updated_at: 2015-11-13 22:10:25.105000000 Z
+permissions_057:
+  id: 1000056
+  role_id: 1000003
+  chorus_class_id: 1000033
+  permissions_mask: 2
+  created_at: 2015-11-13 22:10:25.120000000 Z
+  updated_at: 2015-11-13 22:10:25.120000000 Z
+permissions_058:
+  id: 1000057
+  role_id: 1000003
+  chorus_class_id: 1000021
+  permissions_mask: 2
+  created_at: 2015-11-13 22:10:25.135000000 Z
+  updated_at: 2015-11-13 22:10:25.135000000 Z
+permissions_059:
+  id: 1000058
+  role_id: 1000003
+  chorus_class_id: 1000063
+  permissions_mask: 3
+  created_at: 2015-11-13 22:10:25.150000000 Z
+  updated_at: 2015-11-13 22:10:25.150000000 Z
+permissions_060:
+  id: 1000059
+  role_id: 1000003
+  chorus_class_id: 1000091
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.163000000 Z
+  updated_at: 2015-11-13 22:10:25.163000000 Z
+permissions_061:
+  id: 1000060
+  role_id: 1000003
+  chorus_class_id: 1000090
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.175000000 Z
+  updated_at: 2015-11-13 22:10:25.175000000 Z
+permissions_062:
+  id: 1000061
+  role_id: 1000003
+  chorus_class_id: 1000008
+  permissions_mask: 19
+  created_at: 2015-11-13 22:10:25.189000000 Z
+  updated_at: 2015-11-13 22:10:25.189000000 Z
+permissions_063:
+  id: 1000062
+  role_id: 1000003
+  chorus_class_id: 1000108
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.202000000 Z
+  updated_at: 2015-11-13 22:10:25.202000000 Z
+permissions_064:
+  id: 1000063
+  role_id: 1000003
+  chorus_class_id: 1000112
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.237000000 Z
+  updated_at: 2015-11-13 22:10:25.237000000 Z
+permissions_065:
+  id: 1000064
+  role_id: 1000003
+  chorus_class_id: 1000053
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.252000000 Z
+  updated_at: 2015-11-13 22:10:25.252000000 Z
+permissions_066:
+  id: 1000065
+  role_id: 1000003
+  chorus_class_id: 1000103
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.264000000 Z
+  updated_at: 2015-11-13 22:10:25.264000000 Z
+permissions_067:
+  id: 1000066
+  role_id: 1000003
+  chorus_class_id: 1000061
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.278000000 Z
+  updated_at: 2015-11-13 22:10:25.278000000 Z
+permissions_068:
+  id: 1000067
+  role_id: 1000003
+  chorus_class_id: 1000101
+  permissions_mask: 51
+  created_at: 2015-11-13 22:10:25.290000000 Z
+  updated_at: 2015-11-13 22:10:25.290000000 Z
+permissions_069:
+  id: 1000068
+  role_id: 1000003
+  chorus_class_id: 1000105
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.303000000 Z
+  updated_at: 2015-11-13 22:10:25.303000000 Z
+permissions_070:
+  id: 1000069
+  role_id: 1000003
+  chorus_class_id: 1000041
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.318000000 Z
+  updated_at: 2015-11-13 22:10:25.318000000 Z
+permissions_071:
+  id: 1000070
+  role_id: 1000003
+  chorus_class_id: 1000066
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.330000000 Z
+  updated_at: 2015-11-13 22:10:25.330000000 Z
+permissions_072:
+  id: 1000071
+  role_id: 1000003
+  chorus_class_id: 1000009
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.342000000 Z
+  updated_at: 2015-11-13 22:10:25.342000000 Z
+permissions_073:
+  id: 1000072
+  role_id: 1000002
+  chorus_class_id: 1000000
+  permissions_mask: 48
+  created_at: 2015-11-13 22:10:25.357000000 Z
+  updated_at: 2015-11-13 22:10:25.357000000 Z
+permissions_074:
+  id: 1000073
+  role_id: 1000002
+  chorus_class_id: 1000005
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.368000000 Z
+  updated_at: 2015-11-13 22:10:25.368000000 Z
+permissions_075:
+  id: 1000074
+  role_id: 1000002
+  chorus_class_id: 1000086
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.381000000 Z
+  updated_at: 2015-11-13 22:10:25.381000000 Z
+permissions_076:
+  id: 1000075
+  role_id: 1000002
+  chorus_class_id: 1000106
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.395000000 Z
+  updated_at: 2015-11-13 22:10:25.395000000 Z
+permissions_077:
+  id: 1000076
+  role_id: 1000002
+  chorus_class_id: 1000015
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.409000000 Z
+  updated_at: 2015-11-13 22:10:25.409000000 Z
+permissions_078:
+  id: 1000077
+  role_id: 1000002
+  chorus_class_id: 1000032
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.421000000 Z
+  updated_at: 2015-11-13 22:10:25.421000000 Z
+permissions_079:
+  id: 1000078
+  role_id: 1000002
+  chorus_class_id: 1000114
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.437000000 Z
+  updated_at: 2015-11-13 22:10:25.437000000 Z
+permissions_080:
+  id: 1000079
+  role_id: 1000002
+  chorus_class_id: 1000014
+  permissions_mask: 2
+  created_at: 2015-11-13 22:10:25.450000000 Z
+  updated_at: 2015-11-13 22:10:25.450000000 Z
+permissions_081:
+  id: 1000080
+  role_id: 1000002
+  chorus_class_id: 1000033
+  permissions_mask: 2
+  created_at: 2015-11-13 22:10:25.464000000 Z
+  updated_at: 2015-11-13 22:10:25.464000000 Z
+permissions_082:
+  id: 1000081
+  role_id: 1000002
+  chorus_class_id: 1000021
+  permissions_mask: 2
+  created_at: 2015-11-13 22:10:25.478000000 Z
+  updated_at: 2015-11-13 22:10:25.478000000 Z
+permissions_083:
+  id: 1000082
+  role_id: 1000002
+  chorus_class_id: 1000063
+  permissions_mask: 3
+  created_at: 2015-11-13 22:10:25.490000000 Z
+  updated_at: 2015-11-13 22:10:25.490000000 Z
+permissions_084:
+  id: 1000083
+  role_id: 1000002
+  chorus_class_id: 1000091
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.502000000 Z
+  updated_at: 2015-11-13 22:10:25.502000000 Z
+permissions_085:
+  id: 1000084
+  role_id: 1000002
+  chorus_class_id: 1000090
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.514000000 Z
+  updated_at: 2015-11-13 22:10:25.514000000 Z
+permissions_086:
+  id: 1000085
+  role_id: 1000002
+  chorus_class_id: 1000008
+  permissions_mask: 19
+  created_at: 2015-11-13 22:10:25.526000000 Z
+  updated_at: 2015-11-13 22:10:25.526000000 Z
+permissions_087:
+  id: 1000086
+  role_id: 1000002
+  chorus_class_id: 1000108
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.537000000 Z
+  updated_at: 2015-11-13 22:10:25.537000000 Z
+permissions_088:
+  id: 1000087
+  role_id: 1000002
+  chorus_class_id: 1000112
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.551000000 Z
+  updated_at: 2015-11-13 22:10:25.551000000 Z
+permissions_089:
+  id: 1000088
+  role_id: 1000002
+  chorus_class_id: 1000053
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.563000000 Z
+  updated_at: 2015-11-13 22:10:25.563000000 Z
+permissions_090:
+  id: 1000089
+  role_id: 1000002
+  chorus_class_id: 1000103
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.575000000 Z
+  updated_at: 2015-11-13 22:10:25.575000000 Z
+permissions_091:
+  id: 1000090
+  role_id: 1000002
+  chorus_class_id: 1000061
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.586000000 Z
+  updated_at: 2015-11-13 22:10:25.586000000 Z
+permissions_092:
+  id: 1000091
+  role_id: 1000002
+  chorus_class_id: 1000101
+  permissions_mask: 51
+  created_at: 2015-11-13 22:10:25.598000000 Z
+  updated_at: 2015-11-13 22:10:25.598000000 Z
+permissions_093:
+  id: 1000092
+  role_id: 1000002
+  chorus_class_id: 1000105
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.611000000 Z
+  updated_at: 2015-11-13 22:10:25.611000000 Z
+permissions_094:
+  id: 1000093
+  role_id: 1000002
+  chorus_class_id: 1000041
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.623000000 Z
+  updated_at: 2015-11-13 22:10:25.623000000 Z
+permissions_095:
+  id: 1000094
+  role_id: 1000002
+  chorus_class_id: 1000066
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.636000000 Z
+  updated_at: 2015-11-13 22:10:25.636000000 Z
+permissions_096:
+  id: 1000095
+  role_id: 1000002
+  chorus_class_id: 1000009
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:25.651000000 Z
+  updated_at: 2015-11-13 22:10:25.651000000 Z
+permissions_097:
+  id: 1000096
+  role_id: 1000004
+  chorus_class_id: 1000000
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.665000000 Z
+  updated_at: 2015-11-13 22:10:25.665000000 Z
+permissions_098:
+  id: 1000097
+  role_id: 1000004
+  chorus_class_id: 1000005
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:25.678000000 Z
+  updated_at: 2015-11-13 22:10:25.678000000 Z
+permissions_099:
+  id: 1000098
+  role_id: 1000004
+  chorus_class_id: 1000086
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.691000000 Z
+  updated_at: 2015-11-13 22:10:25.691000000 Z
+permissions_100:
+  id: 1000099
+  role_id: 1000004
+  chorus_class_id: 1000106
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:25.706000000 Z
+  updated_at: 2015-11-13 22:10:25.706000000 Z
+permissions_101:
+  id: 1000100
+  role_id: 1000004
+  chorus_class_id: 1000015
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:25.721000000 Z
+  updated_at: 2015-11-13 22:10:25.721000000 Z
+permissions_102:
+  id: 1000101
+  role_id: 1000004
+  chorus_class_id: 1000032
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:25.732000000 Z
+  updated_at: 2015-11-13 22:10:25.732000000 Z
+permissions_103:
+  id: 1000102
+  role_id: 1000004
+  chorus_class_id: 1000114
+  permissions_mask: 468959
+  created_at: 2015-11-13 22:10:25.749000000 Z
+  updated_at: 2015-11-13 22:10:25.749000000 Z
+permissions_104:
+  id: 1000103
+  role_id: 1000004
+  chorus_class_id: 1000014
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:25.762000000 Z
+  updated_at: 2015-11-13 22:10:25.762000000 Z
+permissions_105:
+  id: 1000104
+  role_id: 1000004
+  chorus_class_id: 1000033
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:25.776000000 Z
+  updated_at: 2015-11-13 22:10:25.776000000 Z
+permissions_106:
+  id: 1000105
+  role_id: 1000004
+  chorus_class_id: 1000021
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:25.790000000 Z
+  updated_at: 2015-11-13 22:10:25.790000000 Z
+permissions_107:
+  id: 1000106
+  role_id: 1000004
+  chorus_class_id: 1000063
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:25.802000000 Z
+  updated_at: 2015-11-13 22:10:25.802000000 Z
+permissions_108:
+  id: 1000107
+  role_id: 1000004
+  chorus_class_id: 1000091
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:25.814000000 Z
+  updated_at: 2015-11-13 22:10:25.814000000 Z
+permissions_109:
+  id: 1000108
+  role_id: 1000004
+  chorus_class_id: 1000090
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.825000000 Z
+  updated_at: 2015-11-13 22:10:25.825000000 Z
+permissions_110:
+  id: 1000109
+  role_id: 1000004
+  chorus_class_id: 1000008
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:25.837000000 Z
+  updated_at: 2015-11-13 22:10:25.837000000 Z
+permissions_111:
+  id: 1000110
+  role_id: 1000004
+  chorus_class_id: 1000108
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.849000000 Z
+  updated_at: 2015-11-13 22:10:25.849000000 Z
+permissions_112:
+  id: 1000111
+  role_id: 1000004
+  chorus_class_id: 1000112
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:25.863000000 Z
+  updated_at: 2015-11-13 22:10:25.863000000 Z
+permissions_113:
+  id: 1000112
+  role_id: 1000004
+  chorus_class_id: 1000053
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.875000000 Z
+  updated_at: 2015-11-13 22:10:25.875000000 Z
+permissions_114:
+  id: 1000113
+  role_id: 1000004
+  chorus_class_id: 1000103
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.886000000 Z
+  updated_at: 2015-11-13 22:10:25.886000000 Z
+permissions_115:
+  id: 1000114
+  role_id: 1000004
+  chorus_class_id: 1000061
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.899000000 Z
+  updated_at: 2015-11-13 22:10:25.899000000 Z
+permissions_116:
+  id: 1000115
+  role_id: 1000004
+  chorus_class_id: 1000101
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.911000000 Z
+  updated_at: 2015-11-13 22:10:25.911000000 Z
+permissions_117:
+  id: 1000116
+  role_id: 1000004
+  chorus_class_id: 1000105
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:25.922000000 Z
+  updated_at: 2015-11-13 22:10:25.922000000 Z
+permissions_118:
+  id: 1000117
+  role_id: 1000004
+  chorus_class_id: 1000041
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:25.934000000 Z
+  updated_at: 2015-11-13 22:10:25.934000000 Z
+permissions_119:
+  id: 1000118
+  role_id: 1000004
+  chorus_class_id: 1000066
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:25.945000000 Z
+  updated_at: 2015-11-13 22:10:25.945000000 Z
+permissions_120:
+  id: 1000119
+  role_id: 1000004
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:25.956000000 Z
+  updated_at: 2015-11-13 22:10:25.956000000 Z
+permissions_121:
+  id: 1000120
+  role_id: 1000005
+  chorus_class_id: 1000000
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.970000000 Z
+  updated_at: 2015-11-13 22:10:25.970000000 Z
+permissions_122:
+  id: 1000121
+  role_id: 1000005
+  chorus_class_id: 1000005
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:25.984000000 Z
+  updated_at: 2015-11-13 22:10:25.984000000 Z
+permissions_123:
+  id: 1000122
+  role_id: 1000005
+  chorus_class_id: 1000086
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:25.996000000 Z
+  updated_at: 2015-11-13 22:10:25.996000000 Z
+permissions_124:
+  id: 1000123
+  role_id: 1000005
+  chorus_class_id: 1000106
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:26.010000000 Z
+  updated_at: 2015-11-13 22:10:26.010000000 Z
+permissions_125:
+  id: 1000124
+  role_id: 1000005
+  chorus_class_id: 1000015
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:26.022000000 Z
+  updated_at: 2015-11-13 22:10:26.022000000 Z
+permissions_126:
+  id: 1000125
+  role_id: 1000005
+  chorus_class_id: 1000032
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.033000000 Z
+  updated_at: 2015-11-13 22:10:26.033000000 Z
+permissions_127:
+  id: 1000126
+  role_id: 1000005
+  chorus_class_id: 1000114
+  permissions_mask: 468959
+  created_at: 2015-11-13 22:10:26.048000000 Z
+  updated_at: 2015-11-13 22:10:26.048000000 Z
+permissions_128:
+  id: 1000127
+  role_id: 1000005
+  chorus_class_id: 1000014
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:26.061000000 Z
+  updated_at: 2015-11-13 22:10:26.061000000 Z
+permissions_129:
+  id: 1000128
+  role_id: 1000005
+  chorus_class_id: 1000033
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:26.074000000 Z
+  updated_at: 2015-11-13 22:10:26.074000000 Z
+permissions_130:
+  id: 1000129
+  role_id: 1000005
+  chorus_class_id: 1000021
+  permissions_mask: 2047
+  created_at: 2015-11-13 22:10:26.087000000 Z
+  updated_at: 2015-11-13 22:10:26.087000000 Z
+permissions_131:
+  id: 1000130
+  role_id: 1000005
+  chorus_class_id: 1000063
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.100000000 Z
+  updated_at: 2015-11-13 22:10:26.100000000 Z
+permissions_132:
+  id: 1000131
+  role_id: 1000005
+  chorus_class_id: 1000091
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.113000000 Z
+  updated_at: 2015-11-13 22:10:26.113000000 Z
+permissions_133:
+  id: 1000132
+  role_id: 1000005
+  chorus_class_id: 1000090
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:26.126000000 Z
+  updated_at: 2015-11-13 22:10:26.126000000 Z
+permissions_134:
+  id: 1000133
+  role_id: 1000005
+  chorus_class_id: 1000008
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:26.137000000 Z
+  updated_at: 2015-11-13 22:10:26.137000000 Z
+permissions_135:
+  id: 1000134
+  role_id: 1000005
+  chorus_class_id: 1000108
+  permissions_mask: 47
+  created_at: 2015-11-13 22:10:26.149000000 Z
+  updated_at: 2015-11-13 22:10:26.149000000 Z
+permissions_136:
+  id: 1000135
+  role_id: 1000005
+  chorus_class_id: 1000112
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:26.160000000 Z
+  updated_at: 2015-11-13 22:10:26.160000000 Z
+permissions_137:
+  id: 1000136
+  role_id: 1000005
+  chorus_class_id: 1000053
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:26.172000000 Z
+  updated_at: 2015-11-13 22:10:26.172000000 Z
+permissions_138:
+  id: 1000137
+  role_id: 1000005
+  chorus_class_id: 1000103
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:26.185000000 Z
+  updated_at: 2015-11-13 22:10:26.185000000 Z
+permissions_139:
+  id: 1000138
+  role_id: 1000005
+  chorus_class_id: 1000061
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:26.198000000 Z
+  updated_at: 2015-11-13 22:10:26.198000000 Z
+permissions_140:
+  id: 1000139
+  role_id: 1000005
+  chorus_class_id: 1000101
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:26.210000000 Z
+  updated_at: 2015-11-13 22:10:26.210000000 Z
+permissions_141:
+  id: 1000140
+  role_id: 1000005
+  chorus_class_id: 1000105
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.222000000 Z
+  updated_at: 2015-11-13 22:10:26.222000000 Z
+permissions_142:
+  id: 1000141
+  role_id: 1000005
+  chorus_class_id: 1000041
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.235000000 Z
+  updated_at: 2015-11-13 22:10:26.235000000 Z
+permissions_143:
+  id: 1000142
+  role_id: 1000005
+  chorus_class_id: 1000066
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.248000000 Z
+  updated_at: 2015-11-13 22:10:26.248000000 Z
+permissions_144:
+  id: 1000143
+  role_id: 1000005
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.258000000 Z
+  updated_at: 2015-11-13 22:10:26.258000000 Z
+permissions_145:
+  id: 1000144
+  role_id: 1000006
+  chorus_class_id: 1000000
+  permissions_mask: 48
+  created_at: 2015-11-13 22:10:26.296000000 Z
+  updated_at: 2015-11-13 22:10:26.296000000 Z
+permissions_146:
+  id: 1000145
+  role_id: 1000006
+  chorus_class_id: 1000005
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.309000000 Z
+  updated_at: 2015-11-13 22:10:26.309000000 Z
+permissions_147:
+  id: 1000146
+  role_id: 1000006
+  chorus_class_id: 1000086
+  permissions_mask: 32
+  created_at: 2015-11-13 22:10:26.323000000 Z
+  updated_at: 2015-11-13 22:10:26.323000000 Z
+permissions_148:
+  id: 1000147
+  role_id: 1000006
+  chorus_class_id: 1000106
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.338000000 Z
+  updated_at: 2015-11-13 22:10:26.338000000 Z
+permissions_149:
+  id: 1000148
+  role_id: 1000006
+  chorus_class_id: 1000015
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.349000000 Z
+  updated_at: 2015-11-13 22:10:26.349000000 Z
+permissions_150:
+  id: 1000149
+  role_id: 1000006
+  chorus_class_id: 1000032
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.361000000 Z
+  updated_at: 2015-11-13 22:10:26.361000000 Z
+permissions_151:
+  id: 1000150
+  role_id: 1000006
+  chorus_class_id: 1000114
+  permissions_mask: 468959
+  created_at: 2015-11-13 22:10:26.375000000 Z
+  updated_at: 2015-11-13 22:10:26.375000000 Z
+permissions_152:
+  id: 1000151
+  role_id: 1000006
+  chorus_class_id: 1000014
+  permissions_mask: 1935
+  created_at: 2015-11-13 22:10:26.389000000 Z
+  updated_at: 2015-11-13 22:10:26.389000000 Z
+permissions_153:
+  id: 1000152
+  role_id: 1000006
+  chorus_class_id: 1000033
+  permissions_mask: 1935
+  created_at: 2015-11-13 22:10:26.403000000 Z
+  updated_at: 2015-11-13 22:10:26.403000000 Z
+permissions_154:
+  id: 1000153
+  role_id: 1000006
+  chorus_class_id: 1000021
+  permissions_mask: 1935
+  created_at: 2015-11-13 22:10:26.417000000 Z
+  updated_at: 2015-11-13 22:10:26.417000000 Z
+permissions_155:
+  id: 1000154
+  role_id: 1000006
+  chorus_class_id: 1000063
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.430000000 Z
+  updated_at: 2015-11-13 22:10:26.430000000 Z
+permissions_156:
+  id: 1000155
+  role_id: 1000006
+  chorus_class_id: 1000091
+  permissions_mask: 2
+  created_at: 2015-11-13 22:10:26.441000000 Z
+  updated_at: 2015-11-13 22:10:26.441000000 Z
+permissions_157:
+  id: 1000156
+  role_id: 1000006
+  chorus_class_id: 1000090
+  permissions_mask: 2
+  created_at: 2015-11-13 22:10:26.452000000 Z
+  updated_at: 2015-11-13 22:10:26.452000000 Z
+permissions_158:
+  id: 1000157
+  role_id: 1000006
+  chorus_class_id: 1000008
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:26.464000000 Z
+  updated_at: 2015-11-13 22:10:26.464000000 Z
+permissions_159:
+  id: 1000158
+  role_id: 1000006
+  chorus_class_id: 1000108
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.475000000 Z
+  updated_at: 2015-11-13 22:10:26.475000000 Z
+permissions_160:
+  id: 1000159
+  role_id: 1000006
+  chorus_class_id: 1000112
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.487000000 Z
+  updated_at: 2015-11-13 22:10:26.487000000 Z
+permissions_161:
+  id: 1000160
+  role_id: 1000006
+  chorus_class_id: 1000053
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.498000000 Z
+  updated_at: 2015-11-13 22:10:26.498000000 Z
+permissions_162:
+  id: 1000161
+  role_id: 1000006
+  chorus_class_id: 1000103
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.509000000 Z
+  updated_at: 2015-11-13 22:10:26.509000000 Z
+permissions_163:
+  id: 1000162
+  role_id: 1000006
+  chorus_class_id: 1000061
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.522000000 Z
+  updated_at: 2015-11-13 22:10:26.522000000 Z
+permissions_164:
+  id: 1000163
+  role_id: 1000006
+  chorus_class_id: 1000101
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:26.534000000 Z
+  updated_at: 2015-11-13 22:10:26.534000000 Z
+permissions_165:
+  id: 1000164
+  role_id: 1000006
+  chorus_class_id: 1000105
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.545000000 Z
+  updated_at: 2015-11-13 22:10:26.545000000 Z
+permissions_166:
+  id: 1000165
+  role_id: 1000006
+  chorus_class_id: 1000041
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.558000000 Z
+  updated_at: 2015-11-13 22:10:26.558000000 Z
+permissions_167:
+  id: 1000166
+  role_id: 1000006
+  chorus_class_id: 1000066
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.570000000 Z
+  updated_at: 2015-11-13 22:10:26.570000000 Z
+permissions_168:
+  id: 1000167
+  role_id: 1000006
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.580000000 Z
+  updated_at: 2015-11-13 22:10:26.580000000 Z
+permissions_169:
+  id: 1000168
+  role_id: 1000007
+  chorus_class_id: 1000000
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.594000000 Z
+  updated_at: 2015-11-13 22:10:26.594000000 Z
+permissions_170:
+  id: 1000169
+  role_id: 1000007
+  chorus_class_id: 1000005
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.605000000 Z
+  updated_at: 2015-11-13 22:10:26.605000000 Z
+permissions_171:
+  id: 1000170
+  role_id: 1000007
+  chorus_class_id: 1000086
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.618000000 Z
+  updated_at: 2015-11-13 22:10:26.618000000 Z
+permissions_172:
+  id: 1000171
+  role_id: 1000007
+  chorus_class_id: 1000106
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.632000000 Z
+  updated_at: 2015-11-13 22:10:26.632000000 Z
+permissions_173:
+  id: 1000172
+  role_id: 1000007
+  chorus_class_id: 1000015
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.643000000 Z
+  updated_at: 2015-11-13 22:10:26.643000000 Z
+permissions_174:
+  id: 1000173
+  role_id: 1000007
+  chorus_class_id: 1000032
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.655000000 Z
+  updated_at: 2015-11-13 22:10:26.655000000 Z
+permissions_175:
+  id: 1000174
+  role_id: 1000007
+  chorus_class_id: 1000114
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.670000000 Z
+  updated_at: 2015-11-13 22:10:26.670000000 Z
+permissions_176:
+  id: 1000175
+  role_id: 1000007
+  chorus_class_id: 1000014
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.683000000 Z
+  updated_at: 2015-11-13 22:10:26.683000000 Z
+permissions_177:
+  id: 1000176
+  role_id: 1000007
+  chorus_class_id: 1000033
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.696000000 Z
+  updated_at: 2015-11-13 22:10:26.696000000 Z
+permissions_178:
+  id: 1000177
+  role_id: 1000007
+  chorus_class_id: 1000021
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.709000000 Z
+  updated_at: 2015-11-13 22:10:26.709000000 Z
+permissions_179:
+  id: 1000178
+  role_id: 1000007
+  chorus_class_id: 1000063
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.721000000 Z
+  updated_at: 2015-11-13 22:10:26.721000000 Z
+permissions_180:
+  id: 1000179
+  role_id: 1000007
+  chorus_class_id: 1000091
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.732000000 Z
+  updated_at: 2015-11-13 22:10:26.732000000 Z
+permissions_181:
+  id: 1000180
+  role_id: 1000007
+  chorus_class_id: 1000090
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.743000000 Z
+  updated_at: 2015-11-13 22:10:26.743000000 Z
+permissions_182:
+  id: 1000181
+  role_id: 1000007
+  chorus_class_id: 1000008
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.754000000 Z
+  updated_at: 2015-11-13 22:10:26.754000000 Z
+permissions_183:
+  id: 1000182
+  role_id: 1000007
+  chorus_class_id: 1000108
+  permissions_mask: 49
+  created_at: 2015-11-13 22:10:26.765000000 Z
+  updated_at: 2015-11-13 22:10:26.765000000 Z
+permissions_184:
+  id: 1000183
+  role_id: 1000007
+  chorus_class_id: 1000112
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:26.777000000 Z
+  updated_at: 2015-11-13 22:10:26.777000000 Z
+permissions_185:
+  id: 1000184
+  role_id: 1000007
+  chorus_class_id: 1000053
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.788000000 Z
+  updated_at: 2015-11-13 22:10:26.788000000 Z
+permissions_186:
+  id: 1000185
+  role_id: 1000007
+  chorus_class_id: 1000103
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.800000000 Z
+  updated_at: 2015-11-13 22:10:26.800000000 Z
+permissions_187:
+  id: 1000186
+  role_id: 1000007
+  chorus_class_id: 1000061
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.812000000 Z
+  updated_at: 2015-11-13 22:10:26.812000000 Z
+permissions_188:
+  id: 1000187
+  role_id: 1000007
+  chorus_class_id: 1000101
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.824000000 Z
+  updated_at: 2015-11-13 22:10:26.824000000 Z
+permissions_189:
+  id: 1000188
+  role_id: 1000007
+  chorus_class_id: 1000105
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.836000000 Z
+  updated_at: 2015-11-13 22:10:26.836000000 Z
+permissions_190:
+  id: 1000189
+  role_id: 1000007
+  chorus_class_id: 1000041
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.847000000 Z
+  updated_at: 2015-11-13 22:10:26.847000000 Z
+permissions_191:
+  id: 1000190
+  role_id: 1000007
+  chorus_class_id: 1000066
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.859000000 Z
+  updated_at: 2015-11-13 22:10:26.859000000 Z
+permissions_192:
+  id: 1000191
+  role_id: 1000007
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:26.870000000 Z
+  updated_at: 2015-11-13 22:10:26.870000000 Z
+permissions_193:
+  id: 1000192
+  role_id: 1000008
+  chorus_class_id: 1000000
+  permissions_mask: 51
+  created_at: 2015-11-13 22:10:26.885000000 Z
+  updated_at: 2015-11-13 22:10:26.885000000 Z
+permissions_194:
+  id: 1000193
+  role_id: 1000008
+  chorus_class_id: 1000005
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.896000000 Z
+  updated_at: 2015-11-13 22:10:26.896000000 Z
+permissions_195:
+  id: 1000194
+  role_id: 1000008
+  chorus_class_id: 1000086
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.908000000 Z
+  updated_at: 2015-11-13 22:10:26.908000000 Z
+permissions_196:
+  id: 1000195
+  role_id: 1000008
+  chorus_class_id: 1000106
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.922000000 Z
+  updated_at: 2015-11-13 22:10:26.922000000 Z
+permissions_197:
+  id: 1000196
+  role_id: 1000008
+  chorus_class_id: 1000015
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.932000000 Z
+  updated_at: 2015-11-13 22:10:26.932000000 Z
+permissions_198:
+  id: 1000197
+  role_id: 1000008
+  chorus_class_id: 1000032
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.943000000 Z
+  updated_at: 2015-11-13 22:10:26.943000000 Z
+permissions_199:
+  id: 1000198
+  role_id: 1000008
+  chorus_class_id: 1000114
+  permissions_mask: 468935
+  created_at: 2015-11-13 22:10:26.957000000 Z
+  updated_at: 2015-11-13 22:10:26.957000000 Z
+permissions_200:
+  id: 1000199
+  role_id: 1000008
+  chorus_class_id: 1000014
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.969000000 Z
+  updated_at: 2015-11-13 22:10:26.969000000 Z
+permissions_201:
+  id: 1000200
+  role_id: 1000008
+  chorus_class_id: 1000033
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.982000000 Z
+  updated_at: 2015-11-13 22:10:26.982000000 Z
+permissions_202:
+  id: 1000201
+  role_id: 1000008
+  chorus_class_id: 1000021
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:26.995000000 Z
+  updated_at: 2015-11-13 22:10:26.995000000 Z
+permissions_203:
+  id: 1000202
+  role_id: 1000008
+  chorus_class_id: 1000063
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.009000000 Z
+  updated_at: 2015-11-13 22:10:27.009000000 Z
+permissions_204:
+  id: 1000203
+  role_id: 1000008
+  chorus_class_id: 1000091
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.022000000 Z
+  updated_at: 2015-11-13 22:10:27.022000000 Z
+permissions_205:
+  id: 1000204
+  role_id: 1000008
+  chorus_class_id: 1000090
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.034000000 Z
+  updated_at: 2015-11-13 22:10:27.034000000 Z
+permissions_206:
+  id: 1000205
+  role_id: 1000008
+  chorus_class_id: 1000008
+  permissions_mask: 31
+  created_at: 2015-11-13 22:10:27.046000000 Z
+  updated_at: 2015-11-13 22:10:27.046000000 Z
+permissions_207:
+  id: 1000206
+  role_id: 1000008
+  chorus_class_id: 1000108
+  permissions_mask: 47
+  created_at: 2015-11-13 22:10:27.057000000 Z
+  updated_at: 2015-11-13 22:10:27.057000000 Z
+permissions_208:
+  id: 1000207
+  role_id: 1000008
+  chorus_class_id: 1000112
+  permissions_mask: 127
+  created_at: 2015-11-13 22:10:27.069000000 Z
+  updated_at: 2015-11-13 22:10:27.069000000 Z
+permissions_209:
+  id: 1000208
+  role_id: 1000008
+  chorus_class_id: 1000053
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.079000000 Z
+  updated_at: 2015-11-13 22:10:27.079000000 Z
+permissions_210:
+  id: 1000209
+  role_id: 1000008
+  chorus_class_id: 1000103
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.089000000 Z
+  updated_at: 2015-11-13 22:10:27.089000000 Z
+permissions_211:
+  id: 1000210
+  role_id: 1000008
+  chorus_class_id: 1000061
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.102000000 Z
+  updated_at: 2015-11-13 22:10:27.102000000 Z
+permissions_212:
+  id: 1000211
+  role_id: 1000008
+  chorus_class_id: 1000101
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.114000000 Z
+  updated_at: 2015-11-13 22:10:27.114000000 Z
+permissions_213:
+  id: 1000212
+  role_id: 1000008
+  chorus_class_id: 1000105
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.124000000 Z
+  updated_at: 2015-11-13 22:10:27.124000000 Z
+permissions_214:
+  id: 1000213
+  role_id: 1000008
+  chorus_class_id: 1000041
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.136000000 Z
+  updated_at: 2015-11-13 22:10:27.136000000 Z
+permissions_215:
+  id: 1000214
+  role_id: 1000008
+  chorus_class_id: 1000066
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.146000000 Z
+  updated_at: 2015-11-13 22:10:27.146000000 Z
+permissions_216:
+  id: 1000215
+  role_id: 1000008
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.157000000 Z
+  updated_at: 2015-11-13 22:10:27.157000000 Z
+permissions_217:
+  id: 1000216
+  role_id: 1000010
+  chorus_class_id: 1000000
+  permissions_mask: 51
+  created_at: 2015-11-13 22:10:27.174000000 Z
+  updated_at: 2015-11-13 22:10:27.174000000 Z
+permissions_218:
+  id: 1000217
+  role_id: 1000010
+  chorus_class_id: 1000005
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.191000000 Z
+  updated_at: 2015-11-13 22:10:27.191000000 Z
+permissions_219:
+  id: 1000218
+  role_id: 1000010
+  chorus_class_id: 1000086
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.212000000 Z
+  updated_at: 2015-11-13 22:10:27.212000000 Z
+permissions_220:
+  id: 1000219
+  role_id: 1000010
+  chorus_class_id: 1000106
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.229000000 Z
+  updated_at: 2015-11-13 22:10:27.229000000 Z
+permissions_221:
+  id: 1000220
+  role_id: 1000010
+  chorus_class_id: 1000015
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.242000000 Z
+  updated_at: 2015-11-13 22:10:27.242000000 Z
+permissions_222:
+  id: 1000221
+  role_id: 1000010
+  chorus_class_id: 1000032
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.256000000 Z
+  updated_at: 2015-11-13 22:10:27.256000000 Z
+permissions_223:
+  id: 1000222
+  role_id: 1000010
+  chorus_class_id: 1000114
+  permissions_mask: 458754
+  created_at: 2015-11-13 22:10:27.270000000 Z
+  updated_at: 2015-11-13 22:10:27.270000000 Z
+permissions_224:
+  id: 1000223
+  role_id: 1000010
+  chorus_class_id: 1000014
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.282000000 Z
+  updated_at: 2015-11-13 22:10:27.282000000 Z
+permissions_225:
+  id: 1000224
+  role_id: 1000010
+  chorus_class_id: 1000033
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.322000000 Z
+  updated_at: 2015-11-13 22:10:27.322000000 Z
+permissions_226:
+  id: 1000225
+  role_id: 1000010
+  chorus_class_id: 1000021
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.335000000 Z
+  updated_at: 2015-11-13 22:10:27.335000000 Z
+permissions_227:
+  id: 1000226
+  role_id: 1000010
+  chorus_class_id: 1000063
+  permissions_mask: 3
+  created_at: 2015-11-13 22:10:27.347000000 Z
+  updated_at: 2015-11-13 22:10:27.347000000 Z
+permissions_228:
+  id: 1000227
+  role_id: 1000010
+  chorus_class_id: 1000091
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.359000000 Z
+  updated_at: 2015-11-13 22:10:27.359000000 Z
+permissions_229:
+  id: 1000228
+  role_id: 1000010
+  chorus_class_id: 1000090
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.373000000 Z
+  updated_at: 2015-11-13 22:10:27.373000000 Z
+permissions_230:
+  id: 1000229
+  role_id: 1000010
+  chorus_class_id: 1000008
+  permissions_mask: 19
+  created_at: 2015-11-13 22:10:27.387000000 Z
+  updated_at: 2015-11-13 22:10:27.387000000 Z
+permissions_231:
+  id: 1000230
+  role_id: 1000010
+  chorus_class_id: 1000108
+  permissions_mask: 3
+  created_at: 2015-11-13 22:10:27.399000000 Z
+  updated_at: 2015-11-13 22:10:27.399000000 Z
+permissions_232:
+  id: 1000231
+  role_id: 1000010
+  chorus_class_id: 1000112
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.411000000 Z
+  updated_at: 2015-11-13 22:10:27.411000000 Z
+permissions_233:
+  id: 1000232
+  role_id: 1000010
+  chorus_class_id: 1000053
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.423000000 Z
+  updated_at: 2015-11-13 22:10:27.423000000 Z
+permissions_234:
+  id: 1000233
+  role_id: 1000010
+  chorus_class_id: 1000103
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.436000000 Z
+  updated_at: 2015-11-13 22:10:27.436000000 Z
+permissions_235:
+  id: 1000234
+  role_id: 1000010
+  chorus_class_id: 1000061
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.449000000 Z
+  updated_at: 2015-11-13 22:10:27.449000000 Z
+permissions_236:
+  id: 1000235
+  role_id: 1000010
+  chorus_class_id: 1000101
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.461000000 Z
+  updated_at: 2015-11-13 22:10:27.461000000 Z
+permissions_237:
+  id: 1000236
+  role_id: 1000010
+  chorus_class_id: 1000105
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.472000000 Z
+  updated_at: 2015-11-13 22:10:27.472000000 Z
+permissions_238:
+  id: 1000237
+  role_id: 1000010
+  chorus_class_id: 1000041
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.482000000 Z
+  updated_at: 2015-11-13 22:10:27.482000000 Z
+permissions_239:
+  id: 1000238
+  role_id: 1000010
+  chorus_class_id: 1000066
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.494000000 Z
+  updated_at: 2015-11-13 22:10:27.494000000 Z
+permissions_240:
+  id: 1000239
+  role_id: 1000010
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.505000000 Z
+  updated_at: 2015-11-13 22:10:27.505000000 Z
+permissions_241:
+  id: 1000240
+  role_id: 1000009
+  chorus_class_id: 1000000
+  permissions_mask: 51
+  created_at: 2015-11-13 22:10:27.516000000 Z
+  updated_at: 2015-11-13 22:10:27.516000000 Z
+permissions_242:
+  id: 1000241
+  role_id: 1000009
+  chorus_class_id: 1000005
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.528000000 Z
+  updated_at: 2015-11-13 22:10:27.528000000 Z
+permissions_243:
+  id: 1000242
+  role_id: 1000009
+  chorus_class_id: 1000086
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.540000000 Z
+  updated_at: 2015-11-13 22:10:27.540000000 Z
+permissions_244:
+  id: 1000243
+  role_id: 1000009
+  chorus_class_id: 1000106
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.560000000 Z
+  updated_at: 2015-11-13 22:10:27.560000000 Z
+permissions_245:
+  id: 1000244
+  role_id: 1000009
+  chorus_class_id: 1000015
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.572000000 Z
+  updated_at: 2015-11-13 22:10:27.572000000 Z
+permissions_246:
+  id: 1000245
+  role_id: 1000009
+  chorus_class_id: 1000032
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.582000000 Z
+  updated_at: 2015-11-13 22:10:27.582000000 Z
+permissions_247:
+  id: 1000246
+  role_id: 1000009
+  chorus_class_id: 1000114
+  permissions_mask: 458755
+  created_at: 2015-11-13 22:10:27.597000000 Z
+  updated_at: 2015-11-13 22:10:27.597000000 Z
+permissions_248:
+  id: 1000247
+  role_id: 1000009
+  chorus_class_id: 1000014
+  permissions_mask: 1538
+  created_at: 2015-11-13 22:10:27.610000000 Z
+  updated_at: 2015-11-13 22:10:27.610000000 Z
+permissions_249:
+  id: 1000248
+  role_id: 1000009
+  chorus_class_id: 1000033
+  permissions_mask: 1538
+  created_at: 2015-11-13 22:10:27.622000000 Z
+  updated_at: 2015-11-13 22:10:27.622000000 Z
+permissions_250:
+  id: 1000249
+  role_id: 1000009
+  chorus_class_id: 1000021
+  permissions_mask: 1538
+  created_at: 2015-11-13 22:10:27.633000000 Z
+  updated_at: 2015-11-13 22:10:27.633000000 Z
+permissions_251:
+  id: 1000250
+  role_id: 1000009
+  chorus_class_id: 1000063
+  permissions_mask: 3
+  created_at: 2015-11-13 22:10:27.644000000 Z
+  updated_at: 2015-11-13 22:10:27.644000000 Z
+permissions_252:
+  id: 1000251
+  role_id: 1000009
+  chorus_class_id: 1000091
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.655000000 Z
+  updated_at: 2015-11-13 22:10:27.655000000 Z
+permissions_253:
+  id: 1000252
+  role_id: 1000009
+  chorus_class_id: 1000090
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.668000000 Z
+  updated_at: 2015-11-13 22:10:27.668000000 Z
+permissions_254:
+  id: 1000253
+  role_id: 1000009
+  chorus_class_id: 1000008
+  permissions_mask: 19
+  created_at: 2015-11-13 22:10:27.679000000 Z
+  updated_at: 2015-11-13 22:10:27.679000000 Z
+permissions_255:
+  id: 1000254
+  role_id: 1000009
+  chorus_class_id: 1000108
+  permissions_mask: 3
+  created_at: 2015-11-13 22:10:27.691000000 Z
+  updated_at: 2015-11-13 22:10:27.691000000 Z
+permissions_256:
+  id: 1000255
+  role_id: 1000009
+  chorus_class_id: 1000112
+  permissions_mask: 7
+  created_at: 2015-11-13 22:10:27.705000000 Z
+  updated_at: 2015-11-13 22:10:27.705000000 Z
+permissions_257:
+  id: 1000256
+  role_id: 1000009
+  chorus_class_id: 1000053
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.718000000 Z
+  updated_at: 2015-11-13 22:10:27.718000000 Z
+permissions_258:
+  id: 1000257
+  role_id: 1000009
+  chorus_class_id: 1000103
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.728000000 Z
+  updated_at: 2015-11-13 22:10:27.728000000 Z
+permissions_259:
+  id: 1000258
+  role_id: 1000009
+  chorus_class_id: 1000061
+  permissions_mask: 0
+  created_at: 2015-11-13 22:10:27.738000000 Z
+  updated_at: 2015-11-13 22:10:27.738000000 Z
+permissions_260:
+  id: 1000259
+  role_id: 1000009
+  chorus_class_id: 1000101
+  permissions_mask: 63
+  created_at: 2015-11-13 22:10:27.750000000 Z
+  updated_at: 2015-11-13 22:10:27.750000000 Z
+permissions_261:
+  id: 1000260
+  role_id: 1000009
+  chorus_class_id: 1000105
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.761000000 Z
+  updated_at: 2015-11-13 22:10:27.761000000 Z
+permissions_262:
+  id: 1000261
+  role_id: 1000009
+  chorus_class_id: 1000041
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.772000000 Z
+  updated_at: 2015-11-13 22:10:27.772000000 Z
+permissions_263:
+  id: 1000262
+  role_id: 1000009
+  chorus_class_id: 1000066
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.783000000 Z
+  updated_at: 2015-11-13 22:10:27.783000000 Z
+permissions_264:
+  id: 1000263
+  role_id: 1000009
+  chorus_class_id: 1000009
+  permissions_mask: 15
+  created_at: 2015-11-13 22:10:27.794000000 Z
+  updated_at: 2015-11-13 22:10:27.794000000 Z
+a_permission:
+  id: 1000264
+  role_id: 1000013
+  chorus_class_id: 1000134
+  permissions_mask: 1
+  created_at: 2015-11-13 22:10:27.829000000 Z
+  updated_at: 2015-11-13 22:10:27.829000000 Z

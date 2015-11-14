@@ -1,5 +1,5 @@
 require 'minimal_spec_helper'
-require_relative "../../packaging/install/chorus_logger"
+require_relative "../../../../packaging/install/chorus_logger"
 require 'fakefs/spec_helpers'
 
 describe ChorusLogger do

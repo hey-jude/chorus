@@ -1,0 +1,309 @@
+---
+chorus_object_roles_001:
+  id: 1000000
+  chorus_object_id: 1000142
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:36.499000000 Z
+  updated_at: 2015-11-13 22:10:36.499000000 Z
+chorus_object_roles_002:
+  id: 1000001
+  chorus_object_id: 1000142
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:36.510000000 Z
+  updated_at: 2015-11-13 22:10:36.510000000 Z
+chorus_object_roles_003:
+  id: 1000002
+  chorus_object_id: 1000145
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:36.580000000 Z
+  updated_at: 2015-11-13 22:10:36.580000000 Z
+chorus_object_roles_004:
+  id: 1000003
+  chorus_object_id: 1000145
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:36.590000000 Z
+  updated_at: 2015-11-13 22:10:36.590000000 Z
+chorus_object_roles_005:
+  id: 1000004
+  chorus_object_id: 1000148
+  user_id: 1000003
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:36.657000000 Z
+  updated_at: 2015-11-13 22:10:36.657000000 Z
+chorus_object_roles_006:
+  id: 1000005
+  chorus_object_id: 1000148
+  user_id: 1000003
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:36.667000000 Z
+  updated_at: 2015-11-13 22:10:36.667000000 Z
+chorus_object_roles_007:
+  id: 1000006
+  chorus_object_id: 1000169
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:38.484000000 Z
+  updated_at: 2015-11-13 22:10:38.484000000 Z
+chorus_object_roles_008:
+  id: 1000007
+  chorus_object_id: 1000169
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:38.495000000 Z
+  updated_at: 2015-11-13 22:10:38.495000000 Z
+chorus_object_roles_009:
+  id: 1000008
+  chorus_object_id: 1000179
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:39.265000000 Z
+  updated_at: 2015-11-13 22:10:39.265000000 Z
+chorus_object_roles_010:
+  id: 1000009
+  chorus_object_id: 1000179
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:39.275000000 Z
+  updated_at: 2015-11-13 22:10:39.275000000 Z
+chorus_object_roles_011:
+  id: 1000010
+  chorus_object_id: 1000190
+  user_id: 1000003
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:39.783000000 Z
+  updated_at: 2015-11-13 22:10:39.783000000 Z
+chorus_object_roles_012:
+  id: 1000011
+  chorus_object_id: 1000190
+  user_id: 1000003
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:39.794000000 Z
+  updated_at: 2015-11-13 22:10:39.794000000 Z
+chorus_object_roles_013:
+  id: 1000012
+  chorus_object_id: 1000192
+  user_id: 1000003
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:39.852000000 Z
+  updated_at: 2015-11-13 22:10:39.852000000 Z
+chorus_object_roles_014:
+  id: 1000013
+  chorus_object_id: 1000192
+  user_id: 1000003
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:39.863000000 Z
+  updated_at: 2015-11-13 22:10:39.863000000 Z
+chorus_object_roles_015:
+  id: 1000014
+  chorus_object_id: 1000194
+  user_id: 1000003
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:39.924000000 Z
+  updated_at: 2015-11-13 22:10:39.924000000 Z
+chorus_object_roles_016:
+  id: 1000015
+  chorus_object_id: 1000194
+  user_id: 1000003
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:39.935000000 Z
+  updated_at: 2015-11-13 22:10:39.935000000 Z
+chorus_object_roles_017:
+  id: 1000016
+  chorus_object_id: 1000196
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:39.992000000 Z
+  updated_at: 2015-11-13 22:10:39.992000000 Z
+chorus_object_roles_018:
+  id: 1000017
+  chorus_object_id: 1000196
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:40.004000000 Z
+  updated_at: 2015-11-13 22:10:40.004000000 Z
+chorus_object_roles_019:
+  id: 1000018
+  chorus_object_id: 1000198
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:40.125000000 Z
+  updated_at: 2015-11-13 22:10:40.125000000 Z
+chorus_object_roles_020:
+  id: 1000019
+  chorus_object_id: 1000198
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:40.136000000 Z
+  updated_at: 2015-11-13 22:10:40.136000000 Z
+chorus_object_roles_021:
+  id: 1000020
+  chorus_object_id: 1000200
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:40.194000000 Z
+  updated_at: 2015-11-13 22:10:40.194000000 Z
+chorus_object_roles_022:
+  id: 1000021
+  chorus_object_id: 1000200
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:40.204000000 Z
+  updated_at: 2015-11-13 22:10:40.204000000 Z
+chorus_object_roles_023:
+  id: 1000022
+  chorus_object_id: 1000202
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:40.258000000 Z
+  updated_at: 2015-11-13 22:10:40.258000000 Z
+chorus_object_roles_024:
+  id: 1000023
+  chorus_object_id: 1000202
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:40.268000000 Z
+  updated_at: 2015-11-13 22:10:40.268000000 Z
+chorus_object_roles_025:
+  id: 1000024
+  chorus_object_id: 1000204
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:40.323000000 Z
+  updated_at: 2015-11-13 22:10:40.323000000 Z
+chorus_object_roles_026:
+  id: 1000025
+  chorus_object_id: 1000204
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:40.336000000 Z
+  updated_at: 2015-11-13 22:10:40.336000000 Z
+chorus_object_roles_027:
+  id: 1000026
+  chorus_object_id: 1000206
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:40.392000000 Z
+  updated_at: 2015-11-13 22:10:40.392000000 Z
+chorus_object_roles_028:
+  id: 1000027
+  chorus_object_id: 1000206
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:40.401000000 Z
+  updated_at: 2015-11-13 22:10:40.401000000 Z
+chorus_object_roles_029:
+  id: 1000028
+  chorus_object_id: 1000209
+  user_id: 1000006
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:40.494000000 Z
+  updated_at: 2015-11-13 22:10:40.494000000 Z
+chorus_object_roles_030:
+  id: 1000029
+  chorus_object_id: 1000209
+  user_id: 1000006
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:40.505000000 Z
+  updated_at: 2015-11-13 22:10:40.505000000 Z
+chorus_object_roles_031:
+  id: 1000030
+  chorus_object_id: 1000211
+  user_id: 1000000
+  role_id: 1000001
+  created_at: 2015-11-13 22:10:40.562000000 Z
+  updated_at: 2015-11-13 22:10:40.562000000 Z
+chorus_object_roles_032:
+  id: 1000031
+  chorus_object_id: 1000211
+  user_id: 1000000
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:40.572000000 Z
+  updated_at: 2015-11-13 22:10:40.572000000 Z
+chorus_object_roles_033:
+  id: 1000032
+  chorus_object_id: 1000179
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.166000000 Z
+  updated_at: 2015-11-13 22:10:41.166000000 Z
+chorus_object_roles_034:
+  id: 1000033
+  chorus_object_id: 1000190
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.198000000 Z
+  updated_at: 2015-11-13 22:10:41.198000000 Z
+chorus_object_roles_035:
+  id: 1000034
+  chorus_object_id: 1000192
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.226000000 Z
+  updated_at: 2015-11-13 22:10:41.226000000 Z
+chorus_object_roles_036:
+  id: 1000035
+  chorus_object_id: 1000194
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.259000000 Z
+  updated_at: 2015-11-13 22:10:41.259000000 Z
+chorus_object_roles_037:
+  id: 1000036
+  chorus_object_id: 1000196
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.296000000 Z
+  updated_at: 2015-11-13 22:10:41.296000000 Z
+chorus_object_roles_038:
+  id: 1000037
+  chorus_object_id: 1000198
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.394000000 Z
+  updated_at: 2015-11-13 22:10:41.394000000 Z
+chorus_object_roles_039:
+  id: 1000038
+  chorus_object_id: 1000200
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.424000000 Z
+  updated_at: 2015-11-13 22:10:41.424000000 Z
+chorus_object_roles_040:
+  id: 1000039
+  chorus_object_id: 1000202
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.455000000 Z
+  updated_at: 2015-11-13 22:10:41.455000000 Z
+chorus_object_roles_041:
+  id: 1000040
+  chorus_object_id: 1000204
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.485000000 Z
+  updated_at: 2015-11-13 22:10:41.485000000 Z
+chorus_object_roles_042:
+  id: 1000041
+  chorus_object_id: 1000206
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.519000000 Z
+  updated_at: 2015-11-13 22:10:41.519000000 Z
+chorus_object_roles_043:
+  id: 1000042
+  chorus_object_id: 1000209
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.552000000 Z
+  updated_at: 2015-11-13 22:10:41.552000000 Z
+chorus_object_roles_044:
+  id: 1000043
+  chorus_object_id: 1000211
+  user_id: 1000007
+  role_id: 1000008
+  created_at: 2015-11-13 22:10:41.585000000 Z
+  updated_at: 2015-11-13 22:10:41.585000000 Z

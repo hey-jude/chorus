@@ -1,0 +1,33 @@
+---
+job_results_001:
+  id: 1000000
+  job_id: 1000000
+  started_at: 2015-11-13 22:00:59.411000000 Z
+  finished_at: 2015-11-13 22:10:59.416000000 Z
+  succeeded: true
+  created_at: 2015-11-13 22:10:59.419000000 Z
+  updated_at: 2015-11-13 22:10:59.419000000 Z
+default:
+  id: 1000001
+  job_id: 1000000
+  started_at: 2015-11-13 22:00:59.422000000 Z
+  finished_at: 2015-11-13 22:10:59.423000000 Z
+  succeeded: true
+  created_at: 2015-11-13 22:10:59.424000000 Z
+  updated_at: 2015-11-13 22:10:59.424000000 Z
+job_results_002:
+  id: 1000002
+  job_id: 1000004
+  started_at: 2015-11-13 22:00:59.498000000 Z
+  finished_at: 2015-11-13 22:10:59.498000000 Z
+  succeeded: true
+  created_at: 2015-11-13 22:10:59.500000000 Z
+  updated_at: 2015-11-13 22:10:59.500000000 Z
+job_results_003:
+  id: 1000003
+  job_id: 1000000
+  started_at: 2015-11-13 22:00:59.676000000 Z
+  finished_at: 2015-11-13 22:10:59.676000000 Z
+  succeeded: false
+  created_at: 2015-11-13 22:10:59.677000000 Z
+  updated_at: 2015-11-13 22:10:59.677000000 Z

@@ -1,0 +1,13 @@
+---
+default_group:
+  id: 1000000
+  name: default_group
+  description:
+  created_at: 2015-11-13 22:10:20.635000000 Z
+  updated_at: 2015-11-13 22:10:20.635000000 Z
+a_group:
+  id: 1000001
+  name: group
+  description: This is a generic group
+  created_at: 2015-11-13 22:10:27.840000000 Z
+  updated_at: 2015-11-13 22:10:27.840000000 Z

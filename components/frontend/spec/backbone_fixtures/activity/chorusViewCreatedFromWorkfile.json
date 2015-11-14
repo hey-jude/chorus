@@ -1,0 +1,173 @@
+{
+  "response": {
+    "id": 1000034,
+    "actor": {
+      "id": 1000006,
+      "username": "owner",
+      "first_name": "searchquery",
+      "last_name": "Rice",
+      "image": {
+        "original": "/users/1000006/image?style=original&1447390563",
+        "icon": "/users/1000006/image?style=icon&1447390563",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "ChorusViewCreated",
+    "timestamp": "2015-11-13T04:56:29Z",
+    "dataset": {
+      "id": 1000026,
+      "object_name": "chorus_view",
+      "schema": {
+        "id": 1000006,
+        "name": "default",
+        "dataset_count": 0,
+        "refreshed_at": "2015-11-13T04:55:51Z",
+        "entity_type": "gpdb_schema",
+        "is_deleted": null,
+        "stale": false,
+        "complete_json": true
+      },
+      "entity_type": "dataset",
+      "entity_subtype": "CHORUS_VIEW",
+      "stale": false,
+      "stale_at": null,
+      "is_deleted": false,
+      "associated_workspaces": [
+
+      ],
+      "object_type": "CHORUS_VIEW",
+      "query": "select * from a_table"
+    },
+    "source_object": {
+      "id": 1000012,
+      "workspace": {
+        "id": 1000008,
+        "name": "Public",
+        "is_deleted": null,
+        "entity_type": "workspace",
+        "summary": "searchquery",
+        "archived_at": null,
+        "permission": [
+          "read",
+          "commenting",
+          "update",
+          "duplicate_chorus_view"
+        ],
+        "public": true,
+        "datasets_count": 11,
+        "members_count": 2,
+        "workfiles_count": 17,
+        "insights_count": 1,
+        "recent_insights_count": 1,
+        "recent_comments_count": 9,
+        "has_recent_comments": true,
+        "has_milestones": true
+      },
+      "file_name": "Public",
+      "file_type": "sql",
+      "latest_version_id": 1000005,
+      "is_deleted": null,
+      "recent_comments": [
+        {
+          "body": "notesearch forever",
+          "author": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null
+          },
+          "timestamp": "2015-11-13T04:56:28Z",
+          "complete_json": true
+        }
+      ],
+      "comment_count": 1,
+      "tags": [
+
+      ],
+      "entity_type": "workfile",
+      "entity_subtype": null,
+      "user_modified_at": "2015-11-13T04:56:22Z",
+      "status": "idle",
+      "associated_worklets": [
+
+      ],
+      "execution_schema": {
+        "id": 1000006,
+        "name": "default",
+        "dataset_count": 0,
+        "refreshed_at": "2015-11-13T04:55:51Z",
+        "entity_type": "gpdb_schema",
+        "is_deleted": null,
+        "stale": false,
+        "has_credentials": true,
+        "complete_json": true
+      },
+      "version_info": {
+        "id": 1000005,
+        "version_num": 1,
+        "commit_message": null,
+        "owner": {
+          "id": 1000006
+        },
+        "modifier": {
+          "id": 1000006
+        },
+        "created_at": "2015-11-13T04:56:22Z",
+        "updated_at": "2015-11-13T04:56:22Z",
+        "content_url": "/workfile_versions/1000005/image?style=original&1447390582",
+        "partial_file": false,
+        "icon_url": null,
+        "content": null
+      }
+    },
+    "workspace": {
+      "id": 1000008,
+      "name": "Public",
+      "is_deleted": null,
+      "entity_type": "workspace",
+      "summary": "searchquery",
+      "archived_at": null,
+      "permission": [
+        "read",
+        "commenting",
+        "update",
+        "duplicate_chorus_view"
+      ],
+      "public": true,
+      "datasets_count": 11,
+      "members_count": 2,
+      "workfiles_count": 17,
+      "insights_count": 1,
+      "recent_insights_count": 1,
+      "recent_comments_count": 9,
+      "has_recent_comments": true,
+      "has_milestones": true
+    },
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}

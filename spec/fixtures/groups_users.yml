@@ -1,0 +1,37 @@
+---
+groups_users_001:
+  group_id: 1000000
+  user_id: 1000003
+groups_users_002:
+  group_id: 1000000
+  user_id: 1000001
+groups_users_003:
+  group_id: 1000000
+  user_id: 1000010
+groups_users_004:
+  group_id: 1000000
+  user_id: 1000011
+groups_users_005:
+  group_id: 1000000
+  user_id: 1000008
+groups_users_006:
+  group_id: 1000000
+  user_id: 1000000
+groups_users_007:
+  group_id: 1000000
+  user_id: 1000002
+groups_users_008:
+  group_id: 1000000
+  user_id: 1000007
+groups_users_009:
+  group_id: 1000000
+  user_id: 1000004
+groups_users_010:
+  group_id: 1000000
+  user_id: 1000005
+groups_users_011:
+  group_id: 1000000
+  user_id: 1000009
+groups_users_012:
+  group_id: 1000000
+  user_id: 1000006

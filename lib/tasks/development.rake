@@ -31,28 +31,24 @@ namespace :development do
 
   desc "Initialize the database and create the database user used by Chorus"
   task :init_database => [:generate_database_yml] do
-    root = Pathname.new(__FILE__).dirname.join("../..")
-
-    postgres_port = `ruby #{File.join(root, 'packaging', 'get_postgres_port.rb')}`.chomp
+    postgres_port = `ruby #{File.join(ENV['CHORUS_HOME'], 'packaging', 'get_postgres_port.rb')}`.chomp
 
     # Give the poor developer a clue as to what is wrong!
-    if root.join("postgres-db").exist?
+    if Pathname.new(ENV['CHORUS_HOME']).join("postgres-db").exist?
       p "The postgres-db directory already exists, so exiting."
       next
     end
 
-    ENV['DYLD_LIBRARY_PATH'] = "#{root}/postgres/lib"
-    ENV['LD_LIBRARY_PATH'] = "#{root}/postgres/lib"
-    ENV['CHORUS_HOME'] = "#{root}"
-    `#{root}/postgres/bin/initdb -D #{root}/postgres-db -E utf8`
-    `#{root}/packaging/chorus_control.sh start postgres`
-    `#{root}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
+    ENV['DYLD_LIBRARY_PATH'] = "#{ENV['CHORUS_HOME']}/postgres/lib"
+    ENV['LD_LIBRARY_PATH'] = "#{ENV['CHORUS_HOME']}/postgres/lib"
+    `#{ENV['CHORUS_HOME']}/postgres/bin/initdb -D #{ENV['CHORUS_HOME']}/postgres-db -E utf8`
+    `#{ENV['CHORUS_HOME']}/packaging/chorus_control.sh start postgres`
+    `#{ENV['CHORUS_HOME']}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
 
-    Rake::Task["db:create"].invoke
-    Rake::Task["db:migrate"].invoke
+    Rake::Task["db:custom_reset"].invoke
     Rake::Task["db:seed_permissions"].invoke
     Rake::Task["db:seed_development"].invoke
-    `#{root}/packaging/chorus_control.sh stop postgres`
+    `#{ENV['CHORUS_HOME']}/packaging/chorus_control.sh stop postgres`
   end
 
   desc "Initialize development environment.  Includes initializing the database and creating secret tokens"

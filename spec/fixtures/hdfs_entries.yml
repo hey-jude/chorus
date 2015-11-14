@@ -1,0 +1,211 @@
+---
+hdfs_entries_001:
+  id: 1000000
+  path: /
+  hdfs_data_source_id: 1000000
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id:
+  created_at: 2015-11-13 22:10:33.781000000 Z
+  updated_at: 2015-11-13 22:10:33.781000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_002:
+  id: 1000001
+  path: /
+  hdfs_data_source_id: 1000001
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id:
+  created_at: 2015-11-13 22:10:33.817000000 Z
+  updated_at: 2015-11-13 22:10:33.817000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_003:
+  id: 1000002
+  path: /
+  hdfs_data_source_id: 1000002
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id:
+  created_at: 2015-11-13 22:10:33.852000000 Z
+  updated_at: 2015-11-13 22:10:33.852000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_004:
+  id: 1000003
+  path: /searchquery
+  hdfs_data_source_id: 1000002
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id: 1000002
+  created_at: 2015-11-13 22:10:34.005000000 Z
+  updated_at: 2015-11-13 22:10:34.025000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+searchable:
+  id: 1000004
+  path: /searchquery/result.txt
+  hdfs_data_source_id: 1000002
+  modified_at: 2010-10-20 22:00:00.000000000 Z
+  size: 10
+  is_directory: false
+  content_count: 4
+  parent_id: 1000003
+  created_at: 2015-11-13 22:10:34.000000000 Z
+  updated_at: 2015-11-13 22:10:34.000000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+searchable2:
+  id: 1000005
+  path: /searchquery/other_result.txt
+  hdfs_data_source_id: 1000002
+  modified_at: 2010-10-21 22:00:00.000000000 Z
+  size: 11
+  is_directory: false
+  content_count: 22
+  parent_id: 1000003
+  created_at: 2015-11-13 22:10:34.041000000 Z
+  updated_at: 2015-11-13 22:10:34.041000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_005:
+  id: 1000006
+  path: /
+  hdfs_data_source_id: 1000003
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id:
+  created_at: 2015-11-13 22:10:34.083000000 Z
+  updated_at: 2015-11-13 22:10:34.083000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_006:
+  id: 1000007
+  path: /
+  hdfs_data_source_id: 1000004
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id:
+  created_at: 2015-11-13 22:10:38.336000000 Z
+  updated_at: 2015-11-13 22:10:38.336000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_007:
+  id: 1000008
+  path: /testdir
+  hdfs_data_source_id: 1000004
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id: 1000007
+  created_at: 2015-11-13 22:10:38.412000000 Z
+  updated_at: 2015-11-13 22:10:38.429000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+typeahead:
+  id: 1000009
+  path: /testdir/typeahead
+  hdfs_data_source_id: 1000004
+  modified_at: 2014-11-13 22:10:18.994000000 Z
+  size:
+  is_directory: false
+  content_count:
+  parent_id: 1000008
+  created_at: 2015-11-13 22:10:38.406000000 Z
+  updated_at: 2015-11-13 22:10:38.406000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_008:
+  id: 1000010
+  path: /
+  hdfs_data_source_id: 1000005
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id:
+  created_at: 2015-11-13 22:10:44.517000000 Z
+  updated_at: 2015-11-13 22:10:44.517000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_009:
+  id: 1000011
+  path: /foo
+  hdfs_data_source_id: 1000002
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id: 1000002
+  created_at: 2015-11-13 22:10:44.951000000 Z
+  updated_at: 2015-11-13 22:10:44.968000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_entries_010:
+  id: 1000012
+  path: /foo/bar
+  hdfs_data_source_id: 1000002
+  modified_at:
+  size:
+  is_directory: true
+  content_count:
+  parent_id: 1000011
+  created_at: 2015-11-13 22:10:44.946000000 Z
+  updated_at: 2015-11-13 22:10:44.983000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+hdfs_file:
+  id: 1000013
+  path: /foo/bar/baz.sql
+  hdfs_data_source_id: 1000002
+  modified_at: 2014-11-13 22:10:18.994000000 Z
+  size:
+  is_directory: false
+  content_count:
+  parent_id: 1000012
+  created_at: 2015-11-13 22:10:44.940000000 Z
+  updated_at: 2015-11-13 22:10:44.940000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:
+directory:
+  id: 1000014
+  path: /data
+  hdfs_data_source_id: 1000002
+  modified_at: 2014-11-13 22:10:18.994000000 Z
+  size:
+  is_directory: true
+  content_count:
+  parent_id: 1000002
+  created_at: 2015-11-13 22:10:44.998000000 Z
+  updated_at: 2015-11-13 22:10:44.998000000 Z
+  stale_at:
+  legacy_id:
+  deleted_at:

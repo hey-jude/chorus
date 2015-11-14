@@ -1,0 +1,1151 @@
+{
+  "response": {
+    "type_ahead": {
+      "results": [
+        {
+          "id": 1000000,
+          "workspace": {
+            "id": 1000001,
+            "name": "typeahead_public",
+            "is_deleted": null,
+            "entity_type": "workspace",
+            "summary": null,
+            "archived_at": null,
+            "permission": [
+              "admin"
+            ],
+            "public": true,
+            "datasets_count": 7,
+            "members_count": 2,
+            "workfiles_count": 1,
+            "insights_count": 0,
+            "recent_insights_count": 0,
+            "recent_comments_count": 0,
+            "has_recent_comments": false,
+            "has_milestones": false,
+            "archiver": null,
+            "image": {
+              "original": "",
+              "icon": "",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "has_added_member": false,
+            "has_added_workfile": true,
+            "has_added_sandbox": true,
+            "has_changed_settings": false,
+            "tags": [
+
+            ],
+            "sandbox_info": {
+              "id": 1000010,
+              "name": "searchquery_schema",
+              "dataset_count": 0,
+              "refreshed_at": "2015-11-13T04:55:51Z",
+              "entity_type": "gpdb_schema",
+              "is_deleted": null,
+              "stale": false,
+              "database": {
+                "id": 1000003,
+                "name": "searchquery_database",
+                "data_source": {
+                  "id": 1000002,
+                  "name": "Owners",
+                  "entity_type": "gpdb_data_source",
+                  "is_deleted": null,
+                  "shared": false,
+                  "owner_id": 1000006,
+                  "version": "9.1.2 - FactoryVersion",
+                  "is_hawq": null,
+                  "state": "online"
+                },
+                "entity_type": "gpdb_database",
+                "complete_json": true
+              },
+              "complete_json": true
+            },
+            "show_sandbox_datasets": true,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null,
+              "email": "searchquery@zboncak.net",
+              "title": "Chief Data Scientist",
+              "dept": "Corporation Corp., Inc.",
+              "notes": "One of our top performers",
+              "admin": false,
+              "developer": false,
+              "subscribed_to_emails": true,
+              "tags": [
+
+              ],
+              "complete_json": true
+            },
+            "is_member": true,
+            "is_project": false,
+            "project_status": "on_track",
+            "project_status_reason": null,
+            "milestone_count": 0,
+            "milestone_completed_count": 0,
+            "project_target_date": null,
+            "complete_json": true
+          },
+          "file_name": "typeahead",
+          "file_type": "sql",
+          "latest_version_id": 1000001,
+          "is_deleted": null,
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "tags": [
+
+          ],
+          "entity_type": "workfile",
+          "entity_subtype": null,
+          "user_modified_at": "2015-11-13T04:56:12Z",
+          "status": "idle",
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null
+          },
+          "associated_worklets": [
+
+          ],
+          "has_draft": false,
+          "execution_schema": null,
+          "complete_json": true,
+          "version_info": {
+            "id": 1000001,
+            "version_num": 1,
+            "commit_message": "Factory commit message",
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "modifier": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null
+            },
+            "created_at": "2015-11-13T04:56:12Z",
+            "updated_at": "2015-11-13T04:56:12Z",
+            "content_url": "/workfile_versions/1000001/image?style=original&1447390572",
+            "partial_file": false,
+            "icon_url": null,
+            "content": null
+          },
+          "highlighted_attributes": {
+            "file_name": [
+              "<em>typeahead</em>"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000010,
+          "username": "typeahead",
+          "first_name": "typeahead",
+          "last_name": "Olson",
+          "image": {
+            "original": "/images/general/default-user.png",
+            "icon": "/images/general/default-user.png",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "entity_type": "user",
+          "is_deleted": null,
+          "auth_method": null,
+          "ldap_group_id": null,
+          "email": "typeahead@bartoletti.com",
+          "title": "Chief Data Scientist",
+          "dept": "Corporation Corp., Inc.",
+          "notes": "One of our top performers",
+          "admin": false,
+          "developer": false,
+          "subscribed_to_emails": true,
+          "tags": [
+
+          ],
+          "complete_json": true,
+          "highlighted_attributes": {
+            "first_name": [
+              "<em>typeahead</em>"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000011,
+          "username": "typeahead_too",
+          "first_name": "typeahead_too",
+          "last_name": "Rath",
+          "image": {
+            "original": "/images/general/default-user.png",
+            "icon": "/images/general/default-user.png",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "entity_type": "user",
+          "is_deleted": null,
+          "auth_method": null,
+          "ldap_group_id": null,
+          "email": "typeahead_too@rutherfordbradtke.name",
+          "title": "Chief Data Scientist",
+          "dept": "Corporation Corp., Inc.",
+          "notes": "One of our top performers",
+          "admin": false,
+          "developer": false,
+          "subscribed_to_emails": true,
+          "tags": [
+
+          ],
+          "complete_json": true,
+          "highlighted_attributes": {
+            "first_name": [
+              "<em>typeahead</em>_too"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000006,
+          "size": null,
+          "name": "/",
+          "is_dir": true,
+          "is_binary": false,
+          "last_updated_stamp": "",
+          "entity_type": "hdfs_file",
+          "hdfs_data_source": {
+            "id": 1000003,
+            "name": "hdfs_hive",
+            "entity_type": "hdfs_data_source",
+            "supports_work_flows": true,
+            "hdfs_version": "Pivotal HD 3",
+            "is_hdfs_hive": true,
+            "hive_metastore_location": "thrift://cdh5cm.alpinenow.local:9083",
+            "is_deleted": null,
+            "state": "online",
+            "host": "host44447.emc.com",
+            "port": 5003,
+            "online": true,
+            "description": null,
+            "version": null,
+            "username": null,
+            "group_list": null,
+            "job_tracker_host": "job-tracker-host44447.emc.com",
+            "job_tracker_port": 10003,
+            "high_availability": false,
+            "connection_parameters": [
+              {
+                "key": "is_hive",
+                "value": "true"
+              },
+              {
+                "key": "hive.metastore.uris",
+                "value": "thrift://cdh5cm.alpinenow.local:9083"
+              },
+              {
+                "key": "hive.metastore.client.connect.retry.delay",
+                "value": "1"
+              },
+              {
+                "key": "hive.metastore.client.socket.timeout",
+                "value": "600"
+              }
+            ],
+            "owner": {
+              "id": 1000000,
+              "username": "admin",
+              "first_name": "Admin_44445",
+              "last_name": "AlphaSearch",
+              "image": {
+                "original": "/images/general/default-user.png",
+                "icon": "/images/general/default-user.png",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null,
+              "email": "admin_44445@douglasgorczany.info",
+              "title": "Chief Data Scientist",
+              "dept": "Corporation Corp., Inc.",
+              "notes": "One of our top performers",
+              "admin": true,
+              "developer": false,
+              "subscribed_to_emails": true,
+              "tags": [
+
+              ],
+              "complete_json": true
+            },
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "is_deleted": null,
+          "ancestors": [
+
+          ],
+          "path": "/",
+          "tags": [
+
+          ],
+          "count": null,
+          "highlighted_attributes": {
+            "name": [
+              "<em>typeahead</em>"
+            ],
+            "path": [
+              "/"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000001,
+          "name": "typeahead",
+          "count": 1,
+          "entity_type": "tag",
+          "highlighted_attributes": {
+            "name": [
+              "<em>typeahead</em>"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000001,
+          "name": "typeahead_gnip",
+          "entity_type": "gnip_data_source",
+          "is_deleted": null,
+          "stream_url": "https://historical.gnip.com/stream_url44446",
+          "description": null,
+          "username": "user44446",
+          "state": "online",
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "password_digest": "8c8502155b2448a675800e247b1e2f5b2568ed66a1f320a45df1914e419d5e87",
+            "created_at": "2015-11-13T04:56:02Z",
+            "updated_at": "2015-11-13T04:56:56Z",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "email": "searchquery@zboncak.net",
+            "title": "Chief Data Scientist",
+            "dept": "Corporation Corp., Inc.",
+            "notes": "One of our top performers",
+            "admin": false,
+            "deleted_at": null,
+            "image_file_name": "User.png",
+            "image_content_type": "image/png",
+            "image_file_size": 39100,
+            "image_updated_at": "2015-11-13T04:56:03Z",
+            "password_salt": "db2cf048cd3ce20c1b0ebe5339a1b5c34045c824",
+            "legacy_id": null,
+            "legacy_password_digest": null,
+            "subscribed_to_emails": true,
+            "developer": false,
+            "auth_method": null,
+            "ldap_group_id": null
+          },
+          "tags": [
+
+          ],
+          "complete_json": true,
+          "highlighted_attributes": {
+            "name": [
+              "<em>typeahead</em>_gnip"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000000,
+          "name": "typeahead_data_source",
+          "timestamp": "2015-11-13T04:56:13Z",
+          "icon_url": null,
+          "content_url": null,
+          "entity_type": "attachment",
+          "type": "",
+          "data_source": {
+            "id": 1000017,
+            "name": "typeahead_gpdb_data_source",
+            "entity_type": "gpdb_data_source",
+            "is_deleted": false,
+            "shared": false,
+            "owner_id": 1000006,
+            "version": "9.1.2 - FactoryVersion",
+            "is_hawq": null,
+            "state": "online",
+            "host": "gpdb_host44454.emc.com",
+            "port": 5010,
+            "ssl": false,
+            "online": true,
+            "db_name": "postgres",
+            "description": null,
+            "schema_blacklist": [
+
+            ],
+            "db_username": "username",
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null,
+              "email": "searchquery@zboncak.net",
+              "title": "Chief Data Scientist",
+              "dept": "Corporation Corp., Inc.",
+              "notes": "One of our top performers",
+              "admin": false,
+              "developer": false,
+              "subscribed_to_emails": true,
+              "tags": [
+
+              ],
+              "complete_json": true
+            },
+            "tags": [
+
+            ],
+            "data_source_provider": "Greenplum Database",
+            "complete_json": true
+          },
+          "complete_json": true,
+          "highlighted_attributes": {
+            "name": [
+              "<em>typeahead</em>_data_source"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000000,
+          "name": "typeahead_private",
+          "is_deleted": null,
+          "entity_type": "workspace",
+          "summary": null,
+          "archived_at": null,
+          "permission": [
+            "admin"
+          ],
+          "public": false,
+          "datasets_count": 0,
+          "members_count": 2,
+          "workfiles_count": 0,
+          "insights_count": 0,
+          "recent_insights_count": 0,
+          "recent_comments_count": 0,
+          "has_recent_comments": false,
+          "has_milestones": false,
+          "archiver": null,
+          "image": {
+            "original": "",
+            "icon": "",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "has_added_member": false,
+          "has_added_workfile": false,
+          "has_added_sandbox": false,
+          "has_changed_settings": false,
+          "tags": [
+
+          ],
+          "sandbox_info": null,
+          "show_sandbox_datasets": true,
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null,
+            "email": "searchquery@zboncak.net",
+            "title": "Chief Data Scientist",
+            "dept": "Corporation Corp., Inc.",
+            "notes": "One of our top performers",
+            "admin": false,
+            "developer": false,
+            "subscribed_to_emails": true,
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "is_member": true,
+          "is_project": false,
+          "project_status": "on_track",
+          "project_status_reason": null,
+          "milestone_count": 0,
+          "milestone_completed_count": 0,
+          "project_target_date": null,
+          "complete_json": true,
+          "highlighted_attributes": {
+            "name": [
+              "<em>typeahead</em>_private"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000001,
+          "name": "typeahead_public",
+          "is_deleted": null,
+          "entity_type": "workspace",
+          "summary": null,
+          "archived_at": null,
+          "permission": [
+            "admin"
+          ],
+          "public": true,
+          "datasets_count": 7,
+          "members_count": 2,
+          "workfiles_count": 1,
+          "insights_count": 0,
+          "recent_insights_count": 0,
+          "recent_comments_count": 0,
+          "has_recent_comments": false,
+          "has_milestones": false,
+          "archiver": null,
+          "image": {
+            "original": "",
+            "icon": "",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "has_added_member": false,
+          "has_added_workfile": true,
+          "has_added_sandbox": true,
+          "has_changed_settings": false,
+          "tags": [
+
+          ],
+          "sandbox_info": {
+            "id": 1000010,
+            "name": "searchquery_schema",
+            "dataset_count": 0,
+            "refreshed_at": "2015-11-13T04:55:51Z",
+            "entity_type": "gpdb_schema",
+            "is_deleted": null,
+            "stale": false,
+            "database": {
+              "id": 1000003,
+              "name": "searchquery_database",
+              "data_source": {
+                "id": 1000002,
+                "name": "Owners",
+                "entity_type": "gpdb_data_source",
+                "is_deleted": null,
+                "shared": false,
+                "owner_id": 1000006,
+                "version": "9.1.2 - FactoryVersion",
+                "is_hawq": null,
+                "state": "online"
+              },
+              "entity_type": "gpdb_database",
+              "complete_json": true
+            },
+            "complete_json": true
+          },
+          "show_sandbox_datasets": true,
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null,
+            "email": "searchquery@zboncak.net",
+            "title": "Chief Data Scientist",
+            "dept": "Corporation Corp., Inc.",
+            "notes": "One of our top performers",
+            "admin": false,
+            "developer": false,
+            "subscribed_to_emails": true,
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "is_member": true,
+          "is_project": false,
+          "project_status": "on_track",
+          "project_status_reason": null,
+          "milestone_count": 0,
+          "milestone_completed_count": 0,
+          "project_target_date": null,
+          "complete_json": true,
+          "highlighted_attributes": {
+            "name": [
+              "<em>typeahead</em>_public"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000003,
+          "name": "typeahead_workspace",
+          "is_deleted": null,
+          "entity_type": "workspace",
+          "summary": null,
+          "archived_at": null,
+          "permission": [
+            "admin"
+          ],
+          "public": true,
+          "datasets_count": 0,
+          "members_count": 2,
+          "workfiles_count": 0,
+          "insights_count": 0,
+          "recent_insights_count": 0,
+          "recent_comments_count": 0,
+          "has_recent_comments": false,
+          "has_milestones": false,
+          "archiver": null,
+          "image": {
+            "original": "",
+            "icon": "",
+            "entity_type": "image",
+            "complete_json": true
+          },
+          "has_added_member": false,
+          "has_added_workfile": false,
+          "has_added_sandbox": false,
+          "has_changed_settings": false,
+          "tags": [
+
+          ],
+          "sandbox_info": null,
+          "show_sandbox_datasets": true,
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null,
+            "email": "searchquery@zboncak.net",
+            "title": "Chief Data Scientist",
+            "dept": "Corporation Corp., Inc.",
+            "notes": "One of our top performers",
+            "admin": false,
+            "developer": false,
+            "subscribed_to_emails": true,
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "is_member": true,
+          "is_project": false,
+          "project_status": "on_track",
+          "project_status_reason": null,
+          "milestone_count": 0,
+          "milestone_completed_count": 0,
+          "project_target_date": null,
+          "complete_json": true,
+          "highlighted_attributes": {
+            "name": [
+              "<em>typeahead</em>_workspace"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "id": 1000018,
+          "object_name": "typeahead-with-dash",
+          "schema": {
+            "id": 1000011,
+            "name": "shared_schema",
+            "dataset_count": 0,
+            "refreshed_at": "2015-11-13T04:55:51Z",
+            "entity_type": "gpdb_schema",
+            "is_deleted": null,
+            "stale": false,
+            "database": {
+              "id": 1000004,
+              "name": "shared_database",
+              "data_source": {
+                "id": 1000001,
+                "name": "Shared",
+                "entity_type": "gpdb_data_source",
+                "is_deleted": null,
+                "shared": true,
+                "owner_id": 1000000,
+                "version": "9.1.2 - FactoryVersion",
+                "is_hawq": null,
+                "state": "online"
+              },
+              "entity_type": "gpdb_database",
+              "complete_json": true
+            },
+            "complete_json": true
+          },
+          "entity_type": "dataset",
+          "entity_subtype": "SOURCE_TABLE",
+          "stale": false,
+          "stale_at": null,
+          "is_deleted": null,
+          "associated_workspaces": [
+
+          ],
+          "has_credentials": true,
+          "tableau_workbooks": [
+
+          ],
+          "tags": [
+
+          ],
+          "object_type": "TABLE",
+          "complete_json": true,
+          "highlighted_attributes": {
+            "object_name": [
+              "<em>typeahead</em>-with-dash"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "id": 1000021,
+          "object_name": "typeahead_gpdb_table",
+          "schema": {
+            "id": 1000010,
+            "name": "searchquery_schema",
+            "dataset_count": 0,
+            "refreshed_at": "2015-11-13T04:55:51Z",
+            "entity_type": "gpdb_schema",
+            "is_deleted": null,
+            "stale": false,
+            "database": {
+              "id": 1000003,
+              "name": "searchquery_database",
+              "data_source": {
+                "id": 1000002,
+                "name": "Owners",
+                "entity_type": "gpdb_data_source",
+                "is_deleted": null,
+                "shared": false,
+                "owner_id": 1000006,
+                "version": "9.1.2 - FactoryVersion",
+                "is_hawq": null,
+                "state": "online"
+              },
+              "entity_type": "gpdb_database",
+              "complete_json": true
+            },
+            "complete_json": true
+          },
+          "entity_type": "dataset",
+          "entity_subtype": "SOURCE_TABLE",
+          "stale": false,
+          "stale_at": null,
+          "is_deleted": null,
+          "associated_workspaces": [
+
+          ],
+          "has_credentials": true,
+          "tableau_workbooks": [
+
+          ],
+          "tags": [
+
+          ],
+          "object_type": "TABLE",
+          "complete_json": true,
+          "highlighted_attributes": {
+            "object_name": [
+              "<em>typeahead</em>_gpdb_table"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "id": 1000022,
+          "object_name": "typeahead_chorus_view",
+          "schema": {
+            "id": 1000010,
+            "name": "searchquery_schema",
+            "dataset_count": 0,
+            "refreshed_at": "2015-11-13T04:55:51Z",
+            "entity_type": "gpdb_schema",
+            "is_deleted": null,
+            "stale": false,
+            "database": {
+              "id": 1000003,
+              "name": "searchquery_database",
+              "data_source": {
+                "id": 1000002,
+                "name": "Owners",
+                "entity_type": "gpdb_data_source",
+                "is_deleted": null,
+                "shared": false,
+                "owner_id": 1000006,
+                "version": "9.1.2 - FactoryVersion",
+                "is_hawq": null,
+                "state": "online"
+              },
+              "entity_type": "gpdb_database",
+              "complete_json": true
+            },
+            "complete_json": true
+          },
+          "entity_type": "dataset",
+          "entity_subtype": "CHORUS_VIEW",
+          "stale": false,
+          "stale_at": null,
+          "is_deleted": false,
+          "associated_workspaces": [
+
+          ],
+          "workspace": {
+            "id": 1000001,
+            "name": "typeahead_public",
+            "is_deleted": null,
+            "entity_type": "workspace",
+            "summary": null,
+            "archived_at": null,
+            "permission": [
+              "admin"
+            ],
+            "public": true,
+            "datasets_count": 7,
+            "members_count": 2,
+            "workfiles_count": 1,
+            "insights_count": 0,
+            "recent_insights_count": 0,
+            "recent_comments_count": 0,
+            "has_recent_comments": false,
+            "has_milestones": false,
+            "archiver": null,
+            "image": {
+              "original": "",
+              "icon": "",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "has_added_member": false,
+            "has_added_workfile": true,
+            "has_added_sandbox": true,
+            "has_changed_settings": false,
+            "tags": [
+
+            ],
+            "sandbox_info": {
+              "id": 1000010,
+              "name": "searchquery_schema",
+              "dataset_count": 0,
+              "refreshed_at": "2015-11-13T04:55:51Z",
+              "entity_type": "gpdb_schema",
+              "is_deleted": null,
+              "stale": false,
+              "database": {
+                "id": 1000003,
+                "name": "searchquery_database",
+                "data_source": {
+                  "id": 1000002,
+                  "name": "Owners",
+                  "entity_type": "gpdb_data_source",
+                  "is_deleted": null,
+                  "shared": false,
+                  "owner_id": 1000006,
+                  "version": "9.1.2 - FactoryVersion",
+                  "is_hawq": null,
+                  "state": "online"
+                },
+                "entity_type": "gpdb_database",
+                "complete_json": true
+              },
+              "complete_json": true
+            },
+            "show_sandbox_datasets": true,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null,
+              "email": "searchquery@zboncak.net",
+              "title": "Chief Data Scientist",
+              "dept": "Corporation Corp., Inc.",
+              "notes": "One of our top performers",
+              "admin": false,
+              "developer": false,
+              "subscribed_to_emails": true,
+              "tags": [
+
+              ],
+              "complete_json": true
+            },
+            "is_member": true,
+            "is_project": false,
+            "project_status": "on_track",
+            "project_status_reason": null,
+            "milestone_count": 0,
+            "milestone_completed_count": 0,
+            "project_target_date": null,
+            "complete_json": true
+          },
+          "has_credentials": true,
+          "tableau_workbooks": [
+
+          ],
+          "tags": [
+
+          ],
+          "object_type": "CHORUS_VIEW",
+          "query": "select 1",
+          "complete_json": true,
+          "highlighted_attributes": {
+            "object_name": [
+              "<em>typeahead</em>_chorus_view"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "id": 1000011,
+          "name": "jdbc",
+          "entity_type": "jdbc_data_source",
+          "is_deleted": null,
+          "shared": false,
+          "owner_id": 1000006,
+          "version": null,
+          "is_hawq": null,
+          "state": "online",
+          "host": "jdbc:teradata://jdbc_server44445",
+          "port": null,
+          "ssl": false,
+          "online": true,
+          "db_name": null,
+          "description": null,
+          "schema_blacklist": [
+            "All",
+            "Crashdumps",
+            "DBC",
+            "dbcmngr",
+            "Default",
+            "EXTUSER",
+            "LockLogShredder",
+            "PUBLIC",
+            "SQLJ",
+            "SysAdmin",
+            "SYSBAR",
+            "SYSLIB",
+            "SYSSPATIAL",
+            "SystemFe",
+            "SYSUDTLIB",
+            "Sys_Calendar",
+            "TDPUSER",
+            "TDQCD",
+            "TDStats",
+            "tdwm",
+            "TD_SYSFNLIB",
+            "TD_SYSXML"
+          ],
+          "db_username": "username",
+          "owner": {
+            "id": 1000006,
+            "username": "owner",
+            "first_name": "searchquery",
+            "last_name": "Rice",
+            "image": {
+              "original": "/users/1000006/image?style=original&1447390563",
+              "icon": "/users/1000006/image?style=icon&1447390563",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "entity_type": "user",
+            "is_deleted": null,
+            "auth_method": null,
+            "ldap_group_id": null,
+            "email": "searchquery@zboncak.net",
+            "title": "Chief Data Scientist",
+            "dept": "Corporation Corp., Inc.",
+            "notes": "One of our top performers",
+            "admin": false,
+            "developer": false,
+            "subscribed_to_emails": true,
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "tags": [
+
+          ],
+          "complete_json": true,
+          "highlighted_attributes": {
+            "name": [
+              "<em>typeahead</em>_jdbc_source"
+            ]
+          },
+          "comments": null
+        },
+        {
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "id": 1000019,
+          "object_name": "typeahead_with_underscore",
+          "schema": {
+            "id": 1000011,
+            "name": "shared_schema",
+            "dataset_count": 0,
+            "refreshed_at": "2015-11-13T04:55:51Z",
+            "entity_type": "gpdb_schema",
+            "is_deleted": null,
+            "stale": false,
+            "database": {
+              "id": 1000004,
+              "name": "shared_database",
+              "data_source": {
+                "id": 1000001,
+                "name": "Shared",
+                "entity_type": "gpdb_data_source",
+                "is_deleted": null,
+                "shared": true,
+                "owner_id": 1000000,
+                "version": "9.1.2 - FactoryVersion",
+                "is_hawq": null,
+                "state": "online"
+              },
+              "entity_type": "gpdb_database",
+              "complete_json": true
+            },
+            "complete_json": true
+          },
+          "entity_type": "dataset",
+          "entity_subtype": "SOURCE_TABLE",
+          "stale": false,
+          "stale_at": null,
+          "is_deleted": null,
+          "associated_workspaces": [
+
+          ],
+          "has_credentials": true,
+          "tableau_workbooks": [
+
+          ],
+          "tags": [
+
+          ],
+          "object_type": "TABLE",
+          "complete_json": true,
+          "highlighted_attributes": {
+            "object_name": [
+              "<em>typeahead</em>_with_underscore"
+            ]
+          },
+          "comments": null
+        }
+      ]
+    },
+    "complete_json": true
+  }
+}

@@ -82,8 +82,7 @@
     <ramBufferSizeMB>32</ramBufferSizeMB>
     <!-- <maxMergeDocs>2147483647</maxMergeDocs> -->
     <maxFieldLength>10000</maxFieldLength>
-    <!-- changed timeout from 1s to 10s DEV-13320 -->
-    <writeLockTimeout>10000</writeLockTimeout>
+    <writeLockTimeout>1000</writeLockTimeout>
     <commitLockTimeout>10000</commitLockTimeout>
     <!--
      Expert: Turn on Lucene's auto commit capability.  This causes intermediate

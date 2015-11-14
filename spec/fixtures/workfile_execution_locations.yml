@@ -1,0 +1,67 @@
+---
+workfile_execution_locations_001:
+  id: 1000000
+  workfile_id: 1000004
+  workfile_type:
+  execution_location_id: 1000001
+  execution_location_type: Database
+workfile_execution_locations_002:
+  id: 1000001
+  workfile_id: 1000005
+  workfile_type:
+  execution_location_id: 1000002
+  execution_location_type: HdfsDataSource
+workfile_execution_locations_003:
+  id: 1000002
+  workfile_id: 1000005
+  workfile_type:
+  execution_location_id: 1000002
+  execution_location_type: HdfsDataSource
+workfile_execution_locations_004:
+  id: 1000003
+  workfile_id: 1000006
+  workfile_type:
+  execution_location_id: 1000010
+  execution_location_type: DataSource
+workfile_execution_locations_005:
+  id: 1000004
+  workfile_id: 1000007
+  workfile_type:
+  execution_location_id: 1000005
+  execution_location_type: Database
+workfile_execution_locations_006:
+  id: 1000005
+  workfile_id: 1000007
+  workfile_type:
+  execution_location_id: 1000005
+  execution_location_type: HdfsDataSource
+workfile_execution_locations_007:
+  id: 1000006
+  workfile_id: 1000007
+  workfile_type:
+  execution_location_id: 1000020
+  execution_location_type: DataSource
+workfile_execution_locations_008:
+  id: 1000007
+  workfile_id: 1000008
+  workfile_type:
+  execution_location_id: 1000002
+  execution_location_type: HdfsDataSource
+workfile_execution_locations_009:
+  id: 1000008
+  workfile_id: 1000008
+  workfile_type:
+  execution_location_id: 1000010
+  execution_location_type: DataSource
+workfile_execution_locations_010:
+  id: 1000009
+  workfile_id: 1000008
+  workfile_type:
+  execution_location_id: 1000011
+  execution_location_type: DataSource
+workfile_execution_locations_011:
+  id: 1000010
+  workfile_id: 1000008
+  workfile_type:
+  execution_location_id: 1000001
+  execution_location_type: Database

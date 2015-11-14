@@ -1,0 +1,14 @@
+{
+  "response": {
+    "user_id": 1000007,
+    "modules": [
+      "ActivityStream",
+      "WorkspaceActivity",
+      "SiteSnapshot"
+    ],
+    "available_modules": [
+      "ProjectCardList",
+      "RecentWorkfiles"
+    ]
+  }
+}

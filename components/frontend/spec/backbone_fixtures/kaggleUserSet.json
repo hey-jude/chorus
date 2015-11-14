@@ -1,0 +1,320 @@
+{
+  "response": [
+    {
+      "id": 47822,
+      "location": "San Francisco, United States",
+      "rank": 1,
+      "points": 599510.9,
+      "number_of_entered_competitions": 9,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/DSC07173.jpg",
+      "full_name": "Felicia Woodard",
+      "favorite_technique": "Random Forest, Matrix Methods",
+      "favorite_software": "R, Matlab, Java",
+      "past_competition_types": [
+        "High Dimensionality",
+        "Unsupervised Learning",
+        "Binary Classification",
+        "Government",
+        "Insurance",
+        "SQL",
+        "R"
+      ]
+    },
+    {
+      "id": 47828,
+      "location": "Paris, France",
+      "rank": 16,
+      "points": 100660.7,
+      "number_of_entered_competitions": 5,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/oppoAMBRO02-5083.jpg",
+      "full_name": " Guy Burdge ",
+      "favorite_technique": "Matrix Factorization",
+      "favorite_software": "R, Python",
+      "past_competition_types": [
+        "Natural Language Processing",
+        "Semi-supervised Learning",
+        "Government",
+        "Public Policy",
+        "R"
+      ]
+    },
+    {
+      "id": 47829,
+      "location": "Beijing, China",
+      "rank": 42,
+      "points": 41564.2,
+      "number_of_entered_competitions": 4,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/IMG_3083.jpg",
+      "full_name": "Amy Clerk",
+      "favorite_technique": "Visualization",
+      "favorite_software": "SQL, Perl, C",
+      "past_competition_types": [
+        "Natural Language Processing",
+        "Unsupervised Learning",
+        "Public Policy"
+      ]
+    },
+    {
+      "id": 47830,
+      "location": "Munich, Germany",
+      "rank": 157,
+      "points": 5064.5,
+      "number_of_entered_competitions": 7,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/imagery_02_11_08_000032.jpg",
+      "full_name": "Nelson Frahm",
+      "favorite_technique": "C-Means",
+      "favorite_software": "R",
+      "past_competition_types": [
+        "Semi-supervised Learning",
+        "High Dimensionality",
+        "Health",
+        "R",
+        "Python"
+      ]
+    },
+    {
+      "id": 47831,
+      "location": "Los Angeles, United States",
+      "rank": 409,
+      "points": 2814.5,
+      "number_of_entered_competitions": 3,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/Handsome_man_looking_away.jpg",
+      "full_name": "Chandra Seelig",
+      "favorite_technique": "Random Forest",
+      "favorite_software": "Ruby",
+      "past_competition_types": [
+        "Natural Language Processing",
+        "Life Sciences"
+      ]
+    },
+    {
+      "id": 47832,
+      "location": "London, England",
+      "rank": 892,
+      "points": 23759.1,
+      "number_of_entered_competitions": 2,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/PR_008-_SI_-_12_03_12-509.jpg",
+      "full_name": "Elnora Mcmorrow",
+      "favorite_technique": "Logistic Regression",
+      "favorite_software": "R",
+      "past_competition_types": [
+        "High Dimensionality",
+        "Government"
+      ]
+    },
+    {
+      "id": 47833,
+      "location": "Madrid, Spain",
+      "rank": 1039,
+      "points": 18773.5,
+      "number_of_entered_competitions": 4,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/Pr_34_-_TRS_-_16_07_10_-_620.jpg",
+      "full_name": "Fernando Cast",
+      "favorite_technique": "Relational Learning",
+      "favorite_software": "SVM",
+      "past_competition_types": [
+        "Unstructured",
+        "Time Series",
+        "Finance"
+      ]
+    },
+    {
+      "id": 47834,
+      "location": "Chicago, United States",
+      "rank": 2526,
+      "points": 17829.6,
+      "number_of_entered_competitions": 5,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/PR_014-_SI_-_03_04_12-019.jpg",
+      "full_name": "Tyrone Humbertson",
+      "favorite_technique": "CART",
+      "favorite_software": "R",
+      "past_competition_types": [
+        "Unsupervised Learning",
+        "Start-ups",
+        "Credit"
+      ]
+    },
+    {
+      "id": 47835,
+      "location": "San Jose, United States",
+      "rank": 6823,
+      "points": 14274.4,
+      "number_of_entered_competitions": 2,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/Pedja_Nikolic_MG_3254.jpg",
+      "full_name": " Lonnie Besaw",
+      "favorite_technique": "Neural Net",
+      "favorite_software": "Modeler 14",
+      "past_competition_types": [
+        "Computer Vision",
+        "Research"
+      ]
+    },
+    {
+      "id": 47836,
+      "location": "Sydney, Australia",
+      "rank": 13820,
+      "points": 9274.9,
+      "number_of_entered_competitions": 2,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/imagery_12_11_08_000342.jpg",
+      "full_name": "Clinton Reichenbach",
+      "favorite_technique": "Market Basket",
+      "favorite_software": "Alpine",
+      "past_competition_types": [
+        "Binary Classification",
+        "SQL"
+      ]
+    },
+    {
+      "id": 47837,
+      "location": "Moscow, Russia",
+      "rank": 17303,
+      "points": 8362.6,
+      "number_of_entered_competitions": 2,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/PR_029-_SI_-_31_05_12-735.jpg",
+      "full_name": "Milagros Boulay",
+      "favorite_technique": "Decision Trees",
+      "favorite_software": "Python",
+      "past_competition_types": [
+        "Data Manipulation",
+        "Research"
+      ]
+    },
+    {
+      "id": 47838,
+      "location": "St. Louis, United States",
+      "rank": 24158,
+      "points": 8137.4,
+      "number_of_entered_competitions": 2,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/2008520.jpg",
+      "full_name": "Serena Becraft",
+      "favorite_technique": "Gradient Boosting",
+      "favorite_software": "Matlab",
+      "past_competition_types": [
+        "Unsupervised Learning",
+        "Matlab"
+      ]
+    },
+    {
+      "id": 47839,
+      "location": "New Delhi, India",
+      "rank": 26458,
+      "points": 7738.6,
+      "number_of_entered_competitions": 1,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/D34_3496.jpg",
+      "full_name": " Kunal Khadse",
+      "favorite_technique": "Random Forest",
+      "favorite_software": "CART",
+      "past_competition_types": [
+        "Finance"
+      ]
+    },
+    {
+      "id": 47840,
+      "location": "San Francisco, United States",
+      "rank": 29103,
+      "points": 7336.8,
+      "number_of_entered_competitions": 4,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/DSC07236.jpg",
+      "full_name": "Malinda Levitan",
+      "favorite_technique": "SVD",
+      "favorite_software": "R with a little SAS",
+      "past_competition_types": [
+        "Geospatial",
+        "QSAR",
+        "Consumer Behavior",
+        "Research"
+      ]
+    },
+    {
+      "id": 36462,
+      "location": "New York, United States",
+      "rank": 30215,
+      "points": 6628.3,
+      "number_of_entered_competitions": 1,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/young_guy_standing_looking_away.jpg",
+      "full_name": "Lance Pendelton",
+      "favorite_technique": "MLPs",
+      "favorite_software": "C++",
+      "past_competition_types": [
+        "Regression"
+      ]
+    },
+    {
+      "id": 47879,
+      "location": "Boston, United States",
+      "rank": 32528,
+      "points": 6236.8,
+      "number_of_entered_competitions": 3,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/S1295788.JPG",
+      "full_name": "Katy Trundy",
+      "favorite_technique": "Logistic Regression",
+      "favorite_software": "Weka",
+      "past_competition_types": [
+        "Binary Classification",
+        "Consumer Behavior",
+        "Finance"
+      ]
+    },
+    {
+      "id": 48823,
+      "location": "Dallas, United States",
+      "rank": 43572,
+      "points": 4719.6,
+      "number_of_entered_competitions": 1,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/PR_012-_SI_-_27_03_12-038.jpg",
+      "full_name": "Dollie Kircher",
+      "favorite_technique": "AIS",
+      "favorite_software": "R",
+      "past_competition_types": [
+        "Regression"
+      ]
+    },
+    {
+      "id": 48824,
+      "location": "London, England",
+      "rank": 47328,
+      "points": 4210.2,
+      "number_of_entered_competitions": 1,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/PR_014-_SI_-_03_04_12-141.jpg",
+      "full_name": "Clinton Rames",
+      "favorite_technique": "Linear Regression",
+      "favorite_software": "Scikit-learn",
+      "past_competition_types": [
+        "Insurance"
+      ]
+    },
+    {
+      "id": 47825,
+      "location": "Singapore, Republic of Singapore",
+      "rank": 51183,
+      "points": 3628.3,
+      "number_of_entered_competitions": 4,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/______4.jpg",
+      "full_name": "Marcie Wei",
+      "favorite_technique": "SVM",
+      "favorite_software": "R, Mahout",
+      "past_competition_types": [
+        "Visualization",
+        "Graph",
+        "Retail"
+      ]
+    },
+    {
+      "id": 47826,
+      "location": "New York, United States",
+      "rank": 54183,
+      "points": 3212.6,
+      "number_of_entered_competitions": 3,
+      "gravatar_url": "http://c95711.r11.cf3.rackcdn.com/Mix_-_25_11_08_053.jpg",
+      "full_name": "Amy Cline",
+      "favorite_technique": "Bayesian Methods",
+      "favorite_software": "Octave, Java",
+      "past_competition_types": [
+        "Computer Vision",
+        "Binary Classification",
+        "Life Sciences",
+        "Research"
+      ]
+    }
+  ]
+}

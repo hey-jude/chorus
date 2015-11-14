@@ -1,26 +1,32 @@
 namespace :db do
+
+  # KT see comments here: http://blog.pivotal.io/labs/labs/leave-your-migrations-in-your-rails-engines
+  desc "reset the database, drop, create, & migrate"
+  task :custom_reset => [:environment, "db:drop", "db:create", "db:migrate"]
+
   namespace :test do
     task :prepare => 'db:integration:load_structure'
 
     task :prepare_permissions => :environment do
-      load Rails.root.join('db', 'permissions_test_data.rb')
+      load Core::Engine.root.join('db', 'permissions_test_data.rb')
     end
   end
 
   task :seed_development => :environment do
     ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
-      load Rails.root.join('db', 'development_seeds.rb')
+      load Core::Engine.root.join('db', 'development_seeds.rb')
     end
   end
 
   task :clear_permissions => :environment do
-    load Rails.root.join('db', 'clear_permissions.rb')
+    load Core::Engine.root.join('db', 'clear_permissions.rb')
   end
+
   # Load permissions seed data
   task :seed_permissions => :environment do
     ENV['SKIP_SOLR'] = 'true'
     ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
-      load Rails.root.join('db', 'permissions_seeds.rb')
+      load Core::Engine.root.join('db', 'permissions_seeds.rb')
     end
     ENV['SKIP_SOLR'] = nil
   end
@@ -28,7 +34,7 @@ namespace :db do
   task :migrate_permissions => :environment do
     ENV['SKIP_SOLR'] = 'true'
     ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
-      load Rails.root.join('db', 'migrate_permissions.rb')
+      load Core::Engine.root.join('db', 'migrate_permissions.rb')
     end
     ENV['SKIP_SOLR'] = nil
   end
@@ -93,6 +99,6 @@ namespace :db do
   end
 
   %w{integration ci_jasmine ci_legacy ci_next}.each do |database_name|
-     create_database_tasks(database_name)
+    create_database_tasks(database_name)
   end
 end

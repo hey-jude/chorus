@@ -1,0 +1,28 @@
+{
+  "response": [
+    {
+      "id": 1000004,
+      "to_table": "csv_import_table",
+      "started_stamp": "2012-09-04T06:04:00Z",
+      "completed_stamp": null,
+      "success": null,
+      "source_dataset": {
+        "id": null,
+        "object_name": null
+      },
+      "file_name": "import.csv",
+      "workspace_id": 1000008,
+      "entity_type": "csv_import",
+      "destination_dataset": {
+        "id": 1000031,
+        "object_name": "csv_import_table"
+      }
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "per_page": 50,
+    "records": 1,
+    "total": 1
+  }
+}

@@ -1,0 +1,16 @@
+---
+data_source_account_permissions_001:
+  id: 1000000
+  accessed_id: 1000003
+  data_source_account_id: 1000002
+  accessed_type: Database
+data_source_account_permissions_002:
+  id: 1000001
+  accessed_id: 1000001
+  data_source_account_id: 1000002
+  accessed_type: Database
+data_source_account_permissions_003:
+  id: 1000002
+  accessed_id: 1000004
+  data_source_account_id: 1000001
+  accessed_type: Database

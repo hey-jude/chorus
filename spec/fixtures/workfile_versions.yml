@@ -1,0 +1,281 @@
+---
+workfile_versions_001:
+  id: 1000000
+  workfile_id: 1000000
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:37.639000000 Z
+  updated_at: 2015-11-13 22:10:37.639000000 Z
+  contents_file_name: typeahead
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:10:37.592000000 Z
+  legacy_id:
+workfile_versions_002:
+  id: 1000001
+  workfile_id: 1000000
+  version_num: 1
+  owner_id: 1000006
+  commit_message: Factory commit message
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:38.150000000 Z
+  updated_at: 2015-11-13 22:10:38.150000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:38.148000000 Z
+  legacy_id:
+workfile_versions_003:
+  id: 1000002
+  workfile_id: 1000009
+  version_num: 1
+  owner_id: 1000003
+  commit_message:
+  modifier_id: 1000003
+  created_at: 2015-11-13 22:10:45.562000000 Z
+  updated_at: 2015-11-13 22:10:45.562000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:45.521000000 Z
+  legacy_id:
+workfile_versions_004:
+  id: 1000003
+  workfile_id: 1000010
+  version_num: 1
+  owner_id: 1000003
+  commit_message:
+  modifier_id: 1000003
+  created_at: 2015-11-13 22:10:46.129000000 Z
+  updated_at: 2015-11-13 22:10:46.129000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:46.090000000 Z
+  legacy_id:
+workfile_versions_005:
+  id: 1000004
+  workfile_id: 1000011
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:46.716000000 Z
+  updated_at: 2015-11-13 22:10:46.716000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:46.683000000 Z
+  legacy_id:
+public:
+  id: 1000005
+  workfile_id: 1000012
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:47.330000000 Z
+  updated_at: 2015-11-13 22:10:47.330000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:47.295000000 Z
+  legacy_id:
+workfile_versions_006:
+  id: 1000006
+  workfile_id: 1000013
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:47.930000000 Z
+  updated_at: 2015-11-13 22:10:47.930000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:47.893000000 Z
+  legacy_id:
+workfile_versions_007:
+  id: 1000007
+  workfile_id: 1000014
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:48.494000000 Z
+  updated_at: 2015-11-13 22:10:48.494000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:48.460000000 Z
+  legacy_id:
+workfile_versions_008:
+  id: 1000008
+  workfile_id: 1000014
+  version_num: 1
+  owner_id: 1000006
+  commit_message: Committed to searchquery
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:49.003000000 Z
+  updated_at: 2015-11-13 22:10:49.003000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:49.000000000 Z
+  legacy_id:
+workfile_versions_009:
+  id: 1000009
+  workfile_id: 1000015
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:49.563000000 Z
+  updated_at: 2015-11-13 22:10:49.563000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:49.527000000 Z
+  legacy_id:
+workfile_versions_010:
+  id: 1000010
+  workfile_id: 1000016
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:50.141000000 Z
+  updated_at: 2015-11-13 22:10:50.141000000 Z
+  contents_file_name: DraftedWorkfile
+  contents_content_type: inode/x-empty
+  contents_file_size: 0
+  contents_updated_at: 2015-11-13 22:10:50.110000000 Z
+  legacy_id:
+workfile_versions_011:
+  id: 1000011
+  workfile_id: 1000016
+  version_num: 1
+  owner_id: 1000006
+  commit_message: Factory commit message
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:50.731000000 Z
+  updated_at: 2015-11-13 22:10:50.731000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:50.728000000 Z
+  legacy_id:
+workfile_versions_012:
+  id: 1000012
+  workfile_id: 1000017
+  version_num: 1
+  owner_id: 1000003
+  commit_message:
+  modifier_id: 1000003
+  created_at: 2015-11-13 22:10:51.249000000 Z
+  updated_at: 2015-11-13 22:10:51.249000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:51.210000000 Z
+  legacy_id:
+workfile_versions_013:
+  id: 1000013
+  workfile_id: 1000018
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:51.777000000 Z
+  updated_at: 2015-11-13 22:10:51.777000000 Z
+  contents_file_name: workfile.sql
+  contents_content_type: text/plain
+  contents_file_size: 45
+  contents_updated_at: 2015-11-13 22:10:51.739000000 Z
+  legacy_id:
+workfile_versions_014:
+  id: 1000014
+  workfile_id: 1000019
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:55.571000000 Z
+  updated_at: 2015-11-13 22:10:55.571000000 Z
+  contents_file_name: non_utf8.sql
+  contents_content_type: text/plain
+  contents_file_size: 43
+  contents_updated_at: 2015-11-13 22:10:55.536000000 Z
+  legacy_id:
+workfile_versions_015:
+  id: 1000015
+  workfile_id: 1000020
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:56.147000000 Z
+  updated_at: 2015-11-13 22:10:56.147000000 Z
+  contents_file_name: some.txt
+  contents_content_type: text/plain
+  contents_file_size: 17
+  contents_updated_at: 2015-11-13 22:10:56.117000000 Z
+  legacy_id:
+workfile_versions_016:
+  id: 1000016
+  workfile_id: 1000021
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:56.817000000 Z
+  updated_at: 2015-11-13 22:10:56.817000000 Z
+  contents_file_name: small1.gif
+  contents_content_type: image/gif
+  contents_file_size: 1448
+  contents_updated_at: 2015-11-13 22:10:56.665000000 Z
+  legacy_id:
+workfile_versions_017:
+  id: 1000017
+  workfile_id: 1000022
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:57.375000000 Z
+  updated_at: 2015-11-13 22:10:57.375000000 Z
+  contents_file_name: binary.tar.gz
+  contents_content_type: application/x-gzip
+  contents_file_size: 139
+  contents_updated_at: 2015-11-13 22:10:57.343000000 Z
+  legacy_id:
+workfile_versions_018:
+  id: 1000018
+  workfile_id: 1000023
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:57.918000000 Z
+  updated_at: 2015-11-13 22:10:57.918000000 Z
+  contents_file_name: test.cpp
+  contents_content_type: text/plain
+  contents_file_size: 41
+  contents_updated_at: 2015-11-13 22:10:57.883000000 Z
+  legacy_id:
+workfile_versions_019:
+  id: 1000019
+  workfile_id: 1000024
+  version_num: 1
+  owner_id: 1000006
+  commit_message:
+  modifier_id: 1000006
+  created_at: 2015-11-13 22:10:58.497000000 Z
+  updated_at: 2015-11-13 22:10:58.497000000 Z
+  contents_file_name: model.pmml
+  contents_content_type: application/xml
+  contents_file_size: 3163
+  contents_updated_at: 2015-11-13 22:10:58.464000000 Z
+  legacy_id:

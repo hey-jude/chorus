@@ -1,0 +1,9 @@
+.sass-cache
+
+db/schema.rb
+log/*.log
+tmp
+system
+
+spec/javascripts/fixtures/rspec
+spec/javascripts/fixtures/backbone

@@ -1,0 +1,302 @@
+{
+  "response": {
+    "users": {
+      "results": [
+
+      ],
+      "numFound": 0
+    },
+    "data_sources": {
+      "results": [
+
+      ],
+      "numFound": 0
+    },
+    "workspaces": {
+      "results": [
+
+      ],
+      "numFound": 0
+    },
+    "workfiles": {
+      "results": [
+
+      ],
+      "numFound": 0
+    },
+    "datasets": {
+      "results": [
+        {
+          "recent_comments": [
+
+          ],
+          "comment_count": 0,
+          "id": 1000025,
+          "object_name": "searchquery_hadoop",
+          "schema": null,
+          "entity_type": "dataset",
+          "entity_subtype": "HDFS",
+          "stale": false,
+          "stale_at": null,
+          "is_deleted": null,
+          "associated_workspaces": [
+
+          ],
+          "file_mask": "/*",
+          "hdfs_data_source": {
+            "id": 1000002,
+            "name": "searchquery_hadoop",
+            "entity_type": "hdfs_data_source",
+            "supports_work_flows": false,
+            "hdfs_version": "Pivotal HD 3",
+            "is_hdfs_hive": null,
+            "hive_metastore_location": null,
+            "is_deleted": null,
+            "state": "online",
+            "host": "hadoop.example.com",
+            "port": 1111,
+            "online": true,
+            "description": "searchquery for the hadoop data source",
+            "version": null,
+            "username": null,
+            "group_list": null,
+            "job_tracker_host": null,
+            "job_tracker_port": null,
+            "high_availability": false,
+            "connection_parameters": [
+
+            ],
+            "owner": {
+              "id": 1000000,
+              "username": "admin",
+              "first_name": "Admin_44445",
+              "last_name": "AlphaSearch",
+              "image": {
+                "original": "/images/general/default-user.png",
+                "icon": "/images/general/default-user.png",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null,
+              "email": "admin_44445@douglasgorczany.info",
+              "title": "Chief Data Scientist",
+              "dept": "Corporation Corp., Inc.",
+              "notes": "One of our top performers",
+              "admin": true,
+              "developer": false,
+              "subscribed_to_emails": true,
+              "tags": [
+
+              ],
+              "complete_json": true
+            },
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "object_type": "MASK",
+          "workspace": {
+            "id": 1000010,
+            "name": "Search Public",
+            "is_deleted": null,
+            "entity_type": "workspace",
+            "summary": "searchquery",
+            "archived_at": null,
+            "permission": [
+              "admin"
+            ],
+            "public": true,
+            "datasets_count": 8,
+            "members_count": 2,
+            "workfiles_count": 1,
+            "insights_count": 0,
+            "recent_insights_count": 0,
+            "recent_comments_count": 0,
+            "has_recent_comments": false,
+            "has_milestones": false,
+            "archiver": null,
+            "image": {
+              "original": "",
+              "icon": "",
+              "entity_type": "image",
+              "complete_json": true
+            },
+            "has_added_member": false,
+            "has_added_workfile": true,
+            "has_added_sandbox": true,
+            "has_changed_settings": false,
+            "tags": [
+
+            ],
+            "sandbox_info": {
+              "id": 1000010,
+              "name": "searchquery_schema",
+              "dataset_count": 0,
+              "refreshed_at": "2015-11-13T04:55:51Z",
+              "entity_type": "gpdb_schema",
+              "is_deleted": null,
+              "stale": false,
+              "database": {
+                "id": 1000003,
+                "name": "searchquery_database",
+                "data_source": {
+                  "id": 1000002,
+                  "name": "Owners",
+                  "entity_type": "gpdb_data_source",
+                  "is_deleted": null,
+                  "shared": false,
+                  "owner_id": 1000006,
+                  "version": "9.1.2 - FactoryVersion",
+                  "is_hawq": null,
+                  "state": "online"
+                },
+                "entity_type": "gpdb_database",
+                "complete_json": true
+              },
+              "complete_json": true
+            },
+            "show_sandbox_datasets": true,
+            "owner": {
+              "id": 1000006,
+              "username": "owner",
+              "first_name": "searchquery",
+              "last_name": "Rice",
+              "image": {
+                "original": "/users/1000006/image?style=original&1447390563",
+                "icon": "/users/1000006/image?style=icon&1447390563",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null,
+              "email": "searchquery@zboncak.net",
+              "title": "Chief Data Scientist",
+              "dept": "Corporation Corp., Inc.",
+              "notes": "One of our top performers",
+              "admin": false,
+              "developer": false,
+              "subscribed_to_emails": true,
+              "tags": [
+
+              ],
+              "complete_json": true
+            },
+            "is_member": true,
+            "is_project": true,
+            "project_status": "on_track",
+            "project_status_reason": null,
+            "milestone_count": 0,
+            "milestone_completed_count": 0,
+            "project_target_date": null,
+            "complete_json": true
+          },
+          "has_credentials": true,
+          "tags": [
+
+          ],
+          "complete_json": true,
+          "highlighted_attributes": {
+            "object_name": [
+              "<em>searchquery</em>_<em>hadoop</em>"
+            ]
+          },
+          "comments": [
+
+          ]
+        }
+      ],
+      "numFound": 1
+    },
+    "hdfs_entries": {
+      "results": [
+
+      ],
+      "numFound": 0
+    },
+    "other_files": {
+      "results": [
+        {
+          "id": 1000009,
+          "name": "searchquery_hadoop",
+          "timestamp": "2015-11-13T04:56:51Z",
+          "icon_url": null,
+          "content_url": null,
+          "entity_type": "attachment",
+          "type": "",
+          "data_source": {
+            "id": 1000002,
+            "name": "searchquery_hadoop",
+            "entity_type": "hdfs_data_source",
+            "supports_work_flows": false,
+            "hdfs_version": "Pivotal HD 3",
+            "is_hdfs_hive": null,
+            "hive_metastore_location": null,
+            "is_deleted": null,
+            "state": "online",
+            "host": "hadoop.example.com",
+            "port": 1111,
+            "online": true,
+            "description": "searchquery for the hadoop data source",
+            "version": null,
+            "username": null,
+            "group_list": null,
+            "job_tracker_host": null,
+            "job_tracker_port": null,
+            "high_availability": false,
+            "connection_parameters": [
+
+            ],
+            "owner": {
+              "id": 1000000,
+              "username": "admin",
+              "first_name": "Admin_44445",
+              "last_name": "AlphaSearch",
+              "image": {
+                "original": "/images/general/default-user.png",
+                "icon": "/images/general/default-user.png",
+                "entity_type": "image",
+                "complete_json": true
+              },
+              "entity_type": "user",
+              "is_deleted": null,
+              "auth_method": null,
+              "ldap_group_id": null,
+              "email": "admin_44445@douglasgorczany.info",
+              "title": "Chief Data Scientist",
+              "dept": "Corporation Corp., Inc.",
+              "notes": "One of our top performers",
+              "admin": true,
+              "developer": false,
+              "subscribed_to_emails": true,
+              "tags": [
+
+              ],
+              "complete_json": true
+            },
+            "tags": [
+
+            ],
+            "complete_json": true
+          },
+          "complete_json": true,
+          "highlighted_attributes": {
+            "name": [
+              "<em>searchquery</em>_<em>hadoop</em>"
+            ]
+          },
+          "comments": [
+
+          ]
+        }
+      ],
+      "numFound": 1
+    },
+    "complete_json": true
+  }
+}

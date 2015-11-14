@@ -1,0 +1,3 @@
+window.chorusApi = {
+  urlPrefix: '/api'
+}

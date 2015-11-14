@@ -1,0 +1,28 @@
+{
+  "response": [
+    {
+      "id": 1000000,
+      "name": "alpha",
+      "count": 3,
+      "entity_type": "tag"
+    },
+    {
+      "id": 1000002,
+      "name": "beta",
+      "count": 2,
+      "entity_type": "tag"
+    },
+    {
+      "id": 1000001,
+      "name": "typeahead",
+      "count": 1,
+      "entity_type": "tag"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "per_page": 50,
+    "records": 3,
+    "total": 1
+  }
+}

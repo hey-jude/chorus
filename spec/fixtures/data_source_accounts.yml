@@ -1,0 +1,221 @@
+---
+data_source_accounts_001:
+  id: 1000000
+  db_username: username
+  data_source_id: 1000000
+  owner_id: 1000000
+  created_at: 2015-11-13 22:10:31.374000000 Z
+  updated_at: 2015-11-13 22:10:31.374000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+shared_data_source_account:
+  id: 1000001
+  db_username: username
+  data_source_id: 1000001
+  owner_id: 1000000
+  created_at: 2015-11-13 22:10:31.628000000 Z
+  updated_at: 2015-11-13 22:10:31.628000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_002:
+  id: 1000002
+  db_username: username
+  data_source_id: 1000002
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:31.681000000 Z
+  updated_at: 2015-11-13 22:10:31.681000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_003:
+  id: 1000003
+  db_username: username
+  data_source_id: 1000003
+  owner_id: 1000000
+  created_at: 2015-11-13 22:10:31.744000000 Z
+  updated_at: 2015-11-13 22:10:31.744000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_004:
+  id: 1000004
+  db_username: username
+  data_source_id: 1000004
+  owner_id: 1000000
+  created_at: 2015-11-13 22:10:31.793000000 Z
+  updated_at: 2015-11-13 22:10:31.793000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_005:
+  id: 1000006
+  db_username: username
+  data_source_id: 1000006
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:32.292000000 Z
+  updated_at: 2015-11-13 22:10:32.292000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_006:
+  id: 1000007
+  db_username: username
+  data_source_id: 1000007
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:32.351000000 Z
+  updated_at: 2015-11-13 22:10:32.351000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_007:
+  id: 1000008
+  db_username: username
+  data_source_id: 1000008
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:32.402000000 Z
+  updated_at: 2015-11-13 22:10:32.402000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_008:
+  id: 1000009
+  db_username: username
+  data_source_id: 1000009
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:32.441000000 Z
+  updated_at: 2015-11-13 22:10:32.441000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials:
+data_source_accounts_009:
+  id: 1000010
+  db_username: username
+  data_source_id: 1000010
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:32.645000000 Z
+  updated_at: 2015-11-13 22:10:32.645000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_010:
+  id: 1000011
+  db_username: username44445
+  data_source_id: 1000010
+  owner_id: 1000007
+  created_at: 2015-11-13 22:10:32.869000000 Z
+  updated_at: 2015-11-13 22:10:32.869000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_011:
+  id: 1000012
+  db_username: username
+  data_source_id: 1000011
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:33.117000000 Z
+  updated_at: 2015-11-13 22:10:33.117000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_012:
+  id: 1000013
+  db_username: username
+  data_source_id: 1000012
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:33.303000000 Z
+  updated_at: 2015-11-13 22:10:33.303000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_013:
+  id: 1000014
+  db_username: username
+  data_source_id: 1000013
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:33.348000000 Z
+  updated_at: 2015-11-13 22:10:33.348000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_014:
+  id: 1000015
+  db_username: username
+  data_source_id: 1000014
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:33.418000000 Z
+  updated_at: 2015-11-13 22:10:33.418000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_015:
+  id: 1000016
+  db_username: username
+  data_source_id: 1000015
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:33.578000000 Z
+  updated_at: 2015-11-13 22:10:33.578000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_016:
+  id: 1000017
+  db_username: username
+  data_source_id: 1000016
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:33.629000000 Z
+  updated_at: 2015-11-13 22:10:33.629000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+unauthorized:
+  id: 1000018
+  db_username: username44446
+  data_source_id: 1000002
+  owner_id: 1000007
+  created_at: 2015-11-13 22:10:34.310000000 Z
+  updated_at: 2015-11-13 22:10:34.310000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_017:
+  id: 1000019
+  db_username: username
+  data_source_id: 1000017
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:38.232000000 Z
+  updated_at: 2015-11-13 22:10:38.232000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_018:
+  id: 1000020
+  db_username: username
+  data_source_id: 1000018
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:38.379000000 Z
+  updated_at: 2015-11-13 22:10:38.379000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_019:
+  id: 1000021
+  db_username: username
+  data_source_id: 1000019
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:44.395000000 Z
+  updated_at: 2015-11-13 22:10:44.395000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false
+data_source_accounts_020:
+  id: 1000022
+  db_username: username
+  data_source_id: 1000020
+  owner_id: 1000006
+  created_at: 2015-11-13 22:10:44.459000000 Z
+  updated_at: 2015-11-13 22:10:44.459000000 Z
+  legacy_id:
+  encrypted_db_password: HjZbpvYrr/WnbvNjnk5rVg==
+  invalid_credentials: false

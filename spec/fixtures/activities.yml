@@ -1,0 +1,1576 @@
+---
+activities_001:
+  id: 1000070
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000024
+activities_002:
+  id: 1000071
+  entity_id: 1000018
+  entity_type: Workfile
+  event_id: 1000024
+activities_003:
+  id: 1000072
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000024
+activities_004:
+  id: 1000073
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000025
+activities_005:
+  id: 1000074
+  entity_id: 1000009
+  entity_type: Workfile
+  event_id: 1000025
+activities_006:
+  id: 1000075
+  entity_id: 1000006
+  entity_type: Workspace
+  event_id: 1000025
+activities_007:
+  id: 1000076
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000026
+activities_008:
+  id: 1000077
+  entity_id: 1000012
+  entity_type: Workfile
+  event_id: 1000026
+activities_009:
+  id: 1000078
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000026
+activities_010:
+  id: 1000079
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000027
+activities_011:
+  id: 1000080
+  entity_id: 1000011
+  entity_type: Workfile
+  event_id: 1000027
+activities_012:
+  id: 1000081
+  entity_id: 1000009
+  entity_type: Workspace
+  event_id: 1000027
+activities_013:
+  id: 1000082
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000028
+activities_014:
+  id: 1000083
+  entity_id: 1000010
+  entity_type: Workfile
+  event_id: 1000028
+activities_015:
+  id: 1000084
+  entity_id: 1000005
+  entity_type: Workspace
+  event_id: 1000028
+activities_016:
+  id: 1000085
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000029
+activities_017:
+  id: 1000086
+  entity_id: 1000012
+  entity_type: Workfile
+  event_id: 1000029
+activities_018:
+  id: 1000087
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000029
+activities_019:
+  id: 1000088
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000030
+activities_020:
+  id: 1000089
+  entity_id: 1000009
+  entity_type: Workfile
+  event_id: 1000030
+activities_021:
+  id: 1000090
+  entity_id: 1000006
+  entity_type: Workspace
+  event_id: 1000030
+activities_022:
+  id: 1000091
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000031
+activities_023:
+  id: 1000092
+  entity_id: 1000009
+  entity_type: Workfile
+  event_id: 1000031
+activities_024:
+  id: 1000093
+  entity_id: 1000006
+  entity_type: Workspace
+  event_id: 1000031
+activities_025:
+  id: 1000094
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000032
+activities_026:
+  id: 1000095
+  entity_id: 1000009
+  entity_type: Workfile
+  event_id: 1000032
+activities_027:
+  id: 1000096
+  entity_id: 1000006
+  entity_type: Workspace
+  event_id: 1000032
+activities_028:
+  id: 1000097
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000033
+activities_029:
+  id: 1000098
+  entity_id: 1000012
+  entity_type: Workfile
+  event_id: 1000033
+activities_030:
+  id: 1000099
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000033
+activities_031:
+  id: 1000100
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000034
+activities_032:
+  id: 1000101
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000034
+activities_033:
+  id: 1000102
+  entity_id: 1000026
+  entity_type: Dataset
+  event_id: 1000034
+activities_034:
+  id: 1000103
+  entity_id: 1000012
+  entity_type: Workfile
+  event_id: 1000034
+activities_035:
+  id: 1000104
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000035
+activities_036:
+  id: 1000105
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000035
+activities_037:
+  id: 1000106
+  entity_id: 1000026
+  entity_type: Dataset
+  event_id: 1000035
+activities_038:
+  id: 1000107
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000036
+activities_039:
+  id: 1000108
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000036
+activities_040:
+  id: 1000109
+  entity_id: 1000010
+  entity_type: Dataset
+  event_id: 1000036
+activities_041:
+  id: 1000110
+  entity_id: 1000026
+  entity_type: Dataset
+  event_id: 1000036
+activities_042:
+  id: 1000111
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000037
+activities_043:
+  id: 1000112
+  entity_id: 1000005
+  entity_type: Milestone
+  event_id: 1000037
+activities_044:
+  id: 1000113
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000037
+activities_045:
+  id: 1000114
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000038
+activities_046:
+  id: 1000115
+  entity_id: 1000005
+  entity_type: Milestone
+  event_id: 1000038
+activities_047:
+  id: 1000116
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000038
+activities_048:
+  id: 1000117
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000039
+activities_049:
+  id: 1000118
+  entity_id: 1000000
+  entity_type: Job
+  event_id: 1000039
+activities_050:
+  id: 1000119
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000039
+activities_051:
+  id: 1000120
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000040
+activities_052:
+  id: 1000121
+  entity_id: 1000000
+  entity_type: Job
+  event_id: 1000040
+activities_053:
+  id: 1000122
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000040
+activities_054:
+  id: 1000123
+  entity_id: 1000000
+  entity_type: Job
+  event_id: 1000041
+activities_055:
+  id: 1000124
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000041
+activities_056:
+  id: 1000125
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000042
+activities_057:
+  id: 1000126
+  entity_id: 1000000
+  entity_type: Job
+  event_id: 1000042
+activities_058:
+  id: 1000127
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000042
+activities_059:
+  id: 1000128
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000043
+activities_060:
+  id: 1000129
+  entity_id: 1000000
+  entity_type: Job
+  event_id: 1000043
+activities_061:
+  id: 1000130
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000043
+activities_062:
+  id: 1000131
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000045
+activities_063:
+  id: 1000132
+  entity_id:
+  entity_type:
+  event_id: 1000045
+activities_064:
+  id: 1000133
+  entity_id: 1000000
+  entity_type: Dataset
+  event_id: 1000045
+activities_065:
+  id: 1000134
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000046
+activities_066:
+  id: 1000135
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000046
+activities_067:
+  id: 1000136
+  entity_id:
+  entity_type:
+  event_id: 1000046
+activities_068:
+  id: 1000137
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000046
+activities_069:
+  id: 1000138
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000047
+activities_070:
+  id: 1000139
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000047
+activities_071:
+  id: 1000140
+  entity_id:
+  entity_type:
+  event_id: 1000047
+activities_072:
+  id: 1000141
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000047
+activities_073:
+  id: 1000142
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000048
+activities_074:
+  id: 1000143
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000048
+activities_075:
+  id: 1000144
+  entity_id:
+  entity_type:
+  event_id: 1000048
+activities_076:
+  id: 1000145
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000048
+activities_077:
+  id: 1000146
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000049
+activities_078:
+  id: 1000147
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000049
+activities_079:
+  id: 1000148
+  entity_id:
+  entity_type:
+  event_id: 1000049
+activities_080:
+  id: 1000149
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000050
+activities_081:
+  id: 1000150
+  entity_id:
+  entity_type:
+  event_id: 1000050
+activities_082:
+  id: 1000151
+  entity_id: 1000000
+  entity_type: GnipDataSource
+  event_id: 1000050
+activities_083:
+  id: 1000152
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000051
+activities_084:
+  id: 1000153
+  entity_id: 1000000
+  entity_type: DataSource
+  event_id: 1000051
+activities_085:
+  id: 1000154
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000051
+activities_086:
+  id: 1000155
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000052
+activities_087:
+  id: 1000156
+  entity_id: 1000000
+  entity_type: DataSource
+  event_id: 1000052
+activities_088:
+  id: 1000157
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000052
+activities_089:
+  id: 1000158
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000053
+activities_090:
+  id: 1000159
+  entity_id: 1000000
+  entity_type: DataSource
+  event_id: 1000053
+activities_091:
+  id: 1000160
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000053
+activities_092:
+  id: 1000161
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000054
+activities_093:
+  id: 1000162
+  entity_id: 1000001
+  entity_type: DataSource
+  event_id: 1000054
+activities_094:
+  id: 1000163
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000054
+activities_095:
+  id: 1000164
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000055
+activities_096:
+  id: 1000165
+  entity_id: 1000001
+  entity_type: DataSource
+  event_id: 1000055
+activities_097:
+  id: 1000166
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000055
+activities_098:
+  id: 1000167
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000056
+activities_099:
+  id: 1000168
+  entity_id: 1000001
+  entity_type: DataSource
+  event_id: 1000056
+activities_100:
+  id: 1000169
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000056
+activities_101:
+  id: 1000170
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000057
+activities_102:
+  id: 1000171
+  entity_id: 1000002
+  entity_type: HdfsDataSource
+  event_id: 1000057
+activities_103:
+  id: 1000172
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000057
+activities_104:
+  id: 1000173
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000058
+activities_105:
+  id: 1000174
+  entity_id: 1000013
+  entity_type: HdfsEntry
+  event_id: 1000058
+activities_106:
+  id: 1000175
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000058
+activities_107:
+  id: 1000176
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000059
+activities_108:
+  id: 1000177
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000059
+activities_109:
+  id: 1000178
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000060
+activities_110:
+  id: 1000179
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000060
+activities_111:
+  id: 1000180
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000061
+activities_112:
+  id: 1000181
+  entity_id: 1000020
+  entity_type: Workfile
+  event_id: 1000061
+activities_113:
+  id: 1000182
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000061
+activities_114:
+  id: 1000183
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000062
+activities_115:
+  id: 1000184
+  entity_id: 1000000
+  entity_type: GnipDataSource
+  event_id: 1000062
+activities_116:
+  id: 1000185
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000062
+activities_117:
+  id: 1000186
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000063
+activities_118:
+  id: 1000187
+  entity_id: 1000000
+  entity_type: GnipDataSource
+  event_id: 1000063
+activities_119:
+  id: 1000188
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000063
+activities_120:
+  id: 1000189
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000064
+activities_121:
+  id: 1000190
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000064
+activities_122:
+  id: 1000191
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000064
+activities_123:
+  id: 1000192
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000065
+activities_124:
+  id: 1000193
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000065
+activities_125:
+  id: 1000194
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000065
+activities_126:
+  id: 1000195
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000066
+activities_127:
+  id: 1000196
+  entity_id: 1000016
+  entity_type: Dataset
+  event_id: 1000066
+activities_128:
+  id: 1000197
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000066
+activities_129:
+  id: 1000198
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000067
+activities_130:
+  id: 1000199
+  entity_id: 1000016
+  entity_type: Dataset
+  event_id: 1000067
+activities_131:
+  id: 1000200
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000067
+activities_132:
+  id: 1000201
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000068
+activities_133:
+  id: 1000202
+  entity_id: 1000029
+  entity_type: Dataset
+  event_id: 1000068
+activities_134:
+  id: 1000203
+  entity_id: 1000011
+  entity_type: Workspace
+  event_id: 1000068
+activities_135:
+  id: 1000204
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000069
+activities_136:
+  id: 1000205
+  entity_id: 1000016
+  entity_type: Dataset
+  event_id: 1000069
+activities_137:
+  id: 1000206
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000069
+activities_138:
+  id: 1000207
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000070
+activities_139:
+  id: 1000208
+  entity_id: 1000009
+  entity_type: Dataset
+  event_id: 1000070
+activities_140:
+  id: 1000209
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000070
+activities_141:
+  id: 1000210
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000071
+activities_142:
+  id: 1000211
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000071
+activities_143:
+  id: 1000212
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000073
+activities_144:
+  id: 1000213
+  entity_id: 1000006
+  entity_type: Workspace
+  event_id: 1000073
+activities_145:
+  id: 1000214
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000074
+activities_146:
+  id: 1000215
+  entity_id: 1000005
+  entity_type: Workspace
+  event_id: 1000074
+activities_147:
+  id: 1000216
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000075
+activities_148:
+  id: 1000217
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000075
+activities_149:
+  id: 1000218
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000075
+activities_150:
+  id: 1000219
+  entity_id: 1000007
+  entity_type: Dataset
+  event_id: 1000075
+activities_151:
+  id: 1000220
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000076
+activities_152:
+  id: 1000221
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000076
+activities_153:
+  id: 1000222
+  entity_id: 1000000
+  entity_type: Dataset
+  event_id: 1000076
+activities_154:
+  id: 1000223
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000077
+activities_155:
+  id: 1000224
+  entity_id: 1000000
+  entity_type: Dataset
+  event_id: 1000077
+activities_156:
+  id: 1000225
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000077
+activities_157:
+  id: 1000226
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000078
+activities_158:
+  id: 1000227
+  entity_id: 1000013
+  entity_type: HdfsEntry
+  event_id: 1000078
+activities_159:
+  id: 1000228
+  entity_id: 1000002
+  entity_type: HdfsDataSource
+  event_id: 1000078
+activities_160:
+  id: 1000229
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000079
+activities_161:
+  id: 1000230
+  entity_id:
+  entity_type:
+  event_id: 1000079
+activities_162:
+  id: 1000231
+  entity_id: 1000002
+  entity_type: HdfsDataSource
+  event_id: 1000079
+activities_163:
+  id: 1000232
+  entity_id: 1000000
+  entity_type: DataSource
+  event_id: 1000080
+activities_164:
+  id: 1000233
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000080
+activities_165:
+  id: 1000234
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000080
+activities_166:
+  id: 1000235
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000081
+activities_167:
+  id: 1000236
+  entity_id: 1000000
+  entity_type: DataSource
+  event_id: 1000081
+activities_168:
+  id: 1000237
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000081
+activities_169:
+  id: 1000238
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000082
+activities_170:
+  id: 1000239
+  entity_id: 1000002
+  entity_type: HdfsDataSource
+  event_id: 1000082
+activities_171:
+  id: 1000240
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000082
+activities_172:
+  id: 1000241
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000083
+activities_173:
+  id: 1000242
+  entity_id: 1000024
+  entity_type: Dataset
+  event_id: 1000083
+activities_174:
+  id: 1000243
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000083
+activities_175:
+  id: 1000244
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000084
+activities_176:
+  id: 1000245
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000084
+activities_177:
+  id: 1000246
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000085
+activities_178:
+  id: 1000247
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000085
+activities_179:
+  id: 1000248
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000086
+activities_180:
+  id: 1000249
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000086
+activities_181:
+  id: 1000250
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000087
+activities_182:
+  id: 1000251
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000087
+activities_183:
+  id: 1000252
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000088
+activities_184:
+  id: 1000253
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000088
+activities_185:
+  id: 1000254
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000088
+activities_186:
+  id: 1000255
+  entity_id: 1000025
+  entity_type: Dataset
+  event_id: 1000088
+activities_187:
+  id: 1000256
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000088
+activities_188:
+  id: 1000257
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000089
+activities_189:
+  id: 1000258
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000089
+activities_190:
+  id: 1000259
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000089
+activities_191:
+  id: 1000260
+  entity_id: 1000013
+  entity_type: HdfsEntry
+  event_id: 1000089
+activities_192:
+  id: 1000261
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000089
+activities_193:
+  id: 1000262
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000090
+activities_194:
+  id: 1000263
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000090
+activities_195:
+  id: 1000264
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000090
+activities_196:
+  id: 1000265
+  entity_id: 1000014
+  entity_type: HdfsEntry
+  event_id: 1000090
+activities_197:
+  id: 1000266
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000090
+activities_198:
+  id: 1000267
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000091
+activities_199:
+  id: 1000268
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000091
+activities_200:
+  id: 1000269
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000091
+activities_201:
+  id: 1000270
+  entity_id: 1000013
+  entity_type: HdfsEntry
+  event_id: 1000091
+activities_202:
+  id: 1000271
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000091
+activities_203:
+  id: 1000272
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000092
+activities_204:
+  id: 1000273
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000092
+activities_205:
+  id: 1000274
+  entity_id:
+  entity_type:
+  event_id: 1000092
+activities_206:
+  id: 1000275
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000093
+activities_207:
+  id: 1000276
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000093
+activities_208:
+  id: 1000277
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000093
+activities_209:
+  id: 1000278
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000094
+activities_210:
+  id: 1000279
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000094
+activities_211:
+  id: 1000280
+  entity_id:
+  entity_type:
+  event_id: 1000094
+activities_212:
+  id: 1000281
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000095
+activities_213:
+  id: 1000282
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000095
+activities_214:
+  id: 1000283
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000096
+activities_215:
+  id: 1000284
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000096
+activities_216:
+  id: 1000285
+  entity_id:
+  entity_type:
+  event_id: 1000096
+activities_217:
+  id: 1000286
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000096
+activities_218:
+  id: 1000287
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000097
+activities_219:
+  id: 1000288
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000097
+activities_220:
+  id: 1000289
+  entity_id: 1000007
+  entity_type: Dataset
+  event_id: 1000097
+activities_221:
+  id: 1000290
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000097
+activities_222:
+  id: 1000291
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000098
+activities_223:
+  id: 1000292
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000098
+activities_224:
+  id: 1000293
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000098
+activities_225:
+  id: 1000294
+  entity_id:
+  entity_type:
+  event_id: 1000098
+activities_226:
+  id: 1000295
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000099
+activities_227:
+  id: 1000296
+  entity_id:
+  entity_type:
+  event_id: 1000099
+activities_228:
+  id: 1000297
+  entity_id: 1000000
+  entity_type: GnipDataSource
+  event_id: 1000099
+activities_229:
+  id: 1000298
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000100
+activities_230:
+  id: 1000299
+  entity_id: 1000007
+  entity_type: Dataset
+  event_id: 1000100
+activities_231:
+  id: 1000300
+  entity_id: 1000000
+  entity_type: GnipDataSource
+  event_id: 1000100
+activities_232:
+  id: 1000301
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000101
+activities_233:
+  id: 1000302
+  entity_id: 1000000
+  entity_type: GnipDataSource
+  event_id: 1000101
+activities_234:
+  id: 1000303
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000102
+activities_235:
+  id: 1000304
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000102
+activities_236:
+  id: 1000305
+  entity_id: 1000026
+  entity_type: Dataset
+  event_id: 1000102
+activities_237:
+  id: 1000306
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000102
+activities_238:
+  id: 1000307
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000103
+activities_239:
+  id: 1000308
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000103
+activities_240:
+  id: 1000309
+  entity_id:
+  entity_type:
+  event_id: 1000103
+activities_241:
+  id: 1000310
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000103
+activities_242:
+  id: 1000311
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000104
+activities_243:
+  id: 1000312
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000104
+activities_244:
+  id: 1000313
+  entity_id:
+  entity_type:
+  event_id: 1000104
+activities_245:
+  id: 1000314
+  entity_id: 1000005
+  entity_type: Dataset
+  event_id: 1000104
+activities_246:
+  id: 1000000
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000000
+activities_247:
+  id: 1000001
+  entity_id: 1000001
+  entity_type: User
+  event_id: 1000000
+activities_248:
+  id: 1000002
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000000
+activities_249:
+  id: 1000003
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000001
+activities_250:
+  id: 1000004
+  entity_id: 1000003
+  entity_type: User
+  event_id: 1000001
+activities_251:
+  id: 1000005
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000001
+activities_252:
+  id: 1000006
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000002
+activities_253:
+  id: 1000007
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000002
+activities_254:
+  id: 1000008
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000002
+activities_255:
+  id: 1000009
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000003
+activities_256:
+  id: 1000010
+  entity_id: 1000007
+  entity_type: User
+  event_id: 1000003
+activities_257:
+  id: 1000011
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000003
+activities_258:
+  id: 1000012
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000004
+activities_259:
+  id: 1000013
+  entity_id: 1000008
+  entity_type: User
+  event_id: 1000004
+activities_260:
+  id: 1000014
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000004
+activities_261:
+  id: 1000015
+  entity_id: 1000009
+  entity_type: User
+  event_id: 1000005
+activities_262:
+  id: 1000016
+  entity_id: 1000009
+  entity_type: User
+  event_id: 1000005
+activities_263:
+  id: 1000017
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000005
+activities_264:
+  id: 1000018
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000006
+activities_265:
+  id: 1000019
+  entity_id: 1000000
+  entity_type: DataSource
+  event_id: 1000006
+activities_266:
+  id: 1000020
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000006
+activities_267:
+  id: 1000021
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000007
+activities_268:
+  id: 1000022
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000007
+activities_269:
+  id: 1000023
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000008
+activities_270:
+  id: 1000024
+  entity_id: 1000002
+  entity_type: DataSource
+  event_id: 1000008
+activities_271:
+  id: 1000025
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000008
+activities_272:
+  id: 1000026
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000009
+activities_273:
+  id: 1000027
+  entity_id: 1000010
+  entity_type: DataSource
+  event_id: 1000009
+activities_274:
+  id: 1000028
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000009
+activities_275:
+  id: 1000029
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000010
+activities_276:
+  id: 1000030
+  entity_id: 1000002
+  entity_type: HdfsDataSource
+  event_id: 1000010
+activities_277:
+  id: 1000031
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000010
+activities_278:
+  id: 1000032
+  entity_id: 1000000
+  entity_type: User
+  event_id: 1000011
+activities_279:
+  id: 1000033
+  entity_id: 1000000
+  entity_type: GnipDataSource
+  event_id: 1000011
+activities_280:
+  id: 1000034
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000011
+activities_281:
+  id: 1000035
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000012
+activities_282:
+  id: 1000036
+  entity_id: 1000017
+  entity_type: DataSource
+  event_id: 1000012
+activities_283:
+  id: 1000037
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000012
+activities_284:
+  id: 1000038
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000013
+activities_285:
+  id: 1000039
+  entity_id: 1000004
+  entity_type: Workspace
+  event_id: 1000013
+activities_286:
+  id: 1000040
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000014
+activities_287:
+  id: 1000041
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000014
+activities_288:
+  id: 1000042
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000014
+activities_289:
+  id: 1000043
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000015
+activities_290:
+  id: 1000044
+  entity_id: 1000009
+  entity_type: Workspace
+  event_id: 1000015
+activities_291:
+  id: 1000045
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000016
+activities_292:
+  id: 1000046
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000016
+activities_293:
+  id: 1000047
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000016
+activities_294:
+  id: 1000048
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000017
+activities_295:
+  id: 1000049
+  entity_id: 1000009
+  entity_type: Workspace
+  event_id: 1000017
+activities_296:
+  id: 1000050
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000018
+activities_297:
+  id: 1000051
+  entity_id:
+  entity_type: GLOBAL
+  event_id: 1000018
+activities_298:
+  id: 1000052
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000019
+activities_299:
+  id: 1000053
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000019
+activities_300:
+  id: 1000054
+  entity_id: 1000024
+  entity_type: Dataset
+  event_id: 1000019
+activities_301:
+  id: 1000055
+  entity_id: 1000002
+  entity_type: HdfsDataSource
+  event_id: 1000019
+activities_302:
+  id: 1000056
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000020
+activities_303:
+  id: 1000057
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000020
+activities_304:
+  id: 1000058
+  entity_id: 1000024
+  entity_type: Dataset
+  event_id: 1000020
+activities_305:
+  id: 1000059
+  entity_id: 1000002
+  entity_type: HdfsDataSource
+  event_id: 1000020
+activities_306:
+  id: 1000060
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000021
+activities_307:
+  id: 1000061
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000021
+activities_308:
+  id: 1000062
+  entity_id: 1000026
+  entity_type: Dataset
+  event_id: 1000021
+activities_309:
+  id: 1000063
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000022
+activities_310:
+  id: 1000064
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000022
+activities_311:
+  id: 1000065
+  entity_id: 1000026
+  entity_type: Dataset
+  event_id: 1000022
+activities_312:
+  id: 1000066
+  entity_id: 1000001
+  entity_type: Workfile
+  event_id: 1000022
+activities_313:
+  id: 1000067
+  entity_id: 1000006
+  entity_type: User
+  event_id: 1000023
+activities_314:
+  id: 1000068
+  entity_id: 1000004
+  entity_type: Workfile
+  event_id: 1000023
+activities_315:
+  id: 1000069
+  entity_id: 1000008
+  entity_type: Workspace
+  event_id: 1000023

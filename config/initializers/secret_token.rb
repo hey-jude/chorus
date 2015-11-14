@@ -1,3 +1,5 @@
+# KT TODO: put secret.token into the secrets.yml file, and rename secret.key to chorus_secret.key or, attr_encrypted_secret.key
+
 # Be sure to restart your server when you modify this file.
 
 # Your secret key is used for verifying the integrity of signed cookies.
@@ -20,7 +22,3 @@ key_file = Rails.root.join('config/secret.key')
 abort "No config/secret.key file found.  Run rake development:init or rake development:generate_secret_key" unless key_file.exist?
 
 Chorus::Application.config.secret_key_base = key_file.read
-
-
-#Myapp::Application.config.secret_token = 'existing secret token'
-#Myapp::Application.config.secret_key_base = 'new secret key base'

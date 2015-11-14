@@ -1,12 +1,13 @@
-require_relative '../../app/models/chorus_config'
-
-Chorus::Application.configure do
+Rails.application.configure do
 
   # Custom config options up top:
 
   # See: https://github.com/Chorus/chorus/commit/79fedf38c1ba72578084786e15b41b233fa417a1
   config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus", { expires_in: 7.days }
   config.action_controller.perform_caching = false
+
+  # See: https://github.com/Chorus/chorus/commit/17728d81c16aa788d17ed35e2df3f917259a83d0
+  config.eager_load_paths += config.autoload_paths
 
   # See: https://github.com/Chorus/chorus/commit/267732274571bd77f3a66ab197de20751992694e
   if ChorusConfig.instance['mail.enabled']
@@ -16,6 +17,9 @@ Chorus::Application.configure do
   else
     config.action_mailer.perform_deliveries = false
   end
+
+  # Only turn it on if you really need concurrent requests
+  config.allow_concurrency = true
 
 
   # DEFAULT RAILS CONFIG OPTIONS below
@@ -46,15 +50,6 @@ Chorus::Application.configure do
   # number of complex assets.
   config.assets.debug = false
 
-  # Only turn it on if you really need concurrent requests
-  config.allow_concurrency = true
-  #config.threadsafe!
-
-  if ChorusConfig.instance['mail.enabled']
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
-    ActionMailer::Base.default ChorusConfig.instance.mail_configuration
-  else
-    config.action_mailer.perform_deliveries = false
-  end
+  # Raises error for missing translations
+  # config.action_view.raise_on_missing_translations = true
 end

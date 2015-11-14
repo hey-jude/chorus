@@ -1,0 +1,41 @@
+---
+notification1:
+  id: 1000000
+  recipient_id: 1000006
+  event_id: 1000009
+  created_at: 2015-11-13 22:11:17.095000000 Z
+  updated_at: 2015-11-13 22:11:17.095000000 Z
+  read: false
+  legacy_id:
+  comment_id: 1000001
+  deleted_at:
+notification2:
+  id: 1000001
+  recipient_id: 1000006
+  event_id: 1000012
+  created_at: 2015-11-13 22:11:18.132999000 Z
+  updated_at: 2015-11-13 22:11:18.132999000 Z
+  read: false
+  legacy_id:
+  comment_id:
+  deleted_at:
+notification3:
+  id: 1000002
+  recipient_id: 1000006
+  event_id: 1000051
+  created_at: 2015-11-13 22:11:19.154000000 Z
+  updated_at: 2015-11-13 22:11:19.154000000 Z
+  read: false
+  legacy_id:
+  comment_id:
+  deleted_at:
+notification4:
+  id: 1000003
+  recipient_id: 1000006
+  event_id: 1000052
+  created_at: 2015-11-13 22:11:20.173000000 Z
+  updated_at: 2015-11-13 22:11:20.173000000 Z
+  read: false
+  legacy_id:
+  comment_id:
+  deleted_at:

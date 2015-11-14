@@ -1,0 +1,185 @@
+{
+  "response": {
+    "id": 1000007,
+    "workspace": {
+      "id": 1000008,
+      "name": "Public",
+      "is_deleted": null,
+      "entity_type": "workspace",
+      "summary": "searchquery",
+      "archived_at": null,
+      "permission": [
+        "admin"
+      ],
+      "public": true,
+      "datasets_count": 5,
+      "members_count": 2,
+      "workfiles_count": 17,
+      "insights_count": 1,
+      "recent_insights_count": 1,
+      "recent_comments_count": 9,
+      "has_recent_comments": true,
+      "has_milestones": true,
+      "archiver": null,
+      "image": {
+        "original": "",
+        "icon": "",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "has_added_member": false,
+      "has_added_workfile": true,
+      "has_added_sandbox": true,
+      "has_changed_settings": false,
+      "tags": [
+
+      ],
+      "sandbox_info": {
+        "id": 1000006,
+        "name": "default",
+        "dataset_count": 0,
+        "refreshed_at": "2015-11-13T04:55:51Z",
+        "entity_type": "gpdb_schema",
+        "is_deleted": null,
+        "stale": false,
+        "database": {
+          "id": 1000001,
+          "name": "default",
+          "data_source": {
+            "id": 1000002,
+            "name": "Owners",
+            "entity_type": "gpdb_data_source",
+            "is_deleted": null,
+            "shared": false,
+            "owner_id": 1000006,
+            "version": "9.1.2 - FactoryVersion",
+            "is_hawq": null,
+            "state": "online"
+          },
+          "entity_type": "gpdb_database",
+          "complete_json": true
+        },
+        "complete_json": true
+      },
+      "show_sandbox_datasets": true,
+      "owner": {
+        "id": 1000006,
+        "username": "owner",
+        "first_name": "searchquery",
+        "last_name": "Rice",
+        "image": {
+          "original": "/users/1000006/image?style=original&1447390563",
+          "icon": "/users/1000006/image?style=icon&1447390563",
+          "entity_type": "image",
+          "complete_json": true
+        },
+        "entity_type": "user",
+        "is_deleted": null,
+        "auth_method": null,
+        "ldap_group_id": null,
+        "email": "searchquery@zboncak.net",
+        "title": "Chief Data Scientist",
+        "dept": "Corporation Corp., Inc.",
+        "notes": "One of our top performers",
+        "admin": false,
+        "developer": false,
+        "subscribed_to_emails": true,
+        "tags": [
+
+        ],
+        "complete_json": true
+      },
+      "is_member": false,
+      "is_project": true,
+      "project_status": "on_track",
+      "project_status_reason": null,
+      "milestone_count": 3,
+      "milestone_completed_count": 0,
+      "project_target_date": "2015-12-07T00:00:00Z",
+      "complete_json": true
+    },
+    "file_name": "multiple_data_source_workflow",
+    "file_type": "work_flow",
+    "latest_version_id": null,
+    "is_deleted": null,
+    "recent_comments": [
+
+    ],
+    "comment_count": 0,
+    "tags": [
+
+    ],
+    "entity_type": "workfile",
+    "entity_subtype": "alpine",
+    "user_modified_at": "2015-11-13T04:56:19Z",
+    "status": "idle",
+    "owner": {
+      "id": 1000006,
+      "username": "owner",
+      "first_name": "searchquery",
+      "last_name": "Rice",
+      "image": {
+        "original": "/users/1000006/image?style=original&1447390563",
+        "icon": "/users/1000006/image?style=icon&1447390563",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "associated_worklets": [
+
+    ],
+    "version_info": {
+      "created_at": "2015-11-13T04:56:19Z",
+      "updated_at": "2015-11-13T04:56:19Z"
+    },
+    "execution_locations": [
+      {
+        "id": 1000005,
+        "name": "database44445",
+        "data_source": {
+          "id": 1000019,
+          "name": "gpdb_data_source44445",
+          "entity_type": "gpdb_data_source",
+          "is_deleted": null,
+          "shared": false,
+          "owner_id": 1000006,
+          "version": "9.1.2 - FactoryVersion",
+          "is_hawq": null,
+          "state": "online"
+        },
+        "entity_type": "gpdb_database",
+        "complete_json": true
+      },
+      {
+        "id": 1000005,
+        "name": "hdfs_data_source44445",
+        "entity_type": "hdfs_data_source",
+        "supports_work_flows": true,
+        "hdfs_version": "Pivotal HD 3",
+        "is_hdfs_hive": null,
+        "hive_metastore_location": null,
+        "is_deleted": null,
+        "state": "online"
+      },
+      {
+        "id": 1000020,
+        "name": "oracle_data_source44445",
+        "entity_type": "oracle_data_source",
+        "is_deleted": null,
+        "shared": false,
+        "owner_id": 1000006,
+        "version": null,
+        "is_hawq": null,
+        "state": "online"
+      }
+    ],
+    "dataset_ids": [
+
+    ],
+    "complete_json": true
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "response": {
+    "id": 1000080,
+    "actor": {
+      "id": 1000000,
+      "username": "admin",
+      "first_name": "Admin_44445",
+      "last_name": "AlphaSearch",
+      "image": {
+        "original": "/images/general/default-user.png",
+        "icon": "/images/general/default-user.png",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "action": "DataSourceChangedOwner",
+    "timestamp": "2015-11-12T04:56:42Z",
+    "data_source": {
+      "id": 1000000,
+      "name": "searchquery",
+      "entity_type": "gpdb_data_source",
+      "is_deleted": null,
+      "shared": false,
+      "owner_id": 1000000,
+      "version": "9.1.2 - FactoryVersion",
+      "is_hawq": null,
+      "state": "online"
+    },
+    "new_owner": {
+      "id": 1000003,
+      "username": "no_collaborators",
+      "first_name": "Cristian",
+      "last_name": "Walker",
+      "image": {
+        "original": "/images/general/default-user.png",
+        "icon": "/images/general/default-user.png",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "entity_type": "user",
+      "is_deleted": null,
+      "auth_method": null,
+      "ldap_group_id": null
+    },
+    "attachments": [
+
+    ],
+    "comments": [
+
+    ],
+    "is_insight": false,
+    "promoted_by": null,
+    "promotion_time": null,
+    "is_published": false,
+    "complete_json": true
+  }
+}

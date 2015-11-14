@@ -1,0 +1,160 @@
+{
+  "response": {
+    "recent_comments": [
+
+    ],
+    "comment_count": 0,
+    "id": 1000010,
+    "object_name": "source_view",
+    "schema": {
+      "id": 1000008,
+      "name": "other_schema",
+      "dataset_count": 0,
+      "refreshed_at": "2015-11-13T04:55:51Z",
+      "entity_type": "gpdb_schema",
+      "is_deleted": null,
+      "stale": false,
+      "database": {
+        "id": 1000001,
+        "name": "default",
+        "data_source": {
+          "id": 1000002,
+          "name": "Owners",
+          "entity_type": "gpdb_data_source",
+          "is_deleted": null,
+          "shared": false,
+          "owner_id": 1000006,
+          "version": "9.1.2 - FactoryVersion",
+          "is_hawq": null,
+          "state": "online"
+        },
+        "entity_type": "gpdb_database",
+        "complete_json": true
+      },
+      "complete_json": true
+    },
+    "entity_type": "dataset",
+    "entity_subtype": "SOURCE_TABLE",
+    "stale": false,
+    "stale_at": null,
+    "is_deleted": null,
+    "associated_workspaces": [
+      {
+        "id": 1000008,
+        "name": "Public"
+      }
+    ],
+    "workspace": {
+      "id": 1000008,
+      "name": "Public",
+      "is_deleted": null,
+      "entity_type": "workspace",
+      "summary": "searchquery",
+      "archived_at": null,
+      "permission": [
+        "read",
+        "commenting",
+        "update",
+        "duplicate_chorus_view"
+      ],
+      "public": true,
+      "datasets_count": 11,
+      "members_count": 2,
+      "workfiles_count": 17,
+      "insights_count": 1,
+      "recent_insights_count": 1,
+      "recent_comments_count": 9,
+      "has_recent_comments": true,
+      "has_milestones": true,
+      "archiver": null,
+      "image": {
+        "original": "",
+        "icon": "",
+        "entity_type": "image",
+        "complete_json": true
+      },
+      "has_added_member": false,
+      "has_added_workfile": true,
+      "has_added_sandbox": true,
+      "has_changed_settings": false,
+      "tags": [
+
+      ],
+      "sandbox_info": {
+        "id": 1000006,
+        "name": "default",
+        "dataset_count": 0,
+        "refreshed_at": "2015-11-13T04:55:51Z",
+        "entity_type": "gpdb_schema",
+        "is_deleted": null,
+        "stale": false,
+        "database": {
+          "id": 1000001,
+          "name": "default",
+          "data_source": {
+            "id": 1000002,
+            "name": "Owners",
+            "entity_type": "gpdb_data_source",
+            "is_deleted": null,
+            "shared": false,
+            "owner_id": 1000006,
+            "version": "9.1.2 - FactoryVersion",
+            "is_hawq": null,
+            "state": "online"
+          },
+          "entity_type": "gpdb_database",
+          "complete_json": true
+        },
+        "complete_json": true
+      },
+      "show_sandbox_datasets": true,
+      "owner": {
+        "id": 1000006,
+        "username": "owner",
+        "first_name": "searchquery",
+        "last_name": "Rice",
+        "image": {
+          "original": "/users/1000006/image?style=original&1447390563",
+          "icon": "/users/1000006/image?style=icon&1447390563",
+          "entity_type": "image",
+          "complete_json": true
+        },
+        "entity_type": "user",
+        "is_deleted": null,
+        "auth_method": null,
+        "ldap_group_id": null,
+        "email": "searchquery@zboncak.net",
+        "title": "Chief Data Scientist",
+        "dept": "Corporation Corp., Inc.",
+        "notes": "One of our top performers",
+        "admin": false,
+        "developer": false,
+        "subscribed_to_emails": true,
+        "tags": [
+
+        ],
+        "complete_json": true
+      },
+      "is_member": true,
+      "is_project": true,
+      "project_status": "on_track",
+      "project_status_reason": null,
+      "milestone_count": 3,
+      "milestone_completed_count": 0,
+      "project_target_date": "2015-12-07T00:00:00Z",
+      "complete_json": true
+    },
+    "has_credentials": true,
+    "tableau_workbooks": [
+
+    ],
+    "tags": [
+
+    ],
+    "object_type": "VIEW",
+    "complete_json": true
+  },
+  "errors": {
+    "record": "MISSING_DB_OBJECT"
+  }
+}

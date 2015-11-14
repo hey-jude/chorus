@@ -1,0 +1,21 @@
+{
+  "response": {
+    "admins": 5,
+    "developers": 10,
+    "collaborators": 100,
+    "level": "triple-platinum",
+    "vendor": "openchorus",
+    "organization_uuid": "o-r-g",
+    "expires": "2014-07-31",
+    "workflow_enabled": false,
+    "advisor_now_enabled": false,
+    "branding": "alpine",
+    "limit_search": false,
+    "limit_workspace_membership": false,
+    "limit_milestones": false,
+    "limit_jobs": false,
+    "limit_sandboxes": false,
+    "home_page": null,
+    "version": "5.8.0.0"
+  }
+}

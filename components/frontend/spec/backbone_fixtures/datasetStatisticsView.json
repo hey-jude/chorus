@@ -1,0 +1,14 @@
+{
+  "response": {
+    "object_type": "VIEW",
+    "rows": 0,
+    "columns": 3,
+    "description": "a description",
+    "last_analyzed_time": null,
+    "on_disk_size": 0,
+    "partitions": 0,
+    "definition": "Bobby DROP TABLES;",
+    "entity_type": "dataset_statistics",
+    "complete_json": true
+  }
+}

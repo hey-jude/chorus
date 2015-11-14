@@ -1,0 +1,37 @@
+{
+  "errors": {
+    "fields": {
+      "username": {
+        "BLANK": {
+
+        },
+        "INVALID": {
+          "value": null
+        }
+      },
+      "first_name": {
+        "BLANK": {
+
+        }
+      },
+      "last_name": {
+        "BLANK": {
+
+        }
+      },
+      "email": {
+        "BLANK": {
+
+        },
+        "INVALID": {
+          "value": null
+        }
+      },
+      "password": {
+        "BLANK": {
+
+        }
+      }
+    }
+  }
+}

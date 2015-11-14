@@ -1,10 +1,12 @@
 require 'minimal_spec_helper'
 require 'stringio'
-require_relative '../../app/models/chorus_config'
+require_relative '../../config/initializers/chorus_config'
 
 describe "get_java_options_without_xms" do
 
-  let(:root_path) { File.expand_path('../../..', __FILE__) }
+  # KT TODO: this is a hack, until these script specs get extracted to the `cmd` component
+  let(:root_path) { File.expand_path('../../../../..', __FILE__) }
+
   let(:script_path) { File.expand_path('../../../packaging/get_java_options_without_xms.rb', __FILE__) }
   let(:chorus_config) { ChorusConfig.new(root_path) }
 

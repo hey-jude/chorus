@@ -1,0 +1,27 @@
+{
+  "response": {
+    "entity_type": "site_snapshot",
+    "data": [
+      {
+        "model": "workspace",
+        "total": 16,
+        "increment": 16
+      },
+      {
+        "model": "associated_dataset",
+        "total": 3,
+        "increment": 3
+      },
+      {
+        "model": "workfile",
+        "total": 25,
+        "increment": 25
+      },
+      {
+        "model": "user",
+        "total": 12,
+        "increment": 12
+      }
+    ]
+  }
+}

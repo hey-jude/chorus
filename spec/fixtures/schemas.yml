@@ -1,0 +1,157 @@
+---
+default:
+  id: 1000006
+  name: default
+  parent_id: 1000001
+  created_at: 2015-11-13 22:10:34.369000000 Z
+  updated_at: 2015-11-13 22:10:55.625000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at: 2015-11-13 22:10:18.989000000 Z
+  deleted_at:
+  parent_type: Database
+  type: GpdbSchema
+schema44445:
+  id: 1000012
+  name: schema44445
+  parent_id: 1000001
+  created_at: 2015-11-13 22:11:01.762000000 Z
+  updated_at: 2015-11-13 22:11:01.762000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at: 2015-11-13 22:10:18.989000000 Z
+  deleted_at:
+  parent_type: Database
+  type: GpdbSchema
+searchquery_schema:
+  id: 1000010
+  name: searchquery_schema
+  parent_id: 1000003
+  created_at: 2015-11-13 22:10:36.299000000 Z
+  updated_at: 2015-11-13 22:10:49.053000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at: 2015-11-13 22:10:18.989000000 Z
+  deleted_at:
+  parent_type: Database
+  type: GpdbSchema
+oracle:
+  id: 1000000
+  name: oracle
+  parent_id: 1000010
+  created_at: 2015-11-13 22:10:32.704000000 Z
+  updated_at: 2015-11-13 22:10:32.704000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at:
+  deleted_at:
+  parent_type: DataSource
+  type: OracleSchema
+oracle_empty:
+  id: 1000001
+  name: oracle_empty
+  parent_id: 1000010
+  created_at: 2015-11-13 22:10:32.886000000 Z
+  updated_at: 2015-11-13 22:10:32.886000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at:
+  deleted_at:
+  parent_type: DataSource
+  type: OracleSchema
+jdbc:
+  id: 1000002
+  name: jdbc
+  parent_id: 1000011
+  created_at: 2015-11-13 22:10:33.162000000 Z
+  updated_at: 2015-11-13 22:10:33.162000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at:
+  deleted_at:
+  parent_type: DataSource
+  type: JdbcSchema
+jdbc_empty:
+  id: 1000003
+  name: jdbc_empty
+  parent_id: 1000011
+  created_at: 2015-11-13 22:10:33.176000000 Z
+  updated_at: 2015-11-13 22:10:33.176000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at:
+  deleted_at:
+  parent_type: DataSource
+  type: JdbcSchema
+pg:
+  id: 1000004
+  name: pg
+  parent_id: 1000000
+  created_at: 2015-11-13 22:10:33.521000000 Z
+  updated_at: 2015-11-13 22:10:33.521000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at:
+  deleted_at:
+  parent_type: Database
+  type: PgSchema
+pg_alternate:
+  id: 1000005
+  name: pg_alternate
+  parent_id: 1000000
+  created_at: 2015-11-13 22:10:33.538000000 Z
+  updated_at: 2015-11-13 22:10:33.538000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at:
+  deleted_at:
+  parent_type: Database
+  type: PgSchema
+public:
+  id: 1000007
+  name: public
+  parent_id: 1000001
+  created_at: 2015-11-13 22:10:34.387000000 Z
+  updated_at: 2015-11-13 22:10:34.387000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at: 2015-11-13 22:10:18.989000000 Z
+  deleted_at:
+  parent_type: Database
+  type: GpdbSchema
+alternate:
+  id: 1000009
+  name: alternate
+  parent_id: 1000002
+  created_at: 2015-11-13 22:10:36.155000000 Z
+  updated_at: 2015-11-13 22:10:36.155000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at: 2015-11-13 22:10:18.989000000 Z
+  deleted_at:
+  parent_type: Database
+  type: GpdbSchema
+shared_schema:
+  id: 1000011
+  name: shared_schema
+  parent_id: 1000004
+  created_at: 2015-11-13 22:10:36.345000000 Z
+  updated_at: 2015-11-13 22:10:36.345000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at: 2015-11-13 22:10:18.989000000 Z
+  deleted_at:
+  parent_type: Database
+  type: GpdbSchema
+other_schema:
+  id: 1000008
+  name: other_schema
+  parent_id: 1000001
+  created_at: 2015-11-13 22:10:34.491000000 Z
+  updated_at: 2015-11-13 22:10:51.307000000 Z
+  active_tables_and_views_count: 0
+  stale_at:
+  refreshed_at: 2015-11-13 22:10:18.989000000 Z
+  deleted_at:
+  parent_type: Database
+  type: GpdbSchema

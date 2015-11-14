@@ -1,6 +1,5 @@
-require 'pry'
 require 'minimal_spec_helper'
-require_relative '../../packaging/install/chorus_installer'
+require_relative '../../../../packaging/install/chorus_installer'
 require_relative 'stub_executor'
 require 'fakefs/spec_helpers'
 
@@ -911,7 +910,7 @@ describe ChorusInstaller do
         installer.setup_database
         executor.call_order.should == [:initdb, :start_postgres, :rake, :stop_postgres]
         executor.calls[:initdb].should == [installer.data_path, installer.database_user]
-        executor.calls[:rake].should == ["db:create db:migrate db:seed enqueue:refresh_and_reindex"]
+        executor.calls[:rake].should == ["db:custom_reset db:seed enqueue:refresh_and_reindex"]
 
         stats = File.stat("/usr/local/chorus/releases/2.2.0.0/postgres/pwfile").mode
         sprintf("%o", stats).should == "100400"
