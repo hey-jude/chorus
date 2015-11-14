@@ -1,8 +1,11 @@
+chorus_home = File.expand_path(File.dirname(__FILE__) + '/../../../..')
+
 # Monkeypatch fixture builder to be able to customize the "fixtures_dir" ...
 module FixtureBuilder
   class Configuration
     def fixtures_dir(path = '')
-      File.expand_path(File.join(ENV['CHORUS_HOME'], 'spec', 'fixtures', path))
+      chorus_home = File.expand_path(File.dirname(__FILE__) + '/../../../..')
+      File.expand_path(File.join(chorus_home, 'spec', 'fixtures', path))
     end
   end
 end
@@ -81,11 +84,11 @@ FixtureBuilder.configure do |fbuilder|
 
     FactoryGirl.create(:user, :first_name => 'no_picture', :username => 'no_picture')
     with_picture = FactoryGirl.create(:user, :first_name => 'with_picture', :username => 'with_picture')
-    with_picture.image = Rack::Test::UploadedFile.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'User.png'), "image/png")
+    with_picture.image = Rack::Test::UploadedFile.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'User.png'), "image/png")
     with_picture.save!
 
     owner = FactoryGirl.create(:user, :first_name => 'searchquery', :username => 'owner')
-    owner.image = Rack::Test::UploadedFile.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'User.png'), "image/png")
+    owner.image = Rack::Test::UploadedFile.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'User.png'), "image/png")
     owner.save!
 
     @admin_creates_owner = Events::UserAdded.by(admin).add(:new_user => owner)
@@ -223,7 +226,7 @@ FixtureBuilder.configure do |fbuilder|
     FactoryGirl.create(:gpdb_table, :name => "typeahead_gpdb_table", :schema => searchquery_schema)
     @typeahead_chorus_view = FactoryGirl.create(:chorus_view, :name => "typeahead_chorus_view", :query => "select 1", :schema => searchquery_schema, :workspace => typeahead_public_workspace)
     typeahead_workfile = FactoryGirl.create(:chorus_workfile, :file_name => 'typeahead', :owner => owner, :workspace => typeahead_public_workspace)
-    File.open(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'workfile.sql')) do |file|
+    File.open(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'workfile.sql')) do |file|
       FactoryGirl.create(:workfile_version, :workfile => typeahead_workfile, :version_num => "1", :owner => owner, :modifier => owner, :contents => file)
     end
 
@@ -237,7 +240,7 @@ FixtureBuilder.configure do |fbuilder|
 
     with_current_user(owner) do
       note_on_greenplum_typeahead = Events::NoteOnDataSource.create!({:note_target => typeahead_data_source, :body => 'i exist only for my attachments'}, :as => :create)
-      note_on_greenplum_typeahead.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'typeahead_data_source')))
+      note_on_greenplum_typeahead.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'typeahead_data_source')))
     end
 
     tagged_table = FactoryGirl.create(:gpdb_table, :name => "searchable_tag", :schema => searchquery_schema)
@@ -270,7 +273,7 @@ FixtureBuilder.configure do |fbuilder|
     fbuilder.name :search_private, search_private_workspace
 
     workspaces << image_workspace = admin.owned_workspaces.create!({:name => "image", :public => true}, :without_protection => true)
-    image_workspace.image = Rack::Test::UploadedFile.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'Workspace.jpg'), "image/jpg")
+    image_workspace.image = Rack::Test::UploadedFile.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'Workspace.jpg'), "image/jpg")
     image_workspace.save!
     workspaces.each do |workspace|
       workspace.members << the_collaborator
@@ -368,7 +371,7 @@ FixtureBuilder.configure do |fbuilder|
     @directory = FactoryGirl.create(:hdfs_entry, :path => '/data', :hdfs_data_source => hdfs_data_source, :is_directory => true)
 
     #Workfiles
-    File.open(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'workfile.sql')) do |file|
+    File.open(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'workfile.sql')) do |file|
       no_collaborators_private = FactoryGirl.create(:chorus_workfile, :file_name => "no collaborators Private", :description => "searchquery", :owner => no_collaborators, :workspace => no_collaborators_private_workspace, :versions_attributes => [{:contents => file}])
       no_collaborators_workfile_version = no_collaborators_private.versions.first
       no_collaborators_public = FactoryGirl.create(:chorus_workfile, :file_name => "no collaborators Public", :description => "No Collaborators Search", :owner => no_collaborators, :workspace => no_collaborators_public_workspace, :versions_attributes => [{:contents => file}])
@@ -419,26 +422,26 @@ FixtureBuilder.configure do |fbuilder|
       Events::ViewCreated.by(owner).add(:source_dataset => chorus_view, :workspace => public_workspace, :dataset => source_view)
     end
 
-    File.open(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'non_utf8.sql')) do |file|
+    File.open(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'non_utf8.sql')) do |file|
       FactoryGirl.create(:chorus_workfile, :file_name => 'non_utf8.sql', :owner => owner, :workspace => public_workspace, :execution_schema => public_workspace.sandbox, :versions_attributes => [{:contents => file}])
     end
 
     text_workfile = nil
-    File.open ENV['CHORUS_HOME'] + '/spec/fixtures/files/some.txt' do |file|
+    File.open chorus_home + '/spec/fixtures/files/some.txt' do |file|
       text_workfile = FactoryGirl.create(:chorus_workfile, :file_name => "text.txt", :owner => owner, :workspace => public_workspace, :versions_attributes => [{:contents => file}])
     end
-    File.open ENV['CHORUS_HOME'] + '/spec/fixtures/files/small1.gif' do |file|
+    File.open chorus_home + '/spec/fixtures/files/small1.gif' do |file|
       FactoryGirl.create(:chorus_workfile, :file_name => "image.png", :owner => owner, :workspace => public_workspace, :versions_attributes => [{:contents => file}])
     end
-    File.open ENV['CHORUS_HOME'] + '/spec/fixtures/files/binary.tar.gz' do |file|
+    File.open chorus_home + '/spec/fixtures/files/binary.tar.gz' do |file|
       FactoryGirl.create(:chorus_workfile, :file_name => "binary.tar.gz", :owner => owner, :workspace => public_workspace, :versions_attributes => [{:contents => file}])
     end
 
-    File.open ENV['CHORUS_HOME'] + '/spec/fixtures/files/test.cpp' do |file|
+    File.open chorus_home + '/spec/fixtures/files/test.cpp' do |file|
       FactoryGirl.create(:chorus_workfile, :file_name => "code.cpp", :owner => owner, :workspace => public_workspace, :versions_attributes => [{:contents => file}])
     end
 
-    File.open ENV['CHORUS_HOME'] + '/spec/fixtures/files/model.pmml' do |file|
+    File.open chorus_home + '/spec/fixtures/files/model.pmml' do |file|
       FactoryGirl.create(:chorus_workfile, :file_name => 'model.pmml', :owner => owner, :workspace => public_workspace, :versions_attributes => [{:contents => file}])
     end
 
@@ -648,18 +651,18 @@ FixtureBuilder.configure do |fbuilder|
     Timecop.return
 
     #NotesAttachment
-    @sql = @note_on_greenplum.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'workfile.sql')))
-    @image = @note_on_greenplum.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'User.png')))
-    @attachment = @note_on_greenplum.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_data_source')))
-    @attachment_workspace = @note_on_workspace.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_workspace')))
-    @attachment_private_workspace = @note_on_no_collaborators_private.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_workspace')))
-    @attachment_workfile = @note_on_workfile.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_workfile')))
-    @attachment_private_workfile = @note_on_no_collaborators_private_workfile.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_workspace')))
-    @attachment_dataset = @note_on_dataset.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_dataset')))
-    @attachment_hadoop = @note_on_hdfs_data_source.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_hadoop')))
-    @attachment_hdfs = @note_on_hdfs_file.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_hdfs_file')))
-    @attachment_workspace_dataset = @note_on_search_workspace_dataset.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'searchquery_workspace_dataset')))
-    @attachment_on_chorus_view = @note_on_chorus_view_private.attachments.create!(:contents => File.new(Pathname.new(ENV['CHORUS_HOME']).join('spec', 'fixtures', 'files', 'attachmentsearch')))
+    @sql = @note_on_greenplum.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'workfile.sql')))
+    @image = @note_on_greenplum.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'User.png')))
+    @attachment = @note_on_greenplum.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_data_source')))
+    @attachment_workspace = @note_on_workspace.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_workspace')))
+    @attachment_private_workspace = @note_on_no_collaborators_private.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_workspace')))
+    @attachment_workfile = @note_on_workfile.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_workfile')))
+    @attachment_private_workfile = @note_on_no_collaborators_private_workfile.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_workspace')))
+    @attachment_dataset = @note_on_dataset.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_dataset')))
+    @attachment_hadoop = @note_on_hdfs_data_source.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_hadoop')))
+    @attachment_hdfs = @note_on_hdfs_file.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_hdfs_file')))
+    @attachment_workspace_dataset = @note_on_search_workspace_dataset.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'searchquery_workspace_dataset')))
+    @attachment_on_chorus_view = @note_on_chorus_view_private.attachments.create!(:contents => File.new(Pathname.new(chorus_home).join('spec', 'fixtures', 'files', 'attachmentsearch')))
 
     RR.reset
 
