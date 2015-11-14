@@ -20,7 +20,8 @@ require 'paperclip/matchers'
 require 'rspec_api_documentation'
 require 'rspec_api_documentation/dsl'
 RspecApiDocumentation.configure do |config|
-  config.docs_dir = Pathname.new(ENV['CHORUS_HOME']).join("public", "api")
+  chorus_home = File.expand_path(File.dirname(__FILE__) + '/../../..')
+  config.docs_dir = Pathname.new(chorus_home).join("public", "api")
 end
 
 require 'backbone_fixtures_rails'
