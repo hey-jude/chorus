@@ -7,13 +7,14 @@ $header-margin: 30px;
 $header-margin-left: $page-margin-left;
 $header-margin-right: $page-margin-right;
 
-$expanded-search-width: 450px;
-$notification-token-width: $header-margin * 2;
+$collapsed-search-width: 185px;
+$expanded-search-width:  450px;
 
 $branding-opacity: 0.94;
 
 $menu-item-height-default: 40px;
 $menu-notifications-width: 320px;
+$notification-token-width: $header-margin * 2;
 
 @mixin full-item-link($height) {
     &:hover, &.selected {
@@ -222,13 +223,11 @@ $menu-notifications-width: 320px;
 
         .search {
             $icon-box-width: 30px;
-            $collapsed-search-width: 178px;
 
             overflow: hidden;
-            margin: 8px 0 0 0;
+            margin: 10px 0 0 0;
             border-radius: 3px;
             display: inline-block;
-            margin-top: 10px;
             height: 30px;
 
             span {

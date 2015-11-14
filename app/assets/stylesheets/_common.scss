@@ -436,7 +436,6 @@ $lozenge-font-size: 12px;
 @mixin placeholder {
   @include debugging-mixin;
   &::-webkit-input-placeholder {@content}
-  // &:-moz-placeholder           {@content}
   &::-moz-placeholder          {@content}
   &:-ms-input-placeholder      {@content}
 }
