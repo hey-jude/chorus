@@ -1,3 +1,5 @@
+chorus_home = File.expand_path(File.dirname(__FILE__) + '/../../..')
+
 if ENV["COVERAGE"] == "true"
   require 'simplecov'
 
@@ -20,7 +22,6 @@ require 'paperclip/matchers'
 require 'rspec_api_documentation'
 require 'rspec_api_documentation/dsl'
 RspecApiDocumentation.configure do |config|
-  chorus_home = File.expand_path(File.dirname(__FILE__) + '/../../..')
   config.docs_dir = Pathname.new(chorus_home).join("public", "api")
 end
 
@@ -36,9 +37,9 @@ require 'faker'
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Api::Engine.root.join("spec/support/**/*.rb")].each { |f| require f unless f.match /fixture_builder/ }
-Dir["#{ENV['CHORUS_HOME']}/spec/support/**/*.rb"].each { |f| require f unless f.match /fixture_builder/ }
+Dir["#{chorus_home}/spec/support/**/*.rb"].each { |f| require f unless f.match /fixture_builder/ }
 
-require "#{ENV['CHORUS_HOME']}/components/core/spec/external_service_detector"
+require "#{chorus_home}/components/core/spec/external_service_detector"
 
 SPEC_PASSWORD = 'password'
 
@@ -47,7 +48,7 @@ SPEC_PASSWORD = 'password'
 FACTORY_GIRL_SEQUENCE_OFFSET = 44444
 FactoryGirl.factories.clear
 # KT: see https://github.com/thoughtbot/factory_girl_rails/pull/42
-FactoryGirl.definition_file_paths = ["#{ENV['CHORUS_HOME']}/spec/factories"]
+FactoryGirl.definition_file_paths = ["#{chorus_home}/spec/factories"]
 FactoryGirl.reload
 
 require 'support/fixture_builder'
@@ -56,7 +57,7 @@ silence_warnings { FACTORY_GIRL_SEQUENCE_OFFSET = 0 }
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{ENV['CHORUS_HOME']}/spec/fixtures"
+  config.fixture_path = "#{chorus_home}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
