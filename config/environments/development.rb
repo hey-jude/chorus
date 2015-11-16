@@ -9,23 +9,15 @@ Chorus::Application.configure do
   config.action_controller.perform_caching = false
 
   # See: https://github.com/Chorus/chorus/commit/267732274571bd77f3a66ab197de20751992694e
-  if ChorusConfig.instance['mail.enabled']
+  if ChorusConfig.instance["mail.enabled"]
+    config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
-    #config.action_mailer.smtp_settings = ChorusConfig.instance.smtp_configuration
+    #config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+    config.action_mailer.smtp_settings = ChorusConfig.instance.smtp_configuration
     ActionMailer::Base.default ChorusConfig.instance.mail_configuration
   else
     config.action_mailer.perform_deliveries = false
   end
-
-#   if ChorusConfig.instance['mail.enabled']
-#     config.action_mailer.delivery_method = :smtp
-#     config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
-#     ActionMailer::Base.default ChorusConfig.instance.mail_configuration
-#   else
-#     config.action_mailer.perform_deliveries = false
-#   end
-  
   
   # DEFAULT RAILS CONFIG OPTIONS below
 
@@ -39,7 +31,7 @@ Chorus::Application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
