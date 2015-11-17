@@ -1,106 +1,234 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style type="text/css">
-      #backgroundTable { width: 100%; margin: 0; border: 0; padding: 0; border-spacing: 0; background-color: #FAFAFA; }
-      .wrapperCell { text-align: center; padding: 15px 15px; }
-      #contentTable { width: 600px; background-color: #FFF;  border: 1px solid #E5E5E5; }
-      .headerCell { padding: 10px 15px 10px 15px; border-bottom: 1px solid #E5E5E5; text-align: left; }
-      .contentCell { padding:15px; text-align: left; color: #333; font-size: 13px; }
-      body { padding:0; margin: 0; background-color: #FAFAFA; -webkit-font-smoothing: antialiased; font-family: sans-serif; font-size: 13px; }
-      #footerTable { }
-      .footerCell { color: #9D9D9D; font-size: 10px; padding-bottom: 20px; text-align:center; }
-      .footerCell a { color: #777; text-decoration: none;}
-      .footerWrapper { text-align:center; }
-      h1 { font-weight: 600; color: #1d354d; font-size: 24px; line-height: 26px; margin:0; padding:0; }
-      h2 { color: #1d354d !important; font-size: 16px; line-height: 16px; margin-bottom: 5px; }
-      a {
-          color: #2c95dd;
-          text-decoration: none;
-      }
-      .attachments {
-          font-weight:  600;
-      }
-      img {
-          border:none;
-          vertical-align: middle;
-      }
-      ol, ul, ol li, ul li {
-          list-style-type: none;
-          margin-bottom:5px;
-      }
-      ul {
-          padding-left:15px;
-          margin-top:5px;
-      }
-      .icon {
-          margin-right: 5px;
-          width: 35px;
-          height: 35px;
-          vertical-align: middle;
-      }
-      .activity_content .activity_header, .activity_content .comment_header, .comment_content .activity_header, .comment_content .comment_header {
-          word-wrap: break-word;
-          font-size: 14px;
-          font-weight: normal;
-          color: #7d7d7d;
-          line-height: 18px;
-          padding-bottom: 4px;
-      }
-          /* Make this awesome on mobile */
-      @media only screen and (max-device-width: 480px) {
-          body { width: 320px !important; margin: 0; padding: 0; }
-          table[id="backgroundTable"] { width: 320px !important; }
-          td[class="wrapperCell"] { width: 320px !important; }
-          td[class="headerCell"] h1 { font-size: 20px !important; }
-          table[id="contentTable"] { width: 320px !important; }
-          table[id="footerTable"] { width: 320px !important; }
-          td[class="contentCell"] { padding:0; }
-          td img { height:auto !important; max-width:100% !important;}
-      }
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title><%= License.instance.branding_title %></title>
+<!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet" type="text/css" /> -->
+
+<style type="text/css">
+
+    body { 
+        margin: 0;
+        padding: 0;
+
+        background-color: #FFFFFF;
+        -webkit-font-smoothing: antialiased;
+        font-family: "Source Sans Pro", sans-serif;
+        font-size: 14px;
+        line-height: 18px;
+        
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+    }
+    body * {
+        color: #222222;    
+    }
+    table {
+      border-spacing: 0;
+    }
+    table, tr, td {
+        border-collapse: collapse;
+        border: 1px dotted #F00;
+    }
+    
+    
+    td {
+        vertical-align: top;
+    }
+
+    h1 {
+/*         color: #1D354D; */
+
+        font-size: 24px;
+        line-height: 26px;
+        margin: 0;
+        padding: 0;
+    }
+    h2 { 
+        /* color: #1D354D !important; */
+        font-size: 16px;
+        line-height: 17px;
+        margin-bottom: 5px;
+    }
+    a {
+        /* color: #2c95dd; */
+        color: #00A0E5;
+        text-decoration: none;
+    }
+    .attachments {
+        font-weight: 600;
+    }
+    img {
+        border: none;
+        vertical-align: middle;
+    }
+    ol, ul, ol li, ul li {
+        list-style-type: none;
+        margin-bottom: 5px;
+    }
+    ul {
+        padding-left: 15px;
+        margin-top: 5px;
+    }
+    
+/*     #bgTable { */
+/*         width: 100%; */
+/*         margin: 0; */
+/*         padding: 0; */
+/*         border: 0; */
+/*         border-spacing: 0; */
+        /* background-color: #FAFAFA; */
+/*         background-color: #999; */
+/*     } */
+/*     .bgTableCell { */
+/*         text-align: center; */
+/*         padding: 15px 15px; */
+/*     } */
+
+    #wrapTable td {
+        width: 800px;
+        border: 1px solid #0FF;
+    }
+    
+    #contentTable {
+        /* width: 600px; */
+        width: 100%;
+        background-color: #FFFFFF;
+        /* border: 1px solid #E5E5E5; */
+        border: 1px solid #EAEBEC;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #contentHeader {
+        padding: 10px 15px 15px 15px;
+        border-bottom: 1px solid #EAEBEC;
+        text-align: left;
+    }
+    .content {
+        padding: 10px 10px 15px 15px;
+        text-align: left;
+        color: #333333;
+    }
+
+    #footerTable {
+        width: 100%;
+    }
+    #footerContent {
+        color: #999999;
+        font-size: 9pt;
+        padding: 10px 0 20px 0;
+        text-align: center;
+    }
+
+    .icon {
+        margin-right: 5px;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+    }
+
+    .activity_content .activity_header,
+    .activity_content .comment_header,
+    /* .comment_content .activity_header, */
+    /* .comment_content .comment_header  */
+    {
+        word-wrap: break-word;
+        font-size: 14px;
+        line-height: 18px;
+        
+        font-weight: normal;
+        /* color: #7D7D7D; */
+
+        padding-bottom: 5px;
+    }
+
+    /* Make this awesome on mobile */
+    @media only screen and (max-width: 480px) {
+        body {
+            width: 320px;
+        }
+
+        #wrapTable td {
+            width: 440px;
+            border: 1px solid #F00;
+        }
+
+        #contentTable {
+        }
+    
+        #contentHeader h1 {
+            font-size: 20px;
+        }
+        #footerTable {
+        
+        }
+
+        td img {
+            height: auto !important;
+            max-width: 100% !important;
+        }
+    }
+
+
 
   </style>
 
 </head>
 
 <body>
-<table id="backgroundTable">
+
+
+
+<table id="wrapTable">
   <tbody>
   <tr>
-    <td class="wrapperCell">
+  <td>
 
-      <table id="contentTable" align="center">
+
+      <table id="contentTable">
         <tbody>
-        <tr><td class="headerCell">
-          <h1><%= image_tag attachments[as_png('logo')].url -%></h1>
-        </td></tr>
-        <tr><td class="contentCell">
+        <tr>
+        <td id="contentHeader">
+            <%= image_tag attachments.inline[as_png('logo')].url, class: 'headerBrand2', alt: License.instance.branding_title -%>
+        </td>
+        </tr>
+        <tr>
+        <td class="content">
 
           <%= yield %>
 
-        </td></tr>
+        </td>
+        </tr>
         </tbody>
       </table>
 
 
-    </td>
+  </td>
   </tr>
+  
   <tr>
-    <td class="footerWrapper">
-      <table id="footerTable" align="center">
+  <td>
+      
+      <table id="footerTable">
         <tbody>
-        <tr><td class="footerCell">
-          You're receiving this email because you have an account on <%= link_to License.instance.branding_title, build_backbone_url("/") %>.
-          <br>
-          To update your email preferences, <%= link_to 'Edit Your Profile', build_backbone_url("/users/#{@user.id}/edit") %>
-        </td></tr>
+        <tr>
+            <td id="footerContent">
+                You're receiving this email because you have an account on <%= link_to License.instance.branding_title, build_backbone_url("/") %>.
+                <br />
+                To change your email preferences, <%= link_to 'Edit Your Profile', build_backbone_url("/users/#{@user.id}/edit") %>.
+            </td>
+        </tr>
         </tbody>
       </table>
-    </td>
+
+  </td>
   </tr>
   </tbody>
 </table>
+
+
 </body>
 </html>
