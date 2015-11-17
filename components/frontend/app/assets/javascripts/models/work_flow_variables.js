@@ -1,6 +1,7 @@
 chorus.models.WorkFlowVariables = chorus.models.Base.extend({
     constructorName: "WorkFlowVariable",
-
+    urlTemplate: "alpinedatalabs/main/chorus.do?method=getVariableModel&session_id={{sessionId}}&workfile_id={{workfileId}}",
+    
     initialize: function(options) {
         this.set('sessionId', chorus.session.get('sessionId'));
         this.set('workfileId', options.workfile_id);
@@ -24,5 +25,4 @@ chorus.models.WorkFlowVariables = chorus.models.Base.extend({
         return response;
     },
 
-    urlTemplate: "alpinedatalabs/main/chorus.do?method=getVariableModel&session_id={{sessionId}}&workfile_id={{workfileId}}"
 });
