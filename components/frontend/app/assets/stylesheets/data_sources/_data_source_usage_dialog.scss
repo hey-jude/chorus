@@ -4,12 +4,10 @@
         overflow-y: auto;
         overflow-x: hidden;
         
-        /* special case for when scrollbar is invoked */
+        // special case for when scrollbar is invoked
         margin-right: -$dialog-padding-leftRight;
         padding-right: $dialog-padding-leftRight;
-        
 
-/*         border-top: $border-canon; */
         border-bottom: $border-canon;
     }
     
@@ -94,7 +92,7 @@
         }
 
         .size_text {
-            color: #FFFFFF;
+            color: $core-white;
         }
     }
 

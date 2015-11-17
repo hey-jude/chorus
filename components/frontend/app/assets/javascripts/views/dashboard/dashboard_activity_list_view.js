@@ -1,9 +1,9 @@
 chorus.views.DashboardActivityList = chorus.views.Base.extend({
     constructorName: "DashboardActivityListView",
-    templateName:"dashboard/activity_list",
-    useLoadingSection:true,
+    templateName: "dashboard/activity_list",
+    useLoadingSection: true,
 
-    events:{
+    events: {
         "click .morelinks a.more, .morelinks a.less": "toggleCommentList",
         "click .more_items a": "fetchMoreActivities"
     },
@@ -28,19 +28,19 @@ chorus.views.DashboardActivityList = chorus.views.Base.extend({
         }
     },
 
-    toggleCommentList:function (ev) {
-        ev.preventDefault();
-        $(ev.target).closest(".comments").toggleClass("more");
+    toggleCommentList: function (e) {
+        e.preventDefault();
+        $(e.target).closest(".comments").toggleClass("more");
         chorus.PageEvents.trigger("content:changed");
     },
 
-    fetchMoreActivities:function (ev) {
-        ev.preventDefault();
+    fetchMoreActivities: function (e) {
+        e.preventDefault();
         var pageToFetch = parseInt(this.collection.pagination.page, 10) + 1;
         this.collection.fetchPage(pageToFetch, { reset: false, remove: false, success: _.bind(this.render, this) });
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         var ctx = { activityType: this.options.type };
         if (this.collection.loaded && this.collection.pagination) {
             var page = parseInt(this.collection.pagination.page, 10);
@@ -52,13 +52,13 @@ chorus.views.DashboardActivityList = chorus.views.Base.extend({
         return ctx;
     },
 
-    cleanupActivities:function () {
+    cleanupActivities: function () {
         _.each(this.activities, function (activity) {
             activity.teardown();
         });
     },
 
-    postRender:function () {
+    postRender: function () {
         this.cleanupActivities();
         $(this.el).addClass(this.options.additionalClass);
         var ul = this.$("ul");
