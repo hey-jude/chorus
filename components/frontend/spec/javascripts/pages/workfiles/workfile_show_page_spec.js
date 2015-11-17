@@ -176,7 +176,7 @@ describe("chorus.pages.WorkfileShowPage", function() {
         });
 
         it("displays the file icon in the content header", function() {
-            spyOn(this.page.model, "isImage").andReturn(false);
+            spyOn(this.page.model, "isImageFiletype").andReturn(false);
             this.page.render();
             expect(this.page.mainContent.contentHeader.$("img").attr("src")).toBe(chorus.urlHelpers.fileIconUrl('sql'));
         });

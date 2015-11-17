@@ -44,7 +44,11 @@ chorus.models.Attachment = chorus.models.Base.include(
         return "/file/" + (this.get("fileId") || this.get("id")) + "/thumbnail";
     },
 
-    isImage: function() {
+//    isImage: function() {
+//        return this.get("type") === "IMAGE" || this.get("fileType") === "IMAGE";
+//    },
+
+    isImageFiletype: function() {
         return this.get("type") === "IMAGE" || this.get("fileType") === "IMAGE";
     },
 
