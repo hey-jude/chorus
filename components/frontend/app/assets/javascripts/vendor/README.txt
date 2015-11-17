@@ -357,16 +357,10 @@ http://www.overset.com/2008/09/01/javascript-natural-sort-algorithm-with-unicode
 
 -----------------------------------------------------------------
 
-Open Sans Font
-http://www.fontsquirrel.com/fonts/open-sans
-
-Apache License Version 2
-http://www.fontsquirrel.com/license/open-sans
-
------------------------------------------------------------------
-
 Punycode.js <http://mths.be/punycode>
-Copyright 2011 Mathias Bynens <http://mathiasbynens.be/>
+punycode v1.2.3
+
+Copyright 2013 Mathias Bynens <http://mathiasbynens.be/>
 
 Available under MIT license http://mths.be/mit
 
@@ -381,12 +375,10 @@ Dual licensed under MIT or GPLv2 licenses
 
 -----------------------------------------------------------------
 
-Underscore.js 1.2.1
-(c) 2011 Jeremy Ashkenas, DocumentCloud Inc.
-Underscore is freely distributable under the MIT license.
-
-Portions of Underscore are inspired or borrowed from Prototype,
-Oliver Steele's Functional, and John Resig's Micro-Templating.
+Underscore.js 1.6.0
+http://underscorejs.org
+(c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+Underscore may be freely distributed under the MIT license.
 
 For all details and documentation:
 http://documentcloud.github.com/underscore
@@ -405,13 +397,14 @@ Version 2.0.0
 
 URL.js - Mutating URLs
 
-Version: 1.4.3
+Version: 1.16.1
 Author: Rodney Rehm
 Web: http://medialize.github.com/URI.js/
 
 Licensed under
 MIT License http://www.opensource.org/licenses/mit-license
 GPL v3 http://opensource.org/licenses/GPL-3.0
+
 
 -----------------------------------------------------------------
 
@@ -421,3 +414,23 @@ http://that-matt.com/2010/04/updated-textarea-maxlength-with-jquery-plugin/
 Licensed under Public Domain
 
 -----------------------------------------------------------------
+
+Source Sans Font
+
+Copyright 2010, 2012, 2014 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name 'Source'.
+All Rights Reserved. Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+http://scripts.sil.org/OFL
+
+-----------------------------------------------------------------
+
+Font Awesome
+
+Version: 4.3
+https://fortawesome.github.io/Font-Awesome/license/
+
+-----------------------------------------------------------------
+
+
+
