@@ -79,8 +79,8 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
 /* widget: recent activity stream */
 
     /* note: there is additional css for activity list dashboard widget in _activity_list.scss */
-    
-    .dashboard_activity_list {        
+
+    .dashboard_activity_list {
         .activity_wrapper {
             border-top: $border-canon;
             border-bottom: $border-canon;
@@ -95,7 +95,7 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
         .activities {
             padding-top: 10px;
         }
-        
+
         a[href=''], a:not([href]) {
             color: $color-text3;
             text-decoration: none;
@@ -214,14 +214,14 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
                 font-weight: normal;
                 max-width: 420px;
             }
-            
+
             /* common handling for long names */
             .workfile_link,
             .workspace_link {
                 display: inline-block;
                 @include ellipsis;
             }
-            
+
             .time_edited {
                 float: right;
                 margin-right: 1%;
@@ -263,15 +263,15 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
             /* ...and add to cover the shell's padding */
             padding-bottom: ($dashboard-module-padding * 2) + 5;
             padding-right: $dashboard-module-padding * 2;
-        
+
             background-color: $lightbox-overlay-color;
             @include border-radius($default-border-radius);
         }
 
         .config_content {
-            position: absolute;           
+            position: absolute;
             width: 100%;
-            
+
             /* position to defeat the padding of the widget shell... */
             top: -$dashboard-module-padding;
             left: -$dashboard-module-padding;
@@ -279,14 +279,14 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
             /* ...match padding of normal widget shell content */
             /* but account for the padding of the border */
             padding: $dashboard-module-padding - 1;
-       
+
             background-color: $core-white;
             @include border-radius($default-border-radius);
             border: 1px solid #AAA;
             border-bottom: 0;
         }
 
-        .button_row {     
+        .button_row {
             margin-top: 20px;
             padding-top: $dashboard-module-padding;
             padding-bottom: $dashboard-module-padding / 2;
@@ -309,7 +309,7 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
     @include border-radius($default-border-radius);
     border: $border-canon;
     border-top-color: $border-color-dark;
-    
+
     .button {
         background-color: $shaded-background-color;
         display: inline-block;
@@ -327,7 +327,7 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
         width: 28px;
         @include panel-button($height-button-widgetshell);
     }
-    
+
     .module_header {
         min-height: $title-height + $dashboard-module-padding;
         line-height: $title-height;
@@ -338,7 +338,7 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
             height: $title-height;
             line-height: $title-height;
         }
-        
+
         .menus {
             float: none !important;
             padding-top: 5px;
@@ -373,7 +373,7 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
 .hovercard {
     width: 300px;
     box-shadow: $shadow-canon;
-    
+
 	p {
 		margin: 0;
 	}
@@ -383,7 +383,7 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
 		padding: 0;
     	background-color: $core-white;
     	border-radius: $default-border-radius;
-         
+
         .name_row {
 			padding: $padding-top-canon $padding-side-canon $padding-bottom-canon $padding-side-canon;
 			background-color: $greyish-blue;
@@ -404,12 +404,12 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
 				text-overflow: ellipsis;
 				overflow: hidden;
 				white-space: nowrap;
-				display: block;           
+				display: block;
             }
         }
-        
+
         .summary_row {
-			padding: $padding-top-canon $padding-side-canon $padding-bottom-canon $padding-side-canon;        
+          padding: $padding-top-canon $padding-side-canon $padding-bottom-canon $padding-side-canon;
         }
 
         .activity_metric_row {
@@ -431,14 +431,14 @@ $tip-text-color: $disabled-text;
 .text_tip {
     margin-top: 10px;
     padding: 10px 10px 15px 10px;
-    
+
     background-color: $light-grey-yellow;
     @include border-radius($default-border-radius);
-    
+
     font-size: 13px;
     font-weight: normal;
     color: $tip-text-color;
-    
+
     a {
         font-size: 13px;
     }
