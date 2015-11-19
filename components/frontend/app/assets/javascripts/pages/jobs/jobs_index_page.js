@@ -94,7 +94,7 @@ chorus.pages.JobsIndexPage = chorus.pages.Base.include(
                 }, this)
             });
         }, this);
-        this.collectionFetchPollerID = setInterval(fetchCollection, 15000);
+        this.collectionFetchPollerID = setInterval(fetchCollection, 20000);
     },
 
     teardown: function () {

@@ -36,8 +36,12 @@ chorus.models.Job = chorus.models.Base.extend({
         return this._tasks;
     },
 
-    moveTaskUp:   function (task) { this.moveTask(task, -1); },
-    moveTaskDown: function (task) { this.moveTask(task, +1); },
+    moveTaskUp: function (task) {
+        this.moveTask(task, -1);
+    },
+    moveTaskDown: function (task) {
+        this.moveTask(task, +1);
+    },
 
     moveTask: function (task, direction) {
         var desired_id_order = this._tasks.chain().pluck('id').invoke('toString').value();
@@ -67,12 +71,12 @@ chorus.models.Job = chorus.models.Base.extend({
 
     disable: function (callbacks) {
         this.save( {enabled: false}, _.extend({}, callbacks, { wait: true}) );
-        chorus.toast('job.actions.disable_message', {jobName: this.name()});
+        chorus.toast("job.actions.disable_message", {jobName: this.name(), toastOpts: {type: "success"}});
     },
 
     enable: function (callbacks) {
         this.save( {enabled: true}, _.extend({}, callbacks, { wait: true}) );
-        chorus.toast('job.actions.enable_message', {jobName: this.name()});
+        chorus.toast("job.actions.enable_message", {jobName: this.name(), toastOpts: {type: "success"}});
     },
 
     frequency: function () {

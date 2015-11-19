@@ -1,7 +1,10 @@
-<span class="image">
-    <img src="{{iconUrl}}"/>
-</span>
-<h1 title="{{name}}">{{name}}</h1>
+<div class="item_heading">
+    <span class="image">
+        <img class="icon heading_icon" src="{{iconUrl}}" alt="job header"/>
+    </span>
+    <h1 title="{{name}}">{{name}}</h1>
+</div>
+
 
 <div class="job_information">
 <div class="item_metadata">
@@ -30,7 +33,7 @@
         <span class="last_run">
            <span class="label">{{t "job.last_run"}}</span>
             {{#if lastRun}}
-                <a class="last_run_date" href="#" title="{{t 'job.show_details.tip'}}">{{displayTimestamp lastRun}}. <span class="status">{{t lastRunStatusKey}}</span></a>
+                <a class="last_run_date" href="#" title="{{t 'job.show_details.tooltip'}}">{{displayTimestamp lastRun}}. <span class="status">{{t lastRunStatusKey}}</span></a>
             {{else}}
                 {{t "job.last_run_no_last_run"}}
             {{/if}}

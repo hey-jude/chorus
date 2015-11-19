@@ -76,10 +76,12 @@ chorus.pages.JobsShowPage = chorus.pages.Base.extend({
     },
 
     pollForJob: function () {
+        // TODO: causes the job page to refresh/redraw each polling interval.
+        // how to only update what needs to be updated?
         this.pollerID && clearInterval(this.pollerID);
 
         var fetchModel = _.bind(function () { this.model.fetch(); }, this);
-        this.pollerID = setInterval(fetchModel, (40 * 1000));  // seconds in milliseconds
+        this.pollerID = setInterval(fetchModel, (45 * 1000));  // seconds in milliseconds
     },
 
     teardown: function () {
