@@ -36,7 +36,7 @@ chorus.models.Job = chorus.models.Base.extend({
         return this._tasks;
     },
 
-    moveTaskUp:   function (task) {
+    moveTaskUp: function (task) {
         this.moveTask(task, -1);
     },
     moveTaskDown: function (task) {

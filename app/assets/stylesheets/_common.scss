@@ -377,11 +377,11 @@ $list-breadcrumb-size: 13px;
 $baseLineHeight: 1.5em !default; //must be in em
 $baseFontSize: 15px !default; // must be px
 
-// 
+//
 //  * em-ratio converts between em and px
 //  * to em    divide by this ratio
 //  * to px    mulitply by this ratio
-// 
+//
 $emRatio: $baseFontSize/$baseLineHeight;
 
 
@@ -701,7 +701,7 @@ $lozenge-font-size: 12px;
 // pointing: DOWN  */
 @mixin menu-triangle-glyph {
 	&:hover::after {
-    	text-decoration: none !important;	
+    	text-decoration: none !important;
 	}
 	&::after {
 		display: inline-block;
@@ -714,13 +714,13 @@ $lozenge-font-size: 12px;
 
 // generates caret with FA */
 @mixin triangle-glyph($pointing_direction) {
-	
+
 	&::after {
 		display: inline-block;
 		position: relative;
 		left: $caret-margin;
 		font-family: FontAwesome;
-		
+
 		@include caret-glyph($pointing_direction);
 	}
 }

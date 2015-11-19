@@ -5,9 +5,8 @@ chorus.models.Session = chorus.models.Base.extend({
     initialize: function() {
         this.sandboxPermissionsCreated = {};
         _.bindAll(this, ['logout']);
-     
     },
-    
+
     user: function() {
         if (!this._user && this.get("user")) {
             this._user = new chorus.models.User(this.get('user'));

@@ -32,7 +32,7 @@ $notification-token-width: $header-margin * 2;
             display: table-cell;
             vertical-align: middle;
             padding-left: 15px;
-                        
+
             sub { @include secondary-text-small; }
         }
     }
@@ -63,7 +63,7 @@ $notification-token-width: $header-margin * 2;
 .underline {
     border-bottom: $border-canon;
 }
-    
+
 .logged_in_layout {
     > .header {
 
@@ -303,14 +303,14 @@ $notification-token-width: $header-margin * 2;
                 @include full-item-link($menu-item-height-default);
                 padding-top: 5px;
                 padding-bottom: 5px;
-            }   
+            }
             div {
                 padding-right: 10px;
             }
         }
 
         // primary navigation menu
-        
+
 $primary-nav-separation-height: 30px;
 
         .menu.popup_drawer {
@@ -326,7 +326,7 @@ $primary-nav-separation-height: 30px;
             width: $drawer-width;
             height: 100vh;
             left: 0px;
-            li { 
+            li {
                 @include full-item-link($header-height);
                 &:hover .knob {
                     background: $brand-shade;
@@ -340,7 +340,7 @@ $primary-nav-separation-height: 30px;
                 text-align: center;
                 &.remainder { height: 100vh; }
             }
-            
+
             // color for svg glyphs in the primary nav
             #primary {
                 svg {
@@ -352,17 +352,17 @@ $primary-nav-separation-height: 30px;
                     height: 50px;
                 }
             }
-            
+
 //             #primarynav-home-row {
 //                 height: $header-height + $primary-nav-separation-height;
 //                 > div {
 //                     margin-bottom: $primary-nav-separation-height;
 //                 }
-//                 
+//
 //             }
-            
+
             // individual sections of the primary nav
-            #primary-home { 
+            #primary-home {
                 @extend #primary;
                 svg {
                     width: 18px;
@@ -393,7 +393,7 @@ $primary-nav-separation-height: 30px;
             #primary-admin {
                 font-size: 19px;
             }
-            
+
             .disabled {
                 @include disabled-text;
             }
@@ -411,7 +411,6 @@ $primary-nav-separation-height: 30px;
                     @include username-item-link($menu-item-height-default)
                 }
             }
-        
         }
 
         .menu.popup_notifications {

@@ -20,8 +20,8 @@ chorus.views.Header = chorus.views.Base.extend({
         ".popup_notifications ul": "notificationList",
         ".type_ahead_result": "typeAheadView"
     },
-    
-    setup: function() {        
+
+    setup: function() {
         this.session = chorus.session;
         this.unreadNotifications = new chorus.collections.NotificationSet([], {type: 'unread'});
         this.notifications = new chorus.collections.NotificationSet();
@@ -70,7 +70,7 @@ chorus.views.Header = chorus.views.Base.extend({
             advisorNowLink: advisorNowLink,
         });
     },
-    
+
     postRender: function() {
         this.$(".search input").unbind("textchange").bind("textchange", _.bind(_.throttle(this.displayResult, this.search_throttle_milliseconds ), this));
         chorus.addSearchFieldModifications(this.$(".search input"));
@@ -249,7 +249,7 @@ chorus.views.Header = chorus.views.Base.extend({
         // this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
         this.dialog = new chorus.dialogs.HelpAndSupport();
         this.dialog.launchModal();
-        this.togglePopupUsermenu();        
+        this.togglePopupUsermenu();
     },
 
     aboutThisApp: function(e){

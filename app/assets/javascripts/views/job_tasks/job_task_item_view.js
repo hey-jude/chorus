@@ -1,6 +1,6 @@
 chorus.views.JobTaskItem = chorus.views.Base.extend({
     constructorName: "JobTaskItemView",
-    templateName:"job_task_item",
+    templateName: "job_task_item",
 
     jobsIconPath: "/images/jobs/",
     
