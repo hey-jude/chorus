@@ -46,5 +46,10 @@ chorus.models.License = chorus.models.Base.extend({
             default:
                 return vendor;
         }
+    },
+    
+    applicationVersion: function() {
+        return this.get("version");
     }
+    
 });
