@@ -29,7 +29,7 @@ chorus.dialogs.VisualizationNotesNew = chorus.dialogs.MemoNew.extend({
 
         var visualization = this.options.attachVisualization;
 
-        var iconSrc = "images/workfiles/icon/img.png";
+        var iconSrc = "images/workfiles/icon/image.png";
         $row.find('img.icon').attr('src', iconSrc);
         $row.find('span.name').text(visualization.fileName).attr('title', visualization.fileName);
         $row.data("visualization", visualization);

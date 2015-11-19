@@ -9,7 +9,7 @@ $image-width: 230px;
         .spinner_container {
             width: $image-width;
             height: 50px;
-            background: white;
+            background: $core-white;
             margin-bottom: $padding-y;
             text-align: center;
             border: 1px solid #BEC1C4;

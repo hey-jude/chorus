@@ -58,7 +58,7 @@
                 background-color: $picklist-selected-background-color;
 
                 .name, .column_count, a {
-                    color: white;
+                    color: $core-white;
                 }
 
                 .spacer_left, .spacer_right {
@@ -84,8 +84,7 @@
         a {
             font-size: inherit;
             border-bottom: dotted 1px;
-
-			@include menu-triangle-glyph; 
+			      @include menu-triangle-glyph; 
         }
     }
 }
@@ -115,17 +114,11 @@
         overflow-y: auto;
     }
 
-//     .list { */
-//         margin-right: 20px; */
-//         border-right: 1px solid $border-color-dark; */
-//     } */
-
     .sub_header {
         .chorus_search_container {
             margin-top: 5px;
             float: right;
             width: 250px;
-//             display: inline-block; */
         }
 
         .name {
@@ -149,7 +142,6 @@
             @include secondary-text-small;
         }
     }
-
 }
 
 .join_schemas.components_menu {

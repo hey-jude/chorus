@@ -146,7 +146,7 @@
             width: 24px;
             height: 24px;
             display: inline-block;
-            border: 1px solid black;
+            border: 1px solid $black;
             margin: 8px;
         }
 
@@ -161,11 +161,11 @@
     }
 
     .ui-state-active {
-        background: white;
+        background: $core-white;
     }
 
     ul.ui-tabs-nav {
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $black;
         border-radius: 0;
         & > li {
           display: inline-block;

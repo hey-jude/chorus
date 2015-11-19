@@ -9,7 +9,7 @@
 }
 
 .slick-header-column:hover, .slick-header-column-active {
-  background: white;
+  background: $core-white;
 }
 
 .slick-group-toggle.expanded {
@@ -27,7 +27,6 @@
 }
 
 .slick-sort-indicator-desc {
-//   @include triangle-css(down, $default-font-color, 10px, 5px); */
 	font-style: normal;
 	@include triangle-glyph(down);
 	color: $default-font-color;
@@ -35,7 +34,6 @@
 }
 
 .slick-sort-indicator-asc {
-//   @include triangle-css(up, $default-font-color, 10px, 5px); */
 	font-style: normal;
 	@include triangle-glyph(up);
 	color: $default-font-color;

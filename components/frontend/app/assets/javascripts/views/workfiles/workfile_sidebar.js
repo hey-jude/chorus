@@ -1,7 +1,7 @@
 chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
     constructorName: "WorkfileSidebar",
-    templateName:"workfile_sidebar",
-    useLoadingSection:true,
+    templateName: "workfile_sidebar",
+    useLoadingSection: true,
 
     options: {
         showEditingLinks: true,
@@ -27,7 +27,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         "click a.stop" : 'stopWorkflow'
     },
 
-    setup:function () {
+    setup: function () {
         this.tabs = new chorus.views.TabControl();
 
         if(this.model) {
@@ -35,7 +35,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         }
     },
 
-    setWorkfile:function (workfile) {
+    setWorkfile: function (workfile) {
         this.resource = this.model = workfile;
         if (this.model) {
             this.collection = this.model.activities();
@@ -72,7 +72,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         this.render();
     },
 
-    modelLoaded:function () {
+    modelLoaded: function () {
         if (this.options.showSchemaTabs && this.model.isSql() && this.model.workspace().isActive()) {
             this.tabs.tabNames = ["data","database_function_list","activity"];
             var schema = this.model.executionSchema();
@@ -90,7 +90,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         this.tabs.bind("selected", _.bind(this.recalculateScrolling, this));
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         var workspaceActive = this.model && this.model.workspace().isActive();
         var canUpdate = this.model && this.model.workspace().canUpdate();
         var ctx = {
@@ -133,7 +133,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         };
     },
 
-    postRender:function () {
+    postRender: function () {
         if(this.options.showVersions) {
             var versionList = this.versionList.render();
             this.menu(this.$('a.version_list'), {
@@ -152,7 +152,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         }
     },
 
-    displayVersionList:function (e) {
+    displayVersionList: function (e) {
         e.preventDefault();
     },
 
