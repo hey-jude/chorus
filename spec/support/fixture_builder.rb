@@ -48,7 +48,7 @@ FixtureBuilder.configure do |fbuilder|
     stub(License.instance).[](:vendor) { License::OPEN_CHORUS }
 
     (ActiveRecord::Base.connection.tables).each do |table_name|
-      next if ["schema_migrations", "groups_roles", "groups_users", "roles_users", "chorus_objects_scopes"].include? table_name
+      next if ["schema_migrations", "groups_roles", "groups_users", "roles_users", "chorus_objects_scopes", "chorus_scopes_users"].include? table_name
       ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{table_name}_id_seq RESTART WITH 1000000;")
     end
 
