@@ -116,7 +116,7 @@ $default-border-radius: 3px;
 
 $border-canon:              $default-border-width solid $border-color;
 $dark-border-canon:         $default-border-width solid $border-color-dark;
-$darker-border-canon:         $default-border-width solid $border-color-darkest;
+$darker-border-canon:       $default-border-width solid $border-color-darkest;
 $login-card-border-canon:   5px solid $color-text3;
 $shadow-canon:              2px 2px 3px 0px $shadow-color;
 
@@ -436,7 +436,6 @@ $lozenge-font-size: 12px;
 @mixin placeholder {
   @include debugging-mixin;
   &::-webkit-input-placeholder {@content}
-  &:-moz-placeholder           {@content}
   &::-moz-placeholder          {@content}
   &:-ms-input-placeholder      {@content}
 }
@@ -445,7 +444,6 @@ $lozenge-font-size: 12px;
     @include debugging-mixin;
     font-size: 24px;
     font-weight: $semibold;
-    /* color: $color-text1; */
 }
 
 @mixin subheading-normal {
@@ -692,12 +690,12 @@ $lozenge-font-size: 12px;
     text-overflow: inherit;
 }
 
-@mixin menu-triangle {
+// @mixin menu-triangle {
 //     padding-right: 10px; */
 //     background-image: url("/images/blue-menu-triangle.png"); */
 //     background-position: right; */
 //     background-repeat: no-repeat; */
-}
+// }
 
 // caret for menus */
 // pointing: DOWN  */
@@ -766,7 +764,7 @@ $lozenge-font-size: 12px;
 }
 
 // ********* */
-// LOZENGE: generates the pill shapes used in sub nav and right-side nav tabs */
+// LOZENGE: generates the pill shapes used in sub nav and right-side nav tabs
 // call with: */
 //   min-width: min width of the pill */
 //   height: height of the pill. if none provided, defaults to 21px */
@@ -923,5 +921,5 @@ $lozenge-font-size: 12px;
     border: 1px solid #F00;
 }
 
-// Do not put any css rules into this file.  This file is only for declaration of variables and mixins
+// Do not put any css rules into this file. This file is only for declaration of variables and mixins
 //
