@@ -10,17 +10,19 @@ Rails.application.configure do
   config.eager_load_paths += config.autoload_paths
 
   # See: https://github.com/Chorus/chorus/commit/267732274571bd77f3a66ab197de20751992694e
-  if ChorusConfig.instance['mail.enabled']
+  if ChorusConfig.instance["mail.enabled"]
+    config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+    #config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+    config.action_mailer.smtp_settings = ChorusConfig.instance.smtp_configuration
     ActionMailer::Base.default ChorusConfig.instance.mail_configuration
   else
     config.action_mailer.perform_deliveries = false
   end
 
   # Only turn it on if you really need concurrent requests
-  config.allow_concurrency = true
-
+  config.allow_concurrency = false
+  #config.threadsafe!
 
   # DEFAULT RAILS CONFIG OPTIONS below
 
@@ -34,10 +36,7 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  config.consider_all_requests_local       = true
-
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.consider_all_requests_local = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -50,6 +49,9 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = false
 
-  # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  #Raises error for missing translations
+  config.action_view.raise_on_missing_translations = true
+  
+  config.log_level = :debug
+    
 end
