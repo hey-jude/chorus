@@ -1,8 +1,6 @@
 class Schema < ActiveRecord::Base
   include Stale
   include SoftDelete
-  include Permissioner
-
 
   attr_accessible :name, :type
   unscoped_belongs_to :parent, :polymorphic => true

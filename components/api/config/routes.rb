@@ -12,12 +12,7 @@ Api::Engine.routes.draw do
     resource :image, :only => [:show, :create], :controller => :user_images
     resource :dashboard_config, :only => [:show, :create], :controller => :user_dashboards
   end
-
-  # Roles, groups and permissions routes
-  #resources :roles
-  #resources :groups
-  #resources :permissions
-
+  
   resources :hdfs_data_sources, :only => [:create, :index, :show, :update, :destroy] do
     scope :module => 'hdfs' do
       resources :files, :only => [:show, :index] do

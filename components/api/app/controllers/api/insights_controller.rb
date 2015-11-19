@@ -3,7 +3,6 @@ module Api
     wrap_parameters :insight, :exclude => []
 
     def create
-      note_id = params[:insight][:note_id] || params[:note][:note_id]
       event = Events::Base.visible_to(current_user).find(note_id)
       if event.is_a?(Events::WorkletResultShared) || event.is_a?(Events::Note)
         event.promote_to_insight
@@ -22,7 +21,6 @@ module Api
     end
 
     def publish
-      note_id = params[:insight][:note_id] || params[:note][:note_id]
       event = Events::Base.visible_to(current_user).find(note_id)
       raise ApiValidationError.new(:base, :generic, {:message => "Note has to be an insight first"}) unless event.insight
       event.set_insight_published true
@@ -30,7 +28,6 @@ module Api
     end
 
     def unpublish
-      note_id = params[:insight][:note_id] || params[:note][:note_id]
       event = Events::Base.find(note_id)
       #authorize! :update, note
       Authority.authorize! :update, event, current_user, {:or => :current_user_is_event_actor}
@@ -49,6 +46,10 @@ module Api
     end
 
     private
+
+    def note_id
+      params[:insight].try(:[], :note_id) || params[:note].try(:[], :note_id)
+    end
 
     def get_insights
       insight_query = Events::Base.where(insight: true).order("events.id DESC")

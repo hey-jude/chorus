@@ -204,7 +204,7 @@ module Sunspot
       module ClassMethods
 
         protected
-        
+
         def solr_benchmark(batch_size, counter,  &block)
           start = Time.now
           logger.info("[#{Time.current}] Start Indexing")

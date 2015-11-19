@@ -3,8 +3,6 @@ class Comment < ActiveRecord::Base
   include Recent
   include SearchableHtml
   include SharedSearch
-  include Permissioner
-
 
   attr_accessible :author_id, :body, :event_id
 

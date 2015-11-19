@@ -7,7 +7,6 @@ module Api
     before_filter :find_data_source, :only => [:show, :update, :destroy]
     before_filter :hide_disabled_source, :only => [:show, :update]
     before_filter :demo_mode_filter, :only => [:create, :update, :destroy]
-    before_filter :require_data_source_create, :only => [:create]
 
     def index
       succinct = params[:succinct] == 'true'
@@ -63,6 +62,7 @@ module Api
     end
 
     def hide_data_source?
+      # KT TODO Authorization::Engine
       !Permissioner.is_admin?(current_user) && @data_source.disabled? && @data_source.owner != current_user
     end
   end

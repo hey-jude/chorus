@@ -1,5 +1,5 @@
 development: &development
-  database: chorus_rails_development
+  database: chorus_core_development
   adapter: jdbcpostgresql
   encoding: unicode
   username: postgres_chorus
@@ -11,4 +11,4 @@ development: &development
 
 test: &TEST
   <<: *development
-  database: chorus_rails_test
+  database: chorus_core_test

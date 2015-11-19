@@ -1,6 +1,5 @@
 module Api
   class DatasetImportsController < ApiController
-    before_filter :require_admin, :only => :update
     wrap_parameters :dataset_import, :exclude => [:id]
 
     def index

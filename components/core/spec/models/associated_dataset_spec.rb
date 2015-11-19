@@ -77,8 +77,4 @@ describe AssociatedDataset do
   it_behaves_like 'a soft deletable model' do
     let(:model) { FactoryGirl.create(:associated_dataset, :workspace => workspace, :dataset => gpdb_table) }
   end
-
-  it_behaves_like "a permissioned model" do
-    let!(:model) { FactoryGirl.create(:associated_dataset, :workspace => workspace, :dataset => gpdb_table) }
-  end
 end

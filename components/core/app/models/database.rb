@@ -1,7 +1,6 @@
 class Database < ActiveRecord::Base
   include Stale
   include SoftDelete
-  include Permissioner
 
   attr_accessible :name, :id
 
@@ -18,16 +17,6 @@ class Database < ActiveRecord::Base
   before_save :mark_schemas_as_stale
   after_destroy { data_source_accounts.clear }
   delegate :account_for_user!, :account_for_user, :accessible_to, :to => :data_source
-
-  DATABASE_NAMES_SQL = <<-SQL
-  SELECT
-    datname
-  FROM
-    pg_database
-  WHERE
-    datallowconn IS TRUE AND datname NOT IN ('postgres', 'template1')
-    ORDER BY lower(datname) ASC
-  SQL
 
   def self.refresh(account)
     data_source = account.data_source

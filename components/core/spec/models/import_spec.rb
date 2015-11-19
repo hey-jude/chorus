@@ -22,10 +22,6 @@ describe Import, :greenplum_integration do
 
   before { workspace.update_attribute :sandbox_id, schema.id }
 
-  it_behaves_like "a permissioned model" do
-    let!(:model) { import }
-  end
-
   describe "associations" do
     it { should belong_to(:source) }
     it { should belong_to :user }

@@ -12,6 +12,7 @@ module Api
         :entity_type => model.entity_type_name,
         :summary => sanitize(model.summary),
         :archived_at => model.archived_at,
+        # KT TODO Authorization::Engine
         :permission => model.permissions_for(current_user),
         :public => model.public,
         :datasets_count => model.dataset_count(current_user),

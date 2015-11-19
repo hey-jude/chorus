@@ -1,6 +1,4 @@
 class Activity < ActiveRecord::Base
-  include Permissioner
-
   GLOBAL = "GLOBAL"
 
   attr_accessible :entity, :entity_type, :event

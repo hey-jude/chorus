@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency 'core'
+  s.add_dependency 'authorization'
 
   s.add_dependency 'actionpack', '4.1.10'
   s.add_dependency 'actionview', '4.1.10'
@@ -30,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'nokogiri', '1.6.6.2'
   s.add_dependency 'sass-rails', '5.0.1'
   s.add_dependency 'sunspot_rails', '2.1.0'
-  s.add_dependency 'will_paginate', '3.0.4'
+  s.add_dependency 'will_paginate', '3.0.7'
 
   # Need to install 0.99.4 version of mustache gem. Latest version is not compatible with Jruby 1.7
   s.add_dependency 'mustache', '0.99.4'

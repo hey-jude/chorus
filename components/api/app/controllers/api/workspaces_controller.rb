@@ -77,8 +77,10 @@ module Api
                            {:or => [:current_user_is_in_workspace,
                                     :workspace_is_public]}
 
+      # KT TODO Authorization::Engine
       permissions = Workspace.permission_symbols_for current_user
       permissions.push(:update).uniq! if workspace.member? current_user
+
       # use the cached version of "workspaces:workspaces" namespace.
       present workspace, :presenter_options => {:show_latest_comments => params[:show_latest_comments] == 'true', :cached => true, :namespace => 'workspaces:workspaces'}
     end

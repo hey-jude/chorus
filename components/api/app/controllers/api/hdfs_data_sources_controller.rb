@@ -2,7 +2,6 @@ module Api
   class HdfsDataSourcesController < ApiController
 
     before_filter :demo_mode_filter, :only => [:create, :update, :destroy]
-    before_filter :require_data_source_create, :only => [:create]
     before_filter :find_data_source, :except => [:index, :create]
     before_filter :hide_disabled_source, :only => [:show, :update]
 
@@ -53,6 +52,7 @@ module Api
     end
 
     def hide_disabled_source
+      # KT TODO Authorization::Engine
       if !Permissioner.is_admin?(current_user) &&
         @hdfs_data_source.disabled? &&
         @hdfs_data_source.owner != current_user
