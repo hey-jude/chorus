@@ -25,6 +25,9 @@ window.Chorus = function chorus$Global() {
         self.PageEvents = _.extend({}, Backbone.Events);
         self.session = new chorus.models.Session();
         self.router = new chorus.Router(self);
+
+        self.branding = new chorus.models.Branding();
+
         self.detectFeatures();
 
         //bind global state events here

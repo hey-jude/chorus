@@ -1,13 +1,20 @@
 @import "_common";
+@import "compass/css3/border-radius";
+
+
+$login-card-border-width: 5px;
+$login-card-border-canon: $login-card-border-width solid $color-text3;
+
 
 div.login {
     $card-height: 420px;
-    $card-padding-top: 50px;
-    $card-width : 620px;
+    $card-padding-top: 45px;
+    $card-width: 620px;
     $card-top: 150px;
     $card-border-radius: 5px;
-    $image-fudge: 10px;
-
+    
+    $form-width: 260px;
+    $image-fudge: 25px;
 
     position: absolute;
     top: 0;
@@ -17,60 +24,65 @@ div.login {
 
     background: $login-background;
 
-
-.errors,
-.warning {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width: $card-width;
-    background-color: transparent;
-    top: 30px;
-
-//     ul {
-//         li {
-//             margin-top: 10px;
-//         }
-//     }
-    }
-
-    .login_content {
+    .errors,
+    .warning {
         position: relative;
         margin-left: auto;
         margin-right: auto;
-        top: $card-top;
+        width: $card-width + (2 * $login-card-border-width);
+        background-color: transparent;
+        top: 30px;
+        
+        ul {
+          li {
+            margin-left: 0;
+            margin-right: 0;
+          }
+        }
     }
 
     .form_controls {
-		margin-top: 15px;
-		padding-right: 0px;
-		padding-left: 0px;
+      margin-top: 15px;
+      padding-right: 0px;
+      padding-left: 0px;
     }
 
-    .login_card {
+    #login_content {
+        position: relative;
+        top: $card-top;
+    }
+
+    #login_card {
         margin-left: auto;
         margin-right: auto;
 
         border: $login-card-border-canon;
         background-color: $body-background-color;
-        border-radius: $card-border-radius;
+        @include border-radius($card-border-radius);
 
-        height: $card-height - $card-padding-top;
         width: $card-width;
+        height: $card-height - $card-padding-top;
         padding-top: $card-padding-top;
-        overflow: auto;
+       //  overflow: auto;
+	}
 
         form {
-            width: 260px;
+            width: $form-width;
             display: block;
             margin-left: auto;
             margin-right: auto;
-
+            
+            .form_pair {
+                label {
+                    margin-bottom: 1px;
+                }
+            }
+            
             input {
-                border: $border-canon;
-                border-radius: 3px;
-                height:35px;
-                margin: 5px 0px;
+                border: $darker-border-canon;
+                @include border-radius($default-border-radius);
+                height: 35px;
+                margin: 0 0 10px 0;
             }
 
             button {
@@ -80,52 +92,39 @@ div.login {
                 margin: 0px;
             }
         }
-	}
+        
+	.logo {
+	    display: block;
+	    margin-bottom: $image-fudge;
+	            
+        &.alpine {
+            margin-left: auto;
+            margin-right: auto;
+            width: 320px;
+        }
+        
+        &.pivotal {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    
 
-	.logo.alpine {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: $image-fudge;
-		width:120px;
-	}
-
-	.logo.pivotal {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: $image-fudge;
-	}
-
-    .login_footer {
+    #login_footer {
         margin-left: auto;
         margin-right: auto;
 
-        width : $card-width;
+        width: $card-width;
         color: $color-text3;
-        font-size : $small-font;
+        font-size: $small-font;
         text-align: center;
 
-        .logos {
-            @include after-clearfix;
-            width: $card-width;
-            margin: 25px 0;
-
-            .greenplum { float: left; }
-            .emc { float: right; }
-        }
-
         .legal {
-            text-align: left;
-            &.alpine { text-align: center; }
 
             p {
                 padding-bottom: 12px;
                 span {
                     display: inline-block;
-
-                    &.version {}
-                    &.copyright {}
                 }
             }
         }
