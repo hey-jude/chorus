@@ -34,12 +34,12 @@ describe("chorus.views.Header", function() {
 
     context("changing the length of search results bar", function() {
         beforeEach(function(){
-            spyOn(this.view, "modifyTypeAheadSearchLength").andCallThrough();
+            spyOn(this.view, "modifyTypeAheadSearchPosition").andCallThrough();
             this.view.render();
         });
 
         it("modifies the length of the search results bar", function() {
-            expect(this.view.modifyTypeAheadSearchLength).toHaveBeenCalled();
+            expect(this.view.modifyTypeAheadSearchPosition).toHaveBeenCalled();
         });
 
     });

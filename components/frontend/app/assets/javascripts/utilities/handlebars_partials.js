@@ -9,19 +9,24 @@ Handlebars.registerPartial("csvImportConsole", window.HandlebarsTemplates["csv_i
 Handlebars.registerPartial("closeWindowFormControls", window.HandlebarsTemplates["components/close_window_form_controls"]);
 Handlebars.registerPartial("timeZoneSelector", window.HandlebarsTemplates["time_zone_selector"]);
 Handlebars.registerPartial("activity", window.HandlebarsTemplates["activity"]);
+
+// RGP: role marker
 Handlebars.registerPartial("adminBadge", window.HandlebarsTemplates["components/admin_badge"]);
 Handlebars.registerPartial("developerBadge", window.HandlebarsTemplates["components/developer_badge"]);
 
 Handlebars.registerPartial("datasourceIcon", window.HandlebarsTemplates["components/datasource_icon"]);
 
+// application header display
+Handlebars.registerPartial("applicationHeaderLeft", window.HandlebarsTemplates["components/application_header_left"]);
+Handlebars.registerPartial("applicationHeaderSearchbar", window.HandlebarsTemplates["components/application_header_searchbar"]);
+Handlebars.registerPartial("applicationHeaderRight", window.HandlebarsTemplates["components/application_header_right"]);
+
+// elements in the application header
 Handlebars.registerPartial("drawerMenu", window.HandlebarsTemplates["components/drawer_menu"]);
 Handlebars.registerPartial("usernameMenu", window.HandlebarsTemplates["components/username_menu"]);
 Handlebars.registerPartial("notificationsMenu", window.HandlebarsTemplates["components/notifications_menu"]);
 
-Handlebars.registerPartial("headerLeft", window.HandlebarsTemplates["components/header_left"]);
-Handlebars.registerPartial("headerSearchbar", window.HandlebarsTemplates["components/header_searchbar"]);
-Handlebars.registerPartial("headerRight", window.HandlebarsTemplates["components/header_right"]);
-
+// makes the legend that *=required on forms
 Handlebars.registerPartial("legendRequired", window.HandlebarsTemplates["components/legend_for_required"]);
 
 // worklets
