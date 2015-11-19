@@ -30,7 +30,7 @@ $greyish-yellow:    rgb(204, 204, 200);
 $light-grey-yellow: rgb(243, 243, 241);
 $light-gray-blue:   rgb(234, 238, 241);
 $light-gray:        rgb(234, 235, 236);
-$shadow-gray:		darken($light-gray, 21%);
+$shadow-gray:		darken($light-gray, 31%);
 
 // neutral greys
 $neutral-light-grey: #E0E0E0;
@@ -117,7 +117,7 @@ $default-border-radius: 3px;
 $border-canon:              $default-border-width solid $border-color;
 $dark-border-canon:         $default-border-width solid $border-color-dark;
 $darker-border-canon:       $default-border-width solid $border-color-darkest;
-$login-card-border-canon:   5px solid $color-text3;
+
 $shadow-canon:              2px 2px 3px 0px $shadow-color;
 
 
@@ -172,7 +172,7 @@ $error-icon-color:          #881111;
 $error-tooltip-text-color:  $core-white;
 $error-input-border-color:  #AA3333;
 
-$notification: $bright-turquoise;
+$notification:              $bright-turquoise;
 $notification-error-dark:   #D43A0B;
 $notification-error-light:  #FFD6D6;
 
