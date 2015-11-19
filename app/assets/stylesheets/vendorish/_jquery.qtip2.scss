@@ -107,7 +107,6 @@
 
 // Applied on hover of tooltips i.e. added/removed on mouseenter/mouseleave respectively //
 .ui-tooltip-hover {
-	
 }
 
 
@@ -187,7 +186,7 @@
 }
 
 	.ui-tooltip-light .ui-tooltip-content{
-		background-color: core-white;
+		background-color: $core-white;
 	}
 
 	.ui-tooltip-light .ui-tooltip-titlebar{

@@ -5,10 +5,10 @@
     minified version in production - remember to run a find/replace on the
     minified file to update the image locations to suit your installation - more
     info can be found in the header of the minified file.
-    
+
     F.Y.I: Here's the HTML produced for each instance of the datePicker, in this
     case associated with a form element having an id of "demo-1"
-    
+
 <div id="fd-demo-1" class="date-picker drag-enabled" aria-describedby="fd-dp-aria-describedby" aria-labelledby="demo-1_label" aria-hidden="false" role="application" dir="ltr">
     <div>
         <table class="date-picker-table" role="grid">
@@ -52,9 +52,9 @@
                     <td aria-describedby="demo-1-col-5" aria-selected="false" role="gridcell" title="January 12, 2013" id="demo-1-date-picker-hover" class="day-5 cell-12 cd-20130112 yyyymm-201301 mmdd-0112 date-picker-today date-picker-highlight date-picker-hover" tabindex="0">12</td>
                     <td aria-describedby="demo-1-col-6" aria-selected="false" role="gridcell" title="January 13, 2013" class="day-6 cell-13 cd-20130113 yyyymm-201301 mmdd-0113 date-picker-highlight">13</td>
                 </tr>
-                
+
                 ... snip ...
-                
+
             </tbody>
         </table>
     </div>
@@ -78,7 +78,7 @@
     overflow:hidden;
     -moz-outline: 0 none;
          outline: 0 none;
-    } 
+    }
 
 // The wrapper div */
 .date-picker {
@@ -350,9 +350,9 @@
 .date-picker .next-but.fd-disabled:hover,
 .date-picker .fd-disabled,
 .date-picker .fd-disabled:hover {
-    color:#aaa;
-    cursor:default !important; 
-    opacity:1;
+    color: #aaa;
+    cursor: default !important;
+    opacity: 1;
     }
 .date-picker .prev-but.fd-disabled:hover,
 .date-picker .next-but.fd-disabled:hover {
@@ -399,19 +399,19 @@
     empty-cells: show;
     border-spacing: 2px;
     border-collapse: separate;
-    position:relative;
-    margin:0;
-    padding:0;
-    border:1px solid #ccc;
-    background-position:0 -20px; 
-    text-align:center;
-    padding:0.3em;
-    width:auto;
-    height:auto;
-    color:#555;
-    font-size:1em;
-    border-radius:0.8em;
-    box-shadow:0px 0px 5px #aaa;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    background-position: 0 -20px;
+    text-align: center;
+    padding: 0.3em;
+    width: auto;
+    height: auto;
+    color: #555;
+    font-size: 1em;
+    border-radius: 0.8em;
+    box-shadow: 0px 0px 5px #aaa;
     }
 
 // Create a "Lifted Corners" effect on the table. Ripped straight from @necolas
@@ -456,7 +456,7 @@
     text-align:center;
     vertical-align:middle;
     cursor:pointer;
-    background-position:0 -35px; 
+    background-position:0 -35px;
     width:3em;
     height:3em;
     overflow:hidden;
@@ -565,7 +565,7 @@
     cursor:pointer;
     border-color:rgb(100,130,170) !important;
     border-color:rgba(100,130,170,.7) !important;
-    color:rgb(100,130,170); 
+    color:rgb(100,130,170);
     text-shadow: 0px 1px 1px #fff;
     box-shadow:0 0 6px rgba(100,130,170,.6);
     background-size:cover;
@@ -581,13 +581,13 @@
     cursor:default;
     text-decoration:line-through;
     background-position:0 -15px;
-    } 
+    }
 .date-picker .month-out {
     border-color:#ddd;
     border-color:rgba(220,220,220,0.8);
     color:#aaa;
     background-position:0 -25px;
-    } 
+    }
 
 // The "selected date" style - color changed below also  */
 .date-picker .date-picker-selected-date {
@@ -602,7 +602,7 @@
     font-style:oblique;
     background:#fcfcfc;
     cursor:default;
-    } 
+    }
 
 // Week number "out of range" && "month-out" styles */
 .date-picker th.month-out,
@@ -615,7 +615,7 @@
 // Week numbers "out of range" */
 .date-picker .out-of-range {
     opacity:0.6;
-    }  
+    }
 
 // Used when the entire grid is full but the next/prev months dates cannot be selected */
 .date-picker .not-selectable {
@@ -697,7 +697,7 @@
 .date-picker .drag-enabled,
 .date-picker .drag-enabled span {
     cursor:move;
-    }    
+    }
 
 // Disabled datePicker */
 .date-picker-disabled table {
@@ -735,10 +735,10 @@
     }
 
 body.fd-drag-active {
-    -webkit-touch-callout:none; 
+    -webkit-touch-callout:none;
     -webkit-user-select:none;
        -moz-user-select:none;
-            user-select:none;     
+            user-select:none;
     }
 
 //  Glow effect for the focused (keyboard active) cursor cell and popup datepickers activation button */

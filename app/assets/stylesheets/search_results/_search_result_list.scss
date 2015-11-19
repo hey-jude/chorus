@@ -1,6 +1,6 @@
 .search_result_list {
     li {
-        background-color: #FFFFFF !important;
+        background-color: $core-white !important;
     }
 
     .list_content_details {
@@ -23,7 +23,7 @@
     }
 
     .count, .page_numbers {
-        font-size: 12px;
+        font-size: $small-font;
         padding: 4px;
         color: $color-text2;
     }

@@ -10,7 +10,7 @@ $refresh-activity-gutter: $activity-gutter - 5;
 $activity-unread-color: #E2F5F3;
 
 
-// TODO: normal all small icon usage in appl. to use these dimensions
+// TODO: normalize all small icon usage in appl. to use these dimensions
 $workfile-icon-small-width: 30px;
 $workfile-icon-small-height: auto;
 
@@ -140,7 +140,6 @@ $workfile-icon-small-height: auto;
         img {
             vertical-align: middle;
             cursor: pointer;
-
         }
 
         li {

@@ -5,11 +5,11 @@
 
 $messagingBlock_left: 10px;
 $messagingBlock_top: 10px;
-            
+
 
 .empty_state {
     color: $disabled-text;
-    p { 
+    p {
         margin-top: 10px;
     }
 
@@ -20,7 +20,7 @@ $messagingBlock_top: 10px;
             // left: $messagingBlock_left;
             font-family: FontAwesome;
             font-size: 18px;
-            content: "\f05a";  /* fa-info-circle */
+            content: "\f05a";  // fa-info-circle */
 		}
     }
 }
@@ -31,16 +31,16 @@ $messagingBlock_top: 10px;
     margin-top: 10px;
     margin-bottom: 5px;
     padding: 10px 10px 14px 10px;
-    
+
     background-color: $light-grey-yellow;
     @include border-radius($default-border-radius);
-    
+
     font-size: $medium-font -1;
-    
+
     .message {
         margin-left: 30px;
     }
-    
+
 }
 
 .form_info_block {
@@ -49,7 +49,7 @@ $messagingBlock_top: 10px;
     p {
         margin: 0;
     }
-    
+
     .icon {
         &::after {
             display: inline-block;
@@ -58,7 +58,7 @@ $messagingBlock_top: 10px;
             top: 13px;
             font-family: FontAwesome;
             font-size: 18px;
-            content: "\f05a";  /* fa-info-circle */
-		}
+            content: "\f05a";  // fa-info-circle */
+        }
     }
 }
