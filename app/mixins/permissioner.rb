@@ -7,7 +7,6 @@ module Permissioner
 
   included do
     after_create :create_chorus_object
-    after_create :add_to_scope
     after_destroy :destroy_chorus_object
   end
 
@@ -93,11 +92,6 @@ module Permissioner
     chorus_class = ChorusClass.find_or_create_by(:name => self.class.name)
     chorus_object = ::ChorusObject.find_or_create_by(:chorus_class_id => chorus_class.id, :instance_id => self.id)
     chorus_object.chorus_scopes << ::ChorusScope.find_by_name('application_realm')
-  end
-
-  # TODO TODO TODO we should define a parent-child tree or something, for when objects change scopes
-  # If the object has a parent, add the object
-  def add_to_scope
   end
 
   # Called after a model object is destroyed. Removes corresponding entry from chorus_objects table
