@@ -1,11 +1,10 @@
 @import "_common";
 
-
 .dialogs_about {
 
     font-size: $medium-font;
 
-	.logo {
+	#logo {
 	    display: block;
 	    
 	    margin-left: auto;
@@ -28,6 +27,7 @@
         font-weight: $semibold;
         font-size: 24px;
         line-height: 24px;
+        margin-bottom: 1px;
     }
 
     #application_version {
@@ -37,7 +37,7 @@
     .about_list {
         margin-top: 20px;
         margin-bottom: 30px;
-            
+
         .text {}
         .items li {
             // special for the about screen
@@ -58,7 +58,6 @@
             float: right;
         }
     }
-
 
     #footer {
         margin-top: 30px;

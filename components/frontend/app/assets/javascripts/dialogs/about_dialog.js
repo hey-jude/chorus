@@ -5,55 +5,29 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
     
     makeModel: function(options) {
         this.model = this.license = chorus.models.Config.instance().license();
-
     },
 
     setup: function(options) {
         this.requiredResources.add(this.model);
         this.model.fetch();
-        
     },
-
-    postRender: function() {
-        this.$(".version").load("/VERSION", function(res) {
-            $(this).text(res);
-        });
-
-    },
-
-
-//     context: function() {
-//         console.log ("context");
-//         console.log ("> " + this.model.applicationKey());
-//         
-//         return _.extend({
-//             items: this.items(),
-//             applicationKey: "about." + this.model.applicationKey(),
-//             
-//             //branding: chorus.branding.applicationVendor,
-//             //brandingLogoSrc: chorus.branding.applicationLoginLogo,
-//             //copyright: chorus.branding.copyright,
-//             
-//         }, this.pageOptions);
-//     },
 
     additionalContext: function() {
 
         return _.extend({
             items: this.items(),
             applicationKey: "about." + this.model.applicationKey(),
-            
-            //branding: chorus.branding.applicationVendor,
-            //brandingLogoSrc: chorus.branding.applicationLoginLogo,
-            //copyright: chorus.branding.copyright,
+            version: chorus.branding.applicationVersion,
+            branding: chorus.branding.applicationVendor,
+            brandingLogo: chorus.branding.applicationLoginLogo,
+            copyright: chorus.branding.copyright,
             
         }, this.pageOptions);
     },
     
     items: function() {
         var keys = [];
-        var vendor = this.model.get("vendor");
-        //var vendor = chorus.branding.applicationVendor;
+        var vendor = chorus.branding.applicationVendor;
 
         switch (vendor) {
             case "alpine":

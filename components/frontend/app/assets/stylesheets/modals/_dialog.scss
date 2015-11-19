@@ -207,7 +207,10 @@ div.dialog {
         width: $default-dialog-width-medium;
     }
 
-    &.dialogs_help_and_support {
+    &.dialog_help_and_support {
+        width: $default-dialog-width-medium;
+    }
+    &.dialog_about {
         width: $default-dialog-width-medium;
     }
 }
