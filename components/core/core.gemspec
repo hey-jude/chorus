@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'newrelic_rpm'
   s.add_dependency 'paperclip', '4.2.0'
   s.add_dependency 'sunspot_rails', '2.1.0'
-  s.add_dependency 'will_paginate', '3.0.4'
+  s.add_dependency 'will_paginate', '3.0.7'
 
   # A scheduler process to replace cron
   s.add_dependency 'clockwork'
