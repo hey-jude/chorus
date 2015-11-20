@@ -14,7 +14,7 @@ describe Api::WorkspaceImagesController do
   describe "#create" do
     context "for Workspace" do
       let(:workspace) { workspaces(:public) }
-      let(:files) { [Rack::Test::UploadedFile.new(File.expand_path("spec/fixtures/small1.gif", ENV['CHORUS_HOME']), "image/gif")] }
+      let(:files) { [Rack::Test::UploadedFile.new(File.expand_path("spec/fixtures/files/small1.gif", ENV['CHORUS_HOME']), "image/gif")] }
 
       it "adds the workspace's image" do
         default_image_path = "/images/original/missing.png"

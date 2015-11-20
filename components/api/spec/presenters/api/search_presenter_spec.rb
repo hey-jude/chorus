@@ -16,12 +16,12 @@ describe Api::SearchPresenter, :type => :view do
     describe "filter disabled" do
       context "is admin" do
         it "should still include disabled data sources in the search" do
-          SearchPresenter.filter_disabled(DataSource.all).should include(*DataSource.where(:state => 'disabled'))
+          Api::SearchPresenter.filter_disabled(DataSource.all).should include(*DataSource.where(:state => 'disabled'))
         end
       end
       context "is non-admin" do
         it "should remove disabled data sources from the search" do
-          SearchPresenter.filter_disabled(DataSource.all).should_not include(*DataSource.where(:state => 'disabled'))
+          Api::SearchPresenter.filter_disabled(DataSource.all).should_not include(*DataSource.where(:state => 'disabled'))
         end
       end
     end
