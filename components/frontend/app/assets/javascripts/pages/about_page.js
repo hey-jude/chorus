@@ -13,7 +13,7 @@ chorus.pages.AboutPage = chorus.pages.Base.extend({
     },
 
     postRender: function() {
-        this.$(".version").load("/VERSION", function(res) {
+        this.$(".version").load(window.chorusApi.urlPrefix + "/VERSION", function(res) {
             $(this).text(res);
         });
     },
