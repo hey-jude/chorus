@@ -59,6 +59,7 @@ chorus_classes =  [
         {:name => 'account'.camelize},
         {:name => 'alpine_workfile'.camelize},
         {:name => 'associated_dataset'.camelize},
+        {:name => 'attachment'.camelize},
         {:name => 'chorus_scope'.camelize},
         {:name => 'chorus_view'.camelize},
         {:name => 'chorus_workfile'.camelize},

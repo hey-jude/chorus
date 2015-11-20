@@ -36,15 +36,9 @@ User.class_eval do
     self.admin = false if admin_roles.include? role
   end
 
-  def admin?
-    self.admin
-  end
-
   def self.admin_count
     admin.size
   end
-
-  scope :admin, -> { where(:admin => true) }
 
   def admin=(value)
     admin_role = Role.find_by_name("Admin")
@@ -72,8 +66,6 @@ User.class_eval do
     end
 
   end
-
-  scope :developer, -> { where(:developer => true) }
 
   def developer=(value)
     write_attribute(:developer, value)

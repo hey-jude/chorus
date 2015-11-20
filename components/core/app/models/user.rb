@@ -56,6 +56,11 @@ class User < ActiveRecord::Base
 
   attr_accessor :highlighted_attributes, :search_result_notes
 
+  # These basic "Authorization" concepts are still present in Core.  The Authorization component manages changing these
+  # when the user's roles change:
+  scope :admin, -> { where(:admin => true) }
+  scope :developer, -> { where(:developer => true) }
+
   if ENV['SKIP_SOLR'] != 'true'
     searchable_model do
       text :first_name, :stored => true, :boost => SOLR_PRIMARY_FIELD_BOOST
