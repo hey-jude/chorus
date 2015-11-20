@@ -13,9 +13,6 @@ class BaseSchema < ActiveRecord::Migration
     # These are extensions that must be enabled in order to support this database
     enable_extension "plpgsql"
 
-    # TRUNCATE is a PostgreSQL extension that provides a faster mechanism to remove all rows from a table.
-    execute("TRUNCATE schema_migrations")
-
     tables = ActiveRecord::Base.connection.tables
 
     unless tables.include?("activities")
