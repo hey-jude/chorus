@@ -102,11 +102,11 @@ class ChorusConfig
   end
 
   def oracle_configured?
-    !!self['oracle.enabled'] && (File.exist? Core::Engine.root.join('lib', 'libraries' , 'ojdbc6.jar'))
+    !!self['oracle.enabled'] && (File.exist? Rails.root.join('lib', 'libraries' , 'ojdbc6.jar'))
   end
 
   def oracle_driver_expected_but_missing?
-    !!self['oracle.enabled'] && !(File.exist? Core::Engine.root.join('lib', 'libraries', 'ojdbc6.jar'))
+    !!self['oracle.enabled'] && !(File.exist? Rails.root.join('lib', 'libraries', 'ojdbc6.jar'))
   end
 
   def self.config_file_path(root_dir=nil)
