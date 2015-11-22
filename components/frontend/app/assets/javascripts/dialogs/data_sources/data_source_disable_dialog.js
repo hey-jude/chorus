@@ -34,7 +34,7 @@ chorus.dialogs.DataSourceDisable = chorus.dialogs.Base.extend({
       }.bind(this),
 
       error: function() {
-        chorus.toast("data_sources.state.disabled_error.toast", {dataSourceName: this.model.name(), toastOpts: {type: "success"}});
+        chorus.toast("data_sources.state.disabled_error.toast", {dataSourceName: this.model.name(), toastOpts: {type: "error"}});
         this.model.set('state', 'enabled');
       }.bind(this)
     });
