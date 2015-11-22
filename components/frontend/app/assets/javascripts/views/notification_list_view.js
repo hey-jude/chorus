@@ -20,7 +20,7 @@ chorus.views.NotificationList = chorus.views.Base.extend({
         }, this);
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         var ctx = {  };
         if (this.collection.loaded && this.collection.pagination) {
             var page = parseInt(this.collection.pagination.page, 10);

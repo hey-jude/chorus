@@ -2,11 +2,11 @@ chorus.views.WorkletView = chorus.views.Base.extend({
     constructorName: 'WorkletView',
     templateName: 'worklets/worklet',
 
-    events:{
+    events: {
         "submit form": 'saveWorklet'
     },
 
-    saveWorklet:function saveWorklet(e) {
+    saveWorklet: function saveWorklet(e) {
         e.preventDefault();
         chorus.page.stopListening(this.model, "unprocessableEntity");
         var updates = {};
@@ -30,7 +30,7 @@ chorus.views.WorkletView = chorus.views.Base.extend({
         this.model.save(updates);
     },
 
-    makeModel:function () {
+    makeModel: function () {
         this.model = this.model || new chorus.models.Worklet();
     },
 

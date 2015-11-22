@@ -26,7 +26,7 @@ chorus.views.PublishedWorkletOutput = chorus.views.Base.extend({
 
     },
 
-    postRender:function() {
+    postRender: function() {
         this.$("#results").on("load", function () {
             if(this.getAttribute('src')) {
                 $('#share_all_results').show();

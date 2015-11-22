@@ -6,7 +6,7 @@ chorus.views.WorkspaceShowSidebar = chorus.views.Sidebar.extend({
         ".workspace_member_list": "workspaceMemberList"
     },
 
-    setup:function () {
+    setup: function () {
         this.listenTo(this.model, "image:change", this.render);
         this.workspaceMemberList = new chorus.views.WorkspaceMemberList({collection: this.model.members()});
     },

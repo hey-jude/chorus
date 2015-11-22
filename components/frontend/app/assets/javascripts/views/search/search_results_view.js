@@ -65,7 +65,7 @@ chorus.views.SearchResults = chorus.views.Base.extend({
         });
     },
 
-    selectItem:function selectItem(e) {
+    selectItem: function selectItem(e) {
         var $target = $(e.currentTarget);
         if ($target.hasClass("selected")) return;
 

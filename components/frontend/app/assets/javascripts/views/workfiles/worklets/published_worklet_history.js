@@ -24,7 +24,7 @@ chorus.views.PublishedWorkletHistory = chorus.views.Base.extend({
         }, this);
     },
 
-    postRender:function() {
+    postRender: function() {
         var attachPoint = this.$('.worklet_history_list');
         if (this.historyItems.length) {
             // Renders each subview into a document fragment container first

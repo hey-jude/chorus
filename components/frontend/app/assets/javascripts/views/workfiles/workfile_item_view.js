@@ -1,6 +1,6 @@
 chorus.views.WorkfileItem = chorus.views.Base.extend(chorus.Mixins.TagsContext).extend({
     constructorName: "WorkfileItemView",
-    templateName:"workfile_item",
+    templateName: "workfile_item",
     tagName: "div",
 
     subviews: {

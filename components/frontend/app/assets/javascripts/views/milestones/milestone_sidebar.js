@@ -2,7 +2,7 @@ chorus.views.MilestoneSidebar = chorus.views.Sidebar.extend({
     constructorName: "MilestoneSidebar",
     templateName: "milestone_sidebar",
 
-    subviews:{
+    subviews: {
         '.tab_control': 'tabs'
     },
 

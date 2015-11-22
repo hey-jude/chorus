@@ -7,7 +7,7 @@ chorus.views.WorkspaceShow = chorus.views.Base.extend({
         ".activity_list": "activityList"
     },
 
-    setup:function () {
+    setup: function () {
         this.collection = this.model.activities({insights: chorus.pageParams().filter === 'insights'});
         this.collection.fetch();
         this.requiredResources.add(this.collection);

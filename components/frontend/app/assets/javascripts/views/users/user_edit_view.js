@@ -4,26 +4,26 @@
     }
 
     chorus.views.UserEdit = chorus.views.Base.extend({
-        templateName:"user/edit",
+        templateName: "user/edit",
 
-        events:{
-            "submit form":'saveEditUser',
-            "click button.cancel":"goBack"
+        events: {
+            "submit form": 'saveEditUser',
+            "click button.cancel": "goBack"
         },
 
-        subviews:{
-            '.profile_image':"imageUpload"
+        subviews: {
+            '.profile_image': "imageUpload"
         },
 
-        setup:function () {
+        setup: function () {
             this.listenTo(this.model, "saved", userSuccessfullySaved);
             this.listenTo(this.model, "image:change", function() { this.model.trigger("invalidated"); });
             this.imageUpload = new chorus.views.ImageUpload({ model:this.model, changeImageKey:"user.profile_change_avatar_image", addImageKey:"user.profile_add_avatar_image" });
         },
 
-        additionalContext:function () {
+        additionalContext: function () {
             return {
-                permission:((this.model.get("username") === chorus.session.user().get("username")) || chorus.session.user().get("admin"))
+                permission: ((this.model.get("username") === chorus.session.user().get("username")) || chorus.session.user().get("admin"))
             };
         },
 
@@ -31,7 +31,7 @@
             this.$("textarea").limitMaxlength();
         },
 
-        saveEditUser:function saveEditUser(e) {
+        saveEditUser: function saveEditUser(e) {
             e.preventDefault();
             chorus.page.stopListening(this.model, "unprocessableEntity");
             var updates = {};
@@ -48,7 +48,7 @@
             this.model.save(updates, {wait: true});
         },
 
-        goBack:function () {
+        goBack: function () {
             window.history.back();
         }
     });

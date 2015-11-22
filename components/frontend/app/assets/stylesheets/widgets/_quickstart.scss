@@ -1,5 +1,3 @@
-@import "_browser_support";
-
 .quickstart_header {
     vertical-align: middle;
 
@@ -45,8 +43,8 @@
         padding: 15px;
         padding-right: 5px;
         margin-bottom: 10px;
-        box-sizing:border-box;
-        border: 1px solid $border-color;
+        box-sizing: border-box;
+        border: $border-canon;
         @include border-radius(4px, 4px);
         display: inline-block;
         width: 340px;

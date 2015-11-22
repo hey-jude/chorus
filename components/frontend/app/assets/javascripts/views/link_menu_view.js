@@ -2,12 +2,12 @@ chorus.views.LinkMenu = chorus.views.Base.extend({
     constructorName: "LinkMenuView",
     templateName: "link_menu",
 
-    events:{
+    events: {
         "click a.popup": "popupLinkClicked",
         "click .menu a": "choose"
     },
 
-    context:function () {
+    context: function () {
         if (!this.options.chosen) {
             this.options.chosen = this.options.options[0].data;
         }
@@ -25,11 +25,11 @@ chorus.views.LinkMenu = chorus.views.Base.extend({
 
     },
 
-    popupLinkClicked:function (e) {
+    popupLinkClicked: function (e) {
         chorus.PopupMenu.toggle(this, ".menu", e);
     },
 
-    choose:function (e) {
+    choose: function (e) {
         e.preventDefault();
         var ul = $(e.target).closest("ul"),
             li = $(e.target).closest("li");

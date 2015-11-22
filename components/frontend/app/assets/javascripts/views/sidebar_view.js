@@ -1,6 +1,6 @@
 chorus.views.Sidebar = chorus.views.Base.extend({
     constructorName: "SidebarView",
-    preRender:function () {
+    preRender: function () {
         this._super("preRender", arguments);
 
         // We don't want to deal with having multiple declarations of `events`,

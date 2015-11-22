@@ -1,5 +1,5 @@
 chorus.views.TagItem = chorus.views.Base.extend({
-    templateName:"tag_item",
+    templateName: "tag_item",
     tagName: "div",
 
     additionalContext: function(){

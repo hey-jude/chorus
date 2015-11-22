@@ -1,18 +1,18 @@
 chorus.views.UserNew = chorus.views.Base.extend({
-    templateName:"user/new",
+    templateName: "user/new",
 
-    events:{
-        "submit form":'submitNewUser',
+    events: {
+        "submit form": 'submitNewUser',
         "click button.cancel": "goBack"
     },
 
-    persistent:true,
+    persistent: true,
 
-    setup:function () {
+    setup: function () {
         this.listenTo(this.model, "saved", this.userSaved);
     },
 
-    makeModel:function () {
+    makeModel: function () {
         this.model = this.model || new chorus.models.User();
     },
 
@@ -20,7 +20,7 @@ chorus.views.UserNew = chorus.views.Base.extend({
         this.$("textarea").limitMaxlength();
     },
 
-    submitNewUser:function submitNewUser(e) {
+    submitNewUser: function submitNewUser(e) {
         e.preventDefault();
         if(this.saving) {return;}
         this.saving = true;
@@ -47,7 +47,7 @@ chorus.views.UserNew = chorus.views.Base.extend({
         this.model.save();
     },
 
-    goBack:function () {
+    goBack: function () {
         window.history.back();
     },
 

@@ -2,7 +2,7 @@ chorus.views.WorkfileContent = chorus.views.Base.extend({
         templateName: "workfile_content"
     },
     {
-        buildFor:function (model) {
+        buildFor: function (model) {
             if (model.isImageFiletype()) {
                 return new chorus.views.ImageWorkfileContent({ model:model });
             }

@@ -57,7 +57,7 @@
         }
         .width_small {
             input {
-                width:17%;
+                width: 17%;
             }
         }
 
@@ -71,7 +71,6 @@
                 width: 48%;
             }
         }
-
 
         .instructions {
             @include dialog-label;

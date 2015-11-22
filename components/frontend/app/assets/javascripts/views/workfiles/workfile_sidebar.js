@@ -9,7 +9,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         showUpdatedTime: true
     },
 
-    subviews:{
+    subviews: {
         '.tab_control': 'tabs'
     },
 
@@ -24,7 +24,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         "click a.worklet_usage": 'launchWorkletUsageDialog',
         "click a.run_now": 'runWorkflow',
         "click a.run_worklet": 'runWorklet',
-        "click a.stop" : 'stopWorkflow'
+        "click a.stop": 'stopWorkflow'
     },
 
     setup: function () {
@@ -55,9 +55,9 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
             }
 
             this.tabs.activity = new chorus.views.ActivityList({
-                collection:this.collection,
-                additionalClass:"sidebar",
-                displayStyle:['without_object', 'without_workspace']
+                collection: this.collection,
+                additionalClass: "sidebar",
+                displayStyle: ['without_object', 'without_workspace']
             });
             this.tabs.bind("selected", _.bind(this.recalculateScrolling, this));
             this.tabs.bind("selected", _.bind(function() { this.tabs.activity.show(); }, this));
@@ -137,7 +137,7 @@ chorus.views.WorkfileSidebar = chorus.views.Sidebar.extend({
         if(this.options.showVersions) {
             var versionList = this.versionList.render();
             this.menu(this.$('a.version_list'), {
-                content:$(versionList.el)
+                content: $(versionList.el)
             });
             this.versionList.delegateEvents(this.versionList.events);
         }

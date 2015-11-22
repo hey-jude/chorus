@@ -3,11 +3,11 @@ chorus.views.SubNav = chorus.views.Base.extend({
     templateName: "sub_nav",
     tagName: "ul",
 
-    setup:function (options) {
+    setup: function (options) {
         this.resource = this.resource || options.workspace;
     },
 
-    postRender:function () {
+    postRender: function () {
         this.$("li").removeClass("selected");
         var selected = this.$("li." + this.options.tab);
         selected.addClass("selected");

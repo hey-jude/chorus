@@ -1,20 +1,20 @@
 chorus.views.ShuttleWidget = chorus.views.Base.extend({
-    templateName:"shuttle_widget",
+    templateName: "shuttle_widget",
 
-    events:{
-        "click a.add":"toggleAdd",
-        "click a.remove":"toggleAdd",
-        "click a.add_all":"addAll",
-        "click a.remove_all":"removeAll"
+    events: {
+        "click a.add": "toggleAdd",
+        "click a.remove": "toggleAdd",
+        "click a.add_all": "addAll",
+        "click a.remove_all": "removeAll"
     },
 
-    setup:function () {
+    setup: function () {
         this.selectionSource = this.options.selectionSource;
         this.listenTo(this.selectionSource, "reset", this.render);
         this.nonRemovableModels = this.options.nonRemovable;
     },
 
-    collectionModelContext:function (model) {
+    collectionModelContext: function (model) {
         var ctx = {};
         var selections = this.selectionSource.map(function (item) {
             return item.get("id");
@@ -32,20 +32,20 @@ chorus.views.ShuttleWidget = chorus.views.Base.extend({
         return ctx;
     },
 
-    additionalContext:function () {
-        return { objectName:this.options.objectName };
+    additionalContext: function () {
+        return { objectName: this.options.objectName };
     },
 
-    postRender:function () {
+    postRender: function () {
         this._updateLabels();
         chorus.search({
-            input:this.$("input"),
-            list:this.$("ul.available"),
-            selector:".name"
+            input: this.$("input"),
+            list: this.$("ul.available"),
+            selector: ".name"
         });
     },
 
-    toggleAdd:function (e) {
+    toggleAdd: function (e) {
         e.preventDefault();
 
         var target = this.$(e.currentTarget);
@@ -57,20 +57,20 @@ chorus.views.ShuttleWidget = chorus.views.Base.extend({
         this._updateLabels();
     },
 
-    getSelectedIDs:function () {
+    getSelectedIDs: function () {
         var selectedItems = this.$('ul.selected li.added');
         return _.map(selectedItems, function (item) {
             return $(item).data("id").toString();
         });
     },
 
-    addAll:function (e) {
+    addAll: function (e) {
         e.preventDefault();
         this.$("li").addClass("added");
         this._updateLabels();
     },
 
-    removeAll:function (e) {
+    removeAll: function (e) {
         e.preventDefault();
 
         this.$("li").removeClass("added");
@@ -78,7 +78,7 @@ chorus.views.ShuttleWidget = chorus.views.Base.extend({
         this._updateLabels();
     },
 
-    _updateLabels:function () {
+    _updateLabels: function () {
         this.$(".selected_count").text(this.$("ul.selected li.added").length);
     }
 });

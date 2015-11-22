@@ -1,6 +1,6 @@
 chorus.views.BreadcrumbsView = chorus.views.Base.extend({
     constructorName: "BreadcrumbsView",
-    templateName:"breadcrumbs",
+    templateName: "breadcrumbs",
 
     additionalContext: function () {
         return { breadcrumbs: _.result(this.options, 'breadcrumbs') };
