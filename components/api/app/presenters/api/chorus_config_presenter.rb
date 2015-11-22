@@ -24,6 +24,7 @@ module Api
         :license => present(License.instance, options),
         :restrict_data_source_creation => model.restrict_data_source_creation?,
         :touchpoints_enabled => model.touchpoints_enabled?,
+        :backbone_debug_enabled => model.backbone_debug_enabled?,
         :chiasm_enabled => model['chiasm_enabled'] # KT TODO: move this into the visualization components?
       }
 

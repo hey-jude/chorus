@@ -15,6 +15,7 @@
 //= require jquery
 //= require vendor/underscore-1.6.0
 //= require vendor/backbone-1.0.0
+//= require vendor/backbone.debug.js
 //= require vendor/backbone.router.title.helper
 //= require vendor/jquery.ui.core
 //= require vendor/jquery.ui.widget

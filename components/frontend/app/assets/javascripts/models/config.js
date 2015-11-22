@@ -26,6 +26,10 @@ chorus.models.Config = chorus.models.Base.extend({
         return this._license;
     },
 
+    isBackboneDebug: function() {
+        return this.get("backboneDebugEnabled");
+    },
+    
     clear: function() {
         this._super("clear", arguments);
         delete this._license;
