@@ -162,10 +162,6 @@ class ChorusConfig
     self['demo_mode.enabled']
   end
 
-  def backbone_debug_enabled?
-    !!self['backbone.debug_enabled']
-  end
-
   def mail_configuration
     self['mail']
   end
