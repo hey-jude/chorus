@@ -2,7 +2,7 @@ chorus.pages.HdfsShowFilePage = chorus.pages.Base.extend({
     constructorName: "HdfsShowFilePage",
     helpId: "hdfs_data_sources",
 
-    setup:function (hdfsDataSourceId, id) {
+    setup: function (hdfsDataSourceId, id) {
         this.model = new chorus.models.HdfsEntry({ hdfsDataSource: {id: hdfsDataSourceId}, id: id });
         this.requiredResources.add(this.model);
         this.model.fetch();
@@ -14,10 +14,10 @@ chorus.pages.HdfsShowFilePage = chorus.pages.Base.extend({
         this.handleFetchErrorsFor(this.model);
 
         this.mainContent = new chorus.views.MainContentView({
-            model:this.model,
-            content:new chorus.views.ReadOnlyTextContent({model:this.model}),
-            contentHeader:new chorus.views.HdfsShowFileHeader({ model:this.model }),
-            contentDetails:new chorus.views.HdfsShowFileDetails({ model:this.model })
+            model: this.model,
+            content: new chorus.views.ReadOnlyTextContent({model: this.model}),
+            contentHeader: new chorus.views.HdfsShowFileHeader({ model: this.model }),
+            contentDetails: new chorus.views.HdfsShowFileDetails({ model: this.model })
         });
 
         this.sidebar = new chorus.views.HdfsEntrySidebar({

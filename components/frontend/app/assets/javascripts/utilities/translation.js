@@ -1,5 +1,5 @@
 chorus.translation = {
-    parseProperties:function (propertiesString) {
+    parseProperties: function (propertiesString) {
         var lineJoiningRegex = /\\\s*\n/g;
         var joinedLines = propertiesString.replace(lineJoiningRegex, '').split("\n");
 
@@ -27,9 +27,9 @@ chorus.translation = {
 
 $.when.apply($, window.chorus.translation_files.map(function(url) {
     return $.ajax({
-        url:url,
-        async:false,
-        dataType:'text'
+        url: url,
+        async: false,
+        dataType: 'text'
     });
 })).done(function() {
 

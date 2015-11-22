@@ -26,7 +26,7 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
 
     showUrlTemplate: "workspaces/{{workspace.id}}/touchpoints/{{this.id}}",
 
-    attrToLabel:{
+    attrToLabel: {
         "fileName": "entity.name.Worklet.name"
     },
 
@@ -54,16 +54,16 @@ chorus.models.Worklet = chorus.models.AlpineWorkfile.include(
         return url;
     },
 
-    initialize:function () {
+    initialize: function () {
         this._super('initialize', arguments);
         this.file = null;
     },
 
-    addFileUpload:function (uploadModel) {
+    addFileUpload: function (uploadModel) {
         this.file = uploadModel;
     },
 
-    saveImageFile:function () {
+    saveImageFile: function () {
         if (!_.isNull(this.file)) {
             this.file.data.url = this.url({ workflow_action: 'upload_image' });
             this.file.data.submit();

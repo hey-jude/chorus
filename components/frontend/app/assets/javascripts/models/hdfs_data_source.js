@@ -71,14 +71,14 @@ chorus.models.HdfsDataSource = chorus.models.AbstractDataSource.extend({
     },
 
     attrToLabel: {
-      "hiveMetastoreLocation":"data_sources.dialog.hive_metastore_location",
-      "name":"data_sources.dialog.data_source_name",
-      "host":"data_sources.dialog.hadoop_host",
-      "username":"data_sources.dialog.hadoop_account",
-      "groupList":"data_sources.dialog.hadoop_group_list",
-      "port":"data_sources.dialog.port",
-      "jobTrackerHost":"data_sources.dialog.hadoop_job_tracker_host",
-      "jobTrackerPort":"data_sources.dialog.port"
+      "hiveMetastoreLocation": "data_sources.dialog.hive_metastore_location",
+      "name": "data_sources.dialog.data_source_name",
+      "host": "data_sources.dialog.hadoop_host",
+      "username": "data_sources.dialog.hadoop_account",
+      "groupList": "data_sources.dialog.hadoop_group_list",
+      "port": "data_sources.dialog.port",
+      "jobTrackerHost": "data_sources.dialog.hadoop_job_tracker_host",
+      "jobTrackerPort": "data_sources.dialog.port"
     }
 
 });

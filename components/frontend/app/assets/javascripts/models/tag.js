@@ -15,7 +15,7 @@ chorus.models.Tag = chorus.models.Base.extend({
         return _.strip(this.get('name').toLowerCase()) === _.strip(tagName.toLowerCase());
     },
 
-    performValidation:function (newAttrs) {
+    performValidation: function (newAttrs) {
         this.clearErrors();
         if (newAttrs['name'].length > 100) {
             this.setValidationError("name", "field_error.TOO_LONG", null, {field: t('tag.name'), count: 100});

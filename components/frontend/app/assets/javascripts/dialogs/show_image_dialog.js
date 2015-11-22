@@ -33,7 +33,7 @@ chorus.dialogs.ShowImage = chorus.dialogs.Base.extend({
         }, this));
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         var imageUrl;
         var showFullOptions = true;
         if(this.attachment) {

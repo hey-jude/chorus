@@ -36,7 +36,7 @@ chorus.models.Attachment = chorus.models.Base.include(
         }
     },
 
-    downloadUrl:function () {
+    downloadUrl: function () {
         return "/attachments/" + this.get("id") + "/download/" ;
     },
 

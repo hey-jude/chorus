@@ -1,17 +1,17 @@
 chorus.models.Workspace = chorus.models.Base.extend({
     constructorName: "Workspace",
 
-    urlTemplate:"workspaces/{{id}}",
-    showUrlTemplate:"workspaces/{{id}}",
-    nameAttribute: 'name',
+    urlTemplate: "workspaces/{{id}}",
+    showUrlTemplate: "workspaces/{{id}}",
+    nameAttribute: "name",
     entityType: "workspace",
 
-    customIconUrl:function (options) {
+    customIconUrl: function (options) {
         options = (options || {});
         return this.get("image")[(options.size ||"original")];
     },
 
-    defaultIconUrl:function (size) {
+    defaultIconUrl: function (size) {
         var iconSize = size || "large";
         var activeIcon = this.isActive() ? "" : "_archived";
         var publicIcon = this.isPublic() ? "" : "_private";
@@ -96,7 +96,7 @@ chorus.models.Workspace = chorus.models.Base.extend({
         return this._datasets;
     },
 
-    comments:function () {
+    comments: function () {
         this._comments = this._comments || new chorus.collections.CommentSet(this.get("latestCommentList"));
         return this._comments;
     },
@@ -105,7 +105,7 @@ chorus.models.Workspace = chorus.models.Base.extend({
         return this.owner().id === chorus.session.user().id;
     },
 
-    members:function () {
+    members: function () {
         if (!this._members) {
             this._members = new chorus.collections.MemberSet([], {workspaceId:this.get("id")});
             this._members.bind("saved", function () {
@@ -115,21 +115,21 @@ chorus.models.Workspace = chorus.models.Base.extend({
         return this._members;
     },
 
-    declareValidations:function (newAttrs) {
+    declareValidations: function (newAttrs) {
         this.require("name", newAttrs);
     },
 
-    archiver:function () {
+    archiver: function () {
         return new chorus.models.User(
           this.get("archiver")
         );
     },
 
-    displayName:function () {
+    displayName: function () {
         return this.get("name");
     },
 
-    fetchImageUrl:function (options) {
+    fetchImageUrl: function (options) {
         var size = (options && options.size) || "original";
         var url = this.get("image") && this.get("image")[size];
         return url && new URI(url)
@@ -137,13 +137,13 @@ chorus.models.Workspace = chorus.models.Base.extend({
             .toString();
     },
 
-    createImageUrl:function (options) {
+    createImageUrl: function (options) {
         var url = new URI(this.url());
         url.path(url.path() + "/image");
         return url.toString();
     },
 
-    picklistImageUrl:function () {
+    picklistImageUrl: function () {
         return this.defaultIconUrl("small");
     },
 
@@ -159,23 +159,23 @@ chorus.models.Workspace = chorus.models.Base.extend({
         return this.showUrl() + "/jobs";
     },
 
-    attrToLabel:{
-        "name":"workspace.validation.name"
+    attrToLabel: {
+        "name": "workspace.validation.name"
     },
 
-    hasImage:function () {
+    hasImage: function () {
         return this.get("image") && this.get("image")["original"];
     },
 
-    canRead:function () {
+    canRead: function () {
         return this._hasPermission(['admin', 'read']);
     },
 
-    canComment:function () {
+    canComment: function () {
         return this._hasPermission(['admin', 'commenting']);
     },
 
-    canUpdate:function () {
+    canUpdate: function () {
         return this._hasPermission(['admin', 'update']);
     },
 
@@ -193,15 +193,15 @@ chorus.models.Workspace = chorus.models.Base.extend({
         return this._hasPermission(['admin', 'duplicate_chorus_view']);
     },
 
-    workspaceAdmin:function () {
+    workspaceAdmin: function () {
         return this._hasPermission(['admin']);
     },
 
-    _hasPermission:function (validPermissions) {
+    _hasPermission: function (validPermissions) {
         return _.intersection(this.get("permission"), validPermissions).length > 0;
     },
 
-    maxImageSize:function () {
+    maxImageSize: function () {
         return chorus.models.Config.instance().get("fileSizesMbWorkspaceIcon");
     },
 

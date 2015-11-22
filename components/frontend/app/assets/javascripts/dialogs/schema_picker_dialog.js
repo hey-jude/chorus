@@ -6,7 +6,7 @@ chorus.dialogs.SchemaPicker = chorus.dialogs.Base.extend({
         "click button.submit": "save"
     },
 
-    subviews:{
+    subviews: {
         ".schema_picker":"schemaPicker"
     },
 
@@ -29,7 +29,7 @@ chorus.dialogs.SchemaPicker = chorus.dialogs.Base.extend({
         };
     },
 
-    enableOrDisableSubmitButton:function () {
+    enableOrDisableSubmitButton: function () {
         this.$("button.submit").prop("disabled", !this.schemaPicker.ready());
     },
 

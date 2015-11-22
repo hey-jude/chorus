@@ -1,7 +1,7 @@
 chorus.dialogs.NotesNew = chorus.dialogs.MemoNew.extend({
     constructorName: "NotesNew",
 
-    title:t("notes.new_dialog.title"),
+    title: t("notes.new_dialog.title"),
     submitButton: t("notes.button.create"),
 
     makeModel: function() {

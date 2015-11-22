@@ -2,7 +2,7 @@ chorus.views.DashboardRecentWorkfiles = chorus.views.DashboardModule.extend({
     constructorName: "DashboardRecentWorkfiles",
     templateName: "dashboard/recent_workfiles",
 
-    events:{
+    events: {
         "click #recent_workfiles_main_content .configure": "showOptions",
         "click #recent_workfiles_main_content .clear_list": "clearList",
         "click #recent_workfiles_configuration .cancel": "hideOptions",

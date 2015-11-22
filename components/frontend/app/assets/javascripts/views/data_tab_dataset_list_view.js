@@ -68,7 +68,7 @@ chorus.views.DataTabDatasetList = chorus.views.Base.extend({
         return $dragEl;
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         var ctx = {};
         if (this.collection.pagination) {
             ctx.showMoreLink = this.collection.pagination.page < this.collection.pagination.total;

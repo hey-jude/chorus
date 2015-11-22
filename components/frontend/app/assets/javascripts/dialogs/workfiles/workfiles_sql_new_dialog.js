@@ -1,18 +1,18 @@
 chorus.dialogs.WorkfilesSqlNew = chorus.dialogs.Base.include(chorus.Mixins.DialogFormHelpers).extend({
     constructorName: "WorkfilesSqlNewDialog",
 
-    templateName:"workfiles_sql_new",
-    title:t("workfiles.sql_dialog.title"),
+    templateName: "workfiles_sql_new",
+    title: t("workfiles.sql_dialog.title"),
 
-    persistent:true,
+    persistent: true,
 
-    makeModel:function () {
+    makeModel: function () {
         this.model = this.model || new chorus.models.Workfile({
             workspace: {id: this.options.pageModel.id}
         });
     },
 
-    setup:function () {
+    setup: function () {
         this.listenTo(this.resource, "saved", this.saved);
         this.listenTo(this.resource, "saveFailed", this.saveFailed);
         this.disableFormUnlessValid({
@@ -32,7 +32,7 @@ chorus.dialogs.WorkfilesSqlNew = chorus.dialogs.Base.include(chorus.Mixins.Dialo
         this.resource.save({source:"empty"});
     },
 
-    saved:function () {
+    saved: function () {
         this.closeModal();
         chorus.router.navigate(this.model.showUrl());
     }

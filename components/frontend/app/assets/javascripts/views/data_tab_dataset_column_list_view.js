@@ -1,9 +1,9 @@
 chorus.views.DataTabDatasetColumnList = chorus.views.Base.extend({
     constructorName: "DataTabDatasetColumnListView",
-    templateName:"data_tab_dataset_column_list",
-    useLoadingSection:true,
+    templateName: "data_tab_dataset_column_list",
+    useLoadingSection: true,
 
-    setup:function () {
+    setup: function () {
         this.resource = this.collection = this.options.dataset.columns();
         this.collection.fetchAll();
     },

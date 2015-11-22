@@ -3,7 +3,7 @@ chorus.dialogs.RunAndDownload = chorus.dialogs.DatasetDownload.extend({
     submitKey: "workfile.run_and_download_dialog.run",
     title: t("workfile.run_and_download_dialog.title"),
 
-    persistent:true,
+    persistent: true,
 
     downloadAll: function() {
         chorus.PageEvents.trigger("file:runAndDownload", this.options);

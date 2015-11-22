@@ -4,9 +4,9 @@ chorus.dialogs.WorkletViewLogsDialog = chorus.dialogs.Base.include(
     constructorName: "WorkletViewLogsDialog",
     templateName: "worklets/worklet_view_logs_dialog",
     title: t("worklet.dialog.view_worklet_logs.title"),
-    persistent:true,
+    persistent: true,
 
-    setup:function () {
+    setup: function () {
 
       var flowId = this.options.flowId;
       var resultsId = this.options.resultsId;

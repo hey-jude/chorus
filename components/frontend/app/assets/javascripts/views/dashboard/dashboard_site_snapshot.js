@@ -1,6 +1,6 @@
 chorus.views.DashboardSiteSnapshot = chorus.views.Base.extend({
     constructorName: "DashboardSiteSnapshot",
-    templateName:"dashboard/site_snapshot",
+    templateName: "dashboard/site_snapshot",
     entityType: "site_snapshot",
 
     setup: function() {

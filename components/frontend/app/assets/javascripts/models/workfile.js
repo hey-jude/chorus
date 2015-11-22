@@ -58,7 +58,7 @@
             this.workspace().set({id: workspace.id});
         },
 
-        updateExecutionSchema:function(schema){
+        updateExecutionSchema: function(schema){
             delete this._executionSchema;
             return this.save({executionSchema: {id: schema.get("id")}}, {wait: true});
         },

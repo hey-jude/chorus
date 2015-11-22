@@ -4,9 +4,9 @@ chorus.dialogs.WorkletUsage = chorus.dialogs.Base.include(
         constructorName: "WorkletUsage",
         templateName: "worklets/worklet_usage_dialog",
         title: t("worklet.dialog.worklet_usage.title"),
-        persistent:true,
+        persistent: true,
 
-        setup:function () {
+        setup: function () {
             this.associatedWorklets = this.options.associatedWorklets;
         },
 

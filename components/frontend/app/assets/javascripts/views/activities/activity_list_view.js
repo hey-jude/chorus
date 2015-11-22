@@ -67,7 +67,7 @@ chorus.views.ActivityList = chorus.views.Base.extend({
         this.collection.each(function(model) {
             try {
                 var view = new chorus.views.Activity({
-                    model:model,
+                    model: model,
                     displayStyle: this.options.displayStyle,
                     isNotification: this.options.isNotification,
                     isReadOnly: this.options.isReadOnly

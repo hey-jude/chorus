@@ -2,7 +2,7 @@ chorus.models.Insight = chorus.models.Note.extend({
     constructorName: "Insight",
     parameterWrapper: "note",
 
-    urlTemplate:function (options) {
+    urlTemplate: function (options) {
         var action = this.get('action');
 
         if (options && options.isFile) {
@@ -23,7 +23,7 @@ chorus.models.Insight = chorus.models.Note.extend({
         this.set({ isInsight: true });
     },
 
-    declareValidations:function (newAttrs) {
+    declareValidations: function (newAttrs) {
         if (newAttrs['validateBody'] !== false) {
             this.require('body', newAttrs);
         }

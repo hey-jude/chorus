@@ -9,7 +9,7 @@ chorus.dialogs.WorkfilesAttach = chorus.dialogs.PickItems.extend({
     modelClass: "Workfile",
     multiSelection: true,
 
-    makeModel:function () {
+    makeModel: function () {
         this.collection = new chorus.collections.WorkfileSet([], {workspaceId:this.options.workspaceId || this.options.workspaceId });
         this.collection = new chorus.collections.FilteringCollection(null, {collection: this.collection});
         this.collection.fetchAll();

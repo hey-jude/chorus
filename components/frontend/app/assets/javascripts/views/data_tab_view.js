@@ -1,7 +1,7 @@
 chorus.views.DataTab = chorus.views.DatabaseSidebarList.extend({
     constructorName: "DataTabView",
-    templateName:"data_tab",
-    useLoadingSection:true,
+    templateName: "data_tab",
+    useLoadingSection: true,
 
     subviews: {
         ".list_contents": "listview"
@@ -82,7 +82,7 @@ chorus.views.DataTab = chorus.views.DatabaseSidebarList.extend({
         this.collection.search($(e.target).val());
     },
 
-    setSchema:function(schema) {
+    setSchema: function(schema) {
         this._super("setSchema", arguments);
         this.focusSchema = schema;
     },
