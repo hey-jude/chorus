@@ -11,8 +11,6 @@ chorus.models.Branding = chorus.models.Base.extend ({
 
     initialize: function () {
 
-        //console.log ("chorus.models.Branding user: " + chorus.session.user() );
-        
         // setup a collection of values
 
         this.applicationLicense = chorus.models.Config.instance().license();
@@ -45,21 +43,21 @@ chorus.models.Branding = chorus.models.Base.extend ({
         this.applicationVersion = r;
     },
 
-    getApplicationVersion: function() {
+//     getApplicationVersion: function() {
         // 11.2015 this is the old mechanism for getting the application version via ajax call
         // but now the version is tacked on to the chorus license model (ruby)
-        that = this;
-        $.ajax({
-              url: "/VERSION",
-              dataType: "text"
-          })
-          .success (function(response) {
-              that.applicationVersion = response;
-          });
-    },
+//         that = this;
+//         $.ajax({
+//               url: "/VERSION",
+//               dataType: "text"
+//           })
+//           .success (function(response) {
+//               that.applicationVersion = response;
+//           });
+//     },
 
     getBrandingVendor: function() {
-        // get vendor
+        // vendor name
         return this.applicationLicense.branding();
     },
 
@@ -133,7 +131,7 @@ chorus.models.Branding = chorus.models.Base.extend ({
         return this.applicationLicense.advisorNowEnabled();
     },
 
-    getAdvisorNowLink: function(user, license) {
+//     getAdvisorNowLink: function(user, license) {
 //          return URI({
 //             protocol: "http",
 //             hostname: "advisor.alpinenow.com",
@@ -148,7 +146,7 @@ chorus.models.Branding = chorus.models.Base.extend ({
 //                 org_id: license.get("organizationUuid")
 //             })
 //         });
-  
+//   
 //          return URI({
 //             protocol: "mailto",
 //             to: "advisornow@alpinenow.com",
@@ -164,12 +162,11 @@ chorus.models.Branding = chorus.models.Base.extend ({
 //                 org_id: license.get("organizationUuid")
 //             })
 //         });
-      
-        
-    },
+//       
+//     },
 
-    createAdvisorNowLink: function(user, license) {
-
+    // createAdvisorNowLink: function(user, license) {
+// 
 //          return URI({
 //             hostname: "http://advisor.alpinenow.com",
 //             path: "start",
@@ -180,8 +177,8 @@ chorus.models.Branding = chorus.models.Base.extend ({
 //                 org_id: license.get("organizationUuid")
 //             })
 //         });
-
-    },
+// 
+//     },
 
     simpleAdvisorNowLink: function() {
         // basic link to prime the link
