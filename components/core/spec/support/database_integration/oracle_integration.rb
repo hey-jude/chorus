@@ -7,7 +7,7 @@ require_relative './database_integration_helper'
 module OracleIntegration
   extend DatabaseIntegrationHelper
 
-  JAR_FILE = Core::Engine.root + 'lib/libraries/ojdbc6.jar'
+  JAR_FILE = "#{ENV['CHORUS_HOME']}/lib/libraries/ojdbc6.jar"
 
   def self.versions_file_name
     'oracle_integration_file_versions'

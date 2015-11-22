@@ -2,12 +2,14 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
     constructorName: "AboutDialog",
     templateName: "dialogs/about",
     title: t("about.dialog.title"),
+
     focusSelector: null,
     
-   makeModel: function(options) {
+    makeModel: function(options) {
        this.model = this.license = chorus.models.Config.instance().license();
-   },
+    },
 
+// TODO remove this block when final
 //    setup: function(options) {
         //this.requiredResources.add(this.model);
         //this.model.fetch();
@@ -46,13 +48,13 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
                 keys.splice(0, 0, "collaborators", "admins", "developers");
                 break;
             case "pivotal":
-                break;              
+                break;
             case "openchorus":
                 break;
             default:
                 break;
         }
-        
+
         if (vendor !== "openchorus") {
             keys.splice(0, 0, "expires");
         }

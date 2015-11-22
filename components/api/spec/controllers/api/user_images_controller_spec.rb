@@ -14,7 +14,7 @@ describe Api::UserImagesController do
 
   describe "#create" do
     context("for User") do
-      let(:files) { [Rack::Test::UploadedFile.new(File.expand_path("spec/fixtures/small1.gif", ENV['CHORUS_HOME']), "image/gif")] }
+      let(:files) { [Rack::Test::UploadedFile.new(File.expand_path("spec/fixtures/files/small1.gif", ENV['CHORUS_HOME']), "image/gif")] }
 
       it "returns success" do
         post :create, :user_id => user.id, :files => files

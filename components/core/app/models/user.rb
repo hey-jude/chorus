@@ -47,10 +47,10 @@ class User < ActiveRecord::Base
   has_many :chorus_object_roles
   has_many :object_roles, :through => :chorus_object_roles, :source => :role
 
-
+  DEFAULT_USER_IMAGE = '/images/general/default-user.png'
   has_attached_file :image, :path => ":rails_root/system/:class/:id/:style/:basename.:extension",
                     :url => "/:class/:id/image?style=:style",
-                    :default_url => '/images/general/default-user.png', :styles => {:icon => "50x50>"}
+                    :default_url => DEFAULT_USER_IMAGE, :styles => {:icon => "50x50>"}
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   validates_presence_of :username, :first_name, :last_name, :email

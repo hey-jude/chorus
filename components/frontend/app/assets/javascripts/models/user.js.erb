@@ -49,8 +49,13 @@ chorus.models.User = chorus.models.Base.extend({
 
     fetchImageUrl: function (options) {
         var size = (options && options.size) || "original";
+
         var url = this.get("image") && this.get("image")[size];
-        return url && new URI(window.chorusApi.urlPrefix + url)
+        if(url != "<%= User::DEFAULT_USER_IMAGE %>") {
+            url = window.chorusApi.urlPrefix + url;
+        }
+
+        return url && new URI(url)
             .addSearch({ iebuster: chorus.cachebuster() })
             .toString();
     },
