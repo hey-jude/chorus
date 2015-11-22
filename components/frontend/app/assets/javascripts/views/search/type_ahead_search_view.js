@@ -40,8 +40,8 @@ chorus.views.TypeAheadSearch = chorus.views.Base.extend({
         return result.get('entityType');
     },
 
-    handleKeyEvent: function(event) {
-        switch (event.keyCode) {
+    handleKeyEvent: function(e) {
+        switch (e.keyCode) {
         case 40:
             this.downArrow();
             break;
@@ -50,7 +50,7 @@ chorus.views.TypeAheadSearch = chorus.views.Base.extend({
             break;
         case 13:
             this.enterKey();
-            if (this.$("li.selected").length > 0) { event.preventDefault(); }
+            if (this.$("li.selected").length > 0) { e.preventDefault(); }
             break;
         }
     },

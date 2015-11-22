@@ -60,12 +60,12 @@ chorus.dialogs.WorkletTest = chorus.dialogs.Base.extend({
         this.elapsedTimeCounter = setInterval(this.updateElapsedTime.bind(this), 1000);
     },
 
-    runEventHandler: function(event) {
-        if (event === 'runStopped') {
+    runEventHandler: function(e) {
+        if (e === 'runStopped') {
             this.$('#testResults_frame')[0].src = this.testResultUrl();
             this.$("#testResults_frame").on("load",
                 { counter: this.elapsedTimeCounter },
-                function (event) {
+                function (e) {
                     if(this.getAttribute('src')) {
                         $('#spinner').stopLoading();
                         $('#workletResults_loading').hide();

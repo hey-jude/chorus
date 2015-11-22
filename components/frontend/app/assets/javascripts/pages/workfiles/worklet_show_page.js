@@ -30,13 +30,13 @@ chorus.pages.WorkletWorkspaceDisplayBase = chorus.pages.Base.extend({
         }
     },
 
-    runEventHandler: function(event) {
-        if (event === 'runStarted') {
+    runEventHandler: function(e) {
+        if (e === 'runStarted') {
             if (_.isUndefined(this.pollerID)) {
                 this.pollerID = setInterval(this.pollForRunStatus, 1000);
             }
         }
-        else if (event === 'runStopped') {
+        else if (e === 'runStopped') {
             if (!_.isUndefined(this.pollerID)) {
                 clearInterval(this.pollerID);
                 this.pollerID = void 0;
@@ -258,15 +258,15 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
         this._super("menuEventHandler", [menu_item]);
     },
 
-    runEventHandler: function(event) {
-        if (event === 'runStarted') {
+    runEventHandler: function(e) {
+        if (e === 'runStarted') {
             if (_.isUndefined(this.pollerID)) {
                 this._last_hist_len = this.history.length;
                 this.sidebar.runEventHandler('runStarted');
                 this.pollerID = setInterval(this.pollForRunStatus, 1000);
             }
         }
-        else if (event === 'runStopped') {
+        else if (e === 'runStopped') {
             if (!_.isUndefined(this.pollerID)) {
                 // We want to continue polling until we have a history; running stop and history are asynchronously updated.
                 // Unless we "clicked stop"; in which case we don't expect an update in the history.
@@ -285,7 +285,7 @@ chorus.pages.WorkletRunPage = chorus.pages.WorkletWorkspaceDisplayBase.extend({
                 this.pollerID = void 0;
             }
         }
-        else if (event === 'clickedStop') {
+        else if (e === 'clickedStop') {
             this.clickedStop = true;
         }
     },

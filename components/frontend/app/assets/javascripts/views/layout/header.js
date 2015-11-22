@@ -120,8 +120,8 @@ chorus.views.Header = chorus.views.Base.extend({
         this.typeAheadView.disableSearch();
     },
 
-    searchKeyPressed: function(event) {
-        this.typeAheadView.handleKeyEvent(event);
+    searchKeyPressed: function(e) {
+        this.typeAheadView.handleKeyEvent(e);
     },
 
     clearSearch: function() {
@@ -252,11 +252,11 @@ chorus.views.Header = chorus.views.Base.extend({
         this.togglePopupUsermenu();
     },
 
-    aboutThisApp: function(e){
+    aboutThisApp: function(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.dialog = new chorus.dialogs.AboutThisApp();
-        this.dialog.launchModal();
+        this.dialog = new chorus.dialogs.AboutThisApp().launchModal();
+        //this.dialog.launchModal();
         this.togglePopupUsermenu();
     }
 

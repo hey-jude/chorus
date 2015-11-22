@@ -98,8 +98,8 @@ chorus.views.Bare = Backbone.View.include(
         bindHotkeys: function() {
             var keydownEventName = "keydown." + this.cid;
             _.each(this.hotkeys, _.bind(function(eventName, hotkey) {
-                $(document).bind(keydownEventName, chorus.hotKeyMeta + '+' + hotkey, function(event) {
-                    chorus.PageEvents.trigger(eventName, event);
+                $(document).bind(keydownEventName, chorus.hotKeyMeta + '+' + hotkey, function(e) {
+                    chorus.PageEvents.trigger(eventName, e);
                 });
             }));
 
@@ -341,8 +341,8 @@ chorus.views.Bare = Backbone.View.include(
             }, this));
         },
 
-        onMouseWheel: function(event) {
-            event.preventDefault();
+        onMouseWheel: function(e) {
+            e.preventDefault();
         },
 
         recalculateScrolling: function(el) {
@@ -430,10 +430,10 @@ chorus.views.Bare = Backbone.View.include(
                 qtipArgs.events || (qtipArgs.events = {});
                 qtipArgs.events.render = function(event, api) {
                     _.each(options.contentEvents, function(callback, selector) {
-                        var wrappedCallback = function(event) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            callback.call(self, event, api);
+                        var wrappedCallback = function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            callback.call(self, e, api);
                             api.hide();
                         };
                         $(api.elements.content).find(selector).click(wrappedCallback);

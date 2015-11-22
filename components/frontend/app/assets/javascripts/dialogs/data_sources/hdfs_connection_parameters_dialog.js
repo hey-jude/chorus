@@ -85,13 +85,13 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
         });
     },
 
-    showExternalConfig: function(event) {
-        event && event.preventDefault();
+    showExternalConfig: function(e) {
+        e && e.preventDefault();
         this.$(".load_configuration_area").removeClass("hidden");
     },
 
-    fetchExternalConfig: function(event) {
-        event && event.preventDefault();
+    fetchExternalConfig: function(e) {
+        e && e.preventDefault();
 
         this.host_info = {
             host: this.$("#configuration_host").val().trim(),
@@ -154,8 +154,8 @@ chorus.dialogs.HdfsConnectionParameters = chorus.dialogs.Base.extend({
         this.render();
     },
 
-    cancelExternalConfig: function(event) {
-        event && event.preventDefault();
+    cancelExternalConfig: function(e) {
+        e && e.preventDefault();
         this.$(".load_configuration_area").addClass("hidden");
     },
 

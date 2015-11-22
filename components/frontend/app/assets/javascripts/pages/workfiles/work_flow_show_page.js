@@ -35,12 +35,12 @@ chorus.pages.WorkFlowShowPage = chorus.pages.Base.include(
         };
     },
 
-    respondToIframe: function(event) {
-        if(event.data.action === 'unauthorized') {
+    respondToIframe: function(e) {
+        if(e.data.action === 'unauthorized') {
             chorus.requireLogin();
-        } else if(event.data.action === 'go_to_workfile') {
+        } else if(e.data.action === 'go_to_workfile') {
             chorus.router.navigate(this.model.showUrl());
-        } else if(event.data.action === 'allow_close') {
+        } else if(e.data.action === 'allow_close') {
             chorus.router.navigate(this.intendedHref);
         }
     },

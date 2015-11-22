@@ -289,9 +289,9 @@ jasmine.sharedExamples.PageItemList = function () {
                 });
 
                 function shiftClick(target) {
-                    var event = jQuery.Event("click");
-                    event.shiftKey = true;
-                    target.trigger(event);
+                    var e = jQuery.Event("click");
+                    e.shiftKey = true;
+                    target.trigger(e);
                 }
 
                 describe("holding shift and clicking selects the item in between", function() {
