@@ -1,31 +1,43 @@
 chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
+    constructorName: "AboutDialog",
     templateName: "dialogs/about",
     title: t("about.dialog.title"),
-
+    focusSelector: null,
     
-    makeModel: function(options) {
-        this.model = this.license = chorus.models.Config.instance().license();
-    },
+   makeModel: function(options) {
+       this.model = this.license = chorus.models.Config.instance().license();
+   },
 
-    setup: function(options) {
-        this.requiredResources.add(this.model);
-        this.model.fetch();
-    },
+//    setup: function(options) {
+        //this.requiredResources.add(this.model);
+        //this.model.fetch();
+        //
+        //console.log ("About: setup");
+//    },
 
     additionalContext: function() {
-
-        return _.extend({
-            items: this.items(),
+        
+//         return _.extend({
+//             items: this.items(),
+//             applicationKey: "about." + this.model.applicationKey(),
+//             version: chorus.branding.applicationVersion,
+//             branding: chorus.branding.applicationVendor,
+//             brandingLogo: chorus.branding.applicationLoginLogo,
+//             copyright: chorus.branding.copyright,
+//             
+//         }, this.pageOptions);
+        return {
+            items: this.licenseItems(),
             applicationKey: "about." + this.model.applicationKey(),
             version: chorus.branding.applicationVersion,
             branding: chorus.branding.applicationVendor,
             brandingLogo: chorus.branding.applicationLoginLogo,
             copyright: chorus.branding.copyright,
-            
-        }, this.pageOptions);
+        };
+        
     },
     
-    items: function() {
+    licenseItems: function() {
         var keys = [];
         var vendor = chorus.branding.applicationVendor;
 
@@ -44,12 +56,13 @@ chorus.dialogs.AboutThisApp = chorus.dialogs.Base.extend ({
         if (vendor !== "openchorus") {
             keys.splice(0, 0, "expires");
         }
-
+           
         return _.map(keys, function(key) {
             return {
                 key: key,
                 translationKey: "about." + key,
-                value: this.model.get(key)
+                value: this.license.get(key),
+                
             };
         }, this);
     }
