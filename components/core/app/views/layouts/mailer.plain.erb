@@ -7,9 +7,11 @@
 <%= yield %>
 
 
+--------------------
 
 
-You're receiving this email because you have an account on <%= link_to License.instance.branding_title, build_backbone_url("/") %>.
+You're receiving this email because you have an account 
+on <%= link_to License.instance.branding_title, build_backbone_url("/") %>.
 
 To change your email preferences,
 <%= link_to 'Edit Your Profile', build_backbone_url("/users/#{@user.id}/edit") %>.
