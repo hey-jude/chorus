@@ -43,6 +43,7 @@ Gem::Specification.new do |s|
 
   # CSS styled emails without the hassle
   s.add_dependency 'premailer-rails'
+  s.add_dependency 'nokogiri', '1.6.6.2'
 
   # Gem that allows you to call view renders from anywhere (model, lib, rake, etc.)
   s.add_dependency 'render_anywhere'

@@ -7,9 +7,15 @@ class Mailer < ActionMailer::Base
     @job_result = event.job_result
     @job_task_results = event.job_result.job_task_results
 
-    attachments[as_png('logo')] = logo(License.instance)
-    attachments[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'workfiles', 'icon', 'afm.png'))
-    attachments[as_png(ImportSourceDataTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-import.png'))
+    #@email_with_name = '#{user.name} <#{user.email}>'
+
+
+    attachments.inline[as_png('logo')] = logo(License.instance)
+
+#    attachments[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'workfiles', 'icon', 'afm.png'))
+    attachments.inline[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-afm.png'))
+    attachments.inline[as_png(ImportSourceDataTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-import.png'))
+    attachments.inline[as_png(ImportSourceDataTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-sql.png'))
 
     safe_deliver mail(:to => user.email, :subject => event.header)
   end
@@ -20,13 +26,15 @@ class Mailer < ActionMailer::Base
     @branding = license.branding
     attachments[as_png('logo')] = logo(license)
 
+    #@email_with_name = '#{user.name} <#{user.email}>'
+
     safe_deliver mail(:to => user.email, :subject => 'Your Chorus license is expiring.')
   end
 
   private
 
   def logo(license)
-    File.read(Core::Engine.root.join('public', 'images', 'branding', 'mailer', %(#{license.branding}-logo.png)))
+    File.read(Core::Engine.root.join('public', 'images', 'branding', 'email', %(#{license.branding}-logo.png)))
   end
 
   def safe_deliver(mail)
