@@ -3,7 +3,7 @@ chorus.views.Header = chorus.views.Base.extend({
     templateName: "header",
 
     search_throttle_milliseconds: 440,  // was 500. speed it up a tiny bit
-    
+
     events: {
         "click .username a.label": "togglePopupUsermenu",
         "click a.notifications": "togglePopupNotifications",
@@ -53,19 +53,19 @@ chorus.views.Header = chorus.views.Base.extend({
 
         var advisorNow = chorus.branding.applicationAdvisorNowEnabled;
         var advisorNowLink;
-        (advisorNow) ? advisorNowLink = chorus.branding.advisorNowLink : "";
-        
+        (advisorNow) ? advisorNowLink = chorus.branding.advisorNowLink : null;
+
         return _.extend(ctx, this.session.attributes, {
             notifications: this.unreadNotifications,
             fullName: user && user.displayName(),
             firstName: user && user.get('firstName'),
             userUrl: user && user.showUrl(),
-            
+
             helpLinkUrl: chorus.branding.applicationHelpLink,
             brandingVendor: chorus.branding.applicationVendor,
             isAlpine: chorus.branding.isAlpine,
             brandingLogo: chorus.branding.applicationHeaderLogo,
-            
+
             advisorNow: advisorNow,
             advisorNowLink: advisorNowLink,
         });
@@ -77,7 +77,6 @@ chorus.views.Header = chorus.views.Base.extend({
         this.modifyTypeAheadSearchPosition();
         this.displayNotificationCount();
 
-        
         if (chorus.isDevMode()) {
             this.addFastUserToggle();
         }
@@ -173,11 +172,11 @@ chorus.views.Header = chorus.views.Base.extend({
 
         var newlink = this.complexAdvisorNowLink (this.session.user(), chorus.models.Config.instance().license());
         $("#advisorNow a").attr("href", newlink);
-        
+
         // and now let it continue on...
     },
-    
-    
+
+
     complexAdvisorNowLink: function(user, license) {
         return new URI({
             protocol: "http",
@@ -190,7 +189,7 @@ chorus.views.Header = chorus.views.Base.extend({
                 org_id: license.get("organizationUuid")
             })
         });
-        
+
     },
 
     refreshNotifications: function() {
@@ -256,7 +255,6 @@ chorus.views.Header = chorus.views.Base.extend({
         e.preventDefault();
         e.stopPropagation();
         this.dialog = new chorus.dialogs.AboutThisApp().launchModal();
-        //this.dialog.launchModal();
         this.togglePopupUsermenu();
     }
 
