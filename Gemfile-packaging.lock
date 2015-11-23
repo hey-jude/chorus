@@ -208,8 +208,8 @@ GEM
       execjs (>= 1.2.9)
       sprockets (>= 2.0.3)
       tilt
-    highline (1.7.8)
     hashie (3.4.2)
+    highline (1.7.8)
     hike (1.2.3)
     honor_codes (0.1.1)
       thor (~> 0.18.1)
@@ -381,6 +381,7 @@ DEPENDENCIES
   shoulda-matchers (= 2.8.0)
   simplecov (= 0.10.0)
   sunspot_matchers (= 2.1.0.0)
+  tabcmd_gem!
   timecop (= 0.8.0)
   vis_legacy!
 
