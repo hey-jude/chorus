@@ -243,5 +243,5 @@
   })();
 
   Backbone.debug = new Backbone.Debug();
-
+  Backbone.debug.off();
 }).call(this);
