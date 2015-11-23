@@ -15,7 +15,7 @@ Rails.application.configure do
   # See: https://github.com/Chorus/chorus/commit/267732274571bd77f3a66ab197de20751992694e
   if ChorusConfig.instance["mail.enabled"]
     config.action_mailer.raise_delivery_errors = true
-    config.action_mailer.logger = :logger
+    #config.action_mailer.logger = :logger
     config.action_mailer.delivery_method = :smtp
     #config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
     config.action_mailer.smtp_settings = ChorusConfig.instance.smtp_configuration
