@@ -4,8 +4,7 @@ FactoryGirl.define do
   factory :alpine_workfile, aliases: [:work_flow] do
     owner
     workspace
-    description "Using two datasources to #{Faker::Company.bs.downcase}."
-    file_name Faker::Lorem.word
+    file_name 'work_flow.ext'
 
     factory :work_flow_with_all_data_sources do
       after(:create) do |workfile, evaluator|

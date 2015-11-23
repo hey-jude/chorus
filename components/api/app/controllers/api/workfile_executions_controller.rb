@@ -42,7 +42,7 @@ module Api
     end
 
     def check_authorization
-      Authority.authorize! :update, @workfile.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, @workfile.workspace, current_user, {:or => :can_edit_sub_objects}
     end
   end
 end

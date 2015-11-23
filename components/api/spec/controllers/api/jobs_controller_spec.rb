@@ -88,7 +88,7 @@ describe Api::JobsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       post :create, params
     end
 
@@ -199,7 +199,7 @@ describe Api::JobsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       put :update, params
     end
 
@@ -327,7 +327,7 @@ describe Api::JobsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       delete :destroy, params
     end
   end
@@ -336,7 +336,7 @@ describe Api::JobsController do
     let(:job) { FactoryGirl.create(:job, workspace: workspace, enabled: false) }
 
     it 'uses authorization and enqueues the job' do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       mock(QC.default_queue).enqueue_if_not_queued('Job.run', job.id)
       post :run, :id => job.id
     end
@@ -366,7 +366,7 @@ describe Api::JobsController do
     let(:job) { FactoryGirl.create(:job, workspace: workspace, enabled: false) }
 
     it 'uses authorization and kills the job' do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       any_instance_of(Job) { |job| mock(job).kill }
       post :stop, :id => job.id
     end

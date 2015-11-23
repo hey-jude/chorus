@@ -6,7 +6,7 @@ module Api::Hdfs
     before_filter :check_source_disabled?
 
     def create
-      Authority.authorize! :create, upload, current_user, { :or => :current_user_is_objects_user }
+      Authorization::Authority.authorize! :create, upload, current_user, { :or => :current_user_is_objects_user }
 
       hdfs_import = HdfsImport.new(:hdfs_entry => hdfs_entry, :upload => upload, :file_name => file_name)
       hdfs_import.user = current_user

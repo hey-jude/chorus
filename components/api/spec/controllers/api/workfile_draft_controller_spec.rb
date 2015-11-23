@@ -35,7 +35,7 @@ describe Api::WorkfileDraftController do
       end
 
       it "uses authorization" do
-        mock(Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
+        mock(Authorization::Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
 
         post :create, valid_attributes
       end
@@ -55,7 +55,7 @@ describe Api::WorkfileDraftController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :show,
+      mock(Authorization::Authority).authorize! :show,
                                  workfile.workspace,
                                  user,
                                  { :or => [ :current_user_is_in_workspace,
@@ -81,7 +81,7 @@ describe Api::WorkfileDraftController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
       put :update, :content => "I am a leaf upon the wind, watch how I soar.", :workfile_id => workfile.id
     end
   end
@@ -99,7 +99,7 @@ describe Api::WorkfileDraftController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
       delete :destroy, :workfile_id => workfile.id
     end
   end

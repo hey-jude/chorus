@@ -177,12 +177,12 @@ describe Api::WorkfilesController do
           end
 
           it "validates the datasource connections" do
-            mock(Authority).authorize!(:show,
+            mock(Authorization::Authority).authorize!(:show,
                                        alpine_workfile.workspace,
                                        non_member,
                                        { :or => [ :current_user_is_in_workspace,
                                                   :workspace_is_public ] })
-            mock(Authority).authorize! :explore_data, alpine_workfile.data_sources.first, non_member, { :or => [:data_source_is_shared, :data_source_account_exists] }
+            mock(Authorization::Authority).authorize! :explore_data, alpine_workfile.data_sources.first, non_member, { :or => [:data_source_is_shared, :data_source_account_exists] }
             any_instance_of(AlpineWorkfile) do |workfile|
               mock(workfile).attempt_data_source_connection
             end
@@ -584,7 +584,7 @@ describe Api::WorkfilesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!(:update, public_workfile.workspace, user, { :or => :can_edit_sub_objects })
+      mock(Authorization::Authority).authorize!(:update, public_workfile.workspace, user, { :or => :can_edit_sub_objects })
       put :update, options
     end
 
@@ -780,7 +780,7 @@ describe Api::WorkfilesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!(:update, public_workfile.workspace, member, { :or => :can_edit_sub_objects })
+      mock(Authorization::Authority).authorize!(:update, public_workfile.workspace, member, { :or => :can_edit_sub_objects })
       delete :destroy, :id => public_workfile.id
     end
 
@@ -811,7 +811,7 @@ describe Api::WorkfilesController do
     end
 
     it 'uses authorization' do
-      mock(Authority).authorize!(:update, workspace, member, { :or => :can_edit_sub_objects })
+      mock(Authorization::Authority).authorize!(:update, workspace, member, { :or => :can_edit_sub_objects })
       delete :destroy_multiple, :workspace_id => workspace.id
     end
 
@@ -843,7 +843,7 @@ describe Api::WorkfilesController do
     end
 
     it 'uses authorization and runs the workflow' do
-      mock(Authority).authorize!(:update, workfile.workspace, user, { :or => :can_edit_sub_objects })
+      mock(Authorization::Authority).authorize!(:update, workfile.workspace, user, { :or => :can_edit_sub_objects })
       post :run, :id => workfile.id
     end
 
@@ -878,7 +878,7 @@ describe Api::WorkfilesController do
     end
 
     it 'uses authorization and stops the workflow' do
-      mock(Authority).authorize!(:update, workfile.workspace, user, { :or => :can_edit_sub_objects })
+      mock(Authorization::Authority).authorize!(:update, workfile.workspace, user, { :or => :can_edit_sub_objects })
       post :stop, :id => workfile.id
     end
 

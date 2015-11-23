@@ -5,6 +5,7 @@ json.entity_type "workspace"
 json.is_deleted workspace.deleted?
 json.summary workspace.summary
 json.archived_at workspace.archived_at
+# KT TODO Authorization::Engine
 json.permission workspace.permissions_for(user)
 json.public workspace.public
 json.datasets_count  workspace.dataset_count(user)

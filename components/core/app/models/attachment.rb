@@ -1,6 +1,5 @@
 class Attachment < ActiveRecord::Base
   include SharedSearch
-  include Permissioner
 
   attr_accessible :contents
 

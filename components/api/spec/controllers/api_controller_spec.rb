@@ -166,7 +166,7 @@ describe ApiController do
 
     describe "when an access denied error is raised" do
       let(:object_to_present) { data_sources(:default) }
-      let(:exception) { Authority::AccessDenied.new("Forbidden", "action", users(:admin)) }
+      let(:exception) { Authorization::AccessDenied.new("Forbidden", "action", users(:admin)) }
 
       before do
         log_in users(:owner)

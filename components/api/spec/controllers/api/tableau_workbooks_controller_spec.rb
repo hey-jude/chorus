@@ -52,7 +52,7 @@ describe Api::TableauWorkbooksController do
     end
 
     it 'is authenticated' do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       post :create, params
       response.code.should == '201'
     end

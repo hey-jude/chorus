@@ -1,7 +1,6 @@
 # KT TODO: it's strange how this inherits from StreamsController
 module Api
   class DatasetDownloadsController < StreamsController
-    include DataSourceAuth
 
     def show
       dataset = Dataset.find(params[:dataset_id])

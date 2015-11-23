@@ -17,7 +17,7 @@ describe Api::WorkspaceSearchController do
       mock(WorkspaceSearch).new(user, anything) do |user, params|
       end
 
-      mock(Authority).authorize! :show, workspace, user, { :or => :handle_legacy_show }
+      mock(Authorization::Authority).authorize! :show, workspace, user, { :or => :handle_legacy_show }
 
       get :show, :query => 'marty', :workspace_id => workspace.id
     end

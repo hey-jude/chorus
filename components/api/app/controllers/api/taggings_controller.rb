@@ -7,7 +7,7 @@ module Api
       taggables = params[:tagging][:taggables]
       taggables.each do |taggable|
         model = ModelMap.model_from_params(taggable[:entity_type], taggable[:entity_id])
-        Authority.authorize! :show, model, current_user, {:or => :handle_legacy_show}
+        Authorization::Authority.authorize! :show, model, current_user, {:or => :handle_legacy_show}
 
         tag_names = model.tags.map(&:name)
 
@@ -30,7 +30,7 @@ module Api
 
     def index
       model = ModelMap.model_from_params(params[:entity_type], params[:entity_id])
-      Authority.authorize! :show, model, current_user, {:or => :handle_legacy_show}
+      Authorization::Authority.authorize! :show, model, current_user, {:or => :handle_legacy_show}
       present model.tags
     end
 

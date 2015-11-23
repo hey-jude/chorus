@@ -1,7 +1,5 @@
 class Notification < ActiveRecord::Base
   include SoftDelete
-  include Permissioner
-
 
   attr_accessible :event_id, :recipient_id, :comment_id, :event, :recipient
 

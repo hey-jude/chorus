@@ -87,7 +87,7 @@ describe Api::NotificationsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :destroy, @notification, current_user, { :or => :current_user_is_object_recipient }
+      mock(Authorization::Authority).authorize! :destroy, @notification, current_user, { :or => :current_user_is_object_recipient }
       delete :destroy, :id => @notification.id
     end
 

@@ -1,6 +1,5 @@
 module Api
   class StatisticsController < ApiController
-    include DataSourceAuth
 
     def show
       dataset = Dataset.find(params[:dataset_id])

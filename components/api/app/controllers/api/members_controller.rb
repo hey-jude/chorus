@@ -2,7 +2,7 @@ module Api
   class MembersController < ApiController
     def index
       workspace = Workspace.find(params[:workspace_id])
-      Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
+      Authorization::Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
                                                                     :workspace_is_public]}
 
       if current_user_is_admin?
@@ -17,7 +17,7 @@ module Api
 
     def create
       workspace = Workspace.find(params[:workspace_id])
-      Authority.authorize! :show, workspace, current_user, {:or => :current_user_is_object_owner}
+      Authorization::Authority.authorize! :show, workspace, current_user, {:or => :current_user_is_object_owner}
 
       WorkspaceMembersManager.new(
         workspace,

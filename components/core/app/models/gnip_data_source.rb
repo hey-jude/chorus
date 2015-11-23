@@ -2,7 +2,6 @@ class GnipDataSource < ActiveRecord::Base
   include TaggableBehavior
   include Notable
   include SoftDelete
-  include Permissioner
 
   attr_accessible :name, :stream_url, :description, :username, :password, :owner, :state
   attr_accessor :highlighted_attributes, :search_result_notes

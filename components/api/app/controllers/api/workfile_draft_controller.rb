@@ -12,7 +12,7 @@ module Api
     end
 
     def show
-      Authority.authorize! :show,
+      Authorization::Authority.authorize! :show,
                            @workfile.workspace,
                            current_user,
                            {:or => [:current_user_is_in_workspace,
@@ -40,7 +40,7 @@ module Api
     end
 
     def authorize_sub_objects
-      Authority.authorize! :update, @workfile.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, @workfile.workspace, current_user, {:or => :can_edit_sub_objects}
     end
 
   end

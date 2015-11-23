@@ -1,6 +1,5 @@
 module Api
   class FunctionsController < ApiController
-    include DataSourceAuth
 
     def index
       schema = Schema.sandboxable.find(params[:schema_id])

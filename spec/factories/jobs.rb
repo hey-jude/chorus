@@ -58,7 +58,7 @@ FactoryGirl.define do
   end
 
   factory :job do
-    name { Faker::Company.bs.titlecase }
+    name { "job#{rand(10000)}" }
     association :workspace, :factory => :workspace_with_sandbox
     next_run 2.days.from_now
     end_run 3.days.from_now

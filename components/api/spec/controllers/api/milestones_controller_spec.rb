@@ -70,7 +70,7 @@ describe Api::MilestonesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       delete :destroy, params
     end
   end
@@ -97,7 +97,7 @@ describe Api::MilestonesController do
     end
 
     it 'uses authorization' do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       put :update, params
     end
   end

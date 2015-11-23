@@ -7,10 +7,6 @@ describe WorkfileVersion do
 
   subject { version }
 
-  it_behaves_like "a permissioned model" do
-    let!(:model) { version }
-  end
-
   describe "methods relating to file type" do
     before do
       version.contents = test_file(filename)

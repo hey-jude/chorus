@@ -710,8 +710,4 @@ describe "Event types" do
     it_creates_activities_for { [actor, workspace, dataset, workfile] }
     it_does_not_create_a_global_activity
   end
-
-  it_behaves_like "a permissioned model" do
-    let!(:model) { Events::Base.create! }
-  end
 end

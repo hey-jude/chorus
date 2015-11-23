@@ -1,13 +1,11 @@
 module Api
   class DataSourcesController < ApiController
-    include DataSourceAuth
 
     wrap_parameters :data_source, :exclude => []
 
     before_filter :find_data_source, :only => [:show, :update, :destroy]
     before_filter :hide_disabled_source, :only => [:show, :update]
     before_filter :demo_mode_filter, :only => [:create, :update, :destroy]
-    before_filter :require_data_source_create, :only => [:create]
 
     def index
       succinct = params[:succinct] == 'true'
@@ -22,7 +20,7 @@ module Api
     end
 
     def show
-      Authority.authorize! :show, @data_source, current_user, {:or => :data_source_is_shared}
+      Authorization::Authority.authorize! :show, @data_source, current_user, {:or => :data_source_is_shared}
       present @data_source
     end
 
@@ -35,7 +33,7 @@ module Api
     end
 
     def update
-      Authority.authorize! :update, @data_source, current_user, { :or => :current_user_is_object_owner }
+      Authorization::Authority.authorize! :update, @data_source, current_user, { :or => :current_user_is_object_owner }
       @data_source.assign_attributes(params[:data_source])
 
       @data_source.save_if_incomplete!(params[:data_source])
@@ -43,13 +41,13 @@ module Api
     end
 
     def destroy
-      Authority.authorize! :destroy, @data_source, current_user, { :or => :current_user_is_object_owner }
+      Authorization::Authority.authorize! :destroy, @data_source, current_user, { :or => :current_user_is_object_owner }
       @data_source.destroy
       head :ok
     end
 
     def self.render_forbidden_if_disabled(params)
-      raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if DataSource.find(params[:data_source_id]).state == 'disabled'
+      raise Authorization::AccessDenied.new("Forbidden", :data_source, nil) if DataSource.find(params[:data_source_id]).state == 'disabled'
     end
 
     private
@@ -63,7 +61,7 @@ module Api
     end
 
     def hide_data_source?
-      !Permissioner.is_admin?(current_user) && @data_source.disabled? && @data_source.owner != current_user
+      !Authorization::Permissioner.is_admin?(current_user) && @data_source.disabled? && @data_source.owner != current_user
     end
   end
 end

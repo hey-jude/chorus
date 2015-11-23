@@ -3,7 +3,7 @@ module Api
     include FileDownloadHelper
 
     def show
-      Authority.authorize! :show,
+      Authorization::Authority.authorize! :show,
                            workfile.workspace,
                            current_user,
                            {:or => [:current_user_is_in_workspace,

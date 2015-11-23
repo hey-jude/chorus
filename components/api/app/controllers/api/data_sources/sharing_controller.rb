@@ -4,7 +4,7 @@ module Api::DataSources
     before_filter :check_source_disabled?
 
     def create
-      Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
+      Authorization::Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
 
       data_source.shared = true
       data_source.accounts.where("id != #{data_source.owner_account.id}").destroy_all
@@ -13,7 +13,7 @@ module Api::DataSources
     end
 
     def destroy
-      Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
+      Authorization::Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
 
       data_source.shared = false
       data_source.save!

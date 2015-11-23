@@ -3,7 +3,6 @@ class Dataset < ActiveRecord::Base
   include SoftDelete
   include TaggableBehavior
   include Notable
-  include Permissioner
 
   unscoped_belongs_to :schema
 

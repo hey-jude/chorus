@@ -7,7 +7,7 @@ module Api
     def create
       chorus_view = ChorusView.new(params[:chorus_view])
 
-      Authority.authorize! :update, chorus_view.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, chorus_view.workspace, current_user, {:or => :can_edit_sub_objects}
 
       if (params[:chorus_view][:source_object_type] == 'workfile')
         source_object = Workfile.find(params[:chorus_view][:source_object_id])
@@ -31,7 +31,7 @@ module Api
       old_chorus_view = @chorus_view
       chorus_view = old_chorus_view.create_duplicate_chorus_view(params[:chorus_view][:object_name])
 
-      Authority.authorize! :update, chorus_view.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, chorus_view.workspace, current_user, {:or => :can_edit_sub_objects}
 
       ChorusView.transaction do
         chorus_view.save!
@@ -81,7 +81,7 @@ module Api
     end
 
     def authorize
-      Authority.authorize! :update, @chorus_view.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, @chorus_view.workspace, current_user, {:or => :can_edit_sub_objects}
     end
 
   end

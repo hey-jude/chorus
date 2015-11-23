@@ -3,7 +3,6 @@ require 'will_paginate/array'
 module Api
   class PublishedWorkletController < ApiController
     wrap_parameters :workfile
-    include DataSourceAuth
 
     #before_filter :convert_form_encoded_arrays, :only => [:create, :update]
     #before_filter :authorize_edit_workfile, :only => [:update, :destroy,  :run, :stop]
@@ -20,7 +19,7 @@ module Api
     def show
       #authorize! :show, worklet.workspace
       if worklet.state != 'published'
-        Authority.raise_access_denied(:show, worklet)
+        Authorization::Authority.raise_access_denied(:show, worklet)
       end
 
       present worklet, :presenter_options => {:contents => true, :workfile_as_latest_version => true}
@@ -54,7 +53,7 @@ module Api
                 temp_data_source_account.save!
                 temp_accounts.push(temp_data_source_account)
               else
-                Authority.raise_access_denied(:run, execution_location)
+                Authorization::Authority.raise_access_denied(:run, execution_location)
               end
             end
           end
@@ -72,7 +71,7 @@ module Api
           end
         end
         present worklet, :status => :accepted
-      rescue Authority::AccessDenied
+      rescue Authorization::AccessDenied
         render_no_db_access
       rescue Alpine::API::RunError
         render_run_failed

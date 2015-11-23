@@ -41,7 +41,7 @@ describe Api::HdfsDatasetsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects}
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects}
       post :create, params
     end
 
@@ -72,7 +72,7 @@ describe Api::HdfsDatasetsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       put :update, :name => new_name, :id => dataset.id
     end
 
@@ -91,7 +91,7 @@ describe Api::HdfsDatasetsController do
     let(:dataset) { datasets(:hadoop) }
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       delete :destroy, :id => dataset.id
     end
 

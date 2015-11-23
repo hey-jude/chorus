@@ -11,12 +11,12 @@ describe Api::SandboxesController do
   before do
     log_in owner
     #
-    stub(Authority).authorize!.with_any_args { nil }
+    stub(Authorization::Authority).authorize!.with_any_args { nil }
   end
 
   describe '#create' do
     it 'uses authentication' do
-      mock(Authority).authorize!.with_any_args
+      mock(Authorization::Authority).authorize!.with_any_args
       post :create, :workspace_id => workspace.id, :schema_id => sandbox.id
     end
 

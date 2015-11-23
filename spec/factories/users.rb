@@ -2,19 +2,19 @@ require 'factory_girl'
 
 FactoryGirl.define do
   factory :user, :aliases => [:owner, :modifier, :actor] do
-    sequence(:username) { |n| "user#{n + FACTORY_GIRL_SEQUENCE_OFFSET}" }
+    sequence(:username) { |n| "user#{n}" }
     password 'password'
-    first_name {Faker::Name.first_name}
-    last_name {Faker::Name.last_name}
+    first_name 'Chorus'
+    last_name 'User'
     title 'Chief Data Scientist'
     dept 'Corporation Corp., Inc.'
     notes 'One of our top performers'
-    email {Faker::Internet.email(first_name)}
+    email 'chorususer@alpinenow.com'
   end
 
   factory :admin, :parent => :user do
-    sequence(:first_name) { |n| "Admin_#{n + FACTORY_GIRL_SEQUENCE_OFFSET}" }
-    sequence(:last_name) { |n| "User_#{n + FACTORY_GIRL_SEQUENCE_OFFSET}" }
+    sequence(:first_name) { |n| "Admin_#{n}" }
+    sequence(:last_name) { |n| "User_#{n}" }
     admin true
   end
 end

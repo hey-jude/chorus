@@ -28,7 +28,6 @@ FixtureBuilder.configure do |fbuilder|
     spec/support/database_integration/*
     tmp/*_HOST_STALE
     spec/support/test_data_sources_config.yml
-    db/permissions_seeds.rb
   }]
 
   fbuilder.name_model_with(ChorusWorkfile) do |record|
@@ -38,7 +37,7 @@ FixtureBuilder.configure do |fbuilder|
     record['username'].downcase
   end
 
-  fbuilder.fixture_builder_file = Core::Engine.root + "tmp/fixture_builder_#{GreenplumIntegration.hostname}_#{Rails.env}.yml"
+  fbuilder.fixture_builder_file = Api::Engine.root + "tmp/fixture_builder_#{GreenplumIntegration.hostname}_#{Rails.env}.yml"
 
   # now declare objects
   fbuilder.factory do
@@ -64,7 +63,7 @@ FixtureBuilder.configure do |fbuilder|
       ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{table_name}_id_seq RESTART WITH 1000000;")
     end
 
-    load "#{Core::Engine.root}/db/permissions_seeds.rb"
+    load "#{Authorization::Engine.root}/db/permissions_seeds.rb"
 
     #Roles, Groups, and Permissions
     @a_role = FactoryGirl.create(:role)
@@ -764,7 +763,7 @@ FixtureBuilder.configure do |fbuilder|
       co.save!
     end
 
-    load "#{Core::Engine.root}/lib/permissions_migrator.rb"
+    load "#{Authorization::Engine.root}/db/permissions_migrator.rb"
     PermissionsMigrator.assign_users_to_default_group
 
     Sunspot.session = Sunspot.session.original_session if Sunspot.session.is_a? SunspotMatchers::SunspotSessionSpy

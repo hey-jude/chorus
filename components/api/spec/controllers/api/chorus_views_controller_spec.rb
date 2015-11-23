@@ -30,7 +30,7 @@ describe Api::ChorusViewsController, :greenplum_integration do
       }
 
       it "uses authorization" do
-        mock(Authority).authorize!.with_any_args
+        mock(Authorization::Authority).authorize!.with_any_args
         post :create, options
       end
 
@@ -81,7 +81,7 @@ describe Api::ChorusViewsController, :greenplum_integration do
       }
 
       it "uses authorization" do
-        mock(Authority).authorize!.with_any_args
+        mock(Authorization::Authority).authorize!.with_any_args
         post :create, options
       end
 
@@ -151,7 +151,7 @@ describe Api::ChorusViewsController, :greenplum_integration do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!.with_any_args
+      mock(Authorization::Authority).authorize!.with_any_args
       post :duplicate, options
     end
 
@@ -180,7 +180,7 @@ describe Api::ChorusViewsController, :greenplum_integration do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!.with_any_args
+      mock(Authorization::Authority).authorize!.with_any_args
       put :update, options
     end
 
@@ -219,7 +219,7 @@ describe Api::ChorusViewsController, :greenplum_integration do
     let(:chorus_view) { datasets(:chorus_view) }
 
     it "uses authorization" do
-      mock(Authority).authorize!.with_any_args
+      mock(Authorization::Authority).authorize!.with_any_args
       delete :destroy, :id => chorus_view.to_param
     end
 
@@ -246,7 +246,7 @@ describe Api::ChorusViewsController, :greenplum_integration do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!.with_any_args
+      mock(Authorization::Authority).authorize!.with_any_args
       post :convert, :id => chorus_view.to_param, :object_name => "Gretchen", :workspace_id => workspace.id
     end
 

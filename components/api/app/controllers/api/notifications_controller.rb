@@ -21,7 +21,7 @@ module Api
 
     def destroy
       notification = Notification.find(params[:id])
-      Authority.authorize! :destroy, notification, current_user, {:or => :current_user_is_object_recipient}
+      Authorization::Authority.authorize! :destroy, notification, current_user, {:or => :current_user_is_object_recipient}
       notification.destroy
       render :json => {}
     end

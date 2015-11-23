@@ -49,7 +49,7 @@ describe DataSourceOwnership do
         it "complains" do
           expect {
             request_ownership_update
-          }.to raise_error(Authority::AccessDenied)
+          }.to raise_error(Authorization::AccessDenied)
         end
       end
     end

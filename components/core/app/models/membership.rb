@@ -3,8 +3,6 @@
 # since admins can create objects within a workspace
 # without having a membership.
 class Membership < ActiveRecord::Base
-  include Permissioner
-
   attr_accessible :role
   belongs_to :user, :touch => true
   belongs_to :workspace, :touch => true

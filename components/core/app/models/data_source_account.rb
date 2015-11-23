@@ -1,6 +1,4 @@
 class DataSourceAccount < ActiveRecord::Base
-  include Permissioner
-
 
   attr_accessible :db_username, :db_password, :owner
   validate :credentials_are_valid

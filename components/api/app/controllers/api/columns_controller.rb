@@ -1,6 +1,5 @@
 module Api
   class ColumnsController < ApiController
-    include DataSourceAuth
 
     def index
       dataset = Dataset.find(params[:dataset_id])

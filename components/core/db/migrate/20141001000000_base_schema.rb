@@ -192,7 +192,12 @@ class BaseSchema < ActiveRecord::Migration
       end
 
       add_index "datasets", ["deleted_at", "id"], :name => "index_datasets_on_deleted_at_and_id"
-      add_index "datasets", ["name", "schema_id", "type"], :name => "index_datasets_on_name_schema_id_and_type", :unique => true
+
+      # KT TODO: note this is not database agnostic, not serializable to schema.rb, and forces use of structure.sql --
+      # Prakash says: "Rails 4 migrations support indexing and constraints. We should look into it."
+      # add_index "datasets", ["name", "schema_id", "type"], :name => "index_datasets_on_name_schema_id_and_type", :unique => true
+      execute "CREATE UNIQUE INDEX index_datasets_on_name_schema_id_and_type ON datasets ( name, schema_id, type ) WHERE deleted_at IS NULL"
+
       add_index "datasets", ["schema_id"], :name => "index_database_objects_on_schema_id"
     end
 
@@ -562,6 +567,10 @@ class BaseSchema < ActiveRecord::Migration
         t.string "name"
         t.integer "taggings_count", :default => 0, :null => false
       end
+
+      # KT TODO: note this is not database agnostic, not serializable to schema.rb, and forces use of structure.sql --
+      # Prakash says: "Rails 4 migrations support indexing and constraints. We should look into it."
+      execute "CREATE UNIQUE INDEX index_tags_on_lowercase_name ON tags ((lower(name)));"
     end
 
     unless tables.include?("uploads")
@@ -600,6 +609,10 @@ class BaseSchema < ActiveRecord::Migration
         t.boolean "subscribed_to_emails", :default => true
         t.boolean "developer", :default => false, :null => false
       end
+
+      # KT TODO: note this is not database agnostic, not serializable to schema.rb, and forces use of structure.sql --
+      # Prakash says: "Rails 4 migrations support indexing and constraints. We should look into it."
+      execute "CREATE UNIQUE INDEX index_users_on_lower_case_username ON users (lower(username)) WHERE deleted_at IS NULL;"
 
       add_index "users", ["deleted_at", "id"], :name => "index_users_on_deleted_at_and_id"
     end
@@ -672,7 +685,11 @@ class BaseSchema < ActiveRecord::Migration
         t.string "status", :default => "idle"
       end
 
-      add_index "workfiles", ["file_name", "workspace_id"], :name => "index_workfiles_on_file_name_and_workspace_id", :unique => true
+      # KT TODO: note this is not database agnostic, not serializable to schema.rb, and forces use of structure.sql --
+      # Prakash says: "Rails 4 migrations support indexing and constraints. We should look into it."
+      # add_index "workfiles", ["file_name", "workspace_id"], :name => "index_workfiles_on_file_name_and_workspace_id", :unique => true
+      execute "CREATE UNIQUE INDEX index_workfiles_on_file_name_and_workspace_id ON workfiles (file_name, workspace_id) WHERE deleted_at IS NULL"
+
       add_index "workfiles", ["owner_id"], :name => "index_workfiles_on_owner_id"
       add_index "workfiles", ["workspace_id"], :name => "index_workfiles_on_workspace_id"
     end

@@ -62,11 +62,11 @@ module Api
     end
 
     def authorize_sub_objects
-      Authority.authorize! :update, @workfile.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, @workfile.workspace, current_user, {:or => :can_edit_sub_objects}
     end
 
     def authorize_show_workfile
-      Authority.authorize! :show, @workfile.workspace, current_user, {:or => :handle_legacy_show}
+      Authorization::Authority.authorize! :show, @workfile.workspace, current_user, {:or => :handle_legacy_show}
     end
 
   end

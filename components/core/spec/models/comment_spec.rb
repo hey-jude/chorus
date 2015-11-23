@@ -29,8 +29,4 @@ describe Comment do
   it_behaves_like 'a soft deletable model' do
     let(:model) { comments(:comment_on_note_on_greenplum)}
   end
-
-  it_behaves_like "a permissioned model" do
-    let!(:model) { attachments(:attachment_workspace) }
-  end
 end

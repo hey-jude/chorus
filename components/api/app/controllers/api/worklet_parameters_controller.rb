@@ -19,7 +19,7 @@ module Api
     def update
       #worklet = Worklet.find(params[:workfile_id])
 
-      # Authority.authorize! :edit, worklet_variable, current_user
+      # Authorization::Authority.authorize! :edit, worklet_variable, current_user
       worklet_parameter = WorkletParameter.find(params[:id])
       worklet_parameter.update_attributes!(params[:worklet_parameter])
 
@@ -36,7 +36,7 @@ module Api
     def destroy
       worklet_parameter = WorkletParameter.find(params[:id])
 
-      #Authority.authorize! :destroy, worklet_variable, current_user
+      # Authorization::Authority.authorize! :destroy, worklet_variable, current_user
       worklet_parameter.destroy
 
       head :ok
