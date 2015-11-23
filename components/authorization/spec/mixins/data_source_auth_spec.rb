@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe DataSourceAuth do
-  include DataSourceAuth
+describe Authorization::DataSourceAuth do
+  include Authorization::DataSourceAuth
 
   describe '#account_for_current_user' do
     let(:current_user) {  users(:owner) }

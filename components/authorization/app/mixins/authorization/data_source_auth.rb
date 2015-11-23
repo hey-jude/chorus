@@ -1,4 +1,4 @@
-module DataSourceAuth
+module Authorization::DataSourceAuth
   extend ActiveSupport::Concern
 
   def authorize_data_source_access(resource)

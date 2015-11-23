@@ -24,7 +24,6 @@ FixtureBuilder.configure do |fbuilder|
     @a_permission = FactoryGirl.create(:permission)
     @a_group = FactoryGirl.create(:group)
 
-
     fbuilder.name(:admin,
                   admin = FactoryGirl.create(:admin, {:last_name => 'AlphaSearch', :username => 'admin'})
     )
@@ -143,6 +142,10 @@ FixtureBuilder.configure do |fbuilder|
       co.chorus_scope = ChorusScope.where(:name => "application_realm").first
       co.save!
     end
+
+    # HDFS Datasets need a workspace association
+    attrs = FactoryGirl.attributes_for(:hdfs_dataset, :name => "hadoop", :hdfs_data_source => hdfs_data_source, :workspace => public_workspace)
+    hadoop_dadoop = HdfsDataset.assemble!(attrs, hdfs_data_source, public_workspace)
 
     load "#{Authorization::Engine.root}/db/permissions_migrator.rb"
     PermissionsMigrator.assign_users_to_default_group
