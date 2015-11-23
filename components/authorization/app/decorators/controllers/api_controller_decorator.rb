@@ -1,15 +1,17 @@
 ApiController.class_eval do
+  rescue_from 'Authorization::AccessDenied', :with => :render_forbidden
+
   #PT Method to check if current user is in scope
   def current_user_in_scope?
-    if Permissioner.is_admin?(current_user)
+    if Authorization::Permissioner.is_admin?(current_user)
       return false
     else
-      Permissioner.user_in_scope?(current_user)
+      Authorization::Permissioner.user_in_scope?(current_user)
     end
   end
 
   def current_user_is_admin?
-    Permissioner.is_admin?(current_user)
+    Authorization::Permissioner.is_admin?(current_user)
   end
 
   def require_data_source_create

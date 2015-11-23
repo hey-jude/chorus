@@ -6,7 +6,7 @@ module Api
     before_filter :authorize_workspace, :only => [:create, :update, :destroy]
 
     def index
-      Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
+      Authorization::Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
                                                                     :workspace_is_public]}
 
       jobs = workspace.jobs.order_by(params[:order]).includes(Job.eager_load_associations)
@@ -17,7 +17,7 @@ module Api
     end
 
     def show
-      Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
+      Authorization::Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
                                                                     :workspace_is_public]}
 
       job = workspace.jobs.find(params[:id])
@@ -62,7 +62,7 @@ module Api
 
     def run
       job = Job.find(params[:id])
-      Authority.authorize! :update, job.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, job.workspace, current_user, {:or => :can_edit_sub_objects}
 
       raise ApiValidationError.new(:base, :not_runnable) unless job.status == Job::IDLE
       job.enqueue
@@ -72,7 +72,7 @@ module Api
 
     def stop
       job = Job.find(params[:id])
-      Authority.authorize! :update, job.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, job.workspace, current_user, {:or => :can_edit_sub_objects}
 
       job.kill
 
@@ -103,7 +103,7 @@ module Api
     end
 
     def authorize_workspace
-      Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
     end
 
   end

@@ -1,5 +1,5 @@
 User.class_eval do
-  include Permissioner
+  include Authorization::Permissioner
 
   # roles, groups, and permissions
   has_and_belongs_to_many :groups, -> { uniq }

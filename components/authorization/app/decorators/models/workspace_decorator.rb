@@ -1,5 +1,5 @@
 Workspace.class_eval do
-  include Permissioner
+  include Authorization::Permissioner
   validates_with MemberCountValidator
 
   #PT. After creating the workspace object add entry to chorus_objects tables.
@@ -43,7 +43,7 @@ Workspace.class_eval do
 
     # PT. 7/9. filter_by_scope returns an array of workspaces instead of ActiveRelation which causes a problem in the caller class (WorkspaceController)
     # Filter by scope
-    #  if Permissioner.user_in_scope?(user)
+    #  if Authorization::Permissioner.user_in_scope?(user)
     #    filter_by_scope(user, workspaces)
     #  else
     #    workspaces

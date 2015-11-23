@@ -2,7 +2,7 @@ module DataSourceAuth
   extend ActiveSupport::Concern
 
   def authorize_data_source_access(resource)
-    Authority.authorize! :explore_data,
+    Authorization::Authority.authorize! :explore_data,
                          resource.data_source,
                          current_user,
                          { :or => [:data_source_is_shared, :data_source_account_exists] }
@@ -10,7 +10,7 @@ module DataSourceAuth
 
   def authorize_data_sources_access(resource)
     resource.data_sources.each do |data_source|
-      Authority.authorize! :explore_data,
+      Authorization::Authority.authorize! :explore_data,
                            data_source,
                            current_user,
                            { :or => [:data_source_is_shared, :data_source_account_exists] }

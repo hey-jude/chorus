@@ -88,7 +88,7 @@ PATH
       rubyzip (= 0.9.9)
       sequel (~> 4.0)
       sunspot_rails (= 2.1.0)
-      will_paginate (= 3.0.7)
+      will_paginate
     frontend (1.0.0-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)

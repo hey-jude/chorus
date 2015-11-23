@@ -23,7 +23,7 @@ describe Api::CommentsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!.with_any_args
+      mock(Authorization::Authority).authorize!.with_any_args
       post :create, params
     end
 
@@ -129,7 +129,7 @@ describe Api::CommentsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :show, comment, event_author, { :or => :current_user_can_see_comment }
+      mock(Authorization::Authority).authorize! :show, comment, event_author, { :or => :current_user_can_see_comment }
       get :show, :id => comment.id
     end
 
@@ -150,7 +150,7 @@ describe Api::CommentsController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :destroy, @comment, commenter, { :or => :current_user_is_author }
+      mock(Authorization::Authority).authorize! :destroy, @comment, commenter, { :or => :current_user_is_author }
       delete :destroy, :id => @comment.id
     end
 

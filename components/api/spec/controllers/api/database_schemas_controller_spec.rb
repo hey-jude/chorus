@@ -8,7 +8,7 @@ describe Api::DatabaseSchemasController do
   before do
     log_in user
     #
-    stub(Authority).authorize!.with_any_args { nil }
+    stub(Authorization::Authority).authorize!.with_any_args { nil }
   end
 
   describe "#index" do
@@ -29,7 +29,7 @@ describe Api::DatabaseSchemasController do
     end
 
     it 'uses authorization' do
-      mock(Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+      mock(Authorization::Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
       get :index, :database_id => database.to_param
     end
 

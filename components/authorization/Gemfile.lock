@@ -52,7 +52,7 @@ PATH
       rubyzip (= 0.9.9)
       sequel (~> 4.0)
       sunspot_rails (= 2.1.0)
-      will_paginate (= 3.0.7)
+      will_paginate
 
 GEM
   remote: https://rubygems.org/

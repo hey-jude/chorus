@@ -133,7 +133,7 @@ class DataSource < ActiveRecord::Base
     #account_for_user(user) || (raise ActiveRecord::RecordNotFound)
     # Fix for DEV-12064. Error message not appearing when attempting to view a non-shared DB data source after upgrade.
     # Always throw AccessDenied exception to force UI to pop-up credential dialog box.
-    account_for_user(user) || (raise Authority::AccessDenied.new("Unuthorized", :show, self))
+    account_for_user(user) || (raise Authorization::AccessDenied.new("Unuthorized", :show, self))
   end
 
   def data_source

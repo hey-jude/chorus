@@ -22,7 +22,6 @@ class ApiController < ApplicationController
   rescue_from 'DataSourceConnection::QueryError', :with => :render_query_error
   rescue_from 'HdfsDataset::HdfsContentsError', :with => :render_hdfs_query_error
   rescue_from 'PostgresLikeConnection::SqlPermissionDenied', :with => :render_resource_forbidden
-  rescue_from 'Authority::AccessDenied', :with => :render_forbidden
   rescue_from 'ModelNotCreated', :with => :render_unprocessable_entity
   rescue_from 'Hdfs::DirectoryNotFoundError', :with => :render_not_found
   rescue_from 'SunspotError', :with => :render_unprocessable_entity

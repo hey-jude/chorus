@@ -8,7 +8,7 @@ namespace :db do
     task :prepare => 'db:integration:load_structure'
 
     task :prepare_permissions => :environment do
-      load Core::Engine.root.join('db', 'permissions_test_data.rb')
+      load Authorization::Engine.root.join('db', 'permissions_test_data.rb')
     end
   end
 

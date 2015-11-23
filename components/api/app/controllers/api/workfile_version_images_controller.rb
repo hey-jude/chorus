@@ -4,7 +4,7 @@ module Api
 
     def show
       workfile_version = WorkfileVersion.find(params[:workfile_version_id])
-      Authority.authorize! :show,
+      Authorization::Authority.authorize! :show,
                            workfile_version.workfile.workspace,
                            current_user,
                            {:or => [:current_user_is_in_workspace,

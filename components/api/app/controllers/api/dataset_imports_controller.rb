@@ -4,7 +4,7 @@ module Api
 
     def index
       workspace = Workspace.find(params[:workspace_id])
-      Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
+      Authorization::Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
                                                                     :workspace_is_public]}
       table = Dataset.find(params[:dataset_id])
       if table.is_a?(ChorusView)
@@ -23,7 +23,7 @@ module Api
 
       ids.each do |id|
         import = Import.find(id)
-        Authority.authorize! :update, import, current_user, {:or => :current_user_is_objects_user}
+        Authorization::Authority.authorize! :update, import, current_user, {:or => :current_user_is_objects_user}
 
         unless import.finished_at
           dataset_import_params = params[:dataset_import]

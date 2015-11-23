@@ -16,7 +16,7 @@ describe Api::PreviewsController do
     any_instance_of(Dataset) do |dataset|
       stub(dataset).connect_as(user) { connection }
     end
-    stub(Authority).authorize!.with_any_args { nil }
+    stub(Authorization::Authority).authorize!.with_any_args { nil }
   end
 
   describe "#create" do
@@ -38,7 +38,7 @@ describe Api::PreviewsController do
       end
 
       it "uses authentication" do
-        mock(Authority).authorize! :explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
+        mock(Authorization::Authority).authorize! :explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
 
         post :create, params
       end

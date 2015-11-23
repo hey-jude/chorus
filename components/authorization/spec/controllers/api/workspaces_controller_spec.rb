@@ -18,7 +18,7 @@ describe Api::WorkspacesController do
 
     context "with a valid workspace id" do
       it "uses authentication" do
-        mock(Authority).authorize!.with_any_args
+        mock(Authorization::Authority).authorize!.with_any_args
         get :show, :id => workspace.to_param
       end
 

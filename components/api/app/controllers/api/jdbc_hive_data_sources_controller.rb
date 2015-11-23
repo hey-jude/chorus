@@ -25,7 +25,7 @@ module Api
     def update
       gnip_params = params[:jdbc_hive_data_source]
       data_source = JdbcHiveDataSource.find(params[:id])
-      Authority.authorize! :update, data_source, current_user, {:or => :current_user_is_object_owner}
+      Authorization::Authority.authorize! :update, data_source, current_user, {:or => :current_user_is_object_owner}
       data_source = JdbcHive::DataSourceRegistrar.update!(params[:id], gnip_params)
 
       present data_source
@@ -33,7 +33,7 @@ module Api
 
     def destroy
       data_source = JdbcHiveDataSource.find(params[:id])
-      Authority.authorize! :update, data_source, current_user, {:or => :current_user_is_object_owner}
+      Authorization::Authority.authorize! :update, data_source, current_user, {:or => :current_user_is_object_owner}
       data_source.destroy
 
       head :ok

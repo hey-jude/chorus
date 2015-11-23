@@ -179,7 +179,7 @@ describe DataSource do
       let(:data_source) { data_sources(:owners) }
 
       it 'raises an exception' do
-        expect { data_source.account_for_user!(users(:no_collaborators)) }.to raise_error(Authority::AccessDenied)
+        expect { data_source.account_for_user!(users(:no_collaborators)) }.to raise_error(Authorization::AccessDenied)
       end
     end
   end

@@ -14,7 +14,7 @@ module Api
 
     def destroy
       event = Events::Base.visible_to(current_user).find params[:id]
-      Authority.authorize! :update, event, current_user, {:or => [:current_user_promoted_note,
+      Authorization::Authority.authorize! :update, event, current_user, {:or => [:current_user_promoted_note,
                                                                   :current_user_is_notes_workspace_owner]}
       event.demote_from_insight
       present event
@@ -30,7 +30,7 @@ module Api
     def unpublish
       event = Events::Base.find(note_id)
       #authorize! :update, note
-      Authority.authorize! :update, event, current_user, {:or => :current_user_is_event_actor}
+      Authorization::Authority.authorize! :update, event, current_user, {:or => :current_user_is_event_actor}
       raise ApiValidationError.new(:base, :generic, {:message => "Note has to be published first"}) unless event.published
       event.set_insight_published false
       present event, :status => :created

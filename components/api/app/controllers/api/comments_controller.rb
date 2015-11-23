@@ -6,7 +6,7 @@ module Api
 
     def show
       comment = Comment.find(params[:id])
-      Authority.authorize! :show, comment, current_user, {:or => :current_user_can_see_comment}
+      Authorization::Authority.authorize! :show, comment, current_user, {:or => :current_user_can_see_comment}
       present comment
     end
 
@@ -16,7 +16,7 @@ module Api
       attributes[:author_id] = current_user.id
       comment.attributes = attributes
 
-      Authority.authorize! :create_comment_on,
+      Authorization::Authority.authorize! :create_comment_on,
                            Events::Base.find(comment.event_id),
                            current_user,
                            {:or => :current_user_can_create_comment_on_event}
@@ -41,7 +41,7 @@ module Api
 
     def destroy
       comment = Comment.find(params[:id])
-      Authority.authorize! :destroy, comment, current_user, {:or => :current_user_is_author}
+      Authorization::Authority.authorize! :destroy, comment, current_user, {:or => :current_user_is_author}
 
       comment.destroy
       render :json => {}

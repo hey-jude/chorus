@@ -83,7 +83,7 @@ describe Api::InsightsController do
 
     context "when the note is demotable by the current user" do
       before do
-        stub(Authority).authorize! { nil }
+        stub(Authorization::Authority).authorize! { nil }
       end
 
       it "toggles the insight field on the given note" do

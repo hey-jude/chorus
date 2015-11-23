@@ -11,7 +11,7 @@ describe Api::NotesController do
     end
 
     before :each do
-      stub(Authority).authorize! { nil }
+      stub(Authorization::Authority).authorize! { nil }
     end
 
     let(:model) { workspaces(:public) }
@@ -34,7 +34,7 @@ describe Api::NotesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :show, model, user, { :or => :handle_legacy_show }
+      mock(Authorization::Authority).authorize! :show, model, user, { :or => :handle_legacy_show }
       post :create, attributes
     end
 
@@ -67,7 +67,7 @@ describe Api::NotesController do
         let(:workspace) { workspaces(:private) }
 
         it "returns a forbidden status" do
-          mock.proxy(Authority).authorize!.with_any_args
+          mock.proxy(Authorization::Authority).authorize!.with_any_args
           post :create, attributes
           response.code.should == "403"
         end
@@ -77,7 +77,7 @@ describe Api::NotesController do
         let(:workspace) { workspaces(:archived) }
 
         it "responds with an error code" do
-          stub(Authority).authorize! { nil }
+          stub(Authorization::Authority).authorize! { nil }
           post :create, attributes
           response.code.should == "422"
         end

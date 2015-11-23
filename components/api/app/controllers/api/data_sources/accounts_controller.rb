@@ -28,10 +28,10 @@ module Api::DataSources
 
       account = data_source.account_for_user(current_user) || data_source.accounts.build(:owner => current_user)
 
-      Authority.authorize! :edit_credentials, data_source, current_user, { :or => :current_user_is_account_owner }
+      Authorization::Authority.authorize! :edit_credentials, data_source, current_user, { :or => :current_user_is_account_owner }
       account.attributes = params[:account]
 
-      Authority.authorize! :edit_credentials, data_source, current_user, { :or => :current_user_is_account_owner }
+      Authorization::Authority.authorize! :edit_credentials, data_source, current_user, { :or => :current_user_is_account_owner }
 
       account.save!
       account

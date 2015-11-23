@@ -1,6 +1,5 @@
 module Api
   class ExternalTablesController < ApiController
-    include DataSourceAuth
 
     wrap_parameters :hdfs_external_table, :exclude => []
 

@@ -7,7 +7,7 @@ module Api
       entity_type = note_params[:entity_type]
       entity_id = note_params[:entity_id]
       model = ModelMap.model_from_params(entity_type, entity_id)
-      Authority.authorize! :show, model, current_user, {:or => :handle_legacy_show}
+      Authorization::Authority.authorize! :show, model, current_user, {:or => :handle_legacy_show}
 
       note_params[:body] = sanitize(note_params[:body])
 
@@ -25,7 +25,7 @@ module Api
     def update
       note = Events::Base.find(params[:id])
 
-      Authority.authorize! :update, note, current_user, {:or => :current_user_is_event_actor}
+      Authorization::Authority.authorize! :update, note, current_user, {:or => :current_user_is_event_actor}
       note.update_attributes!(:body => sanitize(params[:note][:body]))
       present note
     end
@@ -33,7 +33,7 @@ module Api
     def destroy
       note = Events::Base.find(params[:id])
       #authorize! :destroy, note
-      Authority.authorize! :destroy, note, current_user, {:or => [:current_user_is_notes_workspace_owner,
+      Authorization::Authority.authorize! :destroy, note, current_user, {:or => [:current_user_is_notes_workspace_owner,
                                                                   :current_user_is_event_actor]}
       note.destroy
       render :json => {}

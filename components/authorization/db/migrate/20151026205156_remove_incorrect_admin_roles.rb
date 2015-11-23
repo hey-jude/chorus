@@ -5,7 +5,7 @@ class RemoveIncorrectAdminRoles < ActiveRecord::Migration
     site_admin_role = Role.find_by(:name => "SiteAdministrator")
 
     User.all.each do |user|
-      if user.admin? == false && Permissioner.is_admin?(user)
+      if user.admin? == false && Authorization::Permissioner.is_admin?(user)
         user.roles.delete(admin_role, manager_role, site_admin_role)
       end
     end

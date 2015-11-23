@@ -4,13 +4,12 @@ module Api
   class WorkfilesController < ApiController
 
     wrap_parameters :workfile
-    include DataSourceAuth
 
     before_filter :convert_form_encoded_arrays, :only => [:create, :update]
     before_filter :authorize_edit_workfile, :only => [:update, :destroy, :run, :stop]
 
     def index
-      Authority.authorize! :show,
+      Authorization::Authority.authorize! :show,
                            workspace,
                            current_user,
                            {:or => [:current_user_is_in_workspace,
@@ -27,7 +26,7 @@ module Api
     end
 
     def show
-      Authority.authorize! :show,
+      Authorization::Authority.authorize! :show,
                            workfile.workspace,
                            current_user,
                            {:or => [:current_user_is_in_workspace,
@@ -44,7 +43,7 @@ module Api
 
     def create
       #authorize! :can_edit_sub_objects, workspace
-      Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
 
       merged_params = ActiveSupport::HashWithIndifferentAccess['file_name', params[:workfile][:file_name]]
                         .merge(params[:workfile])
@@ -81,7 +80,7 @@ module Api
 
     def destroy_multiple
       #authorize! :can_edit_sub_objects, workspace
-      Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
       OpenWorkfileEvent.where(:workfile_id => params[:workfile_ids], :user_id => current_user).destroy_all
       workfiles = workspace.workfiles.where(:id => params[:workfile_ids])
       workfiles.destroy_all
@@ -113,7 +112,7 @@ module Api
     end
 
     def authorize_edit_workfile
-      Authority.authorize! :update, workfile.workspace, current_user, {:or => :can_edit_sub_objects} unless (workfile.is_a?(PublishedWorklet) || (workfile.is_a?(Worklet) && workfile.workspace.public?))
+      Authorization::Authority.authorize! :update, workfile.workspace, current_user, {:or => :can_edit_sub_objects} unless (workfile.is_a?(PublishedWorklet) || (workfile.is_a?(Worklet) && workfile.workspace.public?))
     end
 
     def convert_form_encoded_arrays

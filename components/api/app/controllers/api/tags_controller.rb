@@ -15,7 +15,7 @@ module Api
 
     def destroy
       tag = Tag.find(params[:id])
-      Authority.authorize! :destroy, tag, current_user
+      Authorization::Authority.authorize! :destroy, tag, current_user
       tag.destroy
 
       head :ok

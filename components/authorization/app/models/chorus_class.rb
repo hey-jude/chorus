@@ -14,8 +14,8 @@ class ChorusClass < ActiveRecord::Base
     initial_search = find_by_name(klass.name)
 
     if initial_search.nil?
-      Chorus.log_error "Could not find ChorusClass with name #{klass.name}. Make sure you include Permissioner in the model and set the desired permissions"
-      puts "Could not find ChorusClass with name #{klass.name}. Make sure you include Permissioner in the model and set the desired permissions"
+      Chorus.log_error "Could not find ChorusClass with name #{klass.name}. Make sure you include Authorization::Permissioner in the model and set the desired permissions"
+      puts "Could not find ChorusClass with name #{klass.name}. Make sure you include Authorization::Permissioner in the model and set the desired permissions"
     end
 
     if initial_search.permissions.empty?

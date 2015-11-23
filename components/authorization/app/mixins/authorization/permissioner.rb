@@ -2,7 +2,7 @@
 # that generate bitmasks or permission bits using the PERMISSIONS
 # constant on the class
 
-module Permissioner
+module Authorization::Permissioner
   extend ActiveSupport::Concern
 
   included do
@@ -199,7 +199,7 @@ module Permissioner
       operation_name_array = chorus_class.operations.map(&:name)
       activity_index = operation_name_array.index(activity_symbol.to_s)
 
-      raise Authority::AccessDenied if activity_index.nil?
+      raise Authorization::AccessDenied if activity_index.nil?
       return 1 << activity_index
     end
 
@@ -212,7 +212,7 @@ module Permissioner
       return bits if activity_symbol_array.nil?
       activity_symbol_array.each do |activity_symbol|
         index = operation_name_array.index(activity_symbol)
-        raise Authority::AccessDenied if index.nil?
+        raise Authorization::AccessDenied if index.nil?
 
         bits |= ( 1 << index )
       end

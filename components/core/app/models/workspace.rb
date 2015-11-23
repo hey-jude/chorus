@@ -235,7 +235,7 @@ class Workspace < ActiveRecord::Base
 
     # PT. 7/9. filter_by_scope returns an array of workspaces instead of ActiveRelation which causes a problem in the caller class (WorkspaceController)
     # Filter by scope
-    #  if Permissioner.user_in_scope?(user)
+    #  if Authorization::Permissioner.user_in_scope?(user)
     #    filter_by_scope(user, workspaces)
     #  else
     #    workspaces

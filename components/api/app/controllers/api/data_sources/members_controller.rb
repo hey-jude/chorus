@@ -13,7 +13,7 @@ module Api::DataSources
 
     def create
       @gpdb_data_source = DataSource.unshared.find(params[:data_source_id])
-      Authority.authorize! :update, @gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
+      Authorization::Authority.authorize! :update, @gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
 
       owner = User.find(params[:account][:owner_id])
       @account = @gpdb_data_source.accounts.find_or_initialize_by(owner: owner)
@@ -38,7 +38,7 @@ module Api::DataSources
 
     def update
       @gpdb_data_source = DataSource.find(params[:data_source_id])
-      Authority.authorize! :update, @gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
+      Authorization::Authority.authorize! :update, @gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
 
       @account = @gpdb_data_source.accounts.find(params[:id])
       @account.attributes = params[:account]
@@ -61,7 +61,7 @@ module Api::DataSources
 
     def destroy
       gpdb_data_source = DataSource.find(params[:data_source_id])
-      Authority.authorize! :update, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
+      Authorization::Authority.authorize! :update, gpdb_data_source, current_user, { :or => :current_user_is_object_owner }
       account = gpdb_data_source.accounts.find(params[:id])
 
       # Need to clean workspace cache for user so that dashboard displays correct no of data sources. DEV-9092

@@ -29,20 +29,20 @@ module Api
     end
 
     def update
-      Authority.authorize! :update, @hdfs_data_source, current_user, {:or => :current_user_is_object_owner}
+      Authorization::Authority.authorize! :update, @hdfs_data_source, current_user, {:or => :current_user_is_object_owner}
 
       @hdfs_data_source = ::Hdfs::DataSourceRegistrar.update!(@hdfs_data_source.id, params[:hdfs_data_source], current_user)
       present @hdfs_data_source
     end
 
     def destroy
-      Authority.authorize! :update, @hdfs_data_source, current_user, {:or => :current_user_is_object_owner}
+      Authorization::Authority.authorize! :update, @hdfs_data_source, current_user, {:or => :current_user_is_object_owner}
       @hdfs_data_source.destroy
       head :ok
     end
 
     def self.render_forbidden_if_disabled(hdfs_data_source)
-      raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if hdfs_data_source.state == 'disabled'
+      raise Authorization::AccessDenied.new("Forbidden", :data_source, nil) if hdfs_data_source.state == 'disabled'
     end
 
     private
@@ -53,7 +53,7 @@ module Api
 
     def hide_disabled_source
       # KT TODO Authorization::Engine
-      if !Permissioner.is_admin?(current_user) &&
+      if !Authorization::Permissioner.is_admin?(current_user) &&
         @hdfs_data_source.disabled? &&
         @hdfs_data_source.owner != current_user
         raise ActiveRecord::RecordNotFound

@@ -71,7 +71,7 @@ module Api
 
     def show
       workspace = Workspace.find(params[:id])
-      Authority.authorize! :show,
+      Authorization::Authority.authorize! :show,
                            workspace,
                            current_user,
                            {:or => [:current_user_is_in_workspace,
@@ -92,7 +92,7 @@ module Api
       attributes[:archiver] = current_user if (attributes[:archived] && !workspace.archived?)
 
       workspace.attributes = attributes
-      Authority.authorize! :update, workspace, current_user, {:or => :current_user_can_update_workspace}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :current_user_can_update_workspace}
 
       if workspace.changed.include?("owner_id")
         update_owner_role(workspace, workspace.owner_id_was, workspace.owner_id)
@@ -109,9 +109,9 @@ module Api
       workspace = Workspace.find(params[:id])
       worklets = Worklet.where(:workspace_id => params[:id])
       worklets.each do |worklet|
-        Authority.authorize! :destroy, worklet, current_user, {:or => :current_user_is_worklets_workspace_owner}
+        Authorization::Authority.authorize! :destroy, worklet, current_user, {:or => :current_user_is_worklets_workspace_owner}
       end
-      Authority.authorize! :destroy, workspace, current_user, {:or => :current_user_is_object_owner}
+      Authorization::Authority.authorize! :destroy, workspace, current_user, {:or => :current_user_is_object_owner}
 
       if worklets.any?
         worklets.destroy_all
