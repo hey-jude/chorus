@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative 'job_finished_shared_behaviors'
+require_relative 'job_finished_shared_behaviors_spec'
 
 describe Events::JobFailed do
   let(:job) { jobs(:default) }
