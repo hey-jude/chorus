@@ -52,7 +52,6 @@ module Api
     end
 
     def hide_disabled_source
-      # KT TODO Authorization::Engine
       if !Authorization::Permissioner.is_admin?(current_user) &&
         @hdfs_data_source.disabled? &&
         @hdfs_data_source.owner != current_user
