@@ -5,7 +5,7 @@ module Events
     end
 
     def header
-      "Job #{job.name} succeeded in the workspace #{workspace.name}."
+      "The job #{job.name} succeeded in the workspace #{workspace.name}."
     end
 
     def notify_option

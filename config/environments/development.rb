@@ -9,9 +9,13 @@ Rails.application.configure do
   # See: https://github.com/Chorus/chorus/commit/17728d81c16aa788d17ed35e2df3f917259a83d0
   config.eager_load_paths += config.autoload_paths
 
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = false
+
   # See: https://github.com/Chorus/chorus/commit/267732274571bd77f3a66ab197de20751992694e
   if ChorusConfig.instance["mail.enabled"]
     config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.logger = :logger
     config.action_mailer.delivery_method = :smtp
     #config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
     config.action_mailer.smtp_settings = ChorusConfig.instance.smtp_configuration
@@ -49,9 +53,10 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = false
 
-  #Raises error for missing translations
+  # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true
-  
+
+  # Set to :debug to see everything in the log.
   config.log_level = :debug
-    
+
 end

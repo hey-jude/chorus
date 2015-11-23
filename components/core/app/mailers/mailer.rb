@@ -1,34 +1,33 @@
 class Mailer < ActionMailer::Base
 
   def notify(user, event)
-  
-    #email_with_name = '#{user.name} <#{user.email}>'
+
+    #email_with_name = "#{user.name} <#{user.email}>"
     @user = user
     @job = event.job
     @workspace = event.workspace
     @job_result = event.job_result
     @job_task_results = event.job_result.job_task_results
-    
-    attachments.inline[as_png('logo')] = logo(License.instance)
-    
-    #email_image_tag_inline['afm.png', Rails.root.join('public', 'images', 'workfiles', 'icon', 'afm.png')]
-    attachments[as_png(RunWorkFlowTaskResult.name)] = File.read(Rails.root.join('public', 'images', 'workfiles', 'icon', 'task-afm.png'))
-    
 
-    attachments[as_png(ImportSourceDataTaskResult.name)] = File.read(Rails.root.join('public', 'images', 'jobs', 'task-import.png'))
-    #email_image_tag_inline['task-import.png', Rails.root.join('public', 'images', 'jobs', 'task-import.png')]
-    
+    attachments.inline[as_png('logo')] = logo(License.instance)
+
+#   attachments[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'workfiles', 'icon', 'afm.png'))
+    attachments.inline[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-afm.png'))
+    attachments.inline[as_png(ImportSourceDataTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-import.png'))
+    attachments.inline[as_png(ImportSourceDataTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-sql.png'))
 
     safe_deliver mail(:to => user.email, :subject => event.header)
   end
 
   def chorus_expiring(user, license)
     #email_with_name = '#{user.name} <#{user.email}>'
-    
+
     @user = user
     @expiration_date = license[:expires]
     @branding = license.branding
     attachments[as_png('logo')] = logo(license)
+
+    #@email_with_name = '#{user.name} <#{user.email}>'
 
     safe_deliver mail(:to => user.email, :subject => 'Your Chorus license is expiring.')
   end
@@ -45,7 +44,7 @@ class Mailer < ActionMailer::Base
   private
 
   def logo(license)
-    File.read(Rails.root.join('public', 'images', 'branding', 'mailer', %(#{license.branding}-logo.png)))
+    File.read(Core::Engine.root.join('public', 'images', 'branding', 'email', %(#{license.branding}-logo.png)))
   end
 
   def safe_deliver(mail)
@@ -63,7 +62,7 @@ class Mailer < ActionMailer::Base
     }
     image_tag attachments.inline[image].url, **options
   end
-  
+
   module MailerHelper
     def build_backbone_url(path)
         urls = Rails.configuration.action_mailer.default_url_options
