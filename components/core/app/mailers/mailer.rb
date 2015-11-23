@@ -26,13 +26,14 @@ class Mailer < ActionMailer::Base
   private
 
   def logo(license)
-    File.read(Core::Engine.root.join('public', 'images', 'branding', %(#{license.branding}-logo.png)))
+    File.read(Core::Engine.root.join('public', 'images', 'branding', 'mailer', %(#{license.branding}-logo.png)))
   end
 
   def safe_deliver(mail)
     mail.deliver
   rescue => e
-    Chorus.log_error 'Mail failed to deliver: ' + e.message
+    Chorus.log_error "***** Mail failed to deliver "
+    Chorus.log_error "#{e.message} : #{e.backtrace}"
   end
 
   module MailerHelper
