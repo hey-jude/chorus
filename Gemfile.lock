@@ -364,12 +364,12 @@ DEPENDENCIES
   jasmine-core!
   jetpack!
   queue_classic!
-  rr
+  rr (= 1.1.2)
   rspec-rails (= 2.99.0)
-  shoulda-matchers
-  simplecov
-  sunspot_matchers
-  timecop
+  shoulda-matchers (= 2.8.0)
+  simplecov (= 0.10.0)
+  sunspot_matchers (= 2.1.0.0)
+  timecop (= 0.8.0)
   vis_legacy!
 
 BUNDLED WITH

@@ -21,12 +21,12 @@ group :development, :test do
   gem 'hashie'
   gem 'jasmine', :github => 'pivotal/jasmine-gem'
   gem 'jasmine-core', :github => 'pivotal/jasmine'
-  gem 'rr'
+  gem 'rr', '1.1.2'
   gem 'rspec-rails', '2.99.0'
-  gem 'shoulda-matchers'
-  gem 'simplecov', :require => false
-  gem 'sunspot_matchers'
-  gem 'timecop'
+  gem 'shoulda-matchers', '2.8.0'
+  gem 'simplecov', '0.10.0', :require => false
+  gem 'sunspot_matchers', '2.1.0.0'
+  gem 'timecop', '0.8.0'
 end
 
 group :packaging do
