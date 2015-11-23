@@ -1,6 +1,7 @@
 [Activity,
  AssociatedDataset,
  Attachment,
+ Comment,
  CsvFile,
  Database,
  Dataset,
