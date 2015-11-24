@@ -12,7 +12,6 @@ gemspec
 
 path '..' do
   gem 'core'
-  gem 'api'
 end
 
 # KT TODO: these are brought manually over from the Core component, because I don't believe we have these fancy
