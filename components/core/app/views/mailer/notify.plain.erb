@@ -1,0 +1,22 @@
+
+The job "<%= link_to(@job.name, build_backbone_url("/workspaces/#{@workspace.id}/jobs/#{@job.id}")) %>"
+<%= @job_result.succeeded? ? 'succeeded.' : 'failed.' %>
+
+Workspace: <%= link_to(@workspace.name, build_backbone_url("/workspaces/#{@workspace.id}")) %>
+Start Time: <%= @job_result.started_at %>
+Start Time2: <%= @job_result.started_at %>
+End Time: <%= @job_result.finished_at %>
+
+
+<% @job_task_results.each do |result| %>
+
+Task: <%= result.name -%>
+    Started at: <%= result.started_at -%>
+    Ended at:   <%= result.finished_at -%>
+    Status:     <% if result.status == 'success' %>
+        Completed
+        <% else %>
+        Failed
+        <% end -%>
+
+<% end %>

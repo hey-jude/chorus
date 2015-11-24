@@ -1,24 +1,50 @@
-<!-- <div class="activity_item"> -->
+
   <div class="activity_content">
 
 
     <div class="activity_header">
-      <!-- <h2> -->
+      <h1>
         The job "<%= link_to(@job.name, build_backbone_url("/workspaces/#{@workspace.id}/jobs/#{@job.id}")) %>"
         <%= @job_result.succeeded? ? 'succeeded.' : 'failed.' %>
-      <!-- </h2> -->
-      <br />
-      Workspace: <%= link_to(@workspace.name, build_backbone_url("/workspaces/#{@workspace.id}")) %>
-      <br />
-      Start Time: <%= @job_result.started_at %>
-      <br />
-      End Time: <%= @job_result.finished_at %>
-      <br />
-
+      <h2>
     </div>
+    
+    <div>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                Workspace
+              </td>
+              <td>
+                <%= link_to(@workspace.name, build_backbone_url("/workspaces/#{@workspace.id}")) %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Start Time
+              </td>
+              <td>
+                <%= @job_result.started_at.in_time_zone(@job_time_zone) %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                End Time
+              </td>
+              <td>
+                <%= @job_result.finished_at.in_time_zone(@job_time_zone) %>
+              </td>
+            </tr>
+    
+          </tbody>
+        </table>
+    </div>
+    
 
 <table class="taskTable">
-  <tbody>
+
+  <thead>
   <tr>
       <td class="taskIdentifier">
         Task Type
@@ -36,48 +62,37 @@
         Status
       </td>
   </tr>
-  </tbody>
-</table>
+  </thead>
 
-
-    <!-- <ul class="tasks"> -->
-      <% @job_task_results.each do |result| %>
-      
-<table class="taskTable">
+  <% @job_task_results.each do |result| -%>
   <tbody>
   <tr>
       <td class="taskIdentifier">
-        <%= image_tag attachments[as_png(result.class.name)].url, alt: 'Task', class: 'icon' -%>
+        <%= image_tag attachments.inline[as_png(result.class.name)].url, alt: 'Task', class: 'icon' -%>
       </td>
       <td class="taskName">
         <%= result.name -%>
       </td>
-        <td class="taskStart">
-        <%= result.started_at -%>
+      <td class="taskStart">
+        <%= result.started_at.in_time_zone(@job_time_zone) -%>
       </td>
       <td class="taskFinished">
-        <%= result.finished_at -%>
+        <%= result.finished_at.in_time_zone(@job_time_zone) -%> 
       </td>
       <td class="taskStatus">
         <% if result.status == 'success' %>
             Completed
         <% else %>
             Failed
-        <% end %>
+        <% end -%> 
       </td>
 
   </tr>
   </tbody>
+ 
+  <% end -%>
+  
 </table>
 
+</div>
 
-<!--           <li> -->
-<!--             <%= image_tag attachments[as_png(result.class.name)].url, alt: 'Task', class: 'icon' -%> -->
-<!--             <%= result.name %> -->
-<!--           </li> -->
-
-
-      <% end %>
-    <!-- </ul> -->
-  </div>
-<!-- </div> -->

@@ -2,8 +2,11 @@ class Mailer < ActionMailer::Base
 
   def notify(user, event)
     @user = user
+
     @job = event.job
+    @job_time_zone = event.job.time_zone
     @workspace = event.workspace
+
     @job_result = event.job_result
     @job_task_results = event.job_result.job_task_results
 
@@ -11,9 +14,13 @@ class Mailer < ActionMailer::Base
 
     attachments.inline[as_png('logo')] = logo(License.instance)
 
-    attachments.inline[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-afm.png'))
-    attachments.inline[as_png(ImportSourceDataTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-import.png'))
-    attachments.inline[as_png(RunSqlWorkfileTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-sql.png'))
+    task_workflow_icon = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-afm.png'))
+    task_import_icon = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-import.png'))
+    task_sql_icon = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-sql.png'))
+
+    attachments.inline[as_png(RunWorkFlowTaskResult.name)] = task_workflow_icon
+    attachments.inline[as_png(ImportSourceDataTaskResult.name)] = task_import_icon
+    attachments.inline[as_png(RunSqlWorkfileTaskResult.name)] = task_sql_icon
 
     safe_deliver mail(:to => user.email, :subject => event.header)
   end
@@ -42,6 +49,12 @@ class Mailer < ActionMailer::Base
     Chorus.log_error "#{e.message} : #{e.backtrace}"
   end
 
+    def in_time_zone(t)
+      #if model.send(key)
+      #  model.send(key).in_time_zone(ActiveSupport::TimeZone[model.time_zone])
+      #end
+    end
+
   module MailerHelper
     def build_backbone_url(path)
       urls = Rails.configuration.action_mailer.default_url_options
@@ -51,6 +64,12 @@ class Mailer < ActionMailer::Base
     def as_png(name)
       %(#{name}.png)
     end
+
+    def as_task_icon_png(name)
+
+      %(#{name}.png)
+    end
+
   end
 
   helper MailerHelper
