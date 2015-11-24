@@ -4,11 +4,17 @@
 
     <div class="activity_header">
       <!-- <h2> -->
-        The job <%= link_to(@job.name, build_backbone_url("/workspaces/#{@workspace.id}/jobs/#{@job.id}")) %>
+        The job "<%= link_to(@job.name, build_backbone_url("/workspaces/#{@workspace.id}/jobs/#{@job.id}")) %>"
         <%= @job_result.succeeded? ? 'succeeded.' : 'failed.' %>
       <!-- </h2> -->
       <br />
-      Workspace:  <%= link_to(@workspace.name, build_backbone_url("/workspaces/#{@workspace.id}")) %>
+      Workspace: <%= link_to(@workspace.name, build_backbone_url("/workspaces/#{@workspace.id}")) %>
+      <br />
+      Start Time: <%= @job_result.started_at %>
+      <br />
+      End Time: <%= @job_result.finished_at %>
+      <br />
+
     </div>
 
 <table class="taskTable">

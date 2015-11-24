@@ -11,10 +11,9 @@ class Mailer < ActionMailer::Base
 
     attachments.inline[as_png('logo')] = logo(License.instance)
 
-#   attachments[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'workfiles', 'icon', 'afm.png'))
     attachments.inline[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-afm.png'))
     attachments.inline[as_png(ImportSourceDataTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-import.png'))
-    attachments.inline[as_png(RunSqlWorkfileTask.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-sql.png'))
+    attachments.inline[as_png(RunSqlWorkfileTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-sql.png'))
 
     safe_deliver mail(:to => user.email, :subject => event.header)
   end
