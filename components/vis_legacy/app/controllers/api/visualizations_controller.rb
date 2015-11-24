@@ -1,6 +1,6 @@
 module Api
   class VisualizationsController < ApiController
-    include DataSourceAuth
+    include Authorization::DataSourceAuth
 
     wrap_parameters :chart_task
 
