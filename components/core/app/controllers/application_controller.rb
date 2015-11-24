@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user
   after_filter :clear_current_user
 
-  before_filter :require_login
   helper_method :current_user
 
   def current_user
@@ -35,7 +34,4 @@ class ApplicationController < ActionController::Base
     Thread.current[:user] = nil
   end
 
-  def require_login
-    head :unauthorized if !logged_in? || current_session.expired?
-  end
 end
