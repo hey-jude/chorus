@@ -15,7 +15,7 @@ describe Events::JobFailed do
 
   describe 'header' do
     it "has good copy" do
-      event.header.should == "Job #{job.name} failed in the workspace #{workspace.name}."
+      event.header.should == "The job #{job.name} failed in the workspace #{workspace.name}"
     end
   end
 end
