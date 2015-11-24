@@ -6,7 +6,7 @@ module Api
     def create
       workspace = Workspace.find(params[:workspace_id])
       #authorize! :update, workspace
-      Authority.authorize! :update, workspace, current_user, {:or => :current_user_can_update_workspace}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :current_user_can_update_workspace}
 
       attributes = params[:sandbox]
       Workspace.transaction do

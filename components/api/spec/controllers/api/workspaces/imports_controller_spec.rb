@@ -42,7 +42,7 @@ describe Api::Workspaces::ImportsController do
         let(:active_workspace) { FactoryGirl.create :workspace, :name => "TestImportWorkspace", :sandbox => schema, :owner => user }
 
         it "uses authorization" do
-          mock(Authority).authorize! :update, active_workspace, user, { :or => :can_edit_sub_objects }
+          mock(Authorization::Authority).authorize! :update, active_workspace, user, { :or => :can_edit_sub_objects }
           post :create, attributes
         end
 

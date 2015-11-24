@@ -4,7 +4,7 @@ module Api::DataSources
     before_filter :check_source_disabled?
 
     def update
-      Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
+      Authorization::Authority.authorize! :update, data_source, current_user, { :or => :current_user_is_object_owner }
       DataSourceOwnership.change(current_user, data_source, new_owner)
       present data_source
     end

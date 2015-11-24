@@ -1,6 +1,5 @@
 class AssociatedDataset < ActiveRecord::Base
   include SoftDelete
-  include Permissioner
 
   validates_presence_of :workspace, :dataset
   validate :datasets_in_association_are_unique, :on => :create

@@ -1,6 +1,5 @@
 module Api
   class DatabaseSchemasController < ApiController
-    include DataSourceAuth
 
     def index
       database = Database.find(params[:database_id])

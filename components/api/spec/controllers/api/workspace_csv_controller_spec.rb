@@ -50,7 +50,7 @@ describe Api::WorkspaceCsvController do
     end
 
     it "uses authentication" do
-      mock(Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workspace, user, { :or => :can_edit_sub_objects }
       post :create, csv_file_params
     end
 

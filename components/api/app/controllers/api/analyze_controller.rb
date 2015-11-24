@@ -1,6 +1,5 @@
 module Api
   class AnalyzeController < ApiController
-    include DataSourceAuth
 
     def create
       dataset = Dataset.find(params[:table_id])

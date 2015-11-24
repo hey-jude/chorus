@@ -5,7 +5,7 @@ module Api
     def create
       workspace = Workspace.find(params[:import][:workspace_id])
 
-      Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
 
       GnipImport.create!(:workspace => workspace,
                          :source => data_source,

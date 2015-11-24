@@ -150,7 +150,7 @@ describe Api::WorkspacesController do
 
     context "with a valid workspace id" do
       it "uses authentication" do
-        mock(Authority).authorize!.with_any_args
+        mock(Authorization::Authority).authorize!.with_any_args
         get :show, :id => workspace.to_param
       end
 
@@ -232,7 +232,7 @@ describe Api::WorkspacesController do
 
     context "when the current user has update authorization" do
       it "uses authentication" do
-        #mock(Authority).authorize!(:update, workspace, owner)
+        #mock(Authorization::Authority).authorize!(:update, workspace, owner)
         #put :update, params
       end
 

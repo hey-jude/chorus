@@ -95,7 +95,7 @@ describe Api::WorkfileExecutionsController do
 
     it "uses authorization" do
       log_in workspace_member
-      mock(Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
+      mock(Authorization::Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
       post :create, :workfile_id => workfile.id, :sql => sql, :check_id => check_id
     end
 

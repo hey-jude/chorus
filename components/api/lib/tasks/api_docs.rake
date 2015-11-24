@@ -15,6 +15,7 @@ unless Rails.env.production?
     end
 
     desc "Build the API docs"
+    require 'rspec/core/rake_task'
     RSpec::Core::RakeTask.new(:build) do |t|
       t.pattern = 'spec/api_docs/**/*_spec.rb'
       t.rspec_opts = ["--format RspecApiDocumentation::ApiFormatter"]

@@ -1,6 +1,5 @@
 module Api
   class DatasetsController < ApiController
-    include DataSourceAuth
 
     def index
       schema = Schema.find(params[:schema_id])
@@ -21,7 +20,7 @@ module Api
     def show
       data_set = Dataset.find(params[:id])
       authorize_data_source_access(data_set)
-      raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if data_set.data_source.state == 'disabled'
+      raise Authorization::AccessDenied.new("Forbidden", :data_source, nil) if data_set.data_source.state == 'disabled'
       dataset = Dataset.find_and_verify_in_source(params[:id].to_i, current_user)
       present dataset, params
     end

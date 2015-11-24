@@ -11,7 +11,7 @@ module Api
     def authorize_create!
       # Remove this method when 'authorize_create!' is taken out of
       # ImagesController
-      Authority.authorize! :create, @user, current_user, {:or => :current_user_is_referenced_user}
+      Authorization::Authority.authorize! :create, @user, current_user, {:or => :current_user_is_referenced_user}
     end
 
     def authorize_show!

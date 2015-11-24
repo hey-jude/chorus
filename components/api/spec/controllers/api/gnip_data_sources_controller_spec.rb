@@ -169,7 +169,7 @@ describe Api::GnipDataSourcesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :update, data_source, user, { :or => :current_user_is_object_owner }
+      mock(Authorization::Authority).authorize! :update, data_source, user, { :or => :current_user_is_object_owner }
       delete :destroy, :id => data_source.id
     end
   end

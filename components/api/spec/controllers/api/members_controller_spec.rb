@@ -90,7 +90,7 @@ describe Api::MembersController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!.with_any_args
+      mock(Authorization::Authority).authorize!.with_any_args
       post :create, parameters
     end
 

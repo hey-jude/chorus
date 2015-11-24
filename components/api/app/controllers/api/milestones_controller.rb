@@ -4,7 +4,7 @@ module Api
     before_filter :authorize_edit_sub_objects, :only => [:create, :destroy, :update]
 
     def index
-      Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
+      Authorization::Authority.authorize! :show, workspace, current_user, {:or => [:current_user_is_in_workspace,
                                                                     :workspace_is_public]}
 
       milestones = workspace.milestones.order(:target_date)
@@ -42,7 +42,7 @@ module Api
     end
 
     def authorize_edit_sub_objects
-      Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
     end
   end
 end

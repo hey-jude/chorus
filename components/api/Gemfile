@@ -7,6 +7,7 @@ gemspec
 
 path '..' do
   gem 'core'
+  gem 'authorization'
 end
 
 # Declare any dependencies that are still in development here instead of in

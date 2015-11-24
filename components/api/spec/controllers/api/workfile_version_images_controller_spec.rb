@@ -23,7 +23,7 @@ describe Api::WorkfileVersionImagesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :show,
+      mock(Authorization::Authority).authorize! :show,
                                   version.workfile.workspace,
                                   user,
                                   { :or => [ :current_user_is_in_workspace,

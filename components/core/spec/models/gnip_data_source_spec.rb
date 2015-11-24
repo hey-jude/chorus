@@ -13,10 +13,6 @@ describe GnipDataSource do
     let!(:model) { FactoryGirl.create(:gnip_data_source) }
   end
 
-  it_behaves_like "a permissioned model" do
-    let!(:model) { gnip_data_sources(:default) }
-  end
-
   describe "validations" do
     it { should validate_presence_of :stream_url }
     it { should validate_presence_of :name }

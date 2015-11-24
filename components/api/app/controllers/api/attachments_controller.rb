@@ -3,7 +3,7 @@ module Api
     def create
       event = Events::Base.find(params[:note_id])
 
-      Authority.authorize! :create_attachment_on, event, current_user, {:or => :current_user_is_event_actor}
+      Authorization::Authority.authorize! :create_attachment_on, event, current_user, {:or => :current_user_is_event_actor}
 
       if params[:contents]
         attachment_content = params[:contents]
@@ -22,7 +22,7 @@ module Api
 
     def show
       attachment = Attachment.find(params[:id])
-      Authority.authorize! :show, attachment.note.note_target, current_user, {:or => :handle_legacy_show}
+      Authorization::Authority.authorize! :show, attachment.note.note_target, current_user, {:or => :handle_legacy_show}
       send_file(attachment.contents.path(params[:style]), :type => attachment.contents_content_type, :disposition => 'inline')
       ActiveRecord::Base.connection.close
     end

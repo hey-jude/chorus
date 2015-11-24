@@ -1,6 +1,5 @@
 module Api
   class DatabasesController < ApiController
-    include DataSourceAuth
     before_filter :check_source_disabled?, :only => [:index, :show]
 
     def index

@@ -7,7 +7,7 @@ describe Api::DatabasesController do
 
   before do
     log_in user
-    stub(Authority).authorize!.with_any_args { nil }
+    stub(Authorization::Authority).authorize!.with_any_args { nil }
   end
 
   describe "#index" do
@@ -33,7 +33,7 @@ describe Api::DatabasesController do
 
       it "checks authorization" do
         stub(Database).refresh { [database] }
-        mock(Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+        mock(Authorization::Authority).authorize!(:explore_data, gpdb_data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
 
         get :index, :data_source_id => gpdb_data_source.id
       end
@@ -101,7 +101,7 @@ describe Api::DatabasesController do
     let(:database) { databases(:default) }
 
     it "uses authorization" do
-      mock(Authority).authorize!(:explore_data, database.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+      mock(Authorization::Authority).authorize!(:explore_data, database.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
 
       get :show, :id => database.to_param
     end
@@ -140,7 +140,7 @@ describe Api::DatabasesController do
       subject { described_class.new }
 
       generate_fixture "forbiddenDataSource.json" do
-        stub(Authority).authorize! { raise Authority::AccessDenied.new("Forbidden", :activity, database) }
+        stub(Authorization::Authority).authorize! { raise Authorization::AccessDenied.new("Forbidden", :activity, database) }
         get :show, :id => database.to_param
         response.should be_forbidden
       end

@@ -1,6 +1,5 @@
 module Api
   class PreviewsController < ApiController
-    include DataSourceAuth
 
     wrap_parameters :task, :exclude => [:id, :dataset_id]
 

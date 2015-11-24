@@ -147,7 +147,7 @@ describe Api::WorkfileVersionsController do
       end
 
       it "uses authorization" do
-        mock(Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
+        mock(Authorization::Authority).authorize! :update, workfile.workspace, user, { :or => :can_edit_sub_objects }
 
         delete :destroy, :workfile_id => workfile.id, :id => workfile.versions[2].id
       end

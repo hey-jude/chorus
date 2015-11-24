@@ -71,7 +71,7 @@ module Api
         options = {:or => :current_user_is_referenced_user}
       end
 
-      Authority.authorize! action_name.to_sym, user_object, current_user, options
+      Authorization::Authority.authorize! action_name.to_sym, user_object, current_user, options
     end
 
   end

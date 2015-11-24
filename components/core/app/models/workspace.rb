@@ -5,7 +5,6 @@ class Workspace < ActiveRecord::Base
   include TaggableBehavior
   include Notable
   include RenderAnywhere
-  include Permissioner
 
   PROJECT_STATUSES = [:on_track, :needs_attention, :at_risk]
 
@@ -46,10 +45,6 @@ class Workspace < ActiveRecord::Base
   validate :owner_is_member, :on => :update
   validate :archiver_is_set_when_archiving
   validates_attachment_size :image, :less_than => ChorusConfig.instance['file_sizes_mb']['workspace_icon'].megabytes, :message => :file_size_exceeded
-  validates_with MemberCountValidator
-
-  #PT. After creating the workspace object add entry to chorus_objects tables.
-  #after_create  :add_to_permissions
 
   before_update :reindex_sandbox, :if => :show_sandbox_datasets_changed?
   before_update :create_name_change_event, :if => :name_changed?
@@ -58,7 +53,6 @@ class Workspace < ActiveRecord::Base
   before_save :handle_archiving, :if => :archived_changed?
   before_save :update_has_added_sandbox
   after_create :add_owner_as_member
-  after_create :add_owner_to_workspace_roles
 
   scope :active, -> { where(:archived_at => nil) }
 
@@ -241,7 +235,7 @@ class Workspace < ActiveRecord::Base
 
     # PT. 7/9. filter_by_scope returns an array of workspaces instead of ActiveRelation which causes a problem in the caller class (WorkspaceController)
     # Filter by scope
-    #  if Permissioner.user_in_scope?(user)
+    #  if Authorization::Permissioner.user_in_scope?(user)
     #    filter_by_scope(user, workspaces)
     #  else
     #    workspaces
@@ -365,11 +359,6 @@ class Workspace < ActiveRecord::Base
     unless members.include? owner
       memberships.create!({ :user => owner, :workspace => self }, { :without_protection => true })
     end
-  end
-
-  def add_owner_to_workspace_roles
-    self.add_user_to_object_role(owner, Role.find_by_name("Owner"))
-    self.add_user_to_object_role(owner, Role.find_by_name("ProjectManager"))
   end
 
   def archiver_is_set_when_archiving

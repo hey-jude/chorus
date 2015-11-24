@@ -4,7 +4,7 @@ module Api
   class TableauWorkbooksController < ApiController
     def create
       workspace = Workspace.find(params[:workspace_id])
-      Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
       #authorize! :can_edit_sub_objects, workspace
       dataset = Dataset.find(params[:dataset_id])
       publisher = TableauPublisher.new(current_user)

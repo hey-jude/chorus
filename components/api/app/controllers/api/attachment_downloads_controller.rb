@@ -3,7 +3,7 @@ module Api
 
     def show
       attachment = Attachment.find(params[:attachment_id])
-      Authority.authorize! :show, attachment.note.note_target, current_user, {:or => :handle_legacy_show}
+      Authorization::Authority.authorize! :show, attachment.note.note_target, current_user, {:or => :handle_legacy_show}
 
       download_file(attachment)
     end

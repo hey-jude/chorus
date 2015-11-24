@@ -6,9 +6,9 @@ module Api::Workspaces
 
     def create
       csv_file = CsvFile.find params[:csv_id]
-      Authority.authorize! :create, csv_file, current_user, { :or => :current_user_is_objects_user }
+      Authorization::Authority.authorize! :create, csv_file, current_user, { :or => :current_user_is_objects_user }
 
-      raise Authority::AccessDenied.new("Forbidden", :data_source, nil) if csv_file.workspace.sandbox.data_source.disabled?
+      raise Authorization::AccessDenied.new("Forbidden", :data_source, nil) if csv_file.workspace.sandbox.data_source.disabled?
 
       file_params = params[:csv_import].slice(:types, :delimiter, :column_names, :has_header, :to_table)
       csv_file.update_attributes!(file_params)

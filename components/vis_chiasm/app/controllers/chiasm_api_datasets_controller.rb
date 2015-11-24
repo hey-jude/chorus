@@ -1,5 +1,5 @@
 class ChiasmApiDatasetsController < ApplicationController
-  include DataSourceAuth
+  include Authorization::DataSourceAuth
 
   # Returns the column metadata in this form:
   # [{ 'name': 'age',          'type': 'number'},

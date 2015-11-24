@@ -15,7 +15,7 @@ describe Api::DataSourcesController do
 
   # ignore authorization unless we're specifically testing for it
   before :each do
-    stub(Authority).authorize! { nil }
+    stub(Authorization::Authority).authorize! { nil }
   end
 
   describe "index" do
@@ -165,7 +165,7 @@ describe Api::DataSourcesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!(:update, gpdb_data_source, user, { :or => :current_user_is_object_owner })
+      mock(Authorization::Authority).authorize!(:update, gpdb_data_source, user, { :or => :current_user_is_object_owner })
       put :update, params
     end
 
@@ -432,7 +432,7 @@ describe Api::DataSourcesController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize! :destroy, data_source, user, { :or => :current_user_is_object_owner }
+      mock(Authorization::Authority).authorize! :destroy, data_source, user, { :or => :current_user_is_object_owner }
       delete :destroy, :id => data_source.id
     end
 

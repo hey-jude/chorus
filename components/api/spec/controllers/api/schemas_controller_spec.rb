@@ -8,7 +8,7 @@ describe Api::SchemasController do
   before do
     log_in user
     #
-    stub(Authority).authorize!.with_any_args { nil }
+    stub(Authorization::Authority).authorize!.with_any_args { nil }
   end
 
   describe "#show" do
@@ -20,7 +20,7 @@ describe Api::SchemasController do
     end
 
     it "uses authorization" do
-      mock(Authority).authorize!(:explore_data, schema.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
+      mock(Authorization::Authority).authorize!(:explore_data, schema.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] })
       get :show, :id => schema.to_param
     end
 
@@ -56,8 +56,8 @@ describe Api::SchemasController do
 
     context "when the user does not have an account for the Data Source" do
       it "returns a 403" do
-        mock(Authority).authorize!.with_any_args {
-          raise Authority::AccessDenied.new("Forbidden", :activity, schema)
+        mock(Authorization::Authority).authorize!.with_any_args {
+          raise Authorization::AccessDenied.new("Forbidden", :activity, schema)
         }
 
         get :show, :id => schema.to_param

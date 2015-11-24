@@ -22,7 +22,6 @@ class ApiController < ApplicationController
   rescue_from 'DataSourceConnection::QueryError', :with => :render_query_error
   rescue_from 'HdfsDataset::HdfsContentsError', :with => :render_hdfs_query_error
   rescue_from 'PostgresLikeConnection::SqlPermissionDenied', :with => :render_resource_forbidden
-  rescue_from 'Authority::AccessDenied', :with => :render_forbidden
   rescue_from 'ModelNotCreated', :with => :render_unprocessable_entity
   rescue_from 'Hdfs::DirectoryNotFoundError', :with => :render_not_found
   rescue_from 'SunspotError', :with => :render_unprocessable_entity
@@ -112,19 +111,6 @@ class ApiController < ApplicationController
     error_type = e.respond_to?(:error_type) && e.try(:error_type)
     subject = e.respond_to?(:subject) && e.try(:subject)
     present_forbidden(subject, error_type)
-  end
-
-  #PT Method to check if current user is in scope
-  def current_user_in_scope?
-    if Permissioner.is_admin?(current_user)
-      return false
-    else
-      Permissioner.user_in_scope?(current_user)
-    end
-  end
-
-  def current_user_is_admin?
-    Permissioner.is_admin?(current_user)
   end
 
   def extend_expiration
@@ -219,7 +205,4 @@ class ApiController < ApplicationController
     render_not_licensed if License.instance.limit_search?
   end
 
-  def require_data_source_create
-    require_admin if ChorusConfig.instance.restrict_data_source_creation?
-  end
 end

@@ -8,7 +8,7 @@ namespace :db do
     task :prepare => 'db:integration:load_structure'
 
     task :prepare_permissions => :environment do
-      load Core::Engine.root.join('db', 'permissions_test_data.rb')
+      load Authorization::Engine.root.join('db', 'permissions_test_data.rb')
     end
   end
 
@@ -26,7 +26,7 @@ namespace :db do
   task :seed_permissions => :environment do
     ENV['SKIP_SOLR'] = 'true'
     ChorusConfig.instance.with_temporary_config( { :database_login_timeout => 1} ) do
-      load Core::Engine.root.join('db', 'permissions_seeds.rb')
+      load Authorization::Engine.root.join('db', 'permissions_seeds.rb')
     end
     ENV['SKIP_SOLR'] = nil
   end

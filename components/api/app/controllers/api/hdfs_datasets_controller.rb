@@ -4,7 +4,7 @@ module Api
 
     def create
       workspace = Workspace.find params[:hdfs_dataset].delete(:workspace_id)
-      Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, workspace, current_user, {:or => :can_edit_sub_objects}
 
       data_source = HdfsDataSource.find params[:hdfs_dataset].delete(:data_source_id)
 
@@ -15,7 +15,7 @@ module Api
 
     def update
       dataset = Dataset.find(params[:id])
-      Authority.authorize! :update, dataset.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, dataset.workspace, current_user, {:or => :can_edit_sub_objects}
       dataset.update_attributes!(params[:hdfs_dataset])
 
       dataset.make_updated_event
@@ -25,7 +25,7 @@ module Api
 
     def destroy
       dataset = Dataset.find(params[:id])
-      Authority.authorize! :update, dataset.workspace, current_user, {:or => :can_edit_sub_objects}
+      Authorization::Authority.authorize! :update, dataset.workspace, current_user, {:or => :can_edit_sub_objects}
       dataset.destroy
       render :json => {}
     end

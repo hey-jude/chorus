@@ -6,6 +6,7 @@ json.workspace do
   json.entity_type "workspace"
   json.summary workspace.summary
   json.archived_at workspace.archived_at
+  # KT TODO Authorization::Engine
   json.permission workspace.permissions_for(user)
   json.public workspace.public
   json.datasets_count workspace.associated_datasets.size

@@ -24,8 +24,4 @@ describe PgDatabase do
   it_behaves_like 'an index-able database' do
     let(:database) { databases(:pg) }
   end
-
-  it_behaves_like "a permissioned model" do
-    let!(:model) { databases(:pg) }
-  end
 end

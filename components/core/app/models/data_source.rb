@@ -3,10 +3,6 @@ class DataSource < ActiveRecord::Base
   include TaggableBehavior
   include Notable
   include CommonDataSourceBehavior
-  include Permissioner
-
-  # DO NOT CHANGE the order of these permissions, you'll accidently change everyone's permissons across the site.
-  # Order: edit, show_contents
 
   attr_accessor :db_username, :db_password
   attr_accessible :name, :description, :host, :port, :state, :ssl, :db_name, :db_username, :db_password, :is_hawq, :as => [:default, :create]
@@ -137,7 +133,7 @@ class DataSource < ActiveRecord::Base
     #account_for_user(user) || (raise ActiveRecord::RecordNotFound)
     # Fix for DEV-12064. Error message not appearing when attempting to view a non-shared DB data source after upgrade.
     # Always throw AccessDenied exception to force UI to pop-up credential dialog box.
-    account_for_user(user) || (raise Authority::AccessDenied.new("Unuthorized", :show, self))
+    account_for_user(user) || (raise Authorization::AccessDenied.new("Unuthorized", :show, self))
   end
 
   def data_source

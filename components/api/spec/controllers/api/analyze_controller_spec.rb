@@ -11,7 +11,7 @@ describe Api::AnalyzeController do
   before do
     log_in user
     #
-    stub(Authority).authorize!.with_any_args { nil }
+    stub(Authorization::Authority).authorize!.with_any_args { nil }
   end
 
   describe "#create" do
@@ -23,7 +23,7 @@ describe Api::AnalyzeController do
     end
 
     it "uses authentication" do
-      mock(Authority).authorize! :explore_data, gpdb_table.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
+      mock(Authorization::Authority).authorize! :explore_data, gpdb_table.data_source, user, { :or => [:data_source_is_shared, :data_source_account_exists] }
       post :create, :table_id => gpdb_table.to_param
     end
 

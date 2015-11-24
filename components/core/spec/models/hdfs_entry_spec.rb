@@ -15,10 +15,6 @@ describe HdfsEntry do
 
   it_should_behave_like "taggable models", [:hdfs_entries, :hdfs_file]
 
-  it_behaves_like "a permissioned model" do
-    let!(:model) { hdfs_entries(:hdfs_file) }
-  end
-
   describe "associations" do
     it { should belong_to(:hdfs_data_source) }
     it { should belong_to(:parent) }

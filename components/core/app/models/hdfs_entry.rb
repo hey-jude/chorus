@@ -3,7 +3,6 @@ class HdfsEntry < ActiveRecord::Base
   include Notable
   include TaggableBehavior
   include SoftDelete
-  include Permissioner
 
   attr_accessible :path
 

@@ -1,0 +1,31 @@
+[Activity,
+ AssociatedDataset,
+ Attachment,
+ Comment,
+ CsvFile,
+ Database,
+ Dataset,
+ DataSource,
+ DataSourceAccount,
+ Events::Base,
+ Events::Note,
+ GnipDataSource,
+ HdfsDataSource,
+ HdfsEntry,
+ HdfsImport,
+ Import,
+ Job,
+ JobTask,
+ Membership,
+ Milestone,
+ Notification,
+ OpenWorkfileEvent,
+ Schema,
+ Tag,
+ Upload,
+ Workfile,
+ WorkfileVersion].each do |clazz|
+  clazz.class_eval do
+    include Authorization::Permissioner
+  end
+end
