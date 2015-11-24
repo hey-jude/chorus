@@ -1,3 +1,6 @@
+require 'api'
+require 'vis_legacy'
+
 require 'messengerjs-rails'
 require 'codemirror-rails'
 require 'mustache'
