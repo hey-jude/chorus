@@ -3,7 +3,7 @@ class RunSqlWorkfileTask < JobTask
   belongs_to :payload, :class_name => 'ChorusWorkfile'
 
   def perform
-    result = ImportSourceDataTaskResult.new(:started_at => Time.current, :name => derived_name)
+    result = RunSqlWorkfileTaskResult.new(:started_at => Time.current, :name => derived_name)
 
     query = CancelableQuery.new(account, 'exe_id', job.owner)
     query.execute(sql, :limit => 0, :include_public_schema_in_search_path => true)

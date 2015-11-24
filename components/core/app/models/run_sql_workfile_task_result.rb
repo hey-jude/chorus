@@ -1,0 +1,2 @@
+class RunSqlWorkfileTaskResult < JobTaskResult
+end
