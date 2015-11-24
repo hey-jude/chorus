@@ -6,6 +6,9 @@ Rails.application.configure do
   config.cache_store = :file_store, Rails.root.to_s + "/tmp/cache/chorus", { expires_in: 7.days }
   config.action_controller.perform_caching = false
 
+  config.autoload_paths += Dir["#{config.root}/components/**/"]
+  # Rails.root.join('components', '**/')
+
   # See: https://github.com/Chorus/chorus/commit/17728d81c16aa788d17ed35e2df3f917259a83d0
   config.eager_load_paths += config.autoload_paths
 
