@@ -23,9 +23,11 @@
         <div class="row">
           <div class="col-xs-12">
 
-            <ol class="breadcrumb">
-              <%= render_breadcrumbs :tag => :li, :separator => "" %>
-            </ol>
+            <% if breadcrumbs.any? %>
+              <ol class="breadcrumb">
+                <%= render_breadcrumbs :tag => :li, :separator => "" %>
+              </ol>
+            <% end %>
 
             <%= bootstrap_flash %>
 
