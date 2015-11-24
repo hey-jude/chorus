@@ -248,6 +248,12 @@ $margin-x : 10px;
 $guts-padding: 7px;
 $guts-padding-bottom: 15px;
 
+// canonical padding for use in ... places. like dashboard module.
+$padding-side-canon: 10px;
+$padding-top-canon: 10px;
+$padding-bottom-canon: 10px;
+
+
 // default sizing for the user profile image
 $user-detail-image-width: 150px;
 
@@ -263,6 +269,8 @@ $breadcrumbs-height: 32px;
 $help-pill-width: 34px;
 $texteditor-min-height: 300px;
 
+
+// DIALOGS */
 $default-dialog-width: 500px;
 $default-dialog-width-medium: 600px;
 $default-dialog-width-wide: 940px;

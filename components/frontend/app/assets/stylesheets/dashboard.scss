@@ -6,10 +6,6 @@ $debug-browser-support: true;
 @import "compass/css3/border-radius";
 
 
-$padding-side-canon: 10px;
-$padding-top-canon: 10px;
-$padding-bottom-canon: 10px;
-
 // height of buttons used for dashboard widget shell
 // e.g. configure button
 $height-button-widgetshell: 23px;
@@ -120,13 +116,13 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
 
                 .squareish {
                     width: 220px;
-                    height: 140px;
+                    height: 135px;
                 }
             }
         }
 
        .total {
-            padding-top: 10px;
+            padding-top: 0;
             @include dashboard-huge;
         }
 
