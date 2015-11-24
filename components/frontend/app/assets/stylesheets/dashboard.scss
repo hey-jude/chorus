@@ -155,6 +155,7 @@ div[data-page="Dashboard"], div[data-page="UserDashboardEdit"] {
     &.dashboard_workspace_activity {
         .chart {
             text-align: center;
+            line-height: 0;
 
             .axis path, .axis line {
                 fill: none;
