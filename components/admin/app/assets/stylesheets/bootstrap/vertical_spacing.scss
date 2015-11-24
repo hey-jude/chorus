@@ -1,0 +1,63 @@
+// https://github.com/twbs/bootstrap/issues/4286
+
+@mixin spacer {
+    width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block;
+}
+
+.spacer-5 { height: 5px; @include spacer }
+.spacer-10 { height: 10px; @include spacer }
+.spacer-15 { height: 15px; @include spacer }
+.spacer-20 { height: 20px; @include spacer }
+.spacer-25 { height: 25px; @include spacer }
+.spacer-30 { height: 30px; @include spacer }
+.spacer-35 { height: 35px; @include spacer }
+.spacer-40 { height: 40px; @include spacer }
+.spacer-45 { height: 45px; @include spacer }
+.spacer-50 { height: 50px; @include spacer }
+.spacer-100 { height: 100px; @include spacer }
+.spacer-200 { height: 200px; @include spacer }
+
+@media (min-width: $screen-lg-min) {
+    .spacer-lg-5 { height: 5px; @include spacer }
+    .spacer-lg-10 { height: 10px; @include spacer }
+    .spacer-lg-15 { height: 15px; @include spacer }
+    .spacer-lg-20 { height: 20px; @include spacer }
+    .spacer-lg-25 { height: 25px; @include spacer }
+    .spacer-lg-30 { height: 30px; @include spacer }
+    .spacer-lg-35 { height: 35px; @include spacer }
+    .spacer-lg-40 { height: 40px; @include spacer }
+    .spacer-lg-45 { height: 45px; @include spacer }
+    .spacer-lg-50 { height: 50px; @include spacer }
+    .spacer-lg-100 { height: 100px; @include spacer }
+    .spacer-lg-200 { height: 200px; @include spacer }
+}
+
+@media (min-width: $screen-md-min) {
+    .spacer-md-lg-5 { height: 5px; @include spacer }
+    .spacer-md-10 { height: 10px; @include spacer }
+    .spacer-md-15 { height: 15px; @include spacer }
+    .spacer-md-20 { height: 20px; @include spacer }
+    .spacer-md-25 { height: 25px; @include spacer }
+    .spacer-md-30 { height: 30px; @include spacer }
+    .spacer-md-35 { height: 35px; @include spacer }
+    .spacer-md-40 { height: 40px; @include spacer }
+    .spacer-md-45 { height: 45px; @include spacer }
+    .spacer-md-50 { height: 50px; @include spacer }
+    .spacer-md-100 { height: 100px; @include spacer }
+    .spacer-md-200 { height: 200px; @include spacer }
+}
+
+@media (min-width: $screen-sm-min) {
+    .spacer-lg-5 { height: 5px; @include spacer }
+    .spacer-lg-10 { height: 10px; @include spacer }
+    .spacer-lg-15 { height: 15px; @include spacer }
+    .spacer-lg-20 { height: 20px; @include spacer }
+    .spacer-lg-25 { height: 25px; @include spacer }
+    .spacer-lg-30 { height: 30px; @include spacer }
+    .spacer-lg-35 { height: 35px; @include spacer }
+    .spacer-lg-40 { height: 40px; @include spacer }
+    .spacer-lg-45 { height: 45px; @include spacer }
+    .spacer-lg-50 { height: 50px; @include spacer }
+    .spacer-lg-100 { height: 100px; @include spacer }
+    .spacer-lg-200 { height: 200px; @include spacer }
+}

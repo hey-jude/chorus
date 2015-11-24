@@ -18,14 +18,17 @@
 
     <%= render 'layouts/admin/navbar' %>
 
-    <div class="spacer-15"></div>
-
     <div class="page-row page-row-expanded">
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
-            <%= render_breadcrumbs %>
+
+            <ol class="breadcrumb">
+              <%= render_breadcrumbs :tag => :li, :separator => "" %>
+            </ol>
+
             <%= bootstrap_flash %>
+
             <%= yield %>
           </div>
         </div>
