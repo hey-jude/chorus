@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'api'
   s.add_dependency 'vis_legacy'
+  s.add_dependency 'web_style'
 
   s.add_dependency 'actionpack', '4.1.10'
   s.add_dependency 'actionview', '4.1.10'

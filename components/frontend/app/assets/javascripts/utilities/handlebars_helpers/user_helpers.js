@@ -1,4 +1,5 @@
 chorus.handlebarsHelpers.user = {
+
     ifAdmin: function(block) {
         var user = chorus && chorus.session && chorus.session.user();
         if (user && user.get("admin")) {

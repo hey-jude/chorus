@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+gemspec
+
+path '..' do
+  gem 'core'
+  gem 'authorization'
+  gem 'web_style'
+end

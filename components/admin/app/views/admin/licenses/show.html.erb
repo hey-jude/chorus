@@ -1,0 +1,76 @@
+<div class="license show">
+
+  <h3>License Information</h3>
+
+  <dl>
+    <dt>Application Version</dt>
+    <dd><%= @license.version %></dd>
+  </dl>
+
+
+  <dl>
+    <dt>License Level</dt>
+    <dd><%= @license[:level] %></dd>
+  </dl>
+
+
+  <dl>
+    <dt>Licensed Features</dt>
+    <dd>
+      <%= %w( workflow_enabled?
+              limit_search?
+              advisor_now_enabled?
+              limit_workspace_membership?
+              limit_user_count?
+              limit_data_source_types?
+              limit_milestones?
+              limit_jobs?
+              limit_sandboxes?).collect { |feature|
+        "#{feature}: #{@license.send(feature)}"
+      }.join('<br/>').html_safe
+      %>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt>Expiration</dt>
+    <dd>
+      <% if @license.expires? %>
+        <%= @license[:expires] %>
+      <% else %>
+        Does not expire
+      <% end %>
+    </dd>
+  </dl>
+
+  <h4>License Roles</h4>
+
+  <dl>
+    <dt>Number of People Total</dt>
+    <dd>
+      <%= progress_bar({:max => 200, :value => 105}) %>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt>Collaborators</dt>
+    <dd>
+      <%= progress_bar({:max => 100, :value => 40}) %>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt>Data Analysts</dt>
+    <dd>
+      <%= progress_bar({:max => 9, :value => 8, :context => 'warning'}) %>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt>ML Developers</dt>
+    <dd>
+      <%= progress_bar({:max => 14, :value => 9}) %>
+    </dd>
+  </dl>
+
+</div>
