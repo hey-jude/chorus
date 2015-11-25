@@ -1,6 +1,5 @@
 chorus.dialogs.ShareWorkletResultsDialog = chorus.dialogs.PickWorkspace.extend({
     constructorName: "ShareWorkletResultsDialog",
-
     title: t("workfile.share_worklet_results_dialog.title"),
     submitButtonTranslationKey: "workfile.share_worklet_results_dialog.submit",
 
@@ -25,9 +24,12 @@ chorus.dialogs.ShareWorkletResultsDialog = chorus.dialogs.PickWorkspace.extend({
             data: params,
             success: function(data) {
                 self.closeModal(true);
-                chorus.toast("worklet.share_success.toast", {workspaceName: data.response.name});
-            },
 
+                // get link to destination workspace
+                // var workspaceTarget = self.selectedItem().showLink();
+
+                chorus.toast("worklet.share_success.toast", {workspaceName: data.response.name, toastOpts: {type: "success"}});
+            },
             error: function(xhr) {
                 var data = JSON.parse(xhr.responseText);
                 self.resource.serverErrors = data.errors;
