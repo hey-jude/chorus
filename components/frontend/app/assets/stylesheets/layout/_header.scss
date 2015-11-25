@@ -145,20 +145,20 @@ $notification-token-width: $header-margin * 2;
                 &:hover {
                     opacity: 1;
                 }
-                
                 // handle the different logo possibilities
                 &.alpine {
-                    position: relative;
-                    // top: 3px;
-                    width: 110px;
+                    
+                    img {
+                        position: relative;
+                        width: 110px;
+                        top: 3px;
+                    }
                 }
                 
                 &.pivotal {
                     width: 90px;                    
-                    a img {
-                        vertical-align: middle;
-                    }
                     img {
+                        vertical-align: middle;
                         max-height: 25px;
                     }
                 }
