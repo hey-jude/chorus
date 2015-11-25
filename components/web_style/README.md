@@ -1,3 +1,3 @@
-= WebStyle
+# Chorus WebStyle component
 
-This project rocks and uses MIT-LICENSE.
+This contains fonts, styles, and images shared between the Frontend and Admin components.

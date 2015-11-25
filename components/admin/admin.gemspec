@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   # s.test_files = Dir["test/**/*"]
 
   s.add_dependency "core"
+  s.add_dependency "authorization"
   s.add_dependency "web_style"
 
   # s.add_dependency "rails", "~> 4.1.10"

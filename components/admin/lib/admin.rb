@@ -1,7 +1,8 @@
-require "admin/engine"
+require 'admin/engine'
 
-require "core"
-require "web_style"
+require 'core'
+require 'authorization'
+require 'web_style'
 
 require 'sass-rails'
 require 'bootstrap-sass'

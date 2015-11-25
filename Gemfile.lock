@@ -55,6 +55,7 @@ PATH
   remote: components
   specs:
     admin (1.0.0)
+      authorization
       bootstrap-sass (~> 3.3.5)
       breadcrumbs_on_rails
       core
@@ -112,6 +113,7 @@ PATH
       therubyrhino (= 2.0.4)
       uglifier (= 2.7.1)
       vis_legacy
+      web_style
       yui-compressor (= 0.12.0)
     vis_legacy (1.0.0-java)
     web_style (1.0.0)
