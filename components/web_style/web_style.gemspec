@@ -6,7 +6,7 @@ require "web_style/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "web_style"
-  s.version     = Admin::VERSION
+  s.version     = WebStyle::VERSION
   s.authors     = ["Kevin Trowbridge"]
   s.email       = ["kevin@alpinenow.com"]
   s.summary     = ""
