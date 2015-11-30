@@ -96,7 +96,7 @@ chorus.pages.WorkfileIndexPage = chorus.pages.Base.include(
 
         if (chorus.models.Config.instance().license().workflowEnabled()) {
             var workFlowsOption = {data: "WORK_FLOW", text: t("workfiles.header.menu.filter.work_flow")};
-            items.splice(2, 0, workFlowsOption);
+            items.splice(1, 0, workFlowsOption);
         }
 
         return items;
