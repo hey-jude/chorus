@@ -83,12 +83,13 @@
         }
 
         .job_item {
-            .image {
-                width: 34px;
-            }
+//             .image {
+//                 width: 38px;
+//                 height: auto;
+//             }
 
             .frequency, .next_run, .last_run {
-                display: inline-block;                
+                display: inline-block;
             }
             .frequency {
                 width: 120px;

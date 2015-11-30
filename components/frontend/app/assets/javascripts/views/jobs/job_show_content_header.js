@@ -3,8 +3,10 @@ chorus.views.JobShowContentHeader = chorus.views.Base.extend({
     templateName: "job_show_content_header",
 
     jobsIconPath: "/images/jobs/",
-    jobIconActive: "job.svg",
-    jobIconDisabled: "job-disabled.svg",
+    //jobIconActive: "job.svg",
+    jobIconActiveOndemand: "job-ondemand.svg",
+    jobIconActiveScheduled: "job-scheduled.svg",
+    jobIconDisabled: "job-scheduled-disabled.svg",
 
     additionalContext: function () {
         return {
@@ -16,11 +18,24 @@ chorus.views.JobShowContentHeader = chorus.views.Base.extend({
             ownerUrl: this.model.owner().showUrl()
         };
     },
-    
+
     iconUrl: function () {
         // job entity icon
-        var icon = (this.model.get('enabled') || this.model.runsOnDemand()) ? this.jobIconActive : this.jobIconDisabled;
+        var icon = (this.model.get('enabled') || this.model.runsOnDemand()) ? this.jobTypeIcon() : this.jobIconDisabled;
         return this.jobsIconPath + icon;
     },
-    
+
+    jobTypeIcon: function() {
+        return ( this.jobTypeKey() === "on_demand") ? this.jobIconActiveOndemand : this.jobIconActiveScheduled;
+    },
+
+    jobTypeKey: function() {
+        // which type of job is this
+        if (this.model.runsOnDemand()) {
+            return 'on_demand';
+        } else {
+            return 'scheduled';
+        };
+    },
+
 });
