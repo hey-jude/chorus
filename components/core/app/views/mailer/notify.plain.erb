@@ -11,9 +11,9 @@ End Time: <%= @job_result.finished_at %>
 <% @job_task_results.each do |result| %>
 
 Task: <%= result.name -%>
-    Started at: <%= result.started_at -%>
-    Ended at:   <%= result.finished_at -%>
-    Status:     <% if result.status == 'success' %>
+Started at: <%= result.started_at -%>
+Ended at:   <%= result.finished_at -%>
+Status:     <% if result.status == 'success' %>
         Completed
         <% else %>
         Failed

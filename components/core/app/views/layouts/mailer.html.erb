@@ -6,35 +6,46 @@
 
     <title><%= License.instance.branding_title %></title>
 
-<style type="text/css">
+<style type="text/css" data-premailer="ignore">
 
     /* mobile */
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width: 320px) {
         body {
             width: 320px;
         }
 
-        #wrapTable td {
-            width: 440px;
-            border: 1px solid #F00;
+        #wrapTable {
+            width: 320px;
+            /* border: 1px solid #FF8000; */   /* orange. DEVELOPMENT */
         }
 
         #contentTable {}
     
         #contentHeader h1 {
-            font-size: 20px;
+            font-size: 16px;
         }
         #footerTable {
+            width: auto;
+            margin-top: 1em;
         }
-
-        td img {
-            height: auto !important;
-            max-width: 100% !important;
+        
+        .taskTable th {
+            display: none;
         }
+        .taskTable td {
+            display: block;
+            width: auto;
+        }
+        .taskTable .taskStatus {
+            margin-bottom: 1em;
+        }
+    
     }
-    
-    
-    body { 
+
+</style>
+
+<style type="text/css">
+    body {
         margin: 0;
         padding: 0;
 
@@ -48,41 +59,39 @@
         -webkit-text-size-adjust: 100%;
     }
     body * {
-        color: #222222;    
+        color: #222222;
     }
     table {
       border-spacing: 0;
     }
-    table, tr, td {
+    table, tr, td, th {
         border-collapse: collapse;
-        border: 1px dotted #F00;
     }
     
-    tr, td {
+    tr, td, th {
         vertical-align: top;
+        text-align: left;
+    }
+    td, th {
+        padding: 1px 5px 1px 1px;  /* default paddings for cells */
     }
 
     h1 {
-
-        font-size: 24px;
+        font-size: 18px;
         line-height: 26px;
         margin: 0;
         padding: 0;
     }
-    h2 { 
-        /* color: #1D354D !important; */
+    h2 {
         font-size: 16px;
         line-height: 17px;
         margin-bottom: 5px;
     }
     a {
-        /* color: #2c95dd; */
         color: #00A0E5;
         text-decoration: none;
     }
-    .attachments {
-        font-weight: 600;
-    }
+
     img {
         border: none;
         vertical-align: middle;
@@ -96,39 +105,40 @@
         margin-top: 5px;
     }
 
-    /* wraps the entire email and defines overall width */
+    /* wraps the whole content and defines overall width */
     #wrapTable {
+        width: 800px;  /* define wdth of whole email */
         margin-bottom: 2em;
     }
-    #wrapTable td {
-        width: 800px;
-        border: 1px solid #0FF;
+    #wrapTable > tbody > tr > td {
+        padding: 0 20px;  /* layout padding from edges */
     }
-    
-    /* holds the main content */
+
+    /* header with branding */
+    #contentHeaderTable {
+        margin-bottom: 25px;
+    }
+
+    /* the main content */
     #contentTable {
-        /* width: 600px; */
         width: 100%;
-        background-color: #FFFFFF;
-        /* border: 1px solid #E5E5E5; */
-        border: 1px solid #EAEBEC;
+
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 40px;
+        
+        background-color: #FFFFFF;
+        /* border: 1px solid #DADBDC; */
     }
-    #contentHeader {
-        padding: 10px 15px 15px 15px;
-        border-bottom: 1px solid #EAEBEC;
-        text-align: left;
-    }
-    .content {
-        padding: 10px 10px 15px 15px;
+
+    #content {
+        padding: 0;
         text-align: left;
         color: #333333;
     }
-    /* holds the footer content */
+    /* the footer content */
     #footerTable {
         width: 100%;
+        margin-top: 2em;
     }
     #footerContent {
         color: #999999;
@@ -138,6 +148,8 @@
     }
     
     .headerBrand {
+        max-width: 320px;
+        height: auto;
     }
     
     .icon {
@@ -152,39 +164,48 @@
         word-wrap: break-word;
         font-size: 14px;
         line-height: 18px;
-        
         font-weight: normal;
-        /* color: #7D7D7D; */
 
         padding-bottom: 5px;
     }
-
+    
+    #jobOverview {
+        margin-bottom: 1em;
+    }
+    
+    #jobTable th {
+        width: 100px;
+    }
+    
     .taskTable {
         width: 100%;
+        border-collapse: separate;
+        border-spacing: 1px;
     }
-    .taskTable .taskType {
-        width: 50px
+    .taskTable th {
+        background-color: #EBEBE9;
+    }
+    .taskTable .taskIdentifier {
+        width: 5%;
     }
     .taskTable .taskName {
-        width: 40%
+        width: 40%;
         min-width: 200px;
     }
     .taskTable .taskStart {
-        width: 20%
+        width: 21%;
     }
-    .taskTable .taskFinished {
-        width: 20%
+    .taskTable .taskEnd {
+        width: 21%;
     }
     .taskTable .taskStatus {
-        width: 10%
+        width: 8%;
     }
     
   </style>
 
 </head>
-
 <body>
-
 
 
 <table id="wrapTable">
@@ -192,16 +213,21 @@
   <tr>
   <td>
 
-
-      <table id="contentTable">
+      <table id="contentHeaderTable">
         <tbody>
         <tr>
-        <td id="contentHeader">
+        <td>
             <%= image_tag attachments.inline[as_png('logo')].url, class: 'headerBrand', alt: License.instance.branding_title -%>
         </td>
         </tr>
+        </tbody>
+      </table>
+      
+      
+      <table id="contentTable">
+        <tbody>
         <tr>
-        <td class="content">
+        <td id="content">
 
           <%= yield %>
 
@@ -210,12 +236,6 @@
         </tbody>
       </table>
 
-
-  </td>
-  </tr>
-  
-  <tr>
-  <td>
       
       <table id="footerTable">
         <tbody>

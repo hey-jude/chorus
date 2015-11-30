@@ -10,7 +10,7 @@ class Mailer < ActionMailer::Base
     @job_result = event.job_result
     @job_task_results = event.job_result.job_task_results
 
-    #@email_with_name = '#{user.name} <#{user.email}>'
+    @email_with_name = '#{user.name} <#{user.email}>'
 
     attachments.inline[as_png('logo')] = logo(License.instance)
 
@@ -31,7 +31,7 @@ class Mailer < ActionMailer::Base
     @branding = license.branding
     attachments[as_png('logo')] = logo(license)
 
-    #@email_with_name = '#{user.name} <#{user.email}>'
+    @email_with_name = '#{user.name} <#{user.email}>'
 
     safe_deliver mail(:to => user.email, :subject => 'Your Chorus license is expiring.')
   end
@@ -42,18 +42,16 @@ class Mailer < ActionMailer::Base
     File.read(Core::Engine.root.join('public', 'images', 'branding', 'email', %(#{license.branding}-logo.png)))
   end
 
+  def email_with_name(user)
+    "#{user.name} <#{user.email}>"
+  end
+
   def safe_deliver(mail)
     mail.deliver
   rescue => e
     Chorus.log_error "***** Mail failed to deliver "
     Chorus.log_error "#{e.message} : #{e.backtrace}"
   end
-
-    def in_time_zone(t)
-      #if model.send(key)
-      #  model.send(key).in_time_zone(ActiveSupport::TimeZone[model.time_zone])
-      #end
-    end
 
   module MailerHelper
     def build_backbone_url(path)
@@ -66,7 +64,6 @@ class Mailer < ActionMailer::Base
     end
 
     def as_task_icon_png(name)
-
       %(#{name}.png)
     end
 
