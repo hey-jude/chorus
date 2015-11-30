@@ -2,7 +2,7 @@ namespace :db do
 
   # KT see comments here: http://blog.pivotal.io/labs/labs/leave-your-migrations-in-your-rails-engines
   desc "create and migrate the database"
-  task :custom_create_and_migrate => [:environment, "db:create", "db:migrate"]
+  task :custom_create_and_migrate => ["db:create", :environment, "db:migrate"]
 
   namespace :test do
     task :prepare => 'db:integration:load_structure'

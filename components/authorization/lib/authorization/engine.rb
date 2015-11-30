@@ -9,6 +9,9 @@ module Authorization
           app.config.paths["db/migrate"] << expanded_path
         end
       end
+
+      ActiveRecord::Tasks::DatabaseTasks.migrations_paths = ActiveRecord::Tasks::DatabaseTasks.migrations_paths | app.config.paths['db/migrate'].to_a
+      ActiveRecord::Migrator.migrations_paths = ActiveRecord::Migrator.migrations_paths | app.config.paths['db/migrate'].to_a
     end
 
     # Decorators aren't autoloaded: http://edgeguides.rubyonrails.org/engines.html#a-note-on-decorators-and-loading-code
