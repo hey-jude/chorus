@@ -45,7 +45,7 @@ namespace :development do
     `#{ENV['CHORUS_HOME']}/packaging/chorus_control.sh start postgres`
     `#{ENV['CHORUS_HOME']}/postgres/bin/createuser -hlocalhost -p #{postgres_port} -sdr postgres_chorus`
 
-    Rake::Task["db:custom_reset"].invoke
+    Rake::Task["db:custom_create_and_migrate"].invoke
     Rake::Task["db:seed_permissions"].invoke
     Rake::Task["db:seed_development"].invoke
     `#{ENV['CHORUS_HOME']}/packaging/chorus_control.sh stop postgres`
