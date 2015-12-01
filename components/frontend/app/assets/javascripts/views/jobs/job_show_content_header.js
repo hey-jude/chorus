@@ -26,16 +26,7 @@ chorus.views.JobShowContentHeader = chorus.views.Base.extend({
     },
 
     jobTypeIcon: function() {
-        return ( this.jobTypeKey() === "on_demand") ? this.jobIconActiveOndemand : this.jobIconActiveScheduled;
-    },
-
-    jobTypeKey: function() {
-        // which type of job is this
-        if (this.model.runsOnDemand()) {
-            return 'on_demand';
-        } else {
-            return 'scheduled';
-        };
+        return ( this.model.jobTypeKey() === "on_demand") ? this.jobIconActiveOndemand : this.jobIconActiveScheduled;
     },
 
 });

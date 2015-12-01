@@ -21,6 +21,15 @@ chorus.models.Job = chorus.models.Base.extend({
         return this._workspace;
     },
 
+    jobTypeKey: function() {
+        // which type of job is this
+        if (this.runsOnDemand()) {
+            return 'on_demand';
+        } else {
+            return 'scheduled';
+        };
+    },
+
     canUpdate: function() {
       return this.workspace().canUpdate();
     },
