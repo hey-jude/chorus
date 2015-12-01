@@ -24,6 +24,8 @@ $worklet-panel-header-color: #E0F0FF;
 $menu-item-height-default: 40px;
 
 
+$workfile-icon-size-width: 45px;
+            
 // parameters/inputs values
 // $parameter-background-color: adjust-color( $light-gray-blue, $lightness: 4%, $saturation: -1%);
 $parameter-background-color: #F4F6FA;
@@ -921,6 +923,11 @@ $workletSteps-container-height: 50px;
         top: 5px;
         margin-right: 10px;
         @include clearfix;
+        
+        img {
+            width: $workfile-icon-size-width;
+            height: auto;
+        }
     }
 
     .description {
