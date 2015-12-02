@@ -1,11 +1,8 @@
 source 'https://rubygems.org'
 
 path 'components' do
-  gem 'api'
-  gem 'authorization'
-  gem 'core'
+  gem 'admin'
   gem 'frontend'
-  gem 'vis_legacy'
 end
 
 gem 'hadoopconf_gem', :github => 'Chorus/chorus-hadoop-conf', :ref => 'ce0d34dde0f5f4dd372af6406fafd9c5b2baac5f'

@@ -325,7 +325,7 @@ class ChorusSetup:
         os.chmod(pwfile, 0400)
         self.executor.initdb(self.options.data_path, self.database_username)
         self.executor.start_postgres()
-        db_commands = "db:custom_reset"
+        db_commands = "db:custom_create_and_migrate"
         #db_commands += " db:seed_permissions"
         db_commands += " db:seed"
         db_commands += " enqueue:refresh_and_reindex"

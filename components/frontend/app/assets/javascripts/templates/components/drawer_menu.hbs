@@ -52,14 +52,16 @@
       <div>{{t "header.tags"}}</div>
     </a>
   </li>
-<!--     <li class="primary-spacer" id="spacer-admin"> -->
-<!--         <div class="knob"> </div> -->
-<!--     </li> -->
-<!--   <li> -->
-<!--     <a href="#/admin"> -->
-<!--       <div class="knob"><span class="fa fa-glass" id="primary-admin"></span></div> -->
-<!--       <div>Administration</div> -->
-<!--     </a> -->
-<!--   </li> -->
+  {{#ifAdmin}}
+  <li class="primary-spacer" id="spacer-admin">
+    <div class="knob"> </div>
+  </li>
+  <li>
+    <a href="/admin">
+      <div class="knob"><span class="fa fa-gears" id="primary-admin"></span></div>
+        <div>Administration</div>
+      </a>
+  </li>
+  {{/ifAdmin}}
   <div class="knob remainder"></div>
 </ul></nav>

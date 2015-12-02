@@ -7,6 +7,7 @@ class SunspotError < StandardError
 end
 
 class ApiController < ApplicationController
+  before_filter :require_login
   before_filter :set_collection_defaults, :only => :index
   before_filter :extend_expiration
   rescue_from 'ActionController::MissingFile', :with => :render_not_found
@@ -44,6 +45,10 @@ class ApiController < ApplicationController
   end
 
   private
+
+  def require_login
+    head :unauthorized if !logged_in? || current_session.expired?
+  end
 
   def verified_request?
     super || params[:session_id]

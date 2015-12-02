@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   end
 
   mount Frontend::Engine => "/"
+
+  mount Admin::Engine => "/admin"
 end

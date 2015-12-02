@@ -8,6 +8,7 @@ gemspec
 path '..' do
   gem 'api'
   gem 'vis_legacy'
+  gem 'web_style'
 end
 
 # Declare any dependencies that are still in development here instead of in

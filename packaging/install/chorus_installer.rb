@@ -335,7 +335,7 @@ class ChorusInstaller
         FileUtils.chmod(0400, "#{release_path}/postgres/pwfile")
         @executor.initdb data_path, database_user
         @executor.start_postgres
-        db_commands = "db:custom_reset"
+        db_commands = "db:custom_create_and_migrate"
         db_commands += " db:seed"
         db_commands += " enqueue:refresh_and_reindex"
         log "Running rake #{db_commands}"

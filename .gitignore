@@ -7,6 +7,8 @@
 # Ignore bundler config
 app/assets/javascripts/environment.js
 
+public/assets
+
 # Ignore API doc directory
 /public/api
 /doc/api_documentation.tar.gz

@@ -1,4 +1,5 @@
 require 'core'
+require 'authorization'
 
 require 'action_pack'
 require 'action_view'
