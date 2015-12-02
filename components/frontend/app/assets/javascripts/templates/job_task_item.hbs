@@ -1,6 +1,6 @@
 <span class="index">{{index}}.</span>
 
-<span class="image"><img src="{{iconUrl}}"/></span>
+<span class="image"><img class="task_item_icon" src="{{iconUrl}}" alt=""/></span>
 
 <div class="item_information">
     <div class="item_name">
@@ -18,15 +18,15 @@
     {{#if moreThanOneTask}}
     <div class="arrows">
         {{#if firstItem}}
-            <img src="/images/jobs/arrow-up-disabled.png" class="move_up_arrow arrow_disabled" title=""/>            
+            <img src="/images/jobs/arrow-up-disabled.svg" class="move_up_arrow arrow_disabled" title="{{t 'job_task.arrow.moveup-disabled.tooltip'}}" alt="-"/>            
         {{else}}
-            <img src="/images/jobs/arrow-up.png" class="move_up_arrow" title="Move Up"/>
+            <img src="/images/jobs/arrow-up.svg" class="move_up_arrow" title="{{t 'job_task.arrow.moveup.tooltip'}}" alt="&uarr;"/>
         {{/if}}
 
         {{#if lastItem}}
-            <img src="/images/jobs/arrow-down-disabled.png" class="move_down_arrow arrow_disabled" title=""/>
+            <img src="/images/jobs/arrow-down-disabled.svg" class="move_down_arrow arrow_disabled" title="{{t 'job_task.arrow.movedown-disabled.tooltip'}}" alt="-"/>
         {{else}}
-            <img src="/images/jobs/arrow-down.png" class="move_down_arrow" title="Move Down"/>
+            <img src="/images/jobs/arrow-down.svg" class="move_down_arrow" title="{{t 'job_task.arrow.movedown.tooltip'}}" alt="&darr;"/>
         {{/if}}
     </div>
     {{/if}}

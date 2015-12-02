@@ -1,14 +1,13 @@
 #main_content {
-/*     border: $border-canon; */
     border-right: $border-canon;
 }
 
 .content_header {
-    background: $core-white;
+    //background: $core-white;  TODO: not sure this is needed, so remove when final
     min-height: 36px;
     padding: 12px $padding-x 5px;
     border-bottom: $border-canon;
-    @include border-top-radius(3px);
+    // @include border-top-radius(3px);  TODO: not sure this is needed, so remove when final
 
     .tags_input {
         border: none;
@@ -26,7 +25,13 @@
         }
     }
 
+    .item_information {
+        margin-left: 55px;
+        max-width: 85%;
+    }
+    
     h1 {
+        // primary heading for the page. e.g. name of item
         @include ellipsis;
         padding-top: 16px;
         padding-bottom: 7px;
@@ -36,10 +41,17 @@
     }
 
     .icon {
-        padding-top: 6px;
         float: left;
+        
+        padding-top: 6px;
         padding-right: 5px;
     }
+    
+    .heading_icon {
+        max-width: 45px;
+        max-height: 50px;
+    }
+    
 
     .menus {
         float: right;

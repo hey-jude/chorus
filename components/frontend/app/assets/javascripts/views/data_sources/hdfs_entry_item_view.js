@@ -20,7 +20,7 @@ chorus.views.HdfsEntryItem = chorus.views.Base.include(chorus.Mixins.TagsContext
 
         return _.extend(this.additionalContextForTags(), {
             iconUrl: isDir ?
-                "/images/data_sources/hadoop_directory_large.png" :
+                "/images/data_sources/directory.png" :
                 chorus.urlHelpers.fileIconUrl(_.last(this.model.get("name").split("."))),
             url: url,
             checkable: !isDir,

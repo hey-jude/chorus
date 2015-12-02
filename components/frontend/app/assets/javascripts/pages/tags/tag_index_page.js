@@ -1,5 +1,5 @@
 chorus.pages.TagIndexPage = chorus.pages.Base.extend({
-    crumbs:[],
+    crumbs: [],
 
     setup: function() {
         var tags = new chorus.collections.TagSet();

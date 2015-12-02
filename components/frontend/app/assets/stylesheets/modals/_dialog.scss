@@ -1,6 +1,7 @@
 @import "compass/css3/box-sizing";
 
 $dialog-girdle-padding-top: 10px;
+$dialog-header-height: 40px;
 
 // GENERAL DIALOG STYLES */
 
@@ -28,17 +29,16 @@ $dialog-girdle-padding-top: 10px;
 }
 
 #dialog_header {
-    height: 40px;
+    height: $dialog-header-height;
     background-color: $dialog-header-background;
-    border-bottom: $border-canon;
+    // border-bottom: $border-canon;
 
-    line-height: 40px;
+    line-height: $dialog-header-height;
     padding: 0 $dialog-padding-leftRight;
     word-break: break-all;
 }
 
 #dialog_content {
-
     .girdle {}
 }
 
@@ -48,12 +48,12 @@ $dialog-girdle-padding-top: 10px;
     background-color: $body-background-color;
 
     h1 {
+        margin: 0 30px 0 0;
         font-size: $medium-font;
         color: $color-text3;
         @include uppercase;
         vertical-align: middle;
-        margin: 0;
-        padding-right: 25px;
+
         @include ellipsis;
     }
 
@@ -100,6 +100,7 @@ $dialog-girdle-padding-top: 10px;
         word-break: break-word;
     }
 
+    // todo: refactor this out
     fieldset.in_a_box {
         border: none;
         padding: 0 0 $dialog-padding-bottom 0;
@@ -128,8 +129,6 @@ $dialog-girdle-padding-top: 10px;
         .loading_section {
             padding: 20px;
         }
-
-        // .form_controls { margin: 0; } */
     }
 
     .sub_header {
@@ -207,7 +206,10 @@ div.dialog {
         width: $default-dialog-width-medium;
     }
 
-    &.dialogs_help_and_support {
+    &.dialog_help_and_support {
+        width: $default-dialog-width-medium;
+    }
+    &.dialog_about {
         width: $default-dialog-width-medium;
     }
 }
@@ -220,8 +222,8 @@ div.dialog {
 
     .workspace_row {
         background-color: $dialog-header-background;
-        height:25px;
-        border-bottom: 1px solid $border-color;
+        height: 25px;
+        border-bottom: $border-canon;
 
         .workspace_image {
             height: 18px;
@@ -249,7 +251,7 @@ div.dialog {
             text-align: center;
 
             .main_image {
-                padding:10px;
+                padding: 10px;
             }
         }
     }

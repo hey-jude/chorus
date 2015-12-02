@@ -23,11 +23,11 @@ chorus.presenters.DatasetSidebar = chorus.presenters.Base.extend({
                 deleteMsgKey: "chorus_view",
                 deleteTextKey: "actions.delete"
             },
-            "SOURCE_TABLE_VIEW":{
+            "SOURCE_TABLE_VIEW": {
                 deleteMsgKey: "view",
                 deleteTextKey: "actions.delete_association"
             },
-            "SOURCE_TABLE":{
+            "SOURCE_TABLE": {
                 deleteMsgKey: "table",
                 deleteTextKey: "actions.delete_association"
             },

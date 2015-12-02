@@ -4,11 +4,11 @@ chorus.dialogs.WorkspaceMembersMore = chorus.dialogs.Base.extend({
     title: t("workspace.members"),
     persistent: true,
 
-    subviews:{
+    subviews: {
         ".sort_menu": "sortMenu"
     },
 
-    setup:function () {
+    setup: function () {
         this.collection = this.options.collection || this.pageModel.members();
         this.collection.fetchAllIfNotLoaded();
         this.collection.bind("reset", this.render, this);
@@ -43,17 +43,17 @@ chorus.dialogs.WorkspaceMembersMore = chorus.dialogs.Base.extend({
         }
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         var choice = this.choice;
         var sortedMembers = _.sortBy(this.collection.models, function (member) {
             return member.get(choice);
         });
         return {
-            members:_.map(sortedMembers, function (member) {
+            members: _.map(sortedMembers, function (member) {
                 return {
-                    displayName:member.displayName(),
-                    imageUrl:member.fetchImageUrl({size:'icon'}),
-                    showUrl:member.showUrl()
+                    displayName: member.displayName(),
+                    imageUrl: member.fetchImageUrl({size: 'icon'}),
+                    showUrl: member.showUrl()
                 };
             })
         };

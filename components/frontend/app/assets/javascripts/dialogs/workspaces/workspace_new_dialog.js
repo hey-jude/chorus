@@ -6,19 +6,19 @@ chorus.dialogs.WorkspaceNew = chorus.dialogs.Base.include(
     templateName: "workspace_new_dialog",
     title: t("workspace.create_new_title"),
 
-    persistent:true,
+    persistent: true,
 
-    makeModel:function () {
+    makeModel: function () {
         this.model = this.model || new chorus.models.Workspace();
     },
 
-    setup:function () {
+    setup: function () {
         this.listenTo(this.resource, "saved", this.workspaceSaved);
         this.listenTo(this.resource, "saveFailed", this.saveFailed);
         this.disableFormUnlessValid({formSelector: "form.new_workspace", inputSelector: "input[name='name']"});
     },
 
-    create:function create(e) {
+    create: function create(e) {
         e.preventDefault();
 
         this.resource.set({
@@ -31,7 +31,7 @@ chorus.dialogs.WorkspaceNew = chorus.dialogs.Base.include(
         this.resource.save();
     },
 
-    workspaceSaved:function () {
+    workspaceSaved: function () {
         this.closeModal();
         chorus.router.navigate("/workspaces/" + this.model.get("id") + "/quickstart");
     }

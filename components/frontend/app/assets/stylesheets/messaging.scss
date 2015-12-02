@@ -18,11 +18,10 @@ $messagingBlock_top: 10px;
             display: inline-block;
             position: absolute;
             // left: $messagingBlock_left;
-            // top: 12px;
             font-family: FontAwesome;
             font-size: 18px;
-            content: "\f05a";  /* fa-info-circle */
-        }
+            content: "\f05a";  // fa-info-circle */
+		}
     }
 }
 
@@ -59,7 +58,7 @@ $messagingBlock_top: 10px;
             top: 13px;
             font-family: FontAwesome;
             font-size: 18px;
-            content: "\f05a";  /* fa-info-circle */
+            content: "\f05a";  // fa-info-circle */
         }
     }
 }

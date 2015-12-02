@@ -6,7 +6,7 @@
   top: 50px;
 
   a {
-    color: white;
+    color: $core-white;
     padding: 3px 5px;
     @include border-radius(4px);
     font-size: $small-font;

@@ -1,13 +1,17 @@
+{{!-- ***** --}}
+{{!-- ABOUT THIS APPLICATION dialog --}}
+
 <div class="girdle">
 
     <div>
-        {{#if brandingLogoSrc}}
-            <img class="logo {{branding}}" src="{{brandingLogoSrc}}"/>
+        {{#if brandingLogo}}
+            <img id="logo" class="{{branding}}" src="{{brandingLogo}}"/>
         {{/if}}
 
         <h2 id="application_title">{{t applicationKey}}</h2>
+
         <div id="application_version">
-            {{t "about.version"}}: <span class="version about_item"></span>
+            {{t "about.version"}}: <span class="version about_item">{{version}}</span>
         </div>
     
         <div class="about_list">
@@ -23,7 +27,7 @@
         {{#if copyright}}
         <div id="footer">
             <div id="legal" class="{{branding}}">
-                    <span class="copyright">{{{copyright}}}</span>
+                <span class="copyright">{{{copyright}}}</span>
             </div>
         </div>
         {{/if}}
@@ -33,4 +37,4 @@
 </div>
 {{!-- END girdle --}}
 
-{{> closeWindowFormControls }}
+{{> closeWindowFormControls}}

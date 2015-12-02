@@ -5,7 +5,7 @@ module Events
     end
 
     def header
-      "Job #{job.name} failed in workspace #{workspace.name}."
+      "The job #{job.name} failed in the workspace #{workspace.name}"
     end
 
     def notify_option

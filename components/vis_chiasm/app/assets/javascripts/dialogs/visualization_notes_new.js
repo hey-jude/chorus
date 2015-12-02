@@ -3,14 +3,13 @@
 
 chorus.dialogs.VisualizationNotesNew = chorus.dialogs.MemoNew.extend({
     constructorName: "VisualizationNotesNew",
-
-    title:t("notes.new_dialog.title"),
+    title: t("notes.new_dialog.title"),
     submitButton: t("notes.button.create"),
 
-    makeModel:function () {
+    makeModel: function () {
         this.model = new chorus.models.Note({
-            entityId:this.options.entityId,
-            entityType:this.options.entityType,
+            entityId: this.options.entityId,
+            entityType: this.options.entityType,
             workspaceId: this.options.workspaceId
         });
         var subject = this.model.get("entityType");
@@ -32,7 +31,7 @@ chorus.dialogs.VisualizationNotesNew = chorus.dialogs.MemoNew.extend({
 
         var visualization = this.options.attachVisualization;
 
-        var iconSrc = "images/workfiles/icon/img.png";
+        var iconSrc = "images/workfiles/icon/image.png";
         $row.find('img.icon').attr('src', iconSrc);
         $row.find('span.name').text(visualization.fileName).attr('title', visualization.fileName);
         $row.data("visualization", visualization);

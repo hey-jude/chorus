@@ -2,6 +2,8 @@ chorus.views.Header = chorus.views.Base.extend({
     constructorName: "HeaderView",
     templateName: "header",
 
+    search_throttle_milliseconds: 440,  // was 500. speed it up a tiny bit
+
     events: {
         "click .username a.label": "togglePopupUsermenu",
         "click a.notifications": "togglePopupNotifications",
@@ -10,7 +12,8 @@ chorus.views.Header = chorus.views.Base.extend({
         "click .help_and_support a": "helpAndSupport",
         "click .about_this_app a": "aboutThisApp",
         "submit .search form": "startSearch",
-        "keydown .search input": "searchKeyPressed"
+        "keydown .search input": "searchKeyPressed",
+        "click #advisorNow a": "advisorNowLinkClicked"
     },
 
     subviews: {
@@ -44,35 +47,39 @@ chorus.views.Header = chorus.views.Base.extend({
         this.subscribePageEvent("notification:deleted", this.refreshNotifications);
     },
 
-    disableSearch: function() {
-        this.typeAheadView.disableSearch();
-    },
+    additionalContext: function(ctx) {
+        this.requiredResources.reset();
+        var user = this.session.user();
 
-    updateNotifications: function() {
-        if (this.notifications.loaded && this.unreadNotifications.loaded) {
-            this.notificationList.collection.reset(this.unreadNotifications.models, { silent: true });
-            var numberToAdd = (5 - this.unreadNotifications.length);
-            if (numberToAdd > 0) {
-                this.notificationList.collection.add(this.notifications.chain().reject(
-                    function(model) {
-                        return !!this.unreadNotifications.get(model.get("id"));
-                    }, this).first(numberToAdd).value());
-            };
+        var advisorNow = chorus.branding.applicationAdvisorNowEnabled;
+        var advisorNowLink;
+        (advisorNow) ? advisorNowLink = chorus.branding.advisorNowLink : null;
 
-            this.notificationList.collection.loaded = true;
-            this.render();
-        }
+        return _.extend(ctx, this.session.attributes, {
+            notifications: this.unreadNotifications,
+            fullName: user && user.displayName(),
+            firstName: user && user.get('firstName'),
+            userUrl: user && user.showUrl(),
+
+            helpLinkUrl: chorus.branding.applicationHelpLink,
+            brandingVendor: chorus.branding.applicationVendor,
+            isAlpine: chorus.branding.isAlpine,
+            brandingLogo: chorus.branding.applicationHeaderLogo,
+
+            advisorNow: advisorNow,
+            advisorNowLink: advisorNowLink,
+        });
     },
 
     postRender: function() {
-        this.$(".search input").unbind("textchange").bind("textchange", _.bind(_.throttle(this.displayResult, 500), this));
+        this.$(".search input").unbind("textchange").bind("textchange", _.bind(_.throttle(this.displayResult, this.search_throttle_milliseconds ), this));
         chorus.addSearchFieldModifications(this.$(".search input"));
+        this.modifyTypeAheadSearchPosition();
+        this.displayNotificationCount();
 
         if (chorus.isDevMode()) {
             this.addFastUserToggle();
         }
-        this.modifyTypeAheadSearchLength();
-        this.displayNotificationCount();
     },
 
     addFastUserToggle: function() {
@@ -107,8 +114,30 @@ chorus.views.Header = chorus.views.Base.extend({
         this.listenTo(this.users, "loaded", addDropdown);
     },
 
-    searchKeyPressed: function(event) {
-        this.typeAheadView.handleKeyEvent(event);
+
+    disableSearch: function() {
+        this.typeAheadView.disableSearch();
+    },
+
+    searchKeyPressed: function(e) {
+        this.typeAheadView.handleKeyEvent(e);
+    },
+
+    clearSearch: function() {
+        this.$(".search input").val('');
+        this.displayResult();
+    },
+
+    startSearch: function(e) {
+        e.preventDefault();
+        var query = this.$(".search input:text").val();
+        if (query.length > 0 && !chorus.models.Config.instance().license().limitSearch()) {
+            var search = new chorus.models.SearchResult({
+                workspaceId: this.workspaceId,
+                query: query
+            });
+            chorus.router.navigate(search.showUrl());
+        }
     },
 
     displayResult: function() {
@@ -122,26 +151,45 @@ chorus.views.Header = chorus.views.Base.extend({
         }
     },
 
-    clearSearch: function() {
-        this.$(".search input").val('');
-        this.displayResult();
+    updateNotifications: function() {
+        if (this.notifications.loaded && this.unreadNotifications.loaded) {
+            this.notificationList.collection.reset(this.unreadNotifications.models, { silent: true });
+            var numberToAdd = (5 - this.unreadNotifications.length);
+            if (numberToAdd > 0) {
+                this.notificationList.collection.add(this.notifications.chain().reject(
+                    function(model) {
+                        return !!this.unreadNotifications.get(model.get("id"));
+                    }, this).first(numberToAdd).value());
+            };
+
+            this.notificationList.collection.loaded = true;
+            this.render();
+        }
     },
 
-    additionalContext: function(ctx) {
-        this.requiredResources.reset();
-        var user = this.session.user();
-        var license = chorus.models.Config.instance().license();
+    advisorNowLinkClicked: function (e) {
+        // if the link is actually clicked, then do the work to generate link information and whatnot
 
-        return _.extend(ctx, this.session.attributes, {
-            notifications: this.unreadNotifications,
-            fullName: user && user.displayName(),
-            firstName: user && user.get('firstName'),
-            userUrl: user && user.showUrl(),
-            helpLinkUrl: 'help.link_address.' + license.branding(),
-            brandingLogo: license.branding() + "-logo.png",
-            advisorNow: license.advisorNowEnabled(),
-            advisorNowLink: this.advisorNowLink(user, license)
+        var newlink = this.complexAdvisorNowLink (this.session.user(), chorus.models.Config.instance().license());
+        $("#advisorNow a").attr("href", newlink);
+
+        // and now let it continue on...
+    },
+
+
+    complexAdvisorNowLink: function(user, license) {
+        return new URI({
+            protocol: "http",
+            hostname: "go.alpinenow.com",
+            path: "advisornow",
+            query: $.param({
+                first_name: user.get("firstName"),
+                last_name: user.get("lastName"),
+                email: user.get("email"),
+                org_id: license.get("organizationUuid")
+            })
         });
+
     },
 
     refreshNotifications: function() {
@@ -153,7 +201,7 @@ chorus.views.Header = chorus.views.Base.extend({
     },
 
     togglePopupNotifications: function(e) {
-        this.notificationList.collection.trigger("reset");
+    	this.notificationList.collection.trigger("reset");
         var beingShown = this.$(".menu.popup_notifications").hasClass("hidden");
 
         chorus.PopupMenu.toggle(this, ".menu.popup_notifications", e, '.messages');
@@ -169,12 +217,12 @@ chorus.views.Header = chorus.views.Base.extend({
         }
     },
 
-    displayNotificationCount: function() {
+	displayNotificationCount: function() {
 // 		function to update the unread notification in the header lozenge
 // 		deferred until postrender so that the header loads faster
 // 		and then updates for the user
-        this.$("a.notifications .lozenge").text(this.unreadNotifications.length);
-    },
+		this.$("a.notifications .lozenge").text(this.unreadNotifications.length);
+	},
 
     clearNotificationCount: function() {
         this.$("a.notifications .lozenge").text("0").addClass("empty");
@@ -188,38 +236,13 @@ chorus.views.Header = chorus.views.Base.extend({
         chorus.PopupMenu.toggle(this, ".menu.popup_drawer", e, '.drawer');
     },
 
-    modifyTypeAheadSearchLength: function() {
+    modifyTypeAheadSearchPosition: function() {
         if(!_.isEmpty($('.left')) && !_.isEmpty($('.type_ahead_search'))) {
             this.$('.type_ahead_search').css('left', (this.$('.left').width() + parseInt($('.search').css('padding-left'), 10)) + "px");
         }
     },
 
-    startSearch: function(e) {
-        e.preventDefault();
-        var query = this.$(".search input:text").val();
-        if (query.length > 0 && !chorus.models.Config.instance().license().limitSearch()) {
-            var search = new chorus.models.SearchResult({
-                workspaceId: this.workspaceId,
-                query: query
-            });
-            chorus.router.navigate(search.showUrl());
-        }
-    },
-
-    advisorNowLink: function(user, license) {
-        return URI({
-            hostname: "http://advisor.alpinenow.com",
-            path: "start",
-            query: $.param({
-                first_name: user.get("firstName"),
-                last_name: user.get("lastName"),
-                email: user.get("email"),
-                org_id: license.get("organizationUuid")
-            })
-        });
-    },
-
-    helpAndSupport: function(e){
+    helpAndSupport: function(e) {
         e.preventDefault();
         e.stopPropagation();
         // this.dialog = new chorus.dialogs.HelpAndSupport({ model: this.model });
@@ -228,11 +251,10 @@ chorus.views.Header = chorus.views.Base.extend({
         this.togglePopupUsermenu();
     },
 
-    aboutThisApp: function(e){
+    aboutThisApp: function(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.dialog = new chorus.dialogs.AboutThisApp();
-        this.dialog.launchModal();
+        this.dialog = new chorus.dialogs.AboutThisApp().launchModal();
         this.togglePopupUsermenu();
     }
 

@@ -4,7 +4,7 @@ chorus.dialogs.DataSourceUsage = chorus.dialogs.Base.extend({
     templateName: "data_source_usage",
     title: t("data_sources.usage.title"),
     useLoadingSection: true,
-    additionalClass: 'with_sub_header',
+    additionalClass: "with_sub_header",
 
     setup: function() {
         this.dataSource = this.options.dataSource;

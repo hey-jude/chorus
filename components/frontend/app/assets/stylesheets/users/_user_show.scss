@@ -7,8 +7,8 @@ $column-padding-x : $padding-x;
 $column-padding-y : $padding-x;
 
 .user_show {
-    padding-left: $left-column-width;   /* LC width */
-    padding-right: $right-column-width;  /* RC width */
+    padding-left: $left-column-width;   // LC width */
+    padding-right: $right-column-width; // RC width */
     overflow: hidden;
 
     .user_info {
@@ -19,8 +19,8 @@ $column-padding-y : $padding-x;
     }
 
     .profile_image {
-        width: $left-column-width - (2 * $column-padding-x); /* LC width */
-        right: $left-column-width;          /* LC width */
+        width: $left-column-width - (2 * $column-padding-x); // LC width */
+        right: $left-column-width;    // LC width */
         padding-left:  $column-padding-x;
         padding-right: $column-padding-x;
         margin-left: -100%;
@@ -32,8 +32,8 @@ $column-padding-y : $padding-x;
 
   .workspaces {
     background: $shaded-background-color;
-    width: $right-column-width - (2 * $column-padding-x);          /* RC width */
-    margin-right: -$right-column-width;  /* RC width */
+    width: $right-column-width - (2 * $column-padding-x);  // RC width */
+    margin-right: -$right-column-width;  // RC width */
     padding-left:  $column-padding-x;
     padding-right: $column-padding-x;
     h2 {
@@ -59,11 +59,11 @@ $column-padding-y : $padding-x;
   }
 
   >div {
-    padding-top:   $column-padding-y;
+    padding-top: $column-padding-y;
     position: relative;
     float: left;
-    padding-bottom: 20000px + $column-padding-y;  /* X + padding-bottom */
-    margin-bottom: -20000px;  /* X */
+    padding-bottom: 20000px + $column-padding-y;  // X + padding-bottom 
+    margin-bottom: -20000px;  // X 
   }
 
   div.title {

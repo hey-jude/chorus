@@ -1,15 +1,89 @@
-<div class="media activity_item">
+
   <div class="activity_content">
+
     <div class="activity_header">
-      <h2><%= link_to(@job.name, build_backbone_url("/workspaces/#{@workspace.id}/jobs/#{@job.id}")) %> <%= @job_result.succeeded? ? 'succeeded' : 'failed' %> in workspace <%= link_to(@workspace.name, build_backbone_url("/workspaces/#{@workspace.id}")) %></h2>
+      <h2>
+        The job "<%= link_to(@job.name, build_backbone_url("/workspaces/#{@workspace.id}/jobs/#{@job.id}")) %>"
+        <%= @job_result.succeeded? ? 'succeeded.' : 'failed.' %>
+      </h2>
     </div>
-    <ul class="attachments">
-      <% @job_task_results.each do |result| %>
-          <li>
-            <%= image_tag attachments[as_png(result.class.name)].url, class: 'icon' -%>
-            <%= result.name %>
-          </li>
-      <% end %>
-    </ul>
-  </div>
+    
+    <div id="jobOverview">
+        <table class="jobTable">
+          <tbody>
+            <tr>
+              <th>Workspace:</th>
+              <td>
+                <%= link_to(@workspace.name, build_backbone_url("/workspaces/#{@workspace.id}")) %>
+              </td>
+            </tr>
+            <tr>
+              <th>Job Start Time:</th>
+              <td>
+                <%= @job_result.started_at.in_time_zone(@job_time_zone) %>
+              </td>
+            </tr>
+            <tr>
+              <th>Job End Time:</th>
+              <td>
+                <%= @job_result.finished_at.in_time_zone(@job_time_zone) %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    
+
+<table class="taskTable">
+
+  <thead>
+  <tr>
+      <th class="taskIdentifier">
+        Task Type
+      </th>
+      <th class="taskName">
+        Task Name
+      </th>
+      <th class="taskStart">
+        Started
+      </th>
+      <th class="taskEnd">
+        Finished
+      </th>
+      <th class="taskStatus">
+        Status
+      </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @job_task_results.each do |result| -%>
+
+  <tr class="taskRow">
+      <td class="taskIdentifier">
+        <%= image_tag attachments.inline[as_png(result.class.name)].url, alt: 'Task', class: 'icon' -%>
+      </td>
+      <td class="taskName">
+        <%= result.name -%>
+      </td>
+      <td class="taskStart">
+        <%= result.started_at.in_time_zone(@job_time_zone) -%>
+      </td>
+      <td class="taskFinished">
+        <%= result.finished_at.in_time_zone(@job_time_zone) -%> 
+      </td>
+      <td class="taskStatus">
+        <% if result.status == 'success' %>
+            Completed
+        <% else %>
+            Failed
+        <% end -%> 
+      </td>
+  </tr>
+  <% end -%>
+  </tbody>
+    
+</table>
+
 </div>
+

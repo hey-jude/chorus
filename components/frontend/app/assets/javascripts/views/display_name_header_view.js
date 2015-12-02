@@ -1,6 +1,6 @@
 chorus.views.DisplayNameHeader = chorus.views.Base.extend({
     constructorName: "DisplayNameHeaderView",
-    templateName:"default_content_header",
+    templateName: "default_content_header",
 
     subviews: {
         '.tag_box': 'tagBox'
@@ -13,9 +13,9 @@ chorus.views.DisplayNameHeader = chorus.views.Base.extend({
         });
     },
 
-    additionalContext:function (ctx) {
+    additionalContext: function (ctx) {
         return {
-            title:this.model && this.model.loaded ? this.model.displayName() : "",
+            title: this.model && this.model.loaded ? this.model.displayName() : "",
             imageUrl: this.options.imageUrl,
             showTagBox: this.options.showTagBox
         };

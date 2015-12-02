@@ -4,7 +4,7 @@ chorus.models.CSVImport = chorus.models.Base.extend({
     paramsToIgnore: ['contents'],
     parameterWrapper: 'csv_import',
 
-    declareValidations:function (newAttrs) {
+    declareValidations: function (newAttrs) {
         if (this.get("destinationType") !== "existing") {
             this.requirePattern('toTable', chorus.ValidationRegexes.ChorusIdentifier64(), newAttrs, "import.validation.toTable.required");
         }

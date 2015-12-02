@@ -1,8 +1,8 @@
 chorus.views.DashboardRecentWorkfiles = chorus.views.DashboardModule.extend({
     constructorName: "DashboardRecentWorkfiles",
-    templateName:"dashboard/recent_workfiles",
+    templateName: "dashboard/recent_workfiles",
 
-    events:{
+    events: {
         "click #recent_workfiles_main_content .configure": "showOptions",
         "click #recent_workfiles_main_content .clear_list": "clearList",
         "click #recent_workfiles_configuration .cancel": "hideOptions",
@@ -49,8 +49,8 @@ chorus.views.DashboardRecentWorkfiles = chorus.views.DashboardModule.extend({
         };
     },
 
-    showOptions: function(event) {
-        event.preventDefault();
+    showOptions: function(e) {
+        e.preventDefault();
         this.$('#recent_workfiles_configuration').fadeIn(160);
 
         _.defer(_.bind(function () {
@@ -59,20 +59,20 @@ chorus.views.DashboardRecentWorkfiles = chorus.views.DashboardModule.extend({
         this.$(".recent_items_select").val(this.$('#recent_workfiles_main_content li').length);
     },
 
-    hideOptions: function(event) {
-        event.preventDefault();
+    hideOptions: function(e) {
+        e.preventDefault();
         this.$('#recent_workfiles_configuration').fadeOut(100);
     },
 
-    saveOptions: function(event) {
-        event.preventDefault();
+    saveOptions: function(e) {
+        e.preventDefault();
         this.recentWorkfileModel.save({action: "updateOption", optionValue: this.$(".recent_items_select").val()}, {
             success: _.bind(this.setup, this)
         });
     },
 
-    clearList: function(event) {
-        event.preventDefault();
+    clearList: function(e) {
+        e.preventDefault();
         this.recentWorkfileModel.save({action: "clearList"}, {
             success: _.bind(this.setup, this)
         });

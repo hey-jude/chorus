@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative 'job_finished_shared_behaviors'
+require_relative 'job_finished_shared_behaviors_spec'
 
 describe Events::JobSucceeded do
   let(:job) { jobs(:default) }
@@ -15,7 +15,7 @@ describe Events::JobSucceeded do
 
   describe 'header' do
     it "has good copy" do
-      event.header.should == "Job #{job.name} succeeded in workspace #{workspace.name}."
+      event.header.should == "Job #{job.name} succeeded in the workspace #{workspace.name}"
     end
   end
 end

@@ -1,6 +1,6 @@
 chorus.views.UserSidebar = chorus.views.Sidebar.extend({
-    templateName:"user/sidebar",
-    entityType:"user",
+    templateName: "user/sidebar",
+    entityType: "user",
 
     subviews:{
         '.tab_control': 'tabs'
@@ -21,7 +21,7 @@ chorus.views.UserSidebar = chorus.views.Sidebar.extend({
         this.subscribePageEvent("user:selected", this.setUser);
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         var ctx = {};
         if (this.model) {
             var currentUserCanEdit = this.model.currentUserCanEdit();

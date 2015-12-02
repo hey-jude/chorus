@@ -71,11 +71,11 @@ chorus.dialogs.DataSourcePermissions = chorus.dialogs.Base.extend({
         this.$("form").bind("submit", _.bind(this.save, this));
     },
 
-    editCredentials: function(event) {
-        event.preventDefault();
+    editCredentials: function(e) {
+        e.preventDefault();
         this.cancel();
         this.clearErrors();
-        var li = $(event.target).closest("li");
+        var li = $(e.target).closest("li");
         var accountId = li.data("id");
         li.addClass("editing");
         this.account = this.collection.get(accountId);
@@ -212,10 +212,10 @@ chorus.dialogs.DataSourcePermissions = chorus.dialogs.Base.extend({
 
     //TODO: currently, when adding a new individual account, there is no confirmation that the add is successful
     // other than that the list of accounts updates. there should be some 'success' activity
-    save: function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        var li = $(event.target).closest("li");
+    save: function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var li = $(e.target).closest("li");
         li.find("a.save").startLoading("data_sources.permissions.saving");
 
         this.listenTo(this.account, "validationFailed", function() {
@@ -237,9 +237,9 @@ chorus.dialogs.DataSourcePermissions = chorus.dialogs.Base.extend({
         this._super('modalClosed');
     },
 
-    cancel: function(event) {
-        if (event) {
-            event.preventDefault();
+    cancel: function(e) {
+        if (e) {
+            e.preventDefault();
         }
         this.$("button.add_account").prop("disabled", false);
         this.$("li").removeClass("editing");

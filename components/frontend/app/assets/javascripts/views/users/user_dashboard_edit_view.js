@@ -40,7 +40,7 @@ chorus.views.UserDashboardEditView = chorus.views.Base.extend({
         });
     },
 
-    goBack:function () {
+    goBack: function () {
         window.history.back();
     },
 
@@ -61,8 +61,8 @@ chorus.views.UserDashboardEditView = chorus.views.Base.extend({
         });
     },
 
-    toggleDropTarget: function(event) {
-        this.$(event.currentTarget).toggleClass("drop_target");
+    toggleDropTarget: function(e) {
+        this.$(e.currentTarget).toggleClass("drop_target");
     },
 
     toggleSubmitState: function() {

@@ -2,14 +2,25 @@ class Mailer < ActionMailer::Base
 
   def notify(user, event)
     @user = user
+
     @job = event.job
+    @job_time_zone = event.job.time_zone
     @workspace = event.workspace
+
     @job_result = event.job_result
     @job_task_results = event.job_result.job_task_results
 
-    attachments[as_png('logo')] = logo(License.instance)
-    attachments[as_png(RunWorkFlowTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'workfiles', 'icon', 'afm.png'))
-    attachments[as_png(ImportSourceDataTaskResult.name)] = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-import.png'))
+    @email_with_name = '#{user.name} <#{user.email}>'
+
+    attachments.inline[as_png('logo')] = logo(License.instance)
+
+    task_workflow_icon = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-afm.png'))
+    task_import_icon = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-import.png'))
+    task_sql_icon = File.read(Core::Engine.root.join('public', 'images', 'jobs', 'task-sql.png'))
+
+    attachments.inline[as_png(RunWorkFlowTaskResult.name)] = task_workflow_icon
+    attachments.inline[as_png(ImportSourceDataTaskResult.name)] = task_import_icon
+    attachments.inline[as_png(RunSqlWorkfileTaskResult.name)] = task_sql_icon
 
     safe_deliver mail(:to => user.email, :subject => event.header)
   end
@@ -20,19 +31,26 @@ class Mailer < ActionMailer::Base
     @branding = license.branding
     attachments[as_png('logo')] = logo(license)
 
+    @email_with_name = '#{user.name} <#{user.email}>'
+
     safe_deliver mail(:to => user.email, :subject => 'Your Chorus license is expiring.')
   end
 
   private
 
   def logo(license)
-    File.read(Core::Engine.root.join('public', 'images', 'branding', %(#{license.branding}-logo.png)))
+    File.read(Core::Engine.root.join('public', 'images', 'branding', 'email', %(#{license.branding}-logo.png)))
+  end
+
+  def email_with_name(user)
+    "#{user.name} <#{user.email}>"
   end
 
   def safe_deliver(mail)
     mail.deliver
   rescue => e
-    Chorus.log_error 'Mail failed to deliver: ' + e.message
+    Chorus.log_error "***** Mail failed to deliver "
+    Chorus.log_error "#{e.message} : #{e.backtrace}"
   end
 
   module MailerHelper
@@ -44,6 +62,11 @@ class Mailer < ActionMailer::Base
     def as_png(name)
       %(#{name}.png)
     end
+
+    def as_task_icon_png(name)
+      %(#{name}.png)
+    end
+
   end
 
   helper MailerHelper

@@ -3,12 +3,12 @@
 
     var map = {
         sql: "text/x-plsql",
-        rb: "text/x-ruby",
-        py: "text/x-python",
-        r: "text/x-rsrc",
+        rb:  "text/x-ruby",
+        py:  "text/x-python",
+        r:   "text/x-rsrc",
         pig: "text/x-pig",
-        js: "javascript",
-        md: "text/x-markdown"
+        js:  "text/javascript",
+        md:  "text/x-markdown"
     };
 
     chorus.utilities.mime = function mime(ext) {

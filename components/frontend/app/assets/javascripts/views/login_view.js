@@ -1,14 +1,14 @@
 chorus.views.Login = chorus.views.Base.extend({
     constructorName: "LoginView",
-    templateName:"login",
-    events:{
-        "submit form":"submitLoginForm"
+    templateName: "login",
+    events: {
+        "submit form": "submitLoginForm"
     },
 
-    persistent:true,
+    persistent: true,
     warning: null,
 
-    setup: function () {
+    setup: function() {
         this.status = new chorus.models.Status();
         this.status.fetch();
         this.onceLoaded(this.status, this.processStatus);
@@ -17,9 +17,9 @@ chorus.views.Login = chorus.views.Base.extend({
 
     additionalContext: function() {
         return {
-            branding: this.branding(),
-            logo: this.branding() + "-logo.png",
-            copyright: t("login." + this.branding() + "_copyright", {year:moment().year()}),
+            branding: chorus.branding.applicationVendor,
+            brandingLogo: chorus.branding.applicationLoginLogo,
+            copyright: chorus.branding.copyright,
             warning: this.warning
         };
     },
@@ -28,7 +28,7 @@ chorus.views.Login = chorus.views.Base.extend({
         _.defer(_.bind(function() { this.$("input[name='username']").focus(); }, this));
     },
 
-    onLogin: function () {
+    onLogin: function() {
         var targetDestination;
         if (chorus.session && chorus.session.shouldResume()) {
             targetDestination = chorus.session.resumePath();
@@ -47,10 +47,6 @@ chorus.views.Login = chorus.views.Base.extend({
             password:this.$("input[name='password']").val()
         });
         this.model.save();
-    },
-
-    branding: function() {
-        return chorus.models.Config.instance().license().branding();
     },
 
     processStatus: function() {

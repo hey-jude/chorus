@@ -1,15 +1,15 @@
 chorus.dialogs.WorkspaceEditMembers = chorus.dialogs.Base.extend({
     constructorName: "WorkspaceEditMembers",
-    templateName:"workspace_edit_members",
-    title:t("workspace.edit_members_dialog.title"),
+    templateName: "workspace_edit_members",
+    title: t("workspace.edit_members_dialog.title"),
     additionalClass: "dialog_wide",
-    persistent:true,
+    persistent: true,
 
-    events:{
-        "click button.submit":"updateMembers"
+    events: {
+        "click button.submit": "updateMembers"
     },
 
-    makeModel:function () {
+    makeModel: function () {
         this._super("makeModel", arguments);
         this.collection = new chorus.collections.UserSet();
         this.members = this.options.pageModel.members();
@@ -21,21 +21,21 @@ chorus.dialogs.WorkspaceEditMembers = chorus.dialogs.Base.extend({
         this.listenTo(this.members, "saved", this.saved);
     },
 
-    subviews:{
-        ".shuttle":"shuttle"
+    subviews: {
+        ".shuttle": "shuttle"
     },
 
-    setup:function () {
+    setup: function () {
         this.shuttle = new chorus.views.ShuttleWidget({
-            collection:this.collection,
-            selectionSource:this.members,
-            nonRemovable:[this.options.pageModel.owner()],
-            nonRemovableText:t("workspace.owner"),
-            objectName:t("workspace.members")
+            collection: this.collection,
+            selectionSource: this.members,
+            nonRemovable: [this.options.pageModel.owner()],
+            nonRemovableText: t("workspace.owner"),
+            objectName: t("workspace.members")
         });
     },
 
-    updateMembers:function () {
+    updateMembers: function () {
         this.$("button.submit").startLoading("actions.saving");
 
         var self = this;
@@ -47,7 +47,7 @@ chorus.dialogs.WorkspaceEditMembers = chorus.dialogs.Base.extend({
         self.members.save();
     },
 
-    saved:function () {
+    saved: function () {
         this.pageModel.trigger("invalidated");
         this.closeModal();
     }

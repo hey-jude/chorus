@@ -2,7 +2,7 @@ chorus.models.Note = chorus.models.Activity.extend({
     constructorName: "Note",
     entityType: "note",
 
-    urlTemplate:function (options) {
+    urlTemplate: function (options) {
         if (options && options.isFile) {
             return "notes/{{id}}/attachments";
         } else {
@@ -10,33 +10,33 @@ chorus.models.Note = chorus.models.Activity.extend({
         }
     },
 
-    declareValidations:function (newAttrs) {
+    declareValidations: function (newAttrs) {
         this.require('body', newAttrs);
     },
 
-    attrToLabel:{
-        "body":"notes.body"
+    attrToLabel: {
+        "body": "notes.body"
     },
 
-    initialize:function () {
+    initialize: function () {
         this._super('initialize', arguments);
         this.files = [];
     },
 
-    addFileUpload:function (uploadModel) {
+    addFileUpload: function (uploadModel) {
         this.files.push(uploadModel);
     },
 
-    removeFileUpload:function (uploadModel) {
+    removeFileUpload: function (uploadModel) {
         this.files.splice(this.files.indexOf(uploadModel), 1);
     },
 
-    uploadSuccess:function (file, response) {
+    uploadSuccess: function (file, response) {
         this.filesToBeSaved--;
         this.uploadComplete();
     },
 
-    uploadFailed:function (file, e, response) {
+    uploadFailed: function (file, e, response) {
         this.filesToBeSaved--;
         this.fileUploadErrors++;
         if (response === "abort") {
@@ -52,7 +52,7 @@ chorus.models.Note = chorus.models.Activity.extend({
         this.uploadComplete();
     },
 
-    uploadComplete:function () {
+    uploadComplete: function () {
         if (this.filesToBeSaved === 0) {
             if (this.fileUploadErrors > 0) {
                 this.trigger('fileUploadFailed');
@@ -63,7 +63,7 @@ chorus.models.Note = chorus.models.Activity.extend({
         }
     },
 
-    saveFiles:function () {
+    saveFiles: function () {
         this.fileUploadErrors = 0;
         this.filesToBeSaved = this.files.length;
         _.each(this.files, function(file) {
@@ -73,12 +73,12 @@ chorus.models.Note = chorus.models.Activity.extend({
                 .fail(_.bind(this.uploadFailed, this, file));
         }, this);
     },
-    beforeSave:function () {
+    beforeSave: function () {
         if (this.datasets) {
-            this.set({ datasetIds:this.datasets.pluck('id') }, { silent:true });
+            this.set({ datasetIds:this.datasets.pluck('id') }, { silent: true });
         }
         if (this.workfiles) {
-            this.set({ workfileIds:this.workfiles.pluck('id') }, { silent:true });
+            this.set({ workfileIds:this.workfiles.pluck('id') }, { silent: true });
         }
     }
 });

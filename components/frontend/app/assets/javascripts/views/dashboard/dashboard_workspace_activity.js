@@ -1,6 +1,6 @@
 chorus.views.DashboardWorkspaceActivity = chorus.views.Base.extend({
     constructorName: "DashboardWorkspaceActivity",
-    templateName:"dashboard/workspace_activity",
+    templateName: "dashboard/workspace_activity",
     entityType: "workspace_activity",
     events: {
         "change .date_group_filter": "onFilterChange"

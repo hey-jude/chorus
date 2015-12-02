@@ -2,7 +2,7 @@ chorus.views.JobSidebar = chorus.views.Sidebar.extend({
     constructorName: "JobSidebar",
     templateName: "job_sidebar",
 
-    subviews:{
+    subviews: {
         '.tab_control': 'tabs'
     },
 

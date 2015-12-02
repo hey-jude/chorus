@@ -6,8 +6,8 @@ chorus.dialogs.HelpAndSupport = chorus.dialogs.Base.extend({
     "click button.download_logs": "downloadLogs"
   },
 
-  downloadLogs: function (event) {
-    event.preventDefault();
+  downloadLogs: function (e) {
+    e.preventDefault();
     chorus.fileDownload("/log_archiver", {httpMethod: "GET"});
   }
 });

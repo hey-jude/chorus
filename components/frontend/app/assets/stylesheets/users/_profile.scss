@@ -1,12 +1,11 @@
 @mixin profile_image {
-    background: #FFFFFF;
+    background: $core-white;
     padding: 2px;
     border: $border-canon;
 }
 
 @mixin user_avatar_image {
-    background: #FFF;
-    /* padding: 2px; */
+    background: $core-white;
     border: $border-canon;
     border-radius: 5px;
 }

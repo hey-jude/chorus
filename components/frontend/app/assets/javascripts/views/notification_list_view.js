@@ -4,15 +4,15 @@ chorus.views.NotificationList = chorus.views.Base.extend({
     useLoadingSection: true,
 
     events: {
-        "click .more_items a":"fetchMoreNotifications"
+        "click .more_items a": "fetchMoreNotifications"
     },
 
     setup: function() {
         this.activities = [];
     },
 
-    fetchMoreNotifications: function (ev) {
-        ev.preventDefault();
+    fetchMoreNotifications: function (e) {
+        e.preventDefault();
         var pageToFetch = parseInt(this.collection.pagination.page, 10) + 1;
         this.collection.fetchPage(pageToFetch, { reset: false, remove: false, success: _.bind(this.render, this) });
         this.collection.bindOnce("loaded", function() {
@@ -20,7 +20,7 @@ chorus.views.NotificationList = chorus.views.Base.extend({
         }, this);
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         var ctx = {  };
         if (this.collection.loaded && this.collection.pagination) {
             var page = parseInt(this.collection.pagination.page, 10);

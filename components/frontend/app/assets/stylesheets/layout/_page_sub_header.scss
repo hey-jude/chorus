@@ -2,16 +2,15 @@
 @import "compass/css3";
 
 .page_sub_header {
-    /* height: subtract 1 to account for the border-bottom */
+    // height: subtract 1 to account for the border-bottom */
     height: $subheader-height - 1;
-    /* padding-top: $header-height; */
     margin-top: $header-height;
 
     background: $subheader-background-color;
     line-height: $subheader-height;
     border-bottom: $border-canon;
 
-    /* first child within the subheader is the div > span that contains the subheader text */
+    // first child within the subheader is the div > span that contains the subheader text */
     > :first-child {
         padding-left: $page-margin-left;
         padding-right: $page-margin-right;
@@ -21,7 +20,7 @@
     #sub_header_pagetitle a{
         display: inline-block;
         @include ellipsis;
-        /* if it gets this long, thats about long enough in the header */
+        // if it gets this long, thats about long enough in the header */
         width: 93%;
 
         color: $color-text3;

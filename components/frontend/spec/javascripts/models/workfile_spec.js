@@ -179,18 +179,18 @@ describe("chorus.models.Workfile", function() {
         });
     });
 
-    describe("isImage", function() {
+    describe("isImageFiletype", function() {
         context("when the workfile is an image", function() {
             it("returns true", function() {
                 var workfile = backboneFixtures.workfile.image();
-                expect(workfile.isImage()).toBeTruthy();
+                expect(workfile.isImageFiletype()).toBeTruthy();
             });
         });
 
         context("when the workfile is NOT an image", function() {
             it("returns false", function() {
                 var workfile = backboneFixtures.workfile.sql();
-                expect(workfile.isImage()).toBeFalsy();
+                expect(workfile.isImageFiletype()).toBeFalsy();
             });
         });
     });

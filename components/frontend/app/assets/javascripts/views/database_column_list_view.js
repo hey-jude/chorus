@@ -1,29 +1,29 @@
 chorus.views.DatabaseColumnList = chorus.views.Base.extend({
     constructorName: "DatabaseColumnListView",
-    tagName:"ul",
-    templateName:"database_column_list",
+    tagName: "ul",
+    templateName: "database_column_list",
     additionalClass: "selectable list",
-    events:{
-        "click li":"selectColumnClick"
+    events: {
+        "click li": "selectColumnClick"
     },
     selectMulti: false,
 
-    setup:function () {
+    setup: function () {
         this.subscribePageEvent("column:removed", this.deselectColumn);
         this.subscribePageEvent("column:deselected", this.deselectColumn);
         this.subscribePageEvent("column:select_all", this.selectAll);
         this.subscribePageEvent("column:select_none", this.selectNone);
     },
 
-    postRender:function () {
+    postRender: function () {
         if(!this.selectMulti) {
             this.toggleColumnSelection(this.$("li:eq(0)"));
         }
     },
 
-    collectionModelContext:function (model) {
+    collectionModelContext: function (model) {
         return {
-            typeClass:model.get("typeClass"),
+            typeClass: model.get("typeClass"),
             typeString: model.get("dataType")
         };
     },
@@ -48,7 +48,7 @@ chorus.views.DatabaseColumnList = chorus.views.Base.extend({
         this.toggleColumnSelection($(e.target).closest("li"));
     },
 
-    toggleColumnSelection:function ($selectedColumn, forceState) {
+    toggleColumnSelection: function ($selectedColumn, forceState) {
         if (this.selectMulti) {
             var turnOn = (arguments.length === 2) ? forceState : !$selectedColumn.is(".selected");
             var column = this.collection.get($selectedColumn.data('cid'));

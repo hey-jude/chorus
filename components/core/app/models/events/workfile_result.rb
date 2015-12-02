@@ -12,6 +12,7 @@ module Events
 
     def notify_run_complete
       Notification.create!(:recipient_id => current_user.id, :event_id => self.id)
+      #Mailer.notify_worklet_complete(user, self) if user.subscribed_to_emails?
     end
 
   end

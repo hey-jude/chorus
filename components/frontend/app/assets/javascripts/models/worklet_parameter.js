@@ -103,9 +103,9 @@ chorus.models.WorkletParameter = chorus.models.Base.extend({
     },
 
     attrToLabel: {
-      "label":"worklet.configure.inputs.field_label",
-      "dataType":"worklet.edit.input.data_type.label",
-      "variableName":"worklet.configure.inputs.workflow_variable"
+      "label": "worklet.configure.inputs.field_label",
+      "dataType": "worklet.edit.input.data_type.label",
+      "variableName": "worklet.configure.inputs.workflow_variable"
     }
 
 });

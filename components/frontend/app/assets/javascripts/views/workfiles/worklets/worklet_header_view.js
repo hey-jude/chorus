@@ -28,8 +28,8 @@ chorus.views.WorkletHeader = chorus.views.Base.extend({
         chorus.PageEvents.trigger("menu:worklet", eventType);
     },
 
-    editorSavingEvent: function(event) {
-        if (event === 'saving') {
+    editorSavingEvent: function(e) {
+        if (e === 'saving') {
             this.$('button.save').startLoading("general.saving");
         } else {
             this.$('button.save').stopLoading();

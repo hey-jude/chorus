@@ -5,11 +5,11 @@ chorus.dialogs.WorkletNew = chorus.dialogs.Base.include(
         templateName: "worklets/worklet_new_dialog",
         title: t("worklet.create_new_title"),
         events: {
-            "submit form":"save"
+            "submit form": "save"
         },
-        persistent:true,
+        persistent: true,
 
-        makeModel:function () {
+        makeModel: function () {
             this.workspace = this.options.pageModel;
             this.model = this.model || new chorus.models.Worklet({workspace: this.workspace.attributes});
 
@@ -21,7 +21,7 @@ chorus.dialogs.WorkletNew = chorus.dialogs.Base.include(
             }
         },
 
-        setup:function () {
+        setup: function () {
             this.listenTo(this.model, "saved", this.workletSaved);
             this.listenTo(this.model, "saveFailed", this.saveFailed);
             this.disableFormUnlessValid({
@@ -42,7 +42,7 @@ chorus.dialogs.WorkletNew = chorus.dialogs.Base.include(
             this.model.save(attrs, {wait: true});
         },
 
-        workletSaved:function () {
+        workletSaved: function () {
             this.closeModal();
             chorus.router.navigate("/workspaces/" + this.workspace.get('id') + "/touchpoints/" + this.model.get("id"));
         },

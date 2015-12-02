@@ -28,8 +28,7 @@
         });
         return function(columnName, inputValue) {
             return inputValue ?
-                columnName + " " + comparator + " " + qs(options.inputPrefix + inputValue + options.inputSuffix) :
-                "";
+                columnName + " " + comparator + " " + qs(options.inputPrefix + inputValue + options.inputSuffix) : "";
         };
     }
 

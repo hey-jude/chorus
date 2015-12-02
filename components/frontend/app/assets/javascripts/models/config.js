@@ -1,6 +1,6 @@
 chorus.models.Config = chorus.models.Base.extend({
     constructorName: "Config",
-    urlTemplate:"config/",
+    urlTemplate: "config/",
 
     isExternalAuth: function() {
         return this.get("externalAuthEnabled");
@@ -25,7 +25,7 @@ chorus.models.Config = chorus.models.Base.extend({
 
         return this._license;
     },
-
+    
     clear: function() {
         this._super("clear", arguments);
         delete this._license;

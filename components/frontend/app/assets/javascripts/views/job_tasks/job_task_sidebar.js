@@ -1,6 +1,6 @@
 chorus.views.JobTaskSidebar = chorus.views.Sidebar.extend({
     constructorName: "JobTaskSidebar",
-    templateName:"job_task_sidebar",
+    templateName: "job_task_sidebar",
 
     events: {
         'click .delete_job_task': 'launchDeleteAlert',

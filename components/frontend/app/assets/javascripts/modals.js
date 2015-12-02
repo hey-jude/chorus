@@ -11,7 +11,7 @@ chorus.Modal = chorus.views.Base.extend({
         }
     },
 
-    launchNewModal:function () {
+    launchNewModal: function () {
         this.render();
         $(document).one('reveal.facebox', _.bind(this.beginReveal, this));
         $.facebox(this.el);
@@ -131,32 +131,32 @@ chorus.Modal = chorus.views.Base.extend({
         this.centerHorizontally();
     },
 
-    makeModel:function (options) {
+    makeModel: function (options) {
         if (options && options.pageModel) {
             this.pageModel = options.pageModel;
             this.model = this.model || this.pageModel;
         }
     },
 
-    closeModal:function (success) {
+    closeModal: function (success) {
         $(document).trigger("close.facebox");
         if (success === true) {
             $(document).trigger("close.faceboxsuccess");
         }
     },
 
-    keydownHandler:function (e) {
+    keydownHandler: function (e) {
         if (e.keyCode === 27) {
             e.preventDefault();
             this.escapePressed();
         }
     },
 
-    escapePressed:function () {
+    escapePressed: function () {
         this.closeModal();
     },
 
-    modalClosed:function () {
+    modalClosed: function () {
         if (this === chorus.modal) {
             this.close();
             $("#facebox").remove();
@@ -217,7 +217,8 @@ chorus.Modal = chorus.views.Base.extend({
         $("body").css("overflow", "visible");
     },
 
-    close:$.noop,
+    close: $.noop,
+
     revealed: $.noop,
 
     beginReveal: function() {

@@ -2,7 +2,7 @@ chorus.views.WorkfileContentDetails = chorus.views.Base.include(
         chorus.Mixins.StickyHeader
     ).extend({
 
-    templateName:"workfile_content_details",
+    templateName: "workfile_content_details",
     additionalClass: "workfile_content_details action_bar_highlighted",
 
     setup: function() {
@@ -74,7 +74,7 @@ chorus.views.WorkfileContentDetails = chorus.views.Base.include(
 },
 {
     buildFor: function(model, contentView) {
-        if (model.isImage()) {
+        if (model.isImageFiletype()) {
             return new chorus.views.ImageWorkfileContentDetails({ model:model });
         }
 

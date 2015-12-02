@@ -1,5 +1,5 @@
 <ul>
-  <li class='underline'>
+  <li class="underline">
     <a href="{{userUrl}}" id="header_userProfileLink">
       {{t "header.your_profile"}}
     </a>
@@ -10,20 +10,21 @@
     </a>
   </li>
 
-
-  <li class='help_and_support'>
+    {{#if isAlpine}}
+  <li class="help_and_support">
     <a href="#" id="header_supportLink" class="supportLink">
-      {{t "help.help_and_support.title"}}
+      {{t "header.help_and_support.menu"}}
     </a>
   </li>
-
+    {{/if}}
   <li class="about_this_app underline">
     <a href="#/about" id="header_aboutLink">
       {{t "header.about"}}
     </a>
   </li>
+
   <li>
-    <a href='#/logout' id="header_logoutLink">
+    <a href="#/logout" id="header_logoutLink">
       {{t "header.sign_out"}}
     </a>
   </li>

@@ -1,6 +1,6 @@
 chorus.views.DashboardModule = chorus.views.Base.extend({
     constructorName: "DashboardModuleView",
-    templateName:"dashboard/module",
+    templateName: "dashboard/module",
 
     setup: function(options) {
         options = options || {};

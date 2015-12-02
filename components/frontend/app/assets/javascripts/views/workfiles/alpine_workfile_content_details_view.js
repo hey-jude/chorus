@@ -63,9 +63,8 @@ chorus.views.AlpineWorkfileContentDetails = chorus.views.WorkfileContentDetails.
         return this.model.workspace().isActive() && this.model.workspace().canUpdate();
     },
 
-    navigateToWorkFlow:function(){
+    navigateToWorkFlow: function(){
         this.model.notifyWorkflowLimitedDataSource();
-
         chorus.router.navigate(this.model.workFlowShowUrl());
     }
 });

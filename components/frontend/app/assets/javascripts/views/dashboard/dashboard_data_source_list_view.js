@@ -1,9 +1,9 @@
 chorus.views.DashboardDataSourceList = chorus.views.Base.extend({
     constructorName: "DashboardDataSourceListView",
-    templateName:"dashboard/data_source_list",
-    tagName:"ul",
-    additionalClass:"list",
-    useLoadingSection:true,
+    templateName: "dashboard/data_source_list",
+    tagName: "ul",
+    additionalClass: "list",
+    useLoadingSection: true,
 
     collectionModelContext: function(model) {
         return {

@@ -1,26 +1,32 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="chrome=IE8">
+  
   <%= csrf_meta_tags %>
 
   <script>
     if (top.frames.length != 0) { top.location = self.document.location; }
   </script>
-
-  <!--[if (IE) & (lt IE 9) ]>
-  <script type="text/javascript"
-          src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script> <![endif]-->
-
+  
   <title><%= License.instance.branding_title %></title>
 
   <%= stylesheet_link_tag "frontend" %>
   <%= javascript_include_tag "frontend.js" %>
 
-  <link rel="icon" href="<%= "images/branding/#{License.instance.branding}-favicon.ico" %>" type="image/x-icon">
-  <link rel="shortcut icon" href="<%= "images/branding/#{License.instance.branding}-favicon.ico" %>" type="image/x-icon">
+  <link rel="shortcut icon" href="<%= "images/branding/#{License.instance.branding}-favicon.ico" %>" />
+  
+<% if License.instance.branding == 'alpine' %>
+    <meta name="application-name" content="Alpine Chorus" />
+    <link rel="mask-icon" href="<%= "images/branding/#{License.instance.branding}-pinned-tab.svg" %>" color="#00A0E5" />
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= "images/branding/#{License.instance.branding}-touch-icon-120x120.png" %>" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%= "images/branding/#{License.instance.branding}-touch-icon-144x144.png" %>" />
+    <meta name="msapplication-config" content="images/branding/alpine-browserconfig.xml"/>
+<% else %>
+    <meta name="application-name" content="Chorus" />
+<% end %>
+
 
   <script>
       var instance = chorus.models.Config.instance();

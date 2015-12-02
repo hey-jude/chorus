@@ -1,6 +1,6 @@
 chorus.views.TabControl = chorus.views.Base.extend({
     constructorName: "TabControlView",
-    templateName:'tab_control',
+    templateName: "tab_control",
 
     events: { "click .tabs .tab": 'clickTab' },
 
@@ -8,7 +8,7 @@ chorus.views.TabControl = chorus.views.Base.extend({
         this.tabNames = tabNames;
     },
 
-    additionalContext:function () {
+    additionalContext: function () {
         return {
             tabKeys: _.map(this.tabNames, function(tabName) {
                 return { name: tabName, text: t('tabs.' + tabName) };

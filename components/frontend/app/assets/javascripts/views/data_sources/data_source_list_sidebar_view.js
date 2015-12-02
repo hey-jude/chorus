@@ -154,11 +154,11 @@ chorus.views.DataSourceListSidebar = chorus.views.Sidebar.extend({
 
         this.model.save(this.model.attributes, {
             success: function(){
-                chorus.toast("data_sources.state.enabled_success.toast", {dataSourceName: this.model.name(), toastOpts: {type:"success"}});
+                chorus.toast("data_sources.state.enabled_success.toast", {dataSourceName: this.model.name(), toastOpts: {type: "success"}});
             }.bind(this),
 
             unprocessableEntity: function(){
-                chorus.toast("data_sources.state.enabled_error.toast", {dataSourceName: this.model.name(), toastOpts: {type:"error"}});
+                chorus.toast("data_sources.state.enabled_error.toast", {dataSourceName: this.model.name(), toastOpts: {type: "error"}});
                 this.model.set('state', 'disabled');
             }.bind(this)
         });

@@ -1,10 +1,14 @@
-/*!
- * Punycode.js <http://mths.be/punycode>
- * Copyright 2011 Mathias Bynens <http://mathiasbynens.be/>
- * Available under MIT license <http://mths.be/mit>
- */
-
+/*! http://mths.be/punycode v1.2.3 by @mathias */
 ;(function(root) {
+
+	/** Detect free variables */
+	var freeExports = typeof exports == 'object' && exports;
+	var freeModule = typeof module == 'object' && module &&
+		module.exports == freeExports && module;
+	var freeGlobal = typeof global == 'object' && global;
+	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
+		root = freeGlobal;
+	}
 
 	/**
 	 * The `punycode` object.
@@ -12,13 +16,6 @@
 	 * @type Object
 	 */
 	var punycode,
-
-	/** Detect free variables `define`, `exports`, `module` and `require` */
-	freeDefine = typeof define == 'function' && typeof define.amd == 'object' &&
-		define.amd && define,
-	freeExports = typeof exports == 'object' && exports,
-	freeModule = typeof module == 'object' && module,
-	freeRequire = typeof require == 'function' && require,
 
 	/** Highest positive signed 32-bit float value */
 	maxInt = 2147483647, // aka. 0x7FFFFFFF or 2^31-1
@@ -34,14 +31,13 @@
 	delimiter = '-', // '\x2D'
 
 	/** Regular expressions */
-	regexNonASCII = /[^ -~]/, // matches unprintable ASCII chars + non-ASCII chars
 	regexPunycode = /^xn--/,
+	regexNonASCII = /[^ -~]/, // unprintable ASCII chars + non-ASCII chars
+	regexSeparators = /\x2E|\u3002|\uFF0E|\uFF61/g, // RFC 3490 separators
 
 	/** Error messages */
 	errors = {
-		'overflow': 'Overflow: input needs wider integers to process.',
-		'ucs2decode': 'UCS-2(decode): illegal sequence',
-		'ucs2encode': 'UCS-2(encode): illegal value',
+		'overflow': 'Overflow: input needs wider integers to process',
 		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
 		'invalid-input': 'Invalid input'
 	},
@@ -92,18 +88,21 @@
 	 * function.
 	 */
 	function mapDomain(string, fn) {
-		var glue = '.';
-		return map(string.split(glue), fn).join(glue);
+		return map(string.split(regexSeparators), fn).join('.');
 	}
 
 	/**
-	 * Creates an array containing the decimal code points of each character in
-	 * the string.
+	 * Creates an array containing the numeric code points of each Unicode
+	 * character in the string. While JavaScript uses UCS-2 internally,
+	 * this function will convert a pair of surrogate halves (each of which
+	 * UCS-2 exposes as separate characters) into a single code point,
+	 * matching UTF-16.
 	 * @see `punycode.ucs2.encode`
+	 * @see <http://mathiasbynens.be/notes/javascript-encoding>
 	 * @memberOf punycode.ucs2
 	 * @name decode
-	 * @param {String} string The Unicode input string.
-	 * @returns {Array} The new array.
+	 * @param {String} string The Unicode input string (UCS-2).
+	 * @returns {Array} The new array of code points.
 	 */
 	function ucs2decode(string) {
 		var output = [],
@@ -113,32 +112,35 @@
 		    extra;
 		while (counter < length) {
 			value = string.charCodeAt(counter++);
-			if ((value & 0xF800) == 0xD800) {
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
 				extra = string.charCodeAt(counter++);
-				if ((value & 0xFC00) != 0xD800 || (extra & 0xFC00) != 0xDC00) {
-					error('ucs2decode');
+				if ((extra & 0xFC00) == 0xDC00) { // low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
 				}
-				value = ((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000;
+			} else {
+				output.push(value);
 			}
-			output.push(value);
 		}
 		return output;
 	}
 
 	/**
-	 * Creates a string based on an array of decimal code points.
+	 * Creates a string based on an array of numeric code points.
 	 * @see `punycode.ucs2.decode`
 	 * @memberOf punycode.ucs2
 	 * @name encode
-	 * @param {Array} codePoints The array of decimal code points.
-	 * @returns {String} The new string.
+	 * @param {Array} codePoints The array of numeric code points.
+	 * @returns {String} The new Unicode string (UCS-2).
 	 */
 	function ucs2encode(array) {
 		return map(array, function(value) {
 			var output = '';
-			if ((value & 0xF800) == 0xD800) {
-				error('ucs2encode');
-			}
 			if (value > 0xFFFF) {
 				value -= 0x10000;
 				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
@@ -153,19 +155,22 @@
 	 * Converts a basic code point into a digit/integer.
 	 * @see `digitToBasic()`
 	 * @private
-	 * @param {Number} codePoint The basic (decimal) code point.
+	 * @param {Number} codePoint The basic numeric code point value.
 	 * @returns {Number} The numeric value of a basic code point (for use in
 	 * representing integers) in the range `0` to `base - 1`, or `base` if
 	 * the code point does not represent a value.
 	 */
 	function basicToDigit(codePoint) {
-		return codePoint - 48 < 10
-			? codePoint - 22
-			: codePoint - 65 < 26
-				? codePoint - 65
-				: codePoint - 97 < 26
-					? codePoint - 97
-					: base;
+		if (codePoint - 48 < 10) {
+			return codePoint - 22;
+		}
+		if (codePoint - 65 < 26) {
+			return codePoint - 65;
+		}
+		if (codePoint - 97 < 26) {
+			return codePoint - 97;
+		}
+		return base;
 	}
 
 	/**
@@ -177,7 +182,7 @@
 	 * representing integers) is `digit`, which needs to be in the range
 	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
 	 * used; else, the lowercase form is used. The behavior is undefined
-	 * if flag is non-zero and `digit` has no uppercase form.
+	 * if `flag` is non-zero and `digit` has no uppercase form.
 	 */
 	function digitToBasic(digit, flag) {
 		//  0..25 map to ASCII a..z or A..Z
@@ -201,25 +206,11 @@
 	}
 
 	/**
-	 * Converts a basic code point to lowercase is `flag` is falsy, or to
-	 * uppercase if `flag` is truthy. The code point is unchanged if it's
-	 * caseless. The behavior is undefined if `codePoint` is not a basic code
-	 * point.
-	 * @private
-	 * @param {Number} codePoint The numeric value of a basic code point.
-	 * @returns {Number} The resulting basic code point.
-	 */
-	function encodeBasic(codePoint, flag) {
-		codePoint -= (codePoint - 97 < 26) << 5;
-		return codePoint + (!flag && codePoint - 65 < 26) << 5;
-	}
-
-	/**
-	 * Converts a Punycode string of ASCII code points to a string of Unicode
-	 * code points.
+	 * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+	 * symbols.
 	 * @memberOf punycode
-	 * @param {String} input The Punycode string of ASCII code points.
-	 * @returns {String} The resulting string of Unicode code points.
+	 * @param {String} input The Punycode string of ASCII-only symbols.
+	 * @returns {String} The resulting string of Unicode symbols.
 	 */
 	function decode(input) {
 		// Don't use UCS-2
@@ -281,7 +272,7 @@
 				}
 
 				i += digit * w;
-				t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+				t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
 
 				if (digit < t) {
 					break;
@@ -317,11 +308,11 @@
 	}
 
 	/**
-	 * Converts a string of Unicode code points to a Punycode string of ASCII
-	 * code points.
+	 * Converts a string of Unicode symbols to a Punycode string of ASCII-only
+	 * symbols.
 	 * @memberOf punycode
-	 * @param {String} input The string of Unicode code points.
-	 * @returns {String} The resulting Punycode string of ASCII code points.
+	 * @param {String} input The string of Unicode symbols.
+	 * @returns {String} The resulting Punycode string of ASCII-only symbols.
 	 */
 	function encode(input) {
 		var n,
@@ -404,7 +395,7 @@
 				if (currentValue == n) {
 					// Represent delta as a generalized variable-length integer
 					for (q = delta, k = base; /* no condition */; k += base) {
-						t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+						t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
 						if (q < t) {
 							break;
 						}
@@ -473,10 +464,11 @@
 		 * @memberOf punycode
 		 * @type String
 		 */
-		'version': '0.3.0',
+		'version': '1.2.3',
 		/**
 		 * An object of methods to convert from JavaScript's internal character
-		 * representation (UCS-2) to Unicode and back.
+		 * representation (UCS-2) to Unicode code points, and back.
+		 * @see <http://mathiasbynens.be/notes/javascript-encoding>
 		 * @memberOf punycode
 		 * @type Object
 		 */
@@ -491,21 +483,25 @@
 	};
 
 	/** Expose `punycode` */
-	if (freeExports) {
-		if (freeModule && freeModule.exports == freeExports) {
-			// in Node.js or Ringo 0.8+
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		typeof define == 'function' &&
+		typeof define.amd == 'object' &&
+		define.amd
+	) {
+		define(function() {
+			return punycode;
+		});
+	}	else if (freeExports && !freeExports.nodeType) {
+		if (freeModule) { // in Node.js or RingoJS v0.8.0+
 			freeModule.exports = punycode;
-		} else {
-			// in Narwhal or Ringo 0.7-
+		} else { // in Narwhal or RingoJS v0.7.0-
 			for (key in punycode) {
 				punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
 			}
 		}
-	} else if (freeDefine) {
-		// via curl.js or RequireJS
-		define('punycode', punycode);
-	} else {
-		// in a browser or Rhino
+	} else { // in Rhino or a web browser
 		root.punycode = punycode;
 	}
 

@@ -156,9 +156,9 @@ chorus.views.ResultsConsole = chorus.views.Base.extend({
         this.$(".message").empty();
     },
 
-    cancelExecution: function(event) {
+    cancelExecution: function(e) {
         this.cancelTimers();
-        event && event.preventDefault();
+        e && e.preventDefault();
         this.model && this.model.cancel();
         this.clickClose();
     },

@@ -1,9 +1,9 @@
 chorus.models.CommentFileUpload = chorus.models.Base.extend({
-    initialize:function (data) {
+    initialize: function (data) {
         this.data = data;
     },
 
-    cancelUpload:function () {
+    cancelUpload: function () {
         if (this.data.jqXHR) {
             this.data.jqXHR.abort();
         }

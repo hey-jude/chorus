@@ -11,7 +11,7 @@ chorus.pages.NotificationIndexPage = chorus.pages.Base.extend({
 
         this.mainContent = new chorus.views.MainContentView({
             collection: this.collection,
-            contentHeader: new chorus.views.StaticTemplate("default_content_header", {title:t("header.your_notifications")}),
+            contentHeader: new chorus.views.StaticTemplate("default_content_header", {title: t("header.your_notifications")}),
             content: new chorus.views.NotificationList({ collection: this.collection, allowMoreLink: true })
         });
     },

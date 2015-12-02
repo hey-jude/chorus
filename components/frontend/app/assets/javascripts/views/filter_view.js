@@ -118,7 +118,7 @@ chorus.views.Filter = chorus.views.Base.extend({
         this.validateInput();
     },
 
-    updateInputSelect:function () {
+    updateInputSelect: function () {
         this.model.setInput(this.fieldSelectValues());
         this.validateInput();
     },

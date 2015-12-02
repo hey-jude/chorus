@@ -9,37 +9,8 @@ chorus.views.PageItemList = chorus.views.Base.extend({
     suppressRenderOnChange: true,
 
     events: {
-        "click  li input[type=checkbox]": "checkboxClicked",
+        "click li input[type=checkbox]": "checkboxClicked",
         "click .item_wrapper": "listItemClicked"
-    },
-
-    listItemClicked: function(e) {
-        var $item = $(e.target).closest('.item_wrapper');
-        $item.hasClass('checked') || this.deselectAllOtherItemsAndFocusOnThisOne($item);
-    },
-
-    checkboxClicked: function(e) {
-        e.stopPropagation();
-        var clickedBox = $(e.currentTarget);
-        var clickedLi = clickedBox.closest(".item_wrapper");
-        var index = this.$(".item_wrapper").index(clickedLi);
-        var model = this.collection.at(index);
-        var notCollected = !this.findSelectedModel(model);
-
-        if(notCollected) {
-            var modelsToAdd = [model];
-            if(e.shiftKey && this.previousIndex >= 0) {
-                var min = _.min([this.previousIndex, index]);
-                var max = _.max([this.previousIndex, index]);
-                modelsToAdd = this.collection.models.slice(min, max + 1);
-            }
-            this.addModelsToSelection(modelsToAdd);
-            this.previousIndex = index;
-        } else {
-            this.unselectItem(model);
-        }
-
-        this.sendCheckedEvents();
     },
 
     setup: function() {
@@ -69,13 +40,21 @@ chorus.views.PageItemList = chorus.views.Base.extend({
         _.each(this.liViews, function(liViews) {
             liViews.teardown();
         });
+        
+        var holdingPen = document.createDocumentFragment();
+
         this.liViews = [];
         this.collection.each(function(model) {
+            
             var view = this.makeListItemView(model);
-            $(this.el).append(view.render().el);
+            
+            holdingPen.appendChild(view.render().el)
+            //$(this.el).append(view.render().el);
             this.liViews.push(view);
-            this.registerSubView(view);
+            //this.registerSubView(view);
         }, this);
+
+        this.$el.append(holdingPen);
 
         this.checkSelectedModels();
 
@@ -85,6 +64,35 @@ chorus.views.PageItemList = chorus.views.Base.extend({
         this.rememberOrForgetSelectedItem();
 
         if(this.selectedIndex) this.focusSideBarOnItem($item, $lis);
+    },
+
+    listItemClicked: function(e) {
+        var $item = $(e.target).closest('.item_wrapper');
+        $item.hasClass('checked') || this.deselectAllOtherItemsAndFocusOnThisOne($item);
+    },
+
+    checkboxClicked: function(e) {
+        e.stopPropagation();
+        var clickedBox = $(e.currentTarget);
+        var clickedLi = clickedBox.closest(".item_wrapper");
+        var index = this.$(".item_wrapper").index(clickedLi);
+        var model = this.collection.at(index);
+        var notCollected = !this.findSelectedModel(model);
+
+        if(notCollected) {
+            var modelsToAdd = [model];
+            if(e.shiftKey && this.previousIndex >= 0) {
+                var min = _.min([this.previousIndex, index]);
+                var max = _.max([this.previousIndex, index]);
+                modelsToAdd = this.collection.models.slice(min, max + 1);
+            }
+            this.addModelsToSelection(modelsToAdd);
+            this.previousIndex = index;
+        } else {
+            this.unselectItem(model);
+        }
+
+        this.sendCheckedEvents();
     },
 
     rememberOrForgetSelectedItem: function(){
@@ -152,7 +160,6 @@ chorus.views.PageItemList = chorus.views.Base.extend({
         }
     },
 
-
     unselectItem: function(model) {
         if(model) {
             var match = this.findSelectedModel(model);
@@ -215,7 +222,6 @@ chorus.views.PageItemList = chorus.views.Base.extend({
         itemView.listenTo(model, 'change:tags', itemView.render);
         return new chorus.views.ItemWrapper({itemView: itemView});
     },
-
 
     deselectAllOtherItemsAndFocusOnThisOne: function ($item) {
         this.selectAll();

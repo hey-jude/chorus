@@ -7,13 +7,14 @@ $header-margin: 30px;
 $header-margin-left: $page-margin-left;
 $header-margin-right: $page-margin-right;
 
-$expanded-search-width: 450px;
-$notification-token-width: $header-margin * 2;
+$collapsed-search-width: 185px;
+$expanded-search-width:  450px;
 
-$branding-opacity: 0.93;
+$branding-opacity: 0.94;
 
 $menu-item-height-default: 40px;
-
+$menu-notifications-width: 320px;
+$notification-token-width: $header-margin * 2;
 
 @mixin full-item-link($height) {
     &:hover, &.selected {
@@ -76,7 +77,6 @@ $menu-item-height-default: 40px;
             padding: 0 0 0 0;
             top: $header-height;
         }
-
         .token {
             &.active {
                 background-color: $brand-tint;
@@ -103,15 +103,18 @@ $menu-item-height-default: 40px;
         .left {
             float: left;
             #primary-menu {
-            	position: relative;
-            	top: 1px;
-            	width: 16px;
-            	height: 16px;
-            	opacity: 0.94;
-
+            	// position: relative;
             	position: absolute;
+            	top: 1px;
             	left: 16px;
+            	width: 17px;
+            	height: 16px;
+            	opacity: $branding-opacity;
 
+                &:hover {
+                    opacity: 1;
+                }
+                    
             	svg {
             	    fill: #FFF;
             	}
@@ -119,24 +122,6 @@ $menu-item-height-default: 40px;
 
             .token {
                 float: left;
-
-                // main branding logo
-                &.logo {
-                    width: 90px;
-                    padding: 0px 10px;
-                    opacity: $branding-opacity;
-
-                    &:hover {
-                        opacity: 1;
-                    }
-                    a img {
-                        vertical-align: middle;
-                    }
-
-                    img {
-                        max-height: 25px;
-                    }
-                }
 
                 &.drawer {
                     width: $header-height;
@@ -151,13 +136,42 @@ $menu-item-height-default: 40px;
                     }
                 }
             }
+
+            // main branding logo
+            #logo {
+                padding: 0px 20px 0 10px;
+                opacity: $branding-opacity;
+
+                &:hover {
+                    opacity: 1;
+                }
+                // handle the different logo possibilities
+                &.alpine {
+                    
+                    img {
+                        position: relative;
+                        width: 110px;
+                        top: 3px;
+                    }
+                }
+                
+                &.pivotal {
+                    width: 90px;                    
+                    img {
+                        vertical-align: middle;
+                        max-height: 25px;
+                    }
+                }
+            }
+                
         }
+        //end: left
 
         .right {
             float: right;
 
             .menu {
-                border: $border-canon;
+                border: $darker-border-canon;
                 border-top: none;
             }
             .token {
@@ -183,38 +197,37 @@ $menu-item-height-default: 40px;
                     text-align: center;
 
                     a.notifications .lozenge {
-                        &.empty { background: $brand-dark; }
+                        &.empty {
+                            background: $brand-dark;
+                        }
                         background: $notification;
-
-                        @include lozenge(2px, 30px, $header-height/3);
-                    }
-                }
-
-                &.advisorNow a img {
-                    position: relative;
-                    width: 83px;
-                    top: 6px;
-
-                    margin-bottom: 0px;
-                    padding-right: 15px;
-                    opacity: $branding-opacity;
-
-                    &:hover {
-                        opacity: 1;
+                        @include lozenge(2px, 30px, 19px);
                     }
                 }
             }
+            
+            #advisorNow a img {
+                position: relative;
+                width: 82px;
+                top: 1px;
+                padding-right: 20px;
+                opacity: $branding-opacity;
+                
+                &:hover {
+                    opacity: 1;
+                }
+            }
+            
         }
+        //end: right
 
         .search {
             $icon-box-width: 30px;
-            $collapsed-search-width: 178px;
 
             overflow: hidden;
-            margin: 8px 0 0 0;
+            margin: 10px 0 0 0;
             border-radius: 3px;
             display: inline-block;
-            margin-top: 10px;
             height: 30px;
 
             span {
@@ -232,15 +245,14 @@ $menu-item-height-default: 40px;
                     top: 16px;
                     font-size: 16px;
                 }
-
             }
-            .search_magnifying_glass:before {
+            .search_magnifying_glass::before {
                 z-index: 1;
                 color: $brand-light;
                 font-size: 15px;
                 top: 2px;
             }
-
+            
             input {
                 @include placeholder {
                     color: $brand-tint;
@@ -249,26 +261,21 @@ $menu-item-height-default: 40px;
                 height: $icon-box-width;
                 background-color: $brand-shade;
                 border: none;
-                color: white;
+                color: $core-white;
                 font-weight: normal;
 
                 @include transition-duration(0.7s);
                 @include transition-timing-function(cubic-bezier(0,0,0,1));
-                padding-left: $icon-box-width;
+                padding-left: $icon-box-width - 2;
                 padding-right: $icon-box-width;
                 width: $collapsed-search-width;
 
                 &:valid, &:focus {
                     width: $expanded-search-width;
                     background-color: $brand-dark;
-                    @include placeholder {
-                        color: transparent;
-                    }
+                    @include placeholder {color: transparent;}
                 }
 
-                html.ie8 & {
-                    height: 17px;
-                }
             }
         }
 
@@ -288,20 +295,19 @@ $menu-item-height-default: 40px;
 
             .name {
                 line-height: normal;
-            }
+            }                        
             li.result {
                 @include full-item-link(60px);
             }
             li.search_all {
                 @include full-item-link($menu-item-height-default);
-                padding-top:5px;
+                padding-top: 5px;
                 padding-bottom: 5px;
             }
             div {
                 padding-right: 10px;
             }
         }
-
 
         // primary navigation menu
 
@@ -328,14 +334,14 @@ $primary-nav-separation-height: 30px;
             }
             .knob {
                 padding-left: 0px;
-                color: white;
+                color: $core-white;
                 background: $brand-dark;
                 width: $header-height;
                 text-align: center;
                 &.remainder { height: 100vh; }
             }
 
-            //  color for svg glyphs in the primary nav
+            // color for svg glyphs in the primary nav
             #primary {
                 svg {
                     fill: #FFF;
@@ -393,19 +399,23 @@ $primary-nav-separation-height: 30px;
             }
         }
 
-        .menu.popup_usermenu {
-            line-height: 24px;
-            // account for 1px border around popup
-            right: $header-margin-right - 1;
-            width: $header-margin * 6;
+        .menu {
+        
+            &.popup_usermenu {
+                line-height: 24px;
+                // account for 1px border around popup
+                right: $header-margin-right - 1;
+                width: $header-margin * 6;
 
-            li {
-                @include username-item-link($menu-item-height-default)
+                li {
+                    @include username-item-link($menu-item-height-default)
+                }
             }
         }
 
         .menu.popup_notifications {
-            $width: 320px;
+            $width: $menu-notifications-width;
+
 			// calculate the left margin. add 1 for 1px border */
             margin-left: -( ($width - $notification-token-width / 2) +1);
             width: $width;
@@ -454,10 +464,14 @@ $primary-nav-separation-height: 30px;
             a.notifications_all {
                 padding: 10px 0;
                 display: block;
+                background-color: #E2E2D6;
+                
                 text-align: center;
                 font-size: $small-font;
                 font-weight: $semibold;
             }
         }
+
+
     }
 }

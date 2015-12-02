@@ -38,10 +38,6 @@
 
     .version_list {
         font-size: $small-font;
-//         span { 
-//         color: $link-color; */
-//         }
-
     }
 }
 
@@ -69,11 +65,6 @@
                 text-decoration: underline;
             }
         }
-
-//         img {
-//             display: inline-block;
-//             vertical-align: top;
-//         }
 
         .version_info {
             display: inline-block;
@@ -109,18 +100,18 @@
     overflow: auto;
     max-height: 300px;
 
-/* alert */
-/* for some reason, this ul/li list was made different than the others in the app */
-/* such as those used for filters on a page of items. */
-/* needs to be reconciled so that they all work the same way */
+// alert TODO */
+// for some reason, this ul/li list was made different than the others in the app */
+// such as those used for filters on a page of items. */
+// needs to be reconciled so that they all work the same way */
 
 
     li {
         margin-left: 10px;
         
         .checkmark {
-/*          background-repeat: no-repeat; */
-/*          background-image: url("/images/check.png"); */
+//          background-repeat: no-repeat; */
+//          background-image: url("/images/check.png"); */
             display: inline-block;
             float: left;
             position: relative;
@@ -135,8 +126,5 @@
             }
         }
 
-/*         a { */
-/*             cursor: pointer; */
-/*         } */
     }
 }

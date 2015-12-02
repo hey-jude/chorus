@@ -25,6 +25,9 @@ window.Chorus = function chorus$Global() {
         self.PageEvents = _.extend({}, Backbone.Events);
         self.session = new chorus.models.Session();
         self.router = new chorus.Router(self);
+
+        self.branding = new chorus.models.Branding();
+
         self.detectFeatures();
 
         //bind global state events here
@@ -33,10 +36,10 @@ window.Chorus = function chorus$Global() {
         self.bindGlobalCallbacks();
         self.bindModalLaunchingClicks();
 
-        self.debug = self.pageParams().debug;
-
         self.startHistory();
         self.updateCachebuster();
+        
+        self.debug = self.pageParams().debug;
 
         //set qtip to appear above dialogs
         $.fn.qtip.zindex = 17000;

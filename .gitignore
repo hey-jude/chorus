@@ -71,6 +71,7 @@ GREENPLUM_IP
 /config/database.yml
 
 # Ignore secret keys
+/config/secret.token
 /config/secret.key
 /config/secrets.yml
 

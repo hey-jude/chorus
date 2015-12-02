@@ -34,14 +34,16 @@
             {{/if}}
         {{/if}}
 
-        <ul class='attachments'>
+        <ul class="attachments">
         {{#eachFunctionResult attachments}}
             <li>
-                {{#if isImage}}
-                    <span class="image image_attachment_link"><img src="{{iconSrc}}" /></span>
+                {{#if isImageFiletype}}
+                    <!-- if it is an image/picture file, then allow for a popup preview -->
+                    <span class="image image_attachment_link"><img src="{{iconSrc}}" alt=""/></span>
                 {{else}}
                     <a href="{{url}}" {{#if useExternalLink}}target="_blank"{{/if}}>
-                        <span class="image"><img src="{{iconSrc}}" /></span><span class="name" title="{{name}}">{{name}}</span>
+                        <span class="image icon"><img src="{{iconSrc}}" alt=""/></span>
+                        <span class="name" title="{{name}}">{{name}}</span>
                     </a>
                 {{/if}}
             </li>

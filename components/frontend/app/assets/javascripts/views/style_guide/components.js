@@ -1,6 +1,6 @@
 chorus.views.Components = chorus.views.Base.extend({
     constructorName: "ComponentsView",
-    templateName:"style_guide_components",
+    templateName: "style_guide_components",
 
     typographies: [
         "<h1>h1.heading level one</h1>",

@@ -150,7 +150,7 @@ chorus.models = {
             }
         },
 
-        requireValidEmailAddress:function (name, newAttrs, messageKey) {
+        requireValidEmailAddress: function (name, newAttrs, messageKey) {
             this.requirePattern(name, /[\w\.\-]+(\+[\w\-]*)?@([\w\-]+\.)+[\w\-]+/, newAttrs, messageKey);
         },
 

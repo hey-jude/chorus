@@ -1,6 +1,6 @@
 chorus.views.ModularDashboard = chorus.views.Base.extend({
     constructorName: "ModularDashboardView",
-    templateName:"dashboard/module_list",
+    templateName: "dashboard/module_list",
 
     makeModel: function () {
         this.model = new chorus.models.DashboardConfig({userId: chorus.session.user().id});

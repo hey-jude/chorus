@@ -1,8 +1,8 @@
 chorus.views.HeatmapChartConfiguration = chorus.views.ChartConfiguration.extend({
-    templateName:"chart_configuration",
+    templateName: "chart_configuration",
     additionalClass: "heatmap",
 
-    postRender:function () {
+    postRender: function () {
         this.$(".x_axis option:eq(0)").attr('selected', 'selected');
         this.$(".y_axis option:eq(1)").attr('selected', 'selected');
         this._super('postRender');

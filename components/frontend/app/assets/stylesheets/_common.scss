@@ -30,7 +30,7 @@ $greyish-yellow:    rgb(204, 204, 200);
 $light-grey-yellow: rgb(243, 243, 241);
 $light-gray-blue:   rgb(234, 238, 241);
 $light-gray:        rgb(234, 235, 236);
-$shadow-gray:		darken($light-gray, 21%);
+$shadow-gray:		darken($light-gray, 31%);
 
 // neutral greys
 $neutral-light-grey: #E0E0E0;
@@ -116,8 +116,8 @@ $default-border-radius: 3px;
 
 $border-canon:              $default-border-width solid $border-color;
 $dark-border-canon:         $default-border-width solid $border-color-dark;
-$darker-border-canon:         $default-border-width solid $border-color-darkest;
-$login-card-border-canon:   5px solid $color-text3;
+$darker-border-canon:       $default-border-width solid $border-color-darkest;
+
 $shadow-canon:              2px 2px 3px 0px $shadow-color;
 
 
@@ -172,7 +172,7 @@ $error-icon-color:          #881111;
 $error-tooltip-text-color:  $core-white;
 $error-input-border-color:  #AA3333;
 
-$notification: $bright-turquoise;
+$notification:              $bright-turquoise;
 $notification-error-dark:   #D43A0B;
 $notification-error-light:  #FFD6D6;
 
@@ -248,6 +248,12 @@ $margin-x : 10px;
 $guts-padding: 7px;
 $guts-padding-bottom: 15px;
 
+// canonical padding for use in ... places. like dashboard module.
+$padding-side-canon: 10px;
+$padding-top-canon: 10px;
+$padding-bottom-canon: 10px;
+
+
 // default sizing for the user profile image
 $user-detail-image-width: 150px;
 
@@ -263,6 +269,8 @@ $breadcrumbs-height: 32px;
 $help-pill-width: 34px;
 $texteditor-min-height: 300px;
 
+
+// DIALOGS */
 $default-dialog-width: 500px;
 $default-dialog-width-medium: 600px;
 $default-dialog-width-wide: 940px;
@@ -436,7 +444,6 @@ $lozenge-font-size: 12px;
 @mixin placeholder {
   @include debugging-mixin;
   &::-webkit-input-placeholder {@content}
-  &:-moz-placeholder           {@content}
   &::-moz-placeholder          {@content}
   &:-ms-input-placeholder      {@content}
 }
@@ -445,7 +452,6 @@ $lozenge-font-size: 12px;
     @include debugging-mixin;
     font-size: 24px;
     font-weight: $semibold;
-    /* color: $color-text1; */
 }
 
 @mixin subheading-normal {
@@ -692,12 +698,12 @@ $lozenge-font-size: 12px;
     text-overflow: inherit;
 }
 
-@mixin menu-triangle {
+// @mixin menu-triangle {
 //     padding-right: 10px; */
 //     background-image: url("/images/blue-menu-triangle.png"); */
 //     background-position: right; */
 //     background-repeat: no-repeat; */
-}
+// }
 
 // caret for menus */
 // pointing: DOWN  */
@@ -766,7 +772,7 @@ $lozenge-font-size: 12px;
 }
 
 // ********* */
-// LOZENGE: generates the pill shapes used in sub nav and right-side nav tabs */
+// LOZENGE: generates the pill shapes used in sub nav and right-side nav tabs
 // call with: */
 //   min-width: min width of the pill */
 //   height: height of the pill. if none provided, defaults to 21px */
@@ -923,5 +929,5 @@ $lozenge-font-size: 12px;
     border: 1px solid #F00;
 }
 
-// Do not put any css rules into this file.  This file is only for declaration of variables and mixins
+// Do not put any css rules into this file. This file is only for declaration of variables and mixins
 //

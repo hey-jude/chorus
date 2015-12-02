@@ -73,13 +73,23 @@
             }
         }
 
-        .job_item {
-            .image {
-                width: 34px;
+        .milestone_item {
+            .state {
+              color: $color-text4;
+              position: absolute;
+              right: 20px;
+              top: 20px;
             }
+        }
+
+        .job_item {
+//             .image {
+//                 width: 38px;
+//                 height: auto;
+//             }
 
             .frequency, .next_run, .last_run {
-                display: inline-block;                
+                display: inline-block;
             }
             .frequency {
                 width: 120px;
@@ -103,15 +113,6 @@
             }
         }
 
-        .milestone_item {
-            .state {
-              color: $color-text4;
-              position: absolute;
-              right: 20px;
-              top: 20px;
-            }
-        }
-
         .job_task_item {
             .index {
                 float: left;
@@ -120,15 +121,20 @@
 				@include font-primary;
             }
 
-            .arrows{
+            .arrows {
                 position: absolute;
                 right: 20px;
                 top: 15px;
                 .move_up_arrow,
                 .move_down_arrow {
+                    
+                    width: 42px;
+                    height: 30px;
+                    
                     cursor: pointer;
                     display: inline-block;
-
+                    
+                    // draw circle around the arrow
                     border: 3px solid #606060;
                     border-radius: 20px;
                     background-color: #F0F0F0;
@@ -196,15 +202,17 @@
         }
 
         .checkbox_placeholder {
-            float: left;
             display: inline-block;
-            width: 18px;
+            width: 12px;
             height: 1px;
         }
     }
 
-    &.selectable, &.accordion {
-        input[type=checkbox] {
+    &.selectable, 
+    &.accordion {
+        input[type=checkbox],
+        .checkbox_placeholder
+         {
             float: left;
             margin-top: 5px;
             margin-right: 10px;

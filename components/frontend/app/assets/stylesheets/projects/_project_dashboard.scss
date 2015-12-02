@@ -11,7 +11,6 @@ $card-progressbar_zero: rgba(#C0C0C0, 0.5);
 
 
 @mixin dashboardcard-heading {
-    @include debugging-mixin;
     font-size: 16px;
     font-weight: $semibold;
 }
@@ -23,7 +22,7 @@ $card-progressbar_zero: rgba(#C0C0C0, 0.5);
     }
 }
 
-/* extended set of highlights on hover */
+// extended set of highlights on hover */
 .dashboard_project_card {
     &:hover {
 

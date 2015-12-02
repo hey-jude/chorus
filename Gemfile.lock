@@ -90,6 +90,7 @@ PATH
       logger-syslog
       net-ldap (= 0.11)
       newrelic_rpm
+      nokogiri (= 1.6.6.2)
       paperclip (= 4.2.0)
       premailer-rails
       protected_attributes

@@ -30,13 +30,13 @@ chorus.dialogs.RenameTag = chorus.dialogs.Base.extend({
         }});
     },
 
-    saved:function () {
+    saved: function () {
         this.model.trigger("change");
         chorus.toast("tag.rename.success.toast", {name: this.model.name(), toastOpts: {type: "success"}});
         this.closeModal();
     },
 
-    checkInput : function() {
+    checkInput: function() {
         this.clearErrors();
         var newAttributes = _.extend(_.clone(this.model.attributes), {
             name: this.getName()

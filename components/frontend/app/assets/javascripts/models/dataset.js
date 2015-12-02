@@ -93,7 +93,7 @@ chorus.models.Dataset = chorus.models.Base.include(
         return this.getImports() && !this.getImports().isEmpty();
     },
 
-    canExport:function () {
+    canExport: function () {
         return this.workspace() && this.workspace().canUpdate() &&
             this.hasCredentials() &&
             this.canBeImportSource();

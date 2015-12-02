@@ -15,7 +15,7 @@ chorus.handlebarsHelpers.template = {
     },
 
 
-    formControls:function(submitText, cancelText) {
+    formControls: function(submitText, cancelText) {
         if(cancelText && cancelText.hash) {
             cancelText = "actions.cancel";
         }

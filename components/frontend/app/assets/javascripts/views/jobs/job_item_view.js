@@ -1,6 +1,12 @@
 chorus.views.JobItem = chorus.views.Base.extend({
     constructorName: "JobItemView",
-    templateName:"job_item",
+    templateName: "job_item",
+
+    jobsIconPath: "/images/jobs/",
+    //jobIconActive: "job.svg",
+    jobIconActiveOndemand: "job-ondemand.svg",
+    jobIconActiveScheduled: "job-scheduled.svg",
+    jobIconDisabled: "job-scheduled-disabled.svg",
 
     events: {
         'click a.last_run_date': 'launchLastRunJobResultDetails'
@@ -14,6 +20,7 @@ chorus.views.JobItem = chorus.views.Base.extend({
     additionalContext: function () {
         return {
             iconUrl: this.iconUrl(),
+            isJobActive:  this.isJobActive(),
             url: this.model.showUrl(),
             frequency: this.model.frequency(),
             stateKey: "job.state." + this.jobStateKey(),
@@ -38,9 +45,19 @@ chorus.views.JobItem = chorus.views.Base.extend({
         return this.model.get('enabled') ? 'scheduled' : 'disabled';
     },
 
+    isJobActive: function() {
+        return this.jobStateKey() !== "disabled" ? true : false;
+    },
+
     iconUrl: function () {
-        var icon = (this.model.get('enabled') || this.model.runsOnDemand()) ? 'job.png' : 'job-disabled.png';
-        return "/images/jobs/" + icon;
+        // job entity icon
+        // var icon = (this.model.get('enabled') || this.model.runsOnDemand()) ? this.jobIconActive : this.jobIconDisabled;
+        var icon = (this.model.get('enabled') || this.model.runsOnDemand()) ? this.jobTypeIcon() : this.jobIconDisabled;
+        return this.jobsIconPath + icon;
+    },
+
+    jobTypeIcon: function() {
+        return ( this.model.jobTypeKey() === "on_demand") ? this.jobIconActiveOndemand : this.jobIconActiveScheduled;
     },
 
     launchLastRunJobResultDetails: function (e) {

@@ -1,5 +1,5 @@
 chorus.views.KaggleUserSidebar = chorus.views.Sidebar.extend({
-    templateName:"kaggle/user_sidebar",
+    templateName: "kaggle/user_sidebar",
 
     subviews: {
         '.tab_control': 'tabs'
