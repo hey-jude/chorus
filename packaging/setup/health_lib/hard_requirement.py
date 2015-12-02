@@ -52,7 +52,7 @@ def c_check_java_version(install_mode=False, user=None):
         elif "openjdk" in stdout.lower():
             raise Exception("openjdk not supported, please install oracle jdk!")
         elif "64-bit" not in stdout.lower():
-            raise Exception("32-bit Java JDK is not supported, please installed a 64-bit JDK")
+            raise Exception("32-bit Java JDK is not supported, please install a 64-bit JDK")
         else:
             java_version = None
             for line in stdout.split("\n"):
