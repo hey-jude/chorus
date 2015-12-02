@@ -1,5 +1,5 @@
 development: &development
-  database: chorus_api_development
+  database: chorus_authorization_development
   adapter: jdbcpostgresql
   encoding: unicode
   username: postgres_chorus
@@ -11,4 +11,4 @@ development: &development
 
 test: &TEST
   <<: *development
-  database: chorus_api_test
+  database: chorus_authorization_test
