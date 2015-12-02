@@ -19,7 +19,7 @@ PATH
       rails (= 4.1.10)
 
 PATH
-  remote: ..
+  remote: ../admin
   specs:
     admin (0.0.1)
       authorization
@@ -29,6 +29,10 @@ PATH
       jquery-rails
       sass-rails (>= 3.2)
       web_style
+
+PATH
+  remote: ../api
+  specs:
     api (0.0.1-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)
@@ -42,6 +46,10 @@ PATH
       sass-rails (= 5.0.1)
       sunspot_rails (= 2.1.0)
       will_paginate (= 3.0.7)
+
+PATH
+  remote: ../core
+  specs:
     core (0.0.1-java)
       actionmailer (= 4.1.10)
       activerecord (= 4.1.10)
@@ -61,6 +69,10 @@ PATH
       sequel (~> 4.0)
       sunspot_rails (= 2.1.0)
       will_paginate
+
+PATH
+  remote: ../web_style
+  specs:
     web_style (0.0.1)
       rails (~> 4.1.10)
       sass-rails (>= 3.2)
@@ -169,7 +181,7 @@ GEM
     logger-syslog (1.7.1)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mime-types (2.6.2)
+    mime-types (2.99)
     minitest (5.8.2)
     multi_json (1.11.2)
     mustache (0.99.4)
@@ -216,7 +228,6 @@ GEM
       ffi (>= 0.5.0)
     render_anywhere (0.0.12)
       rails (>= 3.0.7)
-    rr (1.1.2)
     rsolr (1.0.13)
       builder (>= 2.1.2)
     rspec-collection_matchers (1.1.2)
@@ -266,7 +277,6 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5-java)
     tilt (1.4.1)
-    timecop (0.8.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     will_paginate (3.0.7)
@@ -284,12 +294,10 @@ DEPENDENCIES
   factory_girl
   hashie
   queue_classic!
-  rr
   rspec-rails (= 2.99.0)
   shoulda-matchers
   sunspot_matchers
-  sunspot_rails
-  timecop
+  web_style!
 
 BUNDLED WITH
    1.10.6

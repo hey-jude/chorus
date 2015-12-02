@@ -10,11 +10,10 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-path '..' do
-  gem 'core'
-  gem 'api'
-  gem 'admin'
-end
+gem 'admin', :path => '../admin'
+gem 'web_style', :path => '../web_style'
+gem 'api', :path => '../api'
+gem 'core', :path => '../core'
 
 # KT TODO: these are brought manually over from the Core component, because I don't believe we have these fancy
 # custom options for Gemspec files:
@@ -26,8 +25,5 @@ gem 'annotate'
 gem 'rspec-rails', '2.99.0'
 gem 'shoulda-matchers'
 gem 'factory_girl'
-# gem 'timecop'
-# gem 'rr'
-# gem 'sunspot_rails'
-# gem 'hashie'
+gem 'hashie'
 gem 'sunspot_matchers'

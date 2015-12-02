@@ -84,7 +84,6 @@ PATH
   remote: components/authorization_simpler
   specs:
     authorization (0.0.1)
-      bitmask_attributes
       core
 
 PATH
@@ -188,8 +187,6 @@ GEM
     autoprefixer-rails (6.1.1)
       execjs
       json
-    bitmask_attributes (1.0.0)
-      activerecord (>= 3.1)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)

@@ -16,5 +16,4 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency 'core'
-  s.add_dependency 'bitmask_attributes'
 end

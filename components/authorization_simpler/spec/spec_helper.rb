@@ -7,9 +7,6 @@ require 'sunspot_matchers'
 require 'rspec/rails'
 require 'shoulda-matchers'
 
-require 'timecop'
-require 'rr'
-
 FACTORY_GIRL_SEQUENCE_OFFSET = 44444
 require 'factory_girl'
 FactoryGirl.factories.clear
