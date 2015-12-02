@@ -52,9 +52,9 @@ GIT
     jasmine-core (2.3.4)
 
 PATH
-  remote: components
+  remote: components/admin
   specs:
-    admin (1.0.0)
+    admin (0.0.1)
       authorization
       bootstrap-sass (~> 3.3.5)
       breadcrumbs_on_rails
@@ -62,7 +62,11 @@ PATH
       jquery-rails
       sass-rails (>= 3.2)
       web_style
-    api (1.0.0-java)
+
+PATH
+  remote: components/api
+  specs:
+    api (0.0.1-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)
       activeresource (= 4.0.0)
@@ -75,11 +79,18 @@ PATH
       sass-rails (= 5.0.1)
       sunspot_rails (= 2.1.0)
       will_paginate (= 3.0.7)
-    authorization (1.0.0)
-      activerecord-jdbcpostgresql-adapter
+
+PATH
+  remote: components/authorization_simpler
+  specs:
+    authorization (0.0.1)
+      bitmask_attributes
       core
-      rails (= 4.1.10)
-    core (1.0.0-java)
+
+PATH
+  remote: components/core
+  specs:
+    core (0.0.1-java)
       actionmailer (= 4.1.10)
       activerecord (= 4.1.10)
       activerecord-jdbcpostgresql-adapter
@@ -98,7 +109,11 @@ PATH
       sequel (~> 4.0)
       sunspot_rails (= 2.1.0)
       will_paginate
-    frontend (1.0.0-java)
+
+PATH
+  remote: components/frontend
+  specs:
+    frontend (0.0.1-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)
       api
@@ -115,8 +130,16 @@ PATH
       vis_legacy
       web_style
       yui-compressor (= 0.12.0)
-    vis_legacy (1.0.0-java)
-    web_style (1.0.0)
+
+PATH
+  remote: components/vis_legacy
+  specs:
+    vis_legacy (0.0.1-java)
+
+PATH
+  remote: components/web_style
+  specs:
+    web_style (0.0.1)
       rails (~> 4.1.10)
       sass-rails (>= 3.2)
 
@@ -165,9 +188,11 @@ GEM
     autoprefixer-rails (6.1.1)
       execjs
       json
-    bootstrap-sass (3.3.5.1)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.3.0)
+    bitmask_attributes (1.0.0)
+      activerecord (>= 3.1)
+    bootstrap-sass (3.3.6)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     breadcrumbs_on_rails (2.3.1)
     builder (3.2.2)
     bullet (4.6.0)
@@ -181,7 +206,7 @@ GEM
     clockwork (1.2.0)
       activesupport
       tzinfo
-    cocaine (0.5.7)
+    cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     codemirror-rails (5.3)
       railties (>= 3.0, < 5)
@@ -240,7 +265,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     messengerjs-rails (1.4.1)
-    mime-types (2.6.2)
+    mime-types (2.99)
     minitest (5.8.0)
     mizuno (0.6.11)
       childprocess (>= 0.2.6)
@@ -370,9 +395,12 @@ PLATFORMS
 
 DEPENDENCIES
   admin!
+  api!
+  authorization!
   backbone_fixtures_rails!
   bullet
   chorusgnip!
+  core!
   factory_girl
   fixture_builder
   frontend!
@@ -388,6 +416,8 @@ DEPENDENCIES
   simplecov (= 0.10.0)
   sunspot_matchers (= 2.1.0.0)
   timecop (= 0.8.0)
+  vis_legacy!
+  web_style!
 
 BUNDLED WITH
    1.10.6

@@ -13,4 +13,8 @@
       </div>
     </div>
   </div>
+
+  <% if defined?(Authorization::Engine) %>
+    <%= render :partial => 'authorization' %>
+  <% end %>
 </div>

@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
-path 'components' do
-  gem 'admin'
-  gem 'frontend'
-end
+gem 'admin', :path => 'components/admin'
+gem 'api', :path => 'components/api'
+gem 'authorization', :path => 'components/authorization_simpler'
+gem 'core', :path => 'components/core'
+gem 'frontend', :path => 'components/frontend'
+gem 'vis_legacy', :path => 'components/vis_legacy'
+gem 'web_style', :path => 'components/web_style'
 
 gem 'hadoopconf_gem', :github => 'Chorus/chorus-hadoop-conf', :ref => 'ce0d34dde0f5f4dd372af6406fafd9c5b2baac5f'
 gem 'queue_classic', :github => 'Chorus/queue_classic'

@@ -1,0 +1,17 @@
+<div class="users show">
+
+  <h3>User: <%= @user.username %></h3>
+
+  <dl>
+    <dt>Id</dt>
+    <dd><%= @user.id %></dd>
+  </dl>
+
+  <dl>
+    <dt>Roles</dt>
+    <dd>
+      <%= @user.roles.collect { |r| link_to(r.name, role_path(r)) }.join(', ').html_safe %>
+    </dd>
+  </dl>
+
+</div>

@@ -1,0 +1,21 @@
+<div class="users index">
+
+  <h3>Users</h3>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th>Roles</th>
+    </tr>
+    <% @users.all.each do |user| %>
+      <tr>
+        <th><%= user.id %></th>
+        <th><%= link_to user.username, user_path(user) %></th>
+        <th>
+          <%= user.roles.collect { |r| link_to(r, role_path(r)) }.join(', ').html_safe %>
+        </th>
+      </tr>
+    <% end %>
+  </table>
+</div>

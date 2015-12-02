@@ -1,8 +1,6 @@
 module Api
   class UsersController < ApiController
     before_filter :load_user, :only => [:show, :update, :destroy]
-    before_filter :require_not_current_user, :only => [:destroy]
-    before_filter :authorize, :only => [:create, :destroy, :ldap, :update]
 
     wrap_parameters :exclude => []
 
@@ -19,14 +17,26 @@ module Api
     def create
       user = User.new
       user.attributes = user_params
-      # remove these lines when Roles are fully implemented
-      user.admin = user_params[:admin] if user_params.key?(:admin)
-      user.developer = user_params[:developer] if user_params.key?(:developer)
+
+      # KT TODO remove these lines when Roles are fully implemented
+      if user_params.key?(:admin)
+        user.admin = user_params[:admin]
+        if defined?(Authorization::Engine)
+          user_params[:admin] ? user.add_role('admin') : user.remove_role('admin')
+        end
+      end
+
+      if user_params.key?(:developer)
+        user.developer = user_params[:developer]
+
+        # KT TODO: we need to define what the 'developer' role is in lib/authorization.rb
+        # if defined?(Authorization::Engine)
+        #   user_params[:developer] ? user.add_role('developer') : user.remove_role('developer')
+        # end
+      end
+
       User.transaction do
         user.save!
-        default_group = Group.find_by_name('default_group')
-        # Add user to the default group
-        user.groups << default_group unless user.groups.include? default_group
         Events::UserAdded.by(current_user).add(:new_user => user)
       end
 
@@ -56,22 +66,8 @@ module Api
       @user = User.find(params[:id])
     end
 
-    def require_not_current_user
-      render_forbidden if current_user.id == @user.id
-    end
-
     def user_params
       @user_params ||= params[:user]
-    end
-
-    def authorize
-      user_object = @user || User.new
-
-      if action_name.to_sym == :update
-        options = {:or => :current_user_is_referenced_user}
-      end
-
-      Authorization::Authority.authorize! action_name.to_sym, user_object, current_user, options
     end
 
   end

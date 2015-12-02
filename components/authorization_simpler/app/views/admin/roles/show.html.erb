@@ -1,0 +1,18 @@
+<div class="roles show">
+
+  <h3>Role: <%= @role_title %></h3>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Model</th>
+      <th>Abilities</th>
+    </tr>
+    <% @role_details.each do |model| %>
+      <tr>
+        <td><%= model[0] %></td>
+        <td><%= model[1] %></td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>

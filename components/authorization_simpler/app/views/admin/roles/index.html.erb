@@ -1,0 +1,15 @@
+<div class="roles index">
+
+  <h3>Roles</h3>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+    </tr>
+    <% @roles.each do |role| %>
+      <tr>
+        <td><%= link_to role, role_path(role) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
