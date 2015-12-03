@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'messengerjs-rails', '1.4.1'
 
   # Has to do with codemirror clientside rich text editor
-  s.add_dependency 'codemirror-rails', '5.3'
+  s.add_dependency 'codemirror-rails', '3.23'
 
   # Need to install 0.99.4 version of mustache gem. Latest version is not compatible with Jruby 1.7
   s.add_dependency 'mustache', '0.99.4'

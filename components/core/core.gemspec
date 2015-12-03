@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'clockwork'
 
   # Has to do with license functionality
-  s.add_dependency 'honor_codes', '~> 0.1.0'
+  s.add_dependency 'honor_codes', '~> 0.1.1'
 
   # some sort of logging plugin, but we're going to replace with Prakash's Java logger
   s.add_dependency 'logger-syslog'
@@ -49,10 +49,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'render_anywhere'
 
   # simple, flexible, and powerful SQL database access toolkit for Ruby
-  s.add_dependency 'sequel', '~> 4.0'
+  s.add_dependency 'sequel', '4.6.0'
 
   # Look at models/data_source_account
-  s.add_dependency 'attr_encrypted'
+  s.add_dependency 'attr_encrypted', '1.2.1'
 
   # jRuby
   s.add_dependency 'jruby-openssl'
