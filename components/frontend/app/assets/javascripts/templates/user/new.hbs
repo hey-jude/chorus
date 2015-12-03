@@ -54,6 +54,17 @@
                 </label>
             </span>
 
+            <div>
+                <label for="user_type" class="required">{{t "users.user_type"}}</label><br/>
+                <select class="user_type" id="user_type" name="user_type">
+                    <option selected name="select_one" value="">{{t "general.select_one"}}</option>
+                    <option name="analytics_developer" value="analytics_developer">{{t "users.analytics_developer"}}</option>
+                    <option name="data_analyst" value="data_analyst">{{t "users.data_analyst"}}</option>
+                    <option name="collaborator" value="collaborator">{{t "users.collaborator"}}</option>
+                    <option name="business_user" value="business_user">{{t "users.business_user"}}</option>
+                </select>
+            </div>
+
         </fieldset>
         
 

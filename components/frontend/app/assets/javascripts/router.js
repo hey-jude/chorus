@@ -136,17 +136,22 @@
                     if (className === "Login" && self.app.session.loggedIn()) {
                         self.navigate("");
                     } else {
-                        self.trigger("leaving");
-                        var pageClass = chorus.pages[className + "Page"];
-                        var page = applyConstructor(pageClass, args);
-                        page.pageOptions = self.app.pageOptions;
-                        delete self.app.pageOptions;
-                        self.app.page = page;
-                        self.app.updateCachebuster();
+                        if (chorus.session.user() && chorus.session.user().get('userType') === 'business_user' && !(className === 'PublishedWorkletIndex' || className === 'PublishedWorkletShow' || className === 'NotificationIndex' || className === 'UserShow' || className === 'UserEdit')) {
+                            self.navigate("touchpoints");
+                        }
+                        else {
+                            self.trigger("leaving");
+                            var pageClass = chorus.pages[className + "Page"];
+                            var page = applyConstructor(pageClass, args);
+                            page.pageOptions = self.app.pageOptions;
+                            delete self.app.pageOptions;
+                            self.app.page = page;
+                            self.app.updateCachebuster();
 
-                        $("#page").html(page.render().el).attr("data-page", className).addClass(page.pageClass);
+                            $("#page").html(page.render().el).attr("data-page", className).addClass(page.pageClass);
 
-                        if (self.app.modal) self.app.modal.closeModal();
+                            if (self.app.modal) self.app.modal.closeModal();
+                        }
                     }
                     self.app.scrollToTop();
                 };

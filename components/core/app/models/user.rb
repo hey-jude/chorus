@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_SORT_ORDER = VALID_SORT_ORDERS[:first_name]
 
-  attr_accessible :username, :password, :first_name, :last_name, :email, :title, :dept, :notes, :subscribed_to_emails, :auth_method, :ldap_group_id
+  attr_accessible :username, :password, :first_name, :last_name, :email, :title, :dept, :notes, :subscribed_to_emails, :auth_method, :ldap_group_id, :user_type
   attr_accessor :password
 
   has_many :gpdb_data_sources, :foreign_key => :owner_id
@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
                     :default_url => DEFAULT_USER_IMAGE, :styles => {:icon => "50x50>"}
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
-  validates_presence_of :username, :first_name, :last_name, :email
+  validates_presence_of :username, :first_name, :last_name, :email, :user_type
   validates_uniqueness_of :username, :case_sensitive => false, :allow_blank => true, :scope => :deleted_at
   validates_format_of :email, :with => /[\w\.-]+(\+[\w-]*)?@([\w-]+\.)+[\w-]+/
   validates_format_of :username, :with => /\A\S+\z/, :unless => lambda { LdapClient.enabled? }

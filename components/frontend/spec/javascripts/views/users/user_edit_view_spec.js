@@ -43,6 +43,7 @@ describe("chorus.views.userEdit", function() {
                     expect(this.view.$("input[name=admin]").prop("checked")).toBe(this.user.get("admin"));
                     expect(this.view.$("input[name=developer]").prop("checked")).toBe(this.user.get("developer"));
                     expect(this.view.$("input[name=subscribed_to_emails]").prop("checked")).toBe(this.user.get("subscribedToEmails"));
+                    expect(this.view.$("select.user_type").val()).toBe(this.user.get("userType"));
                 });
 
                 it("limits the length of the notes field", function() {
@@ -59,6 +60,7 @@ describe("chorus.views.userEdit", function() {
                         this.view.$("input[name=admin]").prop("checked", false);
                         this.view.$("input[name=developer]").prop("checked", true);
                         this.view.$("input[name=subscribed_to_emails]").prop("checked", false);
+                        this.view.$("select.user_type").val("data_analyst");
                         this.view.$("form").submit();
                     });
 
@@ -74,6 +76,7 @@ describe("chorus.views.userEdit", function() {
                             expect(json['admin']).toEqual(false);
                             expect(json['developer']).toEqual(true);
                             expect(json['subscribed_to_emails']).toEqual(false);
+                            expect(json['user_type']).toBe("data_analyst");
                         });
 
                         context("when user creation is successful", function() {

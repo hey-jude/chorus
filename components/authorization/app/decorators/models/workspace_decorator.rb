@@ -69,7 +69,7 @@ Workspace.class_eval do
     else
       []
     end
-    perm << :create_workflow if user.developer? && has_membership
+    perm << :create_workflow if (user.user_type == License::USERS_ANALYTICS_DEVELOPER || user.user_type == License::USERS_DATA_ANALYST) && has_membership
 
     perm
   end

@@ -267,73 +267,31 @@ NTAtMDEtMDEK
     end
 
     describe '#limit_milestones?' do
-      context 'vendor:openchorus' do
-        let(:vendor) { License::OPEN_CHORUS }
-
-        it 'returns false regardless of level' do
-          license.limit_milestones?.should be_false
+      context 'milestones:true' do
+        let(:milestones) { true }
+        it 'returns true' do
+          license.limit_milestones?.should == true
         end
       end
-
-      context 'vendor:pivotal' do
-        let(:vendor) { 'pivotal' }
-
-        it 'returns false regardless of level' do
-          license.limit_milestones?.should be_false
-        end
-      end
-
-      context 'vendor:alpine' do
-        let(:vendor) { 'alpine' }
-
-        [
-            {:level => 'explorer', :limit => true},
-            {:level => 'basecamp', :limit => true},
-            {:level => 'summit', :limit => false}
-        ].each do |obj|
-          context "with level:#{obj[:level]}" do
-            let(:level) { obj[:level] }
-
-            it "returns #{obj[:limit]}" do
-              license.limit_milestones?.should == obj[:limit]
-            end
-          end
+      context 'milestones:false' do
+        let(:milestones) { false }
+        it 'returns false' do
+          license.limit_milestones?.should == false
         end
       end
     end
 
     describe '#limit_jobs?' do
-      context 'vendor:openchorus' do
-        let(:vendor) { License::OPEN_CHORUS }
-
-        it 'returns false regardless of level' do
-          license.limit_jobs?.should be_false
+      context 'scheduling:true' do
+        let(:scheduling) { true }
+        it 'returns true' do
+          license.limit_jobs?.should == true
         end
       end
-
-      context 'vendor:pivotal' do
-        let(:vendor) { 'pivotal' }
-
-        it 'returns false regardless of level' do
-          license.limit_jobs?.should be_false
-        end
-      end
-
-      context 'vendor:alpine' do
-        let(:vendor) { 'alpine' }
-
-        [
-            {:level => 'explorer', :limit => true},
-            {:level => 'basecamp', :limit => true},
-            {:level => 'summit', :limit => false}
-        ].each do |obj|
-          context "with level:#{obj[:level]}" do
-            let(:level) { obj[:level] }
-
-            it "returns #{obj[:limit]}" do
-              license.limit_jobs?.should == obj[:limit]
-            end
-          end
+      context 'scheduling:false' do
+        let(:scheduling) { false }
+        it 'returns false' do
+          license.limit_jobs?.should == false
         end
       end
     end

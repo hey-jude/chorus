@@ -11,7 +11,8 @@ module Api
         :entity_type => model.entity_type_name,
         :is_deleted => model.deleted?,
         :auth_method => model.auth_method,
-        :ldap_group_id => model.ldap_group_id
+        :ldap_group_id => model.ldap_group_id,
+        :user_type => model.user_type
       }
       unless rendering_activities? || succinct?
         results.merge!(

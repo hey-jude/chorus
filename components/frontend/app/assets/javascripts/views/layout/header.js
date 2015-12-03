@@ -68,6 +68,7 @@ chorus.views.Header = chorus.views.Base.extend({
 
             advisorNow: advisorNow,
             advisorNowLink: advisorNowLink,
+            isBusinessUser: user.get('userType') === 'business_user'
         });
     },
 
@@ -160,7 +161,7 @@ chorus.views.Header = chorus.views.Base.extend({
                     function(model) {
                         return !!this.unreadNotifications.get(model.get("id"));
                     }, this).first(numberToAdd).value());
-            };
+            }
 
             this.notificationList.collection.loaded = true;
             this.render();
