@@ -62,11 +62,11 @@ class License
   end
 
   def limit_milestones?
-    self[:milestones] == false
+    explorer? || basecamp?
   end
 
   def limit_jobs?
-    self[:scheduling] == false
+    explorer? || basecamp?
   end
 
   def home_page
