@@ -20,7 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-hello: "Hello world"
-
-succeeded: "succeeded"
-failed: "failed"
+  hello: "Hello world"
+  succeeded: "succeeded"
+  failed: "failed"
