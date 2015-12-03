@@ -80,7 +80,7 @@ describe Api::UsersController do
           :username => "another_user", :password => "secret", :first_name => "joe",
           :last_name => "user", :email => "joe@chorus.com", :title => "Data Scientist",
           :dept => "bureau of bureaucracy", :notes => "poor personal hygiene", :admin => true,
-          :developer => true
+          :developer => true, :user_type => License::USERS_ANALYTICS_DEVELOPER
       }
     }
 
@@ -242,6 +242,13 @@ describe Api::UsersController do
           expect {
             put :update, :id => other_user.to_param, :developer => true
           }.to change { other_user.reload.developer? }.from(false).to(true)
+          response.code.should == '200'
+        end
+
+        it 'allows changing a user\'s user type' do
+          expect {
+            put :update, :id => other_user.to_param, :user_type => License::USERS_COLLABORATOR
+          }.to change { other_user.reload.user_type }.from(License::USERS_ANALYTICS_DEVELOPER).to(License::USERS_COLLABORATOR)
           response.code.should == '200'
         end
 

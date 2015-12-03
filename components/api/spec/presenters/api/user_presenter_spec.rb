@@ -16,6 +16,7 @@ describe Api::UserPresenter, :type => :view do
       hash.should have_key(:tags)
       hash.should have_key(:auth_method)
       hash.should have_key(:ldap_group_id)
+      hash.should have_key(:user_type)
     end
 
     it "uses the image presenter to serialize the image urls" do
@@ -39,7 +40,8 @@ describe Api::UserPresenter, :type => :view do
         hash[:is_deleted].should == user.deleted?
         hash[:auth_method].should == user.auth_method
         hash[:ldap_group_id].should == user.ldap_group_id
-        hash.keys.size.should == 9
+        hash[:user_type].should == user.user_type
+        hash.keys.size.should == 10
       end
     end
 
@@ -54,7 +56,10 @@ describe Api::UserPresenter, :type => :view do
         hash[:entity_type].should == 'user'
         hash[:image].to_hash.should == (Api::ImagePresenter.new(user.image, view).presentation_hash)
         hash[:is_deleted].should == user.deleted?
-        hash.keys.size.should == 9
+        hash[:auth_method].should == user.auth_method
+        hash[:ldap_group_id].should == user.ldap_group_id
+        hash[:user_type].should == user.user_type
+        hash.keys.size.should == 10
       end
     end
   end

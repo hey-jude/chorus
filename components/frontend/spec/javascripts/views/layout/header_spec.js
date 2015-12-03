@@ -323,6 +323,23 @@ describe("chorus.views.Header", function() {
             });
         });
 
+        describe("isBusinessUser", function() {
+            context("when user has usertype 'business_user'", function() {
+                beforeEach(function () {
+                    chorus.session.user().set({userType:'business_user'});
+                    this.view.render();
+                });
+
+                it("does not display the drawer menu link", function () {
+                    expect(this.view.$(".drawer.token")).not.toExist();
+                });
+
+                it("should not have a search field", function() {
+                    expect(this.view.$(".search input[type=text]")).not.toExist();
+                });
+            });
+        });
+
         describe("username", function() {
             beforeEach(function() {
                 this.view.render();

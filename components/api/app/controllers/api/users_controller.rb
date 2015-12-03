@@ -22,6 +22,7 @@ module Api
       # remove these lines when Roles are fully implemented
       user.admin = user_params[:admin] if user_params.key?(:admin)
       user.developer = user_params[:developer] if user_params.key?(:developer)
+      user.user_type = user_params[:user_type] if user_params.key?(:user_type)
       User.transaction do
         user.save!
         default_group = Group.find_by_name('default_group')

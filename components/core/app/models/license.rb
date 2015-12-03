@@ -8,6 +8,10 @@ class License
   LEVEL_EXPLORER = 'explorer'
   LEVEL_BASECAMP = 'basecamp'
   LEVEL_SUMMIT = 'summit'
+  USERS_ANALYTICS_DEVELOPER = 'analytics_developer'
+  USERS_DATA_ANALYST = 'data_analyst'
+  USERS_COLLABORATOR = 'collaborator'
+  USERS_BUSINESS_USER = 'business_user'
 
   def initialize(lic=nil)
     unless lic
@@ -58,11 +62,11 @@ class License
   end
 
   def limit_milestones?
-    explorer? || basecamp?
+    self[:milestones] == false
   end
 
   def limit_jobs?
-    explorer? || basecamp?
+    self[:scheduling] == false
   end
 
   def home_page

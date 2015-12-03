@@ -18,6 +18,7 @@ class UserUpdateService
   def handle_admin_assignable_params(opts)
     @target.admin = opts[:admin] if opts.key?(:admin)
     @target.developer = opts[:developer] if opts.key?(:developer)
+    @target.user_type = opts[:user_type] if opts.key?(:user_type)
     transfer_job_ownership if @target.admin_changed? && !@target.admin?
   end
 

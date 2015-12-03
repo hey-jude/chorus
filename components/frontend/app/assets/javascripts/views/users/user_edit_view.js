@@ -29,6 +29,7 @@
 
         postRender: function() {
             this.$("textarea").limitMaxlength();
+            this.$("select.user_type").val(this.model.get('userType'));
         },
 
         saveEditUser: function saveEditUser(e) {
@@ -42,6 +43,7 @@
 
             updates.admin = this.$("input#admin-checkbox").prop("checked") || false;
             updates.developer = this.$("input#developer-checkbox").prop("checked") || false;
+            updates.userType = this.$("select.user_type").val();
             updates.subscribed_to_emails = this.$("input#subscribed-to-emails-checkbox").prop("checked") || false;
             updates.notes = this.$("textarea").val().trim();
 

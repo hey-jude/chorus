@@ -10,6 +10,7 @@ FactoryGirl.define do
     dept 'Corporation Corp., Inc.'
     notes 'One of our top performers'
     email 'chorususer@alpinenow.com'
+    user_type License::USERS_ANALYTICS_DEVELOPER
   end
 
   factory :admin, :parent => :user do

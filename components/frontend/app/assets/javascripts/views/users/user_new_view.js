@@ -40,6 +40,7 @@ chorus.views.UserNew = chorus.views.Base.extend({
 
         updates.admin = this.$("input#admin-checkbox").prop("checked") || false;
         updates.developer = this.$("input#developer-checkbox").prop("checked") || false;
+        updates.userType = this.$("select.user_type").val();
 
         this.model.set(updates);
 

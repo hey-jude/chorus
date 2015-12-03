@@ -7,12 +7,13 @@ describe UserUpdateService do
   describe '#update!' do
     context 'when the actor is an admin' do
       let(:service) { UserUpdateService.new(actor: admin, target: user) }
-      let(:params) { {:admin => true, :developer => true, :first_name => 'Joey'} }
+      let(:params) { {:admin => true, :developer => true, :user_type => License::USERS_DATA_ANALYST, :first_name => 'Joey'} }
 
-      it 'updates params including admin and developer' do
+      it 'updates params including admin, developer, and user type' do
         service.update!(params)
         user.admin?.should be_true
         user.developer?.should be_true
+        user.user_type.should == License::USERS_DATA_ANALYST
       end
 
       context 'when the target is an admin' do

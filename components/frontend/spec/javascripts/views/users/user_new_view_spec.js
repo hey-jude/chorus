@@ -28,6 +28,7 @@ describe("chorus.views.userNew", function() {
                     this.view.$("input[name=dept]").val("awesomeness dept");
                     this.view.$("input[name=admin]").prop("checked", true);
                     this.view.$("input[name=developer]").prop("checked", true);
+                    this.$("select.user_type").val("analytics_developer");
                     this.view.$("textarea[name=notes]").val("some notes");
                 });
 
@@ -42,6 +43,7 @@ describe("chorus.views.userNew", function() {
                     expect(this.user.attributes["dept"]).toBe("awesomeness dept");
                     expect(this.user.attributes["admin"]).toBe(true);
                     expect(this.user.attributes["developer"]).toBe(true);
+                    expect(this.user.attributes["user_type"]).toBe("analytics_developer");
                     expect(this.user.get("notes")).toBe("some notes");
                 });
 
@@ -89,6 +91,17 @@ describe("chorus.views.userNew", function() {
                     });
                 });
 
+                context("when the user form has 'Data Analyst' selected", function() {
+                    beforeEach(function() {
+                        this.view.$("select.user_type").val("data_analyst");
+                    });
+
+                    it("sets the user attribute 'user_type' to 'data_analyst'", function() {
+                        this.view.$("form").submit();
+                        expect(this.user.attributes["user_type"]).toBe("data_analyst");
+                    });
+                });
+
                 context("saving the user with valid data", function() {
                     beforeEach(function() {
                         spyOn(this.user, "save");
@@ -130,6 +143,7 @@ describe("chorus.views.userNew", function() {
                             expect(this.view.$("input[name=dept]").val()).toBe("awesomeness dept");
                             expect(this.view.$("input[name=admin]")).toBeChecked();
                             expect(this.view.$("input[name=developer]")).toBeChecked();
+                            expect(this.view.$("select.user_type").val()).toBe("analytics_developer");
 
                         });
                     });
