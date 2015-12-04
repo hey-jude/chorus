@@ -14,10 +14,11 @@ chorus.pages.HdfsShowFilePage = chorus.pages.Base.extend({
         this.handleFetchErrorsFor(this.model);
 
         this.mainContent = new chorus.views.MainContentView({
-            model:this.model,
-            content:new chorus.views.ReadOnlyTextContent({model:this.model}),
-            contentHeader:new chorus.views.HdfsShowFileHeader({ model:this.model }),
-            contentDetails:new chorus.views.HdfsShowFileDetails({ model:this.model })
+            model: this.model,
+            contentHeader: new chorus.views.HdfsShowFileHeader({ model:this.model }),
+            contentDetails: new chorus.views.HdfsShowFileDetails({ model:this.model }),
+            content: new chorus.views.HdfsShowFilePreview({ model:this.model })
+            //content: new chorus.views.ReadOnlyTextContent({ model:this.model })
         });
 
         this.sidebar = new chorus.views.HdfsEntrySidebar({

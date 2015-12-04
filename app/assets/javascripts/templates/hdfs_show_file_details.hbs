@@ -1,2 +1,14 @@
-<span>{{t "hdfs.read_only" }} </span>
+{{#if showVisualize}}
+    <div class="definition action_bar_highlighted">
+        <div class="line">
+            <div class="col-ext">
+                <button class="visualize button_action">{{t "dataset.content_details.visualize"}}</button>
+            </div>
+        </div>
+    </div>
+{{else}}
+    <div class="action_bar_limited">
+        <span>{{t "hdfs.read_only" }} </span>
+    </div>
+{{/if}}
 {{> errorDiv}}

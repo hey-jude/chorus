@@ -1,0 +1,10 @@
+<a class="save_entry_metadata">Save Column Types</a>
+
+{{#if showRelationalDataPreview}}
+    {{> csvImportConsole}}
+    <div class="relational_data_preview">
+{{else}}
+    <div>
+        <pre class="file_content pam auto_scroll_horizontal">{{content}}</pre>
+    </div>
+{{/if}}

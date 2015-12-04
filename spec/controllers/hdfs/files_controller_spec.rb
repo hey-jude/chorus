@@ -91,4 +91,22 @@ describe Hdfs::FilesController do
       end
     end
   end
+
+  describe "update" do
+    before do
+      any_instance_of(Hdfs::QueryService) do |h|
+        stub(h).show { ["a, b, c", "row1a, row1b, row1c"] }
+      end
+      stub(HdfsEntry).list('/data/', hdfs_data_source, true) { [entry] }
+      entry
+    end
+
+    it "updates the hdfs_entry when valid" do
+      json = Presenter.present(entry, {})
+      json[:metadata] = JSON.parse("{}")
+
+      put :update, { :hdfs_data_source_id => hdfs_data_source.id, :id => entry.id }.merge(json)
+      decoded_response[:metadata].should eq(json[:metadata])
+    end
+  end
 end
