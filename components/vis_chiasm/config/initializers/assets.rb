@@ -1,1 +1,0 @@
-Rails.application.config.assets.precompile += ['vis_chiasm_vendor.js']
