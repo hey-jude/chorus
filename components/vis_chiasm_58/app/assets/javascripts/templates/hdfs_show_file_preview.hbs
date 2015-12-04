@@ -1,10 +1,39 @@
-<a class="save_entry_metadata">Save Column Types</a>
+TODO Curran: please make the red square into a Chiasm chart.
+<div id="chiasm-container">
+  CHART
+</div>
 
-{{#if showRelationalDataPreview}}
-    {{> csvImportConsole}}
-    <div class="relational_data_preview">
-{{else}}
-    <div>
-        <pre class="file_content pam auto_scroll_horizontal">{{content}}</pre>
-    </div>
-{{/if}}
+<script>
+  var chiasm = new ChiasmBundle();
+
+  chiasm.setConfig({
+    "layout": {
+      "plugin": "layout",
+      "state": {
+        "containerSelector": "#chiasm-container",
+        "layout": "barChart"
+      }
+    },
+    "barChart": {
+      "plugin": "barChart",
+      "state": {
+        "sizeColumn": "age",
+        "idColumn": "name",
+        "fill": "none",
+        "stroke": "black",
+        "strokeWidth": "2px",
+        "barPadding": 0.2
+      }
+    }
+  });
+
+  var data = [
+    { name: "Joe",  age: 29, birthday: new Date(1986, 11, 17) },
+    { name: "Jane", age: 31, birthday: new Date(1985, 1, 15)  }
+  ];
+
+  chiasm.getComponent("barChart").then(function (barChart){
+    console.log(barChart);
+    barChart.data = data;
+  });
+</script>

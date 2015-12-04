@@ -10,4 +10,5 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require vis_chiasm_vendor
 //= require_tree .
