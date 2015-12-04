@@ -13,9 +13,15 @@ chorus.pages.HdfsShowFilePage = chorus.pages.Base.extend({
         this.handleFetchErrorsFor(this.hdfsDataSource);
         this.handleFetchErrorsFor(this.model);
 
+        if(<%= defined?(VisChiasm::Engine) ? "true" : "false" %>) {
+            contentView = new chorus.views.HdfsShowFilePreview({ model:this.model });
+        } else {
+            contentView = new chorus.views.ReadOnlyTextContent({model: this.model});
+        }
+
         this.mainContent = new chorus.views.MainContentView({
             model: this.model,
-            content: new chorus.views.ReadOnlyTextContent({model: this.model}),
+            content: contentView,
             contentHeader: new chorus.views.HdfsShowFileHeader({ model: this.model }),
             contentDetails: new chorus.views.HdfsShowFileDetails({ model: this.model })
         });

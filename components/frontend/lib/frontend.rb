@@ -1,5 +1,6 @@
 require 'api'
 require 'vis_legacy'
+require 'vis_chiasm'
 require 'web_style'
 
 require 'messengerjs-rails'

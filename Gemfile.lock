@@ -52,7 +52,7 @@ GIT
     jasmine-core (2.3.4)
 
 PATH
-  remote: components
+  remote: components/admin
   specs:
     admin (1.0.0)
       authorization
@@ -62,6 +62,10 @@ PATH
       jquery-rails
       sass-rails (>= 3.2)
       web_style
+
+PATH
+  remote: components/api
+  specs:
     api (1.0.0-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)
@@ -75,10 +79,18 @@ PATH
       sass-rails (= 5.0.1)
       sunspot_rails (= 2.1.0)
       will_paginate (= 3.0.7)
+
+PATH
+  remote: components/authorization
+  specs:
     authorization (1.0.0)
       activerecord-jdbcpostgresql-adapter
       core
       rails (= 4.1.10)
+
+PATH
+  remote: components/core
+  specs:
     core (1.0.0-java)
       actionmailer (= 4.1.10)
       activerecord (= 4.1.10)
@@ -99,6 +111,10 @@ PATH
       sequel (= 4.6.0)
       sunspot_rails (= 2.1.0)
       will_paginate
+
+PATH
+  remote: components/frontend
+  specs:
     frontend (1.0.0-java)
       actionpack (= 4.1.10)
       actionview (= 4.1.10)
@@ -113,10 +129,24 @@ PATH
       sass-rails (= 5.0.1)
       therubyrhino (= 2.0.4)
       uglifier (= 2.7.1)
+      vis_chiasm
       vis_legacy
       web_style
       yui-compressor (= 0.12.0)
+
+PATH
+  remote: components/vis_chiasm_58
+  specs:
+    vis_chiasm (0.0.1-java)
+
+PATH
+  remote: components/vis_legacy
+  specs:
     vis_legacy (1.0.0-java)
+
+PATH
+  remote: components/web_style
+  specs:
     web_style (1.0.0)
       rails (~> 4.1.10)
       sass-rails (>= 3.2)
@@ -166,9 +196,9 @@ GEM
     autoprefixer-rails (6.1.1)
       execjs
       json
-    bootstrap-sass (3.3.5.1)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.3.0)
+    bootstrap-sass (3.3.6)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     breadcrumbs_on_rails (2.3.1)
     builder (3.2.2)
     bullet (4.6.0)
@@ -241,7 +271,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     messengerjs-rails (1.4.1)
-    mime-types (2.6.2)
+    mime-types (2.99)
     minitest (5.8.0)
     mizuno (0.6.11)
       childprocess (>= 0.2.6)
@@ -371,9 +401,12 @@ PLATFORMS
 
 DEPENDENCIES
   admin!
+  api!
+  authorization!
   backbone_fixtures_rails!
   bullet
   chorusgnip!
+  core!
   factory_girl
   fixture_builder
   frontend!
@@ -389,6 +422,9 @@ DEPENDENCIES
   simplecov (= 0.10.0)
   sunspot_matchers (= 2.1.0.0)
   timecop (= 0.8.0)
+  vis_chiasm!
+  vis_legacy!
+  web_style!
 
 BUNDLED WITH
    1.10.6

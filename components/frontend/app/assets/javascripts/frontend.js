@@ -112,3 +112,4 @@
 //= require_tree .
 
 //= require vis_legacy
+//= require vis_chiasm
