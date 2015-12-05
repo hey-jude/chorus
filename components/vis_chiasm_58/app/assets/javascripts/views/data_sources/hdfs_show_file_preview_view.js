@@ -43,19 +43,23 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                         "fill": "none",
                         "stroke": "black",
                         "strokeWidth": "2px",
-                        "barPadding": 0.2
+                        "barPadding": 0.2,
+                        "orientation": "vertical"
                     }
                 }
             });
 
-            var data = [
-                {name: "Joe", age: 29, birthday: new Date(1986, 11, 17)},
-                {name: "Jane", age: 31, birthday: new Date(1985, 1, 15)}
-            ];
+            var dataset = {
+                data: [
+                    {name: "Joe", age: 29, birthday: new Date(1986, 11, 17)},
+                    {name: "Jane", age: 31, birthday: new Date(1985, 1, 15)}
+                ],
+                metadata:{}
+            };
 
             chiasm.getComponent("barChart").then(function (barChart) {
                 console.log(barChart);
-                barChart.data = data;
+                barChart.dataset = dataset;
             });
         }
     }
