@@ -27,6 +27,7 @@ resource "Users" do
     parameter :dept, "Department"
     parameter :notes, "Notes"
     parameter :admin, "Make the user an admin. (Only allowed if the authenticated user is an admin)"
+    parameter :user_type, "User type ('analytics_developer', 'data_analyst', 'collaborator', 'business_user')"
 
     required_parameters :username, :first_name, :last_name, :email
 
@@ -38,6 +39,7 @@ resource "Users" do
     let(:title) { "Chief Cookie Officer" }
     let(:dept) { "jar" }
     let(:notes) { "great" }
+    let(:user_type) { "analytics_developer" }
 
     example_request "Create a user" do
       status.should == 201
