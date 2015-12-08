@@ -1,14 +1,14 @@
 <form action="#">
     <div class="girdle">
-        <label class="required">{{t "job.dialog.name"}}</label>
-        <input class='name' type='text' value="{{name}}" />
+        <label for="job-{{name}}" class="required">{{t "job.dialog.name"}}</label>
+        <input id="job-{{name}}" class="name" type='text' value="{{name}}" />
 
         <legend class="subtitle">
             <div class="text">{{t "job.dialog.schedule"}}</div>
             <hr/>
         </legend>
 
-        <label>{{t "job.dialog.schedule_explanation"}}</label>
+        <div>{{t "job.dialog.schedule_explanation"}}</div>
 
         <div class="options">
             <div class="on_demand row">

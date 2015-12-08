@@ -32,21 +32,25 @@
             {{#if isIncomplete}}
                 <div class="multiple_fields">
                     <div class="width_half_left">
-                        <label class="required db_username" name="dbUsername" for="dbUsername">{{t "data_sources.dialog.database_account"}}</label>
+                        <label class="required db_username" name="dbUsername" for="dbUsername-{{dbUsername}}">{{t "data_sources.dialog.database_account"}}</label>
                     </div>
 
                     <div class="width_half_right">
-                        <label class="required db_password" name="dbPassword" for="dbPassword">{{t "data_sources.dialog.database_password"}}</label>
+                        <label class="required db_password" name="dbPassword" for="dbPassword-{{dbUsername}}">{{t "data_sources.dialog.database_password"}}</label>
                     </div>
                 </div>
 
                 <div class="multiple_fields">
                     <div class="width_half_left">
-                        <input class="db_username" type="text" id="dbUsername" name="dbUsername" maxlength="256" tabindex="10" value="{{dbUsername}}"/>
+                        <input class="db_username" type="text" id="dbUsername-{{dbUsername}}" name="dbUsername" maxlength="256" tabindex="10" value="{{dbUsername}}"/>
                     </div>
 
                     <div class="width_half_right">
-                        <input class="db_password" type="password" id="dbPassword" name="dbPassword" maxlength="256" accept="" autocomplete="off" tabindex="11"/>
+                        <input class="db_password" type="password" id="dbPassword-{{dbUsername}}" name="dbPassword" maxlength="256" accept="" autocomplete="off" tabindex="11"
+                        {{#if dbPassword}}
+                           placeholder="{{t 'form.placeholder.password'}}"
+                        {{/if}}
+                        />
                     </div>
                 </div>
             {{/if}}
@@ -54,8 +58,8 @@
 
         {{#if gpOrPg}}
             <div>
-                <input type="checkbox" id="ssl" name="ssl" {{#if ssl}}checked{{/if}}/>
-                <label for="ssl">{{t "data_sources.dialog.use_ssl"}}</label>
+                <input type="checkbox" id="ssl-gpOrPg" name="ssl" {{#if ssl}}checked{{/if}}/>
+                <label for="ssl-gpOrPg">{{t "data_sources.dialog.use_ssl"}}</label>
             </div>
         {{/if}}
 
@@ -79,21 +83,21 @@
 
                 <div class="multiple_fields">
                     <div class="width_half_left">
-                        <label class="gnip_username required" name="username" for="gnip_username">{{t "data_sources.dialog.gnip_username"}}</label>
+                        <label class="gnip_username required" name="username" for="gnip_username-{{dbUsername}}">{{t "data_sources.dialog.gnip_username"}}</label>
                     </div>
 
                     <div class="width_half_right">
-                        <label class="gnip_password required" name="password" for="gnip_password">{{t "data_sources.dialog.gnip_password"}}</label>
+                        <label class="gnip_password required" name="password" for="gnip_password-{{dbUsername}}">{{t "data_sources.dialog.gnip_password"}}</label>
                     </div>
                 </div>
 
                 <div class="multiple_fields">
                     <div class="width_half_left">
-                        <input class="gnip_username" type="text" id="gnip_username" name="username" maxlength="255" value="{{username}}"/>
+                        <input class="gnip_username" type="text" id="gnip_username-{{dbUsername}}" name="username" maxlength="255" value="{{username}}"/>
                     </div>
 
                     <div class="width_half_right">
-                        <input class="gnip_password" type="password" id="gnip_password" name="password" maxlength="255" autocomplete="off" value=""/>
+                        <input class="gnip_password" type="password" id="gnip_password-{{dbUsername}}" name="password" maxlength="255" autocomplete="off" value=""/>
                     </div>
                 </div>
         {{/if}}

@@ -4,8 +4,7 @@
         <input class="name mbm" maxlength="256" value="{{objectName}}">
         {{#if needsDataSource}}
             <div class="data_source mbm">
-                <div class="loading_text{{#if dataSourcesLoaded}} hidden{{/if}}"><span class="loading_spinner"></span>
-                </div>
+                <div class="loading_text{{#if dataSourcesLoaded}} hidden{{/if}}"><span class="loading_spinner"></span></div>
                 <label class="required">{{t "create_hdfs_dataset_dialog.data_source_select_title"}}</label><br/>
 
                 {{#if dataSourcesLoaded}}
@@ -20,12 +19,12 @@
                 {{/if}}
             </div>
         {{/if}}
-        <label class="required mtm">{{t "create_hdfs_dataset_dialog.file_mask"}}</label>
-        <input class="file_mask mbm" maxlength="4096" value="{{fileMask}}" placeholder="{{t "create_hdfs_dataset_dialog.placeholder"}}">
+        <label class="required mtm" for="file_mask-{{fileMask}}">{{t "create_hdfs_dataset_dialog.file_mask"}}</label>
+        <input class="file_mask mbm" id="file_mask-{{fileMask}}" maxlength="4096" value="{{fileMask}}" placeholder="{{t "create_hdfs_dataset_dialog.placeholder"}}">
 
         {{#if needsWorkspace}}
-            <label class="required">{{t "associate_hdfs_dataset_from_entry.workspace"}}</label><br/>
-            <a class='workspace_picked'>{{t "associate_hdfs_dataset_from_entry.select_workspace"}}</a>
+            <label class="required" for="workspace_picked">{{t "associate_hdfs_dataset_from_entry.workspace"}}</label><br/>
+            <a class="workspace_picked" id="workspace_picked">{{t "associate_hdfs_dataset_from_entry.select_workspace"}}</a>
         {{/if}}
         
         {{> legendRequired}}

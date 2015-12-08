@@ -1,7 +1,7 @@
 <form class="edit_project_status">
     <div class="girdle">
-        <label name="projectStatus'">Status</label>
-        <select name="projectStatus">
+        <label name="projectStatus" for="projectStatus">Status</label>
+        <select name="projectStatus" id="projectStatus">
             {{#each options}}
                 <option value="{{value}}" {{#if selected}}selected{{/if}}>{{t nameKey}}</option>
             {{/each}}

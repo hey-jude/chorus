@@ -13,8 +13,8 @@
 
         <div class="destination_columns"></div>
 
-        <label>{{t "dataset.manage_join_tables.join_type"}}</label>
-        <select class="join_type">
+        <label for="dataset-join_type">{{t "dataset.manage_join_tables.join_type"}}</label>
+        <select class="join_type" id="dataset-join_type">
             {{#each joinMap}}
                 <option value="{{value}}">{{t text}}</option>
             {{/each}}
@@ -23,5 +23,5 @@
 
 </div>
 {{!-- END girdle --}}
-    
+
 {{formControls "actions.save_changes"}}

@@ -57,12 +57,16 @@
                 <div class="credentials">
                     <form action="#">
                         <div class="field_wrapper">
-                            <label>{{t "data_sources.permissions.username"}}</label>
-                            <input type="text" name="dbUsername" maxlength="256" value="{{dbUsername}}"/>
+                            <label for="dbUsername-{{dbUsername}}">{{t "data_sources.permissions.username"}}</label>
+                            <input type="text" id="dbUsername-{{dbUsername}}" name="dbUsername" maxlength="256" value="{{dbUsername}}"/>
                         </div>
                         <div class="field_wrapper">
-                            <label>{{t "data_sources.permissions.password"}}</label>
-                            <input type="password" maxlength="256" name="dbPassword" autocomplete="off"/>
+                            <label for="dbPassword-{{dbUsername}}">{{t "data_sources.permissions.password"}}</label>
+                            <input type="password" id="dbPassword-{{dbUsername}}" name="dbPassword" maxlength="256" autocomplete="off" 
+                            {{#if dbUsername}}
+                                 placeholder="{{t 'form.placeholder.password'}}"
+                            {{/if}}
+                            />
                         </div>
                         <div class="actions">
                             <a href="#" class="save">{{t "actions.save_changes"}}</a><a href="#" class="cancel">{{t "actions.cancel"}}</a>
