@@ -43,6 +43,22 @@ module.exports = function (){
 //    }
 //  };
 
+  // Dummy data to test the rest of the pipeline.
+  // TODO replace this with the real response from the API.
+  my.dataset = {
+      data: [
+          {name: "Joe", age: 29, birthday: new Date(1986, 11, 17)},
+          {name: "Jane", age: 31, birthday: new Date(1985, 1, 15)}
+      ],
+      metadata:{
+          columns: [
+              { name: "name", type: "string" },
+              { name: "age", type: "number" },
+              { name: "birthday", type: "date" }
+          ]
+      }
+  };
+
   my.when(["datasetId", "numRows"], function (datasetId, numRows){
     if(datasetId !== Model.None){
 

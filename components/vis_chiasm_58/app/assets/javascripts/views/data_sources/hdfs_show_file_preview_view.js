@@ -7,9 +7,8 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
     },
 
     postRender: function () {
-        var dataset_id = 1;
 
-        this.chiasmInit(dataset_id);
+        this.chiasmInit();
     },
 
     additionalContext: function () {
@@ -18,24 +17,27 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
         }
     },
 
-    chiasmInit: function (dataset_id) {
+    chiasmInit: function () {
+
+        // Guard against multiple invocations.
+        // This function actually gets called about 5 times, for whatever reason,
+        // maybe some technical debt regarding the Backbone setup.
         if (!this.chiasm) {
+            this.chiasm = ChiasmBundle();
 
-            var chiasm = new ChiasmBundle();
-            this.chiasm = chiasm;
+            var hdfsDataSource = this.model.get('hdfsDataSource');
+            var datasetId = hdfsDataSource.id;
+            //console.log(hdfsDataSource);
 
-            // TODO get this out of Chorus.
-            datasetId = 1;
-
-            chiasm.setConfig({
+            this.chiasm.setConfig({
                 "layout": {
                     "plugin": "layout",
                     "state": {
                         "containerSelector": "#chiasm-container",
-                        "layout": "barChart"
+                        "layout": "vis"
                     }
                 },
-                "barChart": {
+                "vis": {
                     "plugin": "barChart",
                     "state": {
                         "xColumn": "name",
@@ -44,31 +46,20 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                         "yAxisLabelText": "age"
                     }
                 },
-                "dataLoader": {
+                "loader": {
                     "plugin": "visEngineDataLoader",
                     "state": {
                         "datasetId": datasetId
                     }
+                },
+                "links": {
+                    "plugin": "links",
+                    "state": {
+                        "bindings": [
+                            "loader.dataset -> vis.dataset"
+                        ]
+                    }
                 }
-            });
-
-            var dataset = {
-                data: [
-                    {name: "Joe", age: 29, birthday: new Date(1986, 11, 17)},
-                    {name: "Jane", age: 31, birthday: new Date(1985, 1, 15)}
-                ],
-                metadata:{
-                    columns: [
-                        { name: "name", type: "string" },
-                        { name: "age", type: "number" },
-                        { name: "birthday", type: "date" }
-                    ]
-                }
-            };
-
-            // Inject the fake dataset into the chart (temporary).
-            chiasm.getComponent("barChart").then(function (barChart) {
-                barChart.dataset = dataset;
             });
         }
     }
