@@ -6,27 +6,82 @@ var d3 = require("d3");
 module.exports = function (){
 
   var my = ChiasmComponent({
-    dataset_id: Model.None,
+    datasetId: Model.None,
+
+    // TODO get this number from Chorus config properties.
     numRows: 5000
   });
 
-  my.when(["dataset_id", "numRows"], function (dataset_id, numRows){
-    if(dataset_id !== Model.None){
+  //Sample API Output:
+  //
+  // https://10.0.0.204:8443/alpinedatalabs/api/v1/json/data/datasources/CDH5/Datasets/IrisDataset.csv/rows?fetch=random&max=10&token=b93c4adf841f74b24f72828bee27d665fa5968fa
+
+//  var sampleOutput = {
+//    "status": "OK",
+//    "result": {
+//      "dsvString": ["5.1,3.5,1.4,0.2,Iris-setosa", "5.8,4,1.2,0.2,Iris-setosa", "5.5,4.2,1.4,0.2,Iris-setosa", "4.8,3.4,1.6,0.2,Iris-setosa", "4.9,3,1.4,0.2,Iris-setosa", "4.3,3,1.1,0.1,Iris-setosa", "5,3.6,1.4,0.2,Iris-setosa", "5.8,2.7,4.1,1,Iris-versicolor", "5.5,3.5,1.3,0.2,Iris-setosa"],
+//      "metadata": {
+//        "format": "csv",
+//        "delimiter": ",",
+//        "columns": [{
+//          "name": "sepal_length",
+//          "type": "number"
+//        }, {
+//          "name": "sepal_width",
+//          "type": "number"
+//        }, {
+//          "name": "petal_length",
+//          "type": "number"
+//        }, {
+//          "name": "petal_width",
+//          "type": "number"
+//        }, {
+//          "name": "class",
+//          "type": "string"
+//        }]
+//      }
+//    }
+//  };
+
+  my.when(["datasetId", "numRows"], function (datasetId, numRows){
+    if(datasetId !== Model.None){
 
       // TODO generate the URL for Chester's Hadoop API here.
+
       // Details on the API here: https://github.com/alpinedatalabs/adl/pull/920
-      // e.g. http://localhost:9090/alpinedatalabs/api/v1/json/data/datasources/GPDB/airline.airports/rows?fetch=random&max=10&columns=airport,city&token=c2060462434fb03bc12076f202a36720d279ac35
+
+      // TODO get this out of Chorus.
+      // /sessions
+      var token = "c2060462434fb03bc12076f202a36720d279ac35";
+
+      // TODO figure out where we can get this from Chorus.
+      var dataSourceName = "GPDB";
+      
+      // TODO figure out where we can get this from Chorus.
+      var path = "Datasets/IrisDataset.csv";
 
       var url = [
-        "/datasets/" + dataset_id,
-        "/chiasm_api_datasets/show_data",
-        "?numRows=" + numRows
+        //"https://10.0.0.204:8443",
+        "/alpinedatalabs/api/v1/json/data/datasources/",
+        dataSourceName,
+        "/",
+        path,
+        // HDFS - will be path (no leading slash)
+        // DB - database.schema.table
+        // Hive - database.table
+        "/rows?",
+        "fetch=random", // fetch=first is another option
+        "&max=" + numRows,
+
+        // TODO put this in the header.
+        "&token=" + token
       ].join("");
 
-      d3.json(url, function(error, dataset) {
-        if(error){ throw error; }
-        my.dataset = dataset;
-      });
+      // Commented out because this currently breaks badly.
+      //d3.json(url, function(error, dataset) {
+      //  if(error){ throw error; }
+      //  my.dataset = dataset;
+      //});
     }
   });
 

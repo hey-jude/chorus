@@ -24,6 +24,9 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
             var chiasm = new ChiasmBundle();
             this.chiasm = chiasm;
 
+            // TODO get this out of Chorus.
+            datasetId = 1;
+
             chiasm.setConfig({
                 "layout": {
                     "plugin": "layout",
@@ -39,6 +42,12 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                         "xAxisLabelText": "name",
                         "yColumn": "age",
                         "yAxisLabelText": "age"
+                    }
+                },
+                "dataLoader": {
+                    "plugin": "visEngineDataLoader",
+                    "state": {
+                        "datasetId": datasetId
                     }
                 }
             });
@@ -57,8 +66,8 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                 }
             };
 
+            // Inject the fake dataset into the chart (temporary).
             chiasm.getComponent("barChart").then(function (barChart) {
-                console.log(barChart);
                 barChart.dataset = dataset;
             });
         }
