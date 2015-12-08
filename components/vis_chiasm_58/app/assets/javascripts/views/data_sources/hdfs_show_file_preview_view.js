@@ -21,9 +21,6 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
     chiasmInit: function (dataset_id) {
         if (!this.chiasm) {
 
-            // Details on Alpine's API here: https://github.com/alpinedatalabs/adl/pull/920
-            // http://localhost:9090/alpinedatalabs/api/v1/json/data/datasources/GPDB/airline.airports/rows?fetch=random&max=10&columns=airport,city&token=c2060462434fb03bc12076f202a36720d279ac35
-
             var chiasm = new ChiasmBundle();
             this.chiasm = chiasm;
 
@@ -38,13 +35,10 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                 "barChart": {
                     "plugin": "barChart",
                     "state": {
-                        "sizeColumn": "age",
-                        "idColumn": "name",
-                        "fill": "none",
-                        "stroke": "black",
-                        "strokeWidth": "2px",
-                        "barPadding": 0.2,
-                        "orientation": "vertical"
+                        "xColumn": "name",
+                        "xAxisLabelText": "name",
+                        "yColumn": "age",
+                        "yAxisLabelText": "age"
                     }
                 }
             });
@@ -54,7 +48,13 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                     {name: "Joe", age: 29, birthday: new Date(1986, 11, 17)},
                     {name: "Jane", age: 31, birthday: new Date(1985, 1, 15)}
                 ],
-                metadata:{}
+                metadata:{
+                    columns: [
+                        { name: "name", type: "string" },
+                        { name: "age", type: "number" },
+                        { name: "birthday", type: "date" }
+                    ]
+                }
             };
 
             chiasm.getComponent("barChart").then(function (barChart) {

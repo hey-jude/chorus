@@ -2,41 +2,32 @@
 var Model = require("model-js");
 var ChiasmComponent = require("chiasm-component");
 var d3 = require("d3");
-var dsvDataset = require("dsv-dataset");
 
 module.exports = function (){
 
   var my = ChiasmComponent({
     dataset_id: Model.None,
-    numRows: 1000
+    numRows: 5000
   });
 
   my.when(["dataset_id", "numRows"], function (dataset_id, numRows){
     if(dataset_id !== Model.None){
 
-      var columnsPath = "datasets/" + dataset_id + "/chiasm_api_datasets/show_column_data";
-      var dataPath = "datasets/" + dataset_id + "/chiasm_api_datasets/show_data";
+      // TODO generate the URL for Chester's Hadoop API here.
+      // Details on the API here: https://github.com/alpinedatalabs/adl/pull/920
+      // e.g. http://localhost:9090/alpinedatalabs/api/v1/json/data/datasources/GPDB/airline.airports/rows?fetch=random&max=10&columns=airport,city&token=c2060462434fb03bc12076f202a36720d279ac35
 
-      dataPath += "?numRows=" + numRows;
+      var url = [
+        "/datasets/" + dataset_id,
+        "/chiasm_api_datasets/show_data",
+        "?numRows=" + numRows
+      ].join("");
 
-      d3.json(columnsPath, function(error, columns) {
+      d3.json(url, function(error, dataset) {
         if(error){ throw error; }
-        my.metadata = { columns: columns };
-      });
-
-      d3.xhr(dataPath, function (error, xhr){
-        if(error){ throw error; }
-        my.dsvString = xhr.response;
+        my.dataset = dataset;
       });
     }
-  });
-
-  my.when(["dsvString", "metadata"], function (dsvString, metadata){
-    my.dataset = dsvDataset.parse({
-      dsvString: dsvString, 
-      metadata: metadata
-    });
-    my.data = my.dataset.data;
   });
 
   return my;

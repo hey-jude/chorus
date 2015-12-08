@@ -1,29 +1,26 @@
 {
-  "name": "chiasm-charts",
+  "name": "chiasm-chorus-bundle",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify -t browserify-shim -o visEngineBundle.js -s ChiasmBundle index.js"
+    "build": "browserify -s ChiasmBundle index.js | uglifyjs -o visEngineBundle.js"
   },
   "author": "Curran Kelleher",
   "license": "MIT",
   "dependencies": {
-    "chiasm": "^0.2.3",
+    "chiasm": "^0.3.0",
+    "chiasm-charts": "^0.1.1",
     "chiasm-component": "^0.2.3",
-    "chiasm-data-reduction": "^0.2.2",
-    "chiasm-dsv-dataset": "^0.2.2",
+    "chiasm-data-reduction": "^0.3.0",
+    "chiasm-dataset-loader": "^0.3.1",
     "chiasm-layout": "^0.2.4",
     "chiasm-links": "^0.2.3",
+    "d3": "^3.5.10",
     "model-js": "^0.2.4"
   },
-  "browserify-shim": {
-    "lodash": "global:_",
-    "d3": "global:d3"
-  },
   "devDependencies": {
-    "browserify": "^11.2.0",
-    "browserify-shim": "^3.8.10",
+    "browserify": "^12.0.1",
     "minifyify": "^7.1.0"
   }
 }
