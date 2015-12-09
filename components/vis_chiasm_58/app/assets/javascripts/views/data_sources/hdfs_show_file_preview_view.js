@@ -25,20 +25,24 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
         if (!this.chiasm) {
             this.chiasm = ChiasmBundle();
 
+            var fileName = this.model.get('name');
+            var filePath = this.model.get('path');
+
+            // Remove leading slash.
+            filePath = filePath.substr(1);
+
             var hdfsDataSource = this.model.get('hdfsDataSource');
-            console.log(hdfsDataSource);
+            //console.log(hdfsDataSource);
 
             // These are the parameters required to invoke the data loading API.
             var dataLoaderParams = {
                 dataSourceName: hdfsDataSource.name,
                 token: window.chorus.session.get('sessionId'),
 
-                // TODO get this out of Chorus.
-                // Seems not to be present in "hdfsDataSource"
-                // HDFS - will be path (no leading slash)
-                // DB - database.schema.table
-                // Hive - database.table
-                path: "Datasets/IrisDataset.csv",
+                // HDFS - CSV file path with no leading slash
+                // DB - database.schema.table (not implemented yet)
+                // Hive - database.table (not implemented yet)
+                path: filePath + "/" + fileName,
 
                 // TODO get this out of Chorus properties file.
                 numRows: 5000
