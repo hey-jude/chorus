@@ -27,8 +27,11 @@ chorus.models = {
                 uri.addSearch(this.underscoreKeys(params));
             }
             if (!window.jasmine) { uri.addSearch({iebuster: chorus.cachebuster()}); }
-
-            var prefixedUrl = window.chorusApi.urlPrefix + uri.toString();
+            var prefixedUrl = "";
+            if(uri.toString().indexOf("/alpinedatalabs") !== 0) {
+                prefixedUrl += window.chorusApi.urlPrefix;
+            }
+            prefixedUrl += uri.toString();
 
             return prefixedUrl;
         },

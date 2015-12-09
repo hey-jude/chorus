@@ -23,6 +23,17 @@ describe("chorus.models.Base", function() {
             });
         });
 
+        context("when the model's urlTemplate starts with 'alpinedatalabs'", function() {
+            beforeEach(function() {
+                this.model.urlTemplate = "/alpinedatalabs/main/chorus.do";
+            });
+
+            it("does not contain the chorusApi url prefix", function() {
+                expect(this.model.url()).toMatchUrl("/alpinedatalabs/main/chorus.do");
+            });
+        });
+
+
         it("compiles the urlTemplate and renders it with model attributes", function() {
             expect(this.model.url()).toMatchUrl(window.chorusApi.urlPrefix + "/my_items/foo");
         });
