@@ -26,12 +26,19 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
             this.chiasm = ChiasmBundle();
 
             var hdfsDataSource = this.model.get('hdfsDataSource');
-            //console.log(hdfsDataSource);
+            console.log(hdfsDataSource);
 
             // These are the parameters required to invoke the data loading API.
             var dataLoaderParams = {
-                datasetId: hdfsDataSource.id,
-                token: window.chorus.session.get('sessionId')
+                dataSourceName: hdfsDataSource.name,
+                token: window.chorus.session.get('sessionId'),
+
+                // TODO get this out of Chorus.
+                // Seems not to be present in "hdfsDataSource"
+                // HDFS - will be path (no leading slash)
+                // DB - database.schema.table
+                // Hive - database.table
+                path: "Datasets/IrisDataset.csv"
             }
 
             this.chiasm.setConfig({
@@ -52,7 +59,8 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                     }
                 },
 
-                // This component is defined under
+                // This component fetches data from the Alpine API.
+                // It is defined under
                 // vis_chiasm_58/vendor/assets/javascripts/vis_chiasm
                 "loader": {
                     "plugin": "visEngineDataLoader",

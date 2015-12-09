@@ -6,10 +6,9 @@ var d3 = require("d3");
 module.exports = function (){
 
   var my = ChiasmComponent({
-    datasetId: Model.None,
+    dataSourceName: Model.None,
     token: Model.None,
-
-    // TODO get this number from Chorus config properties.
+    path: Model.None,
     numRows: 5000
   });
 
@@ -48,8 +47,10 @@ module.exports = function (){
   // TODO replace this with the real response from the API.
   my.dataset = {
       data: [
+          {name: "Jane", age: 31, birthday: new Date(1985, 1, 15)},
           {name: "Joe", age: 29, birthday: new Date(1986, 11, 17)},
-          {name: "Jane", age: 31, birthday: new Date(1985, 1, 15)}
+          {name: "Jim", age: 20, birthday: new Date(1986, 11, 17)},
+          {name: "John", age: 16, birthday: new Date(1986, 11, 17)}
       ],
       metadata:{
           columns: [
@@ -60,17 +61,12 @@ module.exports = function (){
       }
   };
 
-  my.when(["datasetId", "numRows", "token"], function (datasetId, numRows, token){
-    if(datasetId !== Model.None && token !== Model.None){
+  my.when(["dataSourceName", "numRows", "token", "path"],
+      function (dataSourceName, numRows, token, path){
+    if(defined([dataSourceName, numRows, token, path])){
 
       // TODO generate the URL for Chester's Hadoop API here.
       // Details on the API here: https://github.com/alpinedatalabs/adl/pull/920
-
-      // TODO figure out where we can get this from Chorus.
-      var dataSourceName = "GPDB";
-      
-      // TODO figure out where we can get this from Chorus.
-      var path = "Datasets/IrisDataset.csv";
 
       var url = [
         //"https://10.0.0.204:8443",
@@ -85,11 +81,17 @@ module.exports = function (){
         "fetch=random", // fetch=first is another option
         "&max=" + numRows,
 
-        // TODO put this in the header.
+        // TODO put this in the XHR header.
         "&token=" + token
       ].join("");
 
+      console.log("Should fetch data from " + url);
+
       // Commented out because this currently breaks badly.
+
+      // Fetch the data over XHR.
+      // TODO modify this call to put the token into the header
+      // instead of having it as a URL parameter.
       //d3.json(url, function(error, dataset) {
       //  if(error){ throw error; }
       //  my.dataset = dataset;
@@ -98,4 +100,11 @@ module.exports = function (){
   });
 
   return my;
+
+  function defined(arr){
+    return !arr.some(function (d){
+      return d == Model.None;
+    });
+  }
 }
+
