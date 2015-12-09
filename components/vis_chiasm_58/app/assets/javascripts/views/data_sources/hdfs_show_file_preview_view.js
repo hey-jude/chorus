@@ -26,8 +26,13 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
             this.chiasm = ChiasmBundle();
 
             var hdfsDataSource = this.model.get('hdfsDataSource');
-            var datasetId = hdfsDataSource.id;
             //console.log(hdfsDataSource);
+
+            // These are the parameters required to invoke the data loading API.
+            var dataLoaderParams = {
+                datasetId: hdfsDataSource.id,
+                token: window.chorus.session.get('sessionId')
+            }
 
             this.chiasm.setConfig({
                 "layout": {
@@ -46,12 +51,14 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                         "yAxisLabelText": "age"
                     }
                 },
+
+                // This component is defined under
+                // vis_chiasm_58/vendor/assets/javascripts/vis_chiasm
                 "loader": {
                     "plugin": "visEngineDataLoader",
-                    "state": {
-                        "datasetId": datasetId
-                    }
+                    "state": dataLoaderParams
                 },
+
                 "links": {
                     "plugin": "links",
                     "state": {

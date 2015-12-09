@@ -7,6 +7,7 @@ module.exports = function (){
 
   var my = ChiasmComponent({
     datasetId: Model.None,
+    token: Model.None,
 
     // TODO get this number from Chorus config properties.
     numRows: 5000
@@ -59,16 +60,11 @@ module.exports = function (){
       }
   };
 
-  my.when(["datasetId", "numRows"], function (datasetId, numRows){
-    if(datasetId !== Model.None){
+  my.when(["datasetId", "numRows", "token"], function (datasetId, numRows, token){
+    if(datasetId !== Model.None && token !== Model.None){
 
       // TODO generate the URL for Chester's Hadoop API here.
-
       // Details on the API here: https://github.com/alpinedatalabs/adl/pull/920
-
-      // TODO get this out of Chorus.
-      // /sessions
-      var token = "c2060462434fb03bc12076f202a36720d279ac35";
 
       // TODO figure out where we can get this from Chorus.
       var dataSourceName = "GPDB";
