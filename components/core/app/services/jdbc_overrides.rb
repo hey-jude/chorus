@@ -3,6 +3,7 @@ require_relative 'jdbc_overrides/sqlserver_overrides'
 require_relative 'jdbc_overrides/mariadb_overrides'
 require_relative 'jdbc_overrides/mysql_overrides'
 require_relative 'jdbc_overrides/hive2_overrides'
+require_relative 'jdbc_overrides/redshift_overrides'
 
 module JdbcOverrides
   #module OverrideTemplate
@@ -25,6 +26,7 @@ module JdbcOverrides
       when /jdbc:mariadb:/ then JdbcOverrides::Mariadb
       when /jdbc:mysql:/ then JdbcOverrides::MySQL
       when /jdbc:hive2:/ then JdbcOverrides::Hive2
+      when /jdbc:redshift:/ then JdbcOverrides::Redshift
       else nil
     end
   end

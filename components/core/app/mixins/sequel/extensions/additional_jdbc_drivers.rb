@@ -5,7 +5,8 @@ module Sequel
         teradata: ->(db) { com.teradata.jdbc.TeraDriver },
         vertica: ->(db) { com.vertica.jdbc.Driver },
         hive2: ->(db) { org.apache.hive.jdbc.HiveDriver },
-        hive: ->(db) { org.apache.hadoop.hive.jdbc.HiveDriver }
+        hive: ->(db) { org.apache.hadoop.hive.jdbc.HiveDriver },
+        redshift: ->(db) { com.amazon.redshift.jdbc41.Driver }
     }
 
     MAP.each do |key, driver|
