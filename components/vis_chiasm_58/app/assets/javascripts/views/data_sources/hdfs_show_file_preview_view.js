@@ -38,7 +38,10 @@ chorus.views.HdfsShowFilePreview = chorus.views.Base.extend({
                 // HDFS - will be path (no leading slash)
                 // DB - database.schema.table
                 // Hive - database.table
-                path: "Datasets/IrisDataset.csv"
+                path: "Datasets/IrisDataset.csv",
+
+                // TODO get this out of Chorus properties file.
+                numRows: 5000
             }
 
             this.chiasm.setConfig({
